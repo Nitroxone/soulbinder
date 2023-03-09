@@ -21,7 +21,7 @@ class Entity {
     /**
      * This function should ONLY be called whenever a new Entity object is being created.
      * It increases the Entity counter and returns its value.
-     * @returns the newly incremented Entity counter
+     * @returns {number} the newly incremented Entity counter
      */
     static increaseCount() {
         return this.#count += 1;
@@ -29,7 +29,7 @@ class Entity {
 
     /**
      * Returns the global Entity counter.
-     * @returns the Entity counter
+     * @returns {number} the Entity counter
      */
     static getCount() {
         return this.#count;
@@ -39,7 +39,7 @@ class Entity {
      * Makes a deep copy of the Entity object and returns it, also
      * giving it a new unique ID in the process.
      * @param {Entity} obj the Entity object that needs to be deep cloned
-     * @returns a newly cloned Entity object
+     * @returns {Entity} a newly cloned Entity object
      */
     static clone(obj) {
         let cloned = Entity.deepCopy(obj);
@@ -51,7 +51,7 @@ class Entity {
      * Returns a deep copy of an Entity object.
      * Source : https://javascript.plainenglish.io/how-to-deep-copy-objects-and-arrays-in-javascript-7c911359b089
      * @param {Entity} inObject the Entity object to be deep cloned
-     * @returns a deep cloned object
+     * @returns {Entity} a deep cloned object
      */
     static deepCopy = (inObject) => {
         let outObject, value, key;
