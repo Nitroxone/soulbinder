@@ -1,6 +1,7 @@
 /**
  * This variable contains all the data that is required for the game engine to work properly.
  * It essentially contains vocabulary, but also color codes and file names.
+ * Based on this logic : https://www.sohamkamani.com/javascript/enums/
  * @author ntrx
  */
 

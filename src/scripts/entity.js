@@ -3,6 +3,11 @@
  * @author ntrx
  */
 class Entity {
+    /**
+     * @param {string} name 
+     * @param {string} desc 
+     * @param {number} icon 
+     */
     constructor(name, desc, icon) {
         this.id = Entity.increaseCount();
         this.name = name;
@@ -33,7 +38,7 @@ class Entity {
     /**
      * Makes a deep copy of the Entity object and returns it, also
      * giving it a new unique ID in the process.
-     * @param {*} obj the Entity object that needs to be deep cloned
+     * @param {Entity} obj the Entity object that needs to be deep cloned
      * @returns a newly cloned Entity object
      */
     static clone(obj) {
@@ -45,7 +50,7 @@ class Entity {
     /**
      * Returns a deep copy of an Entity object.
      * Source : https://javascript.plainenglish.io/how-to-deep-copy-objects-and-arrays-in-javascript-7c911359b089
-     * @param inObject the Entity object to be deep cloned
+     * @param {Entity} inObject the Entity object to be deep cloned
      * @returns a deep cloned object
      */
     static deepCopy = (inObject) => {
