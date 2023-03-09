@@ -1,10 +1,16 @@
+/**
+ * This variable contains all the data that is required for the game engine to work properly.
+ * It essentially contains vocabulary, but also color codes and file names.
+ * @author ntrx
+ */
+
 const Data = Object.freeze({
     Charset: {
-        AMAROK: 'amarok.png',
-        BETHEROS: 'betheros.png',
-        BRIM: 'brim.png',
-        CARHAL: 'carhal.png',
-        IFRIN: 'ifrin.png',
-        NAKA: 'naka.png'
+        AMAROK: Symbol('amarok.png'),
+        BETHEROS: Symbol('betheros.png'),
+        BRIM: Symbol('brim.png'),
+        CARHAL: Symbol('carhal.png'),
+        IFRIN: Symbol('ifrin.png'),
+        NAKA: Symbol('naka.png')
     }
 });
