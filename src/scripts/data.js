@@ -1,20 +1,292 @@
 /**
  * This variable contains all the data that is required for the game engine to work properly.
  * It essentially contains vocabulary, but also color codes and file names.
- * Based on this logic : https://www.sohamkamani.com/javascript/enums/
  * @author ntrx
  */
 
 const Data = Object.freeze({
     Charset: {
-        AMAROK: Symbol('amarok.png'),
-        BETHEROS: Symbol('betheros.png'),
-        BRIM: Symbol('brim.png'),
-        CARHAL: Symbol('carhal.png'),
-        IFRIN: Symbol('ifrin.png'),
-        NAKA: Symbol('naka.png')
+        AMAROK: 'amarok.png',
+        BETHEROS: 'betheros.png',
+        BRIM: 'brim.png',
+        CARHAL: 'carhal.png',
+        IFRIN: 'ifrin.png',
+        NAKA: 'naka.png',
+
+        UNSLEEPER: 'unsleeper.png',
+    },
+    Color: {
+        GREEN: '#4cd137',
+        RED: '#e84118',
+        BLUE: '#0097e6',
+        GOLD: '#ece2b6',
+        TURQUOISE: '#1abc9c',
+
+        COMMON: '#dddddd',
+        UNCOMMON: '#00ff00',
+        RARE: '#00ddff',
+        EPIC: '#ff00ff',
+        LEGENDARY: '#ffaa00',
+        ELDER: '#fb3e8d',
     },
     Effect: {
+        //------------------------------------------------------
+        // NPC EFFECTS
+        //------------------------------------------------------
+        // BASE STATS     
+        HEALTH: "health",
+        MANA: "mana",
+        STAMINA: "stamina",
+        MAXHEALTH: "max. health",
+        MAXMANA: "max. mana",
+        MAXSTAMINA: "max. stamina",
+        DODGE: "dodge",
+        SPEED: "speed",
+        ACCURACY: "accuracy",
+        PROTECTION: "protection",
+        MIGHT: "might",
+        SPIRIT: "spirit",
+        DAMAGE_REFLECTION: "damage reflection",
+        // BLEED & POISON RESISTANCE STATS
+        RES_BLEED_DMG: "bleed DMG resistance",
+        RES_BLEED_DURATION: "bleed duration resistance",
+        RES_POISON_DMG: "poison DMG resistance",
+        RES_POISON_DURATION: "poison duration resistance",
+        RES_STUN: "stun resistance",
+        RES_MOVE: "move resistance",
+        // REGEN
+        REGEN_HEALTH: "health regeneration",
+        REGEN_MANA: "mana regeneration",
+        REGEN_STAMINA: "stamina regeneration",
+        // DAMAGE MODIFIERS
+        MODIF_TOTAL_DMG: "total damage",
+        MODIF_WEAPON_DMG: "weapon damage",
+        MODIF_BLOCK_VALUE: "block value",
+        MODIF_SKILL_DMG: "skill damage",
+        MODIF_STUN_DMG: "stun damage",
+        MODIF_BLEEED_DMG: "bleed damage",
+        MODIF_POISON_DMG: "poison damage",
+        // ADDITIONAL MODIFIERS
+        HEAL_RECV: "received heal",
+        HEAL_GIVEN: "given heal",
+        MODIF_SKILL_ACCURACY: "skill accuracy",
+        MODIF_SKILL_CRIT: "skill crit. chance",
+        MODIF_STUN_ACCURACY: "stun accuracy",
+        MODIF_STUN_CRIT: "stun crit. chance",
+        MODIF_BLEED_ACCURACY: "bleed accuracy",
+        MODIF_BLEED_CRIT: "bleed crit. chance",
+        MODIF_POISON_ACCURACY: "poison accuracy",
+        MODIF_POISON_CRIT: "poison crit. chance",
 
+        //------------------------------------------------------
+        // ARMOR EFFECTS
+        //------------------------------------------------------
+        // BASE RESISTANCE
+        PRES: "resilience",
+        MRES: "warding",
+        // OPTIMIZED RESISTANCE
+        OPT_RES_AXE_ON: "adds extra RES against axes",
+        OPT_RES_AXE_OFF: "removes extra RES against axes",
+        OPT_RES_BOW_ON: "adds extra RES against bows",
+        OPT_RES_BOW_OFF: "removes extra RES against bows",
+        OPT_RES_DAGGER_ON: "adds extra RES against daggers",
+        OPT_RES_DAGGER_OFF: "removes extra RES against daggers",
+        OPT_RES_HAMMER_ON: "adds extra RES against hammers",
+        OPT_RES_HAMMER_OFF: "removes extra RES against hammers",
+        OPT_RES_SPEAR_ON: "adds extra RES against spears",
+        OPT_RES_SPEAR_OFF: "removes extra RES against spears",
+        OPT_RES_STAFF_ON: "adds extra RES against staffs",
+        OPT_RES_STAFF_OFF: "removes extra RES against staffs",
+        OPT_RES_SWORD_ON: "adds extra RES against swords",
+        OPT_RES_SWORD_OFF: "removes extra RES against swords",
+        OPT_RES_WARSCYTHE_ON: "adds extra RES against warscythes",
+        OPT_RES_WARSCYTHE_OFF: "removes extra RES against warscythes",
+        // SPECIAL RESISTANCE
+        PRES_AGAINST_UNDEAD: "resilience against undead",
+        MRES_AGAINST_UNDEAD: "warding against undead",
+
+        //------------------------------------------------------
+        // WEAPON EFFECTS
+        //------------------------------------------------------
+        PDMG: "sharpness",
+        MDMG: "withering",
+        BLOCK: "block",
+        EFFORT: "effort",
+        CRIT_LUK: "crit chance",
+        CRIT_DMG: "crit DMG",
+        BLEED_DMG: "bleed DMG",
+        BLEED_DURATION: "bleed duration",
+        BLEED_CURABLE: "makes bleed curable",
+        BLEED_INCURABLE: "makes bleed incurable",
+        POISON_DMG: "poison DMG",
+        POISON_DURATION: "poison duration",
+        POISON_CURABLE: "makes poison curable",
+        POISON_INCURABLE: "makes poison incurable",
+        RANGE_FRONT_ON: "allows front range hits",
+        RANGE_MIDDLE_ON: "allows middle range hits",
+        RANGE_BACK_ON: "allows back range hits",
+        RANGE_FRONT_OFF: "forbids front range hits",
+        RANGE_MIDDLE_OFF: "forbids middle range hits",
+        RANGE_BACK_OFF: "forbids back range hits",
+
+        SWORD_PDMG: "swords sharpness",
+        SWORD_MDMG: "swords withering",
+
+        PDMG_TO_UNDEAD: "sharpness to undead",
+        MDMG_TO_UNDEAD: "withering to undead",
+
+        // CRAFTING EFFECTS
+        CRAFTING_TRINKET_CORRUPTION: "trinket corruption chance",
+        CRAFTING_RUNE_CRIT: "critical rune effect chance",
+        CRAFTING_RUNE_CORRUPTION: "rune corruption chance",
+
+        // SPELL EFFECTS
+        SPELL_DMG: "spell DMG",
+
+        // MISCELLANEOUS EFFECTS
+        WIELD_TWO_HEAVY_WEAPONS: "allows dual heavy weapon wielding",
+        LOOTING_TRINKET_CORRUPTION: "looted trinkets corruption chance",
+        POST_FIGHT_HEALTH: "post-fight health",
+        POST_FIGHT_MANA: "post-fight mana",
+        POST_FIGHT_STAMINA: "post-fight stamina",
+
+        // COMBAT EFFECTS
+        BLEEDING_CURABLE: "bleeding",
+        BLEEDING_INCURABLE: "incurable bleeding",
+        BLIGHT_CURABLE: "blight",
+        BLIGHT_INCURABLE: "incurable blight",
+        PULL_ONE: "pulls forward one position",
+        PULL_TWO: "pulls forward two positions",
+        PUSH_ONE: "pushes back one position",
+        PUSH_TWO: "pushes back two positions",
+        FRONT_ONE: "advances one position",
+        FRONT_TWO: "advances two positions",
+        BACK_ONE: "backs one position",
+        BACK_TWO: "backs two positions"
+    },
+    TriggerType: {
+        ON_STAT_CHANGE: 'ON_STAT_CHANGE',
+        ON_ATTACK: 'ON_ATTACK',
+        ON_DEAL_DAMAGE: 'ON_DEAL_DAMAGE',
+        ON_RECV_DAMAGE: 'ON_RECV_DAMAGE',
+        ON_DEAL_MISSED: 'ON_DEAL_MISSED',
+        ON_RECV_MISSED: 'ON_RECV_MISSED',
+        ON_DEAL_DODGED: 'ON_DEAL_DODGED',
+        ON_RECV_DODGED: 'ON_RECV_DODGED',
+        ON_DEAL_CRITICAL: 'ON_DEAL_CRITICAL',
+        ON_RECV_CRITICAL: 'ON_RECV_CRITICAL',
+        ON_DEAL_HEAL: 'ON_DEAL_HEAL',
+        ON_RECV_HEAL: 'ON_RECV_HEAL',
+        ON_DEAL_STUN: 'ON_DEAL_STUN',
+        ON_RECV_STUN: 'ON_RECV_STUN',
+        ON_DEAL_POISON: 'ON_DEAL_POISON',
+        ON_RECV_POISON: 'ON_RECV_POISON',
+        ON_DEAL_BLEEDING: 'ON_DEAL_BLEEDING',
+        ON_RECV_BLEEDING: 'ON_RECV_BLEEDING',
+        ON_TURN_BEGIN: 'ON_TURN_BEGIN',
+        ON_TURN_END: 'ON_TURN_END',
+        ON_ROUND_BEGIN: 'ON_ROUND_BEGIN',
+        ON_ROUND_END: 'ON_ROUND_END',
+        ON_BATTLE_START: 'ON_BATTLE_START',
+        ON_BATTLE_END: 'ON_BATTLE_END',
+    },
+    StatType: {
+        ACTIVE: "active",
+        PASSIVE: "passive",
+    },
+    FormationPosition: {
+        FRONT: "Front",
+        MIDDLE: "Middle",
+        BACK: "Back",
+    },
+    Rarity: {
+        COMMON: "common",
+        UNCOMMON: "uncommon",
+        RARE: "rare",
+        EPIC: "epic",
+        LEGENDARY: "legendary",
+        ELDER: "elder",
+    },
+    ArmorType: {
+        BOOTS: "boots",
+        CHESTPLATE: "chestplate",
+        GLOVES: "gloves",
+        HELMET: "helmet",
+        SHIELD: "shield",
+    },
+    RuneType: {
+        WEAPON: "weapon",
+        ARMOR: "armor",
+    },
+    ShardTarget: {
+        GLOBAL: "global",
+        RUNES: "runes",
+        TRINKETS: "trinkets",
+    },
+    WeaponType: {
+        AXE: "axe",
+        BOW: "bow",
+        DAGGER: "dagger",
+        HAMMER: "hammer",
+        SPEAR: "spear",
+        STAFF: "staff",
+        SWORD: "sword",
+        WARSCYTHE: "warscythe",
+    },
+    WeaponWeight: {
+        LIGHT: "light",
+        HEAVY: "heavy",
+    },
+    PowerScope: {
+        GLOBAL: "global",
+        LOCAL: "local",
+    },
+    AbilityType: {
+        UNIQUE: "unique",
+        REGULAR: "regular",
+    },
+    SkillType: {
+        MELEE: "melee",
+        DISTANCE: "distance",
+        FRIENDLY: "friendly",
+    },
+    BattleAction: {
+        ATTACK: "attack",
+        BLOCK: "block",
+        MOVE: "move",
+        SKIP: "skip",
+        SKILL: "skill"
+    },
+    NPCType: {
+        UNDEAD: "undead",
+        ANIMA: "anima",
+        DEVIL: "devil",
+        BEAST: "beast",
+        REGULAR: "regular",
+        ALLIES: "allies",
+        CASTER: "caster",
+        ENEMIES: "enemies",
+    },
+    ActiveEffectType: {
+        SKILL: 'SKILL',
+        POWER: 'POWER',
+        WEAPON: 'WEAPON'
+    },
+    EnemyAIType: {
+        TANK: 'TANK',
+        HEALER: 'HEALER',
+        DPS: 'DPS'
+    },
+    AnimMoveType: {
+        LEFT_ONE: 'LEFT_ONE',
+        LEFT_TWO: 'LEFT_TWO',
+        RIGHT_ONE: 'RIGHT_ONE',
+        RIGHT_TWO: 'RIGHT_TWO'
+    },
+    SkillEffectFamily: {
+        CASTER: 'CASTER',
+        ALLIES: 'ALLIES',
+        ENEMIES: 'ENEMIES',
+        ALL: 'ALL'
     }
 });
