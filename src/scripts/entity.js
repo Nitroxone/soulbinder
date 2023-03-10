@@ -4,8 +4,8 @@
  */
 class Entity {
     /**
-     * @param {string} name The name of the Entity
-     * @param {string} desc The description of the Entity
+     * @param {string} name The Entity's name
+     * @param {string} desc The Entity's description
      * @param {number} icon The iconsheet's index of the Entity
      */
     constructor(name, desc, icon) {
