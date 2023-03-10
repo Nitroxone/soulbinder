@@ -13,5 +13,8 @@ const Data = Object.freeze({
         CARHAL: Symbol('carhal.png'),
         IFRIN: Symbol('ifrin.png'),
         NAKA: Symbol('naka.png')
+    },
+    Effect: {
+
     }
 });

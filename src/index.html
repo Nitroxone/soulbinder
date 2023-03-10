@@ -1,25 +1,96 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Soulbinder</title>
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>Soulbinder</title>
+            <link rel="stylesheet" href="css/main.css" />
+            <link rel="icon" type="image/png" href="css/favicon.png" />
+        </head>
+        <body>
+            <div id="wrap" class="skinRock animationsOn filtersOn">
+                <div id="game">
+                    <div id="background" class="bgDark"></div>
+                    <div id="foreground" style="display:none; opacity:1;"></div>
+                    <div id="middleText" class="fancyText"></div>
+                    <div id="generalInfo" class="bgPanelDown"></div>
+                    <div id="resources" class="bgMid">
+                        <div id="resBox" class="thingBox">
+                            <div id="res-weapons" class="categoryName barred fancyText" style="display: block;">
+                                Weapons
+                            </div>
+                            <div id="res-cat-weapons" class="category" style="display: block;"></div>
+                            <div id="res-armors" class="categoryName barred fancyText" style="display: block;">
+                                Armors
+                            </div>
+                            <div id="res-cat-armors" class="category" style="display: block;"></div>
+                            <div id="res-trinkets" class="categoryName barred fancyText" style="display: block;">
+                                Trinkets
+                            </div>
+                            <div id="res-cat-trinkets" class="category" style="display: block;"></div>
+                            <div id="res-runes" class="categoryName barred fancyText" style="display: block;">
+                                Runes
+                            </div>
+                            <div id="res-cat-runes" class="category" style="display: block;"></div>
+                            <div id="res-resources" class="categoryName barred fancyText" style="display: block;">
+                                Resources
+                            </div>
+                            <div id="res-cat-resources" class="category" style="display: block;"></div>
+                            <div id="res-recipes" class="categoryName barred fancyText" style="display: block;">
+                                Recipes
+                            </div>
+                            <div id="res-cat-recipes" class="category" style="display: block;"></div>
+                            <div id="res-powers" class="categoryName barred fancyText" style="display: block;">
+                                Powers
+                            </div>
+                            <div id="res-cat-powers" class="category" style="display: block;"></div>
+                        </div>
+                    </div>
+                    <div id="sections" class="bgDark">
+                        <div id="sectionTabs" class="tabList">
+                            <div id="tab-enchanting" class="tab on bgLight">Enchanting</div>
+                            <div id="tab-crafting" class="tab bgMid">Crafting</div>
+                            <div id="tab-settings" class="tab bgMid right">Settings</div>
+                            <div id="tab-updates" class="tab bgMid right">Update log</div>
+                            <div id="tab-achievements" class="tab bgMid right">Achievements</div>
+                        </div>
 
-        <link rel="stylesheet" href="css/main.css">
-        <link rel="icon" type="image/png" href="css/favicon.png">
-    </head>
-    <body>
-        
-        <!--
-            !!!
-            SCRIPT IMPORTS
-            !!!
-        -->
-        <script type="text/javascript" src="scripts/game.js"></script>
-        <script type="text/javascript" src="scripts/util.js"></script>
+                        <div id="enchantingDiv" class="subsection" style="display: block;">
+                            <div class="behindBottomUI">
+                                <div id="enchantingHelper"></div>
+                                <div class="fullCenteredOuter">
+                                    <div id="enchantingScreen-container" class="fullCenteredInner">
+                                        <div style="text-align:center; margin:auto; margin-bottom:8px; width:200px">
+                                            <div class="barred fancyText">
+                                                No weapon/armor selected
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="enchantingScreen-buttonContainer" class="bottomUI bgPanelUp">
+                                <div id="enchantIgniter" class="enchantButton button on">
+                                    Enchant
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="messages" class="bgMid bgFixed">
+                        <div class="tabList"><div class="tab right">Log</div></div>
+                        <div id="infoPopup" class="framed bgDark bgFixed"></div>
+                        <div class="fullBottomOuter"><div id="messagesList" class="fullBottomInner"></div></div>
+                    </div>
+                </div>
+                <!--<div id="ad"></div>-->
+                <div id="dialogues"></div>
+                <div id="popupContainer">
+                    <div id="tooltipAnchor"><div id="tooltip" class="tooltip framed bgDark"></div></div>
+                    <div id="widgetAnchor"><div id="widget" class="widget framed bgDark"></div></div>
+                </div>
+            </div>
+        </body>
+
         <script type="text/javascript" src="scripts/data.js"></script>
+        <script type="text/javascript" src="scripts/util.js"></script>
         <script type="text/javascript" src="scripts/entity.js"></script>
-        
-    </body>
-</html>
+        <script type="text/javascript" src="scripts/game.js"></script>
+    </html>

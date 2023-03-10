@@ -4,9 +4,9 @@
  */
 class Entity {
     /**
-     * @param {string} name 
-     * @param {string} desc 
-     * @param {number} icon 
+     * @param {string} name The name of the Entity
+     * @param {string} desc The description of the Entity
+     * @param {number} icon The iconsheet's index of the Entity
      */
     constructor(name, desc, icon) {
         this.id = Entity.increaseCount();
