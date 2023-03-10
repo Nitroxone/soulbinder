@@ -220,26 +220,6 @@ function choose(array) {
 }
 
 /**
- * Adds the percentage value to the base number.
- * @param {number} base the base value
- * @param {number} value the extra value in %
- * @returns {number} the base value + extra value in %
- */
-function addPercentageValue(base, value) {
-    return Math.round(base + (value / base) * 100);
-}
-
-/**
- * Removes the percentage value from the base number.
- * @param {number} base the base value
- * @param {number} value the extra value in %
- * @returns {number} the base value - extra value in %
- */
-function removePercentageValue(base, value) {
-    return Math.round(base - (value / base) * 100);
-}
-
-/**
  * Finds the amount of time any Entity object in an array matches the given name.
  * @param {array} array the Entity object to search into
  * @param {string} value the name to look for
@@ -290,4 +270,113 @@ function getRandomNumber(min, max) {
  */
 function computeChance(chance) {
     return getRandomNumber(0, 100) <= chance;
+}
+
+/**
+ * Generates an string from an array of 3 boolean (a range array).
+ * @param {array} range - the range array
+ * @param {array} compare - a comparison array that modifies the range array. TRUE enables, FALSE leaves unchanged, NULL disables.
+ * @returns {string} - a string that contains literal, translated values of the range array.
+ */
+function getRangeString(range, compare) {
+    // compare : TRUE enables. FALSE leaves unchanged. NULL disables.
+    let str = '';
+    let newrange = range.slice();
+    if(compare) {
+        for(let i = 0; i < range.length; i++) {
+            compare[i] ? newrange[i] = true : (compare[i] == null) ? newrange[i] = false : '';
+        }
+    }
+    if(newrange[0]) str += 'Front, ';
+    if(newrange[1]) str += 'Middle, ';
+    if(newrange[2]) str += 'Back, ';
+    str !== '' ? str = str.slice(0, -2) : str = 'None';
+    return str;
+}
+
+/**
+ * Generates a verbose target string (for a Skill tooltip) based on the range string provided.
+ * @param {string} range the range string
+ * @returns {string} the target string
+ */
+function getTargetString(range) {
+    const selector = (range.charAt(0) === '-' ? ', ' : ' + ');
+    const targets = range.substring(1);
+    let result = '';
+    for(let i = 0; i < targets.length; i++) {
+        switch(targets.charAt(i)) {
+            case '1':
+                result += 'Front' + selector;
+                break;
+            case '2':
+                result += 'Middle' + selector;
+                break;
+            case '3':
+                result += 'Back' + selector;
+                break;
+        }
+    }
+    result !== '' ? result = result.substring(0, (result.length - selector.length)) : result = 'None';
+    return result;
+}
+
+/**
+ * Outputs the elements of the string array into a single string, separated with commas.
+ * @param {array} value an array of string
+ * @returns {string} 
+ */
+function getStringArrayElements(value) {
+    let str = '';
+    for(let i = 0; i < value.length; i++) {
+        str += capitalizeFirstLetter(value[i] as string) + ', ';
+    }
+    str !== '' ? str = str.slice(0, -2) : str = 'None';
+    return str;
+}
+
+/**
+ * Gives the Recipe crafting category based on the Recipe's output item.
+ * @param {Recipe} recipe the Recipe to get the crafting category from
+ * @returns {string} the crafting category that matches the Recipe type
+ */
+function getRecipeType(recipe) {
+    if(recipe.result instanceof Weapon) return "weaponscrafting";
+    else if(recipe.result instanceof Armor) return "armorscrafting";
+    else if(recipe.result instanceof Trinket) return "trinketscrafting";
+    else if(recipe.result instanceof Rune) return "runescrafting";
+}
+
+/**
+ * Generates an object that contains empty rune stats based on its type.
+ * @param {string} type the rune type ("weapon" or "armor")
+ * @param {boolean} bleedIncurable does the rune have the bleedIncurable effect?
+ * @param {boolean} poisonIncurable does the rune have the poisonIncurable effect?
+ * @returns {object} an object containing the empty rune stats
+ */
+function getEmptyRuneStats(type, bleedIncurable, poisonIncurable) {
+    if(type === "weapon") {
+        const bcur = (bleedIncurable !== null) ? bleedIncurable : true;
+        const pcur = (poisonIncurable !== null) ? poisonIncurable : true;
+        return {
+            pdmg: 0,
+            mdmg: 0,
+            block: 0,
+            effort: 0,
+            crit_luk: 0,
+            crit_dmg: 0,
+            bleed_dmg: 0,
+            bleed_dur: 0,
+            bleed_cur: bcur,
+            poisn_dmg: 0,
+            poisn_dur: 0,
+            poisn_cur: pcur,
+            range: [false, false, false],
+        }
+    } else if(type === "armor") {
+        return {
+            pres: 0,
+            mres: 0,
+            optres: [false, false, false, false, false, false, false, false],
+        }
+    }
 }
