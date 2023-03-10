@@ -328,7 +328,7 @@ function getTargetString(range) {
 function getStringArrayElements(value) {
     let str = '';
     for(let i = 0; i < value.length; i++) {
-        str += capitalizeFirstLetter(value[i] as string) + ', ';
+        str += capitalizeFirstLetter(value[i]) + ', ';
     }
     str !== '' ? str = str.slice(0, -2) : str = 'None';
     return str;
