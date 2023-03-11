@@ -1,3 +1,6 @@
+/**
+ * The Inventory class manages the objects owned by the player.
+ */
 class Inventory {
     constructor(gold = 1000) {
         this.weapons = [];
@@ -11,15 +14,16 @@ class Inventory {
     }
 
     /**
-     * Adds the provided Item object to the inventory.
-     * @param {Item} item 
-     * @param {number} amount 
+     * Adds a clone of the provided Item object to the inventory.
+     * @param {Item} item the Item object to add
+     * @param {number} amount the amount of times the item should be added
      */
     addItem(item, amount = 1) {
         if(!item) throw new Error('Tried to add a null object to the inventory.');
 
         let array = null;
         if(item instanceof Weapon) array = {items: this.weapons};
+        else if(item instanceof Armor) array = {items: this.armors};
         else throw new Error('Unsupported type for item cloning.');
 
         for(let i = 0; i < amount; i++) {
@@ -29,6 +33,10 @@ class Inventory {
         console.log('Inventory : +' + amount + ' ' + item.name);
     }
 
+    /**
+     * Removes the provided Item object from the inventory.
+     * @param {Item} item the Item object to remove
+     */
     removeItem(item) {
         if(!item) throw new Error('Tried to remove a null object from the inventory.');
 
