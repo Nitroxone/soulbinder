@@ -8,7 +8,7 @@
  * @param {string} what - The message to be printed
  */
 const ERROR = (what) => {
-    console.log(what);
+    console.log('**ERROR!**: ' + what);
     console.trace();
 }
 
@@ -711,4 +711,19 @@ function isEnemy(npc) {
         || npc.type === Data.NPCType.UNDEAD
         || npc.type === Data.NPCType.ENEMIES) return true;
     else return false;
+}
+
+/**
+ * Removes the provided item from the provided array.
+ * @param {array} array 
+ * @param {any} item 
+ * @returns {boolean} true if removal was successful, false if removal has failed
+ */
+function removeFromArray(array, item) {
+    const index = array.indexOf(item);
+    if(index > -1) {
+        array.splice(index, 1);
+        return true;
+    }
+    return false;
 }
