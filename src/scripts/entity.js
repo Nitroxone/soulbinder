@@ -49,26 +49,21 @@ class Entity {
 
     /**
      * Returns a deep copy of an Entity object.
-     * Source : https://javascript.plainenglish.io/how-to-deep-copy-objects-and-arrays-in-javascript-7c911359b089
-     * @param {Entity} inObject the Entity object to be deep cloned
+     * @param {Entity} source the Entity object to be deep cloned
      * @returns {Entity} a deep cloned object
      */
-    static deepCopy = (inObject) => {
-        let outObject, value, key;
-
-        // Return the value if inObject is not an object
-        if (typeof inObject !== "object" || inObject === null) return inObject;
-
-        // Create an array or object to hold the values
-        outObject = Array.isArray(inObject) ? [] : {};
-
-        for (key in inObject) {
-            value = inObject[key];
-
-            // Recursively (deep) copy for nested objects, including arrays
-            outObject[key] = this.deepCopy(value);
-        }
-
-        return outObject;
+    static deepCopy = (source) => {
+        var _this = this;
+        return Array.isArray(source)
+            ? source.map(function (item) { return _this.deepCopy(item); })
+            : source instanceof Date 
+                ? new Date(source.getTime())
+                : source && typeof source === 'object'
+                    ? Object.getOwnPropertyNames(source).reduce(function (o, prop) {
+                        Object.defineProperty(o, prop, Object.getOwnPropertyDescriptor(source, prop));
+                        o[prop] = _this.deepCopy(source[prop]);
+                        return o;
+                    }, Object.create(Object.getPrototypeOf(source)))
+                    : source;
     }
 }
