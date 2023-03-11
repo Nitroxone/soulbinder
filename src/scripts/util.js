@@ -380,3 +380,166 @@ function getEmptyRuneStats(type, bleedIncurable, poisonIncurable) {
         }
     }
 }
+
+/**
+ * 
+ * @param {Rune} rune the Rune to retrieve the stats from
+ * @param {boolean} bleedIncurable should the bleeding be incurable?
+ * @param {boolean} poisonIncurable should the poison be incurable?
+ * @returns 
+ */
+function getRuneStats(rune, bleedIncurable, poisonIncurable) {
+    if(rune.type == "weapon") {
+        let stats = {
+            pdmg: 0,
+            mdmg: 0,
+            block: 0,
+            effort: 0,
+            crit_luk: 0,
+            crit_dmg: 0,
+            bleed_dmg: 0,
+            bleed_dur: 0,
+            bleed_cur: true,
+            poisn_dmg: 0,
+            poisn_dur: 0,
+            poisn_cur: true,
+            range: [false, false, false]
+        }
+        if(bleedIncurable !== null) stats.bleed_cur = bleedIncurable;
+        if(poisonIncurable !== null) stats.poisn_cur = poisonIncurable;
+        rune.stats.forEach( (element) => {
+           switch(element.effect) {
+                case Data.Effect.PDMG:
+                    stats.pdmg = element.value;
+                    break;
+                case Data.Effect.MDMG:
+                    stats.mdmg = element.value;
+                    break;
+                case Data.Effect.BLOCK:
+                    stats.block = element.value;
+                    break;
+                case Data.Effect.EFFORT:
+                    stats.effort = element.value;
+                    break;
+                case Data.Effect.CRIT_LUK:
+                    stats.crit_luk = element.value;
+                    break;
+                case Data.Effect.CRIT_DMG:
+                    stats.crit_dmg = element.value;
+                    break;
+                case Data.Effect.BLEED_DMG:
+                    stats.bleed_dmg = element.value;
+                    break;
+                case Data.Effect.BLEED_DURATION:
+                    stats.bleed_dur = element.value;
+                    break;
+                case Data.Effect.BLEED_CURABLE:
+                    stats.bleed_cur = true;
+                    break;
+                case Data.Effect.BLEED_INCURABLE:
+                    stats.bleed_cur = false;
+                    break;
+                case Data.Effect.POISON_DMG:
+                    stats.poisn_dmg = element.value;
+                    break;
+                case Data.Effect.POISON_DURATION:
+                    stats.poisn_dur = element.value;
+                    break;
+                case Data.Effect.POISON_CURABLE:
+                    stats.poisn_cur = true;
+                    break;
+                case Data.Effect.POISON_INCURABLE:
+                    stats.poisn_cur = false;
+                    break;
+                case Data.Effect.RANGE_FRONT_ON:
+                    stats.range[0] = true;
+                    break;
+                case Data.Effect.RANGE_MIDDLE_ON:
+                    stats.range[1] = true;
+                    break;
+                case Data.Effect.RANGE_BACK_ON:
+                    stats.range[2] = true;
+                    break;
+                case Data.Effect.RANGE_FRONT_OFF:
+                    stats.range[0] = null;
+                    break;
+                case Data.Effect.RANGE_MIDDLE_OFF:
+                    stats.range[1] = null;
+                    break;
+                case Data.Effect.RANGE_BACK_OFF:
+                    stats.range[2] = null;
+                    break;
+               default:
+                   ERROR('Unknown rune effect!');
+           }
+        });
+        return stats;
+    } else if(rune.type == "armor") {
+        let stats = {
+            pres: 0,
+            mres: 0,
+            optres: [false, false, false, false, false, false, false, false], //axe, bow, dagger, hammer, spear, staff, sword, warscythe
+        };
+        rune.stats.forEach( (element) => {
+            switch(element.effect) {
+                case Data.Effect.PRES:
+                    stats.pres = element.value;
+                    break;
+                case Data.Effect.MRES:
+                    stats.mres = element.value;
+                    break;
+                case Data.Effect.OPT_RES_AXE_ON:
+                    stats.optres[0] = true;
+                    break;
+                case Data.Effect.OPT_RES_AXE_OFF:
+                    stats.optres[0] = null;
+                    break;
+                case Data.Effect.OPT_RES_BOW_ON:
+                    stats.optres[1] = true;
+                    break;
+                case Data.Effect.OPT_RES_BOW_OFF:
+                    stats.optres[1] = null;
+                    break;
+                case Data.Effect.OPT_RES_DAGGER_ON:
+                    stats.optres[2] = true;
+                    break;
+                case Data.Effect.OPT_RES_DAGGER_OFF:
+                    stats.optres[2] = null;
+                    break;
+                case Data.Effect.OPT_RES_HAMMER_ON:
+                    stats.optres[3] = true;
+                    break;
+                case Data.Effect.OPT_RES_HAMMER_OFF:
+                    stats.optres[3] = null;
+                    break;
+                case Data.Effect.OPT_RES_SPEAR_ON:
+                    stats.optres[4] = true;
+                    break;
+                case Data.Effect.OPT_RES_SPEAR_OFF:
+                    stats.optres[4] = null;
+                    break;
+                case Data.Effect.OPT_RES_STAFF_ON:
+                    stats.optres[5] = true;
+                    break;
+                case Data.Effect.OPT_RES_STAFF_OFF:
+                    stats.optres[5] = null;
+                    break;
+                case Data.Effect.OPT_RES_SWORD_ON:
+                    stats.optres[6] = true;
+                    break;
+                case Data.Effect.OPT_RES_SWORD_OFF:
+                    stats.optres[6] = null;
+                    break;
+                case Data.Effect.OPT_RES_WARSCYTHE_ON:
+                    stats.optres[7] = true;
+                    break;
+                case Data.Effect.OPT_RES_WARSCYTHE_OFF:
+                    stats.optres[7] = null;
+                    break;
+                default:
+                    ERROR('Unknown rune effect!');
+            }
+        });
+        return stats;
+    }
+}
