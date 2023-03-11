@@ -543,3 +543,172 @@ function getRuneStats(rune, bleedIncurable, poisonIncurable) {
         return stats;
     }
 }
+
+/**
+ * Retrieves all of the Armors which type matches the one that is provided.
+ * @param {array} armors 
+ * @param {string} type 
+ * @returns {array} a sorted array of armors
+ */
+function getArmorTypeArray(armors, type) {
+    return armors.filter((armor) => {
+        return armor.type === type;
+    })
+}
+
+/**
+ * Converts the hex string to an rgba format.
+ * @param {string} hex 
+ * @param {number} alpha 
+ * @returns {string} an rgba string 
+ */
+function hexToRGBA(hex, alpha = 1) {
+    const [r, g, b] = hex.match(/\w\w/g).map(x => parseInt(x, 16));
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
+/**
+ * Returns the color code that matches the provided rarity.
+ * @param {string} rarity 
+ * @returns {string} a color code
+ */
+function getRarityColorCode(rarity) {
+    switch(rarity) {
+        case Data.Rarity.COMMON:
+            return Data.Color.COMMON;
+        case Data.Rarity.UNCOMMON:
+            return Data.Color.UNCOMMON;
+        case Data.Rarity.RARE:
+            return Data.Color.RARE;
+        case Data.Rarity.EPIC:
+            return Data.Color.EPIC;
+        case Data.Rarity.LEGENDARY:
+            return Data.Color.LEGENDARY;
+        case Data.Rarity.ELDER:
+            return Data.Color.ELDER;
+    }
+}
+
+/**
+ * Returns a particle density value based on the provided rarity.
+ * @param {string} rarity the rarity
+ * @returns {number} the density
+ */
+function getParticleDensity(rarity) {
+    switch(rarity) {
+        case Data.Rarity.COMMON:
+            return 0;
+        case Data.Rarity.UNCOMMON:
+            return 2;
+        case Data.Rarity.RARE:
+            return 4;
+        case Data.Rarity.EPIC:
+            return 6;
+        case Data.Rarity.LEGENDARY:
+            return 8;
+        case Data.Rarity.ELDER:
+            return 10;
+    }
+}
+
+/**
+ * Returns a particle gravity modifier value based on the provided rarity.
+ * @param {string} rarity the rarity
+ * @returns {number} the gravity modifier
+ */
+function getParticleGravity(rarity) {
+    switch(rarity) {
+        case Data.Rarity.COMMON:
+            return 0;
+        case Data.Rarity.UNCOMMON:
+            return -0.03;
+        case Data.Rarity.RARE:
+            return -0.06;
+        case Data.Rarity.EPIC:
+            return -0.1;
+        case Data.Rarity.LEGENDARY:
+            return -0.12;
+        case Data.Rarity.ELDER:
+            return -0.15;
+    }
+}
+
+/**
+ * Returns a particle Y velocity value based on the provided rarity.
+ * @param {string} rarity the rarity
+ * @returns {number} the Y velocity value
+ */
+function getParticleVelocityY(rarity) {
+    switch(rarity) {
+        case Data.Rarity.COMMON:
+            return 0;
+        case Data.Rarity.UNCOMMON:
+            return getRandomNumber(0.8, 1.2);
+        case Data.Rarity.RARE:
+            return getRandomNumber(1, 1.4);
+        case Data.Rarity.EPIC:
+            return getRandomNumber(1.2, 1.6);
+        case Data.Rarity.LEGENDARY:
+            return getRandomNumber(1.4, 1.8);
+        case Data.Rarity.ELDER:
+            return getRandomNumber(1.6, 1.9);
+    }
+}
+
+/**
+ * Returns a particle X velocity value based on the provided rarity.
+ * @param {string} rarity the rarity
+ * @returns {number} the X velocity value
+ */
+function getParticleVelocityX(rarity) {
+    switch(rarity) {
+        case Data.Rarity.COMMON:
+            return 0;
+        case Data.Rarity.UNCOMMON:
+            return (-1 + Math.round(Math.random()) * 2) * getRandomNumber(0.2, 0.4);
+        case Data.Rarity.RARE:
+            return (-1 + Math.round(Math.random()) * 2) * getRandomNumber(0.3, 0.5);
+        case Data.Rarity.EPIC:
+            return (-1 + Math.round(Math.random()) * 2) * getRandomNumber(0.4, 0.6);
+        case Data.Rarity.LEGENDARY:
+            return (-1 + Math.round(Math.random()) * 2) * getRandomNumber(0.6, 0.8);
+        case Data.Rarity.ELDER:
+            return (-1 + Math.round(Math.random()) * 2) * getRandomNumber(1, 1.5);
+    }
+}
+
+/**
+ * Returns a particle lifetime value based on the provided rarity.
+ * @param {string} rarity 
+ * @returns {number} the particle lifetime
+ */
+function getParticleLifetime(rarity) {
+    switch(rarity) {
+        case Data.Rarity.COMMON:
+            return 0;
+        case Data.Rarity.UNCOMMON:
+            return 45;
+        case Data.Rarity.RARE:
+            return 40;
+        case Data.Rarity.EPIC:
+            return 30;
+        case Data.Rarity.LEGENDARY:
+            return 20;
+        case Data.Rarity.ELDER:
+            return 18;
+    }
+}
+
+/**
+ * Returns whether the provided NPC is an enemy.
+ * @param {NPC} npc 
+ * @returns {bool} whether the NPC is an enemy
+ */
+function isEnemy(npc) {
+    if(npc.type === Data.NPCType.ANIMA 
+        || npc.type === Data.NPCType.BEAST
+        || npc.type === Data.NPCType.DEVIL
+        || npc.type === Data.NPCType.UNDEAD
+        || npc.type === Data.NPCType.ENEMIES) return true;
+    else return false;
+}
