@@ -58,7 +58,6 @@ const Loader = {
                         new Stat(
                             Data.Effect.PRES,
                             [3, 5],
-                            true
                         )
                      ]),
         ];
