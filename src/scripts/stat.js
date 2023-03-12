@@ -28,10 +28,8 @@ class Stat {
         this.type = type;
         this.value = null;
 
-        if(fixed) {
-            this.value = this.getValue();
-            this.fixed = fixed;
-        }
+        if(fixed) this.fix();
+        else this.fixed = fixed;
     }
 
     /**
@@ -46,5 +44,20 @@ class Stat {
             return getRandomNumber(min, max);
         }
         return this.theorical[0];
+    }
+
+    /**
+     * Assigns the value property of the Stat object by calling the getValue() method.
+     */
+    assignValue() {
+        this.value = this.getValue();
+    }
+
+    /**
+     * Assigns the value property of the Stat object and makes it fixed.
+     */
+    fix() {
+        this.assignValue();
+        this.fixed = true;
     }
 }
