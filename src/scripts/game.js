@@ -1,4 +1,6 @@
+// Game version.
 const VERSION = 1;
+// Game's update log.
 const UPDATE_LOG = [
     {date:'February 2022', title:'Project started', text:['Started working on a small idle-like combat RPG playable in browsers.']},
     {date:'August 2022', title:'Project update', text:['Reimagined several core game design components : the casual aspect of the game is now lesser.', 
@@ -63,19 +65,13 @@ class Game {
         this.inventory = null;
     }
 
+    /**
+     * Launches the game.
+     */
     launch() {
         this.inventory = new Inventory();
 
-        this.loadWeapons();
-    }
-
-    loadWeapons() {
-        const weapons = [
-            new Weapon("Highsteel Sword", "Swift and quite light. Effective in the hands of a swords master.", 10, [4454], Data.Rarity.COMMON, Data.WeaponType.SWORD, Data.WeaponWeight.LIGHT, 10, 0, 3, 3, 5, 2, [1, 1, true], [0, 0, true], [true, true, false], 2),
-        ];
-
-        for(const weapon of weapons) {
-            this.all_weapons.push(weapon);
-        }
+        Loader.loadWeapons();
+        Loader.loadArmors();
     }
 }
