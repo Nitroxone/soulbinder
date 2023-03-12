@@ -74,7 +74,69 @@ class Inventory {
     }
 
     /**
-     * Binds the provided Rune to the provided Weapon or Armor.
+     * Unbinds the provided Rune to the provided Weapon or Armor and updates the stats accordingly.
+     * @param {Weapon|Armor} item the Weapon or Armor to remove the Rune from
+     * @param {Rune} rune the Rune to remove
+     */
+    disenchant(item, rune) {
+        if(containsByName(item.sockets, rune.name)) {
+            for(const effect of rune.effects) {
+                if(item instanceof Armor) {
+                    switch(effect.effect) {
+                        case Data.Effect.PRES:
+                            armor.pres -= effect.getValue();
+                            break;
+                        case Data.Effect.MRES:
+                            armor.mres -= effect.getValue();
+                            break;
+                    }
+                } else {
+                    switch(effect.effect) {
+                        case Data.Effect.PDMG:
+                            weapon.pdmg[0] -= effect.getValue();
+                            weapon.pdmg[1] -= effect.getValue();
+                            break;
+                        case Data.Effect.MDMG:
+                            weapon.mdmg[0] -= effect.getValue();
+                            weapon.mdmg[1] -= effect.getValue();
+                            break;
+                        case Data.Effect.BLOCK:
+                            weapon.block -= effect.getValue();
+                            break;
+                        case Data.Effect.EFFORT:
+                            weapon.effort -= effect.getValue();
+                            break;
+                        case Data.Effect.CRIT_LUK:
+                            weapon.crit_luk -= effect.getValue();
+                            break;
+                        case Data.Effect.CRIT_DMG:
+                            weapon.crit_dmg -= effect.getValue();
+                            break;
+                        case Data.Effect.BLEED_DMG:
+                            weapon.bleed[0] -= effect.getValue();
+                            break;
+                        case Data.Effect.BLEED_DURATION:
+                            weapon.bleed[1] -= effect.getValue();
+                            break;
+                        case Data.Effect.BLEED_CURABLE:
+                            weapon.bleed[2] = true;
+                            break;
+                        case Data.Effect.BLEED_INCURABLE: 
+                            weapon.bleed[2] = false;
+                            break;
+                    }
+                }
+            }
+            item.unbindRune(rune);
+            item.addAvailableSocket();
+            console.log(rune.name + ' was unbound from ' + item.name);
+        } else {
+            ERROR('No such rune is bound to ' + item.name);
+        }
+    }
+
+    /**
+     * Binds the provided Rune to the provided Weapon or Armor and updates the stats accordingly.
      * @param {Weapon|Armor} armor the Weapon or Armor that will host the Rune
      * @param {Rune} rune the Rune that will be bound to the Weapon or Armor
      */
