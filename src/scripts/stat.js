@@ -14,15 +14,17 @@ class Stat {
      * @param {boolean} fixed TRUE means the value will always be the same, FALSE (default) means it will always be random
      * @param {boolean} isPercentage is the value a percentage?
      * @param {boolean} critical is the Stat a critical effect?
+     * @param {boolean} corrupt is the Stat a corrupt effect?
      * @param {number} duration 0 = permanent, > 0 = duration in rounds,
      * @param {number} delay 0 = immediate, < 0 = delay in rounds
      * @param {string} type is it a PASSIVE or ACTIVE Stat?
      */
-    constructor(effect, theorical, fixed = false, isPercentage = false, critical = false, duration = 0, delay = 0, type = Data.StatType.PASSIVE) {
+    constructor(effect, theorical, fixed = false, isPercentage = false, critical = false, corrupt = false, duration = 0, delay = 0, type = Data.StatType.PASSIVE) {
         this.effect = effect;
         this.theorical = theorical;
         this.isPercentage = isPercentage;
         this.critical = critical;
+        this.corrupt = corrupt;
         this.duration = duration;
         this.delay = delay;
         this.type = type;
