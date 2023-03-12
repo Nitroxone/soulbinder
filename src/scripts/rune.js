@@ -19,4 +19,8 @@ class Rune extends Item {
         this.type = type;
         this.effects = effects;
     }
+
+    generateStats() {
+        
+    }
 }

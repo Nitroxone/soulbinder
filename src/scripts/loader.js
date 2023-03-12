@@ -2,7 +2,7 @@
  * The Loader file contains functions that load all of the Weapons, Armors, Runes and so on, into the game.
  */
 const Loader = {
-    loadWeapons() {
+    loadWeapons: loadWeapons = () => {
         const weapons = [
             new Weapon("Highsteel Sword",
                        "Swift and quite light. Effective in the hands of a swords master.",
@@ -28,7 +28,7 @@ const Loader = {
         }
     },
 
-    loadArmors() {
+    loadArmors: loadArmors = () => {
         const armors = [
             new Armor("Highsteel Helmet",
                       "A fair protection.",
@@ -43,6 +43,28 @@ const Loader = {
 
         for(const armor of armors) {
             game.all_armors.push(armor);
+        }
+    },
+
+    loadRunes: loadRunes = () => {
+        const runes = [
+            new Rune("Resilience Rune",
+                     "Bla",
+                     45,
+                     10,
+                     Data.Rarity.RARE,
+                     Data.RuneType.ARMOR,
+                     [
+                        new Stat(
+                            Data.Effect.PRES,
+                            [3, 5],
+                            true
+                        )
+                     ]),
+        ];
+
+        for(const rune of runes) {
+            game.all_runes.push(rune);
         }
     }
 }

@@ -24,10 +24,13 @@ class Inventory {
         let array = null;
         if(item instanceof Weapon) array = {items: this.weapons};
         else if(item instanceof Armor) array = {items: this.armors};
+        else if(item instanceof Rune) array = {items: this.runes};
         else throw new Error('Unsupported type for item cloning.');
 
         for(let i = 0; i < amount; i++) {
-            array.items.push(Entity.clone(item));
+            let cloned = Entity.clone(item);
+            if(cloned instanceof Weapon || cloned instanceof Armor || cloned instanceof Rune) cloned.generateStats();
+            array.items.push(cloned);
         }
 
         console.log('Inventory : +' + amount + ' ' + item.name);
@@ -42,6 +45,8 @@ class Inventory {
 
         let array = null;
         if(item instanceof Weapon) array = {items: this.weapons};
+        else if(item instanceof Armor) array = {items: this.armors};
+        else if(item instanceof Rune) array = {items: this.runes};
         else throw new Error('Unsupported type for item removal.');
 
         if(removeFromArray(array.items, item)) console.log('Inventory : Removed ' + item.name);
@@ -56,5 +61,36 @@ class Inventory {
     removeResource(resource, amount = 1) {
         const me = what(this.resources, resource.name);
         me.amount = Math.max(0, me.amount - amount);
+    }
+
+    /**
+     * Binds the provided Rune to the provided Armor.
+     * @param {Armor} armor the Armor that will hold the Rune
+     * @param {Rune} rune the Rune that will be bound to the Armor
+     */
+    enchantArmor(armor, rune) {
+        if(Data.RuneType.ARMOR === rune.type) {
+            if(armor.hasFreeSockets()) {
+                for(const effect of rune.effects) {
+                    if(Data.Effect.PRES === effect.effect) {
+                        armor.pres += effect.getValue();
+                    }
+                    switch(effect.effect) {
+                        case Data.Effect.PRES:
+                            armor.pres += effect.getValue();
+                        case Data.Effect.MRES:
+                            armor.mres += effect.getValue();
+                    }
+                }
+                this.removeItem(rune);
+                armor.sockets.push(rune);
+                armor.removeAvailableSocket();
+                console.log(rune.name + ' was bound to ' + armor.name + '.');
+            } else {
+                console.log('No available sockets for this armor.');
+            }
+        } else {
+            console.log(rune.name + ' cannot be bound to ' + armor.name + ' because their type is incompatible.');
+        }
     }
 }

@@ -40,7 +40,7 @@ class Armor extends Item {
      * Generates stats for an armor, based on its theorical values.
      */
     generateStats() {
-        this.pres = getRandomNumberFromArray(this.t_pres);
+        this.pres = getRandomNumberFromArray(this.t_pres); // [3, 6]
         this.mres = getRandomNumberFromArray(this.t_mres);
     }
 
@@ -57,5 +57,13 @@ class Armor extends Item {
      */
     removeAvailableSocket(amount = 1) {
         this.sockets_free = Math.max(0, this.sockets_free - amount);
+    }
+
+    /**
+     * Returns whether the sockets_free property of the Armor is superior to 0.
+     * @returns {boolean} whether the Armor has free sockets
+     */
+    hasFreeSockets() {
+        return this.sockets_free > 0;
     }
 }

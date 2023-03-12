@@ -71,7 +71,12 @@ class Game {
     launch() {
         this.inventory = new Inventory();
 
-        Loader.loadWeapons();
-        Loader.loadArmors();
+        // LOADING DATA
+        for(let func in Loader) {
+            Loader[func]();
+        }
+
+        this.inventory.addItem(what(this.all_armors, 'highsteel helmet'));
+        this.inventory.addItem(what(this.all_runes, 'resilience rune'));
     }
 }
