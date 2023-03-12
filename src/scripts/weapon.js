@@ -20,7 +20,7 @@ class Weapon extends Item {
      * @param {array} t_poison the Weapon's theorical poison (3D array: theorical DMG, theorical duration, curability)
      * @param {array} range the Weapon's range (3D array: FRONT, MIDDLE, BACK)
      * @param {number} sockets_amount the Weapon's sockets amount
-     * @param {Modifier} modifier the Weapon's optional modifier
+     * @param {array} modifiers the Weapon's optional modifiers
      */
     constructor(name, desc, icon, price, rarity, type, 
                 weight, 
@@ -34,7 +34,7 @@ class Weapon extends Item {
                 t_poison, 
                 range, 
                 sockets_amount = 1,
-                modifier = null) {
+                modifiers = null) {
         super(name, desc, icon, price, rarity);
         this.type = type;
         this.weight = weight;
@@ -57,7 +57,7 @@ class Weapon extends Item {
 
         this.range = range;
 
-        this.modifier = modifier;
+        this.modifiers = modifiers;
 
         this.sockets_amount = sockets_amount;
         this.sockets_free = sockets_amount;
@@ -82,6 +82,14 @@ class Weapon extends Item {
             getRandomNumberFromArray(this.t_poison[1]),
             this.t_poison[2]
         ];
+    }
+
+    /**
+     * Unbinds the provided Rune from the Weapon.
+     * @param {Rune} rune the rune to unbind from the Weapon
+     */
+    unbindRune(rune) {
+        removeFromArray(this.sockets, rune);
     }
 
     /**

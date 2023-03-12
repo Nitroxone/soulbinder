@@ -12,7 +12,7 @@ class Armor extends Item {
      * @param {array} t_pres the Armor's theorical resilience
      * @param {array} t_mres the Armor's theorical warding
      * @param {number} sockets_amount the Armor's sockets amount
-     * @param {Modifier} modifier the Armor's optional modifier
+     * @param {array} modifiers the Armor's optional modifiers
      */
     constructor(name, desc, icon, price, rarity, 
                 type, 
@@ -29,7 +29,7 @@ class Armor extends Item {
         this.pres = null;
         this.mres = null;
 
-        this.modifier = modifier;
+        this.modifiers = modifiers;
 
         this.sockets_amount = sockets_amount;
         this.sockets_free = sockets_amount;
@@ -42,6 +42,14 @@ class Armor extends Item {
     generateStats() {
         this.pres = getRandomNumberFromArray(this.t_pres); // [3, 6]
         this.mres = getRandomNumberFromArray(this.t_mres);
+    }
+
+    /**
+     * Unbinds the provided Rune from the Armor.
+     * @param {Rune} rune the rune to unbind from the Armor
+     */
+    unbindRune(rune) {
+        removeFromArray(this.sockets, rune);
     }
 
     /**
