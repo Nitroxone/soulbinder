@@ -76,6 +76,7 @@ class Game {
             Loader[func]();
         }
 
+        this.inventory.addItem(what(this.all_weapons, "highsteel sword"));
         this.inventory.addItem(what(this.all_armors, 'highsteel helmet'));
         this.inventory.addItem(what(this.all_runes, 'resilience rune'));
     }
