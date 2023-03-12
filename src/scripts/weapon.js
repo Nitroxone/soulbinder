@@ -2,6 +2,26 @@
  * The Weapon class holds data for Weapons in the game.
  */
 class Weapon extends Item {
+    /**
+     * @param {string} name the Weapon's name
+     * @param {string} desc the Weapon's description
+     * @param {number} icon the Weapon's icon
+     * @param {number} price the Weapon's price
+     * @param {string} rarity the Weapon's rarity
+     * @param {string} type the Weapon's type (Data.WeaponType)
+     * @param {string} weight the Weapon's weight (Data.WeaponWeight)
+     * @param {array} pdmg the Weapon's sharpness (2D array: min and max)
+     * @param {array} mdmg the Weapon's withering (2D array: min and max)
+     * @param {array} t_block the Weapon's theorical block
+     * @param {array} t_effort the Weapon's theorical effort
+     * @param {array} t_crit_luk the Weapon's theorical critical chance
+     * @param {array} t_crit_dmg the Weapon's theorical critical damage
+     * @param {array} t_bleed the Weapon's theorical bleed (3D array: theorical DMG, theorical duration, curability)
+     * @param {array} t_poison the Weapon's theorical poison (3D array: theorical DMG, theorical duration, curability)
+     * @param {array} range the Weapon's range (3D array: FRONT, MIDDLE, BACK)
+     * @param {number} sockets_amount the Weapon's sockets amount
+     * @param {Modifier} modifier the Weapon's optional modifier
+     */
     constructor(name, desc, icon, price, rarity, type, 
                 weight, 
                 pdmg, 

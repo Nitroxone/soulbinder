@@ -2,6 +2,18 @@
  * The Armor class holds data for armors in the game.
  */
 class Armor extends Item {
+    /**
+     * @param {string} name the Armor's name
+     * @param {string} desc the Armor's description
+     * @param {number} icon the Armor's icon
+     * @param {number} price the Armor's price
+     * @param {string} rarity the Armor's rarity
+     * @param {string} type the Armor's type (Data.ArmorType)
+     * @param {array} t_pres the Armor's theorical resilience
+     * @param {array} t_mres the Armor's theorical warding
+     * @param {number} sockets_amount the Armor's sockets amount
+     * @param {Modifier} modifier the Armor's optional modifier
+     */
     constructor(name, desc, icon, price, rarity, 
                 type, 
                 t_pres, 
