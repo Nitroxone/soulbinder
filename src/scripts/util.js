@@ -731,3 +731,16 @@ function removeFromArray(array, item) {
 function getRandomNumberFromArray(array) {
     return getRandomNumber(array[0], array[1]);
 }
+
+/**
+ * Randomly shuffles the elements of an array (a basic application of the Fisher-Yates algorithm).
+ * @param {array} array the array to shuffle
+ * @returns the newly shuffled array
+ */
+function shuffle(array) {
+    for(let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
