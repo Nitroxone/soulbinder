@@ -64,33 +64,75 @@ class Inventory {
     }
 
     /**
-     * Binds the provided Rune to the provided Armor.
-     * @param {Armor} armor the Armor that will hold the Rune
-     * @param {Rune} rune the Rune that will be bound to the Armor
+     * Tells whether the provided Item can be enchanted with the provided Rune.
+     * @param {Weapon|Armor} item the Item that would host the Rune
+     * @param {Rune} rune the Rune that would be bound to the Item
+     * @returns whether the provided Item can be enchanted
      */
-    enchantArmor(armor, rune) {
-        if(Data.RuneType.ARMOR === rune.type) {
-            if(armor.hasFreeSockets()) {
-                for(const effect of rune.effects) {
-                    if(Data.Effect.PRES === effect.effect) {
-                        armor.pres += effect.getValue();
-                    }
+    allowEnchant(item, rune) {
+        return (item instanceof Armor && rune.type === Data.RuneType.ARMOR && item.hasFreeSockets()) || (item instanceof Weapon && rune.type === Data.RuneType.WEAPON && item.hasFreeSockets());
+    }
+
+    /**
+     * Binds the provided Rune to the provided Weapon or Armor.
+     * @param {Weapon|Armor} armor the Weapon or Armor that will host the Rune
+     * @param {Rune} rune the Rune that will be bound to the Weapon or Armor
+     */
+    enchant(item, rune) {
+        if(this.allowEnchant(item, rune)) {
+            for(const effect of rune.effects) {
+                if(item instanceof Armor) {
                     switch(effect.effect) {
                         case Data.Effect.PRES:
                             armor.pres += effect.getValue();
+                            break;
                         case Data.Effect.MRES:
                             armor.mres += effect.getValue();
+                            break;
+                    }
+                } else {
+                    switch(effect.effect) {
+                        case Data.Effect.PDMG:
+                            weapon.pdmg[0] += effect.getValue();
+                            weapon.pdmg[1] += effect.getValue();
+                            break;
+                        case Data.Effect.MDMG:
+                            weapon.mdmg[0] += effect.getValue();
+                            weapon.mdmg[1] += effect.getValue();
+                            break;
+                        case Data.Effect.BLOCK:
+                            weapon.block += effect.getValue();
+                            break;
+                        case Data.Effect.EFFORT:
+                            weapon.effort += effect.getValue();
+                            break;
+                        case Data.Effect.CRIT_LUK:
+                            weapon.crit_luk += effect.getValue();
+                            break;
+                        case Data.Effect.CRIT_DMG:
+                            weapon.crit_dmg += effect.getValue();
+                            break;
+                        case Data.Effect.BLEED_DMG:
+                            weapon.bleed[0] += effect.getValue();
+                            break;
+                        case Data.Effect.BLEED_DURATION:
+                            weapon.bleed[1] += effect.getValue();
+                            break;
+                        case Data.Effect.BLEED_CURABLE:
+                            weapon.bleed[2] = true;
+                            break;
+                        case Data.Effect.BLEED_INCURABLE: 
+                            weapon.bleed[2] = false;
+                            break;
                     }
                 }
-                this.removeItem(rune);
-                armor.sockets.push(rune);
-                armor.removeAvailableSocket();
-                console.log(rune.name + ' was bound to ' + armor.name + '.');
-            } else {
-                console.log('No available sockets for this armor.');
             }
+            this.removeItem(rune);
+            item.sockets.push(rune);
+            item.removeAvailableSocket();
+            console.log(rune.name + ' was bound to ' + item.name + '.');
         } else {
-            console.log(rune.name + ' cannot be bound to ' + armor.name + ' because their type is incompatible.');
+            console.log(rune.name + ' cannot be bound to ' + item.name + ' because their type is incompatible.');
         }
     }
 }
