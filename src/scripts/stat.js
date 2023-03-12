@@ -40,11 +40,7 @@ class Stat {
      */
     getValue() {
         if(this.fixed) return this.value;
-        if(this.theorical.length == 2) {
-            let min = this.theorical[0];
-            let max = this.theorical[1];
-            return getRandomNumber(min, max);
-        }
+        if(this.theorical.length == 2) return getRandomNumberFromArray(this.theorical);
         return this.theorical[0];
     }
 
