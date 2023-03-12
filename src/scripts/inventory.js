@@ -84,45 +84,45 @@ class Inventory {
                 if(item instanceof Armor) {
                     switch(effect.effect) {
                         case Data.Effect.PRES:
-                            armor.pres -= effect.getValue();
+                            item.pres -= effect.getValue();
                             break;
                         case Data.Effect.MRES:
-                            armor.mres -= effect.getValue();
+                            item.mres -= effect.getValue();
                             break;
                     }
                 } else {
                     switch(effect.effect) {
                         case Data.Effect.PDMG:
-                            weapon.pdmg[0] -= effect.getValue();
-                            weapon.pdmg[1] -= effect.getValue();
+                            item.pdmg[0] -= effect.getValue();
+                            item.pdmg[1] -= effect.getValue();
                             break;
                         case Data.Effect.MDMG:
-                            weapon.mdmg[0] -= effect.getValue();
-                            weapon.mdmg[1] -= effect.getValue();
+                            item.mdmg[0] -= effect.getValue();
+                            item.mdmg[1] -= effect.getValue();
                             break;
                         case Data.Effect.BLOCK:
-                            weapon.block -= effect.getValue();
+                            item.block -= effect.getValue();
                             break;
                         case Data.Effect.EFFORT:
-                            weapon.effort -= effect.getValue();
+                            item.effort -= effect.getValue();
                             break;
                         case Data.Effect.CRIT_LUK:
-                            weapon.crit_luk -= effect.getValue();
+                            item.crit_luk -= effect.getValue();
                             break;
                         case Data.Effect.CRIT_DMG:
-                            weapon.crit_dmg -= effect.getValue();
+                            item.crit_dmg -= effect.getValue();
                             break;
                         case Data.Effect.BLEED_DMG:
-                            weapon.bleed[0] -= effect.getValue();
+                            item.bleed[0] -= effect.getValue();
                             break;
                         case Data.Effect.BLEED_DURATION:
-                            weapon.bleed[1] -= effect.getValue();
+                            item.bleed[1] -= effect.getValue();
                             break;
                         case Data.Effect.BLEED_CURABLE:
-                            weapon.bleed[2] = true;
+                            item.bleed[2] = true;
                             break;
                         case Data.Effect.BLEED_INCURABLE: 
-                            weapon.bleed[2] = false;
+                            item.bleed[2] = false;
                             break;
                     }
                 }

@@ -40,7 +40,7 @@ class Armor extends Item {
      * Generates stats for an armor, based on its theorical values.
      */
     generateStats() {
-        this.pres = getRandomNumberFromArray(this.t_pres); // [3, 6]
+        this.pres = getRandomNumberFromArray(this.t_pres); 
         this.mres = getRandomNumberFromArray(this.t_mres);
     }
 
