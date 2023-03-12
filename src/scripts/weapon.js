@@ -98,4 +98,12 @@ class Weapon extends Item {
     removeAvailableSocket(amount = 1) {
         this.sockets_free = Math.max(0, this.sockets_free - amount);
     }
+
+    /**
+     * Returns whether the sockets_free property of the Weapon is superior to 0.
+     * @returns {boolean} whether the Weapon has free sockets
+     */
+    hasFreeSockets() {
+        return this.sockets_free > 0;
+    }
 }
