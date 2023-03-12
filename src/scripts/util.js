@@ -260,7 +260,7 @@ function findEffect(array, name) {
  * @returns {number} a random number 
  */
 function getRandomNumber(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 /**
@@ -726,4 +726,8 @@ function removeFromArray(array, item) {
         return true;
     }
     return false;
+}
+
+function getRandomNumberFromArray(array) {
+    return getRandomNumber(array[0], array[1]);
 }
