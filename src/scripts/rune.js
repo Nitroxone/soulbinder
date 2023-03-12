@@ -21,6 +21,8 @@ class Rune extends Item {
     }
 
     generateStats() {
-        
+        this.effects.forEach((stat) => {
+            stat.fix();
+        })
     }
 }
