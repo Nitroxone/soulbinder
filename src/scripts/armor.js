@@ -19,7 +19,7 @@ class Armor extends Item {
                 t_pres, 
                 t_mres, 
                 sockets_amount = 1,
-                modifier = null) {
+                modifiers = null) {
         super(name, desc, icon, price, rarity);
         this.type = type;
 
