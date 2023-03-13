@@ -103,10 +103,22 @@ const Loader = {
                 ],
                 "Venom coursing through your veins like a malevolent river.",
                 {
-                    health_regen: [2, 4]
+                    "health_regen": [2, 4]
                 },
                 []
             ),
+            new Echo(
+                "Last Word",
+                "Each time a spell is cast during the fight, you gain §1% spirit (limited to §2%). This effect fades away if you are stunned, killed, or if the fight ends.",
+                Data.Rarity.RARE,
+                [],
+                "The final word in a case is always a number.",
+                {
+                    "bonus_spirit": [4, 7],
+                    "max_bonus": [40, 50]
+                },
+                []
+            )
         ];
 
         for(const echo of echoes) {
