@@ -60,6 +60,7 @@ class Game {
         this.all_recipes = [];
         this.all_trinkets = [];
         this.all_shards = [];
+        this.all_echoes = [];
 
         this.player = null;
         this.inventory = null;

@@ -85,5 +85,32 @@ const Loader = {
         for(const rune of runes) {
             game.all_runes.push(rune);
         }
+    },
+
+    loadEchoes: loadEchoes = () => {
+        const echoes = [
+            new Echo(
+                "Snakebite",
+                "Heal §1% of your total health when an enemy is poisoned by this weapon.",
+                Data.Rarity.UNCOMMON,
+                [
+                    new Stat(
+                        Data.Effect.MODIF_POISON_DMG,
+                        [2, 4],
+                        false,
+                        false,
+                    )
+                ],
+                "Venom coursing through your veins like a malevolent river.",
+                {
+                    health_regen: [2, 4]
+                },
+                []
+            ),
+        ];
+
+        for(const echo of echoes) {
+            game.all_echoes.push(echo);
+        }
     }
 }
