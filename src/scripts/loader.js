@@ -59,7 +59,27 @@ const Loader = {
                             Data.Effect.PRES,
                             [3, 5],
                         )
+                     ],
+                     [
+                        new Stat(
+                            Data.Effect.PRES,
+                            [1, 2],
+                            false,
+                            false,
+                            true
+                        )
+                     ],
+                     [
+                        new Stat(
+                            Data.Effect.MRES,
+                            [-1, -3],
+                            false,
+                            false,
+                            false,
+                            true
+                        )
                      ]),
+                     
         ];
 
         for(const rune of runes) {
