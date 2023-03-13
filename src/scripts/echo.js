@@ -7,7 +7,7 @@ class Modifier {
      * @param {string} desc the Modifier's description
      * @param {number} rarity the Modifier's rarity (Data.Rarity)
      * @param {array} stats the Modifier's stats (array of Stat objects)
-     * @param {string} quote the Modifier's quote (object like: {quote: '', author: ''})
+     * @param {string} quote the Modifier's quote 
      * @param {array} triggers the Modifier's triggers (array of Trigger objects)
      */
     constructor(name, desc, rarity, stats, quote, triggers) {

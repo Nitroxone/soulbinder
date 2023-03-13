@@ -20,7 +20,8 @@ class Weapon extends Item {
      * @param {array} t_poison the Weapon's theorical poison (3D array: theorical DMG, theorical duration, curability)
      * @param {array} range the Weapon's range (3D array: FRONT, MIDDLE, BACK)
      * @param {number} sockets_amount the Weapon's sockets amount
-     * @param {array} modifiers the Weapon's optional modifiers
+     * @param {number} echoes_amount the amount of Echo the Weapon can host
+     * @param {array} echoes the Weapon's optional echoes
      */
     constructor(name, desc, icon, price, rarity, type, 
                 weight, 
@@ -34,7 +35,8 @@ class Weapon extends Item {
                 t_poison, 
                 range, 
                 sockets_amount = 1,
-                modifiers = null) {
+                echoes_amount = 1,
+                echoes = null) {
         super(name, desc, icon, price, rarity);
         this.type = type;
         this.weight = weight;
@@ -57,7 +59,8 @@ class Weapon extends Item {
 
         this.range = range;
 
-        this.modifiers = modifiers;
+        this.echoes_amount = echoes_amount;
+        this.echoes = echoes;
 
         this.sockets_amount = sockets_amount;
         this.sockets_free = sockets_amount;

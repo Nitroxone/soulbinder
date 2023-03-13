@@ -12,14 +12,16 @@ class Armor extends Item {
      * @param {array} t_pres the Armor's theorical resilience
      * @param {array} t_mres the Armor's theorical warding
      * @param {number} sockets_amount the Armor's sockets amount
-     * @param {array} modifiers the Armor's optional modifiers
+     * @param {number} echoes_amount
+     * @param {array} echoes the Armor's optional echoes
      */
     constructor(name, desc, icon, price, rarity, 
                 type, 
                 t_pres, 
                 t_mres, 
                 sockets_amount = 1,
-                modifiers = null) {
+                echoes_amount = 1,
+                echoes = null) {
         super(name, desc, icon, price, rarity);
         this.type = type;
 
@@ -29,7 +31,8 @@ class Armor extends Item {
         this.pres = null;
         this.mres = null;
 
-        this.modifiers = modifiers;
+        this.echoes_amount = echoes_amount;
+        this.echoes = echoes;
 
         this.sockets_amount = sockets_amount;
         this.sockets_free = sockets_amount;
