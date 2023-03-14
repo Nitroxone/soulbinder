@@ -71,6 +71,7 @@ class Game {
      */
     launch() {
         this.inventory = new Inventory();
+        this.player = new Player("root", this.inventory);
 
         // LOADING DATA
         for(let func in Loader) {
