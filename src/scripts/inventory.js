@@ -213,7 +213,7 @@ class Inventory {
      */
     checkForIngredients(recipe) {
         for(const ingredient of recipe.ingredients) {
-            console.log(ingredient.ingredient.name + " : " + getResourceAmount(this.resources, ingredient.ingredient.name) + "/" + ingredient.amount);
+            //console.log(ingredient.ingredient.name + " : " + getResourceAmount(this.resources, ingredient.ingredient.name) + "/" + ingredient.amount);
             if(ingredient.amount > getResourceAmount(this.resources, ingredient.ingredient.name)) {
                 console.log("Not enough " + ingredient.ingredient.name + ".");
                 return false;
@@ -230,6 +230,31 @@ class Inventory {
         for(const ingredient of recipe.ingredients) {
             what(this.resources, ingredient.ingredient.name).amount -= ingredient.amount;
             console.log("Inventory: -" + ingredient.amount + " " + ingredient.ingredient.name);
+        }
+    }
+
+    craft(recipe, forceCrit = false) {
+        if(this.checkForIngredients(recipe)) {
+            // Creating a duplicate of the crafting result
+            let result = Entity.clone(recipe.result);
+
+            // Checking for crit chances
+            if(computeChance(game.player.criticalFactor ) || forceCrit) {
+                if(result instanceof Rune) result.setCritical();
+            }
+
+            // Checking for corrupt chances
+            if(computeChance(game.player.corruptionFactor ) || forceCrit) {
+                if(result instanceof Rune) result.setCorrupt();
+            }
+
+            // Removing ingredients
+            this.removeIngredients(recipe);
+
+            // Adding the item to the inventory
+            this.addItem(result);
+        } else {
+            console.log("Not enough ingredients.");
         }
     }
 }
