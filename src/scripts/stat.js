@@ -55,6 +55,7 @@ class Stat {
      * Assigns the value property of the Stat object and makes it fixed.
      */
     fix() {
+        this.fixed = false;
         this.assignValue();
         this.fixed = true;
     }
