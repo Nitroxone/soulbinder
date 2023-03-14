@@ -273,7 +273,7 @@ class Inventory {
             item.generateStats();
             this.removeResource(what(this.resources, "reminder"));
         } else {
-            console.log("Not enough Reminders.");
+            console.log("A Reminder is required to recast a rune.");
         }
     }
 
@@ -290,7 +290,16 @@ class Inventory {
                 console.log("This item could not be uncorrupted because it has been altered by a Lead Knot.");
             }
         } else {
-            console.log("Not enough Starblossoms.");
+            console.log("A Starblossom is required to uncorrupt a rune.");
+        }
+    }
+
+    maximizeRune(rune) {
+        if(hasResource(this.resources, "time stream catalyst")) {
+            rune.maximize();
+            this.removeResource(what(this.resources, "time stream catalyst"));
+        } else {
+            console.log("A Time Stream Catalyst is required to maximize a rune.");
         }
     }
 }

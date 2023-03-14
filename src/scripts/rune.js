@@ -50,6 +50,21 @@ class Rune extends Item {
     }
 
     /**
+     * Maximizes all of the Rune's stats.
+     */
+    maximize() {
+        this.effects.forEach((stat) => {
+            stat.maximize();
+        });
+        this.critical.forEach((stat) => {
+            stat.maximize();
+        });
+        this.corrupt.forEach((stat) => {
+            stat.maximize();
+        })
+    }
+
+    /**
      * Makes the Rune critical.
      */
     setCritical() {
