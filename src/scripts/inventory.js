@@ -233,18 +233,23 @@ class Inventory {
         }
     }
 
-    craft(recipe, forceCrit = false) {
+    /**
+     * Crafts the provided Recipe's output if all conditions are met, then adds it to the inventory.
+     * @param {Recipe} recipe the Recipe to execute
+     * @param {boolean} forceCritAndCorrupt enables forced critical and corrupt results 
+     */
+    craft(recipe, forceCritAndCorrupt = false) {
         if(this.checkForIngredients(recipe)) {
             // Creating a duplicate of the crafting result
             let result = Entity.clone(recipe.result);
 
             // Checking for crit chances
-            if(computeChance(game.player.criticalFactor ) || forceCrit) {
+            if(computeChance(game.player.criticalFactor ) || forceCritAndCorrupt) {
                 if(result instanceof Rune) result.setCritical();
             }
 
             // Checking for corrupt chances
-            if(computeChance(game.player.corruptionFactor ) || forceCrit) {
+            if(computeChance(game.player.corruptionFactor ) || forceCritAndCorrupt) {
                 if(result instanceof Rune) result.setCorrupt();
             }
 
@@ -255,6 +260,16 @@ class Inventory {
             this.addItem(result);
         } else {
             console.log("Not enough ingredients.");
+        }
+    }
+
+    /**
+     * Recasts the provided Item's stats if at least 1 Reminder is possessed.
+     * @param {Item} item the item which stats should be recast
+     */
+    recast(item) {
+        if(getResourceAmount(this.resources, "reminder") >= 1) {
+            item.generateStats();
         }
     }
 }

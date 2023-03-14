@@ -70,6 +70,13 @@ const Loader = {
                 Data.Rarity.LEGENDARY,
             ),
             new Resource(
+                "Reminder",
+                "Randomly recasts an item's effects.",
+                1,
+                10,
+                Data.Rarity.RARE
+            ),
+            new Resource(
                 "Dark Stone",
                 "A chunk of a stone darkened by corruption.",
                 1,
