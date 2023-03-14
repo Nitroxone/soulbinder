@@ -59,4 +59,11 @@ class Stat {
         this.assignValue();
         this.fixed = true;
     }
+
+    /**
+     * Assigns the value property of the Stat object to the highest bound of the theorical value.
+     */
+    maximize() {
+        this.value = this.theorical[1];
+    }
 }
