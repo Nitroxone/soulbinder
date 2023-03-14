@@ -85,6 +85,7 @@ class Game {
         this.inventory.addItem(what(this.all_resources, "silver powder"), 10);
         this.inventory.addItem(what(this.all_resources, "decaying petals"), 10);
         this.inventory.addItem(what(this.all_resources, "reminder"));
+        this.inventory.addItem(what(this.all_resources, "starblossom"));
         this.inventory.addItem(what(this.all_recipes, "withering rune"));
     }
 }

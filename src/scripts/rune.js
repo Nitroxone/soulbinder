@@ -69,4 +69,11 @@ class Rune extends Item {
     setAltered() {
         this.isAltered = true;
     }
+
+    /**
+     * Removes the corrupted state of the Rune.
+     */
+    uncorrupt() {
+        this.isCorrupt = false;
+    }
 }

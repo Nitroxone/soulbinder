@@ -269,9 +269,28 @@ class Inventory {
      * @param {Item} item the item which stats should be recast
      */
     recast(item) {
-        if(getResourceAmount(this.resources, "reminder") >= 1) {
+        if(hasResource(this.resources, "reminder")) {
             item.generateStats();
             this.removeResource(what(this.resources, "reminder"));
+        } else {
+            console.log("Not enough Reminders.");
+        }
+    }
+
+    /**
+     * Removes the corrupt state of the provided item if at least 1 Starblossom is possessed AND if the Item was not altered by a Lead Knot.
+     * @param {Item} item the item which should be uncorrupted
+     */
+    uncorrupt(item) {
+        if(hasResource(this.resources, "starblossom")) {
+            if(!item.isAltered) {
+                item.uncorrupt();
+                this.removeResource(what(this.resources, "starblossom"));
+            } else {
+                console.log("This item could not be uncorrupted because it has been altered by a Lead Knot.");
+            }
+        } else {
+            console.log("Not enough Starblossoms.");
         }
     }
 }
