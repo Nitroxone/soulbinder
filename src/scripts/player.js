@@ -14,7 +14,7 @@ class Player {
         this.playerLevel = new Level("Level", 1, 100, 1, 1000, 0);
 
         this.criticalFactor = 15;
-        this.corrupionFactor = 15;
+        this.corruptionFactor = 15;
     }
 
     /**
