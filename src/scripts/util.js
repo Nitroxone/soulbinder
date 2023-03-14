@@ -260,6 +260,8 @@ function findEffect(array, name) {
  * @returns {number} a random number 
  */
 function getRandomNumber(min, max) {
+    // swap min and max if min is greater than max
+    if(min > max) [min, max] = [max, min];
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
