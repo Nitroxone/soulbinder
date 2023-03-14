@@ -228,10 +228,11 @@ class Inventory {
      */
     removeIngredients(recipe) {
         for(const ingredient of recipe.ingredients) {
-            what(this.resources, ingredient.ingredient.name).amount -= ingredient.amount;
+            this.removeResource(ingredient.ingredient, ingredient.amount);
             console.log("Inventory: -" + ingredient.amount + " " + ingredient.ingredient.name);
         }
     }
+
 
     /**
      * Crafts the provided Recipe's output if all conditions are met, then adds it to the inventory.
@@ -270,6 +271,7 @@ class Inventory {
     recast(item) {
         if(getResourceAmount(this.resources, "reminder") >= 1) {
             item.generateStats();
+            this.removeResource(what(this.resources, "reminder"));
         }
     }
 }
