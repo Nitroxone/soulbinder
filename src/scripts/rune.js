@@ -46,7 +46,7 @@ class Rune extends Item {
         });
         this.corrupt.forEach((stat) => {
             stat.fix();
-        })
+        });
     }
 
     /**
@@ -61,7 +61,49 @@ class Rune extends Item {
         });
         this.corrupt.forEach((stat) => {
             stat.maximize();
-        })
+        });
+    }
+
+    /**
+     * Amplifies all of the Rune's stats.
+     */
+    amplify() {
+        this.effects.forEach((stat) => {
+            stat.amplify();
+        });
+        this.critical.forEach((stat) => {
+            stat.amplify();
+        });
+        this.corrupt.forEach((stat) => {
+            stat.amplify();
+        });
+    }
+
+    /**
+     * 
+     * @returns {boolean} whether the Rune's stats are all maximized
+     */
+    isMaximized() {
+        let breaker = true;
+        this.effects.forEach((stat) => {
+            if(!stat.isMaximized()) {
+                breaker = false;
+                return;
+            }
+        });
+        this.critical.forEach((stat) => {
+            if(!stat.isMaximized()) {
+                breaker = false;
+                return;
+            }
+        });
+        this.corrupt.forEach((stat) => {
+            if(!stat.isMaximized()) {
+                breaker = false;
+                return;
+            }
+        });
+        return breaker;
     }
 
     /**

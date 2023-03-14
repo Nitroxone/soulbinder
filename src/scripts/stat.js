@@ -67,4 +67,27 @@ class Stat {
         this.value = this.theorical[1];
         this.fixed = true;
     }
+
+    /**
+     * Amplifies the Stat's value by adding another randomly generated number to it.
+     */
+    amplify() {
+        if(this.isMaximized()) this.value += getRandomNumberFromArray(this.theorical);
+    }
+
+    /**
+     * Returns whether the Stat's current value is superior to the highest bound of the theorical value.
+     * @returns {boolean} whether the Stat is amplified
+     */
+    isAmplified() {
+        return this.value > this.theorical[1];
+    }
+
+    /**
+     * Returns whether the Stat's current value is equal to the highest bound of the theorical value.
+     * @returns {boolean} whether the Stat is maximized
+     */
+    isMaximized() {
+        return this.value == this.theorical[1];
+    }
 }

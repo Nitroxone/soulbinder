@@ -294,12 +294,28 @@ class Inventory {
         }
     }
 
+    /**
+     * Maximizes all of the stats of the provided Rune.
+     * @param {Rune} rune the Rune which stats should be maximized
+     */
     maximizeRune(rune) {
         if(hasResource(this.resources, "time stream catalyst")) {
             rune.maximize();
             this.removeResource(what(this.resources, "time stream catalyst"));
         } else {
             console.log("A Time Stream Catalyst is required to maximize a rune.");
+        }
+    }
+
+    amplifyRune(rune) {
+        if(hasResource(this.resources, "lead knot")) {
+            if(rune.isMaximized()) {
+                // amplifying
+            } else {
+                console.log("The rune can't be amplified if it's not maximized.");
+            }
+        } else {
+            console.log("A Lead Knot is required to amplify a rune.");
         }
     }
 }
