@@ -3,19 +3,19 @@
  * If a description needs to hold the value of a variable in the 'variables' property, it must be replaced by the § token.
  * Variables must be declared in the same order in 'desc' and 'variables'.
  */
-class Echo {
+class Echo extends Entity {
     /**
      * @param {string} name the Echo's name
      * @param {string} desc the Echo's description
+     * @param {number} icon the Echo's icon
      * @param {number} rarity the Echo's rarity (Data.Rarity)
      * @param {array} stats the Echo's stats (array of Stat objects)
      * @param {string} quote the Echo's quote 
      * @param {object} variables the Echo's variables needed by the triggers and special mechanics
      * @param {array} triggers the Echo's triggers (array of Trigger objects)
      */
-    constructor(name, desc, rarity, stats, quote, variables, triggers) {
-        this.name = name;
-        this.desc = desc;
+    constructor(name, desc, icon, rarity, stats, quote, variables, triggers) {
+        super(name, desc, icon);
         this.rarity = rarity;
         this.stats = stats;
         this.quote = quote;
