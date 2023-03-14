@@ -46,6 +46,23 @@ const Loader = {
         }
     },
 
+    loadResources: loadResources = () => {
+        const resources = [
+            new Resource(
+                "Starblossom",
+                "Cleanses a rune's corrupted effects.",
+                1,
+                10,
+                Data.Rarity.EPIC,
+                1
+            )
+        ];
+
+        for(const resource of resources) {
+            game.all_resources.push(resource);
+        }
+    },
+
     loadRunes: loadRunes = () => {
         const runes = [
             new Rune("Resilience Rune",
