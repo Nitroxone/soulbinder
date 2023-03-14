@@ -12,12 +12,14 @@ class Rune extends Item {
      * @param {array} effects the Rune's effects (array of Stat objects)
      * @param {array} critical the Rune's critical effects
      * @param {array} corrupt the Rune's corrupt effects
+     * @param {array} triggers the Rune's corrupt triggers
      */
     constructor(name, desc, icon, price, rarity,
                 type, 
                 effects,
                 critical,
-                corrupt) {
+                corrupt,
+                triggers) {
         super(name, desc, icon, price, rarity);
 
         this.type = type;
@@ -25,8 +27,11 @@ class Rune extends Item {
         this.critical = critical;
         this.corrupt = corrupt;
 
+        this.triggers = triggers;
+
         this.isCorrupt = false;
         this.isCritical = false;
+        this.isAltered = false;
     }
 
     /**
@@ -47,14 +52,21 @@ class Rune extends Item {
     /**
      * Makes the Rune critical.
      */
-    critical() {
+    setCritical() {
         this.isCritical = true;
     }
 
     /**
      * Makes the Rune corrupt.
      */
-    corrupt() {
+    setCorrupt() {
         this.isCorrupt = true;
+    }
+
+    /**
+     * Makes the Rune altered.
+     */
+    setAltered() {
+        this.isAltered = true;
     }
 }
