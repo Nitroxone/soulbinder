@@ -80,5 +80,8 @@ class Game {
         this.inventory.addItem(what(this.all_weapons, "highsteel sword"));
         this.inventory.addItem(what(this.all_armors, 'highsteel helmet'));
         this.inventory.addItem(what(this.all_runes, 'resilience rune'));
+        this.inventory.addItem(what(this.all_resources, "dark stone"), 10);
+        this.inventory.addItem(what(this.all_resources, "silver powder"), 10);
+        this.inventory.addItem(what(this.all_resources, "decaying petals"), 10);
     }
 }
