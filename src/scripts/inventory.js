@@ -25,6 +25,12 @@ class Inventory {
         if(item instanceof Weapon) array = {items: this.weapons};
         else if(item instanceof Armor) array = {items: this.armors};
         else if(item instanceof Rune) array = {items: this.runes};
+        else if(item instanceof Recipe) array = {items: this.recipes};
+        else if(item instanceof Resource) {
+            what(this.resources, item.name).amount += amount;
+            console.log('Inventory : +' + amount + ' ' + item.name);
+            return;
+        }
         else throw new Error('Unsupported type for item cloning.');
 
         for(let i = 0; i < amount; i++) {
@@ -47,6 +53,8 @@ class Inventory {
         if(item instanceof Weapon) array = {items: this.weapons};
         else if(item instanceof Armor) array = {items: this.armors};
         else if(item instanceof Rune) array = {items: this.runes};
+        else if(item instanceof Resource) array = {items: this.resources};
+        else if(item instanceof Recipe) array = {items: this.recipes};
         else throw new Error('Unsupported type for item removal.');
 
         if(removeFromArray(array.items, item)) console.log('Inventory : Removed ' + item.name);
@@ -196,5 +204,16 @@ class Inventory {
         } else {
             console.log(rune.name + ' cannot be bound to ' + item.name + ' because their type is incompatible.');
         }
+    }
+
+    checkForIngredients(recipe) {
+        for(const ingredient of recipe.ingredients) {
+            console.log(ingredient.ingredient.name + " : " + getResourceAmount(resources, ingredient.ingredient.name) + "/" + ingredient.amount);
+            if(ingredient.amount > getResourceAmount(this.resources, ingredient.ingredient.name)) {
+                console.log("Not enough " + ingredient.ingredient.name + ".");
+                return false;
+            }
+        }
+        return true;
     }
 }

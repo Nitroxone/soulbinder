@@ -54,12 +54,47 @@ const Loader = {
                 1,
                 10,
                 Data.Rarity.EPIC,
-                1
-            )
+            ),
+            new Resource(
+                "Time Stream Catalyst",
+                "Maxes out a rune's effects.",
+                1,
+                10,
+                Data.Rarity.EPIC,
+            ),
+            new Resource(
+                "Lead Knot",
+                "Pushes the rune's effects beyond their maximum bound. May generate corrupt effects.",
+                1,
+                10,
+                Data.Rarity.LEGENDARY,
+            ),
+            new Resource(
+                "Dark Stone",
+                "A chunk of a stone darkened by corruption.",
+                1,
+                10,
+                Data.Rarity.COMMON,
+            ),
+            new Resource(
+                "Silver Powder",
+                "A pouch of the finest refined silver powder.",
+                1,
+                10,
+                Data.Rarity.COMMON,
+            ),
+            new Resource(
+                "Decaying Petals",
+                "blabla",
+                1,
+                10,
+                Data.Rarity.UNCOMMON,
+            ),
         ];
 
         for(const resource of resources) {
             game.all_resources.push(resource);
+            game.inventory.resources.push(resource);
         }
     },
 
@@ -95,12 +130,68 @@ const Loader = {
                             false,
                             true
                         )
-                     ]),
+                     ]
+            ),
+            new Rune("Withering Rune",
+                     "Bla",
+                     45,
+                     10,
+                     Data.Rarity.RARE,
+                     Data.RuneType.WEAPON,
+                     [
+                        new Stat(
+                            Data.Effect.MDMG,
+                            [3, 6],
+                        )
+                     ],
+                     [
+                        new Stat(
+                            Data.Effect.BLOCK,
+                            [1, 2],
+                            false,
+                            false,
+                            true
+                        )
+                     ],
+                     [
+                        new Stat(
+                            Data.Effect.PDMG,
+                            [-1, -3],
+                            false,
+                            false,
+                            false,
+                            true
+                        )
+                     ]
+            )
+
                      
         ];
 
         for(const rune of runes) {
             game.all_runes.push(rune);
+        }
+    },
+
+    loadRecipes: loadRecipes = () => {
+        const recipes = [
+            new Recipe(
+                "Withering Rune",
+                "Rune description",
+                1,
+                10,
+                Data.Rarity.RARE,
+                [
+                    new Ingredient(what(game.all_resources, "dark stone"), 1),
+                    new Ingredient(what(game.all_resources, "silver powder"), 2),
+                    new Ingredient(what(game.all_resources, "decaying petals"), 1),
+                ],
+                what(game.all_runes, "withering rune")
+            ),
+        ]
+
+        for(const recipe of recipes) {
+            game.all_recipes.push(recipe);
         }
     },
 
