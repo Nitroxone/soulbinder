@@ -241,6 +241,16 @@ function getResourceAmount(array, name) {
 }
 
 /**
+ * 
+ * @param {array} array 
+ * @param {string} name 
+ * @returns whether the 
+ */
+function hasResource(array, name) {
+    return what(array, name).amount > 0;
+}
+
+/**
  * Looks for the Effect inside the given array.
  * @param {array} array the array to search into
  * @param {Data.Effect} name the Effect to look for
