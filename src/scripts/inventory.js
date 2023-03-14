@@ -206,14 +206,30 @@ class Inventory {
         }
     }
 
+    /**
+     * Checks whether the inventory contains the correct amount of ingredients for the provided recipe to be executed.
+     * @param {Recipe} recipe the Recipe to check ingredients for
+     * @returns whether enough ingredients are possessed to execute the Recipe
+     */
     checkForIngredients(recipe) {
         for(const ingredient of recipe.ingredients) {
-            console.log(ingredient.ingredient.name + " : " + getResourceAmount(resources, ingredient.ingredient.name) + "/" + ingredient.amount);
+            console.log(ingredient.ingredient.name + " : " + getResourceAmount(this.resources, ingredient.ingredient.name) + "/" + ingredient.amount);
             if(ingredient.amount > getResourceAmount(this.resources, ingredient.ingredient.name)) {
                 console.log("Not enough " + ingredient.ingredient.name + ".");
                 return false;
             }
         }
         return true;
+    }
+
+    /**
+     * Removes the ingredients required by the recipe from the inventory. This method should only be called after checkForIngredients() has been called beforehand.
+     * @param {Recipe} recipe 
+     */
+    removeIngredients(recipe) {
+        for(const ingredient of recipe.ingredients) {
+            what(this.resources, ingredient.ingredient.name).amount -= ingredient.amount;
+            console.log("Inventory: -" + ingredient.amount + " " + ingredient.ingredient.name);
+        }
     }
 }
