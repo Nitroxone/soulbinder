@@ -200,6 +200,7 @@ const Data = Object.freeze({
         BACK: "Back",
     },
     Rarity: {
+        CORRUPT: "corrupt",
         COMMON: "common",
         UNCOMMON: "uncommon",
         RARE: "rare",
