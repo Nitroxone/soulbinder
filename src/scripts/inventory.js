@@ -307,10 +307,27 @@ class Inventory {
         }
     }
 
-    amplifyRune(rune) {
+    /**
+     * Amplifies the Rune. Depending on the player's corruption factor, may also add corrupt effects.
+     * @param {Rune} rune the Rune to amplify
+     * @param {boolean} forceCorrupt forces corrupt effects on the rune
+     */
+    amplifyRune(rune, forceCorrupt = false) {
         if(hasResource(this.resources, "lead knot")) {
             if(rune.isMaximized()) {
-                // amplifying
+                rune.amplify();
+                // Checking for corrupt chances
+                if(computeChance(game.player.corruptionFactor ) || forceCorrupt) {
+                    console.log("This rune has been corrupted.");
+                    // Creates the amount of corrupt effects to add : number between 0 and the rune's amount of active effects
+                    const amount = getRandomNumberFromArray([0, rune.getEffectsAmount()]);
+                    for(let i = 0; i < amount; i++) {
+                        let effect = Entity.clone(choose(game.all_runeCorruptEffects));
+                        effect.fix();
+                        rune.echoes.push(effect);
+                    }
+                }
+                this.removeResource(what(this.resources, "lead knot"));
             } else {
                 console.log("The rune can't be amplified if it's not maximized.");
             }
