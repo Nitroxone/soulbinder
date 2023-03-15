@@ -67,6 +67,42 @@ table {
     font-weight: normal;
     src: url("fonts/CrimsonPro-Regular.ttf") format("truetype");
 }
+@font-face {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: normal;
+    src: url("fonts/Roboto-Regular.ttf") format("truetype");
+}
+@font-face {
+    font-family: "RobotoItalic";
+    font-style: normal;
+    font-weight: normal;
+    src: url("fonts/Roboto-RegularItalic.ttf") format("truetype");
+}
+@font-face {
+    font-family: "RobotoBold";
+    font-style: normal;
+    font-weight: normal;
+    src: url("fonts/Roboto-Bold.ttf") format("truetype");
+}
+@font-face {
+    font-family: "RobotoBoldItalic";
+    font-style: normal;
+    font-weight: normal;
+    src: url("fonts/Roboto-BoldItalic.ttf") format("truetype");
+}
+@font-face {
+    font-family: "RobotoSlabBold";
+    font-style: normal;
+    font-weight: normal;
+    src: url("fonts/RobotoSlab-Bold.ttf") format("truetype");
+}
+@font-face {
+    font-family: "RobotoSlab";
+    font-style: normal;
+    font-weight: normal;
+    src: url("fonts/RobotoSlab-Light.ttf") format("truetype");
+}
 
 /* ----------------------------------------------------------------
                                 BASE
@@ -106,7 +142,7 @@ body {
     color: #cccccc;
     text-shadow: 1px 1px 0 #000000;
     /*background: #000000;*/
-    font-family: Tahoma, 'Segoe UI', Inter, Arial, sans-serif;
+    font-family: 'Roboto', 'Segoe UI', Inter, Arial, sans-serif;
     font-size: 11px;
 }
 
@@ -379,8 +415,8 @@ a:active, .tooltiped:active {
 .flourish2R{background: url(img/flourish2R.png);}
 
 .button, .tab, .fancyText {
-    font-family: 'CrimsonPro', Georgia, serif;
-    font-size: 13px;
+    font-family: 'RobotoSlab', Georgia, serif;
+    font-size: 11px;
     font-weight: bold;
     text-shadow: 1px 1px 0 #000000;
 }
@@ -1371,7 +1407,7 @@ a:active, .tooltiped:active {
     text-shadow: 0 0 4px #ffffff;
 }
 .infoTitle {
-    font-size: 23px;
+    font-size: 20px;
     color: #ffffff;
     /*text-shadow: 1px 1px 0 #000000, 0 0 6px rgba(255,255,255,0.75);*/
     font-variant: small-caps;
@@ -1426,13 +1462,20 @@ a:active, .tooltiped:active {
     padding-left: 18px;
     pointer-events: none;
 }
-.smallThing > .thing, .small.thing {
+.smallThingNoIcon {
+    display: inline-block;
+    color: #ffffff;
+    font-weight: bold;
+    position: relative;
+    pointer-events: none;
+}
+.smallThing > .thing, .small.thing, .smallThingNoIcon > .thing {
     transform: scale(0.5);
     position: relative;
     margin: -12px 4px;
     display: inline-block;
 }
-.smallThing > .thing {
+.smallThing > .thing, .smallThingNoIcon > .thing {
     position: absolute;
     left: -20px;
     top: -24px;
@@ -1773,7 +1816,7 @@ input[type=text], textarea, select {
 /* ITEM STATS DISPLAY ON TOOLTIPS */
 
 table.statsTable {
-    width: 65%;
+    width: 75%;
     text-align: left;
     border-collapse: collapse;
     margin:0 auto;
@@ -2017,7 +2060,7 @@ table.statsTable tbody td:nth-child(3) {
 .npcSubname {
     font-weight: bold;
     font-size: 15px;
-    font-family: 'CrimsonPro';
+    font-family: 'RobotoSlab';
 }
 .npcDesc {
     font-size:11px;
@@ -2077,7 +2120,7 @@ table.statsTable tbody td:nth-child(3) {
     margin-top:10px;
 }
 .skillStatsDisplay-num {
-    font-family:'CrimsonPro';
+    font-family:'RobotoSlab';
     font-size:23px;
     color: #fff;
     /*text-shadow:1px 1px 0 #000000, 0 0 6px rgb(255 255 255 / 75%);*/
@@ -2087,7 +2130,7 @@ table.statsTable tbody td:nth-child(3) {
 }
 .skillRangeDisplay-launch-pos, .skillRangeDisplay-ally-pos, .skillRangeDisplay-enemy-pos {
     font-variant: small-caps;
-    font-family:'CrimsonPro';
+    font-family:'RobotoSlab';
     color: #fff;
     font-size:18px;
 }
@@ -2199,12 +2242,12 @@ table.statsTable tbody td:nth-child(3) {
     margin-bottom: 3px;
 
     font-size:11px;
-    font-family: 'Segoe UI', Tahoma, Inter, Arial, sans-serif;
+    font-family: 'Roboto', Tahoma, Inter, Arial, sans-serif;
     font-weight: normal;
 }
 .bcc-item-listing {
     font-size:11px;
-    font-family: 'Segoe UI', Tahoma, Inter, Arial, sans-serif;
+    font-family: 'Roboto', Tahoma, Inter, Arial, sans-serif;
     font-weight: bold;
 
     display: flex;
@@ -2220,7 +2263,7 @@ table.statsTable tbody td:nth-child(3) {
     margin-bottom:0px;
 }
 .bcc-atk-title, .bcc-def-title, .bcc-skip-title, .bcc-move-title, .bcc-skill-title {
-    font-family: 'CrimsonPro', Georgia, serif;
+    font-family: 'RobotoSlab', Georgia, serif;
     font-size: 17px;
     font-weight: bold;
     text-shadow: 1px 1px 0 #000000;
@@ -2352,14 +2395,14 @@ table.statsTable tbody td:nth-child(3) {
 .animationsWrapper p {
     font-size:25px;
     font-weight: 800;
-    font-family: CrimsonPro;
+    font-family: RobotoSlab;
     text-shadow: 0 0 5px #000000,
                  0 0 10px #000000,
                  0 0 20px #000000;
 }
 .popup {
     font-size:25px;
-    font-family: CrimsonPro;
+    font-family: RobotoSlab;
     text-shadow: 0 0 5px #000000,
                  0 0 10px #000000,
                  0 0 20px #000000;
@@ -2399,7 +2442,7 @@ table.statsTable tbody td:nth-child(3) {
     align-items: center;
 }
 .battlehoverinfo-name {
-    font-family: 'CrimsonPro';
+    font-family: 'RobotoSlab';
     font-weight: bold;
     text-shadow: 0px 1px 0px #733726,0px 2px 0px #875626,0px 2px 1px #000,0px 2px 3px #000;
     color: var(--base-gold);
@@ -2436,7 +2479,7 @@ table.statsTable tbody td:nth-child(3) {
 .be-dungeonInfos h1 {
     font-size: 20px;
     color: white;
-    font-family: 'CrimsonPro';
+    font-family: 'RobotoSlab';
     font-variant: small-caps;
     font-weight: bold;
     text-align: center;
@@ -2445,7 +2488,7 @@ table.statsTable tbody td:nth-child(3) {
 .be-dungeonInfos h3 {
     font-size: 13px;
     color: rgba(255,255,255,0.5);
-    font-family: 'Tahoma';
+    font-family: 'Roboto';
     font-weight: bold;
 }
 .be-victory {
@@ -2453,7 +2496,7 @@ table.statsTable tbody td:nth-child(3) {
 
     font-size: 33px !important;
     font-variant: small-caps;
-    font-family: 'CrimsonPro' !important;
+    font-family: 'RobotoSlab' !important;
     color: var(--base-gold);
     font-weight: bold;
     text-shadow: 0px 1px 0px #733726,0px 2px 0px #875626,0px 2px 1px #000,0px 2px 3px #000;
@@ -2472,7 +2515,7 @@ table.statsTable tbody td:nth-child(3) {
     background: rgba(0, 0, 0, 0.3);
     padding: .5rem;
 
-    font-family: 'Tahoma';
+    font-family: 'Roboto';
     font-size:16px;
     font-weight: bold;
 }
@@ -2513,13 +2556,13 @@ table.statsTable tbody td:nth-child(3) {
 }
 .be-battleHeroes-single-name {
     font-weight: bold;
-    font-family: 'CrimsonPro';
+    font-family: 'RobotoSlab';
     font-size: 15px;
     color: var(--base-gold);
     margin-right: .2rem;
 }
 .be-battleHeroes-single-subname {
-    font-family: 'CrimsonPro';
+    font-family: 'RobotoSlab';
     font-size: 13px;
     color: white;
 }
@@ -2568,4 +2611,35 @@ table.statsTable tbody td:nth-child(3) {
 }
 .charIcon:hover {
     filter: grayscale(100%) drop-shadow(0 0 0.75rem white);
+}
+.theoricalval {
+    color: grey;
+    margin-left: 0.3rem;
+    font-weight: normal;
+}
+
+.runeInfo {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 3px;
+    padding: 0.5rem;
+    width: 75%;
+    margin:0 auto;
+    /*border: 1px solid rgba(0, 0, 0, 0.7);*/
+}
+.runeTitle .smallThingNoIcon {
+    font-family: 'RobotoSlabBold';
+    font-size: 12px;
+    font-weight: normal;
+}
+.runeCorruption {
+    background: rgba(169,0,0,0.1);
+    border-radius: 3px;
+    padding: 0.5rem;
+    margin-top: 6px;
+}
+.runeCorruption .name {
+    font-family: 'RobotoSlabBold';
+    color: #c10000;
+    font-size: 12px;
+    margin-bottom: 2px;
 }
