@@ -241,10 +241,10 @@ function getResourceAmount(array, name) {
 }
 
 /**
- * 
- * @param {array} array 
- * @param {string} name 
- * @returns whether the 
+ * Tells whether the provided resource's amount is superior to 0 in the provided resources array.
+ * @param {array} array the Resources array
+ * @param {string} name the name of the Resource
+ * @returns whether the resource is possessed 
  */
 function hasResource(array, name) {
     return what(array, name).amount > 0;
