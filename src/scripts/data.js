@@ -22,6 +22,7 @@ const Data = Object.freeze({
         GOLD: '#ece2b6',
         TURQUOISE: '#1abc9c',
 
+        CORRUPT: '#c10000',
         COMMON: '#dddddd',
         UNCOMMON: '#00ff00',
         RARE: '#00ddff',
@@ -289,5 +290,14 @@ const Data = Object.freeze({
         ALLIES: 'ALLIES',
         ENEMIES: 'ENEMIES',
         ALL: 'ALL'
+    },
+    ItemType: {
+        WEAPON: 'WEAPON',
+        ARMOR: 'ARMOR',
+        RUNE: 'RUNE',
+        RESOURCE: 'RESOURCE',
+        RECIPE: 'RECIPE',
+        TRINKET: 'TRINKET',
+        ECHO: 'ECHO',
     }
 });

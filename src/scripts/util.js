@@ -158,7 +158,7 @@ function getSmallThing(what, text) {
  * @returns {string} a span HTML element
  */
 function getSmallThingNoIcon(what, text) {
-    return '<span class="smallThing" style="color:' + (what.rarity ? getRarityColorCode(what.rarity) : '#fff') + '">' + (text==='*PLURAL*' ? (what.name + 's'):(text || what.name || '<span style="opacity:0;">!</span>')) + '</span>';
+    return '<span class="smallThingNoIcon" style="color:' + (what.rarity ? getRarityColorCode(what.rarity) : '#fff') + '">' + (text==='*PLURAL*' ? (what.name + 's'):(text || what.name || '<span style="opacity:0;">!</span>')) + '</span>';
 }
 
 /**

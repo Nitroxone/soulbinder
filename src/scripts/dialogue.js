@@ -13,16 +13,16 @@ class Dialogue {
         //"classes" is added to the dialogue's CSS classes
         //if an element "from" is specified, do some popupsquares
 
-        Game.tooltip.close();
+        game.tooltip.close();
         const outer = document.createElement('div');outer.className='fullCenteredOuter';outer.style.height='100%';outer.style.position='absolute';
         const inner = document.createElement('div');inner.className='fullCenteredInner';inner.style.textAlign='center';outer.appendChild(inner);
 
         const dialogueClasses = classes ? (' ' + classes) : '';
 
         const div = document.createElement('div');
-        div.innerHTML = Game.addButton({
+        div.innerHTML = game.addButton({
             text: 'x', classes: 'frameless closeButton', onclick: function () {
-                Game.dialogue.close();
+                game.dialogue.close();
             }
         }) + '' + func(div);
 
@@ -30,7 +30,7 @@ class Dialogue {
         div.id = 'dialogue-' + Dialogue.n;
         inner.appendChild(div);
         this.domWhat.appendChild(outer);
-        Game.addCallbacks();
+        game.addCallbacks();
         if(Dialogue.n == 0) this.domWhat.classList.add('on');domWhat('foreground').style.display="block";
         if(from) console.log("Popup squares!");
         Dialogue.n++;
@@ -41,7 +41,7 @@ class Dialogue {
         if(Dialogue.n > 0) {
             if(force || !this.domWhat.lastElementChild.firstElementChild.firstElementChild.classList.contains('noClose')) { // bit gross honestly lol
                 failed = false;
-                Game.tooltip.close();
+                game.tooltip.close();
                 this.domWhat.removeChild(this.domWhat.lastChild);
                 Dialogue.n--;
                 if(Dialogue.n <= 0) {
@@ -53,9 +53,9 @@ class Dialogue {
         return failed;
     }
     forceClose() {
-        Game.dialogue.close(true);
+        game.dialogue.close(true);
     }
     getCloseButton(text) {
-        return Game.addButton({text:(text || 'Close'), classes:'frameless', onclick:function(){Game.dialogue.close();}});
+        return game.addButton({text:(text || 'Close'), classes:'frameless', onclick:function(){game.dialogue.close();}});
     }
 }
