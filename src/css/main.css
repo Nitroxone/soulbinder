@@ -144,6 +144,7 @@ body {
     /*background: #000000;*/
     font-family: 'Roboto', 'Segoe UI', Inter, Arial, sans-serif;
     font-size: 11px;
+    overflow: hidden;
 }
 
 .par /* class name for paragraphs since <p> behaves wonky */ {
@@ -2626,6 +2627,9 @@ table.statsTable tbody td:nth-child(3) {
     margin:0 auto;
     /*border: 1px solid rgba(0, 0, 0, 0.7);*/
 }
+.runeInfo:not(:first-child) {
+    margin-top: 6px;
+  }
 .runeTitle .smallThingNoIcon {
     font-family: 'RobotoSlabBold';
     font-size: 12px;
