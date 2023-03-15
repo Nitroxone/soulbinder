@@ -37,8 +37,8 @@ function spawnTooltip(item) {
     tooltip.addEventListener('contextmenu', function(e) {
         e.preventDefault();
         e.stopImmediatePropagation();
-        let audio = new Audio('sounds/ui/closetooltip.wav');
-        audio.volume = 0.5;
+        let audio = new Audio('sounds/ui/spawntooltip.wav');
+        audio.volume = 0.2;
         audio.play();
         tooltip.remove();
     })
@@ -179,7 +179,7 @@ function drawWeaponInventory(weapons) {
         // Spawn tooltip and play sound on click
         domWhat('res-' + me.id).addEventListener('click', function(){
             let audio = new Audio('sounds/ui/spawntooltip.wav');
-            audio.volume = 0.3;
+            audio.volume = 0.2;
             audio.play();
             spawnTooltip(me);
         });
