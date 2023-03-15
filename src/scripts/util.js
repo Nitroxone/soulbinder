@@ -276,9 +276,9 @@ function getRandomNumber(min, max) {
 }
 
 /**
- * Dice throw : generates a random number between 0 and 100, and check if it is below the given number.
- * @param {number} chance 
- * @returns {boolean} 
+ * Dice roll : generates a random number between 0 and 100, and checks if it is below the given number.
+ * @param {number} chance a number between 0 and 100
+ * @returns {boolean} whether the dice roll was a success
  */
 function computeChance(chance) {
     return getRandomNumber(0, 100) <= chance;
