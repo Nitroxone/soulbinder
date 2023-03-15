@@ -12,14 +12,14 @@ class Rune extends Item {
      * @param {array} effects the Rune's effects (array of Stat objects)
      * @param {array} critical the Rune's critical effects
      * @param {array} corrupt the Rune's corrupt effects
-     * @param {array} triggers the Rune's corrupt triggers
+     * @param {array} echoes the Rune's corrupt echoes
      */
     constructor(name, desc, icon, price, rarity,
                 type, 
                 effects,
                 critical,
                 corrupt,
-                triggers) {
+                echoes) {
         super(name, desc, icon, price, rarity);
 
         this.type = type;
@@ -27,7 +27,7 @@ class Rune extends Item {
         this.critical = critical;
         this.corrupt = corrupt;
 
-        this.triggers = triggers;
+        this.echoes = echoes;
 
         this.isCorrupt = false;
         this.isCritical = false;
@@ -77,6 +77,7 @@ class Rune extends Item {
         this.corrupt.forEach((stat) => {
             stat.amplify();
         });
+        this.setAltered();
     }
 
     /**
@@ -132,5 +133,17 @@ class Rune extends Item {
      */
     uncorrupt() {
         this.isCorrupt = false;
+    }
+
+    /**
+     * Returns the amount of effects that are active on the rune. 
+     * Also returns the amount of critical effects is the rune is critical, and the amount of corrupt effects if the rune is corrupt.
+     * @returns {number} the amount of effects that are active on the rune
+     */
+    getEffectsAmount() {
+        let amount = this.effects.length;
+        if(this.isCritical) amount += this.critical.length;
+        if(this.isCorrupt) amount += this.corrupt.length;
+        return amount;
     }
 }

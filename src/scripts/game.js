@@ -61,6 +61,7 @@ class Game {
         this.all_trinkets = [];
         this.all_shards = [];
         this.all_echoes = [];
+        this.all_runeCorruptEffects = [];
 
         this.player = null;
         this.inventory = null;
@@ -87,6 +88,7 @@ class Game {
         this.inventory.addItem(what(this.all_resources, "reminder"));
         this.inventory.addItem(what(this.all_resources, "starblossom"));
         this.inventory.addItem(what(this.all_resources, "time stream catalyst"));
+        this.inventory.addItem(what(this.all_resources, "lead knot"));
         this.inventory.addItem(what(this.all_recipes, "withering rune"));
     }
 }
