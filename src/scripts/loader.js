@@ -137,7 +137,8 @@ const Loader = {
                             false,
                             true
                         )
-                     ]
+                     ],
+                     []
             ),
             new Rune("Withering Rune",
                      "Bla",
@@ -169,7 +170,8 @@ const Loader = {
                             false,
                             true
                         )
-                     ]
+                     ],
+                     []
             )
 
                      
@@ -207,6 +209,7 @@ const Loader = {
             new Echo(
                 "Snakebite",
                 "Heal §1% of your total health when an enemy is poisoned by this weapon.",
+                1,
                 Data.Rarity.UNCOMMON,
                 [
                     new Stat(
@@ -225,6 +228,7 @@ const Loader = {
             new Echo(
                 "Last Word",
                 "Each time a spell is cast during the fight, you gain §1% spirit (limited to §2%). This effect fades away if you are stunned, killed, or if the fight ends.",
+                1,
                 Data.Rarity.RARE,
                 [],
                 "The final word in a case is always a number.",
@@ -239,5 +243,58 @@ const Loader = {
         for(const echo of echoes) {
             game.all_echoes.push(echo);
         }
-    }
+    },
+
+    loadRuneCorruptEffects: loadRuneCorruptEffects = () => {
+        const runeCorruptEffects = [
+            new Echo(
+                "Whispers of Despair",
+                "Might, Spirit, Warding and Resilience decreased by §1% each round. Resets at the end of the fight.",
+                1,
+                Data.Rarity.CORRUPT,
+                [],
+                "Madness withers you away.",
+                {
+                    "malus": [2, 4]
+                },
+                []
+            ),
+            new Echo(
+                "Mind Scald",
+                "Inflicts §1 damage to the wearer each round.",
+                1,
+                Data.Rarity.CORRUPT,
+                [],
+                "Lorem ipsum",
+                {
+                    "malus": [5, 12]
+                },
+                []
+            ),
+            new Echo(
+                "Endless Grief",
+                "If one of the allied striders dies, the wearer will remain inactive until the fight ends.",
+                1,
+                Data.Rarity.CORRUPT,
+                [],
+                "It is too much to bear. You're not strong enough to keep fighting.",
+                {},
+                []
+            ),
+            new Echo(
+                "Atony",
+                "Stamina regeneration reduced by half.",
+                1,
+                Data.Rarity.CORRUPT,
+                [],
+                "Lorem ipsum",
+                {},
+                []
+            )
+        ];
+
+        for(const runeCorruptEffect of runeCorruptEffects) {
+            game.all_runeCorruptEffects.push(runeCorruptEffect);
+        }
+    },
 }
