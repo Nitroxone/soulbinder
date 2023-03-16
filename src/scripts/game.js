@@ -274,12 +274,13 @@ class Game {
         this.inventory.addItem(what(this.all_resources, "time stream catalyst"));
         this.inventory.addItem(what(this.all_resources, "lead knot"));
         this.inventory.addItem(what(this.all_recipes, "withering rune"));
+        this.inventory.addItem(what(this.all_recipes, "sharpness rune"));
 
         this.inventory.craft(this.inventory.recipes[0], true);
         this.inventory.maximizeRune(this.inventory.runes[2]);
         this.inventory.amplifyRune(this.inventory.runes[2], true);
         this.inventory.enchant(this.inventory.weapons[0], this.inventory.runes[2]);
-        this.inventory.craft(this.inventory.recipes[0]);
+        this.inventory.craft(this.inventory.recipes[1]);
         this.inventory.enchant(this.inventory.weapons[0], this.inventory.runes[2]);
 
         drawWeaponInventory(this.player.inventory.weapons);

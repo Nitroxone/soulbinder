@@ -109,7 +109,7 @@ const Loader = {
         const runes = [
             new Rune("Resilience Rune",
                      "Bla",
-                     45,
+                     1,
                      10,
                      Data.Rarity.RARE,
                      Data.RuneType.ARMOR,
@@ -140,9 +140,42 @@ const Loader = {
                      ],
                      []
             ),
+            new Rune("Sharpness Rune",
+                     "Bla",
+                     3,
+                     10,
+                     Data.Rarity.UNCOMMON,
+                     Data.RuneType.WEAPON,
+                     [
+                        new Stat(
+                            Data.Effect.PDMG,
+                            [3, 6],
+                        )
+                     ],
+                     [
+                        new Stat(
+                            Data.Effect.CRIT_LUK,
+                            [1, 3],
+                            false,
+                            true,
+                            true
+                        )
+                     ],
+                     [
+                        new Stat(
+                            Data.Effect.MDMG,
+                            [-1, -3],
+                            false,
+                            false,
+                            false,
+                            true
+                        )
+                     ],
+                     []
+            ),
             new Rune("Withering Rune",
                      "Bla",
-                     45,
+                     2,
                      10,
                      Data.Rarity.RARE,
                      Data.RuneType.WEAPON,
@@ -172,7 +205,7 @@ const Loader = {
                         )
                      ],
                      []
-            )
+            ),
 
                      
         ];
@@ -196,6 +229,19 @@ const Loader = {
                     new Ingredient(what(game.all_resources, "decaying petals"), 1),
                 ],
                 what(game.all_runes, "withering rune")
+            ),
+            new Recipe(
+                "Sharpness Rune",
+                "Rune description",
+                1,
+                10,
+                Data.Rarity.RARE,
+                [
+                    new Ingredient(what(game.all_resources, "dark stone"), 1),
+                    new Ingredient(what(game.all_resources, "silver powder"), 2),
+                    new Ingredient(what(game.all_resources, "decaying petals"), 1),
+                ],
+                what(game.all_runes, "sharpness rune")
             ),
         ]
 
