@@ -2,7 +2,7 @@ function spawnTooltip(item) {
     const base = '<div id="floating-' + item.id +'" class="tooltip framed bgDark">'
     const tooltip = document.createElement('div');
     if(item instanceof Weapon) {
-        tooltip.innerHTML = base + getWeaponTooltip(item) + '</div>';
+        tooltip.innerHTML = base + getWeaponTooltip(item, null, true) + '</div>';
     }
     // Same position as hovered tooltip, but positioned in such way that it will cut the mouse off the hover event
     const tooltipPos = {
@@ -52,7 +52,7 @@ function spawnTooltip(item) {
     document.body.appendChild(tooltip);
 }
 
-function getWeaponTooltip(weapon, asResult = null) {
+function getWeaponTooltip(weapon, asResult = null, full = false) {
     let str = asResult ? '<h3 class="fancyTitle">Output</h3><div class="divider"></div>' : '';
     str += '<div class="info">';
     str += '<div id="iconcloud-' + weapon.id + '" class="iconcloud' + capitalizeFirstLetter(weapon.rarity) +'"><div class="thing standalone ' + getIconClasses() + '">' + getIconStr(weapon, null, null) + '</div>';
@@ -80,7 +80,7 @@ function getWeaponTooltip(weapon, asResult = null) {
     str += '<div class="divider"></div>';
     for(let i = 0; i < weapon.sockets.length; i++) {
         //str += '<div class="par bulleted">' + getSmallThing(weapon.sockets[i], null) + '</div>'; //TODO : add detailed effects
-        str += getRuneDetails(weapon.sockets[i]);
+        str += getRuneDetails(weapon.sockets[i], full);
     }
     for(let i = 0; i < weapon.sockets_free; i++) {
         str += '<div class="par bulleted">Empty slot</div>';
@@ -95,28 +95,30 @@ function getWeaponTooltip(weapon, asResult = null) {
     return str;
 }
 
-function getRuneDetails(rune) {
+function getRuneDetails(rune, full = false) {
     let str = '<div class="runeInfo">';
     str += '<div class="runeTitle">' + getSmallThingNoIcon(rune, null) + '</div>';
-    rune.effects.forEach(effect => {
-        str += '<div class="runeEffect"' + (effect.critical ? ' style="font-weight:bold; color:'+ Data.Color.GOLD +'; font-style:italic;"' : '') + '>' + (effect.value > 0 ? '+ ' : effect.value < 0 ? '- ' : '') + (effect.value == 0 ? '' : Math.abs(effect.value)) + ' ' + capitalizeFirstLetter(effect.effect) + '<span class="theoricalval">[' + effect.theorical[0] + '-' + effect.theorical[1] + ']</span>' + '</div>';
-    });
-    if(rune.isCritical) {
-        rune.critical.forEach(effect => {
-            str += '<div class="runeEffect"' + ' style="font-family:\'RobotoBold\'; color:'+ Data.Color.GOLD +';"' + '><span style="font-family:Roboto">' + (effect.value > 0 ? '+ ' : effect.value < 0 ? '- ' : '') + '</span>' + (effect.value == 0 ? '' : Math.abs(effect.value)) + ' ' + capitalizeFirstLetter(effect.effect) + '<span class="theoricalval">[' + effect.theorical[0] + '-' + effect.theorical[1] + ']</span>' + '</div>';
+    if(full) {
+        rune.effects.forEach(effect => {
+            str += '<div class="runeEffect"' + (effect.critical ? ' style="font-weight:bold; color:'+ Data.Color.GOLD +'; font-style:italic;"' : '') + '>' + (effect.value > 0 ? '+ ' : effect.value < 0 ? '- ' : '') + (effect.value == 0 ? '' : Math.abs(effect.value)) + ' ' + capitalizeFirstLetter(effect.effect) + '<span class="theoricalval">[' + effect.theorical[0] + '-' + effect.theorical[1] + ']</span>' + '</div>';
         });
+        if(rune.isCritical) {
+            rune.critical.forEach(effect => {
+                str += '<div class="runeEffect"' + ' style="font-family:\'RobotoBold\'; color:'+ Data.Color.GOLD +';"' + '><span style="font-family:Roboto">' + (effect.value > 0 ? '+ ' : effect.value < 0 ? '- ' : '') + '</span>' + (effect.value == 0 ? '' : Math.abs(effect.value)) + ' ' + capitalizeFirstLetter(effect.effect) + '<span class="theoricalval">[' + effect.theorical[0] + '-' + effect.theorical[1] + ']</span>' + '</div>';
+            });
+        }
+        if(rune.isCorrupt) {
+            rune.corrupt.forEach(effect => {
+                str += '<div class="runeEffect"' + ' style="font-weight:bold; color:'+ Data.Color.CORRUPT +';"' + '><span style="font-weight:normal">' + (effect.value > 0 ? '+ ' : effect.value < 0 ? '- ' : '') + '</span>' + (effect.value == 0 ? '' : Math.abs(effect.value)) + ' ' + capitalizeFirstLetter(effect.effect) + '<span class="theoricalval">[' + effect.theorical[0] + '-' + effect.theorical[1] + ']</span>' + '</div>';
+            });
+        }
+        rune.echoes.forEach(echo => {
+            str += '<div class="runeCorruption">';
+            str += '<p class="name">' + echo.name +'</p>';
+            str += '<p>' + echo.desc +'</p>'
+            str += '</div>';
+        })
     }
-    if(rune.isCorrupt) {
-        rune.corrupt.forEach(effect => {
-            str += '<div class="runeEffect"' + ' style="font-weight:bold; color:'+ Data.Color.CORRUPT +';"' + '><span style="font-weight:normal">' + (effect.value > 0 ? '+ ' : effect.value < 0 ? '- ' : '') + '</span>' + (effect.value == 0 ? '' : Math.abs(effect.value)) + ' ' + capitalizeFirstLetter(effect.effect) + '<span class="theoricalval">[' + effect.theorical[0] + '-' + effect.theorical[1] + ']</span>' + '</div>';
-        });
-    }
-    rune.echoes.forEach(echo => {
-        str += '<div class="runeCorruption">';
-        str += '<p class="name">' + echo.name +'</p>';
-        str += '<p>' + echo.desc +'</p>'
-        str += '</div>';
-    })
     str += '</div>';
 
     return str;
