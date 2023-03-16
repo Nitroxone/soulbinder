@@ -77,4 +77,21 @@ class Armor extends Item {
     hasFreeSockets() {
         return this.sockets_free > 0;
     }
+    
+    /**
+     * Adds the Stat's data to the Weapon's data.
+     * @param {Stat} effect the Stat to add
+     * @param {boolean} remove whether the Stat should removed instead of being added
+     */
+    addEffect(effect, remove = false) {
+        const factor = remove ? -1 : 1;
+        switch(effect.effect) {
+            case Data.Effect.PRES:
+                this.pres += effect.getValue() * factor;
+                break;
+            case Data.Effect.MRES:
+                this.mres += effect.getValue() * factor;
+                break;
+        }
+    }
 }

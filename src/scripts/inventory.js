@@ -118,52 +118,18 @@ class Inventory {
      */
     disenchant(item, rune) {
         if(containsByName(item.sockets, rune.name)) {
-            for(const effect of rune.effects) {
-                if(item instanceof Armor) {
-                    switch(effect.effect) {
-                        case Data.Effect.PRES:
-                            item.pres -= effect.getValue();
-                            break;
-                        case Data.Effect.MRES:
-                            item.mres -= effect.getValue();
-                            break;
-                    }
-                } else {
-                    switch(effect.effect) {
-                        case Data.Effect.PDMG:
-                            item.pdmg[0] -= effect.getValue();
-                            item.pdmg[1] -= effect.getValue();
-                            break;
-                        case Data.Effect.MDMG:
-                            item.mdmg[0] -= effect.getValue();
-                            item.mdmg[1] -= effect.getValue();
-                            break;
-                        case Data.Effect.BLOCK:
-                            item.block -= effect.getValue();
-                            break;
-                        case Data.Effect.EFFORT:
-                            item.effort -= effect.getValue();
-                            break;
-                        case Data.Effect.CRIT_LUK:
-                            item.crit_luk -= effect.getValue();
-                            break;
-                        case Data.Effect.CRIT_DMG:
-                            item.crit_dmg -= effect.getValue();
-                            break;
-                        case Data.Effect.BLEED_DMG:
-                            item.bleed[0] -= effect.getValue();
-                            break;
-                        case Data.Effect.BLEED_DURATION:
-                            item.bleed[1] -= effect.getValue();
-                            break;
-                        case Data.Effect.BLEED_CURABLE:
-                            item.bleed[2] = true;
-                            break;
-                        case Data.Effect.BLEED_INCURABLE: 
-                            item.bleed[2] = false;
-                            break;
-                    }
-                }
+            rune.effects.forEach(effect => {
+                item.addEffect(effect, true);
+            });
+            if(rune.isCritical) {
+                rune.critical.forEach(effect => {
+                    item.addEffect(effect, true);
+                });
+            }
+            if(rune.isCorrupt) {
+                rune.corrupt.forEach(effect => {
+                    item.addEffect(effect, true);
+                });
             }
             item.unbindRune(rune);
             item.addAvailableSocket();
@@ -180,52 +146,18 @@ class Inventory {
      */
     enchant(item, rune) {
         if(this.allowEnchant(item, rune)) {
-            for(const effect of rune.effects) {
-                if(item instanceof Armor) {
-                    switch(effect.effect) {
-                        case Data.Effect.PRES:
-                            item.pres += effect.getValue();
-                            break;
-                        case Data.Effect.MRES:
-                            item.mres += effect.getValue();
-                            break;
-                    }
-                } else {
-                    switch(effect.effect) {
-                        case Data.Effect.PDMG:
-                            item.pdmg[0] += effect.getValue();
-                            item.pdmg[1] += effect.getValue();
-                            break;
-                        case Data.Effect.MDMG:
-                            item.mdmg[0] += effect.getValue();
-                            item.mdmg[1] += effect.getValue();
-                            break;
-                        case Data.Effect.BLOCK:
-                            item.block += effect.getValue();
-                            break;
-                        case Data.Effect.EFFORT:
-                            item.effort += effect.getValue();
-                            break;
-                        case Data.Effect.CRIT_LUK:
-                            item.crit_luk += effect.getValue();
-                            break;
-                        case Data.Effect.CRIT_DMG:
-                            item.crit_dmg += effect.getValue();
-                            break;
-                        case Data.Effect.BLEED_DMG:
-                            item.bleed[0] += effect.getValue();
-                            break;
-                        case Data.Effect.BLEED_DURATION:
-                            item.bleed[1] += effect.getValue();
-                            break;
-                        case Data.Effect.BLEED_CURABLE:
-                            item.bleed[2] = true;
-                            break;
-                        case Data.Effect.BLEED_INCURABLE: 
-                            item.bleed[2] = false;
-                            break;
-                    }
-                }
+            rune.effects.forEach(effect => {
+                item.addEffect(effect);
+            });
+            if(rune.isCritical) {
+                rune.critical.forEach(effect => {
+                    item.addEffect(effect);
+                });
+            }
+            if(rune.isCorrupt) {
+                rune.corrupt.forEach(effect => {
+                    item.addEffect(effect);
+                });
             }
             this.removeItem(rune);
             item.sockets.push(rune);

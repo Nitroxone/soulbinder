@@ -117,4 +117,47 @@ class Weapon extends Item {
     hasFreeSockets() {
         return this.sockets_free > 0;
     }
+
+    /**
+     * Adds the Stat's data to the Weapon's data.
+     * @param {Stat} effect the Stat to add
+     * @param {boolean} remove whether the Stat should removed instead of being added
+     */
+    addEffect(effect, remove = false) {
+        const factor = remove ? -1 : 1;
+        switch(effect.effect) {
+            case Data.Effect.PDMG:
+                this.pdmg[0] += effect.getValue() * factor;
+                this.pdmg[1] += effect.getValue() * factor;
+                break;
+            case Data.Effect.MDMG:
+                this.mdmg[0] += effect.getValue() * factor;
+                this.mdmg[1] += effect.getValue() * factor;
+                break;
+            case Data.Effect.BLOCK:
+                this.block += effect.getValue() * factor;
+                break;
+            case Data.Effect.EFFORT:
+                this.effort += effect.getValue() * factor
+                break;
+            case Data.Effect.CRIT_LUK:
+                this.crit_luk += effect.getValue() * factor;
+                break;
+            case Data.Effect.CRIT_DMG:
+                this.crit_dmg += effect.getValue() * factor;
+                break;
+            case Data.Effect.BLEED_DMG:
+                this.bleed[0] += effect.getValue() * factor;
+                break;
+            case Data.Effect.BLEED_DURATION:
+                this.bleed[1] += effect.getValue() * factor;
+                break;
+            case Data.Effect.BLEED_CURABLE:
+                this.bleed[2] = !remove;
+                break;
+            case Data.Effect.BLEED_INCURABLE: 
+                this.bleed[2] = remove;
+                break;
+        }
+    }
 }
