@@ -923,13 +923,30 @@ a:active, .tooltiped:active {
     left: 0;
     top: 0;
     white-space: nowrap;
+
     animation-name: tooltipSlideIn;
+    animation-duration: 0.25s;
+    animation-delay: 0;
+}
+.tooltipSlideIn {
+    animation-name: tooltipSlideIn;
+    animation-duration: 0.25s;
+    animation-delay: 0;
+}
+.tooltipSpawn {
+    animation-name: tooltipSpawn;
     animation-duration: 0.25s;
     animation-delay: 0;
 }
 @keyframes tooltipSlideIn {
     0% {
         translate: 0px 10px;
+    }
+}
+@keyframes tooltipSpawn {
+    0% {
+        translate: 0px 10px;
+        transform: scale(0.95);
     }
 }
 .widget, .tooltip {white-space: normal;}

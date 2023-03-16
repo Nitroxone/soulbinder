@@ -3,7 +3,7 @@
  * @param {Item} item the Item data to fill the tooltip with
  */
 function spawnTooltip(item) {
-    const base = '<div id="floating-' + item.id +'" class="tooltip framed bgDark">'
+    const base = '<div id="floating-' + item.id +'" class="tooltip framed bgDark tooltipSpawn">'
     const tooltip = document.createElement('div');
     if(item instanceof Weapon) {
         tooltip.innerHTML = base + getWeaponTooltip(item, null, true) + '</div>';
