@@ -4,9 +4,15 @@ function spawnTooltip(item) {
     if(item instanceof Weapon) {
         tooltip.innerHTML = base + getWeaponTooltip(item) + '</div>';
     }
+    // Same position as hovered tooltip, but positioned in such way that it will cut the mouse off the hover event
+    const tooltipPos = {
+        top: domWhat('tooltipAnchor').offsetTop - 75 + 'px',
+        left: domWhat('tooltipAnchor').offsetLeft + domWhat('tooltip').offsetLeft + 'px'
+    }
+
     tooltip.style.position = "absolute";
-    tooltip.style.top = tooltip.offsetTop + 'px';
-    tooltip.style.left = tooltip.offsetLeft + 'px';
+    tooltip.style.top = tooltipPos.top;
+    tooltip.style.left = tooltipPos.left;
 
     tooltip.addEventListener('mousedown', function(e) {
         var moving = true;
