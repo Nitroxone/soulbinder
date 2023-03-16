@@ -1758,7 +1758,7 @@ input[type=text], textarea, select {
     background: url(img/darkBorders.png), url(img/darkNoise.jpg);
     background-size: 100% 100%, auto;
 }
-.bgDark {
+.bgDark, .bgRegularDark {
     background: url(img/darkBorders.png), url(img/darkNoise.jpg);
     background-size: 100% 100%, auto;
 }
@@ -2620,6 +2620,7 @@ table.statsTable tbody td:nth-child(3) {
 }
 
 .runeInfo {
+    border: 1px solid rgba(255,255,255,0.9);
     position: relative;
     background-size: 60%;
     background-position: top right;
@@ -2634,7 +2635,6 @@ table.statsTable tbody td:nth-child(3) {
     overflow: hidden;
 }
 .runeInfo::before {
-    border: 1px solid rgba(255,255,255,0.9);
     content: "";
     position: absolute;
     top: 0px;
@@ -2665,4 +2665,7 @@ table.statsTable tbody td:nth-child(3) {
 }
 .runeInfo > * {
     position: relative;
+}
+.runeInfoEmpty {
+    border: 1px solid rgba(255,255,255,0.35) !important;
 }

@@ -1,3 +1,7 @@
+/**
+ * Spawns a floating tooltip on screen based on the provided Item's data.
+ * @param {Item} item the Item data to fill the tooltip with
+ */
 function spawnTooltip(item) {
     const base = '<div id="floating-' + item.id +'" class="tooltip framed bgDark">'
     const tooltip = document.createElement('div');
@@ -52,6 +56,13 @@ function spawnTooltip(item) {
     document.body.appendChild(tooltip);
 }
 
+/**
+ * 
+ * @param {Weapon} weapon the Weapon data to fill the tooltip with
+ * @param {*} asResult should tooltip be converted to a recipe result display?
+ * @param {*} full display all of the infos (runes details, echoes details)
+ * @returns {string} an HTML code that contains the data
+ */
 function getWeaponTooltip(weapon, asResult = null, full = false) {
     let str = asResult ? '<h3 class="fancyTitle">Output</h3><div class="divider"></div>' : '';
     str += '<div class="info">';
@@ -83,7 +94,7 @@ function getWeaponTooltip(weapon, asResult = null, full = false) {
         str += getRuneDetails(weapon.sockets[i], full);
     }
     for(let i = 0; i < weapon.sockets_free; i++) {
-        str += '<div class="par bulleted">Empty slot</div>';
+        str += getEmptyRuneHTML();
     }
 
     // desc
@@ -92,6 +103,14 @@ function getWeaponTooltip(weapon, asResult = null, full = false) {
     str += '</div>';
 
     
+    return str;
+}
+
+function getEmptyRuneHTML() {
+    let str = '<div class="runeInfo runeInfoEmpty">'
+    str += '<div class="runeInfo-infos">'
+    str += '<div class="runeTitle">Empty slot</div>';
+    str += '</div></div>'
     return str;
 }
 
