@@ -2620,23 +2620,39 @@ table.statsTable tbody td:nth-child(3) {
 }
 
 .runeInfo {
-    background: rgba(0, 0, 0, 0.3);
+    position: relative;
+    background-size: 60%;
+    background-position: top right;
+    background-repeat: no-repeat;
+    /*background: rgba(0, 0, 0, 0.3);*/
     border-radius: 3px;
     padding: 0.5rem;
     width: 75%;
     margin:0 auto;
     /*border: 1px solid rgba(0, 0, 0, 0.7);*/
+
+    overflow: hidden;
+}
+.runeInfo::before {
+    border: 1px solid rgba(255,255,255,0.9);
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-color: rgba(0,0,0,0.3);
 }
 .runeInfo:not(:first-child) {
     margin-top: 6px;
-  }
+}
 .runeTitle .smallThingNoIcon {
     font-family: 'RobotoSlabBold';
     font-size: 12px;
     font-weight: normal;
 }
 .runeCorruption {
-    background: rgba(169,0,0,0.1);
+    border: 1px solid rgba(169,0,0,0.9);
     border-radius: 3px;
     padding: 0.5rem;
     margin-top: 6px;
@@ -2646,4 +2662,7 @@ table.statsTable tbody td:nth-child(3) {
     color: #c10000;
     font-size: 12px;
     margin-bottom: 2px;
+}
+.runeInfo > * {
+    position: relative;
 }
