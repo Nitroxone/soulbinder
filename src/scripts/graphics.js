@@ -109,7 +109,7 @@ function getWeaponTooltip(weapon, asResult = null, full = false) {
 function getEmptyRuneHTML() {
     let str = '<div class="runeInfo runeInfoEmpty">'
     str += '<div class="runeInfo-infos">'
-    str += '<div class="runeTitle">Empty slot</div>';
+    str += '<div class="runeTitle">Empty rune slot</div>';
     str += '</div></div>'
     return str;
 }
