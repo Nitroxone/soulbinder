@@ -51,7 +51,7 @@ const Loader = {
             new Resource(
                 "Starblossom",
                 "Cleanses a rune's corrupted effects.",
-                1,
+                4,
                 10,
                 Data.Rarity.EPIC,
             ),
@@ -65,35 +65,35 @@ const Loader = {
             new Resource(
                 "Lead Knot",
                 "Pushes the rune's effects beyond their maximum bound. May generate corrupt effects.",
-                1,
+                2,
                 10,
                 Data.Rarity.LEGENDARY,
             ),
             new Resource(
                 "Reminder",
                 "Randomly recasts an item's effects.",
-                1,
+                3,
                 10,
                 Data.Rarity.RARE
             ),
             new Resource(
                 "Dark Stone",
                 "A chunk of a stone darkened by corruption.",
-                1,
+                6,
                 10,
                 Data.Rarity.COMMON,
             ),
             new Resource(
                 "Silver Powder",
                 "A pouch of the finest refined silver powder.",
-                1,
+                5,
                 10,
                 Data.Rarity.COMMON,
             ),
             new Resource(
                 "Decaying Petals",
                 "blabla",
-                1,
+                7,
                 10,
                 Data.Rarity.UNCOMMON,
             ),
@@ -108,7 +108,7 @@ const Loader = {
     loadRunes: loadRunes = () => {
         const runes = [
             new Rune("Resilience Rune",
-                     "Bla",
+                     "The indecipherable carvings on the rune strenghten your very flesh and the hardiness of your armor.",
                      1,
                      10,
                      Data.Rarity.RARE,
@@ -141,7 +141,7 @@ const Loader = {
                      []
             ),
             new Rune("Sharpness Rune",
-                     "Bla",
+                     "From the stone emanates a singular power, that flows through the metal to your muscles, and floods your whole being with a supernatural strength.",
                      3,
                      10,
                      Data.Rarity.UNCOMMON,

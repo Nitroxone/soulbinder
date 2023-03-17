@@ -5,9 +5,9 @@
 function spawnTooltip(item) {
     const base = '<div id="floating-' + item.id +'" class="tooltip framed bgDark tooltipSpawn">'
     const tooltip = document.createElement('div');
-    if(item instanceof Weapon) {
-        tooltip.innerHTML = base + getWeaponTooltip(item, null, true) + '</div>';
-    }
+    if(item instanceof Weapon) tooltip.innerHTML = base + getWeaponTooltip(item, null, true) + '</div>';
+    else if(item instanceof Rune) tooltip.innerHTML = base + getRuneTooltip(item, null, true) + '</div>';
+    else if(item instanceof Resource) tooltip.innerHTML = base + getResourceTooltip(item, null) + '</div>';
     // Same position as hovered tooltip, but positioned in such way that it will cut the mouse off the hover event
     const tooltipPos = {
         top: domWhat('tooltipAnchor').offsetTop - 75 + 'px',
@@ -56,8 +56,64 @@ function spawnTooltip(item) {
     document.body.appendChild(tooltip);
 }
 
+function getRuneTooltip(rune, asResult, full = false) {
+    let str = asResult ? '<h3 class="fancyTitle">Output</h3><div class="divider"></div>' : '';
+    str += '<div class="info">';
+    str += '<div id="iconcloud-' + rune.id + '"class="iconcloud' + capitalizeFirstLetter(rune.rarity) + '"><div class="thing standalone ' + getIconClasses() + '">' + getIconStr(rune, null, null) + '</div>';
+    str += '<div class="fancyText infoAmount onLeft">' + (asResult ? asResult.result_amount : '') + '</div></div>';
+    str += '<div class="fancyText barred infoTitle" style="color: ' + getRarityColorCode(rune.rarity) +'">' + rune.name + '</div>';
+    str += '<div class="fancyText barred">' + capitalizeFirstLetter(rune.rarity) + '</div>';
+    str += '<div class="fancyText barred">' + capitalizeFirstLetter(rune.type) + ' rune</div>';
+    str += '<div class="infoDesc">';
+
+    // effects
+    str += '<div class="par"></div>';
+    rune.effects.forEach(effect => {
+        str += '<div class="itemEffect"' + (effect.critical ? ' style="font-weight:bold; color:'+ Data.Color.GOLD +'; font-style:italic;"' : '') + '>' + (effect.value > 0 ? '+ ' : effect.value < 0 ? '- ' : '') + (effect.value == 0 ? '' : Math.abs(effect.value)) + (effect.isPercentage ? '%' : '') + ' ' + capitalizeFirstLetter(effect.effect) + '<span class="theoricalval">[' + effect.theorical[0] + '-' + effect.theorical[1] + ']</span>' + '</div>';
+    });
+    if(rune.isCritical) {
+        rune.critical.forEach(effect => {
+            str += '<div class="itemEffect"' + ' style="font-family:\'RobotoBold\'; color:'+ Data.Color.GOLD +';"' + '><span style="font-family:Roboto">' + (effect.value > 0 ? '+ ' : effect.value < 0 ? '- ' : '') + '</span>' + (effect.value == 0 ? '' : Math.abs(effect.value)) + (effect.isPercentage ? '%' : '') + ' ' + capitalizeFirstLetter(effect.effect) + '<span class="theoricalval">[' + effect.theorical[0] + '-' + effect.theorical[1] + ']</span>' + '</div>';
+        });
+    }
+    if(rune.isCorrupt) {
+        rune.corrupt.forEach(effect => {
+            str += '<div class="itemEffect"' + ' style="font-weight:bold; color:'+ Data.Color.CORRUPT +';"' + '><span style="font-weight:normal">' + (effect.value > 0 ? '+ ' : effect.value < 0 ? '- ' : '') + '</span>' + (effect.value == 0 ? '' : Math.abs(effect.value)) + (effect.isPercentage ? '%' : '') + ' ' + capitalizeFirstLetter(effect.effect) + '<span class="theoricalval">[' + effect.theorical[0] + '-' + effect.theorical[1] + ']</span>' + '</div>';
+        });
+    }
+    rune.echoes.forEach(echo => {
+        str += '<div class="runeCorruption">';
+        str += '<p class="name">' + echo.name +'</p>';
+        str += '<p>' + echo.desc +'</p>'
+        str += '</div>';
+    })
+
+    str += '<div class="divider"></div>';
+    str += '<div class="par tooltipDesc">' + rune.desc + '</div>';
+    str += '</div></div>';
+
+    game.particlesTooltipCanvasItem = rune;
+    return str;
+}
+
+function getResourceTooltip(resource, asResult = null) {
+    let str = asResult ? '<h3 class="fancyTitle">Output</h3><div class="divider"></div>' : '';
+    str += '<div class="info">';
+    str += '<div id="iconcloud-' + resource.id + '"class="iconcloud' + capitalizeFirstLetter(resource.rarity) + '"><div id="res-icon-' + resource.id + '" class="tooltipIcon" style="' + getIcon(resource.icon) + '"></div>';
+    str += '<div class="fancyText infoAmount onLeft">' + (asResult ? asResult.result_amount : resource.amount) + '</div></div>';
+    str += '<div class="fancyText barred infoTitle" style="color: ' + getRarityColorCode(resource.rarity) + '">' + resource.name + '</div>';
+    str += '<div class="fancyText barred">' + capitalizeFirstLetter(resource.rarity) + '</div>';
+    str += '<div class="infoDesc">';
+    str += '<div class="par"></div>';
+    str += '<div class="par tooltipDesc">' + resource.desc + '</div>';
+    str += '</div></div>';
+
+    game.particlesTooltipCanvasItem = resource;
+    return str;
+}
+
 /**
- * 
+ * Gets the HTML code that contains the provided Weapon's data
  * @param {Weapon} weapon the Weapon data to fill the tooltip with
  * @param {*} asResult should tooltip be converted to a recipe result display?
  * @param {*} full display all of the infos (runes details, echoes details)
@@ -99,10 +155,10 @@ function getWeaponTooltip(weapon, asResult = null, full = false) {
 
     // desc
     str += '<div class="divider"></div>';
-    str += '<div class="par">"' + weapon.desc + '"</div>';
+    str += '<div class="par tooltipDesc">' + weapon.desc + '</div>';
     str += '</div>';
 
-    
+    game.particlesTooltipCanvasItem = weapon;
     return str;
 }
 
@@ -157,7 +213,7 @@ function addTooltip(element, func, object) {
             tooltip.update();
             tooltip.update();
             tooltip.update();
-            if(this.particlesTooltipCanvasItem) this.getTooltipParticlesCanvas(this.particlesTooltipCanvasItem);
+            if(game.particlesTooltipCanvasItem) getTooltipParticlesCanvas(game.particlesTooltipCanvasItem);
         };
     }(element, func, t, object || {}));
     AddEvent(element, 'mouseout', function(element, func, tooltip) {
@@ -168,8 +224,8 @@ function addTooltip(element, func, object) {
             tooltip.update();
             tooltip.update();
 
-            if(this.particlesTooltipCanvasInterval) clearInterval(this.particlesTooltipCanvasInterval);
-            if(this.particlesTooltipCanvasItem) this.particlesTooltipCanvasItem = null;
+            if(game.particlesTooltipCanvasInterval) clearInterval(game.particlesTooltipCanvasInterval);
+            if(game.particlesTooltipCanvasItem) game.particlesTooltipCanvasItem = null;
         };
     }(element, func, t));
     AddEvent(element, 'DOMNodeRemoved', function(element, func, tooltip) {
@@ -180,8 +236,8 @@ function addTooltip(element, func, object) {
             tooltip.update();
             tooltip.update();
 
-            if(this.particlesTooltipCanvasInterval) clearInterval(this.particlesTooltipCanvasInterval);
-            if(this.particlesTooltipCanvasItem) this.particlesTooltipCanvasItem = null;
+            if(game.particlesTooltipCanvasInterval) clearInterval(game.particlesTooltipCanvasInterval);
+            if(game.particlesTooltipCanvasItem) game.particlesTooltipCanvasItem = null;
         };
     }(element, func, t));
 
@@ -219,5 +275,83 @@ function drawWeaponInventory(weapons) {
             audio.play();
         })
     }
+}
+
+function drawRuneInventory(runes) {
+    let str = '';
+    for(let i = 0; i < runes.length; i++) {
+        let me = runes[i];
+        str += '<div id="res-' + me.id + '" class="res thing wide1" style="display: inline-block;">';
+        str += '<div id="res-icon-' + me.id + '" class="icon double" style="' + getIcon(me.icon) + '"></div>';
+        str += '<div id="res-over-' + me.id + '" class="overlay" style="border: 1px solid ' + getRarityColorCode(runes[i].rarity) + '"></div>';
+        str += '<div id="res-amount-' + me.id + '" class="amount"></div>';
+        str += '</div>';
+    }
+    domWhat('res-cat-runes').innerHTML = str;
+    for(let i = 0; i < runes.length; i++) {
+        let me = runes[i];
+        // Add tooltip
+        addTooltip(domWhat('res-' + me.id), function(){
+            return getRuneTooltip(game.inventory.getItemFromId(Data.ItemType.RUNE, me.id));
+        }, {offY: -8});
+        // Spawn tooltip and play sound on click
+        domWhat('res-' + me.id).addEventListener('click', function(){
+            let audio = new Audio('sounds/ui/spawntooltip.wav');
+            audio.volume = 0.2;
+            audio.play();
+            spawnTooltip(me);
+        });
+        // Play sound on hover
+        domWhat('res-' + me.id).addEventListener('mouseover', function(){
+            let audio = new Audio('sounds/ui/hovertooltip.wav');
+            audio.volume = 0.5;
+            audio.playbackRate = 2;
+            audio.play();
+        })
+    }
+}
+
+function drawResourceInventory(resources) {
+    let str = '';
+    for(let i = 0; i < resources.length; i++) {
+        if(resources[i].amount > 0) {
+            let me = resources[i];
+            str += '<div id="res-' + me.id + '" class="res thing wide1" style="display: inline-block;">';
+            str += '<div id="res-icon-' + me.id + '" class="icon double" style="' + getIcon(me.icon) + '"></div>';
+            str += '<div id="res-over-' + me.id + '" class="overlay" style="border: 1px solid ' + getRarityColorCode(resources[i].rarity) + '"></div>';
+            str += '<div id="res-amount-' + me.id + '" class="amount">' + me.amount + '</div>';
+            str += '</div>';
+        }
+    }
+    domWhat('res-cat-resources').innerHTML = str;
+    for(let i = 0; i < resources.length; i++) {
+        if(resources[i].amount > 0) {
+            let me = resources[i];
+            // Add tooltip
+            addTooltip(domWhat('res-' + me.id), function(){
+                return getResourceTooltip(game.inventory.getItemFromId(Data.ItemType.RESOURCE, me.id));
+            }, {offY: -8});
+            // Spawn tooltip and play sound on click
+            domWhat('res-' + me.id).addEventListener('click', function(){
+                let audio = new Audio('sounds/ui/spawntooltip.wav');
+                audio.volume = 0.2;
+                audio.play();
+                spawnTooltip(me);
+            });
+            // Play sound on hover
+            domWhat('res-' + me.id).addEventListener('mouseover', function(){
+                let audio = new Audio('sounds/ui/hovertooltip.wav');
+                audio.volume = 0.5;
+                audio.playbackRate = 2;
+                audio.play();
+            })
+        }
+    }
+}
+
+function drawInventory() {
+    drawWeaponInventory(game.inventory.weapons);
+    drawRuneInventory(game.inventory.runes);
+    drawResourceInventory(game.inventory.resources);
 }
 

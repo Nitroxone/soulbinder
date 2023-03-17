@@ -81,6 +81,9 @@ class Inventory {
             case Data.ItemType.RECIPE:
                 array = {items: this.recipes};
                 break;
+            case Data.ItemType.RESOURCE:
+                array = {items: this.resources};
+                break;
             default:
                 throw new Error('Unsupported type for item search.');
         }

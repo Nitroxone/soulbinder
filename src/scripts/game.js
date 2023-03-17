@@ -220,10 +220,11 @@ class Game {
     updateTab(tab) {
 
     }
+
     updateLogPopup() {
         let str = '';
-        str += '<div class="par"><b>Soulbinder</b> is a game developed by ntrx. It is currently in early alpha state, may be prone to numerous bugs, and definitely will be updated as frequently as possible. The project first started as a way to practice my JS/TS skills. Now we\'re here.</div>' +
-            '<div class="par">The game was imagined as a modest web browser side game to kill time during meetings, class, while procrastinating or simply idling. You can play at your own pace, either being super invested in your playthrough or as a no-brainer.</div>' +
+        str += '<div class="par"><b>Soulbinder</b> is a JavaScript game made by ntrx and wensa. It is currently in early alpha state and may be prone to numerous bugs - though we got a lot of update plans on the way. The project first started as a way to practice my JavaScript skills. Now we\'re here.</div>' +
+            '<div class="par"><b>Soulbinder</b>\'s goal is to take you on a lore-rich, story-driven dungeon crawling adventure with enough features to never make you bored of it. A heavy emphasis was put on the game\'s accessibility : hence the fact that is it a web browser game. It is also free and open source, so you can <a href="https://github.com/Nitroxone/soulbinderjs" target="_blank">download the game</a> anytime you want in case you go offline but still want to play. But most importantly : it was made to kill time!</div>' +
             '<br><div class="fancyText">The long term</div>' +
             '<div class="par">Once the game has a stable gameplay base, the idea would be to release updates from time to time that would add new dungeons, enemies, items, and so on.</div>';
         str += '<div class="divider"></div><div class="fancyText">Update log:</div>';
@@ -269,20 +270,20 @@ class Game {
         this.inventory.addItem(what(this.all_resources, "dark stone"), 10);
         this.inventory.addItem(what(this.all_resources, "silver powder"), 10);
         this.inventory.addItem(what(this.all_resources, "decaying petals"), 10);
-        this.inventory.addItem(what(this.all_resources, "reminder"));
-        this.inventory.addItem(what(this.all_resources, "starblossom"));
-        this.inventory.addItem(what(this.all_resources, "time stream catalyst"));
-        this.inventory.addItem(what(this.all_resources, "lead knot"));
+        this.inventory.addItem(what(this.all_resources, "reminder"), 2);
+        this.inventory.addItem(what(this.all_resources, "starblossom"), 2);
+        this.inventory.addItem(what(this.all_resources, "time stream catalyst"), 2);
+        this.inventory.addItem(what(this.all_resources, "lead knot"), 2);
         this.inventory.addItem(what(this.all_recipes, "withering rune"));
         this.inventory.addItem(what(this.all_recipes, "sharpness rune"));
 
-        this.inventory.craft(this.inventory.recipes[0], true);
+        this.inventory.craft(this.inventory.recipes[0]);
         this.inventory.maximizeRune(this.inventory.runes[2]);
-        this.inventory.amplifyRune(this.inventory.runes[2], true);
+        this.inventory.amplifyRune(this.inventory.runes[2]);
         this.inventory.enchant(this.inventory.weapons[0], this.inventory.runes[2]);
         this.inventory.craft(this.inventory.recipes[1]);
         this.inventory.enchant(this.inventory.weapons[0], this.inventory.runes[2]);
 
-        drawWeaponInventory(this.player.inventory.weapons);
+        drawInventory();
     }
 }

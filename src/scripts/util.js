@@ -104,13 +104,18 @@ function getOffset(element) {
  * @param {number} icon the icon index on the IconSheet
  * @returns {string} a CSS style string.
  */
-function getIcon(icon) {
+/*function getIcon(icon) {
     // euclidean division of the icon index by 16 (which is the amount of icons per line on the icon set).
     // remainder : x; quotient: y;
     const posX = -(icon[0] % 16) * 24 * Game.iconScale;
     const posY = -(Math.floor(icon[0] / 16)) * 24 * Game.iconScale;
     return 'background: url(' + Game.iconURL +') ' + posX + 'px ' + posY + 'px;';
+}*/
+
+function getIcon(icon, type) {
+    return 'background-image: url(css/img/resources/' + icon + '.png)';
 }
+
 /**
  * Generates an HTML div string that contains a standalone icon.
  * @param {number} icon 
