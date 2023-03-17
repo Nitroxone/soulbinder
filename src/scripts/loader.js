@@ -174,7 +174,7 @@ const Loader = {
                      []
             ),
             new Rune("Withering Rune",
-                     "Bla",
+                     "The wounds burn with a terrible heat or biting cold. Bodies crumble and die at its touch.",
                      2,
                      10,
                      Data.Rarity.RARE,

@@ -2709,8 +2709,12 @@ table.statsTable tbody td:nth-child(3) {
     background-position: center;
     background-repeat: no-repeat;
 }
-.tooltipDesc {
+.tooltipDesc, .echoDesc {
     font-family: 'RobotoItalic';
+}
+.echoDesc {
+    color: grey;
+    text-align: right;
 }
 /*.tooltipDesc::before {
     content: "«";

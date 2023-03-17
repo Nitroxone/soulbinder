@@ -6,7 +6,7 @@ function spawnTooltip(item) {
     const base = '<div id="floating-' + item.id +'" class="tooltip framed bgDark tooltipSpawn">'
     const tooltip = document.createElement('div');
     if(item instanceof Weapon) tooltip.innerHTML = base + getWeaponTooltip(item, null, true) + '</div>';
-    else if(item instanceof Rune) tooltip.innerHTML = base + getRuneTooltip(item, null, true) + '</div>';
+    else if(item instanceof Rune) tooltip.innerHTML = base + getRuneTooltip(item, null) + '</div>';
     else if(item instanceof Resource) tooltip.innerHTML = base + getResourceTooltip(item, null) + '</div>';
     // Same position as hovered tooltip, but positioned in such way that it will cut the mouse off the hover event
     const tooltipPos = {
@@ -56,7 +56,7 @@ function spawnTooltip(item) {
     document.body.appendChild(tooltip);
 }
 
-function getRuneTooltip(rune, asResult, full = false) {
+function getRuneTooltip(rune, asResult) {
     let str = asResult ? '<h3 class="fancyTitle">Output</h3><div class="divider"></div>' : '';
     str += '<div class="info">';
     str += '<div id="iconcloud-' + rune.id + '"class="iconcloud' + capitalizeFirstLetter(rune.rarity) + '"><div class="thing standalone ' + getIconClasses() + '">' + getIconStr(rune, null, null) + '</div>';
@@ -85,6 +85,8 @@ function getRuneTooltip(rune, asResult, full = false) {
         str += '<div class="runeCorruption">';
         str += '<p class="name">' + echo.name +'</p>';
         str += '<p>' + echo.desc +'</p>'
+        str += '<br>';
+        str += '<p class="echoDesc">' + echo.quote +'</p>'
         str += '</div>';
     })
 
