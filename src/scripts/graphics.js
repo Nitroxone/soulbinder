@@ -261,14 +261,14 @@ function getRuneDetails(rune, full = false) {
 function getEchoDetails(echo, full = false) {
     let str = '<div class="echoInfo" style="border: 1px solid '+ hexToRGBA(getRarityColorCode(echo.rarity), 0.5) +'">'
     str += '<div class="echoTitle" style="color: ' + getRarityColorCode(echo.rarity) + '">' + echo.name + '</div>';
-    str += '<div class="echoEffects">'
-    echo.stats.forEach(effect => {
-        str += effect.getFormatted("echoEffect");
-    });
-    str += '</div>'
-    str += '<br>';
-    str += '<div class="echoDesc">' + echo.desc + '</div>'
     if(full) {
+        str += '<div class="echoEffects">'
+        echo.stats.forEach(effect => {
+            str += effect.getFormatted("echoEffect");
+        });
+        str += '</div>'
+        str += '<br>';
+        str += '<div class="echoDesc">' + echo.desc + '</div>'
         str += '<br>';
         str += '<div class="echoQuote">' + echo.quote + '</div>';
     }
