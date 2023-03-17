@@ -6,7 +6,6 @@ class Resource extends Item {
      * @param {number} price The Resource's price
      * @param {string} rarity The Resource's rarity
      */
-    
     constructor(name, desc, icon, price, rarity) {
         super(name, desc, icon, price, rarity);
         this.amount = 0;

@@ -91,7 +91,15 @@ class Stat {
         return this.value == this.theorical[1];
     }
 
-    getFormatted(cssClass = '', color = '', bold = '', italic = '') {
+    /**
+     * Returns a formatted HTML code string that contains the Stat's data.
+     * @param {string} cssClass an optional CSS class
+     * @param {string} color an optional color
+     * @param {boolean} bold makes the text bold
+     * @param {boolean} italic makes the text in italics
+     * @return {string} an HTML string
+     */
+    getFormatted(cssClass = '', color = '', bold = false, italic = false) {
         return '<div class="' 
         + cssClass 
         + '" style="' 
@@ -107,7 +115,7 @@ class Stat {
         + capitalizeFirstLetter(this.effect) 
         + '<span class="theoricalval">[' 
         + this.theorical[0] 
-        + '-' 
+        + (this.theorical[1] > 0 ? '-' : ', ') 
         + this.theorical[1] 
         + ']</span></div>';
     }
