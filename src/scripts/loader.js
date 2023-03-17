@@ -272,7 +272,7 @@ const Loader = {
             ),
             new Echo(
                 "Last Word",
-                "Each time a spell is cast during the fight, you gain §1% spirit (limited to §2%). This effect fades away if you are stunned, killed, or if the fight ends.",
+                "Each time a spell is cast during the fight, you gain §1% spirit (stackable up to §2%). This effect fades away if you are stunned, killed, or if the fight ends.",
                 1,
                 Data.Rarity.RARE,
                 [],
@@ -295,7 +295,7 @@ const Loader = {
                     ),
                     new Stat(
                         Data.Effect.RES_STUN,
-                        [-8, -12],
+                        [-2, -5],
                         false,
                         true
                     )
