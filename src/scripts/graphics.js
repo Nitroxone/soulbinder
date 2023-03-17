@@ -157,10 +157,12 @@ function getWeaponTooltip(weapon, asResult = null, full = false) {
     }
 
     // echoes
-    str += '<div class="divider"></div>';
-    weapon.echoes.forEach(echo => {
-        str += getEchoDetails(echo, full);
-    });
+    if(weapon.echoes.length > 0) {
+        str += '<div class="divider"></div>';
+        weapon.echoes.forEach(echo => {
+            str += getEchoDetails(echo, full);
+        });
+    }
 
     // desc
     str += '<div class="divider"></div>';
@@ -190,11 +192,20 @@ function getArmorTooltip(armor, asResult = null, full = false) {
 
     // sockets
     str += '<div class="divider"></div>';
-    for(let i = 0; i < armor.sockets.length; i++) {
-        str += getRuneDetails(armor.sockets[i], full);
-    }
+    armor.sockets.forEach(rune => {
+        str += getRuneDetails(rune, full);
+    })
+    // empty runes
     for(let i = 0; i < armor.sockets_free; i++) {
         str += getEmptyRuneHTML();
+    }
+
+    // echoes
+    if(armor.echoes.length > 0) {
+        str += '<div class="divider"></div>';
+        armor.echoes.forEach(echo => {
+            str += getEchoDetails(echo, full);
+        });
     }
 
     // desc
@@ -232,13 +243,13 @@ function getRuneDetails(rune, full = false) {
                 str += '<div class="runeEffect"' + ' style="font-weight:bold; color:'+ Data.Color.CORRUPT +';"' + '><span style="font-weight:normal">' + (effect.value > 0 ? '+ ' : effect.value < 0 ? '- ' : '') + '</span>' + (effect.value == 0 ? '' : Math.abs(effect.value)) + (effect.isPercentage ? '%' : '') + ' ' + capitalizeFirstLetter(effect.effect) + '<span class="theoricalval">[' + effect.theorical[0] + '-' + effect.theorical[1] + ']</span>' + '</div>';
             });
         }
-        rune.echoes.forEach(echo => {
-            str += '<div class="runeCorruption">';
-            str += '<p class="name">' + echo.name +'</p>';
-            str += '<p>' + echo.desc +'</p>'
-            str += '</div>';
-        })
     }
+    rune.echoes.forEach(echo => {
+        str += '<div class="runeCorruption">';
+        str += '<p class="name">' + echo.name +'</p>';
+        if(full) str += '<p>' + echo.desc +'</p>';
+        str += '</div>';
+    })
     str += '</div></div>';
 
     return str;

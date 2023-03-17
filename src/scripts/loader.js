@@ -261,8 +261,6 @@ const Loader = {
                     new Stat(
                         Data.Effect.POISON_DMG,
                         [2, 4],
-                        false,
-                        false,
                     )
                 ],
                 "Venom coursing through your veins like a malevolent river.",
@@ -284,6 +282,30 @@ const Loader = {
                     "max_bonus": [40, 50]
                 },
                 []
+            ),
+            new Echo(
+                "Octane",
+                "Replenish §1% of your total mana every time you receive damage while being stunned.",
+                1,
+                Data.Rarity.UNCOMMON,
+                [
+                    new Stat(
+                        Data.Effect.MRES,
+                        [7, 10],
+                    ),
+                    new Stat(
+                        Data.Effect.RES_STUN,
+                        [-8, -12],
+                        false,
+                        true
+                    )
+                ],
+                "The mind never sleeps. Your soul sometimes just wander away.",
+                {
+                    "mana_regen": [8, 11]
+                },
+                [],
+                Data.EchoType.ARMOR
             )
         ];
 

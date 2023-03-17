@@ -21,7 +21,7 @@ class Armor extends Item {
                 t_mres, 
                 sockets_amount = 1,
                 echoes_amount = 1,
-                echoes = null) {
+                echoes = []) {
         super(name, desc, icon, price, rarity);
         this.type = type;
 
@@ -32,6 +32,7 @@ class Armor extends Item {
         this.mres = null;
 
         this.echoes_amount = echoes_amount;
+        this.echoes_free = echoes_amount;
         this.echoes = echoes;
 
         this.sockets_amount = sockets_amount;
@@ -77,9 +78,32 @@ class Armor extends Item {
     hasFreeSockets() {
         return this.sockets_free > 0;
     }
+
+    /**
+     * Adds an available echo slot. Cannot exceed the echoes_amount variable.
+     * @param {number} amount the amount of ecohes to add
+     */
+    addAvailableEcho(amount = 1) {
+        this.echoes_free = Math.min(this.echoes_amount, this.echoes_free + amount);
+    }
+    /**
+     * Removes an available echo slot. Cannot go below zero.
+     * @param {number} amount the amount of echoes to remove
+     */
+    removeAvailableEcho(amount = 1) {
+        this.echoes_free = Math.max(0, this.echoes_free - amount);
+    }
+
+    /**
+     * Returns whether the echoes_free property of the Armor is superior to 0.
+     * @returns {boolean} whether the Armor has free echoes
+     */
+    hasFreeEchoes() {
+        return this.echoes_free > 0;
+    }
     
     /**
-     * Adds the Stat's data to the Weapon's data.
+     * Adds the Stat's data to the Armor's data.
      * @param {Stat} effect the Stat to add
      * @param {boolean} remove whether the Stat should removed instead of being added
      */
@@ -92,6 +116,31 @@ class Armor extends Item {
             case Data.Effect.MRES:
                 this.mres += effect.getValue() * factor;
                 break;
+        }
+    }
+
+    /**
+     * Adds the provided Echo to the Armor.
+     * @param {Echo} echo the Echo to add. if no Echo is provided, it will be picked randomly.
+     */
+    addEcho(echo = null) {
+        if(this.hasFreeEchoes()) {
+            if(!echo) {
+                let pool = game.all_echoes.filter(echo => {
+                    return echo.type === Data.EchoType.ARMOR || echo.type === Data.EchoType.ANY
+                });
+                echo = choose(pool);
+            }
+            echo = Entity.clone(echo);
+            echo.fix();
+            echo.stats.forEach(effect => {
+                console.log(effect)
+                this.addEffect(effect);
+            })
+            this.echoes.push(echo);
+            this.removeAvailableEcho();
+        } else {
+            ERROR('No available echo slots left on ' + this.name);
         }
     }
 }
