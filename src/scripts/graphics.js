@@ -6,6 +6,7 @@ function spawnTooltip(item) {
     const base = '<div id="floating-' + item.id +'" class="tooltip framed bgDark tooltipSpawn">'
     const tooltip = document.createElement('div');
     if(item instanceof Weapon) tooltip.innerHTML = base + getWeaponTooltip(item, null, true) + '</div>';
+    else if(item instanceof Armor) tooltip.innerHTML = base + getArmorTooltip(item, null, true) + '</div>';
     else if(item instanceof Rune) tooltip.innerHTML = base + getRuneTooltip(item, null) + '</div>';
     else if(item instanceof Resource) tooltip.innerHTML = base + getResourceTooltip(item, null) + '</div>';
     // Same position as hovered tooltip, but positioned in such way that it will cut the mouse off the hover event
@@ -148,7 +149,6 @@ function getWeaponTooltip(weapon, asResult = null, full = false) {
     // sockets
     str += '<div class="divider"></div>';
     for(let i = 0; i < weapon.sockets.length; i++) {
-        //str += '<div class="par bulleted">' + getSmallThing(weapon.sockets[i], null) + '</div>'; //TODO : add detailed effects
         str += getRuneDetails(weapon.sockets[i], full);
     }
     for(let i = 0; i < weapon.sockets_free; i++) {
@@ -161,6 +161,41 @@ function getWeaponTooltip(weapon, asResult = null, full = false) {
     str += '</div>';
 
     game.particlesTooltipCanvasItem = weapon;
+    return str;
+}
+
+function getArmorTooltip(armor, asResult = null, full = false) {
+    let str = asResult ? '<h3 class="fancyTitle">Output</h3><div class="divider"></div>' : '';
+    str += '<div class="info">';
+    str += '<div id="iconcloud-' + armor.id + '" class="iconcloud' + capitalizeFirstLetter(armor.rarity) + '"><div class="thing standalone ' + getIconClasses() + '">' + getIconStr(armor, null, null) + '</div>';
+    str += '<div class="fancyText infoAmount onLeft">' + (asResult ? asResult.result_amount : '') + '</div></div>';
+    str += '<div class="fancyText barred infoTitle" style="color: ' + getRarityColorCode(armor.rarity) + '">' + armor.name + '</div>';
+    str += '<div class="fancyText barred">' + capitalizeFirstLetter(armor.rarity) + '</div>';
+    str += '<div class="fancyText barred">' + capitalizeFirstLetter(armor.type) + '</div>';
+    str += '<div class="infoDesc">';
+
+    str += '<div class="par"></div>';
+    str += '<table class="statsTable"><tbody>';
+    str += '<tr><td>Resilience</td><td>' + armor.pres + '</td></tr>';
+    str += '<tr><td>Warding</td><td>' + armor.mres + '</td></tr>';
+    str += '</tbody></table>';
+    str += '<div class="par"></div>';
+
+    // sockets
+    str += '<div class="divider"></div>';
+    for(let i = 0; i < armor.sockets.length; i++) {
+        str += getRuneDetails(armor.sockets[i], full);
+    }
+    for(let i = 0; i < armor.sockets_free; i++) {
+        str += getEmptyRuneHTML();
+    }
+
+    // desc
+    str += '<div class="divider"></div>';
+    str += '<div class="par tooltipDesc">"' + armor.desc + '"</div>';
+    str += '</div>';
+
+    game.particlesTooltipCanvasItem = armor;
     return str;
 }
 
@@ -346,13 +381,47 @@ function drawResourceInventory(resources) {
                 audio.volume = 0.5;
                 audio.playbackRate = 2;
                 audio.play();
-            })
+            });
         }
+    }
+}
+
+function drawArmorInventory(armors) {
+    let str = '';
+    for(let i = 0; i < armors.length; i++) {
+        let me = armors[i];
+        str += '<div id="res-' + me.id + '" class="res thing wide1" style="display: inline-block;">';
+        str += '<div id="res-icon-' + me.id + '" class="icon double" style="' + getIcon(me.icon) + '"></div>';
+        str += '<div id="res-over-' + me.id + '" class="overlay" style="border: 1px solid ' + getRarityColorCode(armors[i].rarity) + '"></div>';
+        str += '<div id="res-amount-' + me.id + '" class="amount"></div>';
+        str += '</div>';
+    }
+    domWhat('res-cat-armors').innerHTML = str;
+    for(let i = 0; i < armors.length; i++) {
+        let me = armors[i];
+        addTooltip(domWhat('res-' + me.id), function(){
+            return getArmorTooltip(game.inventory.getItemFromId(Data.ItemType.ARMOR, me.id));
+        }, {offY: -8});
+        // Spawn tooltip and play sound on click
+        domWhat('res-' + me.id).addEventListener('click', function(){
+            let audio = new Audio('sounds/ui/spawntooltip.wav');
+            audio.volume = 0.2;
+            audio.play();
+            spawnTooltip(me);
+        });
+        // Play sound on hover
+        domWhat('res-' + me.id).addEventListener('mouseover', function(){
+            let audio = new Audio('sounds/ui/hovertooltip.wav');
+            audio.volume = 0.5;
+            audio.playbackRate = 2;
+            audio.play();
+        });
     }
 }
 
 function drawInventory() {
     drawWeaponInventory(game.inventory.weapons);
+    drawArmorInventory(game.inventory.armors);
     drawRuneInventory(game.inventory.runes);
     drawResourceInventory(game.inventory.resources);
 }
