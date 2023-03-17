@@ -90,4 +90,25 @@ class Stat {
     isMaximized() {
         return this.value == this.theorical[1];
     }
+
+    getFormatted(cssClass = '', color = '', bold = '', italic = '') {
+        return '<div class="' 
+        + cssClass 
+        + '" style="' 
+        + (bold ? 'font-family: RobotoBold; ' : '') 
+        + (italic ? 'font-style: italic; ' : '') 
+        + (color ? 'color: ' + color + ';': '') 
+        + '><span style="font-weight: normal;">' 
+        + (this.getValue() > 0 ? '+ ' : this.getValue() < 0 ? '- ' : '') 
+        + '</span>' 
+        + (this.getValue() == 0 ? '' : Math.abs(this.getValue())) 
+        + (this.isPercentage ? '%' : '') 
+        + ' ' 
+        + capitalizeFirstLetter(this.effect) 
+        + '<span class="theoricalval">[' 
+        + this.theorical[0] 
+        + '-' 
+        + this.theorical[1] 
+        + ']</span></div>';
+    }
 }

@@ -259,7 +259,7 @@ const Loader = {
                 Data.Rarity.UNCOMMON,
                 [
                     new Stat(
-                        Data.Effect.MODIF_POISON_DMG,
+                        Data.Effect.POISON_DMG,
                         [2, 4],
                         false,
                         false,
@@ -269,7 +269,8 @@ const Loader = {
                 {
                     "health_regen": [2, 4]
                 },
-                []
+                [],
+                Data.EchoType.WEAPON
             ),
             new Echo(
                 "Last Word",
@@ -341,6 +342,33 @@ const Loader = {
 
         for(const runeCorruptEffect of runeCorruptEffects) {
             game.all_runeCorruptEffects.push(runeCorruptEffect);
+        }
+    },
+    loadEquipmentSets: loadEquipmentSets = () => {
+        const equipmentSets = [
+            new EquipmentSet(
+                "Highsteel Set",
+                {
+                    weight: Data.WeaponWeight.LIGHT,
+                    base: Data.Effect.HEALTH,
+                    extra: Data.Effect.DODGE
+                },
+                "",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                [],
+                []
+            ),
+        ];
+
+        for(const equipmentSet of equipmentSets) {
+            game.all_equipmentSets.push(equipmentSet);
         }
     },
 }

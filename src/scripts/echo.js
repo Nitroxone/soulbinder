@@ -13,14 +13,16 @@ class Echo extends Entity {
      * @param {string} quote the Echo's quote 
      * @param {object} variables the Echo's variables needed by the triggers and special mechanics
      * @param {array} triggers the Echo's triggers (array of Trigger objects)
+     * @param {string} type the Echo's type (Data.EchoType)
      */
-    constructor(name, desc, icon, rarity, stats, quote, variables, triggers) {
+    constructor(name, desc, icon, rarity, stats, quote, variables, triggers, type = Data.EchoType.ANY) {
         super(name, desc, icon);
         this.rarity = rarity;
         this.stats = stats;
         this.quote = quote;
         this.variables = variables;
         this.triggers = triggers;
+        this.type = type;
     }
 
     /**

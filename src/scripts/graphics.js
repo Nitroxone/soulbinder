@@ -87,7 +87,7 @@ function getRuneTooltip(rune, asResult) {
         str += '<p class="name">' + echo.name +'</p>';
         str += '<p>' + echo.desc +'</p>'
         str += '<br>';
-        str += '<p class="echoDesc">' + echo.quote +'</p>'
+        str += '<p class="echoQuote">' + echo.quote +'</p>'
         str += '</div>';
     })
 
@@ -148,12 +148,19 @@ function getWeaponTooltip(weapon, asResult = null, full = false) {
 
     // sockets
     str += '<div class="divider"></div>';
-    for(let i = 0; i < weapon.sockets.length; i++) {
-        str += getRuneDetails(weapon.sockets[i], full);
-    }
+    weapon.sockets.forEach(rune => {
+        str += getRuneDetails(rune, full);
+    })
+    // empty runes
     for(let i = 0; i < weapon.sockets_free; i++) {
         str += getEmptyRuneHTML();
     }
+
+    // echoes
+    str += '<div class="divider"></div>';
+    weapon.echoes.forEach(echo => {
+        str += getEchoDetails(echo, full);
+    });
 
     // desc
     str += '<div class="divider"></div>';
@@ -176,8 +183,8 @@ function getArmorTooltip(armor, asResult = null, full = false) {
 
     str += '<div class="par"></div>';
     str += '<table class="statsTable"><tbody>';
-    str += '<tr><td>Resilience</td><td>' + armor.pres + '</td></tr>';
-    str += '<tr><td>Warding</td><td>' + armor.mres + '</td></tr>';
+    str += '<tr><td>Resilience</td><td>' + armor.pres + '<span class="theoricalval">[' + armor.t_pres[0] + '-' + armor.t_pres[1] +']</span>' + '</td></tr>';
+    str += '<tr><td>Warding</td><td>' + armor.mres + '<span class="theoricalval">[' + armor.t_mres[0] + '-' + armor.t_mres[1] +']</span>' + '</td></tr>';
     str += '</tbody></table>';
     str += '<div class="par"></div>';
 
@@ -233,6 +240,28 @@ function getRuneDetails(rune, full = false) {
         })
     }
     str += '</div></div>';
+
+    return str;
+}
+
+/**
+ * @param {Echo} echo the Echo to get the data from
+ */
+function getEchoDetails(echo, full = false) {
+    let str = '<div class="echoInfo" style="border: 1px solid '+ hexToRGBA(getRarityColorCode(echo.rarity), 0.5) +'">'
+    str += '<div class="echoTitle" style="color: ' + getRarityColorCode(echo.rarity) + '">' + echo.name + '</div>';
+    str += '<div class="echoEffects">'
+    echo.stats.forEach(effect => {
+        str += effect.getFormatted("echoEffect");
+    });
+    str += '</div>'
+    str += '<br>';
+    str += '<div class="echoDesc">' + echo.desc + '</div>'
+    if(full) {
+        str += '<br>';
+        str += '<div class="echoQuote">' + echo.quote + '</div>';
+    }
+    str += '</div>';
 
     return str;
 }

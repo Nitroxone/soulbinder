@@ -2709,12 +2709,23 @@ table.statsTable tbody td:nth-child(3) {
     background-position: center;
     background-repeat: no-repeat;
 }
-.tooltipDesc, .echoDesc {
+.tooltipDesc, .echoQuote {
     font-family: 'RobotoItalic';
 }
-.echoDesc {
+.echoQuote {
     color: grey;
     text-align: right;
+}
+.echoInfo {
+    border-radius: 3px;
+    padding: 0.5rem;
+    width: 75%;
+    margin:0 auto;
+}
+.echoTitle {
+    font-family: 'RobotoSlabBold';
+    font-size: 12px;
+    font-weight: normal;
 }
 /*.tooltipDesc::before {
     content: "«";

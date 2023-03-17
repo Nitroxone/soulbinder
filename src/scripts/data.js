@@ -299,5 +299,11 @@ const Data = Object.freeze({
         RECIPE: 'RECIPE',
         TRINKET: 'TRINKET',
         ECHO: 'ECHO',
+    },
+    EchoType: {
+        ANY: 'ANY',
+        WEAPON: 'WEAPON',
+        ARMOR: 'ARMOR',
+        TRINKET: 'TRINKET'
     }
 });
