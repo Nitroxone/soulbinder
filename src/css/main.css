@@ -297,7 +297,7 @@ a:active, .tooltiped:active {
     top: 0;
 
     height: 26px;
-    background: url(img/darkNoiseTopBar.jpg) repeat-x bottom, url(img/darkNoise.jpg);
+    background: url(img/darkNoiseTopBar.jpg) repeat-x bottom, url(img/bg1.png);
 }
 #topBar > div {
     display: inline-block;
@@ -331,7 +331,7 @@ a:active, .tooltiped:active {
     bottom: 0;
     height: 102px;
 
-    background: linear-gradient(to bottom, rgba(0,0,0,0) 15%, rgba(0,0,0,0.75)), url(img/darkNoiseBottomBar.jpg) repeat-x top, url(img/darkNoise.jpg);
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 15%, rgba(0,0,0,0.75)), url(img/darkNoiseBottomBar.jpg) repeat-x top, url(img/bg1.png);
 }
 
 #wrap {
@@ -356,31 +356,15 @@ a:active, .tooltiped:active {
 }
 
 .framed {
-    border: 2px solid transparent;
-    border-image: url(img/frameBorder.png) 2 repeat;
+    border: 7px solid transparent;
+
+    border-image: url(img/window1-smaller.png) 7 stretch;
+
     color: #dddddd;
     padding: 4px;
     box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.5);
     text-align: center;
     position: relative;
-}
-.framed::before, .framed::after {
-    content: '';
-    display: block;
-    width: 10px;
-    height: 8px;
-    position: absolute;
-    z-index: 0;
-}
-.framed::before {
-    background: url(img/twirlCorner1.png);
-    left: -1px;
-    top: -1px;
-}
-.framed::after {
-    background: url(img/twirlCorner2.png);
-    right: -1px;
-    bottom: -1px;
 }
 .framed.simple::before, .framed.simple::after {
     content: '';
@@ -1768,23 +1752,23 @@ input[type=text], textarea, select {
 /* SKINS */
 /* BASE SKINS */
 .bgPanelUp {
-    background: url(img/darkEdgeBorders.png), url(img/darkNoise.jpg);
+    background: url(img/darkEdgeBorders.png), url(img/bg1.png);
     background-size: 100% 100%, auto;
 }
 .bgPanelDown {
-    background: url(img/darkEdgeBorders.png),url(img/darkNoise.jpg);
+    background: url(img/darkEdgeBorders.png),url(img/bg1.png);
     background-size: 100% 100%, auto;
 }
 .bgLight {
-    background: url(img/darkBorders.png), url(img/darkNoise.jpg);
+    background: url(img/darkBorders.png), url(img/bg1.png);
     background-size: 100% 100%, auto;
 }
 .bgMid {
-    background: url(img/darkBorders.png), url(img/darkNoise.jpg);
+    background: url(img/darkBorders.png), url(img/bg1.png);
     background-size: 100% 100%, auto;
 }
 .bgDark, .bgRegularDark {
-    background: url(img/darkBorders.png), url(img/darkNoise.jpg);
+    background: url(img/darkBorders.png), url(img/bg1.png);
     background-size: 100% 100%, auto;
 }
 
@@ -2171,7 +2155,7 @@ table.statsTable tbody td:nth-child(3) {
 
 .gaugeProgress {
     width:100%;
-    background: url(img/darkNoise.jpg) repeat;
+    background: url(img/bg1.png) repeat;
     border: 1px solid #7b5e3a;
     /*border-image: url(img/frameBorderSmooth.png) 2 repeat;*/
     color: #dddddd;
@@ -2460,7 +2444,7 @@ table.statsTable tbody td:nth-child(3) {
     top: 100px;
     padding: 1em;
     
-    background: url(img/darkBorders.png), url(img/darkNoise.jpg) !important;
+    background: url(img/darkBorders.png), url(img/bg1.png) !important;
     background-size: 100% 100%, auto;
     
     display: flex;
