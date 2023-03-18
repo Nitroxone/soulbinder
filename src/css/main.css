@@ -1798,7 +1798,7 @@ input[type=text], textarea, select {
     background-size: 100% 100%, auto;
 }
 .skinRock .bgDark {
-    background: url(img/darkBorders.png), url(img/bgDarkRock.jpg);
+    background: url(img/darkBorders.png), url(img/bg1.png);
     background-size: 100% 100%, auto;
 }
 
@@ -2631,7 +2631,7 @@ table.statsTable tbody td:nth-child(3) {
 .runeInfo {
     border: 1px solid rgba(255,255,255,0.9);
     position: relative;
-    background-size: 60%;
+    background-size: 35%;
     background-position: top right;
     background-repeat: no-repeat;
     /*background: rgba(0, 0, 0, 0.3);*/
@@ -2684,8 +2684,8 @@ table.statsTable tbody td:nth-child(3) {
 }
 
 .tooltipIcon {
-    width: 48px;
-    height: 48px;
+    width: 60px;
+    height: 60px;
     margin: 2px auto;
     opacity: 1;
 
