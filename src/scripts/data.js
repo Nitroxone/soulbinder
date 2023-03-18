@@ -233,7 +233,7 @@ const Data = Object.freeze({
         SPEAR: "spear",
         STAFF: "staff",
         SWORD: "sword",
-        WARSCYTHE: "warscythe",
+        MACE: "mace",
     },
     WeaponWeight: {
         LIGHT: "light",
@@ -305,5 +305,12 @@ const Data = Object.freeze({
         WEAPON: 'WEAPON',
         ARMOR: 'ARMOR',
         TRINKET: 'TRINKET'
+    },
+    IconType: {
+        WEAPON: 'weapons',
+        ARMOR: 'armors',
+        RUNE: 'runes',
+        RESOURCE: 'resources',
+        RECIPE: 'recipes',
     }
 });
