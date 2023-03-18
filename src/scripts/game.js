@@ -290,8 +290,6 @@ class Game {
         this.inventory.craft(this.inventory.recipes[1]);
         this.inventory.enchant(this.inventory.weapons[0], this.inventory.runes[2]);
         this.inventory.enchant(this.inventory.armors[0], this.inventory.runes[0]);
-        this.inventory.weapons[0].addEcho();
-        this.inventory.armors[0].addEcho();
 
         drawInventory();
     }

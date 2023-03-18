@@ -115,6 +115,14 @@ function getTrinketTooltip(trinket, asResult = null, full = false) {
         str += effect.getFormatted("itemEffect");
     })
 
+    // echoes
+    if(trinket.echoes.length > 0) {
+        str += '<div class="divider"></div>';
+        trinket.echoes.forEach(echo => {
+            str += getEchoDetails(echo, full);
+        });
+    }
+
     str += '<div class="divider"></div>';
     str += '<div class="par tooltipDesc">' + trinket.desc + '</div>';
     str += '</div></div>';

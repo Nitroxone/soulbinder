@@ -34,9 +34,14 @@ class Inventory {
         else if(item instanceof Trinket) array = {items: this.trinkets};
         else throw new Error('Unsupported type for item cloning.');
 
+
         for(let i = 0; i < amount; i++) {
             let cloned = Entity.clone(item);
-            if(cloned instanceof Weapon || cloned instanceof Armor || cloned instanceof Rune) cloned.generateStats();
+            if(cloned instanceof Weapon || cloned instanceof Armor || cloned instanceof Trinket) {
+                cloned.generateStats();
+                cloned.addEcho();
+            };
+            if(cloned instanceof Rune) cloned.generateStats();
             array.items.push(cloned);
         }
 

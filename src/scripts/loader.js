@@ -342,7 +342,100 @@ const Loader = {
                 },
                 [],
                 Data.EchoType.ARMOR
-            )
+            ),
+            new Echo(
+                "Hold the Line",
+                "Replenish §1% of your total health every time you receive damage while blocking. Blocking now consumes §2 stamina.",
+                1,
+                Data.Rarity.UNCOMMON,
+                [],
+                "\"When all seems lost, holding the line is not a choice; it's a sacred duty to defend what you hold dear.\" — Khej, Raincaller of Atalan",
+                {
+                    "health_regen": [5, 8],
+                    "stamina_cost": [2, 7]
+                },
+                [],
+            ),
+            new Echo(
+                "Fencer's Mark",
+                "Replenish §1% of your total stamina every time you dodge an attack.",
+                1,
+                Data.Rarity.RARE,
+                [
+                    new Stat(
+                        Data.Effect.SPEED,
+                        [7, 10],
+                    ),
+                    new Stat(
+                        Data.Effect.DODGE,
+                        [2, 8],
+                        false,
+                        true,
+                    ),
+                    new Stat(
+                        Data.Effect.ACCURACY,
+                        [2, 8],
+                        false,
+                        true
+                    )
+                ],
+                "To strike fast is to escape beautifully!",
+                {
+                    "stamina_regen": [5, 15]
+                },
+                [],
+                Data.EchoType.ARMOR
+            ),
+            new Echo(
+                "Nemesis",
+                "Each time you attack, you additionally deal §1% of the damage you received during the previous round.",
+                1,
+                Data.Rarity.EPIC,
+                [
+                    new Stat(
+                        Data.Effect.PROTECTION,
+                        [-10, -20],
+                        false,
+                        true
+                    )
+                ],
+                "Whoever hides his anger ensures his revenge.",
+                {
+                    "extra_damage": [15, 25]
+                },
+                [],
+            ),
+            new Echo(
+                "Cannibal Instinct",
+                "For each bleeding tick, you gain §1% total damage (stackable up to §2%). This effect fades away if you are stunned, killed, or if the fight ends.",
+                1,
+                Data.Rarity.LEGENDARY,
+                [
+                    new Stat(
+                        Data.Effect.BLEED_DMG,
+                        [2, 4]
+                    ),
+                    new Stat(
+                        Data.Effect.MODIF_BLEED_ACCURACY,
+                        [3, 7],
+                        false,
+                        true
+                    ),
+                    new Stat(
+                        Data.Effect.MODIF_BLEED_CRIT,
+                        [3, 7],
+                        false,
+                        true,
+                    )
+                ],
+                "\"But the hunger, it drives me on\". — Ghorra, the Mudcrawler",
+                {
+                    "bonus_damage": [1, 4],
+                    "max_bonus": [25, 35],
+                },
+                [],
+                Data.EchoType.WEAPON
+            ),
         ];
 
         for(const echo of echoes) {
