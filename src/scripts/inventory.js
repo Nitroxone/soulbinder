@@ -31,6 +31,7 @@ class Inventory {
             console.log('Inventory : +' + amount + ' ' + item.name);
             return;
         }
+        else if(item instanceof Trinket) array = {items: this.trinkets};
         else throw new Error('Unsupported type for item cloning.');
 
         for(let i = 0; i < amount; i++) {
@@ -55,6 +56,7 @@ class Inventory {
         else if(item instanceof Rune) array = {items: this.runes};
         else if(item instanceof Resource) array = {items: this.resources};
         else if(item instanceof Recipe) array = {items: this.recipes};
+        else if(item instanceof Trinket) array = {items: this.trinkets};
         else throw new Error('Unsupported type for item removal.');
 
         if(removeFromArray(array.items, item)) console.log('Inventory : Removed ' + item.name);
@@ -83,6 +85,9 @@ class Inventory {
                 break;
             case Data.ItemType.RESOURCE:
                 array = {items: this.resources};
+                break;
+            case Data.ItemType.TRINKET:
+                array = {items: this.trinkets};
                 break;
             default:
                 throw new Error('Unsupported type for item search.');

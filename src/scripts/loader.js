@@ -6,7 +6,7 @@ const Loader = {
         const weapons = [
             new Weapon("Highsteel Sword",
                        "Swift and quite light. Effective in the hands of a swords master.",
-                       4454,
+                       3,
                        10,
                        Data.Rarity.COMMON,
                        Data.WeaponType.SWORD,
@@ -32,11 +32,47 @@ const Loader = {
         const armors = [
             new Armor("Highsteel Helmet",
                       "A fair protection.",
-                      10568,
+                      26,
                       10,
                       Data.Rarity.COMMON,
                       Data.ArmorType.HELMET,
                       [3, 6],
+                      [0, 0],
+                      ),
+            new Armor("Highsteel Armor",
+                      "A fair protection.",
+                      2,
+                      10,
+                      Data.Rarity.COMMON,
+                      Data.ArmorType.CHESTPLATE,
+                      [8, 12],
+                      [0, 0],
+                      ),
+            new Armor("Highsteel Bracers",
+                      "A fair protection.",
+                      9,
+                      10,
+                      Data.Rarity.COMMON,
+                      Data.ArmorType.GLOVES,
+                      [8, 12],
+                      [0, 0],
+                      ),
+            new Armor("Highsteel Boots",
+                      "A fair protection.",
+                      8,
+                      10,
+                      Data.Rarity.COMMON,
+                      Data.ArmorType.BOOTS,
+                      [8, 12],
+                      [0, 0],
+                      ),
+            new Armor("Highsteel Shield",
+                      "A fair protection.",
+                      15,
+                      10,
+                      Data.Rarity.COMMON,
+                      Data.ArmorType.SHIELD,
+                      [8, 12],
                       [0, 0],
                       ),
         ];
@@ -142,7 +178,7 @@ const Loader = {
             ),
             new Rune("Sharpness Rune",
                      "From the stone emanates a singular power, that flows through the metal to your muscles, and floods your whole being with a supernatural strength.",
-                     3,
+                     13,
                      10,
                      Data.Rarity.UNCOMMON,
                      Data.RuneType.WEAPON,
@@ -175,7 +211,7 @@ const Loader = {
             ),
             new Rune("Withering Rune",
                      "The wounds burn with a terrible heat or biting cold. Bodies crumble and die at its touch.",
-                     2,
+                     25,
                      10,
                      Data.Rarity.RARE,
                      Data.RuneType.WEAPON,
@@ -391,6 +427,37 @@ const Loader = {
 
         for(const equipmentSet of equipmentSets) {
             game.all_equipmentSets.push(equipmentSet);
+        }
+    },
+    loadTrinkets: loadTrinkets = () => {
+        const trinkets = [
+            new Trinket(
+                "Ring of Life",
+                "A fine piece of jewelry made in Uziel's marble heights. It is so lightweight that wearing it feels like wearing a ring of air.",
+                91,
+                10,
+                Data.Rarity.EPIC,
+                [
+                    new Stat(
+                        Data.Effect.MAXHEALTH,
+                        [140, 175],
+                    ),
+                    new Stat(
+                        Data.Effect.REGEN_HEALTH,
+                        [18, 24],
+                        false,
+                        true
+                    ),
+                    new Stat(
+                        Data.Effect.MIGHT,
+                        [22, 28]
+                    ),
+                ],
+            )
+        ];
+
+        for(const trinket of trinkets) {
+            game.all_trinkets.push(trinket);
         }
     },
 }
