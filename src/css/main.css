@@ -2695,9 +2695,9 @@ table.statsTable tbody td:nth-child(3) {
 }
 .tooltipDesc, .echoQuote {
     font-family: 'RobotoItalic';
+    color: grey;
 }
 .echoQuote {
-    color: grey;
     text-align: right;
 }
 .echoInfo {
