@@ -436,6 +436,19 @@ const Loader = {
                 [],
                 Data.EchoType.WEAPON
             ),
+            new Echo(
+                "Relentless",
+                "Each critical hit generates a shield whose value equals §1% of your total health (stackable).",
+                1,
+                Data.Rarity.UNCOMMON,
+                [],
+                "When facing an insurmountable foe, the only defense is a relentless attack that leaves no room for their counteroffensive.",
+                {
+                    "shield_bonus": [2, 4],
+                },
+                [],
+                Data.EchoType.ARMOR
+            )
         ];
 
         for(const echo of echoes) {
