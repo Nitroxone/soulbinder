@@ -264,19 +264,24 @@ class Game {
         this.initTabs();
         this.buildTabs();
 
-        this.inventory.addItem(what(this.all_weapons, "highsteel sword"));
-        this.inventory.addItem(what(this.all_armors, 'highsteel helmet'));
-        this.inventory.addItem(what(this.all_runes, 'resilience rune'));
-        this.inventory.addItem(what(this.all_runes, 'withering rune'));
-        this.inventory.addItem(what(this.all_resources, "dark stone"), 10);
-        this.inventory.addItem(what(this.all_resources, "silver powder"), 10);
-        this.inventory.addItem(what(this.all_resources, "decaying petals"), 10);
-        this.inventory.addItem(what(this.all_resources, "reminder"), 2);
-        this.inventory.addItem(what(this.all_resources, "starblossom"), 2);
-        this.inventory.addItem(what(this.all_resources, "time stream catalyst"), 2);
-        this.inventory.addItem(what(this.all_resources, "lead knot"), 2);
-        this.inventory.addItem(what(this.all_recipes, "withering rune"));
-        this.inventory.addItem(what(this.all_recipes, "sharpness rune"));
+        this.all_weapons.forEach(item => {
+            this.inventory.addItem(item);
+        });
+        this.all_armors.forEach(item => {
+            this.inventory.addItem(item);
+        });
+        this.all_runes.forEach(item => {
+            this.inventory.addItem(item);
+        });
+        this.all_trinkets.forEach(item => {
+            this.inventory.addItem(item);
+        });
+        this.all_resources.forEach(item => {
+            this.inventory.addItem(item, 10);
+        })
+        this.all_recipes.forEach(item => {
+            this.inventory.addItem(item);
+        })
 
         this.inventory.craft(this.inventory.recipes[0], true);
         this.inventory.maximizeRune(this.inventory.runes[2]);
