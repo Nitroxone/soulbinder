@@ -402,33 +402,6 @@ const Loader = {
             game.all_runeCorruptEffects.push(runeCorruptEffect);
         }
     },
-    loadEquipmentSets: loadEquipmentSets = () => {
-        const equipmentSets = [
-            new EquipmentSet(
-                "Highsteel Set",
-                {
-                    weight: Data.WeaponWeight.LIGHT,
-                    base: Data.Effect.HEALTH,
-                    extra: Data.Effect.DODGE
-                },
-                "",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                [],
-                []
-            ),
-        ];
-
-        for(const equipmentSet of equipmentSets) {
-            game.all_equipmentSets.push(equipmentSet);
-        }
-    },
     loadTrinkets: loadTrinkets = () => {
         const trinkets = [
             new Trinket(
@@ -453,11 +426,76 @@ const Loader = {
                         [22, 28]
                     ),
                 ],
-            )
+            ),
+            new Trinket(
+                "Foresighting Ring",
+                "Ersatz of reality flash before your eyes ; some may be hallucinated, while others have simply not happened yet.",
+                97,
+                10,
+                Data.Rarity.UNCOMMON,
+                [
+                    new Stat(
+                        Data.Effect.DODGE,
+                        [8, 12],
+                        false,
+                        true
+                    ),
+                    new Stat(
+                        Data.Effect.MAXHEALTH,
+                        [10, 15],
+                    ),
+                ],
+            ),
+            new Trinket(
+                "Omen Insignia",
+                "\"I may see dragons in my mind's eye, but my quicksilver agility can dodge their fiery breath with ease.\" — Kabal, Counselor of the Queen",
+                41,
+                10,
+                Data.Rarity.UNCOMMON,
+                [
+                    new Stat(
+                        Data.Effect.DODGE,
+                        [6, 10],
+                        false,
+                        true
+                    ),
+                    new Stat(
+                        Data.Effect.PRES,
+                        [-5, -8]
+                    )
+                ],
+            ),
         ];
 
         for(const trinket of trinkets) {
             game.all_trinkets.push(trinket);
+        }
+    },
+    loadEquipmentSets: loadEquipmentSets = () => {
+        const equipmentSets = [
+            new EquipmentSet(
+                "Highsteel Set",
+                {
+                    weight: Data.WeaponWeight.LIGHT,
+                    base: Data.Effect.HEALTH,
+                    extra: Data.Effect.DODGE
+                },
+                "",
+                what(game.all_armors, "highsteel helmet"),
+                what(game.all_armors, "highsteel armor"),
+                what(game.all_armors, "highsteel bracers"),
+                what(game.all_armors, "highsteel boots"),
+                what(game.all_armors, "highsteel shield"),
+                what(game.all_weapons, "highsteel sword"),
+                what(game.all_trinkets, "omen insignia"),
+                what(game.all_trinkets, "foresighting ring"),
+                [],
+                []
+            ),
+        ];
+
+        for(const equipmentSet of equipmentSets) {
+            game.all_equipmentSets.push(equipmentSet);
         }
     },
 }
