@@ -9,6 +9,7 @@ function spawnTooltip(item) {
     else if(item instanceof Armor) tooltip.innerHTML = base + getArmorTooltip(item, null, true) + '</div>';
     else if(item instanceof Rune) tooltip.innerHTML = base + getRuneTooltip(item, null) + '</div>';
     else if(item instanceof Resource) tooltip.innerHTML = base + getResourceTooltip(item, null) + '</div>';
+    else if(item instanceof Trinket) tooltip.innerHTML = base + getTrinketTooltip(item, null, true) + '</div>';
     // Same position as hovered tooltip, but positioned in such way that it will cut the mouse off the hover event
     const tooltipPos = {
         top: domWhat('tooltipAnchor').offsetTop - 75 + 'px',
@@ -60,7 +61,7 @@ function spawnTooltip(item) {
 function getRuneTooltip(rune, asResult) {
     let str = asResult ? '<h3 class="fancyTitle">Output</h3><div class="divider"></div>' : '';
     str += '<div class="info">';
-    str += '<div id="iconcloud-' + rune.id + '"class="iconcloud' + capitalizeFirstLetter(rune.rarity) + '"><div class="thing standalone ' + getIconClasses() + '">' + getIconStr(rune, null, null) + '</div>';
+    str += '<div id="iconcloud-' + rune.id + '"class="iconcloud' + capitalizeFirstLetter(rune.rarity) + '"><div id="res-icon-' + rune.id + '" class="tooltipIcon" style="' + getIcon(rune) + '"></div>';
     str += '<div class="fancyText infoAmount onLeft">' + (asResult ? asResult.result_amount : '') + '</div></div>';
     str += '<div class="fancyText barred infoTitle" style="color: ' + getRarityColorCode(rune.rarity) +'">' + rune.name + '</div>';
     str += '<div class="fancyText barred">' + capitalizeFirstLetter(rune.rarity) + '</div>';
@@ -99,10 +100,33 @@ function getRuneTooltip(rune, asResult) {
     return str;
 }
 
+function getTrinketTooltip(trinket, asResult = null, full = false) {
+    let str = asResult ? '<h3 class="fancyTitle">Output</h3><div class="divider"></div>' : '';
+    str += '<div class="info">';
+    str += '<div id="iconcloud-' + trinket.id + '"class="iconcloud' + capitalizeFirstLetter(trinket.rarity) + '"><div id="res-icon-' + trinket.id + '" class="tooltipIcon" style="' + getIcon(trinket) + '"></div>';
+    str += '<div class="fancyText infoAmount onLeft">' + (asResult ? asResult.result_amount : '') + '</div></div>';
+    str += '<div class="fancyText barred infoTitle" style="color: ' + getRarityColorCode(trinket.rarity) + '">' + trinket.name + '</div>';
+    str += '<div class="fancyText barred">' + capitalizeFirstLetter(trinket.rarity) + '</div>';
+    str += '<div class="infoDesc">';
+
+    // effects
+    str += '<div class="par"></div>';
+    trinket.effects.forEach(effect => {
+        str += effect.getFormatted("itemEffect");
+    })
+
+    str += '<div class="divider"></div>';
+    str += '<div class="par tooltipDesc">' + trinket.desc + '</div>';
+    str += '</div></div>';
+
+    game.particlesTooltipCanvasItem = trinket;
+    return str;
+}
+
 function getResourceTooltip(resource, asResult = null) {
     let str = asResult ? '<h3 class="fancyTitle">Output</h3><div class="divider"></div>' : '';
     str += '<div class="info">';
-    str += '<div id="iconcloud-' + resource.id + '"class="iconcloud' + capitalizeFirstLetter(resource.rarity) + '"><div id="res-icon-' + resource.id + '" class="tooltipIcon" style="' + getIcon(resource.icon) + '"></div>';
+    str += '<div id="iconcloud-' + resource.id + '"class="iconcloud' + capitalizeFirstLetter(resource.rarity) + '"><div id="res-icon-' + resource.id + '" class="tooltipIcon" style="' + getIcon(resource) + '"></div>';
     str += '<div class="fancyText infoAmount onLeft">' + (asResult ? asResult.result_amount : resource.amount) + '</div></div>';
     str += '<div class="fancyText barred infoTitle" style="color: ' + getRarityColorCode(resource.rarity) + '">' + resource.name + '</div>';
     str += '<div class="fancyText barred">' + capitalizeFirstLetter(resource.rarity) + '</div>';
@@ -125,7 +149,7 @@ function getResourceTooltip(resource, asResult = null) {
 function getWeaponTooltip(weapon, asResult = null, full = false) {
     let str = asResult ? '<h3 class="fancyTitle">Output</h3><div class="divider"></div>' : '';
     str += '<div class="info">';
-    str += '<div id="iconcloud-' + weapon.id + '" class="iconcloud' + capitalizeFirstLetter(weapon.rarity) +'"><div class="thing standalone ' + getIconClasses() + '">' + getIconStr(weapon, null, null) + '</div>';
+    str += '<div id="iconcloud-' + weapon.id + '"class="iconcloud' + capitalizeFirstLetter(weapon.rarity) + '"><div id="res-icon-' + weapon.id + '" class="tooltipIcon" style="' + getIcon(weapon) + '"></div>';
     str += '<div class="fancyText infoAmount onLeft">' + (asResult ? asResult.result_amount : '') + '</div></div>';
     str += '<div class="fancyText barred infoTitle" style="color: ' + getRarityColorCode(weapon.rarity) + '">' + weapon.name + '</div>';
     str += '<div class="fancyText barred">' + capitalizeFirstLetter(weapon.rarity) + '</div>';
@@ -176,7 +200,7 @@ function getWeaponTooltip(weapon, asResult = null, full = false) {
 function getArmorTooltip(armor, asResult = null, full = false) {
     let str = asResult ? '<h3 class="fancyTitle">Output</h3><div class="divider"></div>' : '';
     str += '<div class="info">';
-    str += '<div id="iconcloud-' + armor.id + '" class="iconcloud' + capitalizeFirstLetter(armor.rarity) + '"><div class="thing standalone ' + getIconClasses() + '">' + getIconStr(armor, null, null) + '</div>';
+    str += '<div id="iconcloud-' + armor.id + '"class="iconcloud' + capitalizeFirstLetter(armor.rarity) + '"><div id="res-icon-' + armor.id + '" class="tooltipIcon" style="' + getIcon(armor) + '"></div>';
     str += '<div class="fancyText infoAmount onLeft">' + (asResult ? asResult.result_amount : '') + '</div></div>';
     str += '<div class="fancyText barred infoTitle" style="color: ' + getRarityColorCode(armor.rarity) + '">' + armor.name + '</div>';
     str += '<div class="fancyText barred">' + capitalizeFirstLetter(armor.rarity) + '</div>';
@@ -325,7 +349,7 @@ function drawWeaponInventory(weapons) {
     for(let i = 0; i < weapons.length; i++) {
         let me = weapons[i];
         str += '<div id="res-' + me.id + '" class="res thing wide1" style="display: inline-block;">';
-        str += '<div id="res-icon-' + me.id + '" class="icon double" style="' + getIcon(me.icon) + '"></div>';
+        str += '<div id="res-icon-' + me.id + '" class="icon double" style="' + getIcon(me) + '"></div>';
         str += '<div id="res-over-' + me.id + '" class="overlay" style="border: 1px solid ' + getRarityColorCode(weapons[i].rarity) + '"></div>';
         str += '<div id="res-amount-' + me.id + '" class="amount"></div>';
         str += '</div>';
@@ -359,7 +383,7 @@ function drawRuneInventory(runes) {
     for(let i = 0; i < runes.length; i++) {
         let me = runes[i];
         str += '<div id="res-' + me.id + '" class="res thing wide1" style="display: inline-block;">';
-        str += '<div id="res-icon-' + me.id + '" class="icon double" style="' + getIcon(me.icon) + '"></div>';
+        str += '<div id="res-icon-' + me.id + '" class="icon double" style="' + getIcon(me) + '"></div>';
         str += '<div id="res-over-' + me.id + '" class="overlay" style="border: 1px solid ' + getRarityColorCode(runes[i].rarity) + '"></div>';
         str += '<div id="res-amount-' + me.id + '" class="amount"></div>';
         str += '</div>';
@@ -394,7 +418,7 @@ function drawResourceInventory(resources) {
         if(resources[i].amount > 0) {
             let me = resources[i];
             str += '<div id="res-' + me.id + '" class="res thing wide1" style="display: inline-block;">';
-            str += '<div id="res-icon-' + me.id + '" class="icon double" style="' + getIcon(me.icon) + '"></div>';
+            str += '<div id="res-icon-' + me.id + '" class="icon double" style="' + getIcon(me) + '"></div>';
             str += '<div id="res-over-' + me.id + '" class="overlay" style="border: 1px solid ' + getRarityColorCode(resources[i].rarity) + '"></div>';
             str += '<div id="res-amount-' + me.id + '" class="amount">' + me.amount + '</div>';
             str += '</div>';
@@ -431,7 +455,7 @@ function drawArmorInventory(armors) {
     for(let i = 0; i < armors.length; i++) {
         let me = armors[i];
         str += '<div id="res-' + me.id + '" class="res thing wide1" style="display: inline-block;">';
-        str += '<div id="res-icon-' + me.id + '" class="icon double" style="' + getIcon(me.icon) + '"></div>';
+        str += '<div id="res-icon-' + me.id + '" class="icon double" style="' + getIcon(me) + '"></div>';
         str += '<div id="res-over-' + me.id + '" class="overlay" style="border: 1px solid ' + getRarityColorCode(armors[i].rarity) + '"></div>';
         str += '<div id="res-amount-' + me.id + '" class="amount"></div>';
         str += '</div>';
@@ -459,10 +483,44 @@ function drawArmorInventory(armors) {
     }
 }
 
+function drawTrinketInventory(trinkets) {
+    let str = '';
+    for(let i = 0; i < trinkets.length; i++) {
+        let me = trinkets[i];
+        str += '<div id="res-' + me.id + '" class="res thing wide1" style="display: inline-block;">';
+        str += '<div id="res-icon-' + me.id + '" class="icon double" style="' + getIcon(me.icon) + '"></div>';
+        str += '<div id="res-over-' + me.id + '" class="overlay" style="border: 1px solid ' + getRarityColorCode(trinkets[i].rarity) + '"></div>';
+        str += '<div id="res-amount-' + me.id + '" class="amount"></div>';
+        str += '</div>';
+    }
+    domWhat('res-cat-trinkets').innerHTML = str;
+    for(let i = 0; i < trinkets.length; i++) {
+        let me = trinkets[i];
+        addTooltip(domWhat('res-' + me.id), function(){
+            return getTrinketTooltip(game.inventory.getItemFromId(Data.ItemType.TRINKET, me.id));
+        }, {offY: -8});
+        // Spawn tooltip and play sound on click
+        domWhat('res-' + me.id).addEventListener('click', function(){
+            let audio = new Audio('sounds/ui/spawntooltip.wav');
+            audio.volume = 0.2;
+            audio.play();
+            spawnTooltip(me);
+        });
+        // Play sound on hover
+        domWhat('res-' + me.id).addEventListener('mouseover', function(){
+            let audio = new Audio('sounds/ui/hovertooltip.wav');
+            audio.volume = 0.5;
+            audio.playbackRate = 2;
+            audio.play();
+        });
+    }
+}
+
 function drawInventory() {
     drawWeaponInventory(game.inventory.weapons);
     drawArmorInventory(game.inventory.armors);
     drawRuneInventory(game.inventory.runes);
     drawResourceInventory(game.inventory.resources);
+    drawTrinketInventory(game.inventory.trinkets);
 }
 

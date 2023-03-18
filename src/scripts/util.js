@@ -100,20 +100,30 @@ function getOffset(element) {
 }
 
 /**
- * Generates a CSS background property based on the given icon number.
- * @param {number} icon the icon index on the IconSheet
- * @returns {string} a CSS style string.
+ * Returns a CSS background-image property that links to the resource of given type.
+ * @param {Entity} entity the Entity ID to retrieve the Icon from
  */
-/*function getIcon(icon) {
-    // euclidean division of the icon index by 16 (which is the amount of icons per line on the icon set).
-    // remainder : x; quotient: y;
-    const posX = -(icon[0] % 16) * 24 * Game.iconScale;
-    const posY = -(Math.floor(icon[0] / 16)) * 24 * Game.iconScale;
-    return 'background: url(' + Game.iconURL +') ' + posX + 'px ' + posY + 'px;';
-}*/
+function getIcon(entity) {
+    let bgModif = 70;
+    let type;
+    if(entity instanceof Weapon) {
+        bgModif = 85;
+        type = "weapons";
+    }
+    else if(entity instanceof Armor) {
+        type = "armors";
+        if(entity.type === Data.ArmorType.SHIELD) {
+            bgModif = 55;
+        }
+    }
+    else if(entity instanceof Resource) type = "resources";
+    else if(entity instanceof Trinket) type = "trinkets";
+    else if(entity instanceof Rune) {
+        type = "runes";
+        bgModif = 60;
+    }
 
-function getIcon(icon, type) {
-    return 'background-image: url(css/img/resources/' + icon + '.png)';
+    return 'background-image: url(css/img/' + type + '/' + entity.icon + '.png); background-size: '+ bgModif + '%';
 }
 
 /**

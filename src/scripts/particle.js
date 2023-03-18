@@ -26,7 +26,7 @@ function getTooltipParticlesCanvas(item) {
     let canvas = document.createElement("canvas");
     let ctx = canvas.getContext("2d");
     canvas.width = 232;
-    canvas.height = 48;
+    canvas.height = 60;
     canvas.style.position = "absolute";
     canvas.style.left = "0";
     canvas.style.top = "0";
