@@ -2711,13 +2711,110 @@ table.statsTable tbody td:nth-child(3) {
     font-size: 12px;
     font-weight: normal;
 }
-/*.tooltipDesc::before {
-    content: "«";
-    display: inline-block;
-    margin-right: 5px;
+
+.tooltipSetText {
+    font-family: "RobotoSlab";
+    border: 1px solid rgba(255,255,255,0.25);
+    font-variant: small-caps;
+    font-size: 15px;
+    text-align: center;
+    padding: 0.5rem;
+    border-radius: 3px;
+    transition: all .1s ease-in-out;
 }
-.tooltipDesc::after {
-    content: "»";
-    display: inline-block;
-    margin-left: 5px;
-}*/
+.tooltipSetText:hover {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    color: white;
+    cursor: pointer;
+}
+.tooltipSetTitle {
+    font-family: "RobotoSlab";
+    font-variant: small-caps;
+    text-align: center;
+    font-style: italic;
+    color: grey;
+    font-size: 20px;
+}
+.tooltipSetAttributes {
+    margin-top: 0.4rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.tooltipSetAttribute {
+    font-variant: small-caps;
+    font-family: 'RobotoBold';
+    font-size: 13px;
+}
+.tooltipSetAttribute:not(:first-child) {
+    margin-left: 6px;
+}
+hr.leftSided {
+    height: 8px;
+    background-image: linear-gradient(90deg, rgba(255,255,255,0.25), transparent);
+    
+    border: 0;
+    height: 1px;
+}
+.tooltipSet {
+    padding: 0.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 0px 18px;
+    grid-template-areas: "tooltipSetItems tooltipSetDetails";
+}
+.tooltipSetItems {
+    grid-area: "tooltipSetItems";
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.tooltipSetDetails {
+    padding-top: 1rem;
+
+    grid-area: "tooltipSetDetails";
+    border: 1.5px solid;
+    border-top: 0;
+    border-bottom: 0;
+    border-right: 0;
+    border-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(226, 226, 226, 1) 48%, rgba(255, 255, 255, 0) 100%);
+    border-image-slice: 1;
+
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+.tooltipSetDetailsTitle {
+    font-family: "RobotoSlab";
+    font-variant: small-caps;
+    text-align: center;
+    font-style: italic;
+    font-size: 16px;
+    color: grey;
+    margin-bottom: 0.5rem;
+}
+.freeWidth {
+    width: auto;
+}
+.tooltipSetWidth {
+    width: 450px;
+}
+.tooltipSetDetail > .echoInfo {
+    text-align: left;
+    width: 100%;
+}
+.tooltipSetDetail {
+    width: 75%;
+    margin: 0 auto;
+}
+.tooltipSetDetail:not(:first-child) {
+    margin-top: 0.5rem;
+}
+.tooltipSetDetailTitle {
+    font-family: 'RobotoBold';
+    color: grey;
+}
+.tooltipSetDetailBonus, .tooltipSetDetail > .echoInfo {
+    margin-top: 0.25rem;
+}

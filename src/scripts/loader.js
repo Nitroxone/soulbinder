@@ -597,12 +597,50 @@ const Loader = {
                 what(game.all_weapons, "highsteel sword"),
                 what(game.all_trinkets, "omen insignia"),
                 what(game.all_trinkets, "foresighting ring"),
-                [],
-                []
+                {
+                    3: [
+                        new Stat(Data.Effect.DODGE, [3, 3], true, true)
+                    ],
+                    5: [
+                        new Stat(Data.Effect.MAXHEALTH, [10, 10], true)
+                    ],
+                    7: [
+                        new Stat(Data.Effect.DODGE, [5, 5], true, true),
+                        new Stat(Data.Effect.MAXHEALTH, [20, 20], true)
+                    ],
+                    8: [
+                        new Echo(
+                            "Swift as Steel",
+                            "Dodging an attack replenishes §1% of your total health. You get a §2% dodge boost, for 1 round, every time an enemy dodges one of your attacks.",
+                            1,
+                            Data.Rarity.COMMON,
+                            [],
+                            "Blessed with agility akin to a sword forged from the air itself.",
+                            {
+                                "health_regen": [5, 5],
+                                "dodge_boost": [4, 4],
+                            },
+                            []
+                        )
+                    ]
+                },
             ),
         ];
 
         for(const equipmentSet of equipmentSets) {
+            equipmentSet.helmet.set = equipmentSet.name;
+            equipmentSet.chestplate.set = equipmentSet.name;
+            equipmentSet.gloves.set = equipmentSet.name;
+            equipmentSet.boots.set = equipmentSet.name;
+            equipmentSet.shield.set = equipmentSet.name;
+            equipmentSet.weapon.set = equipmentSet.name;
+            equipmentSet.trinketOne.set = equipmentSet.name;
+            equipmentSet.trinketTwo.set = equipmentSet.name;
+            for(let key in equipmentSet.bonus) {
+                equipmentSet.bonus[key].forEach(bonus => {
+                    bonus.fix();
+                })
+            }
             game.all_equipmentSets.push(equipmentSet);
         }
     },

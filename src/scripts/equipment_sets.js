@@ -1,6 +1,5 @@
-class EquipmentSet {
+class EquipmentSet extends Entity {
     /**
-     * 
      * @param {string} name 
      * @param {string} type 
      * @param {string} desc 
@@ -13,12 +12,10 @@ class EquipmentSet {
      * @param {Trinket} trinketOne 
      * @param {Trinket} trinketTwo 
      * @param {array} bonus 
-     * @param {array} triggers 
      */
-    constructor(name, type, desc, helmet, chestplate, gloves, boots, shield, weapon, trinketOne, trinketTwo, bonus, triggers) {
-        this.name = name;
+    constructor(name, type, desc, helmet, chestplate, gloves, boots, shield, weapon, trinketOne, trinketTwo, bonus) {
+        super(name, desc, 0);
         this.type = type;
-        this.desc = desc;
         this.helmet = helmet;
         this.chestplate = chestplate;
         this.gloves = gloves;
@@ -28,6 +25,5 @@ class EquipmentSet {
         this.trinketOne = trinketOne,
         this.trinketTwo = trinketTwo;
         this.bonus = bonus;
-        this.triggers = triggers;
     }
 }

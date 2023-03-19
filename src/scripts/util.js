@@ -103,7 +103,7 @@ function getOffset(element) {
  * Returns a CSS background-image property that links to the resource of given type.
  * @param {Entity} entity the Entity ID to retrieve the Icon from
  */
-function getIcon(entity) {
+function getIcon(entity, forceModif = 0) {
     let bgModif = 70;
     let type;
     if(entity instanceof Weapon) {
@@ -122,6 +122,7 @@ function getIcon(entity) {
         type = "runes";
         bgModif = 60;
     }
+    if(forceModif != 0) bgModif = forceModif;
 
     return 'background-image: url(css/img/' + type + '/' + entity.icon + '.png); background-size: '+ bgModif + '%';
 }

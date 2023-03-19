@@ -2,7 +2,8 @@
  * Spawns a floating tooltip on screen based on the provided Item's data.
  * @param {Item} item the Item data to fill the tooltip with
  */
-function spawnTooltip(item) {
+function spawnTooltip(item, fromExisting = 0) {
+    console.log(item);
     const base = '<div id="floating-' + item.id +'" class="tooltip framed bgDark tooltipSpawn">'
     const tooltip = document.createElement('div');
     if(item instanceof Weapon) tooltip.innerHTML = base + getWeaponTooltip(item, null, true) + '</div>';
@@ -10,10 +11,20 @@ function spawnTooltip(item) {
     else if(item instanceof Rune) tooltip.innerHTML = base + getRuneTooltip(item, null) + '</div>';
     else if(item instanceof Resource) tooltip.innerHTML = base + getResourceTooltip(item, null) + '</div>';
     else if(item instanceof Trinket) tooltip.innerHTML = base + getTrinketTooltip(item, null, true) + '</div>';
+    else if(item instanceof EquipmentSet) tooltip.innerHTML = base + getSetTooltip(item) + '</div>';
     // Same position as hovered tooltip, but positioned in such way that it will cut the mouse off the hover event
-    const tooltipPos = {
+    
+    let tooltipPos = {
         top: domWhat('tooltipAnchor').offsetTop - 75 + 'px',
         left: domWhat('tooltipAnchor').offsetLeft + domWhat('tooltip').offsetLeft + 'px'
+    }
+    if(fromExisting != 0) {
+        const domReference = domWhat('floating-' + fromExisting);
+        console.log(domReference.getBoundingClientRect());
+        tooltipPos = {
+            top: domReference.getBoundingClientRect().top + 'px',
+            left: domReference.getBoundingClientRect().left - 50 + 'px'
+        }
     }
 
     tooltip.style.position = "absolute";
@@ -71,16 +82,16 @@ function getRuneTooltip(rune, asResult) {
     // effects
     str += '<div class="par"></div>';
     rune.effects.forEach(effect => {
-        str += '<div class="itemEffect"' + (effect.critical ? ' style="font-weight:bold; color:'+ Data.Color.GOLD +'; font-style:italic;"' : '') + '>' + (effect.value > 0 ? '+ ' : effect.value < 0 ? '- ' : '') + (effect.value == 0 ? '' : Math.abs(effect.value)) + (effect.isPercentage ? '%' : '') + ' ' + capitalizeFirstLetter(effect.effect) + '<span class="theoricalval">[' + effect.theorical[0] + '-' + effect.theorical[1] + ']</span>' + '</div>';
+            str += effect.getFormatted("itemEffect");
     });
     if(rune.isCritical) {
         rune.critical.forEach(effect => {
-            str += '<div class="itemEffect"' + ' style="font-family:\'RobotoBold\'; color:'+ Data.Color.GOLD +';"' + '><span style="font-family:Roboto">' + (effect.value > 0 ? '+ ' : effect.value < 0 ? '- ' : '') + '</span>' + (effect.value == 0 ? '' : Math.abs(effect.value)) + (effect.isPercentage ? '%' : '') + ' ' + capitalizeFirstLetter(effect.effect) + '<span class="theoricalval">[' + effect.theorical[0] + '-' + effect.theorical[1] + ']</span>' + '</div>';
+            str += effect.getFormatted("itemEffect", Data.Color.GOLD, true);
         });
     }
     if(rune.isCorrupt) {
         rune.corrupt.forEach(effect => {
-            str += '<div class="itemEffect"' + ' style="font-weight:bold; color:'+ Data.Color.CORRUPT +';"' + '><span style="font-weight:normal">' + (effect.value > 0 ? '+ ' : effect.value < 0 ? '- ' : '') + '</span>' + (effect.value == 0 ? '' : Math.abs(effect.value)) + (effect.isPercentage ? '%' : '') + ' ' + capitalizeFirstLetter(effect.effect) + '<span class="theoricalval">[' + effect.theorical[0] + '-' + effect.theorical[1] + ']</span>' + '</div>';
+            str += effect.getFormatted("itemEffect", Data.Color.CORRUPT, true);
         });
     }
     rune.echoes.forEach(echo => {
@@ -125,6 +136,7 @@ function getTrinketTooltip(trinket, asResult = null, full = false) {
 
     str += '<div class="divider"></div>';
     str += '<div class="par tooltipDesc">' + trinket.desc + '</div>';
+    if(trinket.set) str += '<div class="tooltipSetText">' + trinket.set + '</div>';
     str += '</div></div>';
 
     game.particlesTooltipCanvasItem = trinket;
@@ -199,6 +211,7 @@ function getWeaponTooltip(weapon, asResult = null, full = false) {
     // desc
     str += '<div class="divider"></div>';
     str += '<div class="par tooltipDesc">' + weapon.desc + '</div>';
+    if(weapon.set) str += '<div class="tooltipSetText">' + weapon.set + '</div>';
     str += '</div>';
 
     game.particlesTooltipCanvasItem = weapon;
@@ -243,9 +256,60 @@ function getArmorTooltip(armor, asResult = null, full = false) {
     // desc
     str += '<div class="divider"></div>';
     str += '<div class="par tooltipDesc">"' + armor.desc + '"</div>';
+    if(armor.set) str += '<div class="tooltipSetText">' + armor.set + '</div>';
     str += '</div>';
 
     game.particlesTooltipCanvasItem = armor;
+    return str;
+}
+
+
+function getSetTooltip(set) {
+    let str = '<div class="info tooltipSetWidth">';
+    str += '<div class="tooltipSetTitle">' + set.name + '</div>';
+    str += '<div class="tooltipSetAttributes">';
+    str += '<div class="tooltipSetAttribute">' + set.type.weight + '</div>';
+    str += '<div class="tooltipSetAttribute">' + set.type.base + '</div>';
+    str += '<div class="tooltipSetAttribute">' + set.type.extra + '</div>';
+    str += '</div>';
+    str += '<div class="divider"></div>';
+    str += '<div class="tooltipSet">';
+
+    str += '<div class="tooltipSetItems">';
+    str += getSetTooltipItem(set.helmet);
+    str += getSetTooltipItem(set.chestplate);
+    str += getSetTooltipItem(set.gloves);
+    str += getSetTooltipItem(set.boots);
+    str += getSetTooltipItem(set.shield);
+    str += getSetTooltipItem(set.weapon);
+    str += getSetTooltipItem(set.trinketOne);
+    str += getSetTooltipItem(set.trinketTwo);
+    str += '</div>';
+
+    str += '<div class="tooltipSetDetails">';
+    for(let key in set.bonus) {
+        str += '<div class="tooltipSetDetail">';
+        str += '<div class="tooltipSetDetailTitle">' + key  + ' item' + (key > 1 ? 's' : '') +'</div>';
+        set.bonus[key].forEach(bonus => {
+            if(bonus instanceof Stat) str += bonus.getFormatted("itemEffect tooltipSetDetailBonus", '', '', '', true);
+            if(bonus instanceof Echo) str += getEchoDetails(bonus, true);
+        })
+        str += '</div>';
+    }
+    str += '</div>';
+
+    str += '</div>';
+    str += '</div>';
+    
+    return str;
+}
+
+function getSetTooltipItem(item) {
+    let str = '<div class="runeInfo" style="' + getIcon(item, 25) + '">';
+    str += '<div class="runeInfo-infos">';
+    str += '<div class="runeTitle" style="text-align: left">' + getSmallThingNoIcon(item, null) + '</div>';
+    str += '</div></div>';
+
     return str;
 }
 
@@ -375,6 +439,13 @@ function drawWeaponInventory(weapons) {
             audio.volume = 0.2;
             audio.play();
             spawnTooltip(me);
+            if(me.set) {
+                let tooltipDesc = domWhat('floating-' + me.id).querySelector('.tooltipSetText');
+                tooltipDesc.addEventListener('click', (e) => {
+                    audio.play();
+                    spawnTooltip(what(game.all_equipmentSets, me.set), me.id);
+                });
+            }
         });
         // Play sound on hover
         domWhat('res-' + me.id).addEventListener('mouseover', function(){
@@ -480,6 +551,13 @@ function drawArmorInventory(armors) {
             audio.volume = 0.2;
             audio.play();
             spawnTooltip(me);
+            if(me.set) {
+                let tooltipDesc = domWhat('floating-' + me.id).querySelector('.tooltipSetText');
+                tooltipDesc.addEventListener('click', (e) => {
+                    audio.play();
+                    spawnTooltip(what(game.all_equipmentSets, me.set), me.id);
+                });
+            }
         });
         // Play sound on hover
         domWhat('res-' + me.id).addEventListener('mouseover', function(){
@@ -513,6 +591,13 @@ function drawTrinketInventory(trinkets) {
             audio.volume = 0.2;
             audio.play();
             spawnTooltip(me);
+            if(me.set) {
+                let tooltipDesc = domWhat('floating-' + me.id).querySelector('.tooltipSetText');
+                tooltipDesc.addEventListener('click', (e) => {
+                    audio.play();
+                    spawnTooltip(what(game.all_equipmentSets, me.set), me.id);
+                });
+            }
         });
         // Play sound on hover
         domWhat('res-' + me.id).addEventListener('mouseover', function(){

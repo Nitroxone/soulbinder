@@ -99,24 +99,29 @@ class Stat {
      * @param {boolean} italic makes the text in italics
      * @return {string} an HTML string
      */
-    getFormatted(cssClass = '', color = '', bold = false, italic = false) {
-        return '<div class="' 
+    getFormatted(cssClass = '', color = '', bold = false, italic = false, noTheorical = false) {
+        let str = '<div class="' 
         + cssClass 
         + '" style="' 
         + (bold ? 'font-family: RobotoBold; ' : '') 
         + (italic ? 'font-style: italic; ' : '') 
         + (color ? 'color: ' + color + ';': '') 
-        + '><span style="font-weight: normal;">' 
+        + '"><span style="font-weight: normal;">' 
         + (this.getValue() > 0 ? '+ ' : this.getValue() < 0 ? '- ' : '') 
         + '</span>' 
         + (this.getValue() == 0 ? '' : Math.abs(this.getValue())) 
         + (this.isPercentage ? '%' : '') 
         + ' ' 
-        + capitalizeFirstLetter(this.effect) 
-        + '<span class="theoricalval">[' 
-        + this.theorical[0] 
-        + (this.theorical[1] > 0 ? '-' : ', ') 
-        + this.theorical[1] 
-        + ']</span></div>';
+        + capitalizeFirstLetter(this.effect);
+        if(!noTheorical) {
+            str += '<span class="theoricalval">[' 
+            + this.theorical[0] 
+            + (this.theorical[1] > 0 ? '-' : ', ') 
+            + this.theorical[1] 
+            + ']</span>';
+        }
+        str += '</div>';
+
+        return str;
     }
 }

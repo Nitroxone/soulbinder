@@ -9,6 +9,8 @@ class Trinket extends Item {
         this.echoes_amount = echoes_amount;
         this.echoes_free = echoes_amount;
         this.echoes = echoes;
+        
+        this.set = null;
     }
     
     /**

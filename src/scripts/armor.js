@@ -38,6 +38,8 @@ class Armor extends Item {
         this.sockets_amount = sockets_amount;
         this.sockets_free = sockets_amount;
         this.sockets = [];
+
+        this.set = null;
     }
 
     /**
