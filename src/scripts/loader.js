@@ -355,6 +355,7 @@ const Loader = {
                     "stamina_cost": [2, 7]
                 },
                 [],
+                Data.EchoType.ARMOR
             ),
             new Echo(
                 "Fencer's Mark",
@@ -404,6 +405,7 @@ const Loader = {
                     "extra_damage": [15, 25]
                 },
                 [],
+                Data.EchoType.WEAPON,
             ),
             new Echo(
                 "Cannibal Instinct",
