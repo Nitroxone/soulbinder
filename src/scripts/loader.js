@@ -611,7 +611,7 @@ const Loader = {
                     8: [
                         new Echo(
                             "Swift as Steel",
-                            "Dodging an attack replenishes §1% of your total health. You get a §2% dodge boost, for 1 round, every time an enemy dodges one of your attacks.",
+                            "Dodging an attack replenishes §1% of your total health. If an enemy dodges your attack, your dodge is boosted by §2% for 1 round.",
                             1,
                             Data.Rarity.COMMON,
                             [],
