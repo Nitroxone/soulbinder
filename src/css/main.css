@@ -2798,7 +2798,8 @@ hr.leftSided {
     width: auto;
 }
 .tooltipSetWidth {
-    width: 450px;
+    min-width: 450px;
+    max-width: 550px;
 }
 .tooltipSetDetail > .echoInfo {
     text-align: left;
