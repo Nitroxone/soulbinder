@@ -159,7 +159,7 @@ class Game {
             new Tab('Striders', 'striders', 'Manage your fighters and prepare your formation.'),
             new Tab('Battle', 'battle', 'Slay your enemies.'),
             new Tab('Exploration', 'exploration', 'Make your way through dungeons.'),
-            new Tab('Lore', 'lore', 'Read your collected text fragments.', false, 'right'),
+            new Tab('Eons', 'eons', 'Read your collected text fragments.', false, 'right'),
             new Tab('Achievements', 'achievements', 'Scroll through your unlocked (and yet to be unlocked) achievements.', false, 'right'),
             new Tab('Update log', 'updates', 'Read the game\'s update logs and other things.', true, 'right'),
         ];
