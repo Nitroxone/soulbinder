@@ -538,7 +538,7 @@ a:active, .tooltiped:active {
     margin: 0 2px;
     height: 60px;
     margin-bottom: -36px;
-    transition: top 0.2s;
+    transition: all 0.2s ease-in-out;
     position: relative;
     top: 0;
     border: 2px solid rgb(53, 53, 53);
@@ -556,6 +556,9 @@ a:active, .tooltiped:active {
     top: -4px;
     border: 2px solid rgb(148, 148, 148);
     background-color: rgba(95, 95, 95, 1);
+}
+.tab:active {
+    border: 2px solid white;
 }
 .tab.on, .tab:hover, .tab:active {color: #ffffff}
 
