@@ -154,10 +154,12 @@ class Game {
 
     initTabs() {
         const tabs = [
-            new Tab('Enchanting', 'enchanting', 'Enchant your gear.'),
-            new Tab('Crafting', 'crafting', 'Craft trinkets, potions, and runes alike.'),
+            new Tab('Hub', 'hub', 'Start expeditions and enroll in quests.'),
+            new Tab('Workshop', 'workshop', 'Craft new items, and upgrade your gear.'),
             new Tab('Striders', 'striders', 'Manage your fighters and prepare your formation.'),
             new Tab('Battle', 'battle', 'Slay your enemies.'),
+            new Tab('Exploration', 'exploration', 'Make your way through dungeons.'),
+            new Tab('Lore', 'lore', 'Read your collected text fragments.', false, 'right'),
             new Tab('Achievements', 'achievements', 'Scroll through your unlocked (and yet to be unlocked) achievements.', false, 'right'),
             new Tab('Update log', 'updates', 'Read the game\'s update logs and other things.', true, 'right'),
         ];
@@ -178,7 +180,7 @@ class Game {
 
         str = '';
         for(let i = 0; i < this.tabs.length; i++) {
-            str += '<div id="tab-' + this.tabs[i].id + '" class="tab bgMid' + (this.tabs[i].addClass ? ' ' + this.tabs[i].addClass : '') + '">' + this.tabs[i].name + '</div>';
+            str += '<div id="tab-' + this.tabs[i].id + '" class="tab' + (this.tabs[i].addClass ? ' ' + this.tabs[i].addClass : '') + '">' + this.tabs[i].name + '</div>';
         }
         domWhat('sectionTabs').innerHTML = str;
         for(let i = 0; i < this.tabs.length; i++) {
@@ -201,16 +203,12 @@ class Game {
                 let me = this.tabs[i];
                 if(me.id != tab.id) { // close other tabs
                     me.domWhat.classList.remove('on');
-                    me.domWhat.classList.remove('bgLight');
-                    me.domWhat.classList.add('bgMid');
                     if(me.div) {
                         domWhat(me.div).style.display = 'none';
                         //domWhat(me.div).innerHTML = '';
                     }
                 } else { // update focused tab
                     me.domWhat.classList.add('on');
-                    me.domWhat.classList.remove('bgMid');
-                    me.domWhat.classList.add('bgLight');
                     if(me.div) domWhat(me.div).style.display = 'block';
                     // update tab -- need code here!
                     this.updateTab(tab);

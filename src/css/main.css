@@ -432,7 +432,6 @@ a:active, .tooltiped:active {
     position: relative;
     text-align: center;
     color: #cccccc;
-    text-shadow: 1px 1px 0 #000000,-1px 1px 0 #000000,-1px -1px 0 #000,1px -1px 0 #000000;
 }
 .button {
     padding: 4px 8px;
@@ -535,21 +534,28 @@ a:active, .tooltiped:active {
     float: left;
     text-align: center;
     padding: 5px 12px;
-    border-radius: 4px 4px 0 0;
+    border-radius: 3px 3px 0 0;
     margin: 0 2px;
     height: 60px;
-    margin-bottom: -40px;
+    margin-bottom: -36px;
     transition: top 0.2s;
     position: relative;
     top: 0;
-    box-shadow: 0 3px 6px 0 rgba(0,0,0,0.5) inset, 0 0 0 1px rgba(0,0,0,0.75), 0 0 1px 2px rgba(255,255,255,0.25);
+    border: 2px solid rgb(53, 53, 53);
+    background-image: url('img/bgLeather.png');
+    background-size: cover;
+    font-variant: small-caps;
+    font-family: 'RobotoSlab';
+    font-weight: normal;
+    font-size: 12px;
 }
 .tab.right {
     float:right;
 }
 .tab.on {
     top: -4px;
-    box-shadow: 0 1px 0 0 #ffffff inset, 0 1px 0 1px rgba(255,255,255,0.5) inset, 0 3px 6px 0 rgba(255,255,255,0.5) inset, 0 0 0 1px rgba(0,0,0,0.75), 0 0 1px 2px rgba(255,255,255,0.25), 0 8px 6px 6px rgba(64,255,255,0.25);
+    border: 2px solid rgb(148, 148, 148);
+    background-color: rgba(95, 95, 95, 1);
 }
 .tab.on, .tab:hover, .tab:active {color: #ffffff}
 
