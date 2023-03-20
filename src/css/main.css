@@ -1153,6 +1153,18 @@ a:active, .tooltiped:active {
     /*position: relative;*/
     overflow: hidden;
     padding: 4px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.category > .inventoryItem:not(:first-child) {
+    margin-left: 0.3rem;
+}
+.category > .inventoryItem {
+    margin-top: 0.3rem;
 }
 
 .categoryName {
@@ -2818,4 +2830,23 @@ hr.leftSided {
 }
 .tooltipSetDetailBonus, .tooltipSetDetail > .echoInfo {
     margin-top: 0.25rem;
+}
+
+.inventoryItem {
+    width: 40px;
+    height: 54px;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color:rgba(0, 0, 0, 0.1);
+
+    border: 2px solid rgba(255,255,255,0.35);
+
+    padding: 0.5rem;
+    border-radius: 3px;
+
+    cursor: pointer;
+}
+.inventoryItem:hover {
+    background-color: rgba(255, 255, 255, 0.2);
 }

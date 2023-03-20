@@ -420,10 +420,7 @@ function drawWeaponInventory(weapons) {
     let str = '';
     for(let i = 0; i < weapons.length; i++) {
         let me = weapons[i];
-        str += '<div id="res-' + me.id + '" class="res thing wide1" style="display: inline-block;">';
-        str += '<div id="res-icon-' + me.id + '" class="icon double" style="' + getIcon(me) + '"></div>';
-        str += '<div id="res-over-' + me.id + '" class="overlay" style="border: 1px solid ' + getRarityColorCode(weapons[i].rarity) + '"></div>';
-        str += '<div id="res-amount-' + me.id + '" class="amount"></div>';
+        str += '<div id="res-' + me.id + '" class="inventoryItem" style="' + getIcon(me) + '; border: 2px solid ' + getRarityColorCode(me.rarity) +'">';
         str += '</div>';
     }
     domWhat('res-cat-weapons').innerHTML = str;
@@ -461,10 +458,7 @@ function drawRuneInventory(runes) {
     let str = '';
     for(let i = 0; i < runes.length; i++) {
         let me = runes[i];
-        str += '<div id="res-' + me.id + '" class="res thing wide1" style="display: inline-block;">';
-        str += '<div id="res-icon-' + me.id + '" class="icon double" style="' + getIcon(me) + '"></div>';
-        str += '<div id="res-over-' + me.id + '" class="overlay" style="border: 1px solid ' + getRarityColorCode(runes[i].rarity) + '"></div>';
-        str += '<div id="res-amount-' + me.id + '" class="amount"></div>';
+        str += '<div id="res-' + me.id + '" class="inventoryItem" style="' + getIcon(me) + '; border: 2px solid ' + getRarityColorCode(me.rarity) +'">';
         str += '</div>';
     }
     domWhat('res-cat-runes').innerHTML = str;
@@ -496,10 +490,7 @@ function drawResourceInventory(resources) {
     for(let i = 0; i < resources.length; i++) {
         if(resources[i].amount > 0) {
             let me = resources[i];
-            str += '<div id="res-' + me.id + '" class="res thing wide1" style="display: inline-block;">';
-            str += '<div id="res-icon-' + me.id + '" class="icon double" style="' + getIcon(me) + '"></div>';
-            str += '<div id="res-over-' + me.id + '" class="overlay" style="border: 1px solid ' + getRarityColorCode(resources[i].rarity) + '"></div>';
-            str += '<div id="res-amount-' + me.id + '" class="amount">' + me.amount + '</div>';
+            str += '<div id="res-' + me.id + '" class="inventoryItem" style="' + getIcon(me) + '; border: 2px solid ' + getRarityColorCode(me.rarity) +'">';
             str += '</div>';
         }
     }
@@ -533,10 +524,7 @@ function drawArmorInventory(armors) {
     let str = '';
     for(let i = 0; i < armors.length; i++) {
         let me = armors[i];
-        str += '<div id="res-' + me.id + '" class="res thing wide1" style="display: inline-block;">';
-        str += '<div id="res-icon-' + me.id + '" class="icon double" style="' + getIcon(me) + '"></div>';
-        str += '<div id="res-over-' + me.id + '" class="overlay" style="border: 1px solid ' + getRarityColorCode(armors[i].rarity) + '"></div>';
-        str += '<div id="res-amount-' + me.id + '" class="amount"></div>';
+        str += '<div id="res-' + me.id + '" class="inventoryItem" style="' + getIcon(me) + '; border: 2px solid ' + getRarityColorCode(me.rarity) +'">';
         str += '</div>';
     }
     domWhat('res-cat-armors').innerHTML = str;
@@ -573,10 +561,7 @@ function drawTrinketInventory(trinkets) {
     let str = '';
     for(let i = 0; i < trinkets.length; i++) {
         let me = trinkets[i];
-        str += '<div id="res-' + me.id + '" class="res thing wide1" style="display: inline-block;">';
-        str += '<div id="res-icon-' + me.id + '" class="icon double" style="' + getIcon(me.icon) + '"></div>';
-        str += '<div id="res-over-' + me.id + '" class="overlay" style="border: 1px solid ' + getRarityColorCode(trinkets[i].rarity) + '"></div>';
-        str += '<div id="res-amount-' + me.id + '" class="amount"></div>';
+        str += '<div id="res-' + me.id + '" class="inventoryItem" style="' + getIcon(me) + '; border: 2px solid ' + getRarityColorCode(me.rarity) +'">';
         str += '</div>';
     }
     domWhat('res-cat-trinkets').innerHTML = str;
