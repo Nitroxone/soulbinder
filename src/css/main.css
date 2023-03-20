@@ -2848,9 +2848,19 @@ hr.leftSided {
     border-radius: 3px;
 
     cursor: pointer;
+
+    position: relative;
 }
 .inventoryItem:hover {
     background-color: rgba(255, 255, 255, 0.2);
+}
+.inventoryItemAmount {
+    position: absolute;
+    bottom: -5px;
+    right: -5px;
+    background-color: rgba(34, 47, 62, 1);
+    border-radius: 3px;
+    padding: 0.5rem 0.35rem;
 }
 .hide {
     display: none;

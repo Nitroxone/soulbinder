@@ -497,6 +497,7 @@ function drawResourceInventory(resources) {
         if(resources[i].amount > 0) {
             let me = resources[i];
             str += '<div id="res-' + me.id + '" class="inventoryItem" style="' + getIcon(me) + '; border: 2px solid ' + getRarityColorCode(me.rarity) +'">';
+            str += '<div id="res-amount-' + me.id + '" class="inventoryItemAmount">' + (me.amount > 99 ? '99+' : me.amount) + '</div>';
             str += '</div>';
         }
     }
