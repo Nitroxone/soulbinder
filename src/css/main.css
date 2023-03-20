@@ -1159,6 +1159,8 @@ a:active, .tooltiped:active {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+
+    transition: max-height 0.2s ease-out;
 }
 .category > .inventoryItem:not(:first-child) {
     margin-left: 0.3rem;
@@ -2838,7 +2840,7 @@ hr.leftSided {
 
     background-position: center;
     background-repeat: no-repeat;
-    background-color:rgba(0, 0, 0, 0.1);
+    background-color:rgba(0, 0, 0, 0.25);
 
     border: 2px solid rgba(255,255,255,0.35);
 
@@ -2849,4 +2851,7 @@ hr.leftSided {
 }
 .inventoryItem:hover {
     background-color: rgba(255, 255, 255, 0.2);
+}
+.hide {
+    display: none;
 }

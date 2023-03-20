@@ -452,6 +452,9 @@ function drawWeaponInventory(weapons) {
             audio.play();
         })
     }
+    document.querySelector('#res-weapons').addEventListener('click', (e) => {
+        document.querySelector('#res-cat-weapons').classList.toggle('hide');
+    })
 }
 
 function drawRuneInventory(runes) {
@@ -483,6 +486,9 @@ function drawRuneInventory(runes) {
             audio.play();
         })
     }
+    document.querySelector('#res-runes').addEventListener('click', (e) => {
+        document.querySelector('#res-cat-runes').classList.toggle('hide');
+    })
 }
 
 function drawResourceInventory(resources) {
@@ -518,6 +524,9 @@ function drawResourceInventory(resources) {
             });
         }
     }
+    document.querySelector('#res-resources').addEventListener('click', (e) => {
+        document.querySelector('#res-cat-resources').classList.toggle('hide');
+    })
 }
 
 function drawArmorInventory(armors) {
@@ -555,6 +564,9 @@ function drawArmorInventory(armors) {
             audio.play();
         });
     }
+    document.querySelector('#res-armors').addEventListener('click', (e) => {
+        document.querySelector('#res-cat-armors').classList.toggle('hide');
+    })
 }
 
 function drawTrinketInventory(trinkets) {
@@ -592,6 +604,9 @@ function drawTrinketInventory(trinkets) {
             audio.play();
         });
     }
+    document.querySelector('#res-trinkets').addEventListener('click', (e) => {
+        document.querySelector('#res-cat-trinkets').classList.toggle('hide');
+    })
 }
 
 function drawInventory() {
