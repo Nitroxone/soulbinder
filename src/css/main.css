@@ -558,7 +558,6 @@ a:active, .tooltiped:active {
 
     position: relative;
     width: 100%;
-    text-align: center;
     padding: 8px;
 }
 .thing, .thingWrapper {
@@ -1168,12 +1167,6 @@ a:active, .tooltiped:active {
 .category > .inventoryItem {
     margin-top: 0.3rem;
 }
-
-.categoryName {
-    color: #cccccc;
-    text-shadow: 1px 1px 0 #000000;
-}
-.categoryName:hover {color: #ffffff;}
 
 .sideCategory {
     width: 84px;
@@ -2768,7 +2761,7 @@ hr.leftSided {
     background-image: linear-gradient(90deg, rgba(255,255,255,0.25), transparent);
     
     border: 0;
-    height: 1px;
+    height: 2px;
 }
 .tooltipSet {
     padding: 0.5rem;
@@ -2864,4 +2857,21 @@ hr.leftSided {
 }
 .hide {
     display: none;
+}
+
+.categoryName {
+    font-family: 'RobotoSlab';
+    font-size: 20px;
+    font-variant: small-caps;
+    color: rgb(167, 167, 167);
+}
+.categoryName:hover {
+    color: rgb(204, 204, 204);
+    cursor: pointer;
+}
+.categoryName:not(:first-child) {
+    margin-top: 1rem;
+}
+.categoryNameSpacing, .categoryName {
+    margin: 1rem 0 0 1rem;
 }
