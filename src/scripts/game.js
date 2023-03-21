@@ -188,7 +188,7 @@ class Game {
             this.tabs[i].domWhat.onclick = function(tab){return function(){game.setTab(tab);};}(this.tabs[i]);
             addTooltip(this.tabs[i].domWhat, function(tab){return function(){return tab.desc;};}(this.tabs[i]), {offY:-8});
         }
-        this.setTab(this.tabs[3]);
+        this.setTab(this.tabs[2]);
     }
 
     setTab(tab) {
