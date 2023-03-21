@@ -293,5 +293,6 @@ class Game {
         this.inventory.enchant(this.inventory.armors[0], this.inventory.runes[0]);
 
         drawInventory();
+        drawStridersScreen();
     }
 }

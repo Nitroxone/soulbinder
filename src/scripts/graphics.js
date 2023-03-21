@@ -230,8 +230,8 @@ function getArmorTooltip(armor, asResult = null, full = false) {
 
     str += '<div class="par"></div>';
     str += '<table class="statsTable"><tbody>';
-    str += '<tr><td>Resilience</td><td>' + armor.pres + '<span class="theoricalval">[' + armor.t_pres[0] + '-' + armor.t_pres[1] +']</span>' + '</td></tr>';
-    str += '<tr><td>Warding</td><td>' + armor.mres + '<span class="theoricalval">[' + armor.t_mres[0] + '-' + armor.t_mres[1] +']</span>' + '</td></tr>';
+    str += '<tr><td>Resilience</td><td>' + armor.resilience + '<span class="theoricalval">[' + armor.t_resilience[0] + '-' + armor.t_resilience[1] +']</span>' + '</td></tr>';
+    str += '<tr><td>Warding</td><td>' + armor.warding + '<span class="theoricalval">[' + armor.t_warding[0] + '-' + armor.t_warding[1] +']</span>' + '</td></tr>';
     str += '</tbody></table>';
     str += '<div class="par"></div>';
 
@@ -616,5 +616,22 @@ function drawInventory() {
     drawRuneInventory(game.inventory.runes);
     drawResourceInventory(game.inventory.resources);
     drawTrinketInventory(game.inventory.trinkets);
+}
+
+function drawStridersScreen() {
+    document.querySelector('#stridersDiv').innerHTML = '<div class="stridersContainer"></div>';
+    let str = '';
+
+    str += '<div class="p-formationContainer"></div>';
+
+    str += '<div class="teamContainer">';
+    str += '<div class="team">';
+    game.player.roster.forEach(hero => {
+        str += hero.name;
+    })
+    str += '</div>';
+    str += '</div>';
+
+    document.querySelector('.stridersContainer').innerHTML = str;
 }
 

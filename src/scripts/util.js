@@ -402,8 +402,8 @@ function getEmptyRuneStats(type, bleedIncurable, poisonIncurable) {
         }
     } else if(type === "armor") {
         return {
-            pres: 0,
-            mres: 0,
+            resilience: 0,
+            warding: 0,
             optres: [false, false, false, false, false, false, false, false],
         }
     }
@@ -504,17 +504,17 @@ function getRuneStats(rune, bleedIncurable, poisonIncurable) {
         return stats;
     } else if(rune.type == "armor") {
         let stats = {
-            pres: 0,
-            mres: 0,
+            resilience: 0,
+            warding: 0,
             optres: [false, false, false, false, false, false, false, false], //axe, bow, dagger, hammer, spear, staff, sword, warscythe
         };
         rune.stats.forEach( (element) => {
             switch(element.effect) {
                 case Data.Effect.PRES:
-                    stats.pres = element.value;
+                    stats.resilience = element.value;
                     break;
                 case Data.Effect.MRES:
-                    stats.mres = element.value;
+                    stats.warding = element.value;
                     break;
                 case Data.Effect.OPT_RES_AXE_ON:
                     stats.optres[0] = true;

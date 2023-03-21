@@ -9,27 +9,27 @@ class Armor extends Item {
      * @param {number} price the Armor's price
      * @param {string} rarity the Armor's rarity
      * @param {string} type the Armor's type (Data.ArmorType)
-     * @param {array} t_pres the Armor's theorical resilience
-     * @param {array} t_mres the Armor's theorical warding
+     * @param {array} t_resilience the Armor's theorical resilience
+     * @param {array} t_warding the Armor's theorical warding
      * @param {number} sockets_amount the Armor's sockets amount
      * @param {number} echoes_amount
      * @param {array} echoes the Armor's optional echoes
      */
     constructor(name, desc, icon, price, rarity, 
                 type, 
-                t_pres, 
-                t_mres, 
+                t_resilience, 
+                t_warding, 
                 sockets_amount = 1,
                 echoes_amount = 1,
                 echoes = []) {
         super(name, desc, icon, price, rarity);
         this.type = type;
 
-        this.t_pres = t_pres;
-        this.t_mres = t_mres;
+        this.t_resilience = t_resilience;
+        this.t_warding = t_warding;
         
-        this.pres = null;
-        this.mres = null;
+        this.resilience = null;
+        this.warding = null;
 
         this.echoes_amount = echoes_amount;
         this.echoes_free = echoes_amount;
@@ -46,8 +46,8 @@ class Armor extends Item {
      * Generates stats for an armor, based on its theorical values.
      */
     generateStats() {
-        this.pres = getRandomNumberFromArray(this.t_pres); 
-        this.mres = getRandomNumberFromArray(this.t_mres);
+        this.resilience = getRandomNumberFromArray(this.t_resilience); 
+        this.warding = getRandomNumberFromArray(this.t_warding);
     }
 
     /**
@@ -113,10 +113,10 @@ class Armor extends Item {
         const factor = remove ? -1 : 1;
         switch(effect.effect) {
             case Data.Effect.PRES:
-                this.pres += effect.getValue() * factor;
+                this.resilience += effect.getValue() * factor;
                 break;
             case Data.Effect.MRES:
-                this.mres += effect.getValue() * factor;
+                this.warding += effect.getValue() * factor;
                 break;
         }
     }
