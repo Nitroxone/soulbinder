@@ -53,6 +53,8 @@ class Game {
         this.all_runeCorruptEffects = [];
         this.all_equipmentSets = [];
 
+        this.all_skillTrees = [];
+
         this.player = null;
         this.inventory = null;
     }
@@ -294,5 +296,7 @@ class Game {
 
         drawInventory();
         drawStridersScreen();
+
+        console.clear();
     }
 }

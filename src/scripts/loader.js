@@ -644,4 +644,22 @@ const Loader = {
             game.all_equipmentSets.push(equipmentSet);
         }
     },
+
+    loadSkillTrees: loadSkillTrees = () => {
+        const skillTrees = [
+            new SkillTree(
+                "amarok",
+                "Amarok's skill tree",
+                [
+                    new SkillTreeNode(
+                        
+                    )
+                ]
+            )
+        ];
+
+        for(const skillTree of skillTrees) {
+            game.all_skillTrees.push(skillTree);
+        }
+    }
 }
