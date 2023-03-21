@@ -1931,36 +1931,17 @@ table.statsTable tbody td:nth-child(3) {
 .teamContainer {
     width:100%;
 }
-.teamContainerHead {
-    display:flex;
-    justify-content:flex-end;
-    align-items:center;
-    flex-direction: column;
-    height:50px;
-}
 .team {
-    padding:15px;
-    min-height:150px;
+    padding:2rem;
+
     display:flex;
     justify-content: center;
     align-items:center;
-    flex-direction: column;
-}
-.threeFolksContainer {
-    /*width:100%;*/
-    width: 236px;
-    min-height:100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: row;
-    margin-bottom:15px;
+    flex-wrap: wrap;
 }
-.threeFolksContainer .thingWrapper:nth-child(2), .threeFolksContainer .thingWrapper:nth-child(3) {
-    margin-left: 40px;
-}
-.team .threeFolksContainer:nth-last-child() {
-    margin-bottom:0;
+.team .hero {
+    
 }
 
 .character {
