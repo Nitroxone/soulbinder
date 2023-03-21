@@ -12,15 +12,16 @@ class NPC extends Entity {
                 protection,
                 might,
                 spirit,
-                res_bleed,
-                res_poison,
-                res_move,
-                res_stun,
-                res_phys,
-                res_magi,
-                crit_effects,
+                resBleed,
+                resPoison,
+                resMove,
+                resStun,
+                resilience,
+                warding,
+                critEffects,
                 variables,
-                triggers) {
+                triggers,
+                ) {
         super(name, desc, charset);
 
         this.subname = subname;
@@ -28,9 +29,9 @@ class NPC extends Entity {
         this.health = health;
         this.mana = mana;
         this.stamina = stamina;
-        this.maxhealth = health;
-        this.maxmana = mana;
-        this.maxstamina = stamina;
+        this.maxHealth = health;
+        this.maxMana = mana;
+        this.maxStamina = stamina;
 
         this.dodge = dodge;
         this.speed = speed;
@@ -39,39 +40,39 @@ class NPC extends Entity {
         this.might = might;
         this.spirit = spirit;
 
-        this.res_bleed = res_bleed;
-        this.res_poison = res_poison;
-        this.res_move = res_move;
-        this.res_stun = res_stun;
-        this.res_phys = res_phys;
-        this.res_magi = res_magi;
+        this.resBleed = resBleed;
+        this.resPoison = resPoison;
+        this.resMove = resMove;
+        this.resStun = resStun;
+        this.resilience = resilience;
+        this.warding = warding;
 
-        this.regen_health = 0;
-        this.regen_mana = 0;
-        this.regen_stamina = 0;
-        this.modif_heal_recv = 0;
-        this.modif_heal_given = 0;
-        this.damage_reflection = 0;
-        this.modif_total_dmg = 0;
-        this.modif_weapon_dmg = 0;
-        this.modif_block_value = 0;
-        this.modif_skill_dmg = 0;
-        this.modif_skill_accuracy = 0;
-        this.modif_skill_crit = 0;
-        this.modif_stun_dmg = 0;
-        this.modif_stun_accuracy = 0;
-        this.modif_stun_crit = 0;
-        this.modif_bleed_dmg = 0;
-        this.modif_bleed_accuracy = 0;
-        this.modif_bleed_crit = 0;
-        this.modif_poison_dmg = 0;
-        this.modif_poison_accuracy = 0;
-        this.modif_poison_crit = 0;
-        
-        this.crit_effects = crit_effects;
+        this.regenHealth = 0;
+        this.regenMana = 0;
+        this.regenStamina = 0;
+        this.modifHealRecv = 0;
+        this.modifHealGiven = 0;
+        this.damageReflection = 0;
+        this.modifBlock = 0;
+        this.modifDmgTotal = 0;
+        this.modifDmgWeapon = 0;
+        this.modifDmgSkill = 0;
+        this.modifDmgPoison = 0;
+        this.modifDmgStun = 0;
+        this.modifDmgBleed = 0;
+        this.modifAccuracySkill = 0;
+        this.modifAccuracyStun = 0;
+        this.modifAccuracyBleed = 0;
+        this.modifAccuracyPoison = 0;
+        this.modifCritSkill = 0;
+        this.modifCritStun = 0;
+        this.modifCritBleed = 0;
+        this.modifCritPoison = 0;
+
+        this.critEffects = critEffects;
         this.variables = variables;
         this.triggers = triggers;
 
-        this.active_effects = [];
+        this.activeEffects = [];
     }
 }
