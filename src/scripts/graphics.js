@@ -626,12 +626,31 @@ function drawStridersScreen() {
 
     str += '<div class="teamContainer">';
     str += '<div class="team">';
-    game.player.roster.forEach(hero => {
-        str += hero.name;
+    game.player.roster.forEach(strider => {
+        str += '<div id="striderContainer-' + strider.id + '" class="striderContainer" style="background-image: linear-gradient(270deg, transparent 0%, rgba(0, 0, 0, 0.9) 90%), url(\'css/img/chars/' + strider.charset + '\');">'
+        str += '<h1>' + strider.name + '</h1>';
+        str += '<h3>' + capitalizeFirstLetter(strider.striderType) + ', Level ' + strider.level.currentLevel + '</h3>';
+        str += '</div>';
     })
     str += '</div>';
     str += '</div>';
 
     document.querySelector('.stridersContainer').innerHTML = str;
+
+    game.player.roster.forEach(strider => {
+        document.querySelector('#striderContainer-' + strider.id).addEventListener('click', e => {
+            game.dialogue.popup(getStriderPopup(strider), 'striderPopup', null);
+        });
+    });
+}
+
+/**
+ * Returns HTML code that shows a Strider screen based on the provided Strider's data.
+ * @param {Strider} strider the Strider to retrieve data from
+ */
+const getStriderPopup = (strider) =>function() {
+    let str = '';
+
+    return str;
 }
 

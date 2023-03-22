@@ -723,7 +723,7 @@ const Loader = {
             new Strider(
                 "Amarok",
                 "A despicable brood stemming from Ghirgynth's neverending gestation, Amarok betrayed its Father and turned to light upon gaining consciousness, seeking redemption.",
-                1,
+                Data.Charset.AMAROK,
                 "The Harbinger of Misfortune",
                 200, 200, 200,
                 10, 12, 85, 0, 5, 5,
@@ -742,6 +742,7 @@ const Loader = {
                     might_debuff_rate: 0.25,
                 },
                 [],
+                Data.StriderType.TANK,
                 "Darkspawn",
                 "Darkspawn power description",
                 1,

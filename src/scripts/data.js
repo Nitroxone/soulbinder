@@ -321,5 +321,10 @@ const Data = Object.freeze({
         STAT: "stat",
         SKILL: "skill",
         TRIGGER: "trigger"
-    }
+    },
+    StriderType: {
+        TANK: "tank",
+        SUPPORT: "support",
+        STRIKER: "striker"
+    },
 });

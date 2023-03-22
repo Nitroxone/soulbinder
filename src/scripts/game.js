@@ -287,6 +287,9 @@ class Game {
         this.all_recipes.forEach(item => {
             this.inventory.addItem(item);
         })
+        this.all_striders.forEach(item => {
+            this.player.addToRoster(item);
+        })
 
         this.inventory.craft(this.inventory.recipes[0], true);
         this.inventory.maximizeRune(this.inventory.runes[2]);

@@ -44,10 +44,10 @@ class Player {
     }
 
     /**
-     * Adds the provided NPC to the roster.
-     * @param {NPC} npc the NPC that will be added to the roster
+     * Adds the provided Strider to the roster.
+     * @param {Strider} strider the Strider that will be added to the roster
      */
-    addToRoster(npc) {
-        this.roster.push(npc);
+    addToRoster(strider) {
+        this.roster.push(strider);
     }
 }

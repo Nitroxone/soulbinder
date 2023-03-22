@@ -22,7 +22,9 @@ class NPC extends Entity {
                 variables,
                 triggers,
                 ) {
-        super(name, desc, charset);
+        super(name, desc, 0);
+
+        this.charset = charset;
 
         this.subname = subname;
 
