@@ -9,6 +9,7 @@ class SkillTreeNode {
         this.previous = [];
         this.next = [];
         this.rewards = rewards;
+        this.unlocked = false;
 
         this.currentLevel = 0;
     }
@@ -18,6 +19,7 @@ class SkillTreeNode {
      */
     addLevel() {
         this.currentLevel = Math.min(++this.currentLevel, this.levels);
+        this.unlockNext();
     }
 
     /**
@@ -74,5 +76,26 @@ class SkillTreeNode {
      */
     getCurrentRewards() {
         return this.rewards[this.currentLevel];
+    }
+
+    /**
+     * Unlocks all of the Child Nodes.
+     */
+    unlockNext() {
+        this.next.forEach(next => {
+            next.unlocked = true;
+        })
+    }
+
+    /**
+     * Unlocks the Node.
+     * @returns {boolean} whether the Node is unlocked
+     */
+    isUnlocked() {
+        return this.unlocked;
+    }
+
+    unlock() {
+        this.unlocked = true;
     }
 }

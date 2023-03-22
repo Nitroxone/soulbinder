@@ -706,12 +706,14 @@ const Loader = {
                     )
                 ],
                 function() {
-                    console.log(this);
+                    // unlocks Flesh of Darkness as the root of Amarok's skill tree
+                    what(this.nodes, "flesh of darkness").unlock();
                 }
             )
         ];
 
         for(const skillTree of skillTrees) {
+            skillTree.builder();
             game.all_skillTrees.push(skillTree);
         }
     },

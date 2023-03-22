@@ -54,14 +54,15 @@ class Strider extends NPC {
 
     /**
      * Checks whether the provided Node can be unlocked.
-     * The requirements are the player level and his amount of available skill points.
-     * @param {SkillTree} node the Node to check for
+     * The requirements are the player level and their amount of available skill points.
+     * @param {SkillTreeNode} node the Node to check for
      * @returns {boolean} whether the Node can be unlocked
      */
     canUnlockTreeNode(node) {
-        const requirements = node.requirements[node.currentLevel+1];
-        if(!requirements) return false;
-        return this.level.currentLevel >= requirements[0] && this.skillPoints >= requirements[1];
+        if(!node.getNextRequirements()) return false;
+        return this.level.currentLevel >= node.getNextRequiredLevel() 
+                && this.skillPoints >= node.getNextRequiredSkillPoints() 
+                && node.isUnlocked();
     }
 
     /**
