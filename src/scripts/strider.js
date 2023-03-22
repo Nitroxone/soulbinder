@@ -21,10 +21,11 @@ class Strider extends NPC {
                 critEffects,
                 variables,
                 triggers,
+                striderType,
                 uniqueName,
                 uniqueDesc,
                 uniqueIcon,
-                skillTree
+                skillTree,
                 ) {
         super(name, desc, charset, subname, health, mana, stamina, dodge, speed, accuracy, protection, might, spirit, resBleed, resPoison, resMove, resStun, resilience, warding, critEffects, variables, triggers);
         
@@ -50,6 +51,9 @@ class Strider extends NPC {
         this.skillPoints = 3;
 
         this.skillTree = skillTree;
+        this.striderType = striderType;
+
+        this.unlocked = false;
     }
 
     /**
@@ -246,5 +250,19 @@ class Strider extends NPC {
                 return;
         }
         console.log(this.name + ": " + effect.getValue()*factor + " " + effect.effect);
+    }
+
+    /**
+     * Returns whether the Strider is unlocked.
+     * @returns {boolean} whether the Strider is unlocked
+     */
+    isUnlocked() {
+        return this.unlocked;
+    }
+    /**
+     * Unlocks the Strider.
+     */
+    unlock() {
+        this.unlocked = true;
     }
 }
