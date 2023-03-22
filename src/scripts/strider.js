@@ -63,18 +63,31 @@ class Strider extends NPC {
         return this.level.currentLevel >= requirements[0] && this.skillPoints >= requirements[1];
     }
 
+    /**
+     * Removes an amount of skill points from the Strider, based on the provided Node's required skill points for the next level.
+     * @param {SkillTreeNode} node the Node
+     */
+    removeSkillPointsFromNode(node) {
+        this.skillPoints = Math.max(0, this.skillPoints - node.getNextRequiredSkillPoints())
+    }
+
+    /**
+     * Unlocks the provided Node's next level if the requirements are met.
+     * @param {SkillTreeNode} node the Node to unlock
+     */
     unlockTreeNode(node) {
         if(this.canUnlockTreeNode(node)) {
-            node.rewards[node.currentLevel+1].forEach(reward => {
+            node.getNextRewards().forEach(reward => {
                 switch(reward.type) {
                     case Data.SkillTreeNodeRewardType.STAT:
                         reward.content.forEach(stat => {
                             this.addEffect(stat);
-                        })
+                        });
+                        break;
                 }
             })
-            this.skillPoints -= node.requirements[node.currentLevel+1][1];
-            node.currentLevel++;
+            this.removeSkillPointsFromNode(node);
+            node.addLevel();
             console.log(this.name + ": upgraded node [" + node.name + "] to Level " + node.currentLevel);
         } else {
             ERROR('Cannot unlock the provided node.');
