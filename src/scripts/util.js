@@ -772,3 +772,14 @@ function shuffle(array) {
     }
     return array;
 }
+
+/**
+ * Returns the last key in the provided object.
+ * @param {object} obj the object to look into
+ * @returns {any} the last key in the object
+ */
+function getLastObjectKey(obj) {
+    const keys = Object.keys(obj);
+    const lastKey = keys[keys.length - 1];
+    return lastKey;
+}
