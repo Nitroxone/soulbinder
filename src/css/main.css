@@ -1928,22 +1928,6 @@ table.statsTable tbody td:nth-child(3) {
     margin: 0 16px;
 }
 
-.teamContainer {
-    width:100%;
-}
-.team {
-    padding:2rem;
-
-    display:flex;
-    justify-content: center;
-    align-items:center;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-.team .hero {
-    
-}
-
 .character {
     transform: scale(1);
     width:68% !important;
@@ -2893,4 +2877,23 @@ hr.leftSided {
     color: rgb(141, 141, 141);
     font-family: "RobotoBold";
     font-size: 0.8rem;
+}
+.teamContainer {
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 8rem;
+}
+.team {
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.team > .striderContainer:not(:first-child) {
+    margin-top: 1rem;
 }

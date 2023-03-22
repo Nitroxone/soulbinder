@@ -748,6 +748,44 @@ const Loader = {
                 1,
                 what(game.all_skillTrees, "amarok")
             ),
+            new Strider(
+                "Brim",
+                "Cursed by an ancient god for immortality, Brim is a vile highwayman damned to deal immense pain to any creature he encounters to feed the demon that holds his soul.",
+                Data.Charset.BRIM,
+                "The Bloodseeker",
+                200, 200, 200,
+                10, 10, 90, 0, 5, 5,
+                [25, 0], [25, 0],
+                25, 25,
+                0, 0,
+                [new Stat(Data.Effect.DODGE, [3, 7])],
+                {},
+                [],
+                Data.StriderType.STRIKER,
+                "Marked for Death",
+                "Marked for Death power description",
+                1,
+                what(game.all_skillTrees, "amarok")
+            ),
+            new Strider(
+                "Naka",
+                "An exiled swordsmonk living a lonely life of wander, Naka joined the Sisterhood of the Lotus Blades. Taking up arms against the fiercest beasts of Mithor, she became a symbol of hope and a banner of light in times of misfortune.",
+                Data.Charset.NAKA,
+                "The Hundred Headed Viper",
+                100, 100, 100,
+                10, 12, 85, 0, 5, 5,
+                [50, 50], [50, 50],
+                30, 45,
+                0, 0,
+                [new Stat(Data.Effect.ACCURACY, [3, 7], false, true)],
+                {},
+                [],
+                Data.StriderType.SUPPORT,
+                "Duellist's Stance",
+                "Duellist's Stance power description",
+                1,
+                what(game.all_skillTrees, "amarok")
+            ),
         ];
 
         for(const strider of striders) {
