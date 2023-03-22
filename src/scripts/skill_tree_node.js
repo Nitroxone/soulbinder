@@ -83,18 +83,21 @@ class SkillTreeNode {
      */
     unlockNext() {
         this.next.forEach(next => {
-            next.unlocked = true;
+            next.unlock();
         })
     }
 
     /**
-     * Unlocks the Node.
+     * Returns whether  the Node is unlocked.
      * @returns {boolean} whether the Node is unlocked
      */
     isUnlocked() {
         return this.unlocked;
     }
 
+    /**
+     * Unlocks the node.
+     */
     unlock() {
         this.unlocked = true;
     }
