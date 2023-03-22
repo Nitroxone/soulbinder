@@ -55,6 +55,8 @@ class Game {
 
         this.all_skillTrees = [];
 
+        this.all_striders = [];
+
         this.player = null;
         this.inventory = null;
     }

@@ -60,31 +60,31 @@ const Data = Object.freeze({
         REGEN_MANA: "mana regeneration",
         REGEN_STAMINA: "stamina regeneration",
         // DAMAGE MODIFIERS
-        MODIF_TOTAL_DMG: "total damage",
-        MODIF_WEAPON_DMG: "weapon damage",
-        MODIF_BLOCK_VALUE: "block value",
-        MODIF_SKILL_DMG: "skill damage",
-        MODIF_STUN_DMG: "stun damage",
-        MODIF_BLEEED_DMG: "bleed damage",
-        MODIF_POISON_DMG: "poison damage",
+        MODIF_BLOCK: "block value",
+        MODIF_DMG_TOTAL: "total damage",
+        MODIF_DMG_WEAPON: "weapon damage",
+        MODIF_DMG_SKILL: "skill damage",
+        MODIF_DMG_STUN: "stun damage",
+        MODIF_DMG_BLEED: "bleed damage",
+        MODIF_DMG_POISON: "poison damage",
         // ADDITIONAL MODIFIERS
-        HEAL_RECV: "received heal",
-        HEAL_GIVEN: "given heal",
-        MODIF_SKILL_ACCURACY: "skill accuracy",
-        MODIF_SKILL_CRIT: "skill crit. chance",
-        MODIF_STUN_ACCURACY: "stun accuracy",
-        MODIF_STUN_CRIT: "stun crit. chance",
-        MODIF_BLEED_ACCURACY: "bleed accuracy",
-        MODIF_BLEED_CRIT: "bleed crit. chance",
-        MODIF_POISON_ACCURACY: "poison accuracy",
-        MODIF_POISON_CRIT: "poison crit. chance",
+        MODIF_HEAL_RECV: "received heal",
+        MODIF_HEAL_GIVEN: "given heal",
+        MODIF_ACCURACY_SKILL: "skill accuracy",
+        MODIF_ACCURACY_STUN: "stun accuracy",
+        MODIF_ACCURACY_BLEED: "bleed accuracy",
+        MODIF_ACCURACY_POISON: "poison accuracy",
+        MODIF_CRIT_SKILL: "skill crit. chance",
+        MODIF_CRIT_STUN: "stun crit. chance",
+        MODIF_CRIT_BLEED: "bleed crit. chance",
+        MODIF_CRIT_POISON: "poison crit. chance",
 
         //------------------------------------------------------
         // ARMOR EFFECTS
         //------------------------------------------------------
         // BASE RESISTANCE
-        PRES: "resilience",
-        MRES: "warding",
+        RESILIENCE: "resilience",
+        WARDING: "warding",
         // OPTIMIZED RESISTANCE
         OPT_RES_AXE_ON: "adds extra RES against axes",
         OPT_RES_AXE_OFF: "removes extra RES against axes",
@@ -103,8 +103,8 @@ const Data = Object.freeze({
         OPT_RES_WARSCYTHE_ON: "adds extra RES against warscythes",
         OPT_RES_WARSCYTHE_OFF: "removes extra RES against warscythes",
         // SPECIAL RESISTANCE
-        PRES_AGAINST_UNDEAD: "resilience against undead",
-        MRES_AGAINST_UNDEAD: "warding against undead",
+        RESILIENCE_AGAINST_UNDEAD: "resilience against undead",
+        WARDING_AGAINST_UNDEAD: "warding against undead",
 
         //------------------------------------------------------
         // WEAPON EFFECTS
@@ -312,5 +312,14 @@ const Data = Object.freeze({
         RUNE: 'runes',
         RESOURCE: 'resources',
         RECIPE: 'recipes',
+    },
+    SkillTreeNodeType: {
+        SKILL: "skill",
+        PASSIVE: "passive"
+    },
+    SkillTreeNodeRewardType: {
+        STAT: "stat",
+        SKILL: "skill",
+        TRIGGER: "trigger"
     }
 });

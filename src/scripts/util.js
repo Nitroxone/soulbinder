@@ -510,10 +510,10 @@ function getRuneStats(rune, bleedIncurable, poisonIncurable) {
         };
         rune.stats.forEach( (element) => {
             switch(element.effect) {
-                case Data.Effect.PRES:
+                case Data.Effect.RESILIENCE:
                     stats.resilience = element.value;
                     break;
-                case Data.Effect.MRES:
+                case Data.Effect.WARDING:
                     stats.warding = element.value;
                     break;
                 case Data.Effect.OPT_RES_AXE_ON:

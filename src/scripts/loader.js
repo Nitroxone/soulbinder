@@ -151,13 +151,13 @@ const Loader = {
                      Data.RuneType.ARMOR,
                      [
                         new Stat(
-                            Data.Effect.PRES,
+                            Data.Effect.RESILIENCE,
                             [3, 5],
                         )
                      ],
                      [
                         new Stat(
-                            Data.Effect.PRES,
+                            Data.Effect.RESILIENCE,
                             [1, 2],
                             false,
                             false,
@@ -166,7 +166,7 @@ const Loader = {
                      ],
                      [
                         new Stat(
-                            Data.Effect.MRES,
+                            Data.Effect.WARDING,
                             [-1, -3],
                             false,
                             false,
@@ -326,7 +326,7 @@ const Loader = {
                 Data.Rarity.UNCOMMON,
                 [
                     new Stat(
-                        Data.Effect.MRES,
+                        Data.Effect.WARDING,
                         [7, 10],
                     ),
                     new Stat(
@@ -568,7 +568,7 @@ const Loader = {
                         true
                     ),
                     new Stat(
-                        Data.Effect.PRES,
+                        Data.Effect.RESILIENCE,
                         [-5, -8]
                     )
                 ],
@@ -652,14 +652,103 @@ const Loader = {
                 "Amarok's skill tree",
                 [
                     new SkillTreeNode(
-                        
+                        "Flesh of Darkness",
+                        "Increases Amarok's protection.",
+                        1,
+                        Data.SkillTreeNodeType.PASSIVE,
+                        3,
+                        {
+                            1: [1, 3],
+                            2: [3, 4],
+                            3: [10, 6]
+                        },
+                        {
+                            1: [
+                                new SkillTreeNodeReward(
+                                    Data.SkillTreeNodeRewardType.STAT,
+                                    [
+                                        new Stat(
+                                            Data.Effect.RESILIENCE, [5, 5], true
+                                        ),
+                                        new Stat(
+                                            Data.Effect.WARDING, [5, 5], true
+                                        ),
+                                    ]
+                                )
+                            ],
+                            2: [
+                                new SkillTreeNodeReward(
+                                    Data.SkillTreeNodeRewardType.STAT,
+                                    [
+                                        new Stat(
+                                            Data.Effect.RESILIENCE, [15, 15], true
+                                        ),
+                                        new Stat(
+                                            Data.Effect.WARDING, [15, 15], true
+                                        ),
+                                    ]
+                                )
+                            ],
+                            3: [
+                                new SkillTreeNodeReward(
+                                    Data.SkillTreeNodeRewardType.STAT,
+                                    [
+                                        new Stat(
+                                            Data.Effect.RESILIENCE, [30, 30], true
+                                        ),
+                                        new Stat(
+                                            Data.Effect.WARDING, [30, 30], true
+                                        ),
+                                    ]
+                                )
+                            ]
+                        }
                     )
-                ]
+                ],
+                function() {
+                    console.log(this);
+                }
             )
         ];
 
         for(const skillTree of skillTrees) {
             game.all_skillTrees.push(skillTree);
+        }
+    },
+    
+    loadStriders: loadStriders = () => {
+        const striders = [
+            new Strider(
+                "Amarok",
+                "A despicable brood stemming from Ghirgynth's neverending gestation, Amarok betrayed its Father and turned to light upon gaining consciousness, seeking redemption.",
+                1,
+                "The Harbinger of Misfortune",
+                200, 200, 200,
+                10, 12, 85, 0, 5, 5,
+                [50, 50], [50, 50],
+                30, 45,
+                0, 0,
+                [new Stat(Data.Effect.PROTECTION, [3, 7], false, true)],
+                {
+                    threshold_weak: 50,
+                    threshold_normal: 30,
+                    state: "none",
+                    previous_health: 0,
+                    boost_protection: 0,
+                    boost_might: 0,
+                    protection_debuff: 30,
+                    might_debuff_rate: 0.25,
+                },
+                [],
+                "Darkspawn",
+                "Darkspawn power description",
+                1,
+                what(game.all_skillTrees, "amarok")
+            ),
+        ];
+
+        for(const strider of striders) {
+            game.all_striders.push(strider);
         }
     }
 }

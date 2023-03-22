@@ -112,10 +112,10 @@ class Armor extends Item {
     addEffect(effect, remove = false) {
         const factor = remove ? -1 : 1;
         switch(effect.effect) {
-            case Data.Effect.PRES:
+            case Data.Effect.RESILIENCE:
                 this.resilience += effect.getValue() * factor;
                 break;
-            case Data.Effect.MRES:
+            case Data.Effect.WARDING:
                 this.warding += effect.getValue() * factor;
                 break;
         }
