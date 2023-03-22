@@ -67,4 +67,12 @@ class SkillTreeNode {
     getNextRewards() {
         return this.rewards[this.currentLevel+1];
     }
+
+    /**
+     * Returns the rewards at the current Node level.
+     * @returns {array} the rewards at the current Node level
+     */
+    getCurrentRewards() {
+        return this.rewards[this.currentLevel];
+    }
 }

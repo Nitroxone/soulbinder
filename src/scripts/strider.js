@@ -60,6 +60,7 @@ class Strider extends NPC {
      */
     canUnlockTreeNode(node) {
         const requirements = node.requirements[node.currentLevel+1];
+        if(!requirements) return false;
         return this.level.currentLevel >= requirements[0] && this.skillPoints >= requirements[1];
     }
 
@@ -77,6 +78,20 @@ class Strider extends NPC {
      */
     unlockTreeNode(node) {
         if(this.canUnlockTreeNode(node)) {
+            // REMOVE PREVIOUS REWARDS
+            if(node.currentLevel !== 0) {
+                node.getCurrentRewards().forEach(reward => {
+                    switch(reward.type) {
+                        case Data.SkillTreeNodeRewardType.STAT:
+                            reward.content.forEach(stat => {
+                                this.addEffect(stat, true);
+                            });
+                            break;
+                    }
+                })
+            }
+
+            // ADD NEXT REWARDS
             node.getNextRewards().forEach(reward => {
                 switch(reward.type) {
                     case Data.SkillTreeNodeRewardType.STAT:
