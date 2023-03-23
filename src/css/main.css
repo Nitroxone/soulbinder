@@ -3017,10 +3017,10 @@ hr.leftSided {
 .xpBar-fill {
     background-image: url('img/slider_fill.png');
     height: 7px;
-    width: 50%;
+    width: 50%; /* max 90 */
     position: absolute;
     top: 4.5px;
-    left: 11px;
+    left: 12px;
 }
 .xp-indicator {
     margin: 3px 0 0 3px;
@@ -3074,7 +3074,7 @@ hr.leftSided {
     grid-area: striderSkillTree;
 }
 .striderInfos, .striderStats, .striderEquipment, .striderSkillTree {
-    border: 1px dashed white;
+    /*border: 1px dashed white;*/
 }
 .striderStats, .striderEquipment, .striderSkillTree {
     overflow-y: scroll;
@@ -3114,7 +3114,6 @@ hr.leftSided {
 .striderEquipment {
     grid-area: striderEquipment;
     display: flex;
-    justify-content: space-around;
     flex-direction: column;
 }
 .striderEquipmentSlots > div:not(:first-child) {
@@ -3125,4 +3124,8 @@ hr.leftSided {
 }
 .striderEquipmentSlots > .runeInfo {
     width: 100%;
+}
+
+.dragOver {
+    border: 1px dashed white !important;
 }

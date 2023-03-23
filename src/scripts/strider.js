@@ -135,13 +135,16 @@ class Strider extends NPC {
                 this.stamina = effect.getValue() * factor;
                 break;
             case Data.Effect.MAXHEALTH:
-                this.maxHealth += effect.getValue() * factor
+                this.maxHealth += effect.getValue() * factor;
+                this.health += effect.getValue() * factor;
                 break;
             case Data.Effect.MAXMANA:
                 this.maxMana += effect.getValue() * factor;
+                this.mana = effect.getValue() * factor;
                 break;
             case Data.Effect.MAXSTAMINA:
                 this.maxStamina += effect.getValue() * factor;
+                this.stamina = effect.getValue() * factor;
                 break;
             case Data.Effect.DODGE:
                 this.dodge += effect.getValue() * factor;
@@ -268,4 +271,64 @@ class Strider extends NPC {
     unlock() {
         this.unlocked = true;
     }
+
+    /**
+     * Adds an available Trinket slot. Cannot exceed the trinketSlots variable.
+     * @param {number} amount the amount of trinket slots to add
+     */
+    addAvailableTrinketSlot(amount = 1) {
+        this.trinketSlotsFree = Math.min(this.trinketSlots, this.trinketSlotsFree + amount);
+    }
+    /**
+     * Removes an available Trinket slot. Cannot go below zero.
+     * @param {number} amount the amount of Trinket slots to remove
+     */
+    removeAvailableTrinketSlot(amount = 1) {
+        this.trinketSlotsFree = Math.max(0, this.trinketSlotsFree - amount);
+    }
+
+    /**
+     * Returns whether the trinketSlotsFree property of the Strider is superior to 0.
+     * @returns {boolean} whether the Strider has available trinket slots
+     */
+    hasFreeTrinketSlots() {
+        return this.trinketSlotsFree > 0;
+    }
+
+    /**
+     * Equips the trinket whose ID is provided in the DragEvent object.
+     * @param {DragEvent} event the Event from which the trinket will be retrieved
+     */
+    equipTrinket(event) {
+        const trinket = game.player.inventory.getItemFromId(Data.ItemType.TRINKET, event.dataTransfer.getData("trinket"));
+        if(this.hasFreeTrinketSlots()) {
+            trinket.effects.forEach(effect => {
+                this.addEffect(effect);
+            });
+            trinket.echoes.forEach(echo => {
+                echo.stats.forEach(effect => {
+                    this.addEffect(effect);
+                })
+            });
+            this.trinkets.push(trinket);
+            game.player.inventory.removeItem(trinket);
+            this.removeAvailableTrinketSlot();
+            console.log(trinket.name + ' was equipped to ' + this.name);
+            drawInventory();
+            spawnStriderPopup(this, true);
+        } else {
+            ERROR(this.name + ' cannot equip more trinkets.');
+        }
+    }
+
+    equipArmor(event) {
+        const armor = game.player.inventory.getItemFromId(Data.ItemType.ARMOR, event.dataTransfer.getData('armor'));
+        // check if armor is already equipped
+        switch(armor.type) {
+            
+        }
+        this.addEffect(armor.resilience);
+        this.addEffect(armor.warding);
+    }
+    
 }

@@ -574,7 +574,7 @@ function drawTrinketInventory(trinkets) {
     let str = '';
     for(let i = 0; i < trinkets.length; i++) {
         let me = trinkets[i];
-        str += '<div id="res-' + me.id + '" class="inventoryItem" style="' + getIcon(me) + '; border: 2px solid ' + getRarityColorCode(me.rarity) +'">';
+        str += '<div id="res-' + me.id + '" class="inventoryItem" style="' + getIcon(me) + '; border: 2px solid ' + getRarityColorCode(me.rarity) +'" draggable="true">';
         str += '</div>';
     }
     domWhat('res-cat-trinkets').innerHTML = str;
@@ -603,6 +603,12 @@ function drawTrinketInventory(trinkets) {
             audio.volume = 0.5;
             audio.playbackRate = 2;
             audio.play();
+        });
+
+        // Draggable events
+        document.querySelector('#res-' + me.id).addEventListener("dragstart", e => {
+            e.dataTransfer.setData("trinket", me.id);
+            console.log(e.dataTransfer.getData("trinket"));
         });
     }
     document.querySelector('#res-trinkets').addEventListener('click', (e) => {
@@ -651,11 +657,17 @@ function drawStridersScreen() {
  * Returns HTML code that shows a Strider screen based on the provided Strider's data.
  * @param {Strider} strider the Strider to retrieve data from
  */
-function spawnStriderPopup(strider) {
-    const window = document.createElement('div');
-    window.classList.add('striderPopup', 'tooltip', 'framed', 'bgDark', 'tooltipSpawn');
-    
-    document.querySelector('#stridersDiv').appendChild(window);
+function spawnStriderPopup(strider, refresh = false) {
+    let popupWindow;
+    if(!refresh) {
+        console.log('spawning');
+        popupWindow = document.createElement('div');
+        popupWindow.classList.add('striderPopup', 'tooltip', 'framed', 'bgDark', 'tooltipSpawn');
+        document.querySelector('#stridersDiv').appendChild(popupWindow);
+    } else {
+        popupWindow = document.querySelector('.striderPopup');
+    }
+    console.log(popupWindow);
     
     let str = '';
     str += '<div class="striderPopup-wrapper">';
@@ -741,10 +753,10 @@ function spawnStriderPopup(strider) {
     str += '<div id="strider-shield" class="runeInfo runeInfoEmpty">';
     str += '<div class="runeInfo-infos"><div class="runeTitle" style="text-align: left;">' + (strider.eqShield ? getSmallThingNoIcon(strider.eqShield) : 'No shield') + '</div>';
     str += '</div></div>';
-    str += '<div id="strider-trinket1" class="runeInfo runeInfoEmpty">';
+    str += '<div id="strider-trinket1" class="runeInfo runeInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \''+ strider.name +'\').equipTrinket(event);" style="' + getIcon(strider.trinkets[0], 25, true) + '">';
     str += '<div class="runeInfo-infos"><div class="runeTitle" style="text-align: left;">' + (strider.trinkets[0] ? getSmallThingNoIcon(strider.trinkets[0]) : 'No trinket') + '</div>';
     str += '</div></div>';
-    str += '<div id="strider-trinket2" class="runeInfo runeInfoEmpty">';
+    str += '<div id="strider-trinket2" class="runeInfo runeInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \''+ strider.name +'\').equipTrinket(event);" style="' + getIcon(strider.trinkets[1], 25, true) + '">';
     str += '<div class="runeInfo-infos"><div class="runeTitle" style="text-align: left;">' + (strider.trinkets[1] ? getSmallThingNoIcon(strider.trinkets[1]) : 'No trinket') + '</div>';
     str += '</div></div>';
     str += '<div id="strider-weaponLeft" class="runeInfo runeInfoEmpty">';
@@ -762,13 +774,30 @@ function spawnStriderPopup(strider) {
 
     str += '</div>';
 
-    window.innerHTML = str;
-    window.addEventListener('contextmenu', e => {
-        e.preventDefault();
-        let audio = new Audio('sounds/ui/spawntooltip.wav');
-        audio.volume = 0.2;
-        audio.play();
-        window.remove();
-    })
+    popupWindow.innerHTML = str;
+    if(!refresh) {
+        popupWindow.addEventListener('contextmenu', e => {
+            e.preventDefault();
+            let audio = new Audio('sounds/ui/spawntooltip.wav');
+            audio.volume = 0.2;
+            audio.play();
+            popupWindow.remove();
+        })
+    }
+}
+
+function refreshStriderPopup() {
+
+}
+
+function highlightDrag(e) {
+    e.classList.add('dragOver');
+}
+function disableHighlightDrag(e) {
+    e.classList.remove('dragOver');
+}
+
+function allowDrop(e) {
+    e.preventDefault();
 }
 

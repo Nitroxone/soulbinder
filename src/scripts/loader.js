@@ -418,13 +418,13 @@ const Loader = {
                         [2, 4]
                     ),
                     new Stat(
-                        Data.Effect.MODIF_BLEED_ACCURACY,
+                        Data.Effect.MODIF_ACCURACY_BLEED,
                         [3, 7],
                         false,
                         true
                     ),
                     new Stat(
-                        Data.Effect.MODIF_BLEED_CRIT,
+                        Data.Effect.MODIF_CRIT_BLEED,
                         [3, 7],
                         false,
                         true,
@@ -544,7 +544,7 @@ const Loader = {
                 [
                     new Stat(
                         Data.Effect.DODGE,
-                        [8, 12],
+                        [5, 8],
                         false,
                         true
                     ),
@@ -559,11 +559,11 @@ const Loader = {
                 "\"I may see dragons in my mind's eye, but my quicksilver agility can dodge their fiery breath with ease.\" — Kabal, Counselor of the Queen",
                 41,
                 10,
-                Data.Rarity.UNCOMMON,
+                Data.Rarity.COMMON,
                 [
                     new Stat(
                         Data.Effect.DODGE,
-                        [6, 10],
+                        [3, 5],
                         false,
                         true
                     ),
@@ -785,6 +785,66 @@ const Loader = {
                 Data.StriderType.SUPPORT,
                 "Duellist's Stance",
                 "Duellist's Stance power description",
+                1,
+                what(game.all_skillTrees, "amarok"),
+                '10% 30%'
+            ),
+            new Strider(
+                "Carhal",
+                "Left for dead by a servant of Yzamir, a tree wrapped around Carhal's body and healed his wounds. Having carved a bow from that very tree, he then swore to hunt down the harbingers of Evil, forever.",
+                Data.Charset.CARHAL,
+                "The Relentless Scout",
+                100, 100, 100,
+                10, 12, 85, 0, 5, 5,
+                [50, 50], [50, 50],
+                30, 45,
+                0, 0,
+                [new Stat(Data.Effect.MIGHT, [3, 7], false, true)],
+                {},
+                [],
+                Data.StriderType.STRIKER,
+                "Hawkeye's Mastery",
+                "Hawkeye's Mastery power description",
+                1,
+                what(game.all_skillTrees, "amarok"),
+                '10% 10%'
+            ),
+            new Strider(
+                "Ifrin",
+                "A fearsome mage, Ifrin was banned from the Order of Rhun upon harnessing the power of Yorll's corrupted magic, and is now on a constant need of enhancing his knowledge of the dark arts.",
+                Data.Charset.IFRIN,
+                "The Prophet of Kaphyst",
+                100, 100, 100,
+                10, 12, 85, 0, 5, 5,
+                [50, 50], [50, 50],
+                30, 45,
+                0, 0,
+                [new Stat(Data.Effect.MAXMANA, [3, 7], false, true)],
+                {},
+                [],
+                Data.StriderType.TANK,
+                "Witchskin",
+                "Witchskin's power description",
+                1,
+                what(game.all_skillTrees, "amarok"),
+                '10% 30%'
+            ),
+            new Strider(
+                "Betheros",
+                "Betheros has traveled the roads of the world as an itinerant bard, spreading inspiring melodies and wise words. Those who have met him are said to be changed forever.",
+                Data.Charset.BETHEROS,
+                "The Bringer of Good Faith",
+                100, 100, 100,
+                10, 12, 85, 0, 5, 5,
+                [50, 50], [50, 50],
+                30, 45,
+                0, 0,
+                [new Stat(Data.Effect.WARDING, [3, 7], false, true)],
+                {},
+                [],
+                Data.StriderType.SUPPORT,
+                "Life Channel",
+                "Life Channel's power description",
                 1,
                 what(game.all_skillTrees, "amarok"),
                 '10% 30%'

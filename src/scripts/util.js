@@ -103,8 +103,9 @@ function getOffset(element) {
  * Returns a CSS background-image property that links to the resource of given type.
  * @param {Entity} entity the Entity ID to retrieve the Icon from
  */
-function getIcon(entity, forceModif = 0) {
+function getIcon(entity, forceModif = 0, border = false) {
     let bgModif = 70;
+    if(!entity) return 'background-image: none; background-size: '+ bgModif + '%;';
     let type;
     if(entity instanceof Weapon) {
         bgModif = 85;
@@ -124,7 +125,7 @@ function getIcon(entity, forceModif = 0) {
     }
     if(forceModif != 0) bgModif = forceModif;
 
-    return 'background-image: url(css/img/' + type + '/' + entity.icon + '.png); background-size: '+ bgModif + '%';
+    return 'background-image: url(css/img/' + type + '/' + entity.icon + '.png); background-size: '+ bgModif + '%;' + (border ? 'border: 1px solid ' + getRarityColorCode(entity.rarity) + ' !important;' : '');
 }
 
 /**
