@@ -771,7 +771,7 @@ const Loader = {
             ),
             new Strider(
                 "Naka",
-                "An exiled swordsmonk living a lonely life of wander, Naka joined the Sisterhood of the Lotus Blades. Taking up arms against the fiercest beasts of Mithor, she became a symbol of hope and a banner of light in times of misfortune.",
+                "An exiled swordsmonk living a lonely life of wander, Naka took up arms against the fiercest beasts of Mithor. She is seen by all as a symbol of hope and a banner of light in times of misfortune.",
                 Data.Charset.NAKA,
                 "The Hundred Headed Viper",
                 100, 100, 100,
