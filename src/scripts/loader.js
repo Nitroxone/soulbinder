@@ -746,7 +746,8 @@ const Loader = {
                 "Darkspawn",
                 "Darkspawn power description",
                 1,
-                what(game.all_skillTrees, "amarok")
+                what(game.all_skillTrees, "amarok"),
+                '10% 30%'
             ),
             new Strider(
                 "Brim",
@@ -765,7 +766,8 @@ const Loader = {
                 "Marked for Death",
                 "Marked for Death power description",
                 1,
-                what(game.all_skillTrees, "amarok")
+                what(game.all_skillTrees, "amarok"),
+                'top'
             ),
             new Strider(
                 "Naka",

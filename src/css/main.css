@@ -2853,9 +2853,9 @@ hr.leftSided {
     border: 2px solid rgb(100, 100, 100);
     border-radius: 3px;
     padding: 1.2rem;
-    width: 500px;
+    width: 250px;
 
-    background-image: linear-gradient(270deg, transparent 0%, rgba(0, 0, 0, 0.9) 90%), url("img/chars/arazoth.png");
+    background-image: linear-gradient(270deg, transparent 0%, rgba(0, 0, 0, 0.1) 90%), url("img/chars/arazoth.png");
     background-position: right;
     background-repeat: no-repeat;
     background-size: 50%;
@@ -2868,10 +2868,14 @@ hr.leftSided {
     border-color: rgba(155, 155, 155);
     box-shadow: inset 0px 0px 10px 12px rgba(255, 255, 255, 0.1);
 }
+.striderContainer:active {
+    border-color: white;
+}
 .striderContainer > h1 {
     font-family: "RobotoSlab";
     font-variant: small-caps;
     font-size: 2rem;
+    color: white;
 }
 .striderContainer > h3 {
     color: rgb(141, 141, 141);
@@ -2885,7 +2889,7 @@ hr.leftSided {
     justify-content: center;
     align-items: center;
 
-    padding: 8rem;
+    padding: 4rem;
 }
 .team {
     display:flex;
@@ -2893,7 +2897,171 @@ hr.leftSided {
     align-items:center;
     flex-direction: row;
     flex-wrap: wrap;
+    width: 1000px;
+    padding: 4rem;
 }
-.team > .striderContainer:not(:first-child) {
-    margin-top: 1rem;
+.team > .striderContainer {
+    margin: 0.5rem;
+}
+.striderPopup {
+    width: 75%;
+    height: 550px;
+
+    position: absolute;
+    top: 100px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    padding: 16px;
+}
+.striderPopup-wrapper {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 0.5fr;
+    grid-template-rows: 0.8fr 1fr 1fr;
+    gap: 0 0;
+    grid-template-areas:
+        "striderInfos striderInfos striderStats"
+        "striderEquipment striderSkillTree striderStats"
+        "striderEquipment striderSkillTree striderStats";
+}
+
+.striderInfos {
+    grid-area: striderInfos;
+
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    grid-template-rows: 150px;
+    gap: 0 0;
+    grid-template-areas: "striderInfos-img striderInfos-desc";
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    box-shadow: inset 0px 0px 10px 12px rgba(0, 0, 0, 0.5);
+}
+.striderInfos-img {
+    grid-area: striderInfos-img;
+
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.striderInfos-desc {
+    grid-area: striderInfos-desc;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    margin: 0 10px 0 6px;
+    font-weight: lighter !important;
+
+    position: relative;
+}
+.striderInfos-desc-name {
+    font-family: 'RobotoSlab';
+    font-size: 35px !important;
+    margin-bottom: 0 !important;
+    font-variant: small-caps;
+    color: var(--base-gold);
+    text-shadow: 0px 1px 0px #733726,0px 2px 0px #875626,0px 2px 1px #000,0px 2px 3px #000;
+}
+.striderInfos-desc-subname {
+    font-size: 13px;
+    font-family: "RobotoBold";
+}
+.striderInfos-desc-desc {
+    color: rgb(175, 175, 175);
+    font-family: 'RobotoItalic';
+    margin-top: 5px;
+    text-align: justify;
+}
+.striderInfos-desc-extra {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+.striderInfos-desc-extra > div:not(:first-child) {
+    margin-left: 5px;
+}
+.striderInfos-desc-type, .striderInfos-desc-level {
+    font-family: "RobotoSlabBold";
+    padding: 0.35rem;
+    border: 1px solid white;
+    border-radius: 3px;
+}
+.striderInfos-desc-desc, .striderInfos-desc-extra {
+    margin-left: 4px;
+}
+.striderInfos-desc-xp {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: row;
+}
+.xpBar {
+    background-image: url('img/slider_empty_frame.png');
+    background-size: cover;
+    height: 16px;
+    width: 237px;
+    position: relative;
+}
+.xpBar-fill {
+    background-image: url('img/slider_fill.png');
+    height: 7px;
+    width: 50%;
+    position: absolute;
+    top: 4.5px;
+    left: 11px;
+}
+.xp-indicator {
+    margin: 3px 0 0 3px;
+}
+
+.striderStats {
+    grid-area: striderStats;
+    box-shadow: inset 0px 0px 10px 12px rgba(0, 0, 0, 0.5);
+    
+    background-image: url('img/bg2.png');
+    background-repeat: repeat;
+}
+.striderStats-title {
+    background-image: url('img/bottom_texture.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    padding: 0.5rem;
+    height: 32px;
+
+    font-family: "RobotoSlabBold";
+    font-size: 14px;
+}
+
+.striderEquipment {
+    grid-area: striderEquipment;
+}
+.striderSkillTree {
+    grid-area: striderSkillTree;
+}
+.striderInfos, .striderStats, .striderEquipment, .striderSkillTree {
+    /*border: 1px dashed white;*/
+}
+.striderStats, .striderEquipment, .striderSkillTree {
+    overflow-y: scroll;
+}
+
+.barredLeft {
+    text-align: left;
+    line-height: 100%;
+    margin: 3px 0;
+    padding: 8px;
+    width: 50%;
+    background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 4%, rgba(0,0,0,0) 100%);
 }

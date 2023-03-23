@@ -26,6 +26,7 @@ class Strider extends NPC {
                 uniqueDesc,
                 uniqueIcon,
                 skillTree,
+                customBgPos = ''
                 ) {
         super(name, desc, charset, subname, health, mana, stamina, dodge, speed, accuracy, protection, might, spirit, resBleed, resPoison, resMove, resStun, resilience, warding, critEffects, variables, triggers);
         
@@ -54,6 +55,8 @@ class Strider extends NPC {
         this.striderType = striderType;
 
         this.unlocked = false;
+
+        this.customBgPos = customBgPos;
     }
 
     /**

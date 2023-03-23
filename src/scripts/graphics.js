@@ -627,7 +627,7 @@ function drawStridersScreen() {
     str += '<div class="teamContainer">';
     str += '<div class="team">';
     game.player.roster.forEach(strider => {
-        str += '<div id="striderContainer-' + strider.id + '" class="striderContainer" style="background-image: linear-gradient(270deg, transparent 0%, rgba(0, 0, 0, 0.9) 90%), url(\'css/img/chars/' + strider.charset + '\');">'
+        str += '<div id="striderContainer-' + strider.id + '" class="striderContainer" style="background-image: linear-gradient(270deg, transparent 0%, rgba(0, 0, 0, 1) 100%), url(\'css/img/chars/' + strider.charset + '\');">'
         str += '<h1>' + strider.name + '</h1>';
         str += '<h3>' + capitalizeFirstLetter(strider.striderType) + ', Level ' + strider.level.currentLevel + '</h3>';
         str += '</div>';
@@ -639,7 +639,7 @@ function drawStridersScreen() {
 
     game.player.roster.forEach(strider => {
         document.querySelector('#striderContainer-' + strider.id).addEventListener('click', e => {
-            game.dialogue.popup(getStriderPopup(strider), 'striderPopup', null);
+            spawnStriderPopup(strider);
         });
     });
 }
@@ -648,9 +648,46 @@ function drawStridersScreen() {
  * Returns HTML code that shows a Strider screen based on the provided Strider's data.
  * @param {Strider} strider the Strider to retrieve data from
  */
-const getStriderPopup = (strider) =>function() {
+function spawnStriderPopup(strider) {
+    const window = document.createElement('div');
+    window.classList.add('striderPopup', 'tooltip', 'framed', 'bgDark', 'tooltipSpawn');
+    
+    document.querySelector('#stridersDiv').appendChild(window);
+    
     let str = '';
+    str += '<div class="striderPopup-wrapper">';
 
-    return str;
+    str += '<div class="striderInfos" style="background-image:  linear-gradient(270deg, transparent 5%, rgba(0, 0, 0, 1) 100%), url(\'css/img/chars/' + strider.name.toLowerCase() + '_bg.webp\');' + (strider.customBgPos ? 'background-position: ' + strider.customBgPos : '') + '">';
+    str += '<div class="striderInfos-img framed" style="background-image: url(\'css/img/chars/' + strider.charset +'\')"></div>';
+    str += '<div class="striderInfos-desc">';
+    str += '<div class="barredLeft striderInfos-desc-name">' + strider.name + '</div>';
+    str += '<div class="barredLeft striderInfos-desc-subname">' + strider.subname + '</div>';
+    str += '<div class="striderInfos-desc-desc">' + strider.desc + '</div>';
+    str += '<div class="striderInfos-desc-extra">';
+    str += '<div class="striderInfos-desc-type">' + capitalizeFirstLetter(strider.striderType) +'</div>';
+    str += '<div class="striderInfos-desc-level">Level ' + strider.level.currentLevel +'</div>';
+    str += '</div>';
+    str += '<div class="striderInfos-desc-xp">';
+    str += '<div class="xpBar"><div class="xpBar-fill"></div></div>';
+    str += '<div class="xp-indicator">' + strider.level.currentXp + '/' + strider.level.nextXp + '</div>'
+    str += '</div>'
+    str += '</div>';
+    str += '</div>';
+
+    str += '<div class="striderStats">'; 
+    str += '<div class="striderStats-title">Stats</div>';
+    str += '</div>';
+
+    str += '<div class="striderEquipment">';
+    
+    str += '</div>';
+
+    str += '<div class="striderSkillTree">';
+    
+    str += '</div>';
+
+    str += '</div>';
+
+    window.innerHTML = str;
 }
 
