@@ -2921,7 +2921,7 @@ hr.leftSided {
 .striderPopup-wrapper {
     height: 100%;
     display: grid;
-    grid-template-columns: 1fr 1fr 0.5fr;
+    grid-template-columns: 0.5fr 1.5fr 0.5fr;
     grid-template-rows: 0.8fr 1fr 1fr;
     gap: 5px 5px;
     grid-template-areas:
@@ -3070,15 +3070,11 @@ hr.leftSided {
 .statValue {
     text-align: right;
 }
-
-.striderEquipment {
-    grid-area: striderEquipment;
-}
 .striderSkillTree {
     grid-area: striderSkillTree;
 }
 .striderInfos, .striderStats, .striderEquipment, .striderSkillTree {
-    /*border: 1px dashed white;*/
+    border: 1px dashed white;
 }
 .striderStats, .striderEquipment, .striderSkillTree {
     overflow-y: scroll;
@@ -3090,9 +3086,8 @@ hr.leftSided {
     margin: 3px 0;
     padding: 8px;
     width: 50%;
-    background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 4%, rgba(0,0,0,0) 100%);
+    background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8 ) 4%, rgba(0,0,0,0) 100%);
 }
-
 .simpleButton {
     width: 148px;
     height: 22px;
@@ -3114,4 +3109,20 @@ hr.leftSided {
 .simpleButton:hover {
     border-color: rgb(185, 185, 185);
     cursor: pointer;
+}
+
+.striderEquipment {
+    grid-area: striderEquipment;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+}
+.striderEquipmentSlots > div:not(:first-child) {
+    margin-top: 0.5rem;
+}
+.striderEquipmentSlots {
+    width: 150px;
+}
+.striderEquipmentSlots > .runeInfo {
+    width: 100%;
 }

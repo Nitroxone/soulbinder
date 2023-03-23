@@ -696,12 +696,10 @@ function spawnStriderPopup(strider) {
     str += '<div class="striderStats-stat">' + '<span class="statTitle">Mana regen.</span><span class="statValue">' + strider.regenStamina + '</span>' + '</div>';
     str += '<div class="striderStats-stat">' + '<span class="statTitle">Damage reflection</span><span class="statValue">' + strider.damageReflection + '</span>' + '</div>';
     str += '<div class="spacer"></div>'
-    str += '<div class="striderStats-stat">' + '<span class="statTitle">Bleed damage</span><span class="statValue">' + strider.resBleed[0] + '</span>' + '</div>';
-    str += '<div class="striderStats-stat">' + '<span class="statTitle">Bleed duration</span><span class="statValue">' + strider.resBleed[1] + '</span>' + '</div>';
-    str += '<div class="striderStats-stat">' + '<span class="statTitle">Poison damage</span><span class="statValue">' + strider.resPoison[0] + '</span>' + '</div>';
-    str += '<div class="striderStats-stat">' + '<span class="statTitle">Poison damage</span><span class="statValue">' + strider.resPoison[1] + '</span>' + '</div>';
-    str += '<div class="striderStats-stat">' + '<span class="statTitle">Movement</span><span class="statValue">' + strider.resMove + '%</span>' + '</div>';
-    str += '<div class="striderStats-stat">' + '<span class="statTitle">Stun</span><span class="statValue">' + strider.resStun + '%</span>' + '</div>';
+    str += '<div class="striderStats-stat">' + '<span class="statTitle">Bleed res.</span><span class="statValue">' + strider.resBleed[0] + '</span>' + '</div>';
+    str += '<div class="striderStats-stat">' + '<span class="statTitle">Poison res.</span><span class="statValue">' + strider.resPoison[0] + '</span>' + '</div>';
+    str += '<div class="striderStats-stat">' + '<span class="statTitle">Movement res.</span><span class="statValue">' + strider.resMove + '%</span>' + '</div>';
+    str += '<div class="striderStats-stat">' + '<span class="statTitle">Stun res.</span><span class="statValue">' + strider.resStun + '%</span>' + '</div>';
     str += '<div class="striderStats-stat">' + '<span class="statTitle">Resilience</span><span class="statValue">' + strider.resilience + '</span>' + '</div>';
     str += '<div class="striderStats-stat">' + '<span class="statTitle">Warding</span><span class="statValue">' + strider.warding + '</span>' + '</div>';
     str += '<div class="spacer"></div>'
@@ -727,7 +725,35 @@ function spawnStriderPopup(strider) {
     str += '</div>';
 
     str += '<div class="striderEquipment">';
-    str += '<div class="simpleButton">Unequip all</div>';
+    str += '<div class="striderEquipmentSlots">';
+    str += '<div id="strider-helmet" class="runeInfo runeInfoEmpty">';
+    str += '<div class="runeInfo-infos"><div class="runeTitle" style="text-align: left;">' + (strider.eqHelmet ? getSmallThingNoIcon(strider.eqHelmet) : 'No helmet') + '</div>';
+    str += '</div></div>';
+    str += '<div id="strider-chestplate" class="runeInfo runeInfoEmpty">';
+    str += '<div class="runeInfo-infos"><div class="runeTitle" style="text-align: left;">' + (strider.eqChestplate ? getSmallThingNoIcon(strider.eqChestplate) : 'No chestplate') + '</div>';
+    str += '</div></div>';
+    str += '<div id="strider-gloves" class="runeInfo runeInfoEmpty">';
+    str += '<div class="runeInfo-infos"><div class="runeTitle" style="text-align: left;">' + (strider.eqGloves ? getSmallThingNoIcon(strider.eqGloves) : 'No gloves') + '</div>';
+    str += '</div></div>';
+    str += '<div id="strider-boots" class="runeInfo runeInfoEmpty">';
+    str += '<div class="runeInfo-infos"><div class="runeTitle" style="text-align: left;">' + (strider.eqBoots ? getSmallThingNoIcon(strider.eqBoots) : 'No boots') + '</div>';
+    str += '</div></div>';
+    str += '<div id="strider-shield" class="runeInfo runeInfoEmpty">';
+    str += '<div class="runeInfo-infos"><div class="runeTitle" style="text-align: left;">' + (strider.eqShield ? getSmallThingNoIcon(strider.eqShield) : 'No shield') + '</div>';
+    str += '</div></div>';
+    str += '<div id="strider-trinket1" class="runeInfo runeInfoEmpty">';
+    str += '<div class="runeInfo-infos"><div class="runeTitle" style="text-align: left;">' + (strider.trinkets[0] ? getSmallThingNoIcon(strider.trinkets[0]) : 'No trinket') + '</div>';
+    str += '</div></div>';
+    str += '<div id="strider-trinket2" class="runeInfo runeInfoEmpty">';
+    str += '<div class="runeInfo-infos"><div class="runeTitle" style="text-align: left;">' + (strider.trinkets[1] ? getSmallThingNoIcon(strider.trinkets[1]) : 'No trinket') + '</div>';
+    str += '</div></div>';
+    str += '<div id="strider-weaponLeft" class="runeInfo runeInfoEmpty">';
+    str += '<div class="runeInfo-infos"><div class="runeTitle" style="text-align: left;">' + (strider.eqWeaponLeft ? getSmallThingNoIcon(strider.eqWeaponLeft) : 'No weapon') + '</div>';
+    str += '</div></div>';
+    str += '<div id="strider-weaponRight" class="runeInfo runeInfoEmpty">';
+    str += '<div class="runeInfo-infos"><div class="runeTitle" style="text-align: left;">' + (strider.eqWeaponRight ? getSmallThingNoIcon(strider.eqWeaponRight) : 'No weapon') + '</div>';
+    str += '</div></div>';
+    str += '</div>';
     str += '</div>';
 
     str += '<div class="striderSkillTree">';
