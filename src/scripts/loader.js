@@ -786,7 +786,8 @@ const Loader = {
                 "Duellist's Stance",
                 "Duellist's Stance power description",
                 1,
-                what(game.all_skillTrees, "amarok")
+                what(game.all_skillTrees, "amarok"),
+                '10% 30%'
             ),
         ];
 

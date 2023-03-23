@@ -2995,7 +2995,8 @@ hr.leftSided {
 .striderInfos-desc-type, .striderInfos-desc-level {
     font-family: "RobotoSlabBold";
     padding: 0.35rem;
-    border: 1px solid white;
+    border: 1px solid rgb(175, 175, 175);
+    color: rgb(175, 175, 175);
     border-radius: 3px;
 }
 .striderInfos-desc-desc, .striderInfos-desc-extra {

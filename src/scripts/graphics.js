@@ -640,6 +640,9 @@ function drawStridersScreen() {
     game.player.roster.forEach(strider => {
         document.querySelector('#striderContainer-' + strider.id).addEventListener('click', e => {
             spawnStriderPopup(strider);
+            let audio = new Audio('sounds/ui/spawntooltip.wav');
+            audio.volume = 0.2;
+            audio.play();
         });
     });
 }
@@ -734,5 +737,12 @@ function spawnStriderPopup(strider) {
     str += '</div>';
 
     window.innerHTML = str;
+    window.addEventListener('contextmenu', e => {
+        e.preventDefault();
+        let audio = new Audio('sounds/ui/spawntooltip.wav');
+        audio.volume = 0.2;
+        audio.play();
+        window.remove();
+    })
 }
 
