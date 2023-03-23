@@ -727,7 +727,7 @@ function spawnStriderPopup(strider) {
     str += '</div>';
 
     str += '<div class="striderEquipment">';
-    
+    str += '<div class="simpleButton">Unequip all</div>';
     str += '</div>';
 
     str += '<div class="striderSkillTree">';
