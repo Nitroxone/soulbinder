@@ -2923,7 +2923,7 @@ hr.leftSided {
     display: grid;
     grid-template-columns: 1fr 1fr 0.5fr;
     grid-template-rows: 0.8fr 1fr 1fr;
-    gap: 0 0;
+    gap: 5px 5px;
     grid-template-areas:
         "striderInfos striderInfos striderStats"
         "striderEquipment striderSkillTree striderStats"
@@ -3042,6 +3042,32 @@ hr.leftSided {
 
     font-family: "RobotoSlabBold";
     font-size: 14px;
+}
+.striderStats-stats {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 0.8rem;
+}
+.striderStats-stat {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.striderStats-stat:not(:first-child) {
+    margin-top: 0.1rem;
+}
+.statTitle {
+    color: rgb(175, 175, 175);
+}
+.spacer {
+    margin: 7px;
+}
+.statValue {
+    text-align: right;
 }
 
 .striderEquipment {
