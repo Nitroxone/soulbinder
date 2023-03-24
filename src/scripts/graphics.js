@@ -679,8 +679,8 @@ function spawnStriderPopup(strider, refresh = false) {
     str += '<div class="barredLeft striderInfos-desc-subname">' + strider.subname + '</div>';
     str += '<div class="striderInfos-desc-desc">' + strider.desc + '</div>';
     str += '<div class="striderInfos-desc-extra">';
-    str += '<div class="striderInfos-desc-type">' + capitalizeFirstLetter(strider.striderType) +'</div>';
-    str += '<div class="striderInfos-desc-level">Level ' + strider.level.currentLevel +'</div>';
+    str += '<div class="striderInfos-desc-type coolBorder">' + capitalizeFirstLetter(strider.striderType) +'</div>';
+    str += '<div class="striderInfos-desc-level coolBorder">Level ' + strider.level.currentLevel +'</div>';
     str += '</div>';
     str += '<div class="striderInfos-desc-xp">';
     str += '<div class="xpBar"><div class="xpBar-fill"></div></div>';
