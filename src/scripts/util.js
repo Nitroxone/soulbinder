@@ -801,3 +801,13 @@ function isDuplicateOnTrinket(trinket, effect) {
     });
     return false;
 }
+
+function playSound(source, volume = 0.5, pitch = 1) {
+    const audio = new Audio(source);
+    audio.volume = volume;
+    if(pitch != 1) {
+        audio.preservesPitch = false;
+    }
+    audio.playbackRate = pitch;
+    audio.play();
+}

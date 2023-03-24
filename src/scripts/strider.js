@@ -314,6 +314,7 @@ class Strider extends NPC {
             game.player.inventory.removeItem(trinket);
             this.removeAvailableTrinketSlot();
             console.log(trinket.name + ' was equipped to ' + this.name);
+            playSound('sounds/ui/equip' + getRandomNumber(1, 3) + '.wav', 0.3);
             drawInventory();
             spawnStriderPopup(this, true);
         } else {
@@ -336,6 +337,7 @@ class Strider extends NPC {
         game.player.inventory.addItem(trinket, 1, true);
         this.addAvailableTrinketSlot();
         console.log(trinket.name + ' was unequipped from ' + this.name);
+        playSound('sounds/ui/closetooltip.wav');
         drawInventory();
         spawnStriderPopup(this, true);
     }
@@ -378,6 +380,7 @@ class Strider extends NPC {
         });
         game.player.inventory.removeItem(armor);
         console.log(armor.name + ' was equipped to ' + this.name);
+        playSound('sounds/ui/equip' + getRandomNumber(1, 3) + '.wav');
         drawInventory();
         spawnStriderPopup(this, true);
     }
@@ -415,6 +418,7 @@ class Strider extends NPC {
         });
         game.player.inventory.addItem(armor, 1, true);
         console.log(armor.name + ' was unequipped from ' + this.name);
+        playSound('sounds/ui/closetooltip.wav');
         drawInventory();
         spawnStriderPopup(this, true);
     }

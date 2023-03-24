@@ -915,7 +915,7 @@ const Loader = {
             ),
             new Strider(
                 "Arazoth",
-                "Lorem ipsum",
+                "A bastion for the weak, the unbreakable lion shepherd Arazoth rejected the gods long ago. Through a thousand battles, he has never bled - and death itself avoids to mention his name.",
                 Data.Charset.ARAZOTH,
                 "The Shepherd",
                 100, 100, 100,
@@ -935,7 +935,7 @@ const Loader = {
             ),
             new Strider(
                 "Haman",
-                "A crack in reality allowed Haman to see beyond the sane world. A part of his soul has entered it, from which he now draws his unspeakable powers.",
+                "A crack in reality allowed Haman to see beyond the sane world. A part of his soul has entered this breach, from which he now draws his unspeakable powers.",
                 Data.Charset.HAMAN,
                 "The Witness",
                 100, 100, 100,
