@@ -947,7 +947,7 @@ const Loader = {
                 "Will of the Dragon' power description",
                 1,
                 what(game.all_skillTrees, "amarok"),
-                '10% 20%'
+                '10% 50%'
             ),
         ];
 
