@@ -450,6 +450,70 @@ const Loader = {
                 },
                 [],
                 Data.EchoType.ARMOR
+            ),
+            new Echo(
+                "Opportunistic",
+                "Each enemy you stun grants you a §1% stun accuracy bonus on the next round, for one round.",
+                1,
+                Data.Rarity.UNCOMMON,
+                [],
+                "Seize this momentum, strike, strike again!",
+                {
+                    "stun_accuracy_bonus": [10, 20]
+                },
+                [],
+                Data.EchoType.TRINKET
+            ),
+            new Echo(
+                "Corrosive Blades",
+                "Hitting an enemy with this weapon reduces their protection by §1% (stackable, forever).",
+                1,
+                Data.Rarity.RARE,
+                [],
+                "Where the kiss of steel meets the power of time.",
+                {
+                    "protection_debuff": [-1, -3]
+                },
+                [],
+                Data.EchoType.WEAPON,
+            ),
+            new Echo(
+                "Reprieve",
+                "Each stamina debuff you receive grants you with a shield that equals half that debuff amount.",
+                1,
+                Data.Rarity.EPIC,
+                [],
+                "Even peace awaits in the eye of the storm.",
+                {},
+                [],
+                Data.EchoType.ARMOR,
+            ),
+            new Echo(
+                "Anchorite",
+                "Gain a §1% total damage and a §2% given heal bonuses on rounds you don't receive any damage (stackable, forever).",
+                1,
+                Data.Rarity.EPIC,
+                [],
+                "Amidst the deafening silence of loneliness, the mind is free to concentrate on the whispers of the soul.",
+                {
+                    "total_damage_bonus": [1, 3],
+                    "given_heal_bonus": [1, 3],
+                },
+                [],
+                Data.EchoType.TRINKET
+            ),
+            new Echo(
+                "Erode Away",
+                "Hitting an enemy with this weapon reduces their maximum health by §1% (stackable, forever).",
+                1,
+                Data.Rarity.LEGENDARY,
+                [],
+                "Weathering, worn out by the winds of time.",
+                {
+                    "maximum_health_debuff": [1, 3]
+                },
+                [],
+                Data.EchoType.WEAPON,
             )
         ];
 
@@ -831,7 +895,7 @@ const Loader = {
             ),
             new Strider(
                 "Betheros",
-                "Betheros has traveled the roads of the world as an itinerant bard, spreading inspiring melodies and wise words. Those who have met him are said to be changed forever.",
+                "Betheros has traveled the roads of the world as an itinerant bard, spreading inspiring melodies and wise words. It is said that those who met him were changed forever.",
                 Data.Charset.BETHEROS,
                 "The Bringer of Good Faith",
                 100, 100, 100,
@@ -871,7 +935,7 @@ const Loader = {
             ),
             new Strider(
                 "Haman",
-                "Lorem ipsum",
+                "A crack in reality allowed Haman to see beyond the sane world. A part of his soul has entered it, from which he now draws his unspeakable powers.",
                 Data.Charset.HAMAN,
                 "The Witness",
                 100, 100, 100,
@@ -883,15 +947,15 @@ const Loader = {
                 {},
                 [],
                 Data.StriderType.SUPPORT,
-                "Delirium",
-                "Delirium's power description",
+                "Whispers",
+                "Whispers' power description",
                 1,
                 what(game.all_skillTrees, "amarok"),
                 '10% 50%'
             ),
             new Strider(
                 "Zurij",
-                "Lorem ipsum",
+                "Can you hear that laughter hooting at dawn? Enjoy your last sunset. For after death, honor withers, distinctions fade; and comes eternal suffering.",
                 Data.Charset.ZURIJ,
                 "The One Who Laughs At Death",
                 100, 100, 100,
@@ -931,7 +995,7 @@ const Loader = {
             ),
             new Strider(
                 "Juba Jun",
-                "Lorem ipsum",
+                "No one knows anything about Juba Jun and his interests except himself. His thoughts will be the guardians of the truth, and his mouth will never betray.",
                 Data.Charset.JUBA_JUN,
                 "The Greypaw",
                 100, 100, 100,

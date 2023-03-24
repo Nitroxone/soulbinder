@@ -18,7 +18,7 @@ class Inventory {
      * @param {Item} item the Item object to add
      * @param {number} amount the amount of times the item should be added
      */
-    addItem(item, amount = 1) {
+    addItem(item, amount = 1, noClone = false) {
         if(!item) throw new Error('Tried to add a null object to the inventory.');
 
         let array = null;
@@ -34,16 +34,20 @@ class Inventory {
         else if(item instanceof Trinket) array = {items: this.trinkets};
         else throw new Error('Unsupported type for item cloning.');
 
-
-        for(let i = 0; i < amount; i++) {
-            let cloned = Entity.clone(item);
-            if(cloned instanceof Weapon || cloned instanceof Armor || cloned instanceof Trinket) {
-                cloned.generateStats();
-                cloned.addEcho();
-            };
-            if(cloned instanceof Rune) cloned.generateStats();
-            array.items.push(cloned);
+        let cloned;
+        if(!noClone) {
+            for(let i = 0; i < amount; i++) {
+                cloned = Entity.clone(item);
+                if(cloned instanceof Weapon || cloned instanceof Armor || cloned instanceof Trinket) {
+                    cloned.generateStats();
+                    cloned.addEcho();
+                };
+                if(cloned instanceof Rune) cloned.generateStats();
+            }
+        } else {
+            cloned = item;
         }
+        array.items.push(cloned);
 
         console.log('Inventory : +' + amount + ' ' + item.name);
     }

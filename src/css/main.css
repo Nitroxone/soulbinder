@@ -3070,9 +3070,6 @@ hr.leftSided {
 .statValue {
     text-align: right;
 }
-.striderSkillTree {
-    grid-area: striderSkillTree;
-}
 .striderInfos, .striderStats, .striderEquipment, .striderSkillTree {
     /*border: 1px dashed white;*/
 }
@@ -3133,4 +3130,9 @@ hr.leftSided {
 
 .dragOver {
     border: 1px dashed white !important;
+}
+
+.striderSkillTree {
+    grid-area: striderSkillTree;
+    border-radius: 3px;
 }

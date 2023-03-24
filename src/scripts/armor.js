@@ -135,10 +135,6 @@ class Armor extends Item {
             }
             echo = Entity.clone(echo);
             echo.fix();
-            echo.stats.forEach(effect => {
-                console.log(effect)
-                this.addEffect(effect);
-            })
             this.echoes.push(echo);
             this.removeAvailableEcho();
         } else {

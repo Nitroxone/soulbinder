@@ -321,14 +321,101 @@ class Strider extends NPC {
         }
     }
 
+    unequipTrinket(trinket) {
+        if(!trinket) return;
+        if(!arrayContains(this.trinkets, trinket)) throw new Error('Tried to unequip a trinket that is not equipped.');
+        trinket.effects.forEach(effect => {
+            this.addEffect(effect, true);
+        });
+        trinket.echoes.forEach(echo => {
+            echo.stats.forEach(effect => {
+                this.addEffect(effect, true);
+            });
+        });
+        removeFromArray(this.trinkets, trinket);
+        game.player.inventory.addItem(trinket, 1, true);
+        this.addAvailableTrinketSlot();
+        console.log(trinket.name + ' was unequipped from ' + this.name);
+        drawInventory();
+        spawnStriderPopup(this, true);
+    }
+
+    /**
+     * Equips the armor whose ID is provided in the DragEvent object.
+     * @param {DragEvent} event the Event from which the armor will be retrieved
+     */
     equipArmor(event) {
         const armor = game.player.inventory.getItemFromId(Data.ItemType.ARMOR, event.dataTransfer.getData('armor'));
         // check if armor is already equipped
         switch(armor.type) {
-            
+            case Data.ArmorType.HELMET:
+                if(this.eqHelmet) this.unequipArmor(this.eqHelmet);
+                this.eqHelmet = armor;
+                break;
+            case Data.ArmorType.BOOTS:
+                if(this.eqBoots) this.unequipArmor(this.eqBoots);
+                this.eqBoots = armor;
+                break;
+            case Data.ArmorType.CHESTPLATE:
+                if(this.eqChestplate) this.unequipArmor(this.eqChestplate);
+                this.eqChestplate = armor;
+                break;
+            case Data.ArmorType.GLOVES:
+                if(this.eqGloves) this.unequipArmor(this.eqGloves);
+                this.eqGloves = armor;
+                break;
+            case Data.ArmorType.SHIELD:
+                if(this.eqShield) this.unequipArmor(this.eqShield);
+                this.eqShield = armor;
+                break;
         }
-        this.addEffect(armor.resilience);
-        this.addEffect(armor.warding);
+        this.addEffect(new Stat(Data.Effect.RESILIENCE, [armor.resilience, armor.resilience], true));
+        this.addEffect(new Stat(Data.Effect.WARDING, [armor.warding, armor.warding], true));
+        armor.echoes.forEach(echo => {
+            echo.stats.forEach(effect => {
+                this.addEffect(effect);
+            })
+        });
+        game.player.inventory.removeItem(armor);
+        console.log(armor.name + ' was equipped to ' + this.name);
+        drawInventory();
+        spawnStriderPopup(this, true);
     }
-    
+
+    unequipArmor(armor) {
+        if(!armor) return;
+        switch(armor.type) {
+            case Data.ArmorType.HELMET:
+                if(!this.eqHelmet) throw new Error('Tried to unequip an armor that is not equipped');
+                this.eqHelmet = null;
+                break;
+            case Data.ArmorType.CHESTPLATE:
+                if(!this.eqChestplate) throw new Error('Tried to unequip an armor that is not equipped');
+                this.eqChestplate = null;
+                break;
+            case Data.ArmorType.GLOVES:
+                if(!this.eqGloves) throw new Error('Tried to unequip an armor that is not equipped');
+                this.eqGloves = null;
+                break;
+            case Data.ArmorType.BOOTS:
+                if(!this.eqBoots) throw new Error('Tried to unequip an armor that is not equipped');
+                this.eqBoots = null;
+                break;
+            case Data.ArmorType.SHIELD:
+                if(!this.eqShield) throw new Error('Tried to unequip an armor that is not equipped');
+                this.eqShield = null;
+                break;
+        }
+        this.addEffect(new Stat(Data.Effect.RESILIENCE, [armor.resilience, armor.resilience], true), true);
+        this.addEffect(new Stat(Data.Effect.WARDING, [armor.warding, armor.warding], true), true);
+        armor.echoes.forEach(echo => {
+            echo.stats.forEach(effect => {
+                this.addEffect(effect, true);
+            });
+        });
+        game.player.inventory.addItem(armor, 1, true);
+        console.log(armor.name + ' was unequipped from ' + this.name);
+        drawInventory();
+        spawnStriderPopup(this, true);
+    }
 }

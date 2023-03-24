@@ -784,3 +784,20 @@ function getLastObjectKey(obj) {
     const lastKey = keys[keys.length - 1];
     return lastKey;
 }
+
+function isArmorEffect(effect) {
+    return effect.effect === Data.Effect.RESILIENCE || effect.effect === Data.Effect.WARDING;
+}
+
+/**
+ * Tells whether the provided Effect (supposedly an Echo effect) is already on the provided Trinket. 
+ * @param {Trinket} trinket the Trinket on which to perform the check
+ * @param {Stat} effect the Effect to check for
+ * @returns {boolean} whether the provided effect is already present
+ */
+function isDuplicateOnTrinket(trinket, effect) {
+    trinket.effects.forEach(single => {
+        if(single.effect === effect.effect) return true;
+    });
+    return false;
+}

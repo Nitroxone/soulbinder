@@ -534,7 +534,7 @@ function drawArmorInventory(armors) {
     let str = '';
     for(let i = 0; i < armors.length; i++) {
         let me = armors[i];
-        str += '<div id="res-' + me.id + '" class="inventoryItem" style="' + getIcon(me) + '; border: 2px solid ' + getRarityColorCode(me.rarity) +'">';
+        str += '<div id="res-' + me.id + '" class="inventoryItem" style="' + getIcon(me) + '; border: 2px solid ' + getRarityColorCode(me.rarity) +'" draggable="true">';
         str += '</div>';
     }
     domWhat('res-cat-armors').innerHTML = str;
@@ -564,6 +564,12 @@ function drawArmorInventory(armors) {
             audio.playbackRate = 2;
             audio.play();
         });
+
+        // Draggable events
+        document.querySelector('#res-' + me.id).addEventListener("dragstart", e => {
+            e.dataTransfer.setData("armor", me.id);
+            console.log(e.dataTransfer.getData("armor"));
+        })
     }
     document.querySelector('#res-armors').addEventListener('click', (e) => {
         document.querySelector('#res-cat-armors').classList.toggle('hide');
@@ -738,19 +744,19 @@ function spawnStriderPopup(strider, refresh = false) {
 
     str += '<div class="striderEquipment">';
     str += '<div class="striderEquipmentSlots">';
-    str += '<div id="strider-helmet" class="runeInfo runeInfoEmpty">';
+    str += '<div id="strider-helmet" class="runeInfo runeInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \'' + strider.name + '\').equipArmor(event);" style="' + getIcon(strider.eqHelmet, 25, true) + '">';
     str += '<div class="runeInfo-infos"><div class="runeTitle" style="text-align: left;">' + (strider.eqHelmet ? getSmallThingNoIcon(strider.eqHelmet) : 'No helmet') + '</div>';
     str += '</div></div>';
-    str += '<div id="strider-chestplate" class="runeInfo runeInfoEmpty">';
+    str += '<div id="strider-chestplate" class="runeInfo runeInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \'' + strider.name + '\').equipArmor(event);" style="' + getIcon(strider.eqChestplate, 25, true) + '">';
     str += '<div class="runeInfo-infos"><div class="runeTitle" style="text-align: left;">' + (strider.eqChestplate ? getSmallThingNoIcon(strider.eqChestplate) : 'No chestplate') + '</div>';
     str += '</div></div>';
-    str += '<div id="strider-gloves" class="runeInfo runeInfoEmpty">';
+    str += '<div id="strider-gloves" class="runeInfo runeInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \'' + strider.name + '\').equipArmor(event);" style="' + getIcon(strider.eqGloves, 25, true) + '">';
     str += '<div class="runeInfo-infos"><div class="runeTitle" style="text-align: left;">' + (strider.eqGloves ? getSmallThingNoIcon(strider.eqGloves) : 'No gloves') + '</div>';
     str += '</div></div>';
-    str += '<div id="strider-boots" class="runeInfo runeInfoEmpty">';
+    str += '<div id="strider-boots" class="runeInfo runeInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \'' + strider.name + '\').equipArmor(event);" style="' + getIcon(strider.eqBoots, 25, true) + '">';
     str += '<div class="runeInfo-infos"><div class="runeTitle" style="text-align: left;">' + (strider.eqBoots ? getSmallThingNoIcon(strider.eqBoots) : 'No boots') + '</div>';
     str += '</div></div>';
-    str += '<div id="strider-shield" class="runeInfo runeInfoEmpty">';
+    str += '<div id="strider-shield" class="runeInfo runeInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \'' + strider.name + '\').equipArmor(event);" style="' + getIcon(strider.eqShield, 25, true) + '">';
     str += '<div class="runeInfo-infos"><div class="runeTitle" style="text-align: left;">' + (strider.eqShield ? getSmallThingNoIcon(strider.eqShield) : 'No shield') + '</div>';
     str += '</div></div>';
     str += '<div id="strider-trinket1" class="runeInfo runeInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \''+ strider.name +'\').equipTrinket(event);" style="' + getIcon(strider.trinkets[0], 25, true) + '">';
@@ -768,7 +774,7 @@ function spawnStriderPopup(strider, refresh = false) {
     str += '</div>';
     str += '</div>';
 
-    str += '<div class="striderSkillTree">';
+    str += '<div class="striderSkillTree coolBorder">';
     
     str += '</div>';
 
@@ -782,8 +788,16 @@ function spawnStriderPopup(strider, refresh = false) {
             audio.volume = 0.2;
             audio.play();
             popupWindow.remove();
-        })
+        });
     }
+
+    document.querySelector('#strider-helmet').addEventListener('contextmenu', e => {e.stopImmediatePropagation(); e.preventDefault(); strider.unequipArmor(strider.eqHelmet)});
+    document.querySelector('#strider-chestplate').addEventListener('contextmenu', e => {e.stopImmediatePropagation(); e.preventDefault(); strider.unequipArmor(strider.eqChestplate)});
+    document.querySelector('#strider-gloves').addEventListener('contextmenu', e => {e.stopImmediatePropagation(); e.preventDefault(); strider.unequipArmor(strider.eqGloves)});
+    document.querySelector('#strider-boots').addEventListener('contextmenu', e => {e.stopImmediatePropagation(); e.preventDefault(); strider.unequipArmor(strider.eqBoots)});
+    document.querySelector('#strider-shield').addEventListener('contextmenu', e => {e.stopImmediatePropagation(); e.preventDefault(); strider.unequipArmor(strider.eqShield)});
+    document.querySelector('#strider-trinket1').addEventListener('contextmenu', e => {e.stopImmediatePropagation(); e.preventDefault(); strider.unequipTrinket(strider.trinkets[0])});
+    document.querySelector('#strider-trinket2').addEventListener('contextmenu', e => {e.stopImmediatePropagation(); e.preventDefault(); strider.unequipTrinket(strider.trinkets[1])});
 }
 
 function refreshStriderPopup() {
