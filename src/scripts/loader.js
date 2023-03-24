@@ -902,12 +902,12 @@ const Loader = {
                 [new Stat(Data.Effect.WARDING, [3, 7], false, true)],
                 {},
                 [],
-                Data.StriderType.SUPPORT,
+                Data.StriderType.STRIKER,
                 "Delirium",
                 "Delirium's power description",
                 1,
                 what(game.all_skillTrees, "amarok"),
-                '10% 30%'
+                '10% 20%'
             ),
         ];
 
