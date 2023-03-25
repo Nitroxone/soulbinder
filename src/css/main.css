@@ -2921,7 +2921,7 @@ hr.leftSided {
 .striderPopup-wrapper {
     height: 100%;
     display: grid;
-    grid-template-columns: 0.5fr 1.5fr 0.5fr;
+    grid-template-columns: 150px 1.5fr 0.5fr;
     grid-template-rows: 0.8fr 1fr 1fr;
     gap: 5px 5px;
     grid-template-areas:
@@ -3126,6 +3126,10 @@ hr.leftSided {
 }
 .striderEquipmentSlots > .runeInfo {
     width: 100%;
+    height: 31px;
+
+    display: flex;
+    align-items: center;
 }
 
 .dragOver {
@@ -3135,4 +3139,9 @@ hr.leftSided {
 .striderSkillTree {
     grid-area: striderSkillTree;
     border-radius: 3px;
+
+    background-image: linear-gradient(270deg, transparent 0%, rgba(0, 0, 0, 0.1) 90%), url("img/chars/arazoth.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }

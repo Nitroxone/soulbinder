@@ -21,6 +21,23 @@ const Loader = {
                        [[0, 0], [0, 0], true],
                        [true, true, false],
                        2),
+            new Weapon("Arbarean Axe",
+                       "Axe description",
+                       4,
+                       10,
+                       Data.Rarity.COMMON,
+                       Data.WeaponType.AXE,
+                       Data.WeaponWeight.HEAVY,
+                       [15, 18],
+                       [1, 3],
+                       [2, 5],
+                       [7, 9],
+                       [8, 9],
+                       [5, 8],
+                       [[2, 4], [1, 1], true],
+                       [[0, 0], [0, 0], true],
+                       [true, false, false],
+                       2)
         ];
 
         for(const weapon of weapons) {

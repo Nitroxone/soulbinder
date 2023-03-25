@@ -774,7 +774,7 @@ function spawnStriderPopup(strider, refresh = false) {
     str += '</div>';
     str += '</div>';
 
-    str += '<div class="striderSkillTree coolBorder">';
+    str += '<div class="striderSkillTree coolBorder" style="background-image: linear-gradient(270deg, transparent 0%, rgba(0, 0, 0, 0.6) 0%), url(\'css/img/chars/' + strider.name.toLowerCase() + '_skilltree.webp\');">';
     
     str += '</div>';
 
