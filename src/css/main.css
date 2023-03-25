@@ -1780,7 +1780,7 @@ input[type=text], textarea, select {
     background-size: 100% 100%, auto;
 }
 .bgMid {
-    background: url(img/darkBorders.png), url(img/bg1.png);
+    background: url(img/darkBorders.png), url(img/bg4.png);
     background-size: 100% 100%, auto;
 }
 .bgDark, .bgRegularDark {
@@ -1810,7 +1810,7 @@ input[type=text], textarea, select {
     background-size: 100% 100%, auto;
 }
 .skinRock .bgMid {
-    background: url(img/darkBorders.png), url(img/bgMidRock.jpg);
+    background: url(img/darkBorders.png), url(img/bg4.png);
     background-size: 100% 100%, auto;
 }
 .skinRock .bgDark {
