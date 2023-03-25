@@ -331,4 +331,9 @@ const Data = Object.freeze({
         SUPPORT: "support",
         STRIKER: "striker"
     },
+    WeaponHand: {
+        LEFT: "left",
+        RIGHT: "right",
+        BOTH: "both"
+    },
 });

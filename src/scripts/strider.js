@@ -30,6 +30,7 @@ class Strider extends NPC {
                 ) {
         super(name, desc, charset, subname, health, mana, stamina, dodge, speed, accuracy, protection, might, spirit, resBleed, resPoison, resMove, resStun, resilience, warding, critEffects, variables, triggers);
         
+        this.eqWeaponBoth = null;
         this.eqWeaponLeft = null;
         this.eqWeaponRight = null;
         this.eqShield = null;
@@ -419,6 +420,62 @@ class Strider extends NPC {
         game.player.inventory.addItem(armor, 1, true);
         console.log(armor.name + ' was unequipped from ' + this.name);
         playSound('sounds/ui/closetooltip.wav');
+        drawInventory();
+        spawnStriderPopup(this, true);
+    }
+
+    equipWeapon(event, hand = '') {
+        const weapon = game.player.inventory.getItemFromId(Data.ItemType.WEAPON, event.dataTransfer.getData('weapon'));
+        if(weapon.weight === Data.WeaponWeight.HEAVY) {
+            if(this.eqWeaponLeft) this.unequipWeapon(Data.WeaponHand.LEFT);
+            if(this.eqWeaponRight) this.unequipWeapon(Data.WeaponHand.RIGHT);
+            this.eqWeaponBoth = weapon;
+            console.log(weapon.name + ' was equipped to ' + this.name + '\'s both hands.')
+        } else {
+            if(hand.toLowerCase() === Data.WeaponHand.LEFT) {
+                if(this.eqWeaponBoth) this.unequipWeapon(Data.WeaponHand.BOTH);
+                if(this.eqWeaponLeft) this.unequipWeapon(Data.WeaponHand.LEFT);
+                console.log(weapon);
+                this.eqWeaponLeft = weapon;
+                console.log(this.eqWeaponLeft);
+                console.log(weapon.name + ' was equipped to ' + this.name + '\'s left hand.')
+            } else if(hand.toLowerCase() === Data.WeaponHand.RIGHT) {
+                if(this.eqWeaponBoth) this.unequipWeapon(Data.WeaponHand.BOTH);
+                if(this.eqWeaponRight) this.unequipWeapon(Data.WeaponHand.RIGHT);
+                this.eqWeaponRight = weapon;
+                console.log(weapon.name + ' was equipped to ' + this.name + '\'s right hand.')
+            } else {
+                if(this.eqWeaponBoth) this.unequipWeapon(Data.WeaponHand.BOTH);
+                if(!this.eqWeaponLeft) {
+                    this.eqWeaponLeft = weapon;
+                    console.log(weapon.name + ' was equipped to ' + this.name + '\'s left hand.')
+                } else if(!this.eqWeaponRight) {
+                    this.eqWeaponRight = weapon;
+                    console.log(weapon.name + ' was equipped to ' + this.name + '\'s right hand.')
+                }
+            }
+        }
+        game.player.inventory.removeItem(weapon);
+        drawInventory();
+        spawnStriderPopup(this, true);
+    }
+    unequipWeapon(hand) {
+        if(hand === Data.WeaponHand.RIGHT && this.eqWeaponRight) {
+            if(!this.eqWeaponRight) return;
+            game.player.inventory.addItem(this.eqWeaponRight, 1, true);
+            console.log(this.eqWeaponRight.name + ' was unequipped from ' + this.name + '\'s right hand.');
+            this.eqWeaponRight = null;
+        } else if(hand === Data.WeaponHand.LEFT && this.eqWeaponLeft) {
+            if(!this.eqWeaponLeft) return;
+            game.player.inventory.addItem(this.eqWeaponLeft, 1, true);
+            console.log(this.eqWeaponLeft.name + ' was unequipped from ' + this.name + '\'s left hand.');
+            this.eqWeaponLeft = null;
+        } else if(hand === Data.WeaponHand.BOTH) {
+            if(!this.eqWeaponBoth) return; 
+            game.player.inventory.addItem(this.eqWeaponBoth, 1, true);
+            console.log(this.eqWeaponBoth.name + ' was unequipped from ' + this.name + '\'s both hands.');
+            this.eqWeaponBoth = null;
+        }
         drawInventory();
         spawnStriderPopup(this, true);
     }
