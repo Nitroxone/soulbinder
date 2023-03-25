@@ -784,11 +784,83 @@ const Loader = {
                                 )
                             ]
                         }
+                    ),
+                    new SkillTreeNode(
+                        "Mutilate",
+                        "Guarding an ally grants you a health regeneration bonus, but also brings your resilience and warding down.",
+                        2,
+                        Data.SkillTreeNodeType.PASSIVE,
+                        2,
+                        {
+                            1: [3, 3],
+                            2: [7, 4]
+                        },
+                        {
+                            1: [
+                                new SkillTreeNodeReward(
+                                    Data.SkillTreeNodeRewardType.TRIGGER,
+                                    [],
+                                    "+4% Health regen, -10 Warding, -10 Resilience"
+                                )
+                            ],
+                            2: [
+                                new SkillTreeNodeReward(
+                                    Data.SkillTreeNodeRewardType.TRIGGER,
+                                    [],
+                                    "+7% Health regen, -15 Warding, -10 Resilience"
+                                )
+                            ]
+                        }
+                    ),
+                    new SkillTreeNode(
+                        "Signed in Blood",
+                        "The maximum protection bonus from Darkspawn is increased.",
+                        3,
+                        Data.SkillTreeNodeType.PASSIVE,
+                        3,
+                        {
+                            1: [3, 3],
+                            2: [6, 5],
+                            3: [12, 8]
+                        },
+                        {
+                            1: [
+                                new SkillTreeNodeReward(
+                                    Data.SkillTreeNodeRewardType.OTHER,
+                                    [],
+                                    "40% Protection -> 45% Protection"
+                                )
+                            ],
+                            2: [
+                                new SkillTreeNodeReward(
+                                    Data.SkillTreeNodeRewardType.OTHER,
+                                    [],
+                                    "45% Protection -> 50% Protection"
+                                )
+                            ],
+                            3: [
+                                new SkillTreeNodeReward(
+                                    Data.SkillTreeNodeRewardType.OTHER,
+                                    [],
+                                    "50% Protection -> 60% Protection"
+                                )
+                            ]
+                        }
                     )
                 ],
                 function() {
                     // unlocks Flesh of Darkness as the root of Amarok's skill tree
-                    what(this.nodes, "flesh of darkness").unlock();
+                    const fleshOfDarkness = what(this.nodes, "flesh of darkness");
+                    const mutilate = what(this.nodes, "mutilate");
+                    const signedInBlood = what(this.nodes, "signed in blood");
+
+                    fleshOfDarkness.unlock();
+
+                    mutilate.addPrevious(fleshOfDarkness);
+                    fleshOfDarkness.addNext(mutilate);
+
+                    signedInBlood.addPrevious(fleshOfDarkness);
+                    fleshOfDarkness.addNext(signedInBlood);
                 }
             )
         ];

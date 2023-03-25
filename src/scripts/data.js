@@ -194,6 +194,11 @@ const Data = Object.freeze({
         ON_ROUND_END: 'ON_ROUND_END',
         ON_BATTLE_START: 'ON_BATTLE_START',
         ON_BATTLE_END: 'ON_BATTLE_END',
+        ON_BLOCK_BEGIN: 'ON_BLOCK',
+        ON_BLOCK: 'ON_BLOCK',
+        ON_BLOCK_END: 'ON_BLOCK_END',
+        ON_GUARD_BEGIN: 'ON_GUARD_BEGIN',
+        ON_GUARD_END: 'ON_GUARD_END',
     },
     StatType: {
         ACTIVE: "active",
@@ -324,7 +329,8 @@ const Data = Object.freeze({
     SkillTreeNodeRewardType: {
         STAT: "stat",
         SKILL: "skill",
-        TRIGGER: "trigger"
+        TRIGGER: "trigger",
+        OTHER: "other",
     },
     StriderType: {
         TANK: "tank",
