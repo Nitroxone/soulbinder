@@ -811,3 +811,7 @@ function playSound(source, volume = 0.5, pitch = 1) {
     audio.playbackRate = pitch;
     audio.play();
 }
+
+function trimWhitespacesInsideString(string) {
+    return string.replace(/\s/g, "");
+}

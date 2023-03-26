@@ -668,6 +668,7 @@ function drawStridersScreen() {
 /**
  * Returns HTML code that shows a Strider screen based on the provided Strider's data.
  * @param {Strider} strider the Strider to retrieve data from
+ * @param {boolean} refresh if the window is already open, only updates its HTML code instead of spawning it again.
  */
 function spawnStriderPopup(strider, refresh = false) {
     let popupWindow;
@@ -787,7 +788,7 @@ function spawnStriderPopup(strider, refresh = false) {
     str += '</div>';
 
     str += '<div class="striderSkillTree coolBorder" style="background-image: linear-gradient(270deg, transparent 0%, rgba(0, 0, 0, 0.6) 0%), url(\'css/img/chars/' + strider.name.toLowerCase() + '_skilltree.webp\');">';
-    
+    str += drawSkillTree(strider);
     str += '</div>';
 
     str += '</div>';
@@ -816,10 +817,8 @@ function spawnStriderPopup(strider, refresh = false) {
     } else {
         document.querySelector('#strider-weaponBoth').addEventListener('contextmenu', e => {e.stopImmediatePropagation(); e.preventDefault(); strider.unequipWeapon(Data.WeaponHand.BOTH)});
     }
-}
 
-function refreshStriderPopup() {
-
+    addSkillTreeTooltips(strider);
 }
 
 function highlightDrag(e) {
@@ -833,3 +832,50 @@ function allowDrop(e) {
     e.preventDefault();
 }
 
+function drawSkillTree(strider) {
+    let str = '';
+    
+    //draw power node
+    str += '<div class="treeFraction">';
+    str += '<div id="' + trimWhitespacesInsideString(strider.name) + '-0" class="treeNode coolBorder powerNode" style="background-image: url(\'css/img/skills/' + strider.name + strider.uniqueIcon + '.png\')"></div>';
+    str += '</div>';
+    
+    // find tree roots
+    let roots = [];
+    strider.skillTree.nodes.forEach(node => {
+        if(node.previous.length == 0) roots.push(node);
+    })
+    console.log(roots);
+
+    return str;
+}
+function addSkillTreeTooltips(strider) {
+    // power node
+    addTooltip(document.querySelector('#' + trimWhitespacesInsideString(strider.name) + '-0'), function(){
+        return getPowerNodeTooltip(strider);
+    }, {offY: -8});
+}
+
+function getPowerNodeTooltip(strider) {
+    let str = '';
+    str += '<div class="powerNodeContainer">';
+
+    str += '<div class="powerNodeContainerBanner">';
+    str += '<div class="vignette coolBorder" style="background-image: url(\'css/img/skills/' + strider.name + strider.uniqueIcon + '.png\')"></div>';
+    str += '<div class="desc">';
+    str += '<h4>' + strider.uniqueName + '</h4>';
+    str += '<div class="treeNodeType treeNodeType-power">Inner Power</div>';
+    str += '</div>';
+    str += '</div>';
+
+    str += '<div class="divider"></div>';
+
+    str += '<div class="powerNodeDesc">' + strider.uniqueDesc +'</div>';
+    str += '<div class="divider"></div>';
+    str += '<div class="par tooltipDesc">' + strider.uniqueQuote + '</div>'
+
+    str += '</div>';
+    str += '</div>';
+
+    return str;
+}

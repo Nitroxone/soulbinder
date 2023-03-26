@@ -24,6 +24,7 @@ class Strider extends NPC {
                 striderType,
                 uniqueName,
                 uniqueDesc,
+                uniqueQuote,
                 uniqueIcon,
                 skillTree,
                 customBgPos = ''
@@ -47,6 +48,7 @@ class Strider extends NPC {
 
         this.uniqueName = uniqueName;
         this.uniqueDesc = uniqueDesc;
+        this.uniqueQuote = uniqueQuote;
         this.uniqueIcon = uniqueIcon;
 
         this.level = new Level("Level", 1, 20, 1, 1000, 0);

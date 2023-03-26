@@ -910,7 +910,7 @@ a:active, .tooltiped:active {
     max-width: 480px;
 }
 .tooltip {
-    padding: 4px 16px;
+    padding: 0.5rem 1rem!important;
     position: relative;
     left: 0;
     top: 0;
@@ -1772,7 +1772,7 @@ input[type=text], textarea, select {
     background-size: 100% 100%, auto;
 }
 .bgPanelDown {
-    background: url(img/darkEdgeBorders.png),url(img/bg1.png);
+    background: url(img/darkEdgeBorders.png),url(img/bg7.png);
     background-size: 100% 100%, auto;
 }
 .bgLight {
@@ -1794,9 +1794,23 @@ input[type=text], textarea, select {
     background-size: 100% 100%, auto;
 }
 .skinRock .bgPanelDown {
-    background: url(img/darkEdgeBorders.png), url(img/bgDownRock.jpg);
+    background: url(img/darkEdgeBorders.png), url(img/bg7.png);
     background-size: 100% 100%, auto;
     /* animation: fluidMotion 60s infinite linear */
+}
+.bgPanelDown-thinBar {
+    background-image: url(img/bg6-thin.png);
+    background-repeat: repeat-x;
+    background-size: 25%;
+
+    height: 20px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+#generalInfo {
+    position: relative;
 }
 /*
 @keyframes fluidMotion {
@@ -2677,6 +2691,7 @@ table.statsTable tbody td:nth-child(3) {
 .tooltipDesc, .echoQuote {
     font-family: 'RobotoItalic';
     color: grey;
+    text-align: left;
 }
 .echoQuote {
     text-align: right;
@@ -3149,4 +3164,92 @@ hr.leftSided {
 .bigSlot {
     height: 70px !important;
     background-position: center right;
+}
+
+.treeNode {
+    width: 48px;
+    height: 48px;
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    border-radius: 3px;
+}
+.treeNode:hover {
+    border-color: white;
+    cursor: pointer;
+}
+.treeFraction {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 2rem 0;
+}
+.powerNode {
+    
+}
+
+.powerNodeContainer {
+    width: 256px;
+    padding: 12px;
+}
+.powerNodeContainerBanner {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+.powerNodeContainerBanner > .vignette {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 3px;
+
+    width: 48px;
+    height: 48px;
+}
+.powerNodeContainerBanner > .desc {
+    height: 48px;
+
+    margin-left: 0.4rem;
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.powerNodeContainerBanner > .desc > h4 {
+    font-family: 'RobotoSlabBold';
+    font-size: 16px;
+    color: white;
+}
+.treeNodeType {
+    font-family: 'RobotoBold';
+    text-align: left;
+    margin-top: 0.25rem;
+
+    border: 1px solid rgb(175, 175, 175);
+    color: rgb(175, 175, 175);
+    padding: 0.2rem;
+    border-radius: 3px;
+}
+
+.treeNodeType-power {
+    border-color: #BF40BF;
+    color: #BF40BF;
+}
+
+.powerNodeDesc {
+    text-align: left;
+}
+.bold {
+    font-family: "RobotoBold";
+}
+.blue {
+    color: var(--base-blue);
+}
+.mainLogo {
+    height: 80px;
 }

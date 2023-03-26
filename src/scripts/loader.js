@@ -897,8 +897,9 @@ const Loader = {
                 [],
                 Data.StriderType.TANK,
                 "Darkspawn",
-                "Darkspawn power description",
-                1,
+                '<div class="par">The lower Amarok\'s health, the higher his protection and damage.</div><div class="par bulleted"><span class="bold blue">Health above 50%</span> : -30% protection, -25% DMG</div><div class="par bulleted"><span class="bold blue">Health between 30% and 50%</span> : regular protection, regular DMG</div><div class="par bulleted"><span class="bold blue">Health below 30%</span> : +2% protection per 1% health loss (max. 60%), +3% DMG per 2% health loss</div>',
+                '"For Ghirgynth\'s servants dance with the dead, Amarok\'s flesh slavers over pain."',
+                0,
                 what(game.all_skillTrees, "amarok"),
                 '10% 30%'
             ),
@@ -918,6 +919,7 @@ const Loader = {
                 Data.StriderType.STRIKER,
                 "Marked for Death",
                 "Marked for Death power description",
+                'quote',
                 1,
                 what(game.all_skillTrees, "amarok"),
                 'top'
@@ -938,6 +940,7 @@ const Loader = {
                 Data.StriderType.SUPPORT,
                 "Duellist's Stance",
                 "Duellist's Stance power description",
+                'quote',
                 1,
                 what(game.all_skillTrees, "amarok"),
                 '10% 30%'
@@ -958,6 +961,7 @@ const Loader = {
                 Data.StriderType.STRIKER,
                 "Hawkeye's Mastery",
                 "Hawkeye's Mastery power description",
+                'quote',
                 1,
                 what(game.all_skillTrees, "amarok"),
                 '10% 10%'
@@ -978,6 +982,7 @@ const Loader = {
                 Data.StriderType.STRIKER,
                 "Witchskin",
                 "Witchskin's power description",
+                'quote',
                 1,
                 what(game.all_skillTrees, "amarok"),
                 '10% 30%'
@@ -998,6 +1003,7 @@ const Loader = {
                 Data.StriderType.SUPPORT,
                 "Life Channel",
                 "Life Channel's power description",
+                'quote',
                 1,
                 what(game.all_skillTrees, "amarok"),
                 '10% 30%'
@@ -1018,6 +1024,7 @@ const Loader = {
                 Data.StriderType.TANK,
                 "Sherpherd's Ward",
                 "Sherpherd's Ward's power description",
+                'quote',
                 1,
                 what(game.all_skillTrees, "amarok"),
                 '10% 30%'
@@ -1038,6 +1045,7 @@ const Loader = {
                 Data.StriderType.SUPPORT,
                 "Whispers",
                 "Whispers' power description",
+                'quote',
                 1,
                 what(game.all_skillTrees, "amarok"),
                 '10% 50%'
@@ -1058,6 +1066,7 @@ const Loader = {
                 Data.StriderType.STRIKER,
                 "Bend Death",
                 "Bend Death's power description",
+                'quote',
                 1,
                 what(game.all_skillTrees, "amarok"),
                 '10% 20%'
@@ -1078,6 +1087,7 @@ const Loader = {
                 Data.StriderType.SUPPORT,
                 "Timecracks",
                 "Timecracks' power description",
+                'quote',
                 1,
                 what(game.all_skillTrees, "amarok"),
                 '10% 20%'
@@ -1098,6 +1108,7 @@ const Loader = {
                 Data.StriderType.TANK,
                 "Will of the Dragon",
                 "Will of the Dragon' power description",
+                'quote',
                 1,
                 what(game.all_skillTrees, "amarok"),
                 '10% 50%'
