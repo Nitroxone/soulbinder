@@ -3250,6 +3250,11 @@ hr.leftSided {
 .blue {
     color: var(--base-blue);
 }
+#generalInfo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .mainLogo {
-    height: 80px;
+    height: 48px;
 }
