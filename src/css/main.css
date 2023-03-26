@@ -3248,7 +3248,7 @@ hr.leftSided {
     font-family: "RobotoBold";
 }
 .blue {
-    color: var(--base-blue);
+    color: #7393B3;
 }
 #generalInfo {
     display: flex;

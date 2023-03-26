@@ -897,7 +897,7 @@ const Loader = {
                 [],
                 Data.StriderType.TANK,
                 "Darkspawn",
-                '<div class="par">The lower Amarok\'s health, the higher his protection and damage.</div><div class="par bulleted"><span class="bold blue">Health above 50%</span> : -30% protection, -25% DMG</div><div class="par bulleted"><span class="bold blue">Health between 30% and 50%</span> : regular protection, regular DMG</div><div class="par bulleted"><span class="bold blue">Health below 30%</span> : +2% protection per 1% health loss (max. 60%), +3% DMG per 2% health loss</div>',
+                '<div class="par">The lower Amarok\'s health, the higher his protection and damage.</div><div class="par bulleted"><span class="bold blue">Health above 50%</span> : -30% Protection, -25% Might</div><div class="par bulleted"><span class="bold blue">Health between 30% and 50%</span> : regular Protection, regular Might</div><div class="par bulleted"><span class="bold blue">Health below 30%</span> : +2% Protection per 1% Health loss, +3% Might per 2% Health loss</div>',
                 '"For Ghirgynth\'s servants dance with the dead, Amarok\'s flesh slavers over pain."',
                 0,
                 what(game.all_skillTrees, "amarok"),
