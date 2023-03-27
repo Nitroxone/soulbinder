@@ -3279,6 +3279,7 @@ hr.leftSided {
 .nodeDesc {
     text-align: left;
     padding: 0 0.5rem;
+    line-height: 1.15;
 }
 .bold {
     font-family: "RobotoBold";
