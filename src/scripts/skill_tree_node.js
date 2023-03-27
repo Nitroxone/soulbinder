@@ -101,4 +101,20 @@ class SkillTreeNode {
     unlock() {
         this.unlocked = true;
     }
+
+    hasNext() {
+        return this.next.length > 0;
+    }
+    hasPrevious() {
+        return this.previous.length > 0;
+    }
+
+    /**
+     * Returns whether the Node has siblings (if its previous Node has more than 1 next node).
+     * @returns {boolean} whether the Node has siblings
+     */
+    hasSiblings() {
+        if(this.previous) return false;
+        return this.previous.hasNext();
+    }
 }

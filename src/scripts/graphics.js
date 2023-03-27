@@ -845,10 +845,53 @@ function drawSkillTree(strider) {
     strider.skillTree.nodes.forEach(node => {
         if(node.previous.length == 0) roots.push(node);
     })
-    console.log(roots);
+
+    // prepare tree model
+    let tree = {};
+    // build the tree (append) from each root
+    roots.forEach(root => {
+        tree = buildSkillTree(root, 0, tree);
+    });
+    console.log(tree);
+
+    // for each depth on the tree model, create a new treeFraction and fill it with the nodes at that depth
+    for(const depth in tree) {
+        console.log('Depth: ' + depth);
+        str += '<div class="treeFraction">';
+        for(const node of tree[depth]) {
+            str += '<div id="' + trimWhitespacesInsideString(node.name) + '-0" class="treeNode coolBorder powerNode" style="background-image: url(\'css/img/skills/' + strider.name + node.icon + '.png\')"></div>';
+        }
+        str += '</div>'
+    }
 
     return str;
 }
+
+/**
+ * Builds a SkillTree recursively. Returns an object that contains every node that descends from the provided start node, ranked by 
+ * depth (no duplicates allowed). Ideally, this function should be called on every root of a SkillTree in order to build a 
+ * fully exploitable tree model.
+ * @param {SkillTreeNode} node the node to build
+ * @param {number} depth the current depth of the tree
+ * @param {object} result an object that contains each Node, ranked by depth
+ */
+function buildSkillTree(node, depth = 0, result = {}) {
+    if(!node || arrayContains(result[depth], node)) return result;
+
+    if(!result[depth]) {
+        result[depth] = [];
+    }
+    result[depth].push(node);
+
+    if(node.hasNext()) {
+        node.next.forEach(next => {
+            buildSkillTree(next, depth + 1, result);
+        });
+    }
+
+    return result;
+}
+
 function addSkillTreeTooltips(strider) {
     // power node
     addTooltip(document.querySelector('#' + trimWhitespacesInsideString(strider.name) + '-0'), function(){
