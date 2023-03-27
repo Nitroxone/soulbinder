@@ -814,7 +814,8 @@ const Loader = {
                                     "+7% Health regen, -15 Warding, -10 Resilience"
                                 )
                             ]
-                        }
+                        },
+                        "Suffering is a virtue."
                     ),
                     new SkillTreeNode(
                         "Signed in Blood",
@@ -849,7 +850,8 @@ const Loader = {
                                     "50% Protection -> 60% Protection"
                                 )
                             ]
-                        }
+                        },
+                        "Darkness feasts on the fire of pain."
                     )
                 ],
                 function() {

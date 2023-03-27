@@ -963,9 +963,9 @@ function getNodeTooltip(strider, node) {
             str += '</div>'
         } else if(node.currentLevel == level-1) {
             str += '<div class="rewardsWrapper">';
-            str += '<div class="par" style="color: grey">Next level:</div>';
+            str += '<div class="par" style="color: rgb(175,175,175)">Next level:</div>';
             node.rewards[level].forEach(reward => {
-                str += '<div class="par bulleted" style="color: grey">' + reward.desc + '</div>';
+                str += '<div class="par bulleted" style="color: rgb(175,175,175)">' + reward.desc + '</div>';
             });
             str += '</div>';
         }
