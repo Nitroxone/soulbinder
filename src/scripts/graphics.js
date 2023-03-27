@@ -953,7 +953,6 @@ function getNodeTooltip(strider, node) {
     str += '<div class="divider"></div>';
 
     for(const level in node.rewards) {
-        console.log(node.currentLevel + ':' + level);
         if(node.currentLevel == level) {
             str += '<div class="rewardsWrapper">';
             str += '<div class="par reward-' + (node.currentLevel < node.levels ? 'ongoing' : 'full') +'">Current level' + (node.currentLevel == node.levels ? ' (max.)' : '') +':</div>';

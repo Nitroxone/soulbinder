@@ -814,5 +814,5 @@ function playSound(source, volume = 0.5, pitch = 1) {
 }
 
 function trimWhitespacesInsideString(string) {
-    return string.replace(/\s/g, "");
+    return string.replace(/\s+/g, '').replace(/'/g, '');
 }

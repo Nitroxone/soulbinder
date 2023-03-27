@@ -852,13 +852,100 @@ const Loader = {
                             ]
                         },
                         "Darkness feasts on the fire of pain."
-                    )
+                    ),
+                    new SkillTreeNode(
+                        "Devil's Bargain",
+                        '<div class="par">When Amarok\'s health drops below 15%, he gains a shield that equals 100% of his Max. health, but will lose 5% Health each round until the end of the fight. <span class="bold">Devil\'s Bargain</span> may only be triggered once every ten rounds. If <span class="bold">Devil\'s Bargain</span> is triggered more than once within the fight, the health reduction debuff will stack up.</span></div>',
+                        4,
+                        Data.SkillTreeNodeType.PASSIVE,
+                        1,
+                        {
+                            1: [3, 3]
+                        },
+                        {
+                            1: [
+                                new SkillTreeNodeReward(
+                                    Data.SkillTreeNodeRewardType.TRIGGER,
+                                    [],
+                                    "Unlocks power"
+                                )
+                            ]
+                        },
+                        "You only trade your soul once ; death can only be delayed."
+                    ),
+                    new SkillTreeNode(
+                        "Burden",
+                        '<div class="par">Transfers the bleeding and poison effects from the targeted ally to Amarok.</div>',
+                        5,
+                        Data.SkillTreeNodeType.SKILL,
+                        2,
+                        {
+                            1: [5, 5],
+                            2: [8, 7]
+                        },
+                        {
+                            1: [
+                                new SkillTreeNodeReward(
+                                    Data.SkillTreeNodeRewardType.SKILL,
+                                    [],
+                                    "Unlocks skill"
+                                )
+                            ],
+                            2: [
+                                new SkillTreeNodeReward(
+                                    Data.SkillTreeNodeRewardType.SKILL,
+                                    [],
+                                    "Reduces each transferred bleeding/poison duration by 1 round."
+                                )
+                            ]
+                        },
+                        "Thou shall carry your companions' burdens and suffer from it, because you deserve it."
+                    ),
+                    new SkillTreeNode(
+                        "Ravenous",
+                        '<div class="par">At the end of each round, steal a portion of your missing health from a random enemy.</div>',
+                        6,
+                        Data.SkillTreeNodeType.PASSIVE,
+                        3,
+                        {
+                            1: [7, 3],
+                            2: [12, 7],
+                            3: [15, 10]
+                        },
+                        {
+                            1: [
+                                new SkillTreeNodeReward(
+                                    Data.SkillTreeNodeRewardType.TRIGGER,
+                                    [],
+                                    "5% Health steal"
+                                )
+                            ],
+                            2: [
+                                new SkillTreeNodeReward(
+                                    Data.SkillTreeNodeRewardType.TRIGGER,
+                                    [],
+                                    "10% Health steal"
+                                )
+                            ],
+                            3: [
+                                new SkillTreeNodeReward(
+                                    Data.SkillTreeNodeRewardType.TRIGGER,
+                                    [],
+                                    "Health steal is now dealt on all enemies."
+                                )
+                            ]
+                        },
+                        "A voracious thirst devours the flesh of darkspawns. Let it be quenched!"
+                    ),
                 ],
                 function() {
                     // unlocks Flesh of Darkness as the root of Amarok's skill tree
                     const fleshOfDarkness = what(this.nodes, "flesh of darkness");
                     const ironMaiden = what(this.nodes, "iron maiden");
                     const signedInBlood = what(this.nodes, "signed in blood");
+                    const devilsBargain = what(this.nodes, "devil's bargain");
+                    const burden = what(this.nodes, "burden");
+                    const ravenous = what(this.nodes, "ravenous");
 
                     fleshOfDarkness.unlock();
 
@@ -867,6 +954,18 @@ const Loader = {
 
                     signedInBlood.addPrevious(fleshOfDarkness);
                     fleshOfDarkness.addNext(signedInBlood);
+
+                    devilsBargain.addPrevious(ironMaiden);
+                    ironMaiden.addNext(devilsBargain);
+
+                    burden.addPrevious(ironMaiden);
+                    ironMaiden.addNext(burden);
+
+                    burden.addPrevious(signedInBlood);
+                    signedInBlood.addNext(burden);
+
+                    ravenous.addPrevious(signedInBlood);
+                    signedInBlood.addNext(ravenous);
                 }
             )
         ];
