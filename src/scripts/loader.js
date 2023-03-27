@@ -734,7 +734,7 @@ const Loader = {
                 [
                     new SkillTreeNode(
                         "Flesh of Darkness",
-                        "Increases Amarok's protection.",
+                        '<div class="par">Increases Amarok\'s Resilience and Warding.</div>',
                         1,
                         Data.SkillTreeNodeType.PASSIVE,
                         3,
@@ -754,7 +754,8 @@ const Loader = {
                                         new Stat(
                                             Data.Effect.WARDING, [5, 5], true
                                         ),
-                                    ]
+                                    ],
+                                    "+5 Resilience, +5 Warding"
                                 )
                             ],
                             2: [
@@ -767,7 +768,8 @@ const Loader = {
                                         new Stat(
                                             Data.Effect.WARDING, [15, 15], true
                                         ),
-                                    ]
+                                    ],
+                                    "+15 Resilience, +15 Warding"
                                 )
                             ],
                             3: [
@@ -780,14 +782,16 @@ const Loader = {
                                         new Stat(
                                             Data.Effect.WARDING, [30, 30], true
                                         ),
-                                    ]
+                                    ],
+                                    "+30 Resilience, +30 Warding"
                                 )
                             ]
-                        }
+                        },
+                        "In the abyssal depths of Ghirgynth's Nest, writhes a profane flesh : the Heart of Malice. A chunk was torn off this unholy heap, hence Amarok was born."
                     ),
                     new SkillTreeNode(
-                        "Mutilate",
-                        "Guarding an ally grants you a health regeneration bonus, but also brings your resilience and warding down.",
+                        "Iron Maiden",
+                        '<div class="par">Guarding an ally grants you a health regeneration bonus, but also brings your resilience and warding down.</div>',
                         2,
                         Data.SkillTreeNodeType.PASSIVE,
                         2,
@@ -851,13 +855,13 @@ const Loader = {
                 function() {
                     // unlocks Flesh of Darkness as the root of Amarok's skill tree
                     const fleshOfDarkness = what(this.nodes, "flesh of darkness");
-                    const mutilate = what(this.nodes, "mutilate");
+                    const ironMaiden = what(this.nodes, "iron maiden");
                     const signedInBlood = what(this.nodes, "signed in blood");
 
                     fleshOfDarkness.unlock();
 
-                    mutilate.addPrevious(fleshOfDarkness);
-                    fleshOfDarkness.addNext(mutilate);
+                    ironMaiden.addPrevious(fleshOfDarkness);
+                    fleshOfDarkness.addNext(ironMaiden);
 
                     signedInBlood.addPrevious(fleshOfDarkness);
                     fleshOfDarkness.addNext(signedInBlood);

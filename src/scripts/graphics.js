@@ -859,7 +859,7 @@ function drawSkillTree(strider) {
         console.log('Depth: ' + depth);
         str += '<div class="treeFraction">';
         for(const node of tree[depth]) {
-            str += '<div id="' + trimWhitespacesInsideString(node.name) + '-0" class="treeNode coolBorder powerNode" style="background-image: url(\'css/img/skills/' + strider.name + node.icon + '.png\')"></div>';
+            str += '<div id="' + trimWhitespacesInsideString(node.name) + '" class="treeNode coolBorder powerNode" style="background-image: url(\'css/img/skills/' + strider.name + node.icon + '.png\')"></div>';
         }
         str += '</div>'
     }
@@ -897,13 +897,19 @@ function addSkillTreeTooltips(strider) {
     addTooltip(document.querySelector('#' + trimWhitespacesInsideString(strider.name) + '-0'), function(){
         return getPowerNodeTooltip(strider);
     }, {offY: -8});
+
+    strider.skillTree.nodes.forEach(node => {
+        addTooltip(document.querySelector('#' + trimWhitespacesInsideString(node.name)), function(){
+            return getNodeTooltip(strider, node);
+        }, {offY: -8});
+    })
 }
 
 function getPowerNodeTooltip(strider) {
     let str = '';
-    str += '<div class="powerNodeContainer">';
+    str += '<div class="nodeContainer">';
 
-    str += '<div class="powerNodeContainerBanner">';
+    str += '<div class="nodeContainerBanner">';
     str += '<div class="vignette coolBorder" style="background-image: url(\'css/img/skills/' + strider.name + strider.uniqueIcon + '.png\')"></div>';
     str += '<div class="desc">';
     str += '<h4>' + strider.uniqueName + '</h4>';
@@ -913,9 +919,58 @@ function getPowerNodeTooltip(strider) {
 
     str += '<div class="divider"></div>';
 
-    str += '<div class="powerNodeDesc">' + strider.uniqueDesc +'</div>';
+    str += '<div class="nodeDesc">' + strider.uniqueDesc +'</div>';
     str += '<div class="divider"></div>';
     str += '<div class="par tooltipDesc">' + strider.uniqueQuote + '</div>'
+
+    str += '</div>';
+    str += '</div>';
+
+    return str;
+}
+
+function getNodeTooltip(strider, node) {
+    let str = '';
+    str += '<div class="nodeContainer">';
+
+    str += '<div class="nodeContainerBanner">';
+    str += '<div class="vignette coolBorder" style="background-image: url(\'css/img/skills/' + strider.name + node.icon +'.png\')"></div>';
+    str += '<div class="desc">';
+    str += '<h4>' + node.name + '</h4>';
+    str += '<div class="treeNodeTags">'
+    str += '<div class="treeNodeType treeNodeType-power">Power</div>';
+    str += '<div class="treeNodeType treeNodeType-' + (node.currentLevel == 0 ? 'off' : node.currentLevel < node.levels ? 'ongoing' : 'full') +'">' + node.currentLevel + '/' + node.levels + '</div>';
+    str += '</div>'
+    str += '</div>';
+    str += '</div>';
+
+    str += '<div class="divider"></div>';
+
+    str += '<div class="nodeDesc">' + node.desc + '</div>';
+
+    str += '<div class="divider"></div>';
+
+    for(const level in node.rewards) {
+        console.log(node.currentLevel + ':' + level);
+        if(node.currentLevel == level) {
+            str += '<div class="rewardsWrapper">';
+            str += '<div class="par reward-' + (node.currentLevel < node.levels ? 'ongoing' : 'full') +'">Current level' + (node.currentLevel == node.levels ? ' (max.)' : '') +':</div>';
+            node.rewards[level].forEach(reward => {
+                str += '<div class="par bulleted">' + reward.desc + '</div>';
+            });
+            str += '</div>'
+        } else if(node.currentLevel == level-1) {
+            str += '<div class="rewardsWrapper">';
+            str += '<div class="par" style="color: grey">Next level:</div>';
+            node.rewards[level].forEach(reward => {
+                str += '<div class="par bulleted" style="color: grey">' + reward.desc + '</div>';
+            });
+            str += '</div>';
+        }
+    }
+
+    str += '<div class="divider"></div>';
+    str += '<div class="par tooltipDesc">' + node.quote + '</div>';
 
     str += '</div>';
     str += '</div>';

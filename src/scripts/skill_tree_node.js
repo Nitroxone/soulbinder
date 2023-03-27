@@ -1,5 +1,5 @@
 class SkillTreeNode {
-    constructor(name, desc, icon, type, levels, requirements, rewards) {
+    constructor(name, desc, icon, type, levels, requirements, rewards, quote = '') {
         this.name = name;
         this.desc = desc;
         this.icon = icon;
@@ -9,6 +9,7 @@ class SkillTreeNode {
         this.previous = [];
         this.next = [];
         this.rewards = rewards;
+        this.quote = quote;
         this.unlocked = false;
 
         this.currentLevel = 0;

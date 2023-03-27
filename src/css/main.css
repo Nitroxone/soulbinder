@@ -3191,17 +3191,18 @@ hr.leftSided {
     
 }
 
-.powerNodeContainer {
+.nodeContainer {
     width: 256px;
     padding: 12px;
+    text-align: left;
 }
-.powerNodeContainerBanner {
+.nodeContainerBanner {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
 }
-.powerNodeContainerBanner > .vignette {
+.nodeContainerBanner > .vignette {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -3210,7 +3211,7 @@ hr.leftSided {
     width: 48px;
     height: 48px;
 }
-.powerNodeContainerBanner > .desc {
+.nodeContainerBanner > .desc {
     height: 48px;
 
     margin-left: 0.4rem;
@@ -3220,15 +3221,23 @@ hr.leftSided {
     flex-direction: column;
     align-items: flex-start;
 }
-.powerNodeContainerBanner > .desc > h4 {
+.nodeContainerBanner > .desc > h4 {
     font-family: 'RobotoSlabBold';
     font-size: 16px;
     color: white;
 }
+.treeNodeTags {
+    margin-top: 0.25rem;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+.treeNodeTags > div:not(:first-child) {
+    margin-left: 0.25rem;
+}
 .treeNodeType {
     font-family: 'RobotoBold';
     text-align: left;
-    margin-top: 0.25rem;
 
     border: 1px solid rgb(175, 175, 175);
     color: rgb(175, 175, 175);
@@ -3240,9 +3249,28 @@ hr.leftSided {
     border-color: #BF40BF;
     color: #BF40BF;
 }
+.treeNodeType-off {
+    border-color: rgb(175, 175, 175);
+    color: rgb(175, 175, 175);
+}
+.treeNodeType-ongoing {
+    border-color: #FFBF00;
+    color: #FFBF00;
+}
+.treeNodeType-full {
+    border-color: #4CBB17;
+    color: #4CBB17;
+}
+.reward-ongoing {
+    color: #FFBF00;
+}
+.reward-full {
+    color: #4CBB17;
+}
 
-.powerNodeDesc {
+.nodeDesc {
     text-align: left;
+    padding: 0 0.5rem;
 }
 .bold {
     font-family: "RobotoBold";
@@ -3257,4 +3285,8 @@ hr.leftSided {
 }
 .mainLogo {
     height: 48px;
+}
+
+.rewardsWrapper {
+    padding: 0.5rem;
 }
