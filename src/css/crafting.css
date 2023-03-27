@@ -1,0 +1,90 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.craftingWrapper {
+    border: 7px solid transparent;
+    border-image: url(img/window1-smaller.png) 7 stretch;
+    background-image: url(img/bg1.png);
+    
+    height: 734px;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+
+}
+
+.craftingContent {
+    width: 411px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.craftingTabs {
+    width: 410px;
+    height: 64px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.tabs  {
+    width: 101px;
+    height: 64px;
+}
+
+.tab1 {
+    background-image: url(img/tab_crafting_s.png);
+}
+
+.tab2 {
+    background-image: url(img/tab_upgrade_s.png);
+}
+
+.tab3 {
+    background-image: url(img/tab_salvage_s.png);
+}
+
+.tab4 {
+    background-image: url(img/tab_invest_s.png);
+}
+
+.searchAndSort {
+    background-image: url(img/search_and_sort_texture.png);
+    width: 100%;
+    height: 35px;
+}
+
+.paper {
+    background-image: url(img/blueprints_paper_texture.png);
+    width: 100%;
+    height: 317px;
+}
+
+.itemName {
+    background-image: url(img/item_name_texture.png);
+    width: 100%;
+    height: 33px;
+}
+
+.wood {
+    background-image: url(img/materials_wood_texture.png);
+    width: 100%;
+    height: 116px;
+}
+
+.buttonPlace {
+    background-image: url(img/button_place.png);
+    width: 100%;
+    height: 57px;
+}
+
+
+
