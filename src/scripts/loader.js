@@ -818,7 +818,7 @@ const Loader = {
                     ),
                     new SkillTreeNode(
                         "Signed in Blood",
-                        "The maximum protection bonus from Darkspawn is increased.",
+                        '<div class="par">The maximum protection bonus from Darkspawn is increased.</div>',
                         3,
                         Data.SkillTreeNodeType.PASSIVE,
                         3,

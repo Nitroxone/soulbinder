@@ -913,7 +913,9 @@ function getPowerNodeTooltip(strider) {
     str += '<div class="vignette coolBorder" style="background-image: url(\'css/img/skills/' + strider.name + strider.uniqueIcon + '.png\')"></div>';
     str += '<div class="desc">';
     str += '<h4>' + strider.uniqueName + '</h4>';
+    str += '<div class="treeNodeTags">'
     str += '<div class="treeNodeType treeNodeType-power">Inner Power</div>';
+    str += '</div>'
     str += '</div>';
     str += '</div>';
 
@@ -938,7 +940,7 @@ function getNodeTooltip(strider, node) {
     str += '<div class="desc">';
     str += '<h4>' + node.name + '</h4>';
     str += '<div class="treeNodeTags">'
-    str += '<div class="treeNodeType treeNodeType-power">Power</div>';
+    str += '<div class="treeNodeType treeNodeType-' + node.type.toLowerCase() +'">' + capitalizeFirstLetter(node.type) +'</div>';
     str += '<div class="treeNodeType treeNodeType-' + (node.currentLevel == 0 ? 'off' : node.currentLevel < node.levels ? 'ongoing' : 'full') +'">' + node.currentLevel + '/' + node.levels + '</div>';
     str += '</div>'
     str += '</div>';

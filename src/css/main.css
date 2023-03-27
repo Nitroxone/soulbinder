@@ -3245,6 +3245,14 @@ hr.leftSided {
     border-radius: 3px;
 }
 
+.treeNodeType-passive {
+    border-color: #0096FF;
+    color: #0096FF;
+}
+.treeNodeType-skill {
+    border-color: #DAA06D;
+    color: #DAA06D;
+}
 .treeNodeType-power {
     border-color: #BF40BF;
     color: #BF40BF;
