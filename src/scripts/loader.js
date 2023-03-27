@@ -787,7 +787,7 @@ const Loader = {
                                 )
                             ]
                         },
-                        "In the abyssal depths of Ghirgynth's Nest, writhes a profane flesh : the Heart of Malice. A chunk was torn off this unholy heap, hence Amarok was born."
+                        "In the abyssal depths of Ghirgynth's Nest, writhes a profane flesh : the Malignant Heart. A chunk was torn off this unholy heap, hence Amarok was born."
                     ),
                     new SkillTreeNode(
                         "Iron Maiden",
