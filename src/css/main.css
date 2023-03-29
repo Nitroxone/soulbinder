@@ -3317,3 +3317,9 @@ hr.leftSided {
     left: 0;
     right: 0;
 }
+
+@keyframes animstroke {
+    to {
+        stroke-dashoffset: -1000;
+    }
+}

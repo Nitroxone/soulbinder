@@ -907,7 +907,7 @@ function drawSkillTreeLines(strider) {
             let targetPos = child.dom.getBoundingClientRect();
             let targetPosOriginX = child.dom.offsetLeft + targetPos.width/2;
             let targetPosOriginY = child.dom.offsetTop;
-            str += '<line x1="' + basePosOriginX + '" y1="' + basePosOriginY +'" x2="' + targetPosOriginX + '" y2="' + targetPosOriginY + '" style="stroke:' + color + '; stroke-width: ' + (type ? '1' : '2') + ';' + (type ? ' stroke-dasharray: 10;' : '') + '" />';
+            str += '<line x1="' + basePosOriginX + '" y1="' + basePosOriginY +'" x2="' + targetPosOriginX + '" y2="' + targetPosOriginY + '" style="stroke:' + color + '; stroke-width: ' + (type ? '1' : '2') + ';' + (type ? ' stroke-dasharray: 10; animation-name: animstroke; animation-iteration-count: infinite; animation-duration: 60s' : '') + '" />';
         })
     });
 
