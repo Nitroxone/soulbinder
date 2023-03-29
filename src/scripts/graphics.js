@@ -819,6 +819,7 @@ function spawnStriderPopup(strider, refresh = false) {
     }
 
     addSkillTreeTooltips(strider);
+    drawSkillTreeLines(strider);
 }
 
 function highlightDrag(e) {
@@ -861,10 +862,41 @@ function drawSkillTree(strider) {
         for(const node of tree[depth]) {
             str += '<div id="' + trimWhitespacesInsideString(node.name) + '" class="treeNode coolBorder powerNode" style="background-image: url(\'css/img/skills/' + strider.name + node.icon + '.png\')"></div>';
         }
-        str += '</div>'
+        str += '</div>';
     }
-
     return str;
+}
+
+
+function drawSkillTreeLines(strider) {
+    const parent = document.querySelector('.striderSkillTree')
+    const parentDimensions = parent.getBoundingClientRect();
+    
+    let str = '';
+    str += '<svg class="skillTreeLinesOverlay" height="' + parent.scrollHeight + '" width="' + parentDimensions.width + '">';
+
+    strider.skillTree.nodes.forEach(node => {
+        console.log(node);
+        console.log(node.next);
+        const elem = document.querySelector('#' + trimWhitespacesInsideString(node.name));
+        const basePos = elem.getBoundingClientRect();
+        const basePosOriginX = elem.offsetLeft + basePos.width/2;
+        const basePosOriginY = elem.offsetTop + basePos.height;
+        let children = [];
+        node.next.forEach(next => {
+            children.push(document.querySelector('#' + trimWhitespacesInsideString(next.name)));
+        });
+        children.forEach(child => {
+            let targetPos = child.getBoundingClientRect();
+            let targetPosOriginX = child.offsetLeft + targetPos.width/2;
+            let targetPosOriginY = child.offsetTop;
+            str += '<line x1="' + basePosOriginX + '" y1="' + basePosOriginY +'" x2="' + targetPosOriginX + '" y2="' + targetPosOriginY + '" style="stroke:rgb(255,0,0); stroke-width: 2" />';
+        })
+    });
+
+    str += '</svg>';
+
+    parent.innerHTML += str;
 }
 
 /**

@@ -3152,6 +3152,8 @@ hr.leftSided {
 }
 
 .striderSkillTree {
+    position: relative;
+
     grid-area: striderSkillTree;
     border-radius: 3px;
 
@@ -3298,4 +3300,12 @@ hr.leftSided {
 
 .rewardsWrapper {
     padding: 0.5rem;
+}
+
+.skillTreeLinesOverlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }

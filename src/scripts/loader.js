@@ -1104,6 +1104,7 @@ const Loader = {
                     burden.addPrevious(ironMaiden);
                     ironMaiden.addNext(burden);
                     burden.addNext(malevolence);
+                    burden.addNext(purgatory);
 
                     burden.addPrevious(signedInBlood);
                     signedInBlood.addNext(burden);
