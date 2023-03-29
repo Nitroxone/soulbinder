@@ -3,7 +3,7 @@
  * @param {Item} item the Item data to fill the tooltip with
  */
 function spawnTooltip(item, fromExisting = 0) {
-    console.log(item);
+    //console.log(item);
     const base = '<div id="floating-' + item.id +'" class="tooltip framed bgDark tooltipSpawn">'
     const tooltip = document.createElement('div');
     if(item instanceof Weapon) tooltip.innerHTML = base + getWeaponTooltip(item, null, true) + '</div>';
@@ -20,7 +20,7 @@ function spawnTooltip(item, fromExisting = 0) {
     }
     if(fromExisting != 0) {
         const domReference = domWhat('floating-' + fromExisting);
-        console.log(domReference.getBoundingClientRect());
+        //console.log(domReference.getBoundingClientRect());
         tooltipPos = {
             top: domReference.getBoundingClientRect().top + 'px',
             left: domReference.getBoundingClientRect().left - 50 + 'px'
@@ -455,7 +455,7 @@ function drawWeaponInventory(weapons) {
         // Draggable events
         document.querySelector('#res-' + me.id).addEventListener("dragstart", e => {
             e.dataTransfer.setData("weapon", me.id);
-            console.log(e.dataTransfer.getData("weapon"));
+            //console.log(e.dataTransfer.getData("weapon"));
         })
     }
     document.querySelector('#res-weapons').addEventListener('click', (e) => {
@@ -574,7 +574,7 @@ function drawArmorInventory(armors) {
         // Draggable events
         document.querySelector('#res-' + me.id).addEventListener("dragstart", e => {
             e.dataTransfer.setData("armor", me.id);
-            console.log(e.dataTransfer.getData("armor"));
+            //console.log(e.dataTransfer.getData("armor"));
         })
     }
     document.querySelector('#res-armors').addEventListener('click', (e) => {
@@ -620,7 +620,7 @@ function drawTrinketInventory(trinkets) {
         // Draggable events
         document.querySelector('#res-' + me.id).addEventListener("dragstart", e => {
             e.dataTransfer.setData("trinket", me.id);
-            console.log(e.dataTransfer.getData("trinket"));
+            //console.log(e.dataTransfer.getData("trinket"));
         });
     }
     document.querySelector('#res-trinkets').addEventListener('click', (e) => {
@@ -673,14 +673,14 @@ function drawStridersScreen() {
 function spawnStriderPopup(strider, refresh = false) {
     let popupWindow;
     if(!refresh) {
-        console.log('spawning');
+        //console.log('spawning');
         popupWindow = document.createElement('div');
         popupWindow.classList.add('striderPopup', 'tooltip', 'framed', 'bgDark', 'tooltipSpawn');
         document.querySelector('#stridersDiv').appendChild(popupWindow);
     } else {
         popupWindow = document.querySelector('.striderPopup');
     }
-    console.log(popupWindow);
+    //console.log(popupWindow);
     
     let str = '';
     str += '<div class="striderPopup-wrapper">';
@@ -859,11 +859,11 @@ function drawSkillTree(strider) {
     roots.forEach(root => {
         tree = buildSkillTree(root, 0, tree);
     });
-    console.log(tree);
+    //console.log(tree);
 
     // for each depth on the tree model, create a new treeFraction and fill it with the nodes at that depth
     for(const depth in tree) {
-        console.log('Depth: ' + depth);
+        //console.log('Depth: ' + depth);
         str += '<div class="treeFraction">';
         for(const node of tree[depth]) {
             str += '<div id="' + trimWhitespacesInsideString(node.name) + '" class="treeNode ' + getBorderClassFromNode(node) + ' powerNode" style="background-image: url(\'css/img/skills/' + strider.name + node.icon + '.png\')"></div>';
@@ -907,7 +907,7 @@ function drawSkillTreeLines(strider) {
             let targetPos = child.dom.getBoundingClientRect();
             let targetPosOriginX = child.dom.offsetLeft + targetPos.width/2;
             let targetPosOriginY = child.dom.offsetTop;
-            str += '<line x1="' + basePosOriginX + '" y1="' + basePosOriginY +'" x2="' + targetPosOriginX + '" y2="' + targetPosOriginY + '" style="stroke:' + color + '; stroke-width: ' + (type ? '1' : '2') + ';' + (type ? ' stroke-dasharray: 10; animation-name: animstroke; animation-iteration-count: infinite; animation-duration: 60s' : '') + '" />';
+            str += '<line x1="' + basePosOriginX + '" y1="' + basePosOriginY +'" x2="' + targetPosOriginX + '" y2="' + targetPosOriginY + '" style="stroke:' + color + '; stroke-width: ' + (type ? '1' : '2') + ';' + (type ? ' stroke-dasharray: 10; animation-name: animstroke; animation-iteration-count: infinite; animation-duration: 60s; animation-timing-function: linear;' : '') + '" />';
         })
     });
 
@@ -1049,6 +1049,13 @@ function getNodeTooltip(strider, node) {
 
     str += '<div class="divider"></div>';
     str += '<div class="par tooltipDesc">' + node.quote + '</div>';
+
+    if(!node.isUnlocked()) {
+        str += '<div class="par"></div>';
+        str += '<div class="par"></div>';
+
+        str += '<div class="par nodeDenied">This upgrade is locked. Unlock previous upgrades to access it.</div>';
+    }
 
     str += '</div>';
     str += '</div>';

@@ -3286,6 +3286,9 @@ hr.leftSided {
     color: #4CBB17;
 }
 
+.nodeDenied {
+    color: #DC143C;
+}
 .nodeDesc {
     text-align: left;
     padding: 0 0.5rem;
