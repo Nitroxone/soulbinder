@@ -873,7 +873,7 @@ function drawSkillTreeLines(strider) {
     const parentDimensions = parent.getBoundingClientRect();
     
     let str = '';
-    str += '<svg class="skillTreeLinesOverlay" height="' + parent.scrollHeight + '" width="' + parentDimensions.width + '">';
+    str += '<svg class="skillTreeLinesOverlay" height="' + parent.scrollHeight + '" width="' + parent.offsetWidth + '">';
 
     strider.skillTree.nodes.forEach(node => {
         console.log(node);
