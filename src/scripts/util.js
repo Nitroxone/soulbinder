@@ -816,3 +816,17 @@ function playSound(source, volume = 0.5, pitch = 1) {
 function trimWhitespacesInsideString(string) {
     return string.replace(/\s+/g, '').replace(/'/g, '');
 }
+
+/**
+ * Returns an RGB color code based on the node's status.
+ * @param {SkillTreeNode} node the Node to check for
+ * @returns {string} an RGB code 
+ */
+function getLineColorFromNodeState(node) {
+    if(!node) return 'rgb(50, 50, 50)';
+    
+    if(node.currentLevel == node.levels) return 'rgb(76, 187, 23)';
+    else if(node.currentLevel > 0) return 'rgb(255, 191, 0)';
+    else if(node.currentLevel == 0 && node.isUnlocked()) return 'rgb(200,200,200)';
+    else if(!node.isUnlocked()) return 'rgb(100, 100, 100)';
+}

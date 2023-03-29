@@ -894,13 +894,20 @@ function drawSkillTreeLines(strider) {
         const basePosOriginY = elem.offsetTop + basePos.height;
         let children = [];
         node.next.forEach(next => {
-            children.push(document.querySelector('#' + trimWhitespacesInsideString(next.name)));
+            children.push(
+                {
+                    dom: document.querySelector('#' + trimWhitespacesInsideString(next.name)),
+                    obj: next
+                }
+            );
         });
         children.forEach(child => {
-            let targetPos = child.getBoundingClientRect();
-            let targetPosOriginX = child.offsetLeft + targetPos.width/2;
-            let targetPosOriginY = child.offsetTop;
-            str += '<line x1="' + basePosOriginX + '" y1="' + basePosOriginY +'" x2="' + targetPosOriginX + '" y2="' + targetPosOriginY + '" style="stroke:rgb(255,255,255); stroke-width: 1" />';
+            let color = getLineColorFromNodeState(child.obj);
+            let type = child.obj.isUnlocked() ? false : true;
+            let targetPos = child.dom.getBoundingClientRect();
+            let targetPosOriginX = child.dom.offsetLeft + targetPos.width/2;
+            let targetPosOriginY = child.dom.offsetTop;
+            str += '<line x1="' + basePosOriginX + '" y1="' + basePosOriginY +'" x2="' + targetPosOriginX + '" y2="' + targetPosOriginY + '" style="stroke:' + color + '; stroke-width: ' + (type ? '1' : '2') + ';' + (type ? ' stroke-dasharray: 10;' : '') + '" />';
         })
     });
 
