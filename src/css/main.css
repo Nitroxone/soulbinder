@@ -929,6 +929,7 @@ a:active, .tooltiped:active {
     animation-name: tooltipSpawn;
     animation-duration: 0.25s;
     animation-delay: 0;
+    z-index: 2;
 }
 @keyframes tooltipSlideIn {
     0% {

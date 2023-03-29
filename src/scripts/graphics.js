@@ -967,7 +967,7 @@ function addSkillTreeTooltips(strider) {
 function bringNodesForward() {
     document.querySelectorAll('.treeFraction').forEach(single => {
         single.style.position = "relative";
-        single.style.zIndex = "5";
+        single.style.zIndex = "1";
     });
 }
 
