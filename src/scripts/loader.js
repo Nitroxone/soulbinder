@@ -937,6 +937,142 @@ const Loader = {
                         },
                         "A voracious thirst devours the flesh of darkspawns. Let it be quenched!"
                     ),
+                    new SkillTreeNode(
+                        "Malevolence",
+                        '<div class="par">Casts a debuff on all enemies. The lower Amarok\'s Health, the higher the debuff.</div><div class="par">Effects are as follow:<br>- 90% Health: -5% Protection, -5% Dodge<br>- 30% Health: -30% Protection, -5 Speed<br>- 10% Health: -45% Protection, -30% Accuracy</div>',
+                        7,
+                        Data.SkillTreeNodeType.SKILL,
+                        1,
+                        {
+                            1: [10, 10]
+                        },
+                        {
+                            1: [
+                                new SkillTreeNodeReward(
+                                    Data.SkillTreeNodeRewardType.SKILL,
+                                    [],
+                                    "Unlocks skill"
+                                )
+                            ]
+                        },
+                        "The air feels saturated with a malignant hunger."
+                    ),
+                    new SkillTreeNode(
+                        "Purgatory",
+                        '<div class="par">Sacrifices 15% of your total Health. Deals heavy damage to enemies that have 25% Health or below. Heals enemies that have 75% Health or above. Cleanses all of the Poison and Bleeding effects that are active on Amarok.</div>',
+                        8,
+                        Data.SkillTreeNodeType.SKILL,
+                        1,
+                        {
+                            1: [10, 10]
+                        },
+                        {
+                            1: [
+                                new SkillTreeNodeReward(
+                                    Data.SkillTreeNodeRewardType.SKILL,
+                                    [],
+                                    "Unlocks skill"
+                                )
+                            ]
+                        },
+                        "Quote"
+                    ),
+                    new SkillTreeNode(
+                        "Shadowborne",
+                        '<div class="par">Each time Malevolence is triggered, Amarok gets a Shadow Mark. 3 Shadow Marks allow him to cast Shadowborne, which will stun all targets. The closer they are, the higher the stun chance is.</div><div class="par">- Front: 100% Stun chance<br>- Middle: 50% Stun chance<br>- Back: 15% Stun chance</div>',
+                        9,
+                        Data.SkillTreeNodeType.SKILL,
+                        1,
+                        {
+                            1: [12, 8]
+                        },
+                        {
+                            1: [
+                                new SkillTreeNodeReward(
+                                    Data.SkillTreeNodeRewardType.SKILL,
+                                    [],
+                                    "Unlocks skill"
+                                )
+                            ]
+                        },
+                        "Quote"
+                    ),
+                    new SkillTreeNode(
+                        "Black Solstice",
+                        '<div class="par">The effects of Malevolence are strengthened, and are triggered earlier.</div><div class="par">- 100% Health: -7% Protection, -7% Dodge<br>- 50% Health: -35% Protection, -8 Speed<br>- 25% Health: -50% Protection, -35% Accuracy</div>',
+                        10,
+                        Data.SkillTreeNodeType.PASSIVE,
+                        1,
+                        {
+                            1: [18, 5]
+                        },
+                        {
+                            1: [
+                                new SkillTreeNodeReward(
+                                    Data.SkillTreeNodeRewardType.SKILL,
+                                    [],
+                                    "Unlocks power"
+                                )
+                            ]
+                        },
+                        "Quote"
+                    ),
+                    new SkillTreeNode(
+                        "Spell Eater",
+                        '<div class="par">Each time Amarok uses Purgatory, he will have a chance to consume 1-3 enemy debuffs, with each consumption restoring a portion of his Health, and also granting him with a Speed and Dodge bonus.</div>',
+                        11,
+                        Data.SkillTreeNodeType.PASSIVE,
+                        3,
+                        {
+                            1: [15, 4],
+                            2: [17, 6],
+                            3: [20, 12]
+                        },
+                        {
+                            1: [
+                                new SkillTreeNodeReward(
+                                    Data.SkillTreeNodeRewardType.TRIGGER,
+                                    [],
+                                    "+3% Health. +10 Speed, +10% Dodge for 1 round."
+                                )
+                            ],
+                            2: [
+                                new SkillTreeNodeReward(
+                                    Data.SkillTreeNodeRewardType.TRIGGER,
+                                    [],
+                                    "+4% Health. The Speed and Dodge bonus now last for 2 rounds."
+                                ),
+                            ],
+                            3: [
+                                new SkillTreeNodeReward(
+                                    Data.SkillTreeNodeRewardType.TRIGGER,
+                                    [],
+                                    "+5% Health. The Speed and Dodge bonus now last for 3 rounds."
+                                ),
+                            ]
+                        },
+                        "Quote"
+                    ),
+                    new SkillTreeNode(
+                        "Demonic Spikes",
+                        '<div class="par">Amarok shields himself and gains a damage reflection boost for one round. While the effect is active, any physical attack Amarok receives restores 4% of his Health.</div>',
+                        12,
+                        Data.SkillTreeNodeType.SKILL,
+                        1,
+                        {
+                            1: [16, 4],
+                        },
+                        {
+                            1: [
+                                new SkillTreeNodeReward(
+                                    Data.SkillTreeNodeRewardType.SKILL,
+                                    [],
+                                    "Unlocks power"
+                                )
+                            ]
+                        },
+                        "Quote"
+                    ),
                 ],
                 function() {
                     // unlocks Flesh of Darkness as the root of Amarok's skill tree
@@ -946,6 +1082,12 @@ const Loader = {
                     const devilsBargain = what(this.nodes, "devil's bargain");
                     const burden = what(this.nodes, "burden");
                     const ravenous = what(this.nodes, "ravenous");
+                    const malevolence = what(this.nodes, "malevolence");
+                    const purgatory = what(this.nodes, "purgatory");
+                    const shadowborne = what(this.nodes, "shadowborne");
+                    const blackSolstice = what(this.nodes, "black solstice");
+                    const spellEater = what(this.nodes, "spell eater");
+                    const demonicSpikes = what(this.nodes, "demonic spikes");
 
                     fleshOfDarkness.unlock();
 
@@ -957,15 +1099,33 @@ const Loader = {
 
                     devilsBargain.addPrevious(ironMaiden);
                     ironMaiden.addNext(devilsBargain);
+                    devilsBargain.addNext(malevolence);
 
                     burden.addPrevious(ironMaiden);
                     ironMaiden.addNext(burden);
+                    burden.addNext(malevolence);
 
                     burden.addPrevious(signedInBlood);
                     signedInBlood.addNext(burden);
 
                     ravenous.addPrevious(signedInBlood);
                     signedInBlood.addNext(ravenous);
+                    ravenous.addNext(purgatory);
+
+                    malevolence.addPrevious(devilsBargain);
+                    malevolence.addPrevious(burden);
+                    malevolence.addNext(shadowborne);
+                    malevolence.addNext(blackSolstice);
+
+                    purgatory.addPrevious(burden);
+                    purgatory.addPrevious(ravenous);
+                    purgatory.addNext(spellEater);
+                    purgatory.addNext(demonicSpikes);
+
+                    shadowborne.addPrevious(malevolence);
+                    blackSolstice.addPrevious(malevolence);
+                    spellEater.addPrevious(purgatory);
+                    demonicSpikes.addPrevious(purgatory);
                 }
             )
         ];
