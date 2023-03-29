@@ -818,8 +818,9 @@ function spawnStriderPopup(strider, refresh = false) {
         document.querySelector('#strider-weaponBoth').addEventListener('contextmenu', e => {e.stopImmediatePropagation(); e.preventDefault(); strider.unequipWeapon(Data.WeaponHand.BOTH)});
     }
 
-    addSkillTreeTooltips(strider);
     drawSkillTreeLines(strider);
+    bringNodesForward();
+    addSkillTreeTooltips(strider);
 }
 
 function highlightDrag(e) {
@@ -870,14 +871,12 @@ function drawSkillTree(strider) {
 
 function drawSkillTreeLines(strider) {
     const parent = document.querySelector('.striderSkillTree')
-    const parentDimensions = parent.getBoundingClientRect();
     
     let str = '';
+    
     str += '<svg class="skillTreeLinesOverlay" height="' + parent.scrollHeight + '" width="' + parent.offsetWidth + '">';
-
     strider.skillTree.nodes.forEach(node => {
-        console.log(node);
-        console.log(node.next);
+        
         const elem = document.querySelector('#' + trimWhitespacesInsideString(node.name));
         const basePos = elem.getBoundingClientRect();
         const basePosOriginX = elem.offsetLeft + basePos.width/2;
@@ -890,7 +889,7 @@ function drawSkillTreeLines(strider) {
             let targetPos = child.getBoundingClientRect();
             let targetPosOriginX = child.offsetLeft + targetPos.width/2;
             let targetPosOriginY = child.offsetTop;
-            str += '<line x1="' + basePosOriginX + '" y1="' + basePosOriginY +'" x2="' + targetPosOriginX + '" y2="' + targetPosOriginY + '" style="stroke:rgb(255,0,0); stroke-width: 2" />';
+            str += '<line x1="' + basePosOriginX + '" y1="' + basePosOriginY +'" x2="' + targetPosOriginX + '" y2="' + targetPosOriginY + '" style="stroke:rgb(255,255,255); stroke-width: 1" />';
         })
     });
 
@@ -935,6 +934,13 @@ function addSkillTreeTooltips(strider) {
             return getNodeTooltip(strider, node);
         }, {offY: -8});
     })
+}
+
+function bringNodesForward() {
+    document.querySelectorAll('.treeFraction').forEach(single => {
+        single.style.position = "relative";
+        single.style.zIndex = "5";
+    });
 }
 
 function getPowerNodeTooltip(strider) {
