@@ -830,3 +830,12 @@ function getLineColorFromNodeState(node) {
     else if(node.currentLevel == 0 && node.isUnlocked()) return 'rgb(200,200,200)';
     else if(!node.isUnlocked()) return 'rgb(100, 100, 100)';
 }
+
+function getBorderClassFromNode(node) {
+    if(!node) return 'coolBorder';
+
+    if(node.currentLevel == node.levels) return 'borderNodeFull';
+    else if(node.currentLevel > 0) return 'borderNodeOngoing';
+    else if(node.currentLevel == 0 && node.isUnlocked()) return 'coolBorder';
+    else if(!node.isUnlocked()) return 'coolBorder';
+}

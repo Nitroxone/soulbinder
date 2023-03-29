@@ -3273,6 +3273,12 @@ hr.leftSided {
     border-color: #4CBB17;
     color: #4CBB17;
 }
+.borderNodeOngoing {
+    border: 1px solid #FFBF00;
+}
+.borderNodeFull {
+    border: 1px solid #4CBB17;
+}
 .reward-ongoing {
     color: #FFBF00;
 }

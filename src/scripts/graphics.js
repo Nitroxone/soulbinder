@@ -866,7 +866,7 @@ function drawSkillTree(strider) {
         console.log('Depth: ' + depth);
         str += '<div class="treeFraction">';
         for(const node of tree[depth]) {
-            str += '<div id="' + trimWhitespacesInsideString(node.name) + '" class="treeNode coolBorder powerNode" style="background-image: url(\'css/img/skills/' + strider.name + node.icon + '.png\')"></div>';
+            str += '<div id="' + trimWhitespacesInsideString(node.name) + '" class="treeNode ' + getBorderClassFromNode(node) + ' powerNode" style="background-image: url(\'css/img/skills/' + strider.name + node.icon + '.png\')"></div>';
         }
         str += '</div>';
     }
