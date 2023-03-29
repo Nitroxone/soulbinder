@@ -834,6 +834,11 @@ function allowDrop(e) {
     e.preventDefault();
 }
 
+/**
+ * Returns a string of HTML Code that contains data from the provided Strider's Skill Tree.
+ * @param {Strider} strider the Strider whose Skill Tree will be drawn
+ * @returns {string} an HTML code that contains the skill tree
+ */
 function drawSkillTree(strider) {
     let str = '';
     
@@ -868,7 +873,13 @@ function drawSkillTree(strider) {
     return str;
 }
 
-
+/**
+ * Draws lines between each node of the provided Strider's Skill Tree.
+ * This is achieved by spawning an SVG panel of the same size as the Skill Tree container, then computing each line's start and end coordinates and drawing them.
+ * Since the SVG panel is drawn in front of the base Skill Tree container, it is necessary to call the function bringNodesForward() in
+ * order to re-enable the hover features of each node.
+ * @param {Strider} strider the Strider whose Skill Tree's layout will be used to draw lines
+ */
 function drawSkillTreeLines(strider) {
     const parent = document.querySelector('.striderSkillTree')
     
@@ -923,6 +934,10 @@ function buildSkillTree(node, depth = 0, result = {}) {
     return result;
 }
 
+/**
+ * Adds tooltips for each node of the provided Strider's Skill Tree.
+ * @param {Strider} strider the Strider whose Skill Tree Nodes will be processed
+ */
 function addSkillTreeTooltips(strider) {
     // power node
     addTooltip(document.querySelector('#' + trimWhitespacesInsideString(strider.name) + '-0'), function(){
@@ -936,6 +951,12 @@ function addSkillTreeTooltips(strider) {
     })
 }
 
+/**
+ * Brings all of the tree fractions forward by increasing their z-index value.
+ * This is necessary because the SVG panel, which contains the lines that connect each skill tree node, is drawn above the base node layout,
+ * which means it blocks their hover features. By bringing the nodes back forward, the SVG lines remain visible and we allow the user
+ * to access the hover features of the nodes.
+ */
 function bringNodesForward() {
     document.querySelectorAll('.treeFraction').forEach(single => {
         single.style.position = "relative";
@@ -943,6 +964,11 @@ function bringNodesForward() {
     });
 }
 
+/**
+ * Returns HTML code that contains data for the provided Strider's inner power.
+ * @param {Strider} strider the Strider to retrieve data from
+ * @returns {string} a string that contains HTML code
+ */
 function getPowerNodeTooltip(strider) {
     let str = '';
     str += '<div class="nodeContainer">';
@@ -969,6 +995,12 @@ function getPowerNodeTooltip(strider) {
     return str;
 }
 
+/**
+ * Returns HTML code that contains data for a Skill Tree Node tooltip, based on the provided Strider and Node objects.
+ * @param {Strider} strider the Strider to retrieve data from
+ * @param {SkillTreeNode} node the SkillTreeNode to retrieve data from
+ * @returns {string} a string that contains HTML code
+ */
 function getNodeTooltip(strider, node) {
     let str = '';
     str += '<div class="nodeContainer">';
