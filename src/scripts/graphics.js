@@ -971,7 +971,6 @@ function addSkillTreeTooltips(strider) {
  */
 function unlockNode(strider, node) {
     if(strider.canUnlockTreeNode(node)) {
-        console.log(strider.name + ' can unlock ' + node.name);
         strider.unlockTreeNode(node);
         // UPDATE TOOLTIP
         document.querySelector('#tooltip').innerHTML = getNodeTooltip(strider, node);
@@ -989,7 +988,6 @@ function unlockNode(strider, node) {
         });
         node.previous.forEach(previous => {
             const id = '#line-' + trimWhitespacesInsideString(node.name) +'-childOf-' + trimWhitespacesInsideString(previous.name);
-            console.log(previous.name + (previous.isUnlocked() ? ' unlocked' : ' locked'));
             if(node.currentLevel > 0 && node.currentLevel < node.levels && previous.currentLevel > 0) {
                 document.querySelector(id).classList.add('skillTreeLine-animate-progress');
             } else if(node.currentLevel == node.levels && previous.currentLevel > 0) {
@@ -997,8 +995,6 @@ function unlockNode(strider, node) {
             }
         });
         document.querySelector('.stridersSkillTreePointsIndicator').textContent = strider.skillPoints + ' unspent points';
-    } else {
-        console.log(strider.name + ' cannot unlock ' + node.name);
     }
 }
 
