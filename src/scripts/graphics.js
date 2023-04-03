@@ -903,8 +903,8 @@ function drawSkillTreeLines(strider) {
             );
         });
         children.forEach(child => {
-            let color = getLineColorFromNodeState(child.obj);
-            let type = child.obj.isUnlocked() ? false : true;
+            let color = getLineColorFromNodeState(child.obj, node);
+            let type = child.obj.isUnlocked() && node.currentLevel > 0 ? false : true;
             let targetPos = child.dom.getBoundingClientRect();
             let targetPosOriginX = child.dom.offsetLeft + targetPos.width/2;
             let targetPosOriginY = child.dom.offsetTop;
@@ -989,9 +989,10 @@ function unlockNode(strider, node) {
         });
         node.previous.forEach(previous => {
             const id = '#line-' + trimWhitespacesInsideString(node.name) +'-childOf-' + trimWhitespacesInsideString(previous.name);
-            if(node.currentLevel > 0 && node.currentLevel < node.levels) {
+            console.log(previous.name + (previous.isUnlocked() ? ' unlocked' : ' locked'));
+            if(node.currentLevel > 0 && node.currentLevel < node.levels && previous.currentLevel > 0) {
                 document.querySelector(id).classList.add('skillTreeLine-animate-progress');
-            } else if(node.currentLevel == node.levels) {
+            } else if(node.currentLevel == node.levels && previous.currentLevel > 0) {
                 document.querySelector(id).classList.add('skillTreeLine-animate-full');
             }
         });
