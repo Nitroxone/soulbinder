@@ -978,7 +978,7 @@ function unlockNode(strider, node) {
         // UPDATE NODE SQUARE
         document.querySelector('#' + trimWhitespacesInsideString(node.name)).classList.remove('coolBorder');
         if(node.currentLevel == node.levels){
-            document.querySelector('#' + trimWhitespacesInsideString(node.name)).classList.add('borderNodeFull');
+            document.querySelector('#' + trimWhitespacesInsideString(node.name)).classList.add('skillTreeNode-animate-full', 'borderNodeFull');
         } else {
             document.querySelector('#' + trimWhitespacesInsideString(node.name)).classList.add('skillTreeNode-animate-progress', 'borderNodeOngoing');
         }
@@ -988,7 +988,6 @@ function unlockNode(strider, node) {
             document.querySelector(id).classList.add('skillTreeLine-animate-unlock');
         });
         node.previous.forEach(previous => {
-            console.log(previous);
             const id = '#line-' + trimWhitespacesInsideString(node.name) +'-childOf-' + trimWhitespacesInsideString(previous.name);
             if(node.currentLevel > 0 && node.currentLevel < node.levels) {
                 document.querySelector(id).classList.add('skillTreeLine-animate-progress');
