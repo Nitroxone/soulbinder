@@ -995,8 +995,8 @@ function unlockNode(strider, node) {
             } else if(node.currentLevel == node.levels) {
                 document.querySelector(id).classList.add('skillTreeLine-animate-full');
             }
-        })
-
+        });
+        document.querySelector('.stridersSkillTreePointsIndicator').textContent = strider.skillPoints + ' unspent points';
     } else {
         console.log(strider.name + ' cannot unlock ' + node.name);
     }
