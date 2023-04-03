@@ -827,7 +827,7 @@ function getLineColorFromNodeState(node) {
     
     if(node.currentLevel == node.levels) return 'rgb(76, 187, 23)';
     else if(node.currentLevel > 0) return 'rgb(255, 191, 0)';
-    else if(node.currentLevel == 0 && node.isUnlocked()) return 'rgb(200,200,200)';
+    else if(node.currentLevel == 0 && node.isUnlocked()) return 'rgba(175, 175, 175)';
     else if(!node.isUnlocked()) return 'rgb(100, 100, 100)';
 }
 

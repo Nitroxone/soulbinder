@@ -908,7 +908,8 @@ function drawSkillTreeLines(strider) {
             let targetPos = child.dom.getBoundingClientRect();
             let targetPosOriginX = child.dom.offsetLeft + targetPos.width/2;
             let targetPosOriginY = child.dom.offsetTop;
-            str += '<line x1="' + basePosOriginX + '" y1="' + basePosOriginY +'" x2="' + targetPosOriginX + '" y2="' + targetPosOriginY + '" style="stroke:' + color + '; stroke-width: ' + (type ? '1' : '2') + ';' + (type ? ' stroke-dasharray: 10; animation-name: animstroke; animation-iteration-count: infinite; animation-duration: 60s; animation-timing-function: linear;' : '') + '" />';
+            let id = 'line-' + trimWhitespacesInsideString(child.obj.name) +'-childOf-' + trimWhitespacesInsideString(node.name);
+            str += '<line class="skillTreeLine" id="' + id + '" x1="' + basePosOriginX + '" y1="' + basePosOriginY +'" x2="' + targetPosOriginX + '" y2="' + targetPosOriginY + '" style="stroke:' + color + '; stroke-width: ' + (type ? '1' : '2') + ';' + (type ? ' stroke-dasharray: 10; animation-name: animstroke; animation-iteration-count: infinite; animation-duration: 60s; animation-timing-function: linear;' : '') + '" />';
         })
     });
 
@@ -958,9 +959,47 @@ function addSkillTreeTooltips(strider) {
         }, {offY: -8});
 
         document.querySelector('#' + trimWhitespacesInsideString(node.name)).addEventListener('click', (e) => {
-            console.log('CACAGUE PROUTE');
+            unlockNode(strider, node);
         })
     })
+}
+
+/**
+ * Unlocks the provided Node and updates DOM elements accordingly.
+ * @param {Strider} strider the Strider that will unlock the node
+ * @param {SkillTreeNode} node the Node to be unlocked
+ */
+function unlockNode(strider, node) {
+    if(strider.canUnlockTreeNode(node)) {
+        console.log(strider.name + ' can unlock ' + node.name);
+        strider.unlockTreeNode(node);
+        // UPDATE TOOLTIP
+        document.querySelector('#tooltip').innerHTML = getNodeTooltip(strider, node);
+        // UPDATE NODE SQUARE
+        document.querySelector('#' + trimWhitespacesInsideString(node.name)).classList.remove('coolBorder');
+        if(node.currentLevel == node.levels){
+            document.querySelector('#' + trimWhitespacesInsideString(node.name)).classList.add('borderNodeFull');
+        } else {
+            document.querySelector('#' + trimWhitespacesInsideString(node.name)).classList.add('skillTreeNode-animate-progress', 'borderNodeOngoing');
+        }
+        // UPDATE NODE LINES (NEXT & PREVIOUS);
+        node.next.forEach(next => {
+            const id = '#line-' + trimWhitespacesInsideString(next.name) +'-childOf-' + trimWhitespacesInsideString(node.name);
+            document.querySelector(id).classList.add('skillTreeLine-animate-unlock');
+        });
+        node.previous.forEach(previous => {
+            console.log(previous);
+            const id = '#line-' + trimWhitespacesInsideString(node.name) +'-childOf-' + trimWhitespacesInsideString(previous.name);
+            if(node.currentLevel > 0 && node.currentLevel < node.levels) {
+                document.querySelector(id).classList.add('skillTreeLine-animate-progress');
+            } else if(node.currentLevel == node.levels) {
+                document.querySelector(id).classList.add('skillTreeLine-animate-full');
+            }
+        })
+
+    } else {
+        console.log(strider.name + ' cannot unlock ' + node.name);
+    }
 }
 
 /**

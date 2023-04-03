@@ -3178,6 +3178,8 @@ hr.leftSided {
     background-position: center;
 
     border-radius: 3px;
+
+    transition: all .1s ease-in-out;
 }
 .treeNode:hover {
     border-color: white;
@@ -3274,10 +3276,12 @@ hr.leftSided {
     color: #4CBB17;
 }
 .borderNodeOngoing {
-    border: 1px solid #FFBF00;
+    border: 2px solid #FFBF00;
+    box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.3),0px 2px 2px rgba(0,0,0,0.25),0px 0px 2px 2px #000 inset,0px 1px 0px 1px rgba(255,255,255,0.5) inset;
 }
 .borderNodeFull {
-    border: 1px solid #4CBB17;
+    border: 2px solid #4CBB17;
+    box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.3),0px 2px 2px rgba(0,0,0,0.25),0px 0px 2px 2px #000 inset,0px 1px 0px 1px rgba(255,255,255,0.5) inset;
 }
 .reward-ongoing {
     color: #FFBF00;
@@ -3341,4 +3345,46 @@ hr.leftSided {
     font-family: 'RobotoSlab';
     font-size: 15px;
     z-index: 2;
+}
+
+.skillTreeLine {
+    transition: all 1s ease-in-out;
+}
+
+.skillTreeLine-animate-unlock {
+    stroke: rgb(175, 175, 175) !important;
+    stroke-width: 2 !important;
+    stroke-dasharray: 1000 !important;
+    stroke-dashoffset: 0 !important;
+    animation-name: lineAnimateUnlock;
+    animation-duration: 5s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 1;
+}
+@keyframes lineAnimateUnlock {
+    from {
+        stroke-dashoffset: 0 !important;
+    }
+    to {
+        stroke-dasharray: 100 !important;
+    }
+}
+
+.skillTreeLine-animate-progress {
+    stroke: rgb(255, 191, 0) !important;
+}
+.skillTreeLine-animate-full {
+    stroke: rgb(76, 187, 23) !important;
+}
+
+.skillTreeNode-animate-progress {
+    animation-name: nodeAnimateProgress;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 1;
+}
+@keyframes nodeAnimateProgress {
+    30% {
+        box-shadow: 0px 0px 30px 10px #ffbf0046;
+    }
 }
