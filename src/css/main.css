@@ -3300,6 +3300,9 @@ hr.leftSided {
 .blue {
     color: #7393B3;
 }
+.nodeFull {
+    color: #4CBB17;
+}
 #generalInfo {
     display: flex;
     justify-content: center;
@@ -3325,4 +3328,17 @@ hr.leftSided {
     to {
         stroke-dashoffset: -1000;
     }
+}
+
+.stridersSkillTreePointsIndicator {
+    display: flex;
+    justify-content: flex-end;
+
+    position: sticky;
+    top: 0.5rem;
+    right: 0.5rem;
+
+    font-family: 'RobotoSlab';
+    font-size: 15px;
+    z-index: 2;
 }

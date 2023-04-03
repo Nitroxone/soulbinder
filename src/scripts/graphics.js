@@ -788,6 +788,7 @@ function spawnStriderPopup(strider, refresh = false) {
     str += '</div>';
 
     str += '<div class="striderSkillTree coolBorder" style="background-image: linear-gradient(270deg, transparent 0%, rgba(0, 0, 0, 0.6) 0%), url(\'css/img/chars/' + strider.name.toLowerCase() + '_skilltree.webp\');">';
+    str += '<div class="stridersSkillTreePointsIndicator">' + strider.skillPoints +' unspent points</div>';
     str += drawSkillTree(strider);
     str += '</div>';
 
@@ -955,6 +956,10 @@ function addSkillTreeTooltips(strider) {
         addTooltip(document.querySelector('#' + trimWhitespacesInsideString(node.name)), function(){
             return getNodeTooltip(strider, node);
         }, {offY: -8});
+
+        document.querySelector('#' + trimWhitespacesInsideString(node.name)).addEventListener('click', (e) => {
+            console.log('CACAGUE PROUTE');
+        })
     })
 }
 
@@ -1055,6 +1060,11 @@ function getNodeTooltip(strider, node) {
         str += '<div class="par"></div>';
 
         str += '<div class="par nodeDenied">This upgrade is locked. Unlock previous upgrades to access it.</div>';
+    } else if(node.currentLevel != node.levels) {
+        str += '<div class="par"></div>';
+        str += '<div class="par"></div>';
+
+        str += '<div class="par nodeRequirements">Requires: <span class="' + (node.getNextRequiredLevel() <= strider.level.currentLevel ? 'nodeFull' : 'nodeDenied') + '">Level ' + node.getNextRequiredLevel() + '</span>, <span class="' + (node.getNextRequiredSkillPoints() <= strider.skillPoints ? 'nodeFull' : 'nodeDenied') + '">' + node.getNextRequiredSkillPoints() + ' points</span></div>';
     }
 
     str += '</div>';
