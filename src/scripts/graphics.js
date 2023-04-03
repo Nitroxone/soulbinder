@@ -952,6 +952,10 @@ function addSkillTreeTooltips(strider) {
     addTooltip(document.querySelector('#' + trimWhitespacesInsideString(strider.name) + '-0'), function(){
         return getPowerNodeTooltip(strider);
     }, {offY: -8});
+    document.querySelector('#' + trimWhitespacesInsideString(strider.name) + '-0').addEventListener('contextmenu', e => {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+    })
 
     strider.skillTree.nodes.forEach(node => {
         addTooltip(document.querySelector('#' + trimWhitespacesInsideString(node.name)), function(){
@@ -960,6 +964,10 @@ function addSkillTreeTooltips(strider) {
 
         document.querySelector('#' + trimWhitespacesInsideString(node.name)).addEventListener('click', (e) => {
             unlockNode(strider, node);
+        })
+        document.querySelector('#' + trimWhitespacesInsideString(node.name)).addEventListener('contextmenu', e => {
+            e.preventDefault();
+            e.stopImmediatePropagation();
         })
     })
 }
