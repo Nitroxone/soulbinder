@@ -1268,8 +1268,8 @@ const Loader = {
                 [],
                 Data.StriderType.SUPPORT,
                 "Life Channel",
-                "Life Channel's power description",
-                'quote',
+                '<div class="par">Each time Betheros deals or takes damage, the rest of the team is healed 10% of the damage amount.</div>',
+                '"Through the pain, you shall heal. And through healing, you shall embrace inner peace."',
                 1,
                 what(game.all_skillTrees, "amarok"),
                 '10% 30%'
