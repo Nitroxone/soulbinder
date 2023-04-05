@@ -2878,6 +2878,17 @@ hr.leftSided {
     background-color: #000;
 
     transition: all .1s ease-in-out;
+
+    transform: scale(1) translate(0, 0);
+    animation-name: striderContainerFadeIn;
+    animation-duration: .9s;
+    animation-timing-function: cubic-bezier(0,1.04,.35,1.02);
+}
+@keyframes striderContainerFadeIn {
+    from {
+        opacity: 0.2;
+        transform: scale(0.1) translate(-5px, -5px);
+    }
 }
 .striderContainer:hover { 
     cursor: pointer;

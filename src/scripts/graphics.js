@@ -644,11 +644,13 @@ function drawStridersScreen() {
 
     str += '<div class="teamContainer">';
     str += '<div class="team">';
+    delayCounter = 0;
     game.player.roster.forEach(strider => {
-        str += '<div id="striderContainer-' + strider.id + '" class="striderContainer" style="background-image: linear-gradient(270deg, transparent 0%, rgba(0, 0, 0, 1) 100%), url(\'css/img/chars/' + strider.charset + '\');">'
+        str += '<div id="striderContainer-' + strider.id + '" class="striderContainer" style="animation-delay: ' + delayCounter + 's; background-image: linear-gradient(270deg, transparent 0%, rgba(0, 0, 0, 1) 100%), url(\'css/img/chars/' + strider.charset + '\');">'
         str += '<h1>' + strider.name + '</h1>';
         str += '<h3>' + capitalizeFirstLetter(strider.striderType) + ', Level ' + strider.level.currentLevel + '</h3>';
         str += '</div>';
+        delayCounter += 0.025;
     })
     str += '</div>';
     str += '</div>';

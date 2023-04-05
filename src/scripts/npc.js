@@ -35,6 +35,8 @@ class NPC extends Entity {
         this.maxMana = mana;
         this.maxStamina = stamina;
 
+        this.shield = 0;
+
         this.dodge = dodge;
         this.speed = speed;
         this.accuracy = accuracy;
