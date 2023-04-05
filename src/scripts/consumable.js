@@ -7,7 +7,6 @@ class Consumable extends Item {
      * @param {string} rarity The Consumable's rarity
      * @param {string} type The Consumable's type
      * @param {array} effects The Consumable's effects
-     * @param {array} effects The Consumable's effects
      * @param {array} triggers The Consumable's triggers
      */
     constructor(name, desc, icon, price, rarity, type, effects, triggers) {

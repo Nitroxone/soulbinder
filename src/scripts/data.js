@@ -315,6 +315,11 @@ const Data = Object.freeze({
         ARMOR: 'ARMOR',
         TRINKET: 'TRINKET'
     },
+    ConsumableType: {
+        POTION: 'potions',
+        ELIXIR: 'elixirs',
+        EDIBLE: 'edibles'
+    },
     IconType: {
         WEAPON: 'weapons',
         ARMOR: 'armors',
