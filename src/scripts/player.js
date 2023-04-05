@@ -15,6 +15,8 @@ class Player {
 
         this.criticalFactor = 15;
         this.corruptionFactor = 15;
+
+        this.quests = [];
     }
 
     /**
@@ -49,5 +51,9 @@ class Player {
      */
     addToRoster(strider) {
         this.roster.push(strider);
+    }
+
+    addQuest(quest) {
+        this.quests.push(quest);
     }
 }

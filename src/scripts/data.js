@@ -347,4 +347,10 @@ const Data = Object.freeze({
         RIGHT: "right",
         BOTH: "both"
     },
+    QuestState: {
+        PENDING: "pending",
+        ONGOING: "ongoing",
+        COMPLETE: "complete",
+        FAILED: "failed"
+    }
 });
