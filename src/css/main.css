@@ -3415,3 +3415,63 @@ hr.leftSided {
         box-shadow: 0px 0px 30px 10px #4CBB1746;
     }
 }
+
+.hubContainer {
+    display: grid; 
+    grid-template-columns: 0.5fr 1fr; 
+    grid-template-rows: 1.5fr 1fr; 
+    gap: 5px 5px;
+    grid-template-areas: 
+      "quests merchants"
+      "others dialogue"; 
+    height: 100%;
+    width: 100%;
+}
+
+.quests {
+    grid-area: quests;
+    border: 1px dashed grey;
+}
+
+.merchants {
+    grid-area: merchants;
+    border: 1px dashed grey;
+}
+
+.others {
+    grid-area: others;
+    border: 1px dashed grey;
+}
+
+.lordContainer { 
+    position: relative;
+    grid-area: dialogue; 
+    border: 1px dashed grey;
+}
+
+.lordDialogueContent {
+    width: 80%;
+    padding: 1em;
+    line-height: 20px;
+    background-image: url(img/test\ texture\ papié.png);
+}
+
+.lordVignette {
+    background-image: url(img/blueLord-transparent.png);
+    background-position: center;
+    background-size: cover;
+    height: 300px;
+    width: 300px;
+    position: absolute;
+    bottom: 0;
+    right: -100px;
+    overflow: visible;
+}
+
+.lordVignette:hover {
+    filter: brightness(110%);
+    cursor: pointer;
+}
+
+
+

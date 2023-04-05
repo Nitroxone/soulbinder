@@ -301,6 +301,7 @@ class Game {
 
         drawInventory();
         drawStridersScreen();
+        drawHubScreen();
 
         console.clear();
     }

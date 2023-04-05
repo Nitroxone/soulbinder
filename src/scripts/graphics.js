@@ -1117,3 +1117,32 @@ function getNodeTooltip(strider, node) {
 
     return str;
 }
+
+function drawHubScreen() {
+    document.querySelector('#hubDiv').innerHTML = '<div class="hubContainer"></div>';
+    let str = '';
+
+    str += '<div class="quests">';
+    str += '</div>'
+
+    str += '<div class="merchants">';
+    str += '</div>'
+
+    str += '<div class="others">'
+    str += '</div>';
+    
+    str += '<div class="lordContainer">';
+
+    str += '<div class="lordDialogueContent coolBorder">'
+
+    str += '<p>Bon ecoute moi alors oui, tu es homosexuel et tu dois redevenir hetero en faite. C est très important tu as compris espece de gros pd de mort ? tu es GAY alors stop!!sa suffit ok les gays cest dehors il y a pas de sa en algerie la terre de luffy. Oui je suis fan de one piece et d’ailleurs savais tu que ce manga etait inspiré de l’arrivee en algérie par les premiers pirates qui ont colonisé le pays ? plus tard mon fils je l’appellerai par le nom d’un perso de one piece, et puis si c’est une fille je la vendrai à un mec pour deux chameaux au moins eux ils pourront porter des choses lourdes haha, bref qu’est-ce qu’on disait ? ah oui gros pd tu dois arreter o k? si tu y arrives je te donne 1000xp</p>';
+
+    str += '</div>';
+
+    str += '<div class="lordVignette">'
+    str += '</div>';
+
+    str += '</div>';
+
+    document.querySelector('.hubContainer').innerHTML = str;
+}
