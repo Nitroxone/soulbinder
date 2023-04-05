@@ -79,4 +79,14 @@ class NPC extends Entity {
 
         this.activeEffects = [];
     }
+
+    /**
+     * Runs the triggers which type matches the provided TriggerType value. 
+     * @param {Data.TriggerType} type the type of trigger that must be fired
+     */
+    runTriggers(type) {
+        this.triggers.forEach(trigger => {
+            if(trigger.type === type) trigger.checker() && trigger.behavior();
+        })
+    }
 }
