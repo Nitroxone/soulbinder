@@ -357,5 +357,11 @@ const Data = Object.freeze({
         PHYSICAL: "physical",
         MAGICAL: "magical",
         BOTH: "both"
+    },
+    MasteryPathwayState: {
+        NEOPHYTE: "neophyte",
+        APPRENTICE: "apprentice",
+        EXPERT: "expert",
+        LEGEND: "legend",
     }
 });

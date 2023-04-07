@@ -1384,5 +1384,43 @@ const Loader = {
         for(const strider of striders) {
             game.all_striders.push(strider);
         }
+    },
+
+    loadMasteryPathways: loadMasteryPathways = () => {
+        const masteryPathways = [
+            new MasteryPathway(
+                "Shieldmaster",
+                "Description of the Shieldmaster Mastery Pathway",
+                1,
+                Data.StriderType.TANK,
+                [
+                    new MasteryPathwayStep(
+                        "Intransigence",
+                        "Boosts block efficiency.",
+                        3,
+                        [],
+                        []
+                    ),
+                    new MasteryPathwayStep(
+                        "Warding the Weak",
+                        "Boosts protection while guarding.",
+                        3,
+                        [],
+                        []
+                    ),
+                    new MasteryPathwayStep(
+                        "Redirection",
+                        "Received hits while guarding replenish the guarded ally’s mana and stamina.",
+                        3,
+                        [],
+                        []
+                    )
+                ]
+            ),
+        ];
+
+        for(const masteryPathway of masteryPathways) {
+            game.all_masteryPathways.push(masteryPathway);
+        }
     }
 }

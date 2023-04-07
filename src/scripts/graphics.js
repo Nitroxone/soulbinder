@@ -794,7 +794,7 @@ function spawnStriderPopup(strider, refresh = false) {
     str += drawSkillTree(strider);
     str += '</div>';
 
-    str += '<div class="striderMasteryPathway">';
+    str += '<div class="striderMasteryPathway framed">';
     str += '</div>';
 
     str += '<div class="striderSkills">';

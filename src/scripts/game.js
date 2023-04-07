@@ -54,6 +54,7 @@ class Game {
         this.all_equipmentSets = [];
 
         this.all_skillTrees = [];
+        this.all_masteryPathways = [];
 
         this.all_striders = [];
 
