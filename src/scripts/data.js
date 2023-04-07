@@ -352,5 +352,10 @@ const Data = Object.freeze({
         ONGOING: "ongoing",
         COMPLETE: "complete",
         FAILED: "failed"
+    },
+    SkillDamageType: {
+        PHYSICAL: "physical",
+        MAGICAL: "magical",
+        BOTH: "both"
     }
 });

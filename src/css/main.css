@@ -2937,7 +2937,7 @@ hr.leftSided {
 }
 .striderPopup {
     width: 865px;
-    height: 550px;
+    height: 650px;
 
     position: absolute;
     top: 100px;
@@ -2954,12 +2954,13 @@ hr.leftSided {
     height: 100%;
     display: grid;
     grid-template-columns: 0.5fr 1.5fr 0.5fr;
-    grid-template-rows: 0.8fr 1fr 1fr;
+    grid-template-rows: 0.8fr 1fr 1fr 0.5fr;
     gap: 5px 5px;
     grid-template-areas:
         "striderInfos striderInfos striderStats"
         "striderEquipment striderSkillTree striderStats"
-        "striderEquipment striderSkillTree striderStats";
+        "striderEquipment striderSkillTree striderStats"
+        "striderMasteryPathway striderSkills striderSkills";
 }
 
 .striderInfos {
@@ -3149,6 +3150,7 @@ hr.leftSided {
     grid-area: striderEquipment;
     display: flex;
     flex-direction: column;
+    justify-content: center;
 }
 .striderEquipmentSlots > div:not(:first-child) {
     margin-top: 0.5rem;
@@ -3473,5 +3475,10 @@ hr.leftSided {
     cursor: pointer;
 }
 
-
+.striderMasteryPathway {
+    grid-area: striderMasteryPathway;
+}
+.striderSkills {
+    grid-area: striderSkills;
+}
 
