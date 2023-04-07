@@ -60,6 +60,8 @@ class Game {
 
         this.player = null;
         this.inventory = null;
+
+        this.actionListeners = [];
     }
 
     addCallbacks() {
@@ -251,6 +253,14 @@ class Game {
     refresh() {
         this.addCallbacks();
         this.drawInventory();
+    }
+
+    /**
+     * Fires all of the ActionListeners which Action matches the provided one.
+     * @param {Data.Action} action the Action to fire
+     */
+    fireActionListeners(action) {
+        this.actionListeners.filter(obj => obj.action === action).forEach(obj => obj.increment());
     }
 
     /**

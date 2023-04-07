@@ -1398,21 +1398,62 @@ const Loader = {
                         "Intransigence",
                         "Boosts block efficiency.",
                         3,
-                        [],
-                        []
+                        {
+                            1: [
+                                new ActionListener(
+                                    Data.Action.RECEIVE_HIT,
+                                    25,
+                                    function(){
+                                        console.log("that hurts while blocking!");
+                                    },
+                                    function(){
+                                        console.log("maxed out block!");
+                                    }
+                                ),
+                            ],
+                        },
+                        {
+                            1: []
+                        }
                     ),
                     new MasteryPathwayStep(
                         "Warding the Weak",
                         "Boosts protection while guarding.",
                         3,
-                        [],
+                        {
+                            1: [
+                                new ActionListener(
+                                    Data.Action.RECEIVE_HIT_WHILE_GUARDING,
+                                    25,
+                                    function(){
+                                        console.log("that hurts while guarding!");
+                                    },
+                                    function(){
+                                        console.log("maxed out guard!");
+                                    }
+                                ),
+                            ],
+                        },
                         []
                     ),
                     new MasteryPathwayStep(
                         "Redirection",
                         "Received hits while guarding replenish the guarded ally’s mana and stamina.",
                         3,
-                        [],
+                        {
+                            1: [
+                                new ActionListener(
+                                    Data.Action.BEGIN_GUARD,
+                                    25,
+                                    function(){
+                                        console.log("i'll guard ya!");
+                                    },
+                                    function(){
+                                        console.log("maxed out guard start!");
+                                    }
+                                ),
+                            ],
+                        },
                         []
                     )
                 ]
@@ -1422,5 +1463,5 @@ const Loader = {
         for(const masteryPathway of masteryPathways) {
             game.all_masteryPathways.push(masteryPathway);
         }
-    }
+    },
 }

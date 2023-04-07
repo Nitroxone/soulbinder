@@ -363,5 +363,18 @@ const Data = Object.freeze({
         APPRENTICE: "apprentice",
         EXPERT: "expert",
         LEGEND: "legend",
+    },
+    Action: {
+        HIT_ENEMY: "HIT_ENEMY",
+        STUN_ENEMY: "STUN_ENEMY",
+        BLEED_ENEMY: "BLEED_ENEMY",
+        POISON_ENEMY: "POISON_ENEMY",
+        MOVE_ENEMY: "MOVE_ENEMY",
+        KILL_ENEMY: "KILL_ENEMY",
+        RECEIVE_HIT: "RECEIVE_HIT",
+        RECEIVE_HIT_FROM_BOSS: "RECEIVE_HIT_FROM_BOSS",
+        HEALTH_BELOW_HALF: "HEALTH_BELOW_HALF",
+        RECEIVE_HIT_WHILE_GUARDING: "RECEIVE_HIT_WHILE_GUARDING",
+        BEGIN_GUARD: "BEGIN_GUARD"
     }
 });

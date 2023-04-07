@@ -8,4 +8,23 @@ class MasteryPathway extends Entity {
         this.state = Data.MasteryPathwayState.NEOPHYTE;
         this.steps = steps;
     }
+
+    /**
+     * This method needs to be written.
+     * It iterates over all of the steps.
+     * For each step:
+     * - Checks whether the current step level requirements exist in the game listeners. If not, adds them.
+     * - Checks whether the previous step level requirements exist in the game listeners. If they do, remove them.
+     */
+    updateActionListeners() {
+        for(const step of this.steps) {
+            if(step.currentLevel > 0) step.requirements[step.currentLevel].forEach(obj => {
+                if(arrayContains(game.actionListeners, obj)) removeFromArray(game.actionListeners, obj);
+            })
+            console.log(step.currentLevel);
+            step.requirements[step.currentLevel+1].forEach(obj => {
+                if(!arrayContains(game.actionListeners, obj)) game.actionListeners.push(obj);
+            })
+        }
+    }
 }
