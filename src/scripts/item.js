@@ -16,5 +16,8 @@ class Item extends Entity {
         super(name, desc, icon);
         this.price = price;
         this.rarity = rarity;
+
+        // ASTRAL FORGE VARIABLES
+        this.substrate = 0;
     }
 }

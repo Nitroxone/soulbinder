@@ -150,6 +150,27 @@ const Loader = {
                 10,
                 Data.Rarity.UNCOMMON,
             ),
+            new Resource(
+                "Temporal Remainder",
+                "Can be used in the Astral Forge to create a temporal alteration.",
+                8,
+                10,
+                Data.Rarity.RARE,
+            ),
+            new Resource(
+                "Comet Dust",
+                "Can be used in the Astral Forge to force a Success on a temporal alteration. Seals the object's fate in the process",
+                9,
+                10,
+                Data.Rarity.EPIC,
+            ),
+            new Resource(
+                "Glowing Comet Dust",
+                "Can be used in the Astral Forge to force a Critical Success on a temporal alteration. Seals the object's fate in the process.",
+                10,
+                10,
+                Data.Rarity.LEGENDARY,
+            )
         ];
 
         for(const resource of resources) {

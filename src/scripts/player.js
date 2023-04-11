@@ -17,6 +17,12 @@ class Player {
         this.corruptionFactor = 15;
 
         this.quests = [];
+
+        // ASTRAL FORGE CONFIG
+        this.criticalFailure = 15;
+        this.failure = 40;
+        this.success = 40;
+        this.criticalSuccess = 5;
     }
 
     /**
