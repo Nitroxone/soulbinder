@@ -161,30 +161,30 @@ class Weapon extends Item {
         const factor = remove ? -1 : 1;
         switch(effect.effect) {
             case Data.Effect.PDMG:
-                this.pdmg[0] += effect.getValue() * factor;
-                this.pdmg[1] += effect.getValue() * factor;
+                this.pdmg[0] = Math.max(0, this.pdmg[0] + effect.getValue() * factor);
+                this.pdmg[1] = Math.max(0, this.pdmg[1] + effect.getValue() * factor);
                 break;
             case Data.Effect.MDMG:
-                this.mdmg[0] += effect.getValue() * factor;
-                this.mdmg[1] += effect.getValue() * factor;
+                this.mdmg[0] = Math.max(0, this.mdmg[0] + effect.getValue() * factor);
+                this.mdmg[1] = Math.max(0, this.mdmg[1] + effect.getValue() * factor);
                 break;
             case Data.Effect.BLOCK:
-                this.block += effect.getValue() * factor;
+                this.block = Math.max(0, this.block + effect.getValue() * factor);
                 break;
             case Data.Effect.EFFORT:
-                this.effort += effect.getValue() * factor
+                this.effort = Math.max(0, this.effort + effect.getValue() * factor);
                 break;
             case Data.Effect.CRIT_LUK:
-                this.crit_luk += effect.getValue() * factor;
+                this.crit_luk = Math.max(0, this.crit_luk + effect.getValue() * factor);
                 break;
             case Data.Effect.CRIT_DMG:
-                this.crit_dmg += effect.getValue() * factor;
+                this.crit_dmg = Math.max(0, this.crit_dmg + effect.getValue() * factor);
                 break;
             case Data.Effect.BLEED_DMG:
-                this.bleed[0] += effect.getValue() * factor;
+                this.bleed[0] = Math.max(0, this.bleed[0] + effect.getValue() * factor);
                 break;
             case Data.Effect.BLEED_DURATION:
-                this.bleed[1] += effect.getValue() * factor;
+                this.bleed[1] = Math.max(0, this.bleed[1] + effect.getValue() * factor);
                 break;
             case Data.Effect.BLEED_CURABLE:
                 this.bleed[2] = !remove;
@@ -193,10 +193,10 @@ class Weapon extends Item {
                 this.bleed[2] = remove;
                 break;
             case Data.Effect.POISON_DMG:
-                this.poison[0] += effect.getValue() * factor;
+                this.poison[0] = Math.max(0, this.poison[0] + effect.getValue() * factor);
                 break;
             case Data.Effect.POISON_DURATION:
-                this.poison[1] += effect.getValue() * factor;
+                this.poison[1] = Math.max(0, this.poison[1] + effect.getValue() * factor);
                 break;
             case Data.Effect.POISON_CURABLE:
                 this.poison[2] = !remove;
@@ -244,7 +244,115 @@ class Weapon extends Item {
         if(!this.checkTimeShardValidityForAlteration(shard, effect)) 
             throw new Error(shard.name + ' cannot be used to alter ' + effect + ' on ' + this.name + ' (uncompatible types)');
         
+        switch(this.computeAlterationChances(effect)) {
+            case Data.AlterationAttemptOutcome.CRITICAL_FAILURE:
+                this.alterCriticalFailure(shard, effect);
+                break;
+            case Data.AlterationAttemptOutcome.FAILURE:
+                this.alterFailure(shard);
+                break;
+            case Data.AlterationAttemptOutcome.SUCCESS:
+                this.alterSuccess(shard, effect);
+                break;
+            case Data.AlterationAttemptOutcome.CRITICAL_SUCCESS:
+                this.alterCriticalSuccess(effect);
+                break;
+        }
+    }
+
+    alterCriticalFailure(shard, effect) {
+        this.collateralReduction(effect);
+        game.player.inventory.removeResource(shard);
+    }
+    alterFailure(shard) {
+        game.player.inventory.removeResource(shard);
+    }
+    alterSuccess(shard, effect) {
         
+        game.player.inventory.removeResource(shard);
+    }
+    alterCriticalSuccess(effect) {
+
+    }
+
+    getEffectsAmount() {
+        return 13 + this.extraEffects.length;
+    }
+
+    /**
+     * 
+     * @param {TimeShard} shard 
+     * @param {Data.Effect} effect 
+     * @returns 
+     */
+    applyAlteration(shard, effect) {
+        switch(shard.getValueType()) {
+            case "number":
+                this.addEffectWithHalfLimit(shard, effect);
+                break;
+            case "boolean":
+                this.addEffect(new Stat(effect, [0, 0]));
+                break;
+            case "string":
+                // add new line
+                break;
+            default:
+                throw new Error('Unrecognized Time Shard type: ' + shard.getValueType());
+        }
+    }
+
+    addEffectWithHalfLimit(shard, effect) {
+        const limit = Math.round(this.getEffectValue(effect) / 2);
+        const finalValue = Math.min(limit, this.getEffectValue(effect) + shard.value);
+        this.addEffect(new Stat(effect, [finalValue, finalValue], true, shard.isPercentage));
+    }
+
+    collateralReduction(effect) {
+        if(this.getEffectValue(effect) == 0) {
+            console.info("No reduction applied to " + effect + " on " + this.name + " as it is already set to zero.");
+            return;
+        }
+        const factor = effect == Data.Effect.EFFORT ? -1 : 1;
+        const baseReduction = this.getEffectValue(effect) * 0.2 * factor;
+        let finalReduction = factor > 0 ? Math.ceil(baseReduction) : Math.floor(baseReduction);
+        finalReduction = getRandomNumber(1 * factor, finalReduction);
+
+        this.addEffect(new Stat(effect, [finalReduction, finalReduction], false, true), true);
+
+        console.log("Reduced " + effect + " by " + finalReduction + " on " + this.name);
+    }
+
+    getEffectValue(effect) {
+        switch(effect) {
+            case Data.Effect.PDMG:
+                return this.pdmg;
+            case Data.Effect.MDMG:
+                return this.mdmg
+            case Data.Effect.BLOCK:
+                return this.block;
+            case Data.Effect.EFFORT:
+                return this.effort;
+            case Data.Effect.CRIT_LUK:
+                return this.crit_luk;
+            case Data.Effect.CRIT_DMG:
+                return this.crit_dmg;
+            case Data.Effect.BLEED_DMG:
+                return this.bleed[0];
+            case Data.Effect.BLEED_DURATION:
+                return this.bleed[1];
+            case Data.Effect.BLEED_CURABLE:
+                return this.bleed[2];
+            case Data.Effect.BLEED_INCURABLE: 
+                return this.bleed[2];
+            case Data.Effect.POISON_DMG:
+                return this.poison[0];
+            case Data.Effect.POISON_DURATION:
+                return this.poison[1];
+            case Data.Effect.POISON_CURABLE:
+                return this.poison[2];
+            case Data.Effect.POISON_INCURABLE: 
+                return this.poison[2];
+        }
     }
 
     /**
@@ -316,7 +424,7 @@ class Weapon extends Item {
      * @returns {boolean} the time shard's validity
      */
     checkTimeShardValidityForAlteration(shard, effect) {
-        if(Data.PercentageTimeShards.includes(shard.name.toLowerCase())) return this.targetedAlterationAllowsPercentage(effect);
+        if(shard.isPercentage) return this.targetedAlterationAllowsPercentage(effect);
         else return !this.targetedAlterationAllowsPercentage(effect);
     }
 
