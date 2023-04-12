@@ -19,10 +19,10 @@ class Player {
         this.quests = [];
 
         // ASTRAL FORGE CONFIG
-        this.criticalFailure = 15;
-        this.failure = 40;
-        this.success = 40;
-        this.criticalSuccess = 5;
+        this.af_criticalFailure = 15;
+        this.af_failure = 40;
+        this.af_success = 40;
+        this.af_criticalSuccess = 5;
     }
 
     /**

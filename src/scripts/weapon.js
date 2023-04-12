@@ -238,10 +238,39 @@ class Weapon extends Item {
      * @param {Data.Effect} effect 
      */
     alterEffect(tempre, effect) {
-        if(!this.checkTargetedEffectValidity(effect)) throw new Error('Attempted to alter an effect that does not exist on : ' + this.name);
-        if(!this.checkTemporalRemainderValidityForAlteration(tempre, effect));
+        // Safety checks
+        if(!this.checkTargetedEffectValidity(effect)) 
+            throw new Error('Attempted to alter an effect that does not exist on : ' + this.name);
+        if(!this.checkTemporalRemainderValidityForAlteration(tempre, effect)) 
+            throw new Error(tempre.name + ' cannot be used to alter ' + effect + ' on ' + this.name + ' (uncompatible types)');
+        
+        
     }
 
+    /**
+     * Computes the alteration attempt chances on the provided effect and rolls dice.
+     * @param {Data.Effect} effect the Effect to compute the alteration chances from
+     * @returns {Data.AlterationAttemptOutcome} the attempt's outcome
+     */
+    computeAlterationChances(effect) {
+        // Get Persistance from Config
+        const persistance = getPersistanceFromConfig(effect);
+        // Dice roll
+        const roll = getRandomNumber(0, 100);
+        // Compute rates
+        const criticalFailureRate = game.player.af_criticalFailure;
+        const failureRate = criticalFailureRate + game.player.af_failure + persistance - this.substrate;
+        const successRate = failureRate + game.player.af_success - persistance + this.substrate;
+
+        if(roll < criticalFailureRate) return Data.AlterationAttemptOutcome.CRITICAL_FAILURE;
+        else if (roll < failureRate) return Data.AlterationAttemptOutcome.FAILURE;
+        else if (roll < successRate) return Data.AlterationAttemptOutcome.SUCCESS;
+        else return Data.AlterationAttemptOutcome.CRITICAL_SUCCESS;
+    }
+
+    /**
+     * Sets all of the Weapon's effects.
+     */
     setAllEffects() {
         let allEffects = [
             Data.Effect.PDMG, 
@@ -271,14 +300,31 @@ class Weapon extends Item {
         this.allEffects = allEffects;
     }
 
+    /**
+     * Checks whether the provided Effect exists on the Weapon.
+     * @param {Data.Effect} effect the effect to check for
+     * @returns {boolean} whether the effect is valid
+     */
     checkTargetedEffectValidity(effect) {
         return this.allEffects.includes(effect);
     }
 
+    /**
+     * Checks whether the provided Temporal Remainder can be applied to the provided Effect on the Weapon.
+     * @param {Resource} tempre the Temporal Remainder
+     * @param {Data.Effect} effect the Effect
+     * @returns {boolean} the Temporal Remainder's validity
+     */
     checkTemporalRemainderValidityForAlteration(tempre, effect) {
-        return Data.PercentageTemporalRemainders.includes(tempre.name.toLowerCase()) && this.targetedAlterationAllowsPercentage(effect);
+        if(Data.PercentageTemporalRemainders.includes(tempre.name.toLowerCase())) return this.targetedAlterationAllowsPercentage(effect);
+        else return !this.targetedAlterationAllowsPercentage(effect);
     }
 
+    /**
+     * Checks whether the provided Effect accepts percentage values.
+     * @param {Data.Effect} effect the effect to check for
+     * @returns {boolean} whether the Effect acceps percentage values
+     */
     targetedAlterationAllowsPercentage(effect) {
         let allowPercentage = [
             Data.Effect.CRIT_LUK

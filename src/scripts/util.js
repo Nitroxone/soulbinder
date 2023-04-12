@@ -841,3 +841,33 @@ function getBorderClassFromNode(node) {
     else if(node.currentLevel == 0 && node.isUnlocked()) return 'coolBorder';
     else if(!node.isUnlocked()) return 'coolBorder';
 }
+
+/**
+ * Retrieves the Effect's key name based on its value that is written in the Data set.
+ * @param {Data.Effect} effect the Effect value to retrieve the name from
+ * @param {boolean} full should the Effect name be prefixed with "Data.Effect." ?
+ * @returns {string} the Effect's key name in the Data set
+ */
+function getEffectNameFromKey(effect, full = false) {
+    const key = Object.keys(Data["Effect"]).find(key => Data["Effect"][key] === effect);
+    const prefix = full ? 'Data.Effect.' : '';
+    return prefix + key;
+}
+
+/**
+ * Returns the provided Effect's persistance value from the Astral Forge Config.
+ * @param {Data.Effect} effect the Effect 
+ * @returns {number} the Effect's persistance
+ */
+function getPersistanceFromConfig(effect) {
+    return Config.AstralForge[getEffectNameFromKey(effect)][0];
+}
+
+/**
+ * Returns the provided Effect's substrate value from the Astral Forge Config.
+ * @param {Data.Effect} effect the Effect 
+ * @returns {number} the Effect's substrate
+ */
+function getSubstrateFromConfig(effect) {
+    return Config.AstralForge[getEffectNameFromKey(effect)][1];
+}

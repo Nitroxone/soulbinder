@@ -49,6 +49,7 @@ let Config = {
         RESILIENCE: [6, 3],
         WARDING: [6, 3],
 
+        // WEAPON EFFECTS
         PDMG: [6, 3],
         MDMG: [6, 3],
         BLOCK: [4, 1],
