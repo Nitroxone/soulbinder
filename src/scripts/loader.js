@@ -150,54 +150,63 @@ const Loader = {
                 10,
                 Data.Rarity.UNCOMMON,
             ),
-            new Resource(
-                "Minor Temporal Remainder",
+            new TimeShard(
+                "Minor Time Shard",
                 "Can be used in the Astral Forge to create a temporal alteration. Adds +1 effect value.",
                 8,
                 10,
                 Data.Rarity.COMMON,
+                1,
             ),
-            new Resource(
-                "Major Temporal Remainder",
+            new TimeShard(
+                "Major Time Shard",
                 "Can be used in the Astral Forge to create a temporal alteration. Adds +5 effect value.",
                 8,
                 10,
                 Data.Rarity.UNCOMMON,
+                5
             ),
-            new Resource(
-                "Superior Temporal Remainder",
+            new TimeShard(
+                "Superior Time Shard",
                 "Can be used in the Astral Forge to create a temporal alteration. Adds +50 effect value.",
                 8,
                 10,
                 Data.Rarity.RARE,
+                50
             ),
-            new Resource(
-                "Gleaming Temporal Remainder",
+            new TimeShard(
+                "Gleaming Time Shard",
                 "Can be used in the Astral Forge to create a temporal alteration. Adds +1% effect value.",
                 8,
                 10,
                 Data.Rarity.EPIC,
+                1,
+                true
             ),
-            new Resource(
-                "Iridescent Temporal Remainder",
+            new TimeShard(
+                "Iridescent Time Shard",
                 "Can be used in the Astral Forge to create a temporal alteration. Adds +5% effect value.",
                 8,
                 10,
                 Data.Rarity.EPIC,
+                5,
+                true
             ),
-            new Resource(
-                "Prismatic Temporal Remainder",
+            new TimeShard(
+                "Prismatic Time Shard",
                 "Can be used in the Astral Forge to create a temporal alteration. Enables an effect.",
                 8,
                 10,
                 Data.Rarity.EPIC,
+                true
             ),
-            new Resource(
-                "Unstable Temporal Remainder",
+            new TimeShard(
+                "Unstable Time Shard",
                 "Can be used in the Astral Forge to create a temporal alteration. Adds a new line of effect.",
                 8,
                 10,
                 Data.Rarity.LEGENDARY,
+                "new"
             ),
             new Resource(
                 "Comet Dust",

@@ -377,7 +377,7 @@ const Data = Object.freeze({
         RECEIVE_HIT_WHILE_GUARDING: "RECEIVE_HIT_WHILE_GUARDING",
         BEGIN_GUARD: "BEGIN_GUARD"
     },
-    PercentageTemporalRemainders: ["gleaming temporal remainder", "iridescent temporal remainder"],
+    PercentageTimeShards: ["gleaming time shard", "iridescent time shard"],
     AlterationAttemptOutcome: {
         CRITICAL_FAILURE: "critical failure",
         FAILURE: "failure",

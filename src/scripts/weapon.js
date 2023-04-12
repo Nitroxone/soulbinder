@@ -234,15 +234,15 @@ class Weapon extends Item {
 
     /**
      * 
-     * @param {Resource} tempre 
+     * @param {TimeShard} shard 
      * @param {Data.Effect} effect 
      */
-    alterEffect(tempre, effect) {
+    alterEffect(shard, effect) {
         // Safety checks
         if(!this.checkTargetedEffectValidity(effect)) 
             throw new Error('Attempted to alter an effect that does not exist on : ' + this.name);
-        if(!this.checkTemporalRemainderValidityForAlteration(tempre, effect)) 
-            throw new Error(tempre.name + ' cannot be used to alter ' + effect + ' on ' + this.name + ' (uncompatible types)');
+        if(!this.checkTimeShardValidityForAlteration(shard, effect)) 
+            throw new Error(shard.name + ' cannot be used to alter ' + effect + ' on ' + this.name + ' (uncompatible types)');
         
         
     }
@@ -310,13 +310,13 @@ class Weapon extends Item {
     }
 
     /**
-     * Checks whether the provided Temporal Remainder can be applied to the provided Effect on the Weapon.
-     * @param {Resource} tempre the Temporal Remainder
+     * Checks whether the provided time shard can be applied to the provided Effect on the Weapon.
+     * @param {TimeShard} shard the time shard
      * @param {Data.Effect} effect the Effect
-     * @returns {boolean} the Temporal Remainder's validity
+     * @returns {boolean} the time shard's validity
      */
-    checkTemporalRemainderValidityForAlteration(tempre, effect) {
-        if(Data.PercentageTemporalRemainders.includes(tempre.name.toLowerCase())) return this.targetedAlterationAllowsPercentage(effect);
+    checkTimeShardValidityForAlteration(shard, effect) {
+        if(Data.PercentageTimeShards.includes(shard.name.toLowerCase())) return this.targetedAlterationAllowsPercentage(effect);
         else return !this.targetedAlterationAllowsPercentage(effect);
     }
 

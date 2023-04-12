@@ -12,10 +12,10 @@ class AstralForge {
     }
 
     /**
-     * @param {Resource} tempre the Temporal Remainder to use
+     * @param {TimeShard} shard the time shard to use
      * @param {Data.Effect} effect the Effect to alter on the Item
      */
-    alterLine(tempre, effect) {
-        
+    alterLine(shard, effect) {
+
     }
 }
