@@ -11,6 +11,10 @@ class Trinket extends Item {
         this.echoes = echoes;
         
         this.set = null;
+
+        // ASTRAL FORGE VARIABLES
+        this.substrate = 0;
+        this.astralForgeItem = null;
     }
     
     /**

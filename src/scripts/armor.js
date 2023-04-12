@@ -40,6 +40,10 @@ class Armor extends Item {
         this.sockets = [];
 
         this.set = null;
+
+        // ASTRAL FORGE VARIABLES
+        this.substrate = 0;
+        this.astralForgeItem = null;
     }
 
     /**
