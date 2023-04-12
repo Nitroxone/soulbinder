@@ -72,6 +72,10 @@ class Weapon extends Item {
         // ASTRAL FORGE VARIABLES
         this.substrate = 0;
         this.astralForgeItem = null;
+        this.extraEffects = [];
+
+        this.allEffects = [];
+        this.setAllEffects();
     }
 
     /**
@@ -226,5 +230,63 @@ class Weapon extends Item {
         } else {
             ERROR('No available echo slots left on ' + this.name);
         }
+    }
+
+    /**
+     * 
+     * @param {Resource} tempre 
+     * @param {Data.Effect} effect 
+     */
+    alterEffect(tempre, effect) {
+        if(!this.checkTargetedEffectValidity(effect)) throw new Error('Attempted to alter an effect that does not exist on : ' + this.name);
+        if(!this.checkTemporalRemainderValidityForAlteration(tempre, effect));
+    }
+
+    setAllEffects() {
+        let allEffects = [
+            Data.Effect.PDMG, 
+            Data.Effect.MDMG, 
+            Data.Effect.BLOCK, 
+            Data.Effect.EFFORT,
+            Data.Effect.CRIT_LUK,
+            Data.Effect.CRIT_DMG,
+            Data.Effect.BLEED_DMG,
+            Data.Effect.BLEED_DURATION,
+            Data.Effect.BLEEDING_CURABLE,
+            Data.Effect.BLEEDING_INCURABLE,
+            Data.Effect.POISON_DMG,
+            Data.Effect.POISON_DURATION,
+            Data.Effect.POISON_CURABLE,
+            Data.Effect.POISON_INCURABLE,
+            Data.Effect.RANGE_FRONT_ON,
+            Data.Effect.RANGE_MIDDLE_ON,
+            Data.Effect.RANGE_BACK_ON,
+            Data.Effect.RANGE_FRONT_OFF,
+            Data.Effect.RANGE_MIDDLE_OFF,
+            Data.Effect.RANGE_BACK_OFF,
+        ];
+        this.extraEffects.forEach(extra => {
+            allEffects.push(extra.effect);
+        });
+        this.allEffects = allEffects;
+    }
+
+    checkTargetedEffectValidity(effect) {
+        return this.allEffects.includes(effect);
+    }
+
+    checkTemporalRemainderValidityForAlteration(tempre, effect) {
+        return Data.PercentageTemporalRemainders.includes(tempre.name.toLowerCase()) && this.targetedAlterationAllowsPercentage(effect);
+    }
+
+    targetedAlterationAllowsPercentage(effect) {
+        let allowPercentage = [
+            Data.Effect.CRIT_LUK
+        ];
+        this.extraEffects.forEach(extra => {
+            if(extra.isPercentage) allowPercentage.push(extra.effect);
+        });
+
+        return allowPercentage.includes(effect);
     }
 }

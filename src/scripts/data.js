@@ -376,5 +376,6 @@ const Data = Object.freeze({
         HEALTH_BELOW_HALF: "HEALTH_BELOW_HALF",
         RECEIVE_HIT_WHILE_GUARDING: "RECEIVE_HIT_WHILE_GUARDING",
         BEGIN_GUARD: "BEGIN_GUARD"
-    }
+    },
+    PercentageTemporalRemainders: ["gleaming temporal remainder", "iridescent temporal remainder"]
 });

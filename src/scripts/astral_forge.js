@@ -10,4 +10,12 @@ class AstralForge {
     checkForItemValidity(item) {
         return item instanceof Armor || item instanceof Weapon || item instanceof Trinket;
     }
+
+    /**
+     * @param {Resource} tempre the Temporal Remainder to use
+     * @param {Data.Effect} effect the Effect to alter on the Item
+     */
+    alterLine(tempre, effect) {
+        
+    }
 }

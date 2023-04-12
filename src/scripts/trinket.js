@@ -15,6 +15,7 @@ class Trinket extends Item {
         // ASTRAL FORGE VARIABLES
         this.substrate = 0;
         this.astralForgeItem = null;
+        this.extraEffects = [];
     }
     
     /**
