@@ -268,11 +268,20 @@ class Weapon extends Item {
         game.player.inventory.removeResource(shard);
     }
     alterSuccess(shard, effect) {
-        
-        game.player.inventory.removeResource(shard);
+        this.addEffectWithHalfLimit(shard, effect);
+        const effectsAmount = getRandomNumber(1, Math.floor(this.getEffectsAmount() / 2));
+        const effects = [];
+        const shuffledAllEffects = shuffle(this.allEffects);
+        for(let i = 0; i < effectsAmount; i++) {
+            const eff = shuffledAllEffects[i];
+            if(!effects.includes(eff) && eff != effect && !boolEffects.includes(eff)) effects.push(eff);
+        }
+        effects.forEach(eff => {
+            this.collateralReduction(eff);
+        })
     }
     alterCriticalSuccess(effect) {
-
+        
     }
 
     getEffectsAmount() {
