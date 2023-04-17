@@ -49,6 +49,8 @@ class Inventory {
         }
         array.items.push(cloned);
 
+        if(canReceiveAstralForge(cloned)) cloned.setAstralForgeItem();
+
         console.log('Inventory : +' + amount + ' ' + item.name);
     }
 

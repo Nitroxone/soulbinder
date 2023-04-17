@@ -42,9 +42,7 @@ class Armor extends Item {
         this.set = null;
 
         // ASTRAL FORGE VARIABLES
-        this.substrate = 0;
-        this.astralForgeItem = null;
-        this.extraEffects = [];
+        //this.astralForgeItem = new AstralForge(this);
     }
 
     /**
@@ -145,5 +143,12 @@ class Armor extends Item {
         } else {
             ERROR('No available echo slots left on ' + this.name);
         }
+    }
+
+    /**
+     * Creates a new AstralForge association with this Armor.
+     */
+    setAstralForgeItem() {
+        this.astralForgeItem = new AstralForge(this.id);
     }
 }

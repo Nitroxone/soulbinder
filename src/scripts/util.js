@@ -903,3 +903,42 @@ function isAstralForgeEffectPercentage(effect) {
     if(!info) return false;
     else return info;
 }
+
+function getInventoryWeaponById(id) {
+    let weapon = null;
+    game.player.inventory.weapons.forEach(item => {
+        if(item.id === id) weapon = item;
+    });
+    return weapon;
+}
+
+function getInventoryArmorById(id) {
+    let armor = null;
+    game.player.inventory.armors.forEach(item => {
+        if(item.id === id) armor = item;
+    });
+    return armor;
+}
+
+function getInventoryTrinketById(id) {
+    let trinket = null;
+    game.player.inventory.trinkets.forEach(item => {
+        if(item.id === id) trinket = item;
+    });
+    return trinket;
+}
+
+function getAstralForgeItem(id) {
+    const wpn = getInventoryWeaponById(id);
+    const armor = getInventoryArmorById(id);
+    const trinket = getInventoryTrinketById(id);
+
+    if(wpn) return wpn;
+    if(armor) return armor;
+    if(trinket) return trinket;
+    throw new Error('Associated AstralForge item with ID ' + id + ' could not be found.');
+}
+
+function canReceiveAstralForge(item) {
+    return item instanceof Weapon || item instanceof Armor || item instanceof Trinket;
+}

@@ -69,13 +69,7 @@ class Weapon extends Item {
         
         this.set = null;
 
-        // ASTRAL FORGE VARIABLES
-        this.substrate = 0;
         this.astralForgeItem = null;
-        this.extraEffects = [];
-
-        this.allEffects = [];
-        this.setAllEffects();
     }
 
     /**
@@ -248,6 +242,13 @@ class Weapon extends Item {
         } else {
             ERROR('No available echo slots left on ' + this.name);
         }
+    }
+
+    /**
+     * Creates a new AstralForge association with this Weapon.
+     */
+    setAstralForgeItem() {
+        this.astralForgeItem = new AstralForge(this.id);
     }
 
     /**

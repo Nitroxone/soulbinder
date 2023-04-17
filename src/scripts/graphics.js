@@ -177,7 +177,7 @@ function getWeaponTooltip(weapon, asResult = null, full = false) {
     str += '<div class="infoDesc">';
 
     str += '<div class="par"></div>';
-    weapon.extraEffects.forEach(eff => {
+    weapon.astralForgeItem.extraEffects.forEach(eff => {
         str += eff.getFormatted("itemEffect", Data.Color.BLUE, true, false, true);
     });
     str += '<table class="statsTable"><tbody>';

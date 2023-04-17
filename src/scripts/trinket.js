@@ -13,9 +13,7 @@ class Trinket extends Item {
         this.set = null;
 
         // ASTRAL FORGE VARIABLES
-        this.substrate = 0;
-        this.astralForgeItem = null;
-        this.extraEffects = [];
+        //this.astralForgeItem = new AstralForge(this);
     }
     
     /**
@@ -50,6 +48,20 @@ class Trinket extends Item {
         return this.echoes_free > 0;
     }
 
+    addEffect(effect, remove = false) {
+        const factor = remove ? -1 : 1;
+        this.effects.forEach(eff => {
+            if(eff.effect === effect.effect) eff.value = Math.max(0, eff.getValue() + effect.getValue() * factor);
+            else throw new Error('Tried to change an unexisting effect [' + effect.effect + ' on ' + this.name);
+        });
+    }
+
+    getEffectValue(effect) {
+        this.effects.forEach(eff => {
+            if(eff.effect === effect) return eff.getValue();
+        });
+    }
+
     /**
      * Adds the provided Echo to the Weapon.
      * @param {Echo} echo the Echo to add. if no Echo is provided, it will be picked randomly.
@@ -69,5 +81,12 @@ class Trinket extends Item {
         } else {
             ERROR('No available echo slots left on ' + this.name);
         }
+    }
+
+    /**
+     * Creates a new AstralForge association with this Trinket.
+     */
+    setAstralForgeItem() {
+        this.astralForgeItem = new AstralForge(this.id);
     }
 }
