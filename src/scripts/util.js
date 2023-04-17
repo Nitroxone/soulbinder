@@ -872,7 +872,22 @@ function getSubstrateFromConfig(effect) {
     return Config.AstralForge[getEffectNameFromKey(effect)][1];
 }
 
+/**
+ * Returns the provided Effect's over value from the Astral Forge Config.
+ * @param {Data.Effect} effect the Effect 
+ * @returns {number} the Effect's over value
+ */
+function getOverValueFromConfig(effect) {
+    return Config.AstralForge[getEffectNameFromKey(effect)][2];
+}
+
 function compareWithExcluded(effect, excluded) {
     if(excluded) return !(effect === excluded);
     return true;
+}
+
+function isAstralForgeEffectPercentage(effect) {
+    const info = Config.EffectPercentage[getEffectNameFromKey(effect)];
+    if(!info) return false;
+    else return info;
 }

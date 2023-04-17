@@ -363,7 +363,7 @@ class Weapon extends Item {
      * @param {TimeShard} shard the Shard which will determine the alteration's outcome
      * @param {Data.Effect} effect the targeted Effect
      */
-    applyAlteration(shard, effect, isPercentage = false) {
+    applyAlteration(shard, effect) {
         switch(shard.getValueType()) {
             case "number":
                 this.addEffectWithHalfLimit(shard, effect);
@@ -373,8 +373,8 @@ class Weapon extends Item {
                 break;
             case "string":
                 // add extra line of effect
-                const value = getRandomNumber(Math.ceil(this.getEffectsAmount()/3), Math.ceil(this.getEffectsAmount()/2));
-                this.extraEffects.push(new Stat(effect, [value, value], true, isPercentage));
+                const value = getOverValueFromConfig(effect);
+                this.extraEffects.push(new Stat(effect, [value, value], true, isAstralForgeEffectPercentage(effect)));
                 break;
             default:
                 throw new Error('Unrecognized Time Shard type: ' + shard.getValueType());
