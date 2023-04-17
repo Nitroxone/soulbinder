@@ -257,9 +257,9 @@ class Weapon extends Item {
      */
     alterEffect(shard, effect) {
         // Safety checks
-        if(!this.checkTargetedEffectValidity(effect)) 
+        if(!this.checkTargetedEffectValidity(effect) && shard.getValueType() !== "string")
             throw new Error('Attempted to alter an effect that does not exist on : ' + this.name);
-        if(!this.checkTimeShardValidityForAlteration(shard, effect)) 
+        if(!this.checkTimeShardValidityForAlteration(shard, effect)  && shard.getValueType() !== "string") 
             throw new Error(shard.name + ' cannot be used to alter ' + effect + ' on ' + this.name + ' (uncompatible types)');
         
         switch(this.computeAlterationChances(effect)) {
@@ -363,7 +363,7 @@ class Weapon extends Item {
      * @param {TimeShard} shard the Shard which will determine the alteration's outcome
      * @param {Data.Effect} effect the targeted Effect
      */
-    applyAlteration(shard, effect) {
+    applyAlteration(shard, effect, isPercentage = false) {
         switch(shard.getValueType()) {
             case "number":
                 this.addEffectWithHalfLimit(shard, effect);
@@ -372,7 +372,9 @@ class Weapon extends Item {
                 this.addEffect(new Stat(effect, [0, 0]));
                 break;
             case "string":
-                // add new line
+                // add extra line of effect
+                const value = getRandomNumber(Math.ceil(this.getEffectsAmount()/3), Math.ceil(this.getEffectsAmount()/2));
+                this.extraEffects.push(new Stat(effect, [value, value], true, isPercentage));
                 break;
             default:
                 throw new Error('Unrecognized Time Shard type: ' + shard.getValueType());
@@ -486,8 +488,8 @@ class Weapon extends Item {
             Data.Effect.CRIT_DMG,
             Data.Effect.BLEED_DMG,
             Data.Effect.BLEED_DURATION,
-            Data.Effect.BLEEDING_CURABLE,
-            Data.Effect.BLEEDING_INCURABLE,
+            Data.Effect.BLEED_CURABLE,
+            Data.Effect.BLEED_INCURABLE,
             Data.Effect.POISON_DMG,
             Data.Effect.POISON_DURATION,
             Data.Effect.POISON_CURABLE,
@@ -548,8 +550,8 @@ class Weapon extends Item {
      */
     targetedEffectIsBoolean(effect) {
         const booleanEffects = [
-            Data.Effect.BLEEDING_CURABLE,
-            Data.Effect.BLEEDING_INCURABLE,
+            Data.Effect.BLEED_CURABLE,
+            Data.Effect.BLEED_INCURABLE,
             Data.Effect.POISON_CURABLE,
             Data.Effect.POISON_INCURABLE,
             Data.Effect.RANGE_FRONT_ON,

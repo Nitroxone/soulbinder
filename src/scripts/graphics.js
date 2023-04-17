@@ -177,6 +177,9 @@ function getWeaponTooltip(weapon, asResult = null, full = false) {
     str += '<div class="infoDesc">';
 
     str += '<div class="par"></div>';
+    weapon.extraEffects.forEach(eff => {
+        str += eff.getFormatted("itemEffect", Data.Color.BLUE, true, false, true);
+    });
     str += '<table class="statsTable"><tbody>';
     str += '<tr><td>Sharpness</td><td>' + weapon.pdmg[0] + '-' + weapon.pdmg[1] + '</td></tr>';
     str += '<tr><td>Withering</td><td>' + weapon.mdmg[0] + '-' + weapon.mdmg[1] + '</td></tr>';

@@ -89,26 +89,6 @@ const Data = Object.freeze({
         // BASE RESISTANCE
         RESILIENCE: "resilience",
         WARDING: "warding",
-        // OPTIMIZED RESISTANCE
-        OPT_RES_AXE_ON: "adds extra RES against axes",
-        OPT_RES_AXE_OFF: "removes extra RES against axes",
-        OPT_RES_BOW_ON: "adds extra RES against bows",
-        OPT_RES_BOW_OFF: "removes extra RES against bows",
-        OPT_RES_DAGGER_ON: "adds extra RES against daggers",
-        OPT_RES_DAGGER_OFF: "removes extra RES against daggers",
-        OPT_RES_HAMMER_ON: "adds extra RES against hammers",
-        OPT_RES_HAMMER_OFF: "removes extra RES against hammers",
-        OPT_RES_SPEAR_ON: "adds extra RES against spears",
-        OPT_RES_SPEAR_OFF: "removes extra RES against spears",
-        OPT_RES_STAFF_ON: "adds extra RES against staffs",
-        OPT_RES_STAFF_OFF: "removes extra RES against staffs",
-        OPT_RES_SWORD_ON: "adds extra RES against swords",
-        OPT_RES_SWORD_OFF: "removes extra RES against swords",
-        OPT_RES_WARSCYTHE_ON: "adds extra RES against warscythes",
-        OPT_RES_WARSCYTHE_OFF: "removes extra RES against warscythes",
-        // SPECIAL RESISTANCE
-        RESILIENCE_AGAINST_UNDEAD: "resilience against undead",
-        WARDING_AGAINST_UNDEAD: "warding against undead",
 
         //------------------------------------------------------
         // WEAPON EFFECTS
@@ -136,9 +116,6 @@ const Data = Object.freeze({
 
         SWORD_PDMG: "swords sharpness",
         SWORD_MDMG: "swords withering",
-
-        PDMG_TO_UNDEAD: "sharpness to undead",
-        MDMG_TO_UNDEAD: "withering to undead",
 
         // CRAFTING EFFECTS
         CRAFTING_TRINKET_CORRUPTION: "trinket corruption chance",
@@ -377,7 +354,6 @@ const Data = Object.freeze({
         RECEIVE_HIT_WHILE_GUARDING: "RECEIVE_HIT_WHILE_GUARDING",
         BEGIN_GUARD: "BEGIN_GUARD"
     },
-    PercentageTimeShards: ["gleaming time shard", "iridescent time shard"],
     AlterationAttemptOutcome: {
         CRITICAL_FAILURE: "critical failure",
         FAILURE: "failure",
