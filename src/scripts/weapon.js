@@ -204,6 +204,24 @@ class Weapon extends Item {
             case Data.Effect.POISON_INCURABLE: 
                 this.poison[2] = remove;
                 break;
+            case Data.Effect.RANGE_BACK_OFF:
+                this.range[2] = remove;
+                break;
+            case Data.Effect.RANGE_BACK_ON:
+                this.range[2] = !remove;
+                break;
+            case Data.Effect.RANGE_MIDDLE_OFF:
+                this.range[2] = remove;
+                break;
+            case Data.Effect.RANGE_MIDDLE_ON:
+                this.range[2] = !remove;
+                break;
+            case Data.Effect.RANGE_FRONT_OFF:
+                this.range[2] = remove;
+                break;
+            case Data.Effect.RANGE_FRONT_ON:
+                this.range[2] = !remove;
+                break;
         }
     }
 
@@ -261,22 +279,46 @@ class Weapon extends Item {
     }
 
     alterCriticalFailure(shard, effect) {
+        console.log('Critical failure!');
         this.collateralReduction(effect);
         game.player.inventory.removeResource(shard);
     }
     alterFailure(shard) {
+        console.log('Failure!');
         game.player.inventory.removeResource(shard);
     }
     alterSuccess(shard, effect) {
-        
+        console.log('Success!');
+        this.applyReductions(effect);
+        this.applyAlteration(shard, effect);
         game.player.inventory.removeResource(shard);
     }
     alterCriticalSuccess(effect) {
-
+        console.log('Critical success!');
+        this.applyAlteration(shard, effect);
     }
 
     getEffectsAmount() {
         return 13 + this.extraEffects.length;
+    }
+
+    getCollateralReductionsAmount() {
+        return getRandomNumber(1, this.getEffectsAmount()/2);
+    }
+
+    applyReductions(excluded = null) {
+        let targetedEffects = [];
+        let pool = shuffle(this.allEffects);
+        for(let i = 0; i < this.getCollateralReductionsAmount(); i++) {
+            // IF :
+            // - Effect isn't already included in targetedEffects
+            // - Effect is not a boolean type
+            // - Effect does not match the excluded type
+            if(!targetedEffects.includes(pool[i]) && !this.targetedEffectIsBoolean(pool[i]) && compareWithExcluded(pool[i], excluded)) targetedEffects.push(pool[i]);
+        }
+        targetedEffects.forEach(eff => {
+            this.collateralReduction(eff);
+        });
     }
 
     /**
@@ -303,11 +345,17 @@ class Weapon extends Item {
 
     addEffectWithHalfLimit(shard, effect) {
         const limit = Math.round(this.getEffectValue(effect) / 2);
-        const finalValue = Math.min(limit, this.getEffectValue(effect) + shard.value);
+        const finalValue = Math.min(limit, shard.value);
         this.addEffect(new Stat(effect, [finalValue, finalValue], true, shard.isPercentage));
     }
 
     collateralReduction(effect) {
+        if(this.targetedEffectIsBoolean(effect)) {
+            console.info("Effect [" + effect + "] ignored during reduction due to being a boolean");
+            return;
+        }
+        if(!this.checkTargetedEffectValidity(effect)) 
+            throw new Error('Effect not found: tried to alter ' + effect + ' on ' + this.name);
         if(this.getEffectValue(effect) == 0) {
             console.info("No reduction applied to " + effect + " on " + this.name + " as it is already set to zero.");
             return;
@@ -325,9 +373,9 @@ class Weapon extends Item {
     getEffectValue(effect) {
         switch(effect) {
             case Data.Effect.PDMG:
-                return this.pdmg;
+                return this.pdmg[0];
             case Data.Effect.MDMG:
-                return this.mdmg
+                return this.mdmg[0];
             case Data.Effect.BLOCK:
                 return this.block;
             case Data.Effect.EFFORT:
@@ -442,5 +490,22 @@ class Weapon extends Item {
         });
 
         return allowPercentage.includes(effect);
+    }
+
+    targetedEffectIsBoolean(effect) {
+        const booleanEffects = [
+            Data.Effect.BLEEDING_CURABLE,
+            Data.Effect.BLEEDING_INCURABLE,
+            Data.Effect.POISON_CURABLE,
+            Data.Effect.POISON_INCURABLE,
+            Data.Effect.RANGE_FRONT_ON,
+            Data.Effect.RANGE_MIDDLE_ON,
+            Data.Effect.RANGE_BACK_ON,
+            Data.Effect.RANGE_FRONT_OFF,
+            Data.Effect.RANGE_MIDDLE_OFF,
+            Data.Effect.RANGE_BACK_OFF,
+        ];
+
+        return booleanEffects.includes(effect);
     }
 }

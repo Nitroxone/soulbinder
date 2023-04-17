@@ -871,3 +871,8 @@ function getPersistanceFromConfig(effect) {
 function getSubstrateFromConfig(effect) {
     return Config.AstralForge[getEffectNameFromKey(effect)][1];
 }
+
+function compareWithExcluded(effect, excluded) {
+    if(excluded) return !(effect === excluded);
+    return true;
+}
