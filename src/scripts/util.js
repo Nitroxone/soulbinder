@@ -881,11 +881,23 @@ function getOverValueFromConfig(effect) {
     return Config.AstralForge[getEffectNameFromKey(effect)][2];
 }
 
+/**
+ * Compares the two Effects if the excluded parameter is not null, and returns false if they match.
+ * Returns if the excluded parameter is null.
+ * @param {Data.Effect} effect 
+ * @param {Data.Effect} excluded 
+ * @returns {boolean}
+ */
 function compareWithExcluded(effect, excluded) {
     if(excluded) return !(effect === excluded);
     return true;
 }
 
+/**
+ * Returns whether the provided Effect is defined as a percentage value in the Config.
+ * @param {Data.Effect} effect the Effect
+ * @returns {boolean}
+ */
 function isAstralForgeEffectPercentage(effect) {
     const info = Config.EffectPercentage[getEffectNameFromKey(effect)];
     if(!info) return false;
