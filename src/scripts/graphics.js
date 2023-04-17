@@ -122,6 +122,9 @@ function getTrinketTooltip(trinket, asResult = null, full = false) {
 
     // effects
     str += '<div class="par"></div>';
+    trinket.astralForgeItem.extraEffects.forEach(eff => {
+        str += eff.getFormatted("itemEffect", Data.Color.BLUE, true, false, true);
+    });
     trinket.effects.forEach(effect => {
         str += effect.getFormatted("itemEffect");
     })
@@ -232,6 +235,9 @@ function getArmorTooltip(armor, asResult = null, full = false) {
     str += '<div class="infoDesc">';
 
     str += '<div class="par"></div>';
+    armor.astralForgeItem.extraEffects.forEach(eff => {
+        str += eff.getFormatted("itemEffect", Data.Color.BLUE, true, false, true);
+    });
     str += '<table class="statsTable"><tbody>';
     str += '<tr><td>Resilience</td><td>' + armor.resilience + '<span class="theoricalval">[' + armor.t_resilience[0] + '-' + armor.t_resilience[1] +']</span>' + '</td></tr>';
     str += '<tr><td>Warding</td><td>' + armor.warding + '<span class="theoricalval">[' + armor.t_warding[0] + '-' + armor.t_warding[1] +']</span>' + '</td></tr>';
