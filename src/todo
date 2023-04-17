@@ -1,7 +1,11 @@
 - Add SHIELD to players
-- Add skill trees - ONGOING
 - Add consumables (potions)
 - Add books
 
 - Create hub & lordships
+
+ASTRAL FORGE:
+- Create GUI
+- Check that trinket methods work well
+- Prevent addition of the same overload
 
