@@ -251,9 +251,9 @@ class Weapon extends Item {
     }
 
     /**
-     * 
-     * @param {TimeShard} shard 
-     * @param {Data.Effect} effect 
+     * Alters the targeted effect with the provided Time Shard. 
+     * @param {TimeShard} shard the Shard to use
+     * @param {Data.Effect} effect the targeted effect
      */
     alterEffect(shard, effect) {
         // Safety checks
@@ -278,34 +278,71 @@ class Weapon extends Item {
         }
     }
 
+    /**
+     * Triggers a critical failure on the Weapon's targeted effect, based on the provided Time Shard.
+     * @param {TimeShard} shard the Time Shard to apply
+     * @param {Data.Effect} effect the targeted effect
+     */
     alterCriticalFailure(shard, effect) {
         console.log('Critical failure!');
         this.collateralReduction(effect);
         game.player.inventory.removeResource(shard);
     }
+
+    /**
+     * Triggers a failure on the Weapon's targeted effect, based on the provided Time Shard.
+     * @param {TimeShard} shard the Time Shard to apply
+     * @param {Data.Effect} effect the targeted effect
+     */
     alterFailure(shard) {
         console.log('Failure!');
         game.player.inventory.removeResource(shard);
     }
+
+    /**
+     * Triggers a success on the Weapon's targeted effect, based on the provided Time Shard.
+     * @param {TimeShard} shard the Time Shard to apply
+     * @param {Data.Effect} effect the targeted effect
+     */
     alterSuccess(shard, effect) {
         console.log('Success!');
         this.applyReductions(effect);
         this.applyAlteration(shard, effect);
         game.player.inventory.removeResource(shard);
     }
+
+    /**
+     * Triggers a critical success on the Weapon's targeted effect, based on the provided Time Shard.
+     * @param {TimeShard} shard the Time Shard to apply
+     * @param {Data.Effect} effect the targeted effect
+     */
     alterCriticalSuccess(effect) {
         console.log('Critical success!');
         this.applyAlteration(shard, effect);
     }
 
+    /**
+     * Returns the Weapon's amount of effects (ie. the amount of base immutable effects as well as the extra effects);
+     * @returns {number} the Weapon's amount of effects
+     */
     getEffectsAmount() {
         return 13 + this.extraEffects.length;
     }
 
+    /**
+     * Returns a randomly generated amount of collateral reductions on the Weapon.
+     * It is a random number between 1 and half of the Weapon's amount of effects.
+     * @returns {number} the amount of collateral reductions
+     */
     getCollateralReductionsAmount() {
         return getRandomNumber(1, this.getEffectsAmount()/2);
     }
 
+    /**
+     * Applies collateral reductions on the Weapon. Optionally excludes the provided Effect.
+     * A random amount of random effects among the Weapon are reduced. Boolean effects are not affected.
+     * @param {Data.Effect} excluded an optionally excluded Effect
+     */
     applyReductions(excluded = null) {
         let targetedEffects = [];
         let pool = shuffle(this.allEffects);
@@ -322,10 +359,9 @@ class Weapon extends Item {
     }
 
     /**
-     * 
-     * @param {TimeShard} shard 
-     * @param {Data.Effect} effect 
-     * @returns 
+     * Applies an alteration to the Weapon's provided effect, based on the provided shard.
+     * @param {TimeShard} shard the Shard which will determine the alteration's outcome
+     * @param {Data.Effect} effect the targeted Effect
      */
     applyAlteration(shard, effect) {
         switch(shard.getValueType()) {
@@ -343,12 +379,21 @@ class Weapon extends Item {
         }
     }
 
+    /**
+     * Adds the provided Time Shard's value to the targeted Effect.
+     * @param {TimeShard} shard the Time Shard which value will be added
+     * @param {Data.Effect} effect the targeted Effect
+     */
     addEffectWithHalfLimit(shard, effect) {
         const limit = Math.round(this.getEffectValue(effect) / 2);
         const finalValue = Math.min(limit, shard.value);
         this.addEffect(new Stat(effect, [finalValue, finalValue], true, shard.isPercentage));
     }
 
+    /**
+     * Triggers a collateral reduction on the targeted Effect. Boolean effects, and effects which value equals zero, are not affected.
+     * @param {Data.Effect} effect the effect to target
+     */
     collateralReduction(effect) {
         if(this.targetedEffectIsBoolean(effect)) {
             console.info("Effect [" + effect + "] ignored during reduction due to being a boolean");
@@ -370,12 +415,16 @@ class Weapon extends Item {
         console.log("Reduced " + effect + " by " + finalReduction + " on " + this.name);
     }
 
+    /**
+     * Returns the current value of the targeted effect. 
+     * Values returned for Sharpness and Warding are the average of the lower and upper bounds.
+     */
     getEffectValue(effect) {
         switch(effect) {
             case Data.Effect.PDMG:
-                return this.pdmg[0];
+                return (this.pdmg[0] + this.pdmg[1])/2;
             case Data.Effect.MDMG:
-                return this.mdmg[0];
+                return (this.mdmg[0] + this.mdmg[1])/2;
             case Data.Effect.BLOCK:
                 return this.block;
             case Data.Effect.EFFORT:
@@ -492,6 +541,11 @@ class Weapon extends Item {
         return allowPercentage.includes(effect);
     }
 
+    /**
+     * Checks whether the provided Effect is a boolean type.
+     * @param {Data.Effect} effect the Effect to check 
+     * @returns {boolean} whether the provided Effect is a boolean type
+     */
     targetedEffectIsBoolean(effect) {
         const booleanEffects = [
             Data.Effect.BLEEDING_CURABLE,
