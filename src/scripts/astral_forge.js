@@ -52,7 +52,7 @@ class AstralForge {
         // Safety checks
         if(!this.checkTargetedEffectValidity(effect) && shard.getValueType() !== "string")
             throw new Error('Attempted to alter an effect that does not exist on : ' + this.item.name);
-        if(!this.checkTimeShardValidityForAlteration(shard, effect)  && shard.getValueType() !== "string") 
+        if(!this.checkTimeShardValidityForAlteration(shard, effect) && shard.getValueType() !== "string") 
             throw new Error(shard.name + ' cannot be used to alter ' + effect + ' on ' + this.item.name + ' (uncompatible types)');
         
         switch(this.computeAlterationChances(effect)) {

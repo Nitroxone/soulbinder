@@ -78,6 +78,10 @@ let Config = {
         RES_STUN: true,
         RES_MOVE: true,
 
+        REGEN_HEALTH: true,
+        REGEN_MANA: true,
+        REGEN_STAMINA: true,
+
         // DAMAGE MODIFIERS
         MODIF_BLOCK: true,
         MODIF_DMG_TOTAL: true,
