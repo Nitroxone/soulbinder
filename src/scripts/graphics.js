@@ -1240,39 +1240,109 @@ function getAstralForgeEffects(forgeItem) {
     str += '<tbody>';
     
     if(forgeItem.itemType === Data.ItemType.WEAPON) {
-        str += '<tr class="">';
+        str += '<tr class="rippleEffect">';
         str += '<td>' + item.pdmg[0] + '-' + item.pdmg[1] + '</td>';
         str += '<td>Sharpness</td>';
         str += '<td>' + getPersistanceFromConfig(Data.Effect.PDMG) + '</td>';
         str += '<td>' + getSubstrateFromConfig(Data.Effect.PDMG) + '</td>';
         str += '</tr>';
 
-        str += '<tr>';
+        str += '<tr class="rippleEffect">';
         str += '<td>' + item.mdmg[0] + '-' + item.mdmg[1] + '</td>';
         str += '<td>Withering</td>';
         str += '<td>' + getPersistanceFromConfig(Data.Effect.MDMG) + '</td>';
         str += '<td>' + getSubstrateFromConfig(Data.Effect.MDMG) + '</td>';
         str += '</tr>';
 
-        str += '<tr>';
+        str += '<tr class="rippleEffect">';
         str += '<td>' + item.block + '</td>';
         str += '<td>Block</td>';
         str += '<td>' + getPersistanceFromConfig(Data.Effect.BLOCK) + '</td>';
         str += '<td>' + getSubstrateFromConfig(Data.Effect.BLOCK) + '</td>';
         str += '</tr>';
 
-        str += '<tr>';
+        str += '<tr class="rippleEffect">';
         str += '<td>' + item.effort + '</td>';
         str += '<td>Effort</td>';
         str += '<td>' + getPersistanceFromConfig(Data.Effect.EFFORT) + '</td>';
         str += '<td>' + getSubstrateFromConfig(Data.Effect.EFFORT) + '</td>';
         str += '</tr>';
 
-        str += '<tr>';
+        str += '<tr class="rippleEffect">';
         str += '<td>' + item.crit_luk + '%</td>';
         str += '<td>Crit. chance</td>';
         str += '<td>' + getPersistanceFromConfig(Data.Effect.CRIT_LUK) + '</td>';
         str += '<td>' + getSubstrateFromConfig(Data.Effect.CRIT_LUK) + '</td>';
+        str += '</tr>';
+
+        str += '<tr class="rippleEffect">';
+        str += '<td>' + item.crit_dmg + '</td>';
+        str += '<td>Crit. DMG</td>';
+        str += '<td>' + getPersistanceFromConfig(Data.Effect.CRIT_DMG) + '</td>';
+        str += '<td>' + getSubstrateFromConfig(Data.Effect.CRIT_DMG) + '</td>';
+        str += '</tr>';
+        
+        str += '<tr class="rippleEffect">';
+        str += '<td>' + item.bleed[0] + '</td>';
+        str += '<td>Bleed DMG</td>';
+        str += '<td>' + getPersistanceFromConfig(Data.Effect.BLEED_DMG) + '</td>';
+        str += '<td>' + getSubstrateFromConfig(Data.Effect.BLEED_DMG) + '</td>';
+        str += '</tr>';
+
+        str += '<tr class="rippleEffect">';
+        str += '<td>' + item.bleed[1] + '</td>';
+        str += '<td>Bleed duration</td>';
+        str += '<td>' + getPersistanceFromConfig(Data.Effect.BLEED_DURATION) + '</td>';
+        str += '<td>' + getSubstrateFromConfig(Data.Effect.BLEED_DURATION) + '</td>';
+        str += '</tr>';
+
+        str += '<tr class="rippleEffect">';
+        str += '<td>' + item.bleed[2] + '</td>';
+        str += '<td>Bleed curability</td>';
+        str += '<td>' + getPersistanceFromConfig(Data.Effect.BLEED_CURABLE) + '</td>';
+        str += '<td>' + getSubstrateFromConfig(Data.Effect.BLEED_CURABLE) + '</td>';
+        str += '</tr>';
+
+        str += '<tr class="rippleEffect">';
+        str += '<td>' + item.poison[0] + '</td>';
+        str += '<td>Poison DMG</td>';
+        str += '<td>' + getPersistanceFromConfig(Data.Effect.POISON_DMG) + '</td>';
+        str += '<td>' + getSubstrateFromConfig(Data.Effect.POISON_DMG) + '</td>';
+        str += '</tr>';
+
+        str += '<tr class="rippleEffect">';
+        str += '<td>' + item.poison[1] + '</td>';
+        str += '<td>Poison duration</td>';
+        str += '<td>' + getPersistanceFromConfig(Data.Effect.POISON_DURATION) + '</td>';
+        str += '<td>' + getSubstrateFromConfig(Data.Effect.POISON_DURATION) + '</td>';
+        str += '</tr>';
+
+        str += '<tr class="rippleEffect">';
+        str += '<td>' + item.poison[2] + '</td>';
+        str += '<td>Poison curability</td>';
+        str += '<td>' + getPersistanceFromConfig(Data.Effect.POISON_CURABLE) + '</td>';
+        str += '<td>' + getSubstrateFromConfig(Data.Effect.POISON_CURABLE) + '</td>';
+        str += '</tr>';
+
+        str += '<tr class="rippleEffect">';
+        str += '<td>' + item.range[0] + '</td>';
+        str += '<td>Front range</td>';
+        str += '<td>' + getPersistanceFromConfig(Data.Effect.RANGE_FRONT_ON) + '</td>';
+        str += '<td>' + getSubstrateFromConfig(Data.Effect.RANGE_FRONT_ON) + '</td>';
+        str += '</tr>';
+
+        str += '<tr class="rippleEffect">';
+        str += '<td>' + item.range[1] + '</td>';
+        str += '<td>Middle range</td>';
+        str += '<td>' + getPersistanceFromConfig(Data.Effect.RANGE_MIDDLE_ON) + '</td>';
+        str += '<td>' + getSubstrateFromConfig(Data.Effect.RANGE_MIDDLE_ON) + '</td>';
+        str += '</tr>';
+
+        str += '<tr class="rippleEffect">';
+        str += '<td>' + item.range[2] + '</td>';
+        str += '<td>Back range</td>';
+        str += '<td>' + getPersistanceFromConfig(Data.Effect.RANGE_BACK_ON) + '</td>';
+        str += '<td>' + getSubstrateFromConfig(Data.Effect.RANGE_BACK_ON) + '</td>';
         str += '</tr>';
     }
 
