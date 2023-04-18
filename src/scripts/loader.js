@@ -193,7 +193,7 @@ const Loader = {
                 true
             ),
             new TimeShard(
-                "Prismatic Time Shard",
+                "Unstable Time Shard",
                 "Can be used in the Astral Forge to create a temporal alteration. Enables an effect.",
                 8,
                 10,
@@ -201,7 +201,7 @@ const Loader = {
                 true
             ),
             new TimeShard(
-                "Unstable Time Shard",
+                "Prismatic Time Shard",
                 "Can be used in the Astral Forge to create a temporal alteration. Adds a new line of effect.",
                 8,
                 10,
