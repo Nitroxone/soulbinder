@@ -1184,6 +1184,100 @@ function drawWorkshopScreen() {
     //document.querySelector('.astralForgeReceptacle').
 }
 
-function drawAstralForgeScreen(forgeItem) {
+function drawAstralForgeScreen(forgeItem, refresh = false) {
     console.log('Astral Forge screen opened with ' + forgeItem.item.name);
+
+    let popupWindow;
+    if(!refresh) {
+        popupWindow = document.createElement('div');
+        popupWindow.classList.add('astralForgePopup', 'bgDark', 'tooltipSpawn');
+        document.querySelector('#workshopDiv').appendChild(popupWindow);
+    } else {
+        popupWindow = document.querySelector('.astralForgePopup');
+    }
+
+    let str = '<div class="astralForgeContainer">';
+
+    str += '<div class="astralForge-effects coolBorderBis">';
+    str += getAstralForgeEffects(forgeItem);
+    str += '</div>';
+
+    str += '<div class="astralForge-history">';
+    str += '<div class="astralForge-history-title">History</div>';
+    str += '<div class="astralForge-history-body">'
+    str += '</div>';
+    str += '</div>';
+
+    str += '<div class="astralForge-item coolBorderBis">';
+    str += '</div>';
+
+    str += '<div class="astralForge-shards">';
+    str += '</div>';
+
+    str += '<div class="astralForge-modifiers coolBorderBis">';
+    str += '</div>';
+
+    str += '</div>';
+
+    popupWindow.innerHTML = str;
+
+    // add events below...
+}
+
+function getAstralForgeEffects(forgeItem) {
+    const item = forgeItem.item;
+    console.log(item);
+    let str = '';
+    str += '<table class="astralForgeEffects">';
+    str += '<thead class="coolBorderBis">';
+    str += '<tr>';
+    str += '<th style="width:20%">Val</th>';
+    str += '<th style="width:50%">Eff</th>';
+    str += '<th style="width:15%">Per</th>';
+    str += '<th style="width:15%">Sub</th>';
+    str += '</tr>';
+    str += '</thead>';
+    str += '<tbody>';
+    
+    if(forgeItem.itemType === Data.ItemType.WEAPON) {
+        str += '<tr class="">';
+        str += '<td>' + item.pdmg[0] + '-' + item.pdmg[1] + '</td>';
+        str += '<td>Sharpness</td>';
+        str += '<td>' + getPersistanceFromConfig(Data.Effect.PDMG) + '</td>';
+        str += '<td>' + getSubstrateFromConfig(Data.Effect.PDMG) + '</td>';
+        str += '</tr>';
+
+        str += '<tr>';
+        str += '<td>' + item.mdmg[0] + '-' + item.mdmg[1] + '</td>';
+        str += '<td>Withering</td>';
+        str += '<td>' + getPersistanceFromConfig(Data.Effect.MDMG) + '</td>';
+        str += '<td>' + getSubstrateFromConfig(Data.Effect.MDMG) + '</td>';
+        str += '</tr>';
+
+        str += '<tr>';
+        str += '<td>' + item.block + '</td>';
+        str += '<td>Block</td>';
+        str += '<td>' + getPersistanceFromConfig(Data.Effect.BLOCK) + '</td>';
+        str += '<td>' + getSubstrateFromConfig(Data.Effect.BLOCK) + '</td>';
+        str += '</tr>';
+
+        str += '<tr>';
+        str += '<td>' + item.effort + '</td>';
+        str += '<td>Effort</td>';
+        str += '<td>' + getPersistanceFromConfig(Data.Effect.EFFORT) + '</td>';
+        str += '<td>' + getSubstrateFromConfig(Data.Effect.EFFORT) + '</td>';
+        str += '</tr>';
+
+        str += '<tr>';
+        str += '<td>' + item.crit_luk + '%</td>';
+        str += '<td>Crit. chance</td>';
+        str += '<td>' + getPersistanceFromConfig(Data.Effect.CRIT_LUK) + '</td>';
+        str += '<td>' + getSubstrateFromConfig(Data.Effect.CRIT_LUK) + '</td>';
+        str += '</tr>';
+    }
+
+    str += '</tbody>';
+    str += '</table>';
+
+    return str;
 }

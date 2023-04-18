@@ -3068,7 +3068,7 @@ hr.leftSided {
 }
 .striderStats-title {
     background-image: url('img/bottom_texture.png');
-    background-size: cover;
+    background-size: contain;
     background-repeat: no-repeat;
     width: 100%;
     padding: 0.5rem;
@@ -3529,26 +3529,96 @@ hr.leftSided {
     border-color: #3f517c #3f517c #757574 #616160;
 }
 
+.astralForgePopup {
+    width: 750px;
+    height: 500px;
+
+    position: absolute;
+    top: 100px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+
+    padding: 6px;
+
+    border: 7px solid transparent;
+    border-image: url(img/window1-tiny.png) 7 stretch;
+    border-radius: 5px;
+    color: #dddddd;
+    box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.5);
+}
+
 /* ASTRAL FORGE */
 .astralForgeContainer {
+    height: 100%;
+    width: 100%;
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
-    gap: 0 0;
+    gap: 0px 5px;
     grid-template-areas: 
         "astralForge-history astralForge-item astralForge-modifiers"
         "astralForge-history astralForge-effects astralForge-shards"
         "astralForge-history astralForge-effects astralForge-shards";
+}
 
-    width: 500px;
+.astralForge-item, .astralForge-modifiers {
+    border-radius: 3px;
+    border: 7px solid transparent;
+
+    border-image: url(img/window1-tiny.png) 7 stretch;
+
+    color: #dddddd;
+    padding: 4px;
+
+    box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.5),0px 2px 2px rgba(0,0,0,0.25),0px 0px 2px 2px #000 inset,0px 1px 0px 1px rgba(255,255,255,0.5) inset;
+}
+
+.coolBorderBis {
+    border-radius: 3px;
+    border: 7px solid transparent;
+    color: #dddddd;
+    padding: 4px;
+    box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.5),0px 2px 2px rgba(0,0,0,0.25),0px 0px 2px 2px #000 inset,0px 1px 0px 1px rgba(255,255,255,0.5) inset;
 }
 
 .astralForge-effects {
     grid-area: astralForge-effects;
+
+    background-image: url('img/darkBorders.png'), url('img/astralforge_bg.png');
+    background-size: cover;
+    background-repeat: repeat;
+    background-position: center;
 }
 
 .astralForge-history {
     grid-area: astralForge-history;
+
+    box-shadow: inset 0px 0px 10px 12px rgba(0, 0, 0, 0.5);
+    background-image: url('img/bg2.png');
+    background-repeat: repeat;
+    border-radius: 3px;
+}
+
+.astralForge-history-title {
+    background-image: url('img/bottom_texture.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 100%;
+    padding: 0.5rem;
+    height: 42px;
+
+    font-family: "RobotoSlabBold";
+    font-size: 14px;
+    text-align: center;
+}
+.astralForge-history-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 0.8rem;
 }
 
 .astralForge-item {
@@ -3557,9 +3627,47 @@ hr.leftSided {
 
 .astralForge-shards {
     grid-area: astralForge-shards;
+
+    box-shadow: inset 0px 0px 10px 12px rgba(0, 0, 0, 0.5);
+    background-image: url('img/bg2.png');
+    background-repeat: repeat;
+    border-radius: 3px;
 }
 
 .astralForge-modifiers {
     grid-area: astralForge-modifiers;
+
+    background-image: url('img/darkBorders.png'), url('img/astralforge_bg2.png');
+    background-size: cover;
+    background-repeat: repeat;
+    background-position: center;
 }
 
+table.astralForgeEffects {
+    width: 100%;
+    border-collapse: collapse;
+}
+table.astralForgeEffects thead tr {
+    padding: 0.5rem;
+    height: 42px;
+    text-align: left;
+    background: url('img/bg2.png') !important;
+}
+table.astralForgeEffects thead tr th{
+    vertical-align: middle;
+}
+table.astralForgeEffects td {
+    padding: 1rem 0.5rem;
+}
+table.astralForgeEffects tr {
+    transition: all .1s ease-in-out;
+}
+table.astralForgeEffects tr:nth-child(odd) {
+    background: rgba(0, 0, 0, 0.7);
+}
+table.astralForgeEffects tr:nth-child(even) {
+    background: rgba(15, 15, 15, 0.7);
+}
+table.astralForgeEffects tr:hover {
+    background: rgba(50, 50, 50, 0.75);
+}

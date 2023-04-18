@@ -1,6 +1,6 @@
 let Config = {
     AstralForge: {
-        // PERSISTENCE, SUBSTRACT [persistence, substract]
+        // PERSISTENCE, SUBSTRACT, MAXIMUM [persistence, substract, maximum]
         MAXHEALTH: [0, 1, 100],
         MAXMANA: [0, 3, 100],
         MAXSTAMINA: [0, 2, 100],
