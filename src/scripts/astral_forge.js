@@ -3,6 +3,12 @@
  */
 class AstralForge {
     constructor(id) {
+        this.history = [];
+
+        this.substrate = 0;
+        this.allEffects = [];
+        this.extraEffects = [];
+
         // Checking for passed item ID validity
         const retrieved = getAstralForgeItem(id);
         if(this.checkForItemValidity(retrieved)) {
@@ -11,12 +17,6 @@ class AstralForge {
             this.setAllEffects();
         }
         else throw new Error('Uncompatible object type for AstralForge');
-
-        this.history = [];
-
-        this.substrate = 0;
-        this.allEffects = [];
-        this.extraEffects = [];
 
     }
 
@@ -78,7 +78,8 @@ class AstralForge {
      */
     alterCriticalFailure(shard, effect) {
         console.log('Critical failure!');
-        this.collateralReduction(effect);
+        if(canShardOverload(shard)) this.applyReductions(null, 1);
+        else this.collateralReduction(effect);
         game.player.inventory.removeResource(shard);
     }
 
@@ -99,7 +100,8 @@ class AstralForge {
      */
     alterSuccess(shard, effect) {
         console.log('Success!');
-        this.applyReductions(effect);
+        if(canShardOverload(shard)) this.applyReductions()
+        else this.applyReductions(effect);
         this.applyAlteration(shard, effect);
         game.player.inventory.removeResource(shard);
     }
@@ -111,6 +113,7 @@ class AstralForge {
      */
     alterCriticalSuccess(effect) {
         console.log('Critical success!');
+        if(typeof shard.value === 'string') game.player.inventory.removeResource(shard);
         this.applyAlteration(shard, effect);
     }
 
@@ -125,7 +128,7 @@ class AstralForge {
             case Data.ItemType.WEAPON:
                 return 13 + this.extraEffects.length;
             case Data.ItemType.TRINKET:
-                return this.effects.length + this.extraEffects.length;
+                return this.item.effects.length + this.extraEffects.length;
         }
     }
 
@@ -142,11 +145,13 @@ class AstralForge {
      * Applies collateral reductions on the Item. Optionally excludes the provided Effect.
      * A random amount of random effects among the Item are reduced. Boolean effects are not affected.
      * @param {Data.Effect} excluded an optionally excluded Effect
+     * @param {number} max an optional maximum amount of reduced effects
      */
-    applyReductions(excluded = null) {
+    applyReductions(excluded = null, max = 0) {
         let targetedEffects = [];
         let pool = shuffle(this.allEffects);
-        for(let i = 0; i < this.getCollateralReductionsAmount(); i++) {
+        const counter = max === 0 ? this.getCollateralReductionsAmount() : max;
+        for(let i = 0; i < counter; i++) {
             // IF :
             // - Effect isn't already included in targetedEffects
             // - Effect is not a boolean type
@@ -173,6 +178,10 @@ class AstralForge {
                 break;
             case "string":
                 // add extra line of effect
+                if(this.extraEffectAlreadyExists(effect)) {
+                    console.info('Could not add a ' + effect + ' overload on ' + this.item.name + ' as it already exists.');
+                    return;
+                }
                 const value = getOverValueFromConfig(effect);
                 this.extraEffects.push(new Stat(effect, [value, value], true, isAstralForgeEffectPercentage(effect)));
                 break;
@@ -383,5 +392,18 @@ class AstralForge {
         ];
 
         return booleanEffects.includes(effect);
+    }
+
+    /**
+     * Checks whether the provided Effect already exists among the AstralForge's extra effects.
+     * @param {Data.Effect} effect the Effect to look for
+     * @returns {boolean} whether the provided effect already exists
+     */
+    extraEffectAlreadyExists(effect) {
+        let exists = false;
+        this.extraEffects.forEach(eff => {
+            if(eff.effect === effect) exists = true;
+        });
+        return exists;
     }
 }

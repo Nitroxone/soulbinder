@@ -942,3 +942,7 @@ function getAstralForgeItem(id) {
 function canReceiveAstralForge(item) {
     return item instanceof Weapon || item instanceof Armor || item instanceof Trinket;
 }
+
+function canShardOverload(shard) {
+    return typeof shard.value === 'string';
+}

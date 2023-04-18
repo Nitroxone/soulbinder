@@ -48,18 +48,35 @@ class Trinket extends Item {
         return this.echoes_free > 0;
     }
 
+    /**
+     * Adds the provided Stat to the Trinket's effects.
+     * @param {Stat} effect 
+     * @param {boolean} remove whether the Effect should be removed instead of being added
+     */
     addEffect(effect, remove = false) {
         const factor = remove ? -1 : 1;
+        let changed = false;
         this.effects.forEach(eff => {
-            if(eff.effect === effect.effect) eff.value = Math.max(0, eff.getValue() + effect.getValue() * factor);
-            else throw new Error('Tried to change an unexisting effect [' + effect.effect + ' on ' + this.name);
+            if(eff.effect === effect.effect) {
+                eff.value = Math.max(0, eff.getValue() + effect.getValue() * factor);
+                console.log('Updated ' + this.name + "'s [" + effect.effect + "] property to " + eff.value);
+                changed = true;
+            }
         });
+        if(!changed) throw new Error('Tried to change an unexisting effect [' + effect.effect + ' on ' + this.name);
     }
 
+    /**
+     * Returns the value of the provided Effect.
+     * @param {Data.Effect} effect the Effect to look for
+     * @returns {number} the value of the provided Effect
+     */
     getEffectValue(effect) {
+        let value = null;
         this.effects.forEach(eff => {
-            if(eff.effect === effect) return eff.getValue();
+            if(eff.effect === effect) value = eff.getValue();
         });
+        return value;
     }
 
     /**
