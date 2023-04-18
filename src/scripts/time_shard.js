@@ -7,6 +7,10 @@ class TimeShard extends Resource {
         this.isPercentage = isPercentage;
     }
 
+    /**
+     * Returns the Shard's value type.
+     * @returns {string} the Shard's value type
+     */
     getValueType() {
         return typeof this.value;
     }

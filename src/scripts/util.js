@@ -904,6 +904,11 @@ function isAstralForgeEffectPercentage(effect) {
     else return info;
 }
 
+/**
+ * Retrieves the Weapon from the Player's Inventory, which ID matches the one that is provided.
+ * @param {number} id the Weapon's ID
+ * @returns {Weapon|null} the Weapon that was found, or null if it was not found
+ */
 function getInventoryWeaponById(id) {
     let weapon = null;
     game.player.inventory.weapons.forEach(item => {
@@ -912,6 +917,11 @@ function getInventoryWeaponById(id) {
     return weapon;
 }
 
+/**
+ * Retrieves the Armor from the Player's Inventory, which ID matches the one that is provided.
+ * @param {number} id the Armor's ID
+ * @returns {Armor|null} the Armor that was found, or null if it was not found
+ */
 function getInventoryArmorById(id) {
     let armor = null;
     game.player.inventory.armors.forEach(item => {
@@ -920,6 +930,11 @@ function getInventoryArmorById(id) {
     return armor;
 }
 
+/**
+ * Retrieves the Trinket from the Player's Inventory, which ID matches the one that is provided.
+ * @param {number} id the Trinket's ID
+ * @returns {Trinket|null} the Trinket that was found, or null if it was not found
+ */
 function getInventoryTrinketById(id) {
     let trinket = null;
     game.player.inventory.trinkets.forEach(item => {
@@ -928,6 +943,11 @@ function getInventoryTrinketById(id) {
     return trinket;
 }
 
+/**
+ * Retrieves a Weapon, Armor, or Trinket, based on its unique ID.
+ * @param {number} id the item's ID
+ * @returns {Weapon|Armor|Trinket} the item
+ */
 function getAstralForgeItem(id) {
     const wpn = getInventoryWeaponById(id);
     const armor = getInventoryArmorById(id);
@@ -939,10 +959,20 @@ function getAstralForgeItem(id) {
     throw new Error('Associated AstralForge item with ID ' + id + ' could not be found.');
 }
 
+/**
+ * Checks whether the provided Item can host an AstralForge item (ie. if the provided Item is an instance of Weapon class, or Armor class, or Trinket class).
+ * @param {Item} item the Item to check
+ * @returns {boolean} whether the provided Item can receive an AstralForge object
+ */
 function canReceiveAstralForge(item) {
     return item instanceof Weapon || item instanceof Armor || item instanceof Trinket;
 }
 
+/**
+ * Returns whether the provided shard can alter an Item.
+ * @param {TimeShard} shard the Shard to check
+ * @returns {boolean} whether the Shard can overload an item
+ */
 function canShardOverload(shard) {
-    return typeof shard.value === 'string';
+    return shard.getValueType() === 'string';
 }
