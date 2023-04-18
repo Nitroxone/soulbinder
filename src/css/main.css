@@ -3495,3 +3495,71 @@ hr.leftSided {
     grid-area: striderSkills;
 }
 
+.workshopContainer {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.astralForgeReceptacle {
+    width: 100px;
+    height: 100px;
+    border-radius: 5rem;
+
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('img/bg4.png') repeat 50% 50% scroll;
+    background-repeat: repeat;
+
+    border: 1px solid #ece2b6;
+    border-color: #3f517c #757574 #616160 #25304e;
+
+    color: #dddddd;
+    padding: 4px;
+
+    box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.5),0px 2px 2px rgba(0,0,0,0.25),0px 0px 2px 2px #000 inset,0px 1px 1px 5px rgba(255,255,255,0.5) inset;
+
+    transition: all .35s cubic-bezier(.68,-0.55,.27,1.55)
+}
+.astralForgeReceptacle:hover {
+    box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.5),0px 2px 2px rgba(0,0,0,0.25),0px 0px 2px 2px #000 inset,0px 1px 10px 15px rgba(255,255,255,0.35) inset;
+    border: 2px solid #ece2b6;
+    border-color: #3f517c #3f517c #757574 #616160;
+}
+
+/* ASTRAL FORGE */
+.astralForgeContainer {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 0 0;
+    grid-template-areas: 
+        "astralForge-history astralForge-item astralForge-modifiers"
+        "astralForge-history astralForge-effects astralForge-shards"
+        "astralForge-history astralForge-effects astralForge-shards";
+
+    width: 500px;
+}
+
+.astralForge-effects {
+    grid-area: astralForge-effects;
+}
+
+.astralForge-history {
+    grid-area: astralForge-history;
+}
+
+.astralForge-item {
+    grid-area: astralForge-item;
+}
+
+.astralForge-shards {
+    grid-area: astralForge-shards;
+}
+
+.astralForge-modifiers {
+    grid-area: astralForge-modifiers;
+}
+

@@ -1161,3 +1161,29 @@ function drawHubScreen() {
 
     document.querySelector('.hubContainer').innerHTML = str;
 }
+
+function openAstralForge(event) {
+    // retrieving data
+    const weapon = event.dataTransfer.getData("weapon");
+    const armor = event.dataTransfer.getData("armor");
+    const trinket = event.dataTransfer.getData("trinket");
+
+    if(weapon !== '') drawAstralForgeScreen(getInventoryWeaponById(Number(weapon)).astralForgeItem);
+    else if(armor !== '') drawAstralForgeScreen(getInventoryArmorById(Number(armor)).astralForgeItem);
+    else if(trinket !== '') drawAstralForgeScreen(getInventoryTrinketById(Number(trinket)).astralForgeItem);
+    else throw new Error('Tried to open the Astral Forge screen with an uncompatible object.')
+}    
+
+function drawWorkshopScreen() {
+    document.querySelector('#workshopDiv').innerHTML = '<div class="workshopContainer"></div>';
+
+    let str = '<div class="astralForgeReceptacle" ondrop="openAstralForge(event)" ondragover="allowDrop(event)"></div>';
+
+    document.querySelector('.workshopContainer').innerHTML = str;
+
+    //document.querySelector('.astralForgeReceptacle').
+}
+
+function drawAstralForgeScreen(forgeItem) {
+    console.log('Astral Forge screen opened with ' + forgeItem.item.name);
+}

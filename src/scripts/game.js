@@ -195,7 +195,7 @@ class Game {
             this.tabs[i].domWhat.onclick = function(tab){return function(){game.setTab(tab);};}(this.tabs[i]);
             addTooltip(this.tabs[i].domWhat, function(tab){return function(){return tab.desc;};}(this.tabs[i]), {offY:-8});
         }
-        this.setTab(this.tabs[2]);
+        this.setTab(this.tabs[1]);
     }
 
     setTab(tab) {
@@ -313,6 +313,7 @@ class Game {
         drawInventory();
         drawStridersScreen();
         drawHubScreen();
+        drawWorkshopScreen();
 
         console.clear();
     }
