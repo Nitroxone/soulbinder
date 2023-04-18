@@ -1,24 +1,38 @@
+/**
+ * The AstralForge class contains all of the data manipulation and methods that make it possible to alter a Weapon/Armor/Trinket's effects.
+ */
 class AstralForge {
     constructor(id) {
+        // Checking for passed item ID validity
         const retrieved = getAstralForgeItem(id);
-        this.history = [];
-
-        this.substrate = 0;
-        this.allEffects = [];
-        this.extraEffects = [];
-
         if(this.checkForItemValidity(retrieved)) {
             this.item = retrieved;
             this.itemType = this.setItemType();
             this.setAllEffects();
         }
         else throw new Error('Uncompatible object type for AstralForge');
+
+        this.history = [];
+
+        this.substrate = 0;
+        this.allEffects = [];
+        this.extraEffects = [];
+
     }
 
+    /**
+     * Checks whether the provided item is AstralForge compatible.
+     * @param {Weapon|Armor|Trinket} item the AstralForge to check 
+     * @returns {boolean} whether the item is AstralForge compatible
+     */
     checkForItemValidity(item) {
         return item instanceof Armor || item instanceof Weapon || item instanceof Trinket;
     }
 
+    /**
+     * Sets the AstralForge item type according to its class.
+     * @returns {Data.Effect|null} the Item type
+     */
     setItemType() {
         return this.item instanceof Armor 
                         ? Data.ItemType.ARMOR
