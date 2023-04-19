@@ -1237,6 +1237,7 @@ function drawAstralForgeScreen(forgeItem, refresh = false) {
 function getAstralForgeShards() {
     let str = '<table class="astralForgeShards"><tbody>';
     let shards = game.player.inventory.getTimeShards();
+    let cometDusts = game.player.inventory.getCometDusts();
     shards.forEach(shard => {
         str += '<tr class="shard">';
         str += '<td style="width: 20%; text-align: center;">' + shard.amount + '</td>';
@@ -1245,7 +1246,16 @@ function getAstralForgeShards() {
     });
     str += '</tbody></table>';
 
-    str += '<div class="simpleButton" style="margin-top: 0.5rem">Alter</div>';
+    str += '<table class="astralForgeShards" style="margin-top: 1rem"><tbody>';
+    cometDusts.forEach(dust => {
+        str += '<tr class="shard">';
+        str += '<td style="width: 20%; text-align: center;">' + dust.amount + '</td>';
+        str += '<td style="color: ' + getRarityColorCode(dust.rarity) + '">' + dust.name + '</td>';
+        str += '</tr>';
+    })
+    str += '</tbody></table>';
+
+    str += '<div class="simpleButton" style="margin-top: 1rem">Alter</div>';
     str += '<div class="simpleButton" style="margin-top: 0.5rem">Consume substrate</div>';
 
     return str;

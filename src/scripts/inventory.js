@@ -325,4 +325,17 @@ class Inventory {
         });
         return timeShards;
     }
+
+    getCometDusts() {
+        let cometDusts = [];
+        let names = [
+            "comet dust",
+            "glowing comet dust",
+            "sparkling comet dust"
+        ]
+        this.resources.forEach(res => {
+            if(names.includes(res.name.toLowerCase())) cometDusts.push(res);
+        });
+        return cometDusts;
+    }
 }
