@@ -1238,7 +1238,14 @@ function getAstralForgeEffects(forgeItem) {
     str += '</tr>';
     str += '</thead>';
     str += '<tbody>';
-    
+    forgeItem.extraEffects.forEach(eff => {
+        str += '<tr class="overloadEffect">';
+        str += '<td>' + eff.getValue() + (eff.isPercentage ? '%' : '') + '</td>';
+        str += '<td>' + capitalizeFirstLetter(eff.effect) + '</td>';
+        str += '<td>/</td>';
+        str += '<td>/</td>';
+        str += '</tr>';
+    });
     if(forgeItem.itemType === Data.ItemType.WEAPON) {
         str += '<tr class="rippleEffect">';
         str += '<td>' + item.pdmg[0] + '-' + item.pdmg[1] + '</td>';
@@ -1297,7 +1304,7 @@ function getAstralForgeEffects(forgeItem) {
         str += '</tr>';
 
         str += '<tr class="rippleEffect">';
-        str += '<td>' + item.bleed[2] + '</td>';
+        str += '<td>' + (item.bleed[2] ? 'Yes' : 'No') + '</td>';
         str += '<td>Bleed curability</td>';
         str += '<td>' + getPersistanceFromConfig(Data.Effect.BLEED_CURABLE) + '</td>';
         str += '<td>' + getSubstrateFromConfig(Data.Effect.BLEED_CURABLE) + '</td>';
@@ -1318,32 +1325,55 @@ function getAstralForgeEffects(forgeItem) {
         str += '</tr>';
 
         str += '<tr class="rippleEffect">';
-        str += '<td>' + item.poison[2] + '</td>';
+        str += '<td>' + (item.poison[2] ? 'Yes' : 'No') + '</td>';
         str += '<td>Poison curability</td>';
         str += '<td>' + getPersistanceFromConfig(Data.Effect.POISON_CURABLE) + '</td>';
         str += '<td>' + getSubstrateFromConfig(Data.Effect.POISON_CURABLE) + '</td>';
         str += '</tr>';
 
         str += '<tr class="rippleEffect">';
-        str += '<td>' + item.range[0] + '</td>';
+        str += '<td>' + (item.range[0] ? 'Yes' : 'No') + '</td>';
         str += '<td>Front range</td>';
         str += '<td>' + getPersistanceFromConfig(Data.Effect.RANGE_FRONT_ON) + '</td>';
         str += '<td>' + getSubstrateFromConfig(Data.Effect.RANGE_FRONT_ON) + '</td>';
         str += '</tr>';
 
         str += '<tr class="rippleEffect">';
-        str += '<td>' + item.range[1] + '</td>';
+        str += '<td>' + (item.range[1] ? 'Yes' : 'No') + '</td>';
         str += '<td>Middle range</td>';
         str += '<td>' + getPersistanceFromConfig(Data.Effect.RANGE_MIDDLE_ON) + '</td>';
         str += '<td>' + getSubstrateFromConfig(Data.Effect.RANGE_MIDDLE_ON) + '</td>';
         str += '</tr>';
 
         str += '<tr class="rippleEffect">';
-        str += '<td>' + item.range[2] + '</td>';
+        str += '<td>' + (item.range[2] ? 'Yes' : 'No') + '</td>';
         str += '<td>Back range</td>';
         str += '<td>' + getPersistanceFromConfig(Data.Effect.RANGE_BACK_ON) + '</td>';
         str += '<td>' + getSubstrateFromConfig(Data.Effect.RANGE_BACK_ON) + '</td>';
         str += '</tr>';
+    } else if(forgeItem.itemType === Data.ItemType.ARMOR) {
+        str += '<tr class="rippleEffect">';
+        str += '<td>' + item.resilience + '</td>';
+        str += '<td>Resilience</td>';
+        str += '<td>' + getPersistanceFromConfig(Data.Effect.RESILIENCE) + '</td>';
+        str += '<td>' + getSubstrateFromConfig(Data.Effect.RESILIENCE) + '</td>';
+        str += '</tr>';
+
+        str += '<tr class="rippleEffect">';
+        str += '<td>' + item.warding + '</td>';
+        str += '<td>Warding</td>';
+        str += '<td>' + getPersistanceFromConfig(Data.Effect.WARDING) + '</td>';
+        str += '<td>' + getSubstrateFromConfig(Data.Effect.WARDING) + '</td>';
+        str += '</tr>';
+    } else if(forgeItem.itemType === Data.ItemType.TRINKET) {
+        item.effects.forEach(eff => {
+            str += '<tr class="rippleEffect">';
+            str += '<td>' + eff.getValue() + (eff.isPercentage ? '%' : '') + '</td>';
+            str += '<td>' + capitalizeFirstLetter(eff.effect) + '</td>';
+            str += '<td>/</td>';
+            str += '<td>/</td>';
+            str += '</tr>';
+        });
     }
 
     str += '</tbody>';

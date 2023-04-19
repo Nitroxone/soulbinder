@@ -313,4 +313,16 @@ class Inventory {
             console.log("A Lead Knot is required to amplify a rune.");
         }
     }
+
+    /**
+     * Returns all of the Time Shards owned by the player.
+     * @returns {TimeShard[]} an array of TimeShard objects
+     */
+    getTimeShards() {
+        let timeShards = [];
+        this.resources.forEach(res => {
+            if(res instanceof TimeShard) timeShards.push(res);
+        });
+        return timeShards;
+    }
 }

@@ -3592,6 +3592,7 @@ hr.leftSided {
 
     overflow-y: scroll;
     overflow-x: hidden;
+    padding: 0 !important;
 }
 
 .astralForge-history {
@@ -3632,7 +3633,7 @@ hr.leftSided {
     grid-area: astralForge-shards;
 
     box-shadow: inset 0px 0px 10px 12px rgba(0, 0, 0, 0.5);
-    background-image: url('img/bg2.png');
+    background-image: url('img/bg3.png');
     background-repeat: repeat;
     border-radius: 3px;
 }
@@ -3654,10 +3655,13 @@ table.astralForgeEffects thead tr {
     padding: 0.5rem;
     height: 42px;
     text-align: left;
-    background: url('img/bg2.png') !important;
+    background: url('img/bg3.png') !important;
 }
 table.astralForgeEffects thead tr th{
     vertical-align: middle;
+}
+table.astralForgeEffects thead tr th:nth-child(1), table.astralForgeEffects thead tr th:nth-child(2) {
+    padding: 0 0.5rem;
 }
 table.astralForgeEffects td {
     padding: 1rem 0.5rem;
@@ -3671,6 +3675,9 @@ table.astralForgeEffects tr:nth-child(odd) {
 table.astralForgeEffects tr:nth-child(even) {
     background: rgba(15, 15, 15, 0.7);
 }
+table.astralForgeEffects tr:last-child {
+    border-radius: 0 0 5px 5px;
+}
 table.astralForgeEffects tr:hover {
     background: rgba(50, 50, 50, 0.75);
 }
@@ -3678,4 +3685,15 @@ table.astralForgeEffectsFocus, table.astralForgeEffects tr:active {
     border: 10px solid transparent;
     box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.5),0px 2px 2px rgba(0,0,0,0.25),0px 0px 2px 2px #000 inset,0px 1px 0px 1px rgba(255,255,255,0.5) inset;
     box-sizing: content-box;
+}
+tr.overloadEffect {
+    font-family: RobotoBold;
+    color: #0097e6;
+    border: 1px double #0097e6;
+}
+table.astralForgeEffects tbody::before {
+    content: "@";
+    display: block;
+    line-height: 0px;
+    text-indent: -99999px;
 }
