@@ -13,6 +13,8 @@ class AstralForge {
         this.selectedShard = null;
         this.selectedEffect = null;
 
+        this.consumeSubstrate = false;
+
         // Checking for passed item ID validity
         const retrieved = getAstralForgeItem(id);
         if(this.checkForItemValidity(retrieved)) {
@@ -52,14 +54,14 @@ class AstralForge {
      * @param {TimeShard} shard the Shard to use
      * @param {Data.Effect} effect the targeted effect
      */
-    alterEffect(shard, effect, consumeSubstrate = false) {
+    alterEffect(shard, effect) {
         // Safety checks
         if(!this.checkTargetedEffectValidity(effect) && shard.getValueType() !== "string")
             throw new Error('Attempted to alter an effect that does not exist on : ' + this.item.name);
         if(!this.checkTimeShardValidityForAlteration(shard, effect) && shard.getValueType() !== "string") 
             throw new Error(shard.name + ' cannot be used to alter ' + effect + ' on ' + this.item.name + ' (uncompatible types)');
         
-        switch(this.computeAlterationChances(effect, consumeSubstrate)) {
+        switch(this.computeAlterationChances(effect, this.consumeSubstrate)) {
             case Data.AlterationAttemptOutcome.CRITICAL_FAILURE:
                 this.alterCriticalFailure(shard, effect);
                 break;
@@ -295,10 +297,22 @@ class AstralForge {
         const failureRate = criticalFailureRate + game.player.af_failure + persistance - substrate;
         const successRate = failureRate + game.player.af_success - persistance + substrate;
 
-        if(roll < criticalFailureRate) return Data.AlterationAttemptOutcome.CRITICAL_FAILURE;
-        else if (roll < failureRate) return Data.AlterationAttemptOutcome.FAILURE;
-        else if (roll < successRate) return Data.AlterationAttemptOutcome.SUCCESS;
-        else return Data.AlterationAttemptOutcome.CRITICAL_SUCCESS;
+        if(roll < criticalFailureRate) {
+            this.resetSubstrate();
+            return Data.AlterationAttemptOutcome.CRITICAL_FAILURE;
+        }
+        else if (roll < failureRate) {
+            this.resetSubstrate();
+            return Data.AlterationAttemptOutcome.FAILURE;
+        }
+        else if (roll < successRate) {
+            this.resetSubstrate();
+            return Data.AlterationAttemptOutcome.SUCCESS;
+        }
+        else {
+            this.resetSubstrate();
+            return Data.AlterationAttemptOutcome.CRITICAL_SUCCESS;
+        }
     }
 
     /**
@@ -417,7 +431,12 @@ class AstralForge {
         const amount = getSubstrateFromConfig(effect)
         this.substrate += amount;
         console.log('Added +' + amount + ' to ' + this.item.name + '\'s total substrate.');
-        getAstralForgeSubstrateBox(this);
+        getAstralForgeSubstrateBox(this, true);
+    }
+    resetSubstrate() {
+        this.substrate = 0;
+        console.log('Resetted substrate on ' + this.item.name + '.');
+        getAstralForgeSubstrateBox(this, true);
     }
 
     warp() {

@@ -1205,10 +1205,12 @@ function drawAstralForgeScreen(forgeItem, refresh = false) {
     str += '<div class="astralForge-history">';
     str += '<div class="astralForge-history-title">History</div>';
     str += '<div class="astralForge-history-body">'
+    str += getAstralForgeHistory(forgeItem);
     str += '</div>';
     str += '</div>';
 
     str += '<div class="astralForge-item coolBorderBis">';
+    str += getAstralForgeItemBox(forgeItem);
     str += '</div>';
 
     str += '<div class="astralForge-shards">';
@@ -1231,37 +1233,68 @@ function drawAstralForgeScreen(forgeItem, refresh = false) {
             popupWindow.remove();
         });
     }
+
     // add events below...
+    document.querySelectorAll('.shardSelectable').forEach(sha => {
+        sha.addEventListener('click', e => {
+            const shard = getInventoryResourceById(Number(sha.id));
+            console.log('Selected: ' + shard.name);
+            forgeItem.selectShard(shard);
+            sha.classList.toggle('shardSelected');
+        });
+    });
+
+    // SUBSTRATE AND ALTER BUTTONS
+    const consumesubstrateButton = document.querySelector('.consumesubstrateButton');
+    consumesubstrateButton.addEventListener('click', e => {
+        consumesubstrateButton.classList.toggle('selected');
+        forgeItem.consumeSubstrate = !forgeItem.consumeSubstrate;
+    })
 }
 
-function getAstralForgeShards() {
+function getAstralForgeShards(refresh = false) {
     let str = '<table class="astralForgeShards"><tbody>';
     let shards = game.player.inventory.getTimeShards();
     let cometDusts = game.player.inventory.getCometDusts();
     shards.forEach(shard => {
-        str += '<tr class="shard">';
+        str += '<tr id="' + shard.id + '" class="shard shardSelectable">';
         str += '<td style="width: 20%; text-align: center;">' + shard.amount + '</td>';
         str += '<td style="color: ' + getRarityColorCode(shard.rarity) + '">' + shard.name + '</td>';
         str += '</tr>';
     });
     str += '</tbody></table>';
 
-    str += '<table class="astralForgeShards" style="margin-top: 1rem"><tbody>';
+    str += '<div class="divider"></div>';
+
+    str += '<table class="astralForgeShards"><tbody>';
     cometDusts.forEach(dust => {
-        str += '<tr class="shard">';
+        str += '<tr class="shard dustSelectable">';
         str += '<td style="width: 20%; text-align: center;">' + dust.amount + '</td>';
         str += '<td style="color: ' + getRarityColorCode(dust.rarity) + '">' + dust.name + '</td>';
         str += '</tr>';
     })
     str += '</tbody></table>';
 
-    str += '<div class="simpleButton" style="margin-top: 1rem">Alter</div>';
-    str += '<div class="simpleButton" style="margin-top: 0.5rem">Consume substrate</div>';
+    str += '<div class="simpleButton alterButton" style="margin-top: 1rem">Alter</div>';
+    str += '<div class="simpleButton consumesubstrateButton" style="margin-top: 0.5rem">Consume substrate</div>';
+
+    if(refresh) {
+        document.querySelector('.astralForge-shards').innerHTML = str;
+        return;
+    }
+    return str;
+}
+
+function getAstralForgeItemBox(forgeItem) {
+    const item = forgeItem.item;
+    let str = '';
+
+    str += '';
 
     return str;
 }
 
-function getAstralForgeItem(forgeItem) {
+function getAstralForgeHistory(forgeItem) {
     const item = forgeItem.item;
     let str = '';
 

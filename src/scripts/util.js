@@ -944,6 +944,19 @@ function getInventoryTrinketById(id) {
 }
 
 /**
+ * Retrieves the Resource from the Player's Inventory, which ID matches the one that is provided.
+ * @param {number} id the Resource's ID
+ * @returns {Trinket|null} the Resource that was found, or null if it was not found
+ */
+function getInventoryResourceById(id) {
+    let resource = null;
+    game.player.inventory.resources.forEach(item => {
+        if(item.id === id) resource = item;
+    });
+    return resource;
+}
+
+/**
  * Retrieves a Weapon, Armor, or Trinket, based on its unique ID.
  * @param {number} id the item's ID
  * @returns {Weapon|Armor|Trinket} the item

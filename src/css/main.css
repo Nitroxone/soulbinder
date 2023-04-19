@@ -3136,6 +3136,10 @@ hr.leftSided {
 
     font-family: "RobotoSlab";
 }
+.simpleButton.selected {
+    border-color: rgb(133, 207, 236);
+}
+
 .coolBorder {
     border: 1px solid #e2dd48;
     border-color: #3f517c #757574 #616160 #25304e;
@@ -3710,7 +3714,7 @@ table.astralForgeEffectsFocus, table.astralForgeEffects tr:active {
     box-sizing: content-box;
 }
 tr.overloadEffect {
-    font-family: RobotoBold;
+    font-family: RobotoSlabBold;
     color: #0097e6;
     border: 1px double #0097e6;
 }
@@ -3723,4 +3727,11 @@ table.astralForgeEffects tbody::before {
 
 table.astralForgeShards td {
     padding: 0.75rem 0;
+}
+
+.shardSelected {
+    border: 1px double rgb(175, 175, 175);
+}
+.effectSelected {
+    border: 1px dashed rgb(175, 175, 175);
 }
