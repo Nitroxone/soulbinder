@@ -1230,26 +1230,79 @@ function drawAstralForgeScreen(forgeItem, refresh = false) {
             let audio = new Audio('sounds/ui/spawntooltip.wav');
             audio.volume = 0.2;
             audio.play();
+            forgeItem.clearShard();
+            forgeItem.clearEffect();
             popupWindow.remove();
         });
     }
 
     // add events below...
+    // SHARDS AND EFFECTS
     document.querySelectorAll('.shardSelectable').forEach(sha => {
         sha.addEventListener('click', e => {
             const shard = getInventoryResourceById(Number(sha.id));
-            console.log('Selected: ' + shard.name);
-            forgeItem.selectShard(shard);
+
+            if(forgeItem.selectedShard && forgeItem.selectedShard.name === shard.name) {
+                forgeItem.clearShard();
+            } else if(forgeItem.selectedShard) {
+                this.unselectCurrentShard(forgeItem);
+                forgeItem.clearShard();
+                forgeItem.selectShard(shard);
+            } else {
+                forgeItem.selectShard(shard);
+            }
+
             sha.classList.toggle('shardSelected');
+            console.log(forgeItem.selectedShard);
+        });
+    });
+    document.querySelectorAll('.effectSelectable').forEach(eff => {
+        eff.addEventListener('click', e => {
+            const effect = eff.querySelector('.astralEffectContent').textContent.toLowerCase();
+
+            if(forgeItem.selectedEffect && forgeItem.selectedEffect === effect) {
+                forgeItem.clearEffect();
+            } else if(forgeItem.selectedEffect) {
+                this.unselectCurrentEffect(forgeItem);
+                forgeItem.clearEffect();
+                forgeItem.selectEffect(effect);
+            } else {
+                forgeItem.selectEffect(effect);
+            }
+
+            eff.classList.toggle('effectSelected');
+            console.log(forgeItem.selectedEffect);
         });
     });
 
     // SUBSTRATE AND ALTER BUTTONS
+    const alterButton = document.querySelector('.alterButton');
+    alterButton.addEventListener('click', e => {
+        launchAlteration(forgeItem);
+    })
+
     const consumesubstrateButton = document.querySelector('.consumesubstrateButton');
     consumesubstrateButton.addEventListener('click', e => {
         consumesubstrateButton.classList.toggle('selected');
         forgeItem.consumeSubstrate = !forgeItem.consumeSubstrate;
     })
+}
+
+function launchAlteration(forgeItem) {
+    console.log(forgeItem.selectedEffect);
+    if(forgeItem.canLaunchAlteration()) {
+        console.log('Altering...');
+        forgeItem.alterEffect(forgeItem.selectedShard, forgeItem.selectedEffect);
+        if(forgeItem.selectedShard.amount === 0) forgeItem.clearShard();
+    }
+}
+
+function unselectCurrentShard(forgeItem) {
+    document.getElementById(forgeItem.selectedShard.id).classList.toggle('shardSelected');
+}
+
+function unselectCurrentEffect(forgeItem) {
+    document.getElementById('eff-' + trimWhitespacesInsideString(forgeItem.selectedEffect.toLowerCase())).classList.toggle('effectSelected');
 }
 
 function getAstralForgeShards(refresh = false) {
@@ -1317,6 +1370,23 @@ function getAstralForgeSubstrateBox(forgeItem, refresh = false) {
     return str;
 }
 
+function generateAstralForgeEffectLine(effect, cssClass, range = false, noDetails = false, boolTranslate = false) {
+    let str = '';
+
+    str += '<tr id="eff-' + trimWhitespacesInsideString(effect.effect) + '" class="' + cssClass + '">';
+    if(boolTranslate) {
+        str += '<td>' + (effect.getValue() === 1 ? 'Yes' : 'No') + '</td>';
+    } else {
+        str += '<td>' + (range ? effect.theorical[0] + '-' + effect.theorical[1] : effect.getValue()) + (effect.isPercentage ? '%' : '') + '</td>';
+    }
+    str += '<td class="astralEffectContent">' + capitalizeFirstLetter(effect.effect) + '</td>';
+    str += '<td>' + (noDetails ? '/' : getPersistanceFromConfig(effect.effect)) + '</td>';
+    str += '<td>' + (noDetails ? '/' : getSubstrateFromConfig(effect.effect)) + '</td>';
+    str += '</tr>';
+
+    return str;
+}
+
 function getAstralForgeEffects(forgeItem) {
     const item = forgeItem.item;
     console.log(item);
@@ -1332,140 +1402,37 @@ function getAstralForgeEffects(forgeItem) {
     str += '</thead>';
     str += '<tbody>';
     forgeItem.extraEffects.forEach(eff => {
-        str += '<tr class="overloadEffect">';
-        str += '<td>' + eff.getValue() + (eff.isPercentage ? '%' : '') + '</td>';
-        str += '<td>' + capitalizeFirstLetter(eff.effect) + '</td>';
-        str += '<td>/</td>';
-        str += '<td>/</td>';
-        str += '</tr>';
+        str += generateAstralForgeEffectLine(eff, "overloadEffect", false, true);
     });
     if(forgeItem.itemType === Data.ItemType.WEAPON) {
-        str += '<tr class="rippleEffect">';
-        str += '<td>' + item.pdmg[0] + '-' + item.pdmg[1] + '</td>';
-        str += '<td>Sharpness</td>';
-        str += '<td>' + getPersistanceFromConfig(Data.Effect.PDMG) + '</td>';
-        str += '<td>' + getSubstrateFromConfig(Data.Effect.PDMG) + '</td>';
-        str += '</tr>';
 
-        str += '<tr class="rippleEffect">';
-        str += '<td>' + item.mdmg[0] + '-' + item.mdmg[1] + '</td>';
-        str += '<td>Withering</td>';
-        str += '<td>' + getPersistanceFromConfig(Data.Effect.MDMG) + '</td>';
-        str += '<td>' + getSubstrateFromConfig(Data.Effect.MDMG) + '</td>';
-        str += '</tr>';
+        str += generateAstralForgeEffectLine(new Stat(Data.Effect.PDMG, [item.pdmg[0], item.pdmg[1]]), "effectSelectable", true);
+        str += generateAstralForgeEffectLine(new Stat(Data.Effect.MDMG, [item.mdmg[0], item.mdmg[1]]), "effectSelectable", true);
+        str += generateAstralForgeEffectLine(new Stat(Data.Effect.BLOCK, [item.block, item.block], true), "effectSelectable");
+        str += generateAstralForgeEffectLine(new Stat(Data.Effect.EFFORT, [item.effort, item.effort], true), "effectSelectable");
+        str += generateAstralForgeEffectLine(new Stat(Data.Effect.CRIT_LUK, [item.crit_luk, item.crit_luk], true, true), "effectSelectable");
+        str += generateAstralForgeEffectLine(new Stat(Data.Effect.CRIT_DMG, [item.crit_dmg, item.crit_dmg], true), "effectSelectable");
 
-        str += '<tr class="rippleEffect">';
-        str += '<td>' + item.block + '</td>';
-        str += '<td>Block</td>';
-        str += '<td>' + getPersistanceFromConfig(Data.Effect.BLOCK) + '</td>';
-        str += '<td>' + getSubstrateFromConfig(Data.Effect.BLOCK) + '</td>';
-        str += '</tr>';
+        str += generateAstralForgeEffectLine(new Stat(Data.Effect.BLEED_DMG, [item.bleed[0], item.bleed[0]], true), "effectSelectable");
+        str += generateAstralForgeEffectLine(new Stat(Data.Effect.BLEED_DURATION, [item.bleed[1], item.bleed[1]], true), "effectSelectable");
+        str += generateAstralForgeEffectLine(new Stat(Data.Effect.BLEED_CURABLE, [item.bleed[2], item.bleed[2]], true), "effectSelectable", false, false, true);
 
-        str += '<tr class="rippleEffect">';
-        str += '<td>' + item.effort + '</td>';
-        str += '<td>Effort</td>';
-        str += '<td>' + getPersistanceFromConfig(Data.Effect.EFFORT) + '</td>';
-        str += '<td>' + getSubstrateFromConfig(Data.Effect.EFFORT) + '</td>';
-        str += '</tr>';
+        str += generateAstralForgeEffectLine(new Stat(Data.Effect.POISON_DMG, [item.poison[0], item.poison[0]], true), "effectSelectable");
+        str += generateAstralForgeEffectLine(new Stat(Data.Effect.POISON_DURATION, [item.poison[1], item.poison[1]], true), "effectSelectable");
+        str += generateAstralForgeEffectLine(new Stat(Data.Effect.POISON_CURABLE, [item.poison[2], item.poison[2]], true), "effectSelectable", false, false, true);
 
-        str += '<tr class="rippleEffect">';
-        str += '<td>' + item.crit_luk + '%</td>';
-        str += '<td>Crit. chance</td>';
-        str += '<td>' + getPersistanceFromConfig(Data.Effect.CRIT_LUK) + '</td>';
-        str += '<td>' + getSubstrateFromConfig(Data.Effect.CRIT_LUK) + '</td>';
-        str += '</tr>';
+        str += generateAstralForgeEffectLine(new Stat(Data.Effect.RANGE_FRONT_ON, [item.range[0], item.range[0]], true), "effectSelectable", false, false, true);
+        str += generateAstralForgeEffectLine(new Stat(Data.Effect.RANGE_MIDDLE_ON, [item.range[1], item.range[1]], true), "effectSelectable", false, false, true);
+        str += generateAstralForgeEffectLine(new Stat(Data.Effect.RANGE_BACK_ON, [item.range[2], item.range[2]], true), "effectSelectable", false, false, true);
 
-        str += '<tr class="rippleEffect">';
-        str += '<td>' + item.crit_dmg + '</td>';
-        str += '<td>Crit. DMG</td>';
-        str += '<td>' + getPersistanceFromConfig(Data.Effect.CRIT_DMG) + '</td>';
-        str += '<td>' + getSubstrateFromConfig(Data.Effect.CRIT_DMG) + '</td>';
-        str += '</tr>';
-        
-        str += '<tr class="rippleEffect">';
-        str += '<td>' + item.bleed[0] + '</td>';
-        str += '<td>Bleed DMG</td>';
-        str += '<td>' + getPersistanceFromConfig(Data.Effect.BLEED_DMG) + '</td>';
-        str += '<td>' + getSubstrateFromConfig(Data.Effect.BLEED_DMG) + '</td>';
-        str += '</tr>';
-
-        str += '<tr class="rippleEffect">';
-        str += '<td>' + item.bleed[1] + '</td>';
-        str += '<td>Bleed duration</td>';
-        str += '<td>' + getPersistanceFromConfig(Data.Effect.BLEED_DURATION) + '</td>';
-        str += '<td>' + getSubstrateFromConfig(Data.Effect.BLEED_DURATION) + '</td>';
-        str += '</tr>';
-
-        str += '<tr class="rippleEffect">';
-        str += '<td>' + (item.bleed[2] ? 'Yes' : 'No') + '</td>';
-        str += '<td>Bleed curability</td>';
-        str += '<td>' + getPersistanceFromConfig(Data.Effect.BLEED_CURABLE) + '</td>';
-        str += '<td>' + getSubstrateFromConfig(Data.Effect.BLEED_CURABLE) + '</td>';
-        str += '</tr>';
-
-        str += '<tr class="rippleEffect">';
-        str += '<td>' + item.poison[0] + '</td>';
-        str += '<td>Poison DMG</td>';
-        str += '<td>' + getPersistanceFromConfig(Data.Effect.POISON_DMG) + '</td>';
-        str += '<td>' + getSubstrateFromConfig(Data.Effect.POISON_DMG) + '</td>';
-        str += '</tr>';
-
-        str += '<tr class="rippleEffect">';
-        str += '<td>' + item.poison[1] + '</td>';
-        str += '<td>Poison duration</td>';
-        str += '<td>' + getPersistanceFromConfig(Data.Effect.POISON_DURATION) + '</td>';
-        str += '<td>' + getSubstrateFromConfig(Data.Effect.POISON_DURATION) + '</td>';
-        str += '</tr>';
-
-        str += '<tr class="rippleEffect">';
-        str += '<td>' + (item.poison[2] ? 'Yes' : 'No') + '</td>';
-        str += '<td>Poison curability</td>';
-        str += '<td>' + getPersistanceFromConfig(Data.Effect.POISON_CURABLE) + '</td>';
-        str += '<td>' + getSubstrateFromConfig(Data.Effect.POISON_CURABLE) + '</td>';
-        str += '</tr>';
-
-        str += '<tr class="rippleEffect">';
-        str += '<td>' + (item.range[0] ? 'Yes' : 'No') + '</td>';
-        str += '<td>Front range</td>';
-        str += '<td>' + getPersistanceFromConfig(Data.Effect.RANGE_FRONT_ON) + '</td>';
-        str += '<td>' + getSubstrateFromConfig(Data.Effect.RANGE_FRONT_ON) + '</td>';
-        str += '</tr>';
-
-        str += '<tr class="rippleEffect">';
-        str += '<td>' + (item.range[1] ? 'Yes' : 'No') + '</td>';
-        str += '<td>Middle range</td>';
-        str += '<td>' + getPersistanceFromConfig(Data.Effect.RANGE_MIDDLE_ON) + '</td>';
-        str += '<td>' + getSubstrateFromConfig(Data.Effect.RANGE_MIDDLE_ON) + '</td>';
-        str += '</tr>';
-
-        str += '<tr class="rippleEffect">';
-        str += '<td>' + (item.range[2] ? 'Yes' : 'No') + '</td>';
-        str += '<td>Back range</td>';
-        str += '<td>' + getPersistanceFromConfig(Data.Effect.RANGE_BACK_ON) + '</td>';
-        str += '<td>' + getSubstrateFromConfig(Data.Effect.RANGE_BACK_ON) + '</td>';
-        str += '</tr>';
     } else if(forgeItem.itemType === Data.ItemType.ARMOR) {
-        str += '<tr class="rippleEffect">';
-        str += '<td>' + item.resilience + '</td>';
-        str += '<td>Resilience</td>';
-        str += '<td>' + getPersistanceFromConfig(Data.Effect.RESILIENCE) + '</td>';
-        str += '<td>' + getSubstrateFromConfig(Data.Effect.RESILIENCE) + '</td>';
-        str += '</tr>';
 
-        str += '<tr class="rippleEffect">';
-        str += '<td>' + item.warding + '</td>';
-        str += '<td>Warding</td>';
-        str += '<td>' + getPersistanceFromConfig(Data.Effect.WARDING) + '</td>';
-        str += '<td>' + getSubstrateFromConfig(Data.Effect.WARDING) + '</td>';
-        str += '</tr>';
+        str += generateAstralForgeEffectLine(new Stat(Data.Effect.RESILIENCE, [item.resilience, item.resilience], true), "effectSelectable");
+        str += generateAstralForgeEffectLine(new Stat(Data.Effect.WARDING, [item.warding, item.warding], true), "effectSelectable");
+
     } else if(forgeItem.itemType === Data.ItemType.TRINKET) {
         item.effects.forEach(eff => {
-            str += '<tr class="rippleEffect">';
-            str += '<td>' + eff.getValue() + (eff.isPercentage ? '%' : '') + '</td>';
-            str += '<td>' + capitalizeFirstLetter(eff.effect) + '</td>';
-            str += '<td>' + getPersistanceFromConfig(eff.effect) + '</td>';
-            str += '<td>' + getSubstrateFromConfig(eff.effect) + '</td>';
-            str += '</tr>';
+            str += generateAstralForgeEffectLine(eff, "effectSelectable");
         });
     }
 

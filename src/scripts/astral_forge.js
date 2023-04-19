@@ -380,6 +380,7 @@ class AstralForge {
      */
     checkTimeShardValidityForAlteration(shard, effect) {
         if(shard.isPercentage) return this.targetedAlterationAllowsPercentage(effect);
+        if(shard.getValueType() === 'boolean') return this.targetedEffectIsBoolean(effect);
         else return !this.targetedAlterationAllowsPercentage(effect);
     }
 
@@ -460,5 +461,14 @@ class AstralForge {
     }
     clearShard() {
         this.selectedShard = null;
+    }
+
+    canLaunchAlteration() {
+        const effect = this.selectedEffect;
+        const shard = this.selectedShard;
+        if(!effect) return Data.AlterationError.NO_EFFECT;
+        if(!shard) return Data.AlterationError.NO_SHARD;
+        if(!this.checkTimeShardValidityForAlteration(shard, effect) && shard.getValueType() !== "string") return Data.AlterationError.INCOMPATIBILITY;
+        return Data.AlterationError.NONE;
     }
 }

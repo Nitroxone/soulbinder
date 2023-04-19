@@ -3696,6 +3696,9 @@ table.astralForgeEffects thead tr th:nth-child(1), table.astralForgeEffects thea
 table.astralForgeEffects td {
     padding: 1rem 0.5rem;
 }
+table.astralForgeEffects tr, table.astralForgeShards tr {
+    transition: all .1s ease-in-out;
+}
 table.astralForgeEffects tr:nth-child(odd), table.astralForgeShards tr:nth-child(odd) {
     background: rgba(0, 0, 0, 0.7);
 }
@@ -3709,7 +3712,7 @@ table.astralForgeEffects tr:hover, table.astralForgeShards tr:hover {
     background: rgba(50, 50, 50, 0.75);
 }
 table.astralForgeEffectsFocus, table.astralForgeEffects tr:active {
-    border: 10px solid transparent;
+    border: 1px solid transparent;
     box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.5),0px 2px 2px rgba(0,0,0,0.25),0px 0px 2px 2px #000 inset,0px 1px 0px 1px rgba(255,255,255,0.5) inset;
     box-sizing: content-box;
 }
@@ -3730,8 +3733,8 @@ table.astralForgeShards td {
 }
 
 .shardSelected {
-    border: 1px double rgb(175, 175, 175);
+    border: 1px double rgb(125, 125, 125);
 }
 .effectSelected {
-    border: 1px dashed rgb(175, 175, 175);
+    border: 1px dashed rgb(125, 125, 125);
 }

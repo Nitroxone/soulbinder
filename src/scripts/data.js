@@ -364,5 +364,11 @@ const Data = Object.freeze({
         STABLE: "stable",
         WARPED: "warped",
         SEALED: "sealed"
+    },
+    AlterationError: {
+        NO_EFFECT: "No effect has been selected.",
+        NO_SHARD: "No Time Shard has been selected.",
+        INCOMPATIBILITY: "The selected Time Shard and effect are not compatible.",
+        NONE: "No error!"
     }
 });
