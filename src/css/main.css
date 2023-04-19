@@ -3711,11 +3711,6 @@ table.astralForgeEffects tr:last-child, table.astralForgeShards tr:last-child {
 table.astralForgeEffects tr:hover, table.astralForgeShards tr:hover {
     background: rgba(50, 50, 50, 0.75);
 }
-table.astralForgeEffectsFocus, table.astralForgeEffects tr:active {
-    border: 1px solid transparent;
-    box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.5),0px 2px 2px rgba(0,0,0,0.25),0px 0px 2px 2px #000 inset,0px 1px 0px 1px rgba(255,255,255,0.5) inset;
-    box-sizing: content-box;
-}
 tr.overloadEffect {
     font-family: RobotoSlabBold;
     color: #0097e6;
@@ -3737,4 +3732,37 @@ table.astralForgeShards td {
 }
 .effectSelected {
     border: 1px dashed rgb(125, 125, 125);
+}
+
+.effectAlterSuccess {
+    animation: alterSuccess 1s ease-in-out;
+}
+@keyframes alterSuccess {
+    from {
+        background:rgba(76, 187, 23, 0.7);
+    }
+}
+.effectAlterCriticalSuccess {
+    animation: alterCriticalSuccess 1s ease-in-out;
+}
+@keyframes alterCriticalSuccess {
+    from {
+        background:rgb(255, 191, 0, 0.7);
+    }
+}
+.effectAlterNeutral {
+    animation: alterNeutral 1s ease-in-out;
+}
+@keyframes alterNeutral {
+    from {
+        background:rgba(125, 125, 125, 0.7);
+    }
+}
+.effectAlterFailure {
+    animation: alterFailure 1s ease-in-out;
+}
+@keyframes alterFailure {
+    from {
+        background:rgba(235,47,6,0.7);
+    }
 }

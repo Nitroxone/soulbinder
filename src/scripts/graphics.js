@@ -1238,6 +1238,22 @@ function drawAstralForgeScreen(forgeItem, refresh = false) {
 
     // add events below...
     // SHARDS AND EFFECTS
+    generateAstralForgeScreenEvents(forgeItem);
+
+    // SUBSTRATE AND ALTER BUTTONS
+    const alterButton = document.querySelector('.alterButton');
+    alterButton.addEventListener('click', e => {
+        launchAlteration(forgeItem);
+    })
+
+    const consumesubstrateButton = document.querySelector('.consumesubstrateButton');
+    consumesubstrateButton.addEventListener('click', e => {
+        consumesubstrateButton.classList.toggle('selected');
+        forgeItem.consumeSubstrate = !forgeItem.consumeSubstrate;
+    })
+}
+
+function generateAstralForgeScreenEvents(forgeItem) {
     document.querySelectorAll('.shardSelectable').forEach(sha => {
         sha.addEventListener('click', e => {
             const shard = getInventoryResourceById(Number(sha.id));
@@ -1274,35 +1290,57 @@ function drawAstralForgeScreen(forgeItem, refresh = false) {
             console.log(forgeItem.selectedEffect);
         });
     });
-
-    // SUBSTRATE AND ALTER BUTTONS
-    const alterButton = document.querySelector('.alterButton');
-    alterButton.addEventListener('click', e => {
-        launchAlteration(forgeItem);
-    })
-
-    const consumesubstrateButton = document.querySelector('.consumesubstrateButton');
-    consumesubstrateButton.addEventListener('click', e => {
-        consumesubstrateButton.classList.toggle('selected');
-        forgeItem.consumeSubstrate = !forgeItem.consumeSubstrate;
-    })
 }
 
 function launchAlteration(forgeItem) {
-    console.log(forgeItem.selectedEffect);
     if(forgeItem.canLaunchAlteration()) {
+        clearAnimationClasses();
         console.log('Altering...');
-        forgeItem.alterEffect(forgeItem.selectedShard, forgeItem.selectedEffect);
+        const outcome = forgeItem.alterEffect(forgeItem.selectedShard, forgeItem.selectedEffect);
+
+        getAstralForgeEffects(forgeItem, true);
+        unselectCurrentEffect(forgeItem);
+
+        updateAstralForgeShardCounter(forgeItem.selectedShard);
+        generateAstralForgeScreenEvents(forgeItem);
+
+        astralForgeEffectAnimate(forgeItem);
+        forgeItem.clearAnimationQueue();
+
         if(forgeItem.selectedShard.amount === 0) forgeItem.clearShard();
     }
 }
 
-function unselectCurrentShard(forgeItem) {
-    document.getElementById(forgeItem.selectedShard.id).classList.toggle('shardSelected');
+function updateAstralForgeShardCounter(shard) {
+    document.getElementById(shard.id).childNodes[0].innerHTML = shard.amount;
 }
-
+function getSelectedAstralForgeShard(forgeItem) {
+    return document.getElementById(forgeItem.selectedShard.id)
+}
+function unselectCurrentShard(forgeItem) {
+    getSelectedAstralForgeShard(forgeItem).classList.toggle('shardSelected');
+}
+function getSelectedAstralForgeEffect(forgeItem) {
+    return document.getElementById('eff-' + trimWhitespacesInsideString(forgeItem.selectedEffect.toLowerCase()))
+}
 function unselectCurrentEffect(forgeItem) {
-    document.getElementById('eff-' + trimWhitespacesInsideString(forgeItem.selectedEffect.toLowerCase())).classList.toggle('effectSelected');
+    getSelectedAstralForgeEffect(forgeItem).classList.toggle('effectSelected');
+}
+function getAstralForgeEffectDOM(effect) {
+    return document.getElementById('eff-' + trimWhitespacesInsideString(effect));
+}
+function astralForgeEffectAnimate(forgeItem) {
+    forgeItem.animationQueue.forEach(anim => {
+        getAstralForgeEffectDOM(anim[0]).classList.add(anim[1]);
+    });
+}
+function updateAstralForgeEffectDOM(effect) {
+    getAstralForgeEffectDOM(effect).innerHTML = ''
+}
+function clearAnimationClasses() {
+    document.querySelectorAll('.effectSelectable').forEach(el => {
+        el.classList.remove('effectAlterSuccess', 'effectAlterCriticalSuccess', 'effectAlterNeutral', 'effectAlterFailure');
+    })
 }
 
 function getAstralForgeShards(refresh = false) {
@@ -1375,9 +1413,9 @@ function generateAstralForgeEffectLine(effect, cssClass, range = false, noDetail
 
     str += '<tr id="eff-' + trimWhitespacesInsideString(effect.effect) + '" class="' + cssClass + '">';
     if(boolTranslate) {
-        str += '<td>' + (effect.getValue() === 1 ? 'Yes' : 'No') + '</td>';
+        str += '<td class="effVal">' + (effect.getValue() === 1 ? 'Yes' : 'No') + '</td>';
     } else {
-        str += '<td>' + (range ? effect.theorical[0] + '-' + effect.theorical[1] : effect.getValue()) + (effect.isPercentage ? '%' : '') + '</td>';
+        str += '<td class="effVal">' + (range ? effect.theorical[0] + '-' + effect.theorical[1] : effect.getValue()) + (effect.isPercentage ? '%' : '') + '</td>';
     }
     str += '<td class="astralEffectContent">' + capitalizeFirstLetter(effect.effect) + '</td>';
     str += '<td>' + (noDetails ? '/' : getPersistanceFromConfig(effect.effect)) + '</td>';
@@ -1387,7 +1425,7 @@ function generateAstralForgeEffectLine(effect, cssClass, range = false, noDetail
     return str;
 }
 
-function getAstralForgeEffects(forgeItem) {
+function getAstralForgeEffects(forgeItem, refresh = false) {
     const item = forgeItem.item;
     console.log(item);
     let str = '';
@@ -1439,5 +1477,9 @@ function getAstralForgeEffects(forgeItem) {
     str += '</tbody>';
     str += '</table>';
 
+    if(refresh) {
+        document.querySelector('.astralForge-effects').innerHTML = str;
+        return;
+    }
     return str;
 }

@@ -15,6 +15,8 @@ class AstralForge {
 
         this.consumeSubstrate = false;
 
+        this.animationQueue = [];
+
         // Checking for passed item ID validity
         const retrieved = getAstralForgeItem(id);
         if(this.checkForItemValidity(retrieved)) {
@@ -64,16 +66,18 @@ class AstralForge {
         switch(this.computeAlterationChances(effect, this.consumeSubstrate)) {
             case Data.AlterationAttemptOutcome.CRITICAL_FAILURE:
                 this.alterCriticalFailure(shard, effect);
-                break;
+                return Data.AlterationAttemptOutcome.CRITICAL_FAILURE;
             case Data.AlterationAttemptOutcome.FAILURE:
                 this.alterFailure(shard);
-                break;
+                // DOM UPDATE
+                this.queueAnimation(effect, "effectAlterNeutral");
+                return Data.AlterationAttemptOutcome.FAILURE;
             case Data.AlterationAttemptOutcome.SUCCESS:
                 this.alterSuccess(shard, effect);
-                break;
+                return Data.AlterationAttemptOutcome.SUCCESS;
             case Data.AlterationAttemptOutcome.CRITICAL_SUCCESS:
-                this.alterCriticalSuccess(effect);
-                break;
+                this.alterCriticalSuccess(shard, effect);
+                return Data.AlterationAttemptOutcome.CRITICAL_SUCCESS;
         }
     }
 
@@ -117,9 +121,10 @@ class AstralForge {
      * @param {TimeShard} shard the Time Shard to apply
      * @param {Data.Effect} effect the targeted effect
      */
-    alterCriticalSuccess(effect) {
+    alterCriticalSuccess(shard, effect) {
         console.log('Critical success!');
         if(typeof shard.value === 'string') game.player.inventory.removeResource(shard);
+        else this.queueAnimation(effect, "effectAlterCriticalSuccess");
         this.applyAlteration(shard, effect);
     }
 
@@ -178,9 +183,13 @@ class AstralForge {
         switch(shard.getValueType()) {
             case "number":
                 this.addEffectWithHalfLimit(shard, effect);
+                // DOM UPDATE
+                this.queueAnimation(effect, "effectAlterSuccess");
                 break;
             case "boolean":
                 this.item.addEffect(new Stat(effect, [0, 0]));
+                // DOM UPDATE
+                this.queueAnimation(effect, "effectAlterSuccess");
                 break;
             case "string":
                 // add extra line of effect
@@ -228,6 +237,9 @@ class AstralForge {
         finalReduction = getRandomNumber(1 * factor, finalReduction);
 
         this.item.addEffect(new Stat(effect, [finalReduction, finalReduction], false, true), true);
+
+        // DOM UPDATE
+        this.queueAnimation(effect, "effectAlterFailure");
 
         console.log("Reduced " + effect + " by " + finalReduction + " on " + this.item.name);
         if(generateSubstrate) this.addSubstrate(effect);
@@ -298,19 +310,19 @@ class AstralForge {
         const successRate = failureRate + game.player.af_success - persistance + substrate;
 
         if(roll < criticalFailureRate) {
-            this.resetSubstrate();
+            if(substrate !== 0) this.resetSubstrate();
             return Data.AlterationAttemptOutcome.CRITICAL_FAILURE;
         }
         else if (roll < failureRate) {
-            this.resetSubstrate();
+            if(substrate !== 0) this.resetSubstrate();
             return Data.AlterationAttemptOutcome.FAILURE;
         }
         else if (roll < successRate) {
-            this.resetSubstrate();
+            if(substrate !== 0) this.resetSubstrate();
             return Data.AlterationAttemptOutcome.SUCCESS;
         }
         else {
-            this.resetSubstrate();
+            if(substrate !== 0) this.resetSubstrate();
             return Data.AlterationAttemptOutcome.CRITICAL_SUCCESS;
         }
     }
@@ -470,5 +482,12 @@ class AstralForge {
         if(!shard) return Data.AlterationError.NO_SHARD;
         if(!this.checkTimeShardValidityForAlteration(shard, effect) && shard.getValueType() !== "string") return Data.AlterationError.INCOMPATIBILITY;
         return Data.AlterationError.NONE;
+    }
+
+    queueAnimation(effect, anim) {
+        this.animationQueue.push([effect, anim]);
+    }
+    clearAnimationQueue() {
+        this.animationQueue = [];
     }
 }
