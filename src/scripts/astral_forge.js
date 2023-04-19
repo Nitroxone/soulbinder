@@ -8,6 +8,10 @@ class AstralForge {
         this.substrate = 0;
         this.allEffects = [];
         this.extraEffects = [];
+        this.state = Data.AstralForgeState.STABLE;
+
+        this.selectedShard = null;
+        this.selectedEffect = null;
 
         // Checking for passed item ID validity
         const retrieved = getAstralForgeItem(id);
@@ -48,14 +52,14 @@ class AstralForge {
      * @param {TimeShard} shard the Shard to use
      * @param {Data.Effect} effect the targeted effect
      */
-    alterEffect(shard, effect) {
+    alterEffect(shard, effect, consumeSubstrate = false) {
         // Safety checks
         if(!this.checkTargetedEffectValidity(effect) && shard.getValueType() !== "string")
             throw new Error('Attempted to alter an effect that does not exist on : ' + this.item.name);
         if(!this.checkTimeShardValidityForAlteration(shard, effect) && shard.getValueType() !== "string") 
             throw new Error(shard.name + ' cannot be used to alter ' + effect + ' on ' + this.item.name + ' (uncompatible types)');
         
-        switch(this.computeAlterationChances(effect)) {
+        switch(this.computeAlterationChances(effect, consumeSubstrate)) {
             case Data.AlterationAttemptOutcome.CRITICAL_FAILURE:
                 this.alterCriticalFailure(shard, effect);
                 break;
@@ -159,7 +163,7 @@ class AstralForge {
             if(!targetedEffects.includes(pool[i]) && !this.targetedEffectIsBoolean(pool[i]) && compareWithExcluded(pool[i], excluded)) targetedEffects.push(pool[i]);
         }
         targetedEffects.forEach(eff => {
-            this.collateralReduction(eff);
+            this.collateralReduction(eff, true);
         });
     }
 
@@ -205,7 +209,7 @@ class AstralForge {
      * Triggers a collateral reduction on the targeted Effect. Boolean effects, and effects which value equals zero, are not affected.
      * @param {Data.Effect} effect the effect to target
      */
-    collateralReduction(effect) {
+    collateralReduction(effect, generateSubstrate = false) {
         if(this.targetedEffectIsBoolean(effect)) {
             console.info("Effect [" + effect + "] ignored during reduction due to being a boolean");
             return;
@@ -224,6 +228,7 @@ class AstralForge {
         this.item.addEffect(new Stat(effect, [finalReduction, finalReduction], false, true), true);
 
         console.log("Reduced " + effect + " by " + finalReduction + " on " + this.item.name);
+        if(generateSubstrate) this.addSubstrate(effect);
     }
 
     /**
@@ -279,15 +284,16 @@ class AstralForge {
      * @param {Data.Effect} effect the Effect to compute the alteration chances from
      * @returns {Data.AlterationAttemptOutcome} the attempt's outcome
      */
-    computeAlterationChances(effect) {
+    computeAlterationChances(effect, consumeSubstrate) {
         // Get Persistance from Config
         const persistance = getPersistanceFromConfig(effect);
+        const substrate = consumeSubstrate ? this.substrate : 0;
         // Dice roll
         const roll = getRandomNumber(0, 100);
         // Compute rates
         const criticalFailureRate = game.player.af_criticalFailure;
-        const failureRate = criticalFailureRate + game.player.af_failure + persistance - this.substrate;
-        const successRate = failureRate + game.player.af_success - persistance + this.substrate;
+        const failureRate = criticalFailureRate + game.player.af_failure + persistance - substrate;
+        const successRate = failureRate + game.player.af_success - persistance + substrate;
 
         if(roll < criticalFailureRate) return Data.AlterationAttemptOutcome.CRITICAL_FAILURE;
         else if (roll < failureRate) return Data.AlterationAttemptOutcome.FAILURE;
@@ -405,5 +411,35 @@ class AstralForge {
             if(eff.effect === effect) exists = true;
         });
         return exists;
+    }
+    
+    addSubstrate(effect) {
+        const amount = getSubstrateFromConfig(effect)
+        this.substrate += amount;
+        console.log('Added +' + amount + ' to ' + this.item.name + '\'s total substrate.');
+        getAstralForgeSubstrateBox(this);
+    }
+
+    warp() {
+        this.state = Data.AstralForgeState.WARPED;
+        console.log(this.item.name + " is now " + this.state);
+    }
+
+    seal() {
+        this.state = Data.AstralForgeState.SEALED;
+        console.log(this.item.name + " is now " + this.state);
+    }
+
+    selectEffect(effect) {
+        this.selectedEffect = effect;
+    }
+    clearEffect() {
+        this.selectedEffect = null;
+    }
+    selectShard(shard) {
+        this.selectedShard = shard;
+    }
+    clearShard() {
+        this.selectedShard = null;
     }
 }

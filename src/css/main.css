@@ -3640,6 +3640,13 @@ hr.leftSided {
     background-repeat: repeat;
     border-radius: 3px;
     padding: 1rem 0.5rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 .astralForge-modifiers {
@@ -3649,6 +3656,21 @@ hr.leftSided {
     background-size: cover;
     background-repeat: repeat;
     background-position: center;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.astralForgeSubstrate {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.astralForgeSubstrate-counter {
+    font-family: RobotoBold;
+    font-variant: small-caps;
+    font-size: 2rem;
+    color: rgba(200, 200, 200, 0.8);
 }
 
 table.astralForgeEffects, table.astralForgeShards {

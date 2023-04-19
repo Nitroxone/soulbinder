@@ -360,4 +360,9 @@ const Data = Object.freeze({
         SUCCESS: "success",
         CRITICAL_SUCCESS: "critical success",
     },
+    AstralForgeState: {
+        STABLE: "stable",
+        WARPED: "warped",
+        SEALED: "sealed"
+    }
 });

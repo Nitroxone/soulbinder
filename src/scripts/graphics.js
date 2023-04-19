@@ -1216,6 +1216,7 @@ function drawAstralForgeScreen(forgeItem, refresh = false) {
     str += '</div>';
 
     str += '<div class="astralForge-modifiers coolBorderBis">';
+    str += getAstralForgeSubstrateBox(forgeItem);
     str += '</div>';
 
     str += '</div>';
@@ -1242,7 +1243,10 @@ function getAstralForgeShards() {
         str += '<td style="color: ' + getRarityColorCode(shard.rarity) + '">' + shard.name + '</td>';
         str += '</tr>';
     });
-    str += '</tbody></table>'
+    str += '</tbody></table>';
+
+    str += '<div class="simpleButton" style="margin-top: 0.5rem">Alter</div>';
+    str += '<div class="simpleButton" style="margin-top: 0.5rem">Consume substrate</div>';
 
     return str;
 }
@@ -1253,6 +1257,20 @@ function getAstralForgeItem(forgeItem) {
 
     str += '';
 
+    return str;
+}
+
+function getAstralForgeSubstrateBox(forgeItem, refresh = false) {
+    let str = '<div class="astralForgeSubstrate">';
+
+    str += '<div class="astralForgeSubstrate-counter">' + forgeItem.substrate + '</div>';
+
+    str += '</div>';
+
+    if(refresh) {
+        document.querySelector('.astralForge-modifiers').innerHTML = str;
+        return;
+    }
     return str;
 }
 
