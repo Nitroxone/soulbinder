@@ -1212,6 +1212,7 @@ function drawAstralForgeScreen(forgeItem, refresh = false) {
     str += '</div>';
 
     str += '<div class="astralForge-shards">';
+    str += getAstralForgeShards();
     str += '</div>';
 
     str += '<div class="astralForge-modifiers coolBorderBis">';
@@ -1220,8 +1221,39 @@ function drawAstralForgeScreen(forgeItem, refresh = false) {
     str += '</div>';
 
     popupWindow.innerHTML = str;
-
+    if(!refresh) {
+        popupWindow.addEventListener('contextmenu', e => {
+            e.preventDefault();
+            let audio = new Audio('sounds/ui/spawntooltip.wav');
+            audio.volume = 0.2;
+            audio.play();
+            popupWindow.remove();
+        });
+    }
     // add events below...
+}
+
+function getAstralForgeShards() {
+    let str = '<table class="astralForgeShards"><tbody>';
+    let shards = game.player.inventory.getTimeShards();
+    shards.forEach(shard => {
+        str += '<tr class="shard">';
+        str += '<td style="width: 20%; text-align: center;">' + shard.amount + '</td>';
+        str += '<td style="color: ' + getRarityColorCode(shard.rarity) + '">' + shard.name + '</td>';
+        str += '</tr>';
+    });
+    str += '</tbody></table>'
+
+    return str;
+}
+
+function getAstralForgeItem(forgeItem) {
+    const item = forgeItem.item;
+    let str = '';
+
+    str += '';
+
+    return str;
 }
 
 function getAstralForgeEffects(forgeItem) {
@@ -1370,8 +1402,8 @@ function getAstralForgeEffects(forgeItem) {
             str += '<tr class="rippleEffect">';
             str += '<td>' + eff.getValue() + (eff.isPercentage ? '%' : '') + '</td>';
             str += '<td>' + capitalizeFirstLetter(eff.effect) + '</td>';
-            str += '<td>/</td>';
-            str += '<td>/</td>';
+            str += '<td>' + getPersistanceFromConfig(eff.effect) + '</td>';
+            str += '<td>' + getSubstrateFromConfig(eff.effect) + '</td>';
             str += '</tr>';
         });
     }

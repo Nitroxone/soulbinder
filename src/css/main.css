@@ -3627,6 +3627,9 @@ hr.leftSided {
 
 .astralForge-item {
     grid-area: astralForge-item;
+
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('img/bgLeather.png') repeat 50% 50% scroll;
+    background-repeat: repeat;
 }
 
 .astralForge-shards {
@@ -3636,6 +3639,7 @@ hr.leftSided {
     background-image: url('img/bg3.png');
     background-repeat: repeat;
     border-radius: 3px;
+    padding: 1rem 0.5rem;
 }
 
 .astralForge-modifiers {
@@ -3647,7 +3651,7 @@ hr.leftSided {
     background-position: center;
 }
 
-table.astralForgeEffects {
+table.astralForgeEffects, table.astralForgeShards {
     width: 100%;
     border-collapse: collapse;
 }
@@ -3666,19 +3670,16 @@ table.astralForgeEffects thead tr th:nth-child(1), table.astralForgeEffects thea
 table.astralForgeEffects td {
     padding: 1rem 0.5rem;
 }
-table.astralForgeEffects tr {
-    transition: all .1s ease-in-out;
-}
-table.astralForgeEffects tr:nth-child(odd) {
+table.astralForgeEffects tr:nth-child(odd), table.astralForgeShards tr:nth-child(odd) {
     background: rgba(0, 0, 0, 0.7);
 }
-table.astralForgeEffects tr:nth-child(even) {
+table.astralForgeEffects tr:nth-child(even), table.astralForgeShards tr:nth-child(even) {
     background: rgba(15, 15, 15, 0.7);
 }
-table.astralForgeEffects tr:last-child {
+table.astralForgeEffects tr:last-child, table.astralForgeShards tr:last-child {
     border-radius: 0 0 5px 5px;
 }
-table.astralForgeEffects tr:hover {
+table.astralForgeEffects tr:hover, table.astralForgeShards tr:hover {
     background: rgba(50, 50, 50, 0.75);
 }
 table.astralForgeEffectsFocus, table.astralForgeEffects tr:active {
@@ -3696,4 +3697,8 @@ table.astralForgeEffects tbody::before {
     display: block;
     line-height: 0px;
     text-indent: -99999px;
+}
+
+table.astralForgeShards td {
+    padding: 0.75rem 0;
 }
