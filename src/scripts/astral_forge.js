@@ -443,41 +443,76 @@ class AstralForge {
         return exists;
     }
     
+    /**
+     * Adds the substrate value of the provided Effect to the total substrate of this AstralForge.
+     * Also updates the DOM accordingly.
+     * @param {Data.Effect} effect the Effect which substrate will be added
+     */
     addSubstrate(effect) {
         const amount = getSubstrateFromConfig(effect)
         this.substrate += amount;
         console.log('Added +' + amount + ' to ' + this.item.name + '\'s total substrate.');
         getAstralForgeSubstrateBox(this, true);
     }
+    /**
+     * Resets the substrate on this AstralForge and updates the DOM accordingly.
+     */
     resetSubstrate() {
         this.substrate = 0;
         console.log('Resetted substrate on ' + this.item.name + '.');
         getAstralForgeSubstrateBox(this, true);
     }
 
+    /**
+     * Changes this AstralForge's state to WARPED.
+     */
     warp() {
         this.state = Data.AstralForgeState.WARPED;
         console.log(this.item.name + " is now " + this.state);
     }
 
+    /**
+     * Changes this AstralForge's state to SEALED.
+     */
     seal() {
         this.state = Data.AstralForgeState.SEALED;
         console.log(this.item.name + " is now " + this.state);
     }
 
+    /**
+     * Sets the selected effect of this AstralForge to the provided effect.
+     * @param {Data.Effect} effect the Effect to select
+     */
     selectEffect(effect) {
         this.selectedEffect = effect;
     }
+
+    /**
+     * Clears this AstralForge's selected effect.
+     */
     clearEffect() {
         this.selectedEffect = null;
     }
+
+    /**
+     * Sets the selected shard of this AstralForge to the provided Shard.
+     * @param {TimeShard} shard the Shard to select
+     */
     selectShard(shard) {
         this.selectedShard = shard;
     }
+
+    /**
+     * Clears this AstralForge's selected shard.
+     */
     clearShard() {
         this.selectedShard = null;
     }
 
+    /**
+     * Runs various tests to check that an alteration can be casted on this AstralForge.
+     * @returns {boolean} whether an alteration can be casted
+     */
     canLaunchAlteration() {
         const effect = this.selectedEffect;
         const shard = this.selectedShard;
@@ -489,9 +524,18 @@ class AstralForge {
         return Data.AlterationError.NONE;
     }
 
+    /**
+     * Adds a new animation to the AstralForge's DOM animation queue.
+     * @param {Data.Effect} effect the targeted Effect to animate
+     * @param {string} anim the animation type
+     */
     queueAnimation(effect, anim) {
         this.animationQueue.push([effect, anim]);
     }
+    
+    /**
+     * Clears the AstralForge's animation queue.
+     */
     clearAnimationQueue() {
         this.animationQueue = [];
     }
