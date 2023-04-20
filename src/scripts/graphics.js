@@ -1253,8 +1253,8 @@ function drawAstralForgeScreen(forgeItem, refresh = false) {
     })
 }
 
-function generateAstralForgeScreenEvents(forgeItem) {
-    document.querySelectorAll('.shardSelectable').forEach(sha => {
+function generateAstralForgeScreenEvents(forgeItem, skipShards = false, skipEffects = false) {
+    if(!skipShards) document.querySelectorAll('.shardSelectable').forEach(sha => {
         sha.addEventListener('click', e => {
             const shard = getInventoryResourceById(Number(sha.id));
 
@@ -1272,7 +1272,7 @@ function generateAstralForgeScreenEvents(forgeItem) {
             console.log(forgeItem.selectedShard);
         });
     });
-    document.querySelectorAll('.effectSelectable').forEach(eff => {
+    if(!skipEffects) document.querySelectorAll('.effectSelectable').forEach(eff => {
         eff.addEventListener('click', e => {
             const effect = eff.querySelector('.astralEffectContent').textContent.toLowerCase();
 
@@ -1293,21 +1293,27 @@ function generateAstralForgeScreenEvents(forgeItem) {
 }
 
 function launchAlteration(forgeItem) {
-    if(forgeItem.canLaunchAlteration()) {
+    const attemptOutcome = forgeItem.canLaunchAlteration();
+    if(attemptOutcome === Data.AlterationError.NONE) {
         clearAnimationClasses();
         console.log('Altering...');
-        const outcome = forgeItem.alterEffect(forgeItem.selectedShard, forgeItem.selectedEffect);
+        const alterationOutcome = forgeItem.alterEffect(forgeItem.selectedShard, forgeItem.selectedEffect);
 
         getAstralForgeEffects(forgeItem, true);
         unselectCurrentEffect(forgeItem);
 
         updateAstralForgeShardCounter(forgeItem.selectedShard);
-        generateAstralForgeScreenEvents(forgeItem);
+        generateAstralForgeScreenEvents(forgeItem, true);
+
+        if(forgeItem.selectedShard.amount === 0) {
+            unselectCurrentShard(forgeItem);
+            forgeItem.clearShard();
+        }
 
         astralForgeEffectAnimate(forgeItem);
         forgeItem.clearAnimationQueue();
-
-        if(forgeItem.selectedShard.amount === 0) forgeItem.clearShard();
+    } else {
+        console.info(attemptOutcome);
     }
 }
 

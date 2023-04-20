@@ -437,6 +437,9 @@ class AstralForge {
         this.extraEffects.forEach(eff => {
             if(eff.effect === effect) exists = true;
         });
+        this.allEffects.forEach(eff => {
+            if(eff === effect) exists = true;
+        })
         return exists;
     }
     
@@ -480,6 +483,8 @@ class AstralForge {
         const shard = this.selectedShard;
         if(!effect) return Data.AlterationError.NO_EFFECT;
         if(!shard) return Data.AlterationError.NO_SHARD;
+        if(shard.amount <= 0) return Data.AlterationError.SHARD_AMOUNT_NULL;
+        if(shard.getValueType() === 'string' && this.extraEffectAlreadyExists(effect)) return Data.AlterationError.EFFECT_ALREADY_EXISTS;
         if(!this.checkTimeShardValidityForAlteration(shard, effect) && shard.getValueType() !== "string") return Data.AlterationError.INCOMPATIBILITY;
         return Data.AlterationError.NONE;
     }

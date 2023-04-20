@@ -369,6 +369,8 @@ const Data = Object.freeze({
         NO_EFFECT: "No effect has been selected.",
         NO_SHARD: "No Time Shard has been selected.",
         INCOMPATIBILITY: "The selected Time Shard and effect are not compatible.",
+        SHARD_AMOUNT_NULL: "The selected shard's amount is equal to zero.",
+        EFFECT_ALREADY_EXISTS: "The effect already exists.",
         NONE: "No error!"
     }
 });
