@@ -989,3 +989,7 @@ function canReceiveAstralForge(item) {
 function canShardOverload(shard) {
     return shard.getValueType() === 'string';
 }
+
+function getAstralForgeOutcomeCSSClass(outcome) {
+    return "astralForgeHistory-" + trimWhitespacesInsideString(outcome);
+}

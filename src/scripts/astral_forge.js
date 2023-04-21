@@ -4,6 +4,7 @@
 class AstralForge {
     constructor(id) {
         this.history = [];
+        this.bookmark = [];
 
         this.substrate = 0;
         this.allEffects = [];
@@ -63,22 +64,27 @@ class AstralForge {
         if(!this.checkTimeShardValidityForAlteration(shard, effect) && shard.getValueType() !== "string") 
             throw new Error(shard.name + ' cannot be used to alter ' + effect + ' on ' + this.item.name + ' (uncompatible types)');
         
-        switch(this.computeAlterationChances(effect, this.consumeSubstrate)) {
+        const outcome = this.computeAlterationChances(effect, this.consumeSubstrate);
+        switch(outcome) {
             case Data.AlterationAttemptOutcome.CRITICAL_FAILURE:
                 this.alterCriticalFailure(shard, effect);
-                return Data.AlterationAttemptOutcome.CRITICAL_FAILURE;
+                break;
             case Data.AlterationAttemptOutcome.FAILURE:
                 this.alterFailure(shard);
                 // DOM UPDATE
                 this.queueAnimation(effect, "effectAlterNeutral");
-                return Data.AlterationAttemptOutcome.FAILURE;
+                break;
             case Data.AlterationAttemptOutcome.SUCCESS:
                 this.alterSuccess(shard, effect);
-                return Data.AlterationAttemptOutcome.SUCCESS;
+                break;
             case Data.AlterationAttemptOutcome.CRITICAL_SUCCESS:
                 this.alterCriticalSuccess(shard, effect);
-                return Data.AlterationAttemptOutcome.CRITICAL_SUCCESS;
+                break;
         }
+        this.setAllEffects();
+        this.addBookmarkToHistory(outcome);
+        console.log(this.history);
+        return outcome;
     }
 
     /**
@@ -187,7 +193,9 @@ class AstralForge {
                 this.queueAnimation(effect, "effectAlterSuccess");
                 break;
             case "boolean":
-                this.item.addEffect(new Stat(effect, [0, 0]), true);
+                const effectSwitch = new Stat(effect, [0, 0]);
+                this.item.addEffect(effectSwitch, true);
+                this.addToBookmark(effectSwitch);
                 // DOM UPDATE
                 this.queueAnimation(effect, "effectAlterSuccess");
                 break;
@@ -198,7 +206,9 @@ class AstralForge {
                     return;
                 }
                 const value = getOverValueFromConfig(effect);
-                this.extraEffects.push(new Stat(effect, [value, value], true, isAstralForgeEffectPercentage(effect)));
+                const newEffect = new Stat(effect, [value, value], true, isAstralForgeEffectPercentage(effect));
+                this.extraEffects.push(newEffect);
+                this.addToBookmark(newEffect);
                 break;
             default:
                 throw new Error('Unrecognized Time Shard type: ' + shard.getValueType());
@@ -213,7 +223,9 @@ class AstralForge {
     addEffectWithHalfLimit(shard, effect) {
         const limit = Math.round(this.getEffectValue(effect) / 2);
         const finalValue = Math.min(limit, shard.value);
-        this.item.addEffect(new Stat(effect, [finalValue, finalValue], true, shard.isPercentage));
+        const newEffect = new Stat(effect, [finalValue, finalValue], true, shard.isPercentage);
+        this.item.addEffect(newEffect);
+        this.addToBookmark(newEffect);
     }
 
     /**
@@ -236,7 +248,9 @@ class AstralForge {
         let finalReduction = factor > 0 ? Math.ceil(baseReduction) : Math.floor(baseReduction);
         finalReduction = getRandomNumber(1 * factor, finalReduction);
 
-        this.item.addEffect(new Stat(effect, [finalReduction, finalReduction], false, true), true);
+        const reductionEffect = new Stat(effect, [finalReduction, finalReduction], false, true);
+        this.item.addEffect(reductionEffect, true);
+        this.addToBookmark(new Stat(effect, [-finalReduction, -finalReduction], false, true));
 
         // DOM UPDATE
         this.queueAnimation(effect, "effectAlterFailure");
@@ -538,5 +552,25 @@ class AstralForge {
      */
     clearAnimationQueue() {
         this.animationQueue = [];
+    }
+
+    /**
+     * Returns all of the Effects that are clear to be Overloaded on the AstralForge item.
+     */
+    getAvailableOverloadEffects() {
+        return Config.OverloadAvailable.filter(item => !this.allEffects.includes(item));
+    }
+
+    addToBookmark(effect) {
+        this.bookmark.push(effect);
+    }
+
+    addBookmarkToHistory(outcome) {
+        this.history.push([outcome, this.bookmark]);
+        this.clearBookmark();
+    }
+
+    clearBookmark() {
+        this.bookmark = [];
     }
 }

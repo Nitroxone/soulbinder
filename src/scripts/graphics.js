@@ -1310,6 +1310,8 @@ function launchAlteration(forgeItem) {
             forgeItem.clearShard();
         }
 
+        getAstralForgeHistory(forgeItem, true)
+
         astralForgeEffectAnimate(forgeItem);
         forgeItem.clearAnimationQueue();
     } else {
@@ -1391,12 +1393,23 @@ function getAstralForgeItemBox(forgeItem) {
     return str;
 }
 
-function getAstralForgeHistory(forgeItem) {
+function getAstralForgeHistory(forgeItem, refresh = false) {
     const item = forgeItem.item;
+    const history = forgeItem.history;
     let str = '';
 
-    str += '';
+    history.forEach(hist => {
+        console.log(hist);
+        const outcome = hist[0];
+        str += '<div class="astralForgeHistory-single ' + getAstralForgeOutcomeCSSClass(outcome) + '">';
+        str += '<div class="banner">' + outcome + '</div>';
+        str += '</div>';
+    })
 
+    if(refresh) {
+        document.querySelector('.astralForge-history').innerHTML = str;
+        return;
+    }
     return str;
 }
 
