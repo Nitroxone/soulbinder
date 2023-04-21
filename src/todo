@@ -9,4 +9,6 @@ ASTRAL FORGE:
 - Add effect overload selection
 - Add Comet Dust logic
 - Add history
+- Fix stat change on equipping an item that has been altered by the Astral Forge
+- Make effort go down instead of up on alteration
 
