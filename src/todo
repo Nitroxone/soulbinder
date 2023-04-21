@@ -5,7 +5,8 @@
 - Create hub & lordships
 
 ASTRAL FORGE:
-- Create GUI
-- Check that trinket methods work well
-- Prevent addition of the same overload
+- Create GUI -- ongoing
+- Add effect overload selection
+- Add Comet Dust logic
+- Add history
 
