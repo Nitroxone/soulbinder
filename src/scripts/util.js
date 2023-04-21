@@ -993,3 +993,39 @@ function canShardOverload(shard) {
 function getAstralForgeOutcomeCSSClass(outcome) {
     return "astralForgeHistory-" + trimWhitespacesInsideString(outcome);
 }
+
+function getOppositeOfBooleanEffect(effect) {
+    switch(effect) {
+        case Data.Effect.BLEED_CURABLE:
+            return Data.Effect.BLEED_INCURABLE;
+        case Data.Effect.BLEED_INCURABLE:
+            return Data.Effect.BLEED_CURABLE;
+        case Data.Effect.POISON_CURABLE:
+            return Data.Effect.POISON_INCURABLE;
+        case Data.Effect.POISON_INCURABLE:
+            return Data.Effect.POISON_CURABLE;
+        case Data.Effect.RANGE_FRONT_OFF:
+            return Data.Effect.RANGE_FRONT_ON;
+        case Data.Effect.RANGE_FRONT_ON:
+            return Data.Effect.RANGE_FRONT_OFF;
+        case Data.Effect.RANGE_MIDDLE_OFF:
+            return Data.Effect.RANGE_MIDDLE_ON;
+        case Data.Effect.RANGE_MIDDLE_ON:
+            return Data.Effect.RANGE_MIDDLE_OFF;
+        case Data.Effect.RANGE_BACK_OFF:
+            return Data.Effect.RANGE_BACK_ON;
+        case Data.Effect.RANGE_BACK_ON:
+            return Data.Effect.RANGE_BACK_OFF;
+    }
+}
+
+function isBooleanEffectDisabler(effect) {
+    const disablers = [
+        Data.Effect.BLEED_INCURABLE,
+        Data.Effect.POISON_INCURABLE,
+        Data.Effect.RANGE_FRONT_OFF,
+        Data.Effect.RANGE_MIDDLE_OFF,
+        Data.Effect.RANGE_BACK_OFF
+    ];
+    return disablers.includes(effect);
+}

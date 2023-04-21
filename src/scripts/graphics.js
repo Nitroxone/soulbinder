@@ -1398,20 +1398,27 @@ function getAstralForgeHistory(forgeItem, refresh = false) {
     const history = forgeItem.history;
     let str = '';
 
-    history.forEach(hist => {
-        console.log(hist);
+    history.reverse().forEach(hist => {
         const outcome = hist[0];
+        const bookmarks = hist[1]
         str += '<div class="astralForgeHistory-single ' + getAstralForgeOutcomeCSSClass(outcome) + '">';
-        str += '<div class="banner">' + outcome + '</div>';
+        str += '<div class="banner">' + capitalizeFirstLetter(outcome) + '</div>';
         str += '<div class="body">';
 
-        hist[1].forEach(eff => {
-            
+        bookmarks.forEach(boo => {
+            const effect = boo[0];
+            const asBoolean = boo[1];
+            const color = effect.getValue() > 0 ? Data.Color.GREEN : Data.Color.RED;
+            console.log(effect);
+            console.log(asBoolean);
+            if(asBoolean) str += capitalizeFirstLetter(effect.effect);
+            else str += effect.getFormatted('', color, false, false, true);
         })
 
         str += '</div>';
         str += '</div>';
-    })
+    });
+    history.reverse();
 
     if(refresh) {
         document.querySelector('.astralForge-history-body').innerHTML = str;

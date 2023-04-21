@@ -195,7 +195,8 @@ class AstralForge {
             case "boolean":
                 const effectSwitch = new Stat(effect, [0, 0]);
                 this.item.addEffect(effectSwitch, true);
-                this.addToBookmark(effectSwitch, true);
+                // TODO: fix this by getting the value of the CURRENT boolean effect on the object.
+                this.addToBookmark(new Stat(getOppositeOfBooleanEffect(effect), [0, 0]), true);
                 // DOM UPDATE
                 this.queueAnimation(effect, "effectAlterSuccess");
                 break;
@@ -248,9 +249,9 @@ class AstralForge {
         let finalReduction = factor > 0 ? Math.ceil(baseReduction) : Math.floor(baseReduction);
         finalReduction = getRandomNumber(1 * factor, finalReduction);
 
-        const reductionEffect = new Stat(effect, [finalReduction, finalReduction], false, true);
+        const reductionEffect = new Stat(effect, [finalReduction, finalReduction], false, this.targetedAlterationAllowsPercentage(effect));
         this.item.addEffect(reductionEffect, true);
-        this.addToBookmark(new Stat(effect, [-finalReduction, -finalReduction], false, true));
+        this.addToBookmark(new Stat(effect, [-finalReduction, -finalReduction], false, this.targetedAlterationAllowsPercentage(effect)));
 
         // DOM UPDATE
         this.queueAnimation(effect, "effectAlterFailure");
@@ -414,7 +415,7 @@ class AstralForge {
     /**
      * Checks whether the provided Effect accepts percentage values.
      * @param {Data.Effect} effect the effect to check for
-     * @returns {boolean} whether the Effect acceps percentage values
+     * @returns {boolean} whether the Effect accepts percentage values
      */
     targetedAlterationAllowsPercentage(effect) {
         return isAstralForgeEffectPercentage(effect);

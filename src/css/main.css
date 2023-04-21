@@ -3606,6 +3606,9 @@ hr.leftSided {
     background-image: url('img/bg2.png');
     background-repeat: repeat;
     border-radius: 3px;
+
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 .astralForge-history-title {
@@ -3767,15 +3770,34 @@ table.astralForgeShards td {
     }
 }
 
+.astralForgeHistory-single {
+    padding: 0.5rem;
+    border-radius: 3px;
+    width: 100%;
+}
+.astralForgeHistory-single:not(:first-child) {
+    margin-top: 6px;
+}
+.astralForgeHistory-single .banner {
+    font-family: RobotoSlab;
+    font-variant: small-caps;
+}
+.astralForgeHistory-single .body {
+    margin-top: 2px;
+    font-size: 10px;
+}
 .astralForgeHistory-criticalfailure {
-    border:1px solid rgba(235,47,6,0.7);
+    border: 2px solid rgba(235,47,6,0.7);
 }
 .astralForgeHistory-failure {
-    border: 1px solid rgba(125, 125, 125, 0.7);
+    border: 2px solid rgba(125, 125, 125, 0.7);
 }
 .astralForgeHistory-success {
-    border: 1px solid rgba(76, 187, 23, 0.7);
+    border: 2px solid rgba(76, 187, 23, 0.7);
 }
 .astralForgeHistory-criticalsuccess {
-    border: 1px solid rgba(255, 191, 0, 0.7);
+    border: 2px solid rgba(255, 191, 0, 0.7);
+}
+.astralForgeHistory-criticalfailure:hover, .astralForgeHistory-success:hover, .astralForgeHistory-criticalsuccess:hover {
+    border: 2px solid rgb(175, 175, 175);
 }
