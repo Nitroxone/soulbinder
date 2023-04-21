@@ -195,7 +195,7 @@ class AstralForge {
             case "boolean":
                 const effectSwitch = new Stat(effect, [0, 0]);
                 this.item.addEffect(effectSwitch, true);
-                this.addToBookmark(effectSwitch);
+                this.addToBookmark(effectSwitch, true);
                 // DOM UPDATE
                 this.queueAnimation(effect, "effectAlterSuccess");
                 break;
@@ -407,7 +407,8 @@ class AstralForge {
     checkTimeShardValidityForAlteration(shard, effect) {
         if(shard.isPercentage) return this.targetedAlterationAllowsPercentage(effect);
         if(shard.getValueType() === 'boolean') return this.targetedEffectIsBoolean(effect);
-        else return !this.targetedAlterationAllowsPercentage(effect);
+        if(shard.getValueType() === 'number') return !this.targetedEffectIsBoolean(effect);
+        else return true;
     }
 
     /**
@@ -561,8 +562,8 @@ class AstralForge {
         return Config.OverloadAvailable.filter(item => !this.allEffects.includes(item));
     }
 
-    addToBookmark(effect) {
-        this.bookmark.push(effect);
+    addToBookmark(effect, asBoolean = false) {
+        this.bookmark.push([effect, asBoolean]);
     }
 
     addBookmarkToHistory(outcome) {

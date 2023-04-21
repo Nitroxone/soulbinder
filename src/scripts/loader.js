@@ -210,10 +210,10 @@ const Loader = {
             ),
             new Resource(
                 "Comet Dust",
-                "Can be used in the Astral Forge to force a Success on a temporal alteration. Seals the object's fate in the process",
+                "Can be used in the Astral Forge to force a Success on a temporal alteration.",
                 9,
                 10,
-                Data.Rarity.RARE,
+                Data.Rarity.EPIC,
             ),
             new Resource(
                 "Sparkling Comet Dust",

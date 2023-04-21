@@ -1403,11 +1403,18 @@ function getAstralForgeHistory(forgeItem, refresh = false) {
         const outcome = hist[0];
         str += '<div class="astralForgeHistory-single ' + getAstralForgeOutcomeCSSClass(outcome) + '">';
         str += '<div class="banner">' + outcome + '</div>';
+        str += '<div class="body">';
+
+        hist[1].forEach(eff => {
+            
+        })
+
+        str += '</div>';
         str += '</div>';
     })
 
     if(refresh) {
-        document.querySelector('.astralForge-history').innerHTML = str;
+        document.querySelector('.astralForge-history-body').innerHTML = str;
         return;
     }
     return str;

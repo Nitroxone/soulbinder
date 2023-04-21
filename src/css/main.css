@@ -3747,7 +3747,7 @@ table.astralForgeShards td {
 }
 @keyframes alterCriticalSuccess {
     from {
-        background:rgb(255, 191, 0, 0.7);
+        background:rgba(255, 191, 0, 0.7);
     }
 }
 .effectAlterNeutral {
@@ -3768,14 +3768,14 @@ table.astralForgeShards td {
 }
 
 .astralForgeHistory-criticalfailure {
-
+    border:1px solid rgba(235,47,6,0.7);
 }
 .astralForgeHistory-failure {
-
+    border: 1px solid rgba(125, 125, 125, 0.7);
 }
 .astralForgeHistory-success {
-
+    border: 1px solid rgba(76, 187, 23, 0.7);
 }
 .astralForgeHistory-criticalsuccess {
-    
+    border: 1px solid rgba(255, 191, 0, 0.7);
 }
