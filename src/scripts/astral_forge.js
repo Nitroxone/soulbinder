@@ -187,7 +187,7 @@ class AstralForge {
                 this.queueAnimation(effect, "effectAlterSuccess");
                 break;
             case "boolean":
-                this.item.addEffect(new Stat(effect, [0, 0]));
+                this.item.addEffect(new Stat(effect, [0, 0]), true);
                 // DOM UPDATE
                 this.queueAnimation(effect, "effectAlterSuccess");
                 break;
