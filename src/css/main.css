@@ -3801,3 +3801,7 @@ table.astralForgeShards td {
 .astralForgeHistory-criticalfailure:hover, .astralForgeHistory-success:hover, .astralForgeHistory-criticalsuccess:hover {
     border: 2px solid rgb(175, 175, 175);
 }
+.astralForgeHistory-criticalfailure, .astralForgeHistory-success, .astralForgeHistory-criticalsuccess {
+    transition: all .1s ease-in-out;
+    cursor: pointer;
+}
