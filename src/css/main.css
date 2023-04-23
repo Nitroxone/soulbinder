@@ -3805,3 +3805,19 @@ table.astralForgeShards td {
     transition: all .1s ease-in-out;
     cursor: pointer;
 }
+
+.detailedWindowFrame {
+    border-style: solid !important;
+    border-width: 44px 45px 44px 44px !important;
+    -moz-border-image: url(img/window2.png) 44 45 44 44 repeat !important;
+    -webkit-border-image: url(img/window2.png) 44 45 44 44 repeat !important;
+    -o-border-image: url(img/window2.png) 44 45 44 44 repeat !important;
+    border-image: url(img/window2.png) 44 45 44 44 fill repeat !important;
+}
+.ornateWindowFrame {
+    border-image-slice: 31 31 31 31;
+    border-image-width: 20px 20px 20px 20px;
+    border-image-outset: 7px 7px 7px 7px;
+    border-image-repeat: stretch stretch; 
+    border-image-source: url(img/window-ornate.png);
+}

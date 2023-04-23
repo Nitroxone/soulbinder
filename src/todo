@@ -13,4 +13,5 @@ ASTRAL FORGE:
 - Make effort go down instead of up on alteration
 - Fix bugs with negative values
 - Make null values impossible to select
+- Fix mismatched case effects
 
