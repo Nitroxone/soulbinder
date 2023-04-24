@@ -53,9 +53,9 @@ const Data = Object.freeze({
         SPIRIT: "spirit",
         DAMAGE_REFLECTION: "damage reflection",
         // BLEED & POISON RESISTANCE STATS
-        RES_BLEED_DMG: "bleed DMG resistance",
+        RES_BLEED_DMG: "bleed damage resistance",
         RES_BLEED_DURATION: "bleed duration resistance",
-        RES_POISON_DMG: "poison DMG resistance",
+        RES_POISON_DMG: "poison damage resistance",
         RES_POISON_DURATION: "poison duration resistance",
         RES_STUN: "stun resistance",
         RES_MOVE: "move resistance",
@@ -98,7 +98,7 @@ const Data = Object.freeze({
         BLOCK: "block",
         EFFORT: "effort",
         CRIT_LUK: "crit. chance",
-        CRIT_DMG: "crit. DMG",
+        CRIT_DMG: "crit. damage",
         BLEED_DMG: "bleed damage",
         BLEED_DURATION: "bleed duration",
         BLEED_CURABLE: "makes bleed curable",
@@ -123,7 +123,7 @@ const Data = Object.freeze({
         CRAFTING_RUNE_CORRUPTION: "rune corruption chance",
 
         // SPELL EFFECTS
-        SPELL_DMG: "spell DMG",
+        SPELL_DMG: "spell damage",
 
         // MISCELLANEOUS EFFECTS
         WIELD_TWO_HEAVY_WEAPONS: "allows dual heavy weapon wielding",
