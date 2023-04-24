@@ -1282,17 +1282,17 @@ function launchAlteration(forgeItem) {
         const alterationOutcome = forgeItem.alterEffect(forgeItem.selectedShard, forgeItem.selectedEffect);
 
         getAstralForgeEffects(forgeItem, true);
-        unselectCurrentEffect(forgeItem);
-
+        
         updateAstralForgeShardCounter(forgeItem.selectedShard);
         generateAstralForgeScreenEvents(forgeItem, true);
-
+        
         if(forgeItem.selectedShard.amount === 0) {
             unselectCurrentShard(forgeItem);
             forgeItem.clearShard();
         }
-
+        
         getAstralForgeHistory(forgeItem, true)
+        unselectCurrentEffect(forgeItem);
 
         astralForgeEffectAnimate(forgeItem);
         forgeItem.clearAnimationQueue();
@@ -1390,9 +1390,10 @@ function getAstralForgeHistory(forgeItem, refresh = false) {
         bookmarks.forEach(boo => {
             const effect = boo[0];
             const asBoolean = boo[1];
-            const color = effect.getValue() > 0 ? Data.Color.GREEN : Data.Color.RED;
-            console.log(effect);
-            console.log(asBoolean);
+            let color;
+            if(effect.effect === Data.Effect.EFFORT) color = effect.getValue() > 0 ? Data.Color.RED : Data.Color.GREEN;
+            else color = effect.getValue() > 0 ? Data.Color.GREEN : Data.Color.RED;
+            
             if(asBoolean) str += capitalizeFirstLetter(effect.effect);
             else str += effect.getFormatted('', color, false, false, true);
         })

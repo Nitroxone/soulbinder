@@ -1029,3 +1029,7 @@ function isBooleanEffectDisabler(effect) {
     ];
     return disablers.includes(effect);
 }
+
+function isAlterationOutcomeSuccessful(outcome) {
+    return outcome === Data.AlterationAttemptOutcome.SUCCESS || outcome === Data.AlterationAttemptOutcome.CRITICAL_SUCCESS;
+}

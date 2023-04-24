@@ -223,7 +223,8 @@ class AstralForge {
      */
     addEffectWithHalfLimit(shard, effect) {
         const limit = Math.round(this.getEffectValue(effect) / 2);
-        const finalValue = Math.min(limit, shard.value);
+        let finalValue = Math.min(limit, shard.value);
+        if(effect === Data.Effect.EFFORT) finalValue = -finalValue;
         const newEffect = new Stat(effect, [finalValue, finalValue], true, shard.isPercentage);
         this.item.addEffect(newEffect);
         this.addToBookmark(newEffect);

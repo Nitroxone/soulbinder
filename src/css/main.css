@@ -3815,6 +3815,12 @@ table.astralForgeShards td {
     border-image: url(img/window2.png) 44 45 44 44 fill repeat !important;
 }
 .ornateWindowFrame {
+    color: #dddddd;
+    padding: 4px;
+    box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.5);
+    text-align: center;
+    position: relative;
+
     border-image-slice: 31 31 31 31;
     border-image-width: 20px 20px 20px 20px;
     border-image-outset: 7px 7px 7px 7px;
