@@ -990,10 +990,20 @@ function canShardOverload(shard) {
     return shard.getValueType() === 'string';
 }
 
+/**
+ * Returns the CSS class that is associated to the provided outcome.
+ * @param {Data.AlterationAttemptOutcome} outcome the outcome to look for
+ * @returns {string} the associated CSS class
+ */
 function getAstralForgeOutcomeCSSClass(outcome) {
     return "astralForgeHistory-" + trimWhitespacesInsideString(outcome);
 }
 
+/**
+ * Returns the opposite of the provided boolean effect.
+ * @param {Data.Effect} effect the Effect to get the opposite of
+ * @returns {Data.Effect} the opposite effect
+ */
 function getOppositeOfBooleanEffect(effect) {
     switch(effect) {
         case Data.Effect.BLEED_CURABLE:
@@ -1016,9 +1026,17 @@ function getOppositeOfBooleanEffect(effect) {
             return Data.Effect.RANGE_BACK_ON;
         case Data.Effect.RANGE_BACK_ON:
             return Data.Effect.RANGE_BACK_OFF;
+        default:
+            console.warn('No opposite effect found for ' + effect);
+            return undefined;
     }
 }
 
+/**
+ * Returns whether the provided effect is an effect that turns something off.
+ * @param {Data.Effect} effect the Effect to check
+ * @returns {boolean} whether the provided Effect is a disabler
+ */
 function isBooleanEffectDisabler(effect) {
     const disablers = [
         Data.Effect.BLEED_INCURABLE,
@@ -1030,6 +1048,11 @@ function isBooleanEffectDisabler(effect) {
     return disablers.includes(effect);
 }
 
+/**
+ * Returns whether the provided outcome is successful (either a SUCCESS or a CRITICAL SUCCESS).
+ * @param {Data.AlterationAttemptOutcome} outcome the outcome to check
+ * @returns {boolean} whether the outcome is successful
+ */
 function isAlterationOutcomeSuccessful(outcome) {
     return outcome === Data.AlterationAttemptOutcome.SUCCESS || outcome === Data.AlterationAttemptOutcome.CRITICAL_SUCCESS;
 }
