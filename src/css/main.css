@@ -3719,6 +3719,11 @@ tr.overloadEffect {
     color: #0097e6;
     border: 1px double #0097e6;
 }
+tr.fullyUpgradedEffect {
+    font-family: RobotoSlabBold;
+    color: #ece2b6;
+    border: 1px double #ece2b6;
+}
 table.astralForgeEffects tbody::before {
     content: "@";
     display: block;

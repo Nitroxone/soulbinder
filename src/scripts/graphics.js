@@ -1456,6 +1456,7 @@ function generateAstralForgeEffectLine(forgeItem, effect, cssClass, range = fals
     let str = '';
     const reference = forgeItem.getEffectFromReferenceTable(effect.effect);
     const addedColor = getAstralForgeEffectColor(new Stat(reference.effect, [reference.added, reference.added]));
+    if(reference.max === reference.added && !forgeItem.targetedEffectIsBoolean(effect.effect)) cssClass += ' fullyUpgradedEffect';
 
     str += '<tr id="eff-' + trimWhitespacesInsideString(effect.effect) + '" class="' + cssClass + '">';
     if(boolTranslate) {
