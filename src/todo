@@ -10,8 +10,5 @@ ASTRAL FORGE:
 - Add Comet Dust logic
 - Add history
 - Fix stat change on equipping an item that has been altered by the Astral Forge
-- Make effort go down instead of up on alteration
-- Fix bugs with negative values
-- Make null values impossible to select
 - Fix mismatched case effects
 

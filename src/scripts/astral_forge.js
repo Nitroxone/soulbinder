@@ -241,8 +241,8 @@ class AstralForge {
         }
         if(!this.checkTargetedEffectValidity(effect)) 
             throw new Error('Effect not found: tried to alter ' + effect + ' on ' + this.item.name);
-        if(this.getEffectValue(effect) == 0) {
-            console.info("No reduction applied to " + effect + " on " + this.item.name + " as it is already set to zero.");
+        if(this.getEffectValue(effect) <= 0) {
+            console.info("No reduction applied to " + effect + " on " + this.item.name + " as it is null or negative.");
             return;
         }
         const factor = effect == Data.Effect.EFFORT ? -1 : 1;
@@ -538,6 +538,7 @@ class AstralForge {
         if(shard.amount <= 0) return Data.AlterationError.SHARD_AMOUNT_NULL;
         if(shard.getValueType() === 'string' && this.extraEffectAlreadyExists(effect)) return Data.AlterationError.EFFECT_ALREADY_EXISTS;
         if(!this.checkTimeShardValidityForAlteration(shard, effect) && shard.getValueType() !== "string") return Data.AlterationError.INCOMPATIBILITY;
+        if(this.getEffectValue(effect) <= 0) return Data.AlterationError.NEGATIVE_OR_NULL_VALUE;
         return Data.AlterationError.NONE;
     }
 
