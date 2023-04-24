@@ -1235,7 +1235,7 @@ function drawAstralForgeScreen(forgeItem, refresh = false) {
     })
 }
 
-function generateAstralForgeScreenEvents(forgeItem, skipShards = false, skipEffects = false) {
+function generateAstralForgeScreenEvents(forgeItem, skipShards = false, skipEffects = false, skipHistory = false) {
     if(!skipShards) document.querySelectorAll('.shardSelectable').forEach(sha => {
         sha.addEventListener('click', e => {
             const shard = getInventoryResourceById(Number(sha.id));
@@ -1272,6 +1272,24 @@ function generateAstralForgeScreenEvents(forgeItem, skipShards = false, skipEffe
             console.log(forgeItem.selectedEffect);
         });
     });
+    if(!skipHistory) document.querySelectorAll('.astralForgeHistory-single').forEach(hist => {
+        hist.addEventListener('click', e => {
+            const bookmark = findAstralForgeBookmarkByID(forgeItem, hist.id);
+
+            if(forgeItem.selectedBookmark && forgeItem.selectedBookmark === bookmark) {
+                forgeItem.clearSelectedBookmark();
+            } else if(forgeItem.selectedBookmark) {
+                this.unselectCurrentBookmark(forgeItem);
+                forgeItem.clearSelectedBookmark();
+                forgeItem.selectBookmark(bookmark);
+            } else {
+                forgeItem.selectBookmark(bookmark);
+            }
+
+            hist.classList.toggle('bookmarkSelected');
+            console.log(forgeItem.selectedBookmark);
+        });
+    });
 }
 
 function launchAlteration(forgeItem) {
@@ -1284,7 +1302,6 @@ function launchAlteration(forgeItem) {
         getAstralForgeEffects(forgeItem, true);
         
         updateAstralForgeShardCounter(forgeItem.selectedShard);
-        generateAstralForgeScreenEvents(forgeItem, true);
         
         if(forgeItem.selectedShard.amount === 0) {
             unselectCurrentShard(forgeItem);
@@ -1294,6 +1311,9 @@ function launchAlteration(forgeItem) {
         getAstralForgeHistory(forgeItem, true)
         unselectCurrentEffect(forgeItem);
 
+        generateAstralForgeScreenEvents(forgeItem, true);
+        unselectCurrentBookmark(forgeItem);
+        
         astralForgeEffectAnimate(forgeItem);
         forgeItem.clearAnimationQueue();
     } else {
@@ -1316,6 +1336,16 @@ function getSelectedAstralForgeEffect(forgeItem) {
 function unselectCurrentEffect(forgeItem) {
     getSelectedAstralForgeEffect(forgeItem).classList.toggle('effectSelected');
 }
+function getSelectedAstralForgeBookmark(forgeItem) {
+    const bookmark = forgeItem.selectedBookmark;
+    if(!bookmark) return null;
+    return document.getElementById(bookmark[2]);
+}
+function unselectCurrentBookmark(forgeItem) {
+    const bookmark = getSelectedAstralForgeBookmark(forgeItem);
+    if(!bookmark) return;
+    bookmark.classList.toggle('bookmarkSelected');
+}
 function getAstralForgeEffectDOM(effect) {
     return document.getElementById('eff-' + trimWhitespacesInsideString(effect));
 }
@@ -1323,9 +1353,6 @@ function astralForgeEffectAnimate(forgeItem) {
     forgeItem.animationQueue.forEach(anim => {
         getAstralForgeEffectDOM(anim[0]).classList.add(anim[1]);
     });
-}
-function updateAstralForgeEffectDOM(effect) {
-    getAstralForgeEffectDOM(effect).innerHTML = ''
 }
 function clearAnimationClasses() {
     document.querySelectorAll('.effectSelectable').forEach(el => {
@@ -1382,8 +1409,9 @@ function getAstralForgeHistory(forgeItem, refresh = false) {
 
     history.reverse().forEach(hist => {
         const outcome = hist[0];
-        const bookmarks = hist[1]
-        str += '<div class="astralForgeHistory-single ' + getAstralForgeOutcomeCSSClass(outcome) + '">';
+        const bookmarks = hist[1];
+        const histID = hist[2];
+        str += '<div id="' + histID + '" class="astralForgeHistory-single ' + getAstralForgeOutcomeCSSClass(outcome) + '">';
         str += '<div class="banner">' + capitalizeFirstLetter(outcome) + '</div>';
         str += '<div class="body">';
 
@@ -1395,7 +1423,7 @@ function getAstralForgeHistory(forgeItem, refresh = false) {
             else color = effect.getValue() > 0 ? Data.Color.GREEN : Data.Color.RED;
             
             if(asBoolean) str += capitalizeFirstLetter(effect.effect);
-            else str += effect.getFormatted('', color, false, false, true);
+            else str += effect.getFormatted('astralForgeHistory-effect', color, false, false, true);
         })
 
         str += '</div>';

@@ -1056,3 +1056,11 @@ function isBooleanEffectDisabler(effect) {
 function isAlterationOutcomeSuccessful(outcome) {
     return outcome === Data.AlterationAttemptOutcome.SUCCESS || outcome === Data.AlterationAttemptOutcome.CRITICAL_SUCCESS;
 }
+
+function findAstralForgeBookmarkByID(item, id) {
+    let bookmark = null;
+    item.history.forEach(hist => {
+        if(hist[2] === id) bookmark = hist;
+    });
+    return bookmark;
+}

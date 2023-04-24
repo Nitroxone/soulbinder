@@ -526,6 +526,13 @@ class AstralForge {
         this.selectedShard = null;
     }
 
+    selectBookmark(bookmark) {
+        this.selectedBookmark = bookmark;
+    }
+    clearSelectedBookmark() {
+        this.selectedBookmark = null;
+    }
+
     /**
      * Runs various tests to check that an alteration can be casted on this AstralForge.
      * @returns {boolean} whether an alteration can be casted
@@ -570,11 +577,17 @@ class AstralForge {
     }
 
     addBookmarkToHistory(outcome) {
-        this.history.push([outcome, this.bookmark]);
+        this.history.push([outcome, this.bookmark, this.generateHistoryID()]);
         this.clearBookmark();
     }
 
     clearBookmark() {
         this.bookmark = [];
+    }
+
+    generateHistoryID() {
+        const timestamp = Date.now().toString(36);
+        const randomNum = Math.random().toString(36).substring(2, 7);
+        return `${timestamp}-${randomNum}`;
     }
 }

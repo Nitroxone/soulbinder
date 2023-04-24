@@ -3774,6 +3774,7 @@ table.astralForgeShards td {
     padding: 0.5rem;
     border-radius: 3px;
     width: 100%;
+    transition: all .1s ease-in-out;
 }
 .astralForgeHistory-single:not(:first-child) {
     margin-top: 6px;
@@ -3789,14 +3790,23 @@ table.astralForgeShards td {
 .astralForgeHistory-criticalfailure {
     border: 2px solid rgba(235,47,6,0.7);
 }
+.bookmarkSelected.astralForgeHistory-criticalfailure {
+    background: rgba(235,47,6,0.3);
+}
 .astralForgeHistory-failure {
     border: 2px solid rgba(125, 125, 125, 0.7);
 }
 .astralForgeHistory-success {
     border: 2px solid rgba(76, 187, 23, 0.7);
 }
+.bookmarkSelected.astralForgeHistory-success {
+    background: rgba(76, 187, 23, 0.3);
+}
 .astralForgeHistory-criticalsuccess {
     border: 2px solid rgba(255, 191, 0, 0.7);
+}
+.bookmarkSelected.astralForgeHistory-criticalsuccess {
+    background: rgba(255, 191, 0, 0.3);
 }
 .astralForgeHistory-criticalfailure:hover, .astralForgeHistory-success:hover, .astralForgeHistory-criticalsuccess:hover {
     border: 2px solid rgb(175, 175, 175);
