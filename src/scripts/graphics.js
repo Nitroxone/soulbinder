@@ -1452,8 +1452,10 @@ function getAstralForgeSubstrateBox(forgeItem, refresh = false) {
     return str;
 }
 
-function generateAstralForgeEffectLine(effect, cssClass, range = false, noDetails = false, boolTranslate = false) {
+function generateAstralForgeEffectLine(forgeItem, effect, cssClass, range = false, noDetails = false, boolTranslate = false) {
     let str = '';
+    const reference = forgeItem.getEffectFromReferenceTable(effect.effect);
+    const addedColor = getAstralForgeEffectColor(new Stat(reference.effect, [reference.added, reference.added]));
 
     str += '<tr id="eff-' + trimWhitespacesInsideString(effect.effect) + '" class="' + cssClass + '">';
     if(boolTranslate) {
@@ -1464,6 +1466,9 @@ function generateAstralForgeEffectLine(effect, cssClass, range = false, noDetail
     str += '<td class="astralEffectContent">' + capitalizeFirstLetter(effect.effect) + '</td>';
     str += '<td>' + (noDetails ? '/' : getPersistanceFromConfig(effect.effect)) + '</td>';
     str += '<td>' + (noDetails ? '/' : getSubstrateFromConfig(effect.effect)) + '</td>';
+    str += '<td>' + ((noDetails || reference.max === 0) ? '/' : (reference.effect === Data.Effect.EFFORT ? '-' : '') + reference.max) + '</td>';
+    str += '<td style="color: ' + addedColor + '; font-family: ' + (reference.added !== 0 ? 'RobotoBold' : 'inherit') + '">' + (noDetails ? '/' : (reference.added > 0 ? '+' : '') + reference.added) + '</td>';
+    
     str += '</tr>';
 
     return str;
@@ -1476,45 +1481,47 @@ function getAstralForgeEffects(forgeItem, refresh = false) {
     str += '<table class="astralForgeEffects">';
     str += '<thead class="coolBorderBis">';
     str += '<tr>';
-    str += '<th style="width:20%">Val</th>';
-    str += '<th style="width:50%">Eff</th>';
-    str += '<th style="width:15%">Per</th>';
-    str += '<th style="width:15%">Sub</th>';
+    str += '<th style="width:20%">Value</th>';
+    str += '<th style="width:40%">Effect</th>';
+    str += '<th style="width:10%">Per</th>';
+    str += '<th style="width:10%">Sub</th>';
+    str += '<th style="width:10%">Max</th>';
+    str += '<th style="width:10%">Mod</th>';
     str += '</tr>';
     str += '</thead>';
     str += '<tbody>';
     forgeItem.extraEffects.forEach(eff => {
-        str += generateAstralForgeEffectLine(eff, "overloadEffect", false, true);
+        str += generateAstralForgeEffectLine(forgeItem, eff, "overloadEffect", false, true);
     });
     if(forgeItem.itemType === Data.ItemType.WEAPON) {
 
-        str += generateAstralForgeEffectLine(new Stat(Data.Effect.PDMG, [item.pdmg[0], item.pdmg[1]]), "effectSelectable", true);
-        str += generateAstralForgeEffectLine(new Stat(Data.Effect.MDMG, [item.mdmg[0], item.mdmg[1]]), "effectSelectable", true);
-        str += generateAstralForgeEffectLine(new Stat(Data.Effect.BLOCK, [item.block, item.block], true), "effectSelectable");
-        str += generateAstralForgeEffectLine(new Stat(Data.Effect.EFFORT, [item.effort, item.effort], true), "effectSelectable");
-        str += generateAstralForgeEffectLine(new Stat(Data.Effect.CRIT_LUK, [item.crit_luk, item.crit_luk], true, true), "effectSelectable");
-        str += generateAstralForgeEffectLine(new Stat(Data.Effect.CRIT_DMG, [item.crit_dmg, item.crit_dmg], true), "effectSelectable");
+        str += generateAstralForgeEffectLine(forgeItem, new Stat(Data.Effect.PDMG, [item.pdmg[0], item.pdmg[1]]), "effectSelectable", true);
+        str += generateAstralForgeEffectLine(forgeItem, new Stat(Data.Effect.MDMG, [item.mdmg[0], item.mdmg[1]]), "effectSelectable", true);
+        str += generateAstralForgeEffectLine(forgeItem, new Stat(Data.Effect.BLOCK, [item.block, item.block], true), "effectSelectable");
+        str += generateAstralForgeEffectLine(forgeItem, new Stat(Data.Effect.EFFORT, [item.effort, item.effort], true), "effectSelectable");
+        str += generateAstralForgeEffectLine(forgeItem, new Stat(Data.Effect.CRIT_LUK, [item.crit_luk, item.crit_luk], true, true), "effectSelectable");
+        str += generateAstralForgeEffectLine(forgeItem, new Stat(Data.Effect.CRIT_DMG, [item.crit_dmg, item.crit_dmg], true), "effectSelectable");
 
-        str += generateAstralForgeEffectLine(new Stat(Data.Effect.BLEED_DMG, [item.bleed[0], item.bleed[0]], true), "effectSelectable");
-        str += generateAstralForgeEffectLine(new Stat(Data.Effect.BLEED_DURATION, [item.bleed[1], item.bleed[1]], true), "effectSelectable");
-        str += generateAstralForgeEffectLine(new Stat(Data.Effect.BLEED_CURABLE, [item.bleed[2], item.bleed[2]], true), "effectSelectable", false, false, true);
+        str += generateAstralForgeEffectLine(forgeItem, new Stat(Data.Effect.BLEED_DMG, [item.bleed[0], item.bleed[0]], true), "effectSelectable");
+        str += generateAstralForgeEffectLine(forgeItem, new Stat(Data.Effect.BLEED_DURATION, [item.bleed[1], item.bleed[1]], true), "effectSelectable");
+        str += generateAstralForgeEffectLine(forgeItem, new Stat(Data.Effect.BLEED_CURABLE, [item.bleed[2], item.bleed[2]], true), "effectSelectable", false, false, true);
 
-        str += generateAstralForgeEffectLine(new Stat(Data.Effect.POISON_DMG, [item.poison[0], item.poison[0]], true), "effectSelectable");
-        str += generateAstralForgeEffectLine(new Stat(Data.Effect.POISON_DURATION, [item.poison[1], item.poison[1]], true), "effectSelectable");
-        str += generateAstralForgeEffectLine(new Stat(Data.Effect.POISON_CURABLE, [item.poison[2], item.poison[2]], true), "effectSelectable", false, false, true);
+        str += generateAstralForgeEffectLine(forgeItem, new Stat(Data.Effect.POISON_DMG, [item.poison[0], item.poison[0]], true), "effectSelectable");
+        str += generateAstralForgeEffectLine(forgeItem, new Stat(Data.Effect.POISON_DURATION, [item.poison[1], item.poison[1]], true), "effectSelectable");
+        str += generateAstralForgeEffectLine(forgeItem, new Stat(Data.Effect.POISON_CURABLE, [item.poison[2], item.poison[2]], true), "effectSelectable", false, false, true);
 
-        str += generateAstralForgeEffectLine(new Stat(Data.Effect.RANGE_FRONT_ON, [item.range[0], item.range[0]], true), "effectSelectable", false, false, true);
-        str += generateAstralForgeEffectLine(new Stat(Data.Effect.RANGE_MIDDLE_ON, [item.range[1], item.range[1]], true), "effectSelectable", false, false, true);
-        str += generateAstralForgeEffectLine(new Stat(Data.Effect.RANGE_BACK_ON, [item.range[2], item.range[2]], true), "effectSelectable", false, false, true);
+        str += generateAstralForgeEffectLine(forgeItem, new Stat(Data.Effect.RANGE_FRONT_ON, [item.range[0], item.range[0]], true), "effectSelectable", false, false, true);
+        str += generateAstralForgeEffectLine(forgeItem, new Stat(Data.Effect.RANGE_MIDDLE_ON, [item.range[1], item.range[1]], true), "effectSelectable", false, false, true);
+        str += generateAstralForgeEffectLine(forgeItem, new Stat(Data.Effect.RANGE_BACK_ON, [item.range[2], item.range[2]], true), "effectSelectable", false, false, true);
 
     } else if(forgeItem.itemType === Data.ItemType.ARMOR) {
 
-        str += generateAstralForgeEffectLine(new Stat(Data.Effect.RESILIENCE, [item.resilience, item.resilience], true), "effectSelectable");
-        str += generateAstralForgeEffectLine(new Stat(Data.Effect.WARDING, [item.warding, item.warding], true), "effectSelectable");
+        str += generateAstralForgeEffectLine(forgeItem, new Stat(Data.Effect.RESILIENCE, [item.resilience, item.resilience], true), "effectSelectable");
+        str += generateAstralForgeEffectLine(forgeItem, new Stat(Data.Effect.WARDING, [item.warding, item.warding], true), "effectSelectable");
 
     } else if(forgeItem.itemType === Data.ItemType.TRINKET) {
         item.effects.forEach(eff => {
-            str += generateAstralForgeEffectLine(eff, "effectSelectable");
+            str += generateAstralForgeEffectLine(forgeItem, eff, "effectSelectable");
         });
     }
 

@@ -1064,3 +1064,16 @@ function findAstralForgeBookmarkByID(item, id) {
     });
     return bookmark;
 }
+
+function getAverage(a, b) {
+    return Math.ceil((a+b) / 2);
+}
+
+function getAstralForgeEffectColor(effect) {
+    let color;
+    if(effect.effect === Data.Effect.EFFORT) color = effect.getValue() > 0 ? Data.Color.RED : Data.Color.GREEN;
+    else color = effect.getValue() > 0 ? Data.Color.GREEN : Data.Color.RED;
+    if(effect.getValue() === 0) color = 'white';
+
+    return color
+}

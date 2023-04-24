@@ -11,6 +11,8 @@ class AstralForge {
         this.extraEffects = [];
         this.state = Data.AstralForgeState.STABLE;
 
+        this.referenceTable = [];
+
         this.selectedShard = null;
         this.selectedEffect = null;
 
@@ -24,6 +26,7 @@ class AstralForge {
             this.item = retrieved;
             this.itemType = this.setItemType();
             this.setAllEffects();
+            this.buildReferenceTable();
         }
         else throw new Error('Uncompatible object type for AstralForge');
 
@@ -222,12 +225,18 @@ class AstralForge {
      * @param {Data.Effect} effect the targeted Effect
      */
     addEffectWithHalfLimit(shard, effect) {
+        // Getting the reference 
+        const reference = this.getEffectFromReferenceTable(effect);
+        // Base limit equals half the current value
         const limit = Math.round(this.getEffectValue(effect) / 2);
-        let finalValue = Math.min(limit, shard.value);
+        // Final value is the limit + the remaining available bonus on the item (max - added)
+        let finalValue = Math.min(Math.min(limit, shard.value), reference.max - Math.abs(reference.added));
+        // Invert values if it's EFFORT
         if(effect === Data.Effect.EFFORT) finalValue = -finalValue;
         const newEffect = new Stat(effect, [finalValue, finalValue], true, shard.isPercentage);
         this.item.addEffect(newEffect);
         this.addToBookmark(newEffect);
+        this.updateReferenceAddedValue(effect, finalValue);
     }
 
     /**
@@ -253,6 +262,7 @@ class AstralForge {
         const reductionEffect = new Stat(effect, [finalReduction, finalReduction], false, this.targetedAlterationAllowsPercentage(effect));
         this.item.addEffect(reductionEffect, true);
         this.addToBookmark(new Stat(effect, [-finalReduction, -finalReduction], false, this.targetedAlterationAllowsPercentage(effect)));
+        this.updateReferenceAddedValue(effect, -finalReduction);
 
         // DOM UPDATE
         this.queueAnimation(effect, "effectAlterFailure");
@@ -546,6 +556,7 @@ class AstralForge {
         if(shard.getValueType() === 'string' && this.extraEffectAlreadyExists(effect)) return Data.AlterationError.EFFECT_ALREADY_EXISTS;
         if(!this.checkTimeShardValidityForAlteration(shard, effect) && shard.getValueType() !== "string") return Data.AlterationError.INCOMPATIBILITY;
         if(this.getEffectValue(effect) <= 0) return Data.AlterationError.NEGATIVE_OR_NULL_VALUE;
+        if(this.isMaxValueReached(effect)) return Data.AlterationError.MAXIMUM_VALUE_REACHED;
         return Data.AlterationError.NONE;
     }
 
@@ -589,5 +600,52 @@ class AstralForge {
         const timestamp = Date.now().toString(36);
         const randomNum = Math.random().toString(36).substring(2, 7);
         return `${timestamp}-${randomNum}`;
+    }
+
+    buildReferenceTable() {
+        this.allEffects.forEach(eff => {
+            const max = this.setMaxAllowedAlterationValue(eff);
+            this.referenceTable.push(
+                // Effect, Maximum value, Added value (set to zero)
+                {
+                    "effect": eff,
+                    "max": max,
+                    "added": 0,
+                }
+            );
+        });
+    }
+
+    setMaxAllowedAlterationValue(eff) {
+        if(this.targetedEffectIsBoolean(eff)) return 0;
+        // Retrieving bounds
+        const max = getOverValueFromConfig(eff);
+        const current = this.getEffectValue(eff);
+        console.log('Max: ' + max);
+        console.log('Current: ' + current);
+
+        // return Math.min(current, max);
+        return getAverage(current, max);
+    }
+
+    getEffectFromReferenceTable(eff) {
+        let reference = null;
+        this.referenceTable.forEach(ref => {
+            if(ref.effect === eff) reference = ref;
+        });
+        return reference;
+    }
+
+    updateReferenceAddedValue(eff, value) {
+        let reference = this.getEffectFromReferenceTable(eff);
+        if(!reference) throw new Error('Tried to update an unexisting effect\'s mod value in the reference table');
+
+        reference.added += value;   
+    }
+
+    isMaxValueReached(eff) {
+        const reference = this.getEffectFromReferenceTable(eff);
+        if(eff === Data.Effect.EFFORT) return reference.max <= Math.abs(reference.added);
+        return reference.max <= reference.added;
     }
 }

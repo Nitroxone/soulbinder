@@ -3534,7 +3534,7 @@ hr.leftSided {
 }
 
 .astralForgePopup {
-    width: 750px;
+    width: 975px;
     height: 500px;
 
     position: absolute;
@@ -3557,7 +3557,7 @@ hr.leftSided {
     height: 100%;
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-columns: 1fr 3fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     gap: 0px 5px;
     grid-template-areas: 
@@ -3791,7 +3791,7 @@ table.astralForgeShards td {
     border: 2px solid rgba(235,47,6,0.7);
 }
 .bookmarkSelected.astralForgeHistory-criticalfailure {
-    background: rgba(235,47,6,0.3);
+    background: rgba(235,47,6,0.15);
 }
 .astralForgeHistory-failure {
     border: 2px solid rgba(125, 125, 125, 0.7);
@@ -3800,13 +3800,13 @@ table.astralForgeShards td {
     border: 2px solid rgba(76, 187, 23, 0.7);
 }
 .bookmarkSelected.astralForgeHistory-success {
-    background: rgba(76, 187, 23, 0.3);
+    background: rgba(76, 187, 23, 0.15);
 }
 .astralForgeHistory-criticalsuccess {
     border: 2px solid rgba(255, 191, 0, 0.7);
 }
 .bookmarkSelected.astralForgeHistory-criticalsuccess {
-    background: rgba(255, 191, 0, 0.3);
+    background: rgba(255, 191, 0, 0.15);
 }
 .astralForgeHistory-criticalfailure:hover, .astralForgeHistory-success:hover, .astralForgeHistory-criticalsuccess:hover {
     border: 2px solid rgb(175, 175, 175);

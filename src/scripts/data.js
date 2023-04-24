@@ -99,11 +99,11 @@ const Data = Object.freeze({
         EFFORT: "effort",
         CRIT_LUK: "crit. chance",
         CRIT_DMG: "crit. damage",
-        BLEED_DMG: "bleed damage",
+        BLEED_DMG: "bleed intensity",
         BLEED_DURATION: "bleed duration",
         BLEED_CURABLE: "makes bleed curable",
         BLEED_INCURABLE: "makes bleed incurable",
-        POISON_DMG: "poison damage",
+        POISON_DMG: "poison intensity",
         POISON_DURATION: "poison duration",
         POISON_CURABLE: "makes poison curable",
         POISON_INCURABLE: "makes poison incurable",
@@ -372,6 +372,7 @@ const Data = Object.freeze({
         SHARD_AMOUNT_NULL: "The selected shard's amount is equal to zero.",
         EFFECT_ALREADY_EXISTS: "The effect already exists.",
         NEGATIVE_OR_NULL_VALUE: "The effect cannot be altered because it is null or negative.",
+        MAXIMUM_VALUE_REACHED: "This effect cannot be further altered.",
         NONE: "No error!"
     }
 });
