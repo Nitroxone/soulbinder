@@ -15,6 +15,8 @@ class AstralForge {
 
         this.selectedShard = null;
         this.selectedEffect = null;
+        this.selectedBookmark = null;
+        this.selectedCometDust = null;
 
         this.consumeSubstrate = false;
 
@@ -584,11 +586,18 @@ class AstralForge {
     }
 
     addToBookmark(effect, asBoolean = false) {
-        this.bookmark.push([effect, asBoolean]);
+        this.bookmark.push({
+            effect: effect, 
+            asBoolean: asBoolean
+        });
     }
 
     addBookmarkToHistory(outcome) {
-        this.history.push([outcome, this.bookmark, this.generateHistoryID()]);
+        this.history.push({
+            outcome: outcome,
+            bookmark: this.bookmark,
+            id: this.generateHistoryID()
+        });
         this.clearBookmark();
     }
 
@@ -647,5 +656,9 @@ class AstralForge {
         const reference = this.getEffectFromReferenceTable(eff);
         if(eff === Data.Effect.EFFORT) return reference.max <= Math.abs(reference.added);
         return reference.max <= reference.added;
+    }
+
+    revertBookmark(bookmark) {
+
     }
 }
