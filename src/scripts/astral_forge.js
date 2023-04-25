@@ -69,7 +69,8 @@ class AstralForge {
         if(!this.checkTimeShardValidityForAlteration(shard, effect) && shard.getValueType() !== "string") 
             throw new Error(shard.name + ' cannot be used to alter ' + effect + ' on ' + this.item.name + ' (uncompatible types)');
         
-        const outcome = this.computeAlterationChances(effect, this.consumeSubstrate);
+        const forceOutcome = this.getForceOutcome();
+        const outcome = forceOutcome ? forceOutcome : this.computeAlterationChances(effect, this.consumeSubstrate);
         switch(outcome) {
             case Data.AlterationAttemptOutcome.CRITICAL_FAILURE:
                 this.alterCriticalFailure(shard, effect);
@@ -90,6 +91,20 @@ class AstralForge {
         this.addBookmarkToHistory(outcome);
         console.log(this.history);
         return outcome;
+    }
+
+    getForceOutcome() {
+        if(!this.selectedCometDust) return null;
+        else switch(this.selectedCometDust.name.toLowerCase()) {
+            case "comet dust":
+                this.warp();
+                game.player.inventory.removeResource(this.selectedCometDust);
+                return Data.AlterationAttemptOutcome.SUCCESS;
+            case "glowing comet dust":
+                this.seal();
+                game.player.inventory.removeResource(this.selectedCometDust);
+                return Data.AlterationAttemptOutcome.CRITICAL_SUCCESS;
+        }
     }
 
     /**
@@ -421,7 +436,7 @@ class AstralForge {
     checkTimeShardValidityForAlteration(shard, effect) {
         if(shard.isPercentage) return this.targetedAlterationAllowsPercentage(effect);
         if(shard.getValueType() === 'boolean') return this.targetedEffectIsBoolean(effect);
-        if(shard.getValueType() === 'number') return !this.targetedEffectIsBoolean(effect);
+        if(shard.getValueType() === 'number') return !this.targetedEffectIsBoolean(effect) && !this.targetedAlterationAllowsPercentage(effect);
         else return true;
     }
 

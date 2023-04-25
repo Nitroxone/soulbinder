@@ -1325,6 +1325,7 @@ function launchAlteration(forgeItem) {
         getAstralForgeEffects(forgeItem, true);
         
         updateAstralForgeShardCounter(forgeItem.selectedShard);
+        if(forgeItem.selectedCometDust) updateAstralForgeCometDustCounter(forgeItem.selectedCometDust);
         
         if(forgeItem.selectedShard.amount === 0) {
             unselectCurrentShard(forgeItem);
