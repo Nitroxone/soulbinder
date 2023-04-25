@@ -1351,6 +1351,8 @@ function launchReversion(forgeItem) {
 
         getAstralForgeEffects(forgeItem, true);
 
+        updateAstralForgeCometDustCounter(forgeItem.selectedCometDust);
+
         if(forgeItem.selectedCometDust.amount === 0) {
             unselectCurrentCometDust(forgeItem);
             forgeItem.clearSelectedCometDust();
@@ -1361,6 +1363,7 @@ function launchReversion(forgeItem) {
 
         generateAstralForgeScreenEvents(forgeItem, true, false, false, true);
         unselectCurrentBookmark(forgeItem);
+        forgeItem.clearSelectedBookmark();
     } else {
         console.info(attemptOutcome);
     }
@@ -1368,6 +1371,9 @@ function launchReversion(forgeItem) {
 
 function updateAstralForgeShardCounter(shard) {
     document.getElementById(shard.id).childNodes[0].innerHTML = shard.amount;
+}
+function updateAstralForgeCometDustCounter(cometDust) {
+    document.getElementById(cometDust.id).childNodes[0].innerHTML = cometDust.amount;
 }
 function getSelectedAstralForgeShard(forgeItem) {
     return document.getElementById(forgeItem.selectedShard.id)

@@ -579,6 +579,7 @@ class AstralForge {
             this.updateReferenceAddedValue(obj.effect.effect, -obj.effect.getValue());
         });
         this.removeBookmark(bookmark);
+        game.player.inventory.removeResource(this.selectedCometDust);
     }
 
     removeBookmark(bookmark) {
