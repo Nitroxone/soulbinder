@@ -1408,16 +1408,16 @@ function getAstralForgeHistory(forgeItem, refresh = false) {
     let str = '';
 
     history.reverse().forEach(hist => {
-        const outcome = hist[0];
-        const bookmarks = hist[1];
-        const histID = hist[2];
+        const outcome = hist.outcome;
+        const bookmarks = hist.bookmark;
+        const histID = hist.id;
         str += '<div id="' + histID + '" class="astralForgeHistory-single ' + getAstralForgeOutcomeCSSClass(outcome) + '">';
         str += '<div class="banner">' + capitalizeFirstLetter(outcome) + '</div>';
         str += '<div class="body">';
 
         bookmarks.forEach(boo => {
-            const effect = boo[0];
-            const asBoolean = boo[1];
+            const effect = boo.effect;
+            const asBoolean = boo.asBoolean;
             let color;
             if(effect.effect === Data.Effect.EFFORT) color = effect.getValue() > 0 ? Data.Color.RED : Data.Color.GREEN;
             else color = effect.getValue() > 0 ? Data.Color.GREEN : Data.Color.RED;

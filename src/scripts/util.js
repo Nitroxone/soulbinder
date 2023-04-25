@@ -1060,7 +1060,7 @@ function isAlterationOutcomeSuccessful(outcome) {
 function findAstralForgeBookmarkByID(item, id) {
     let bookmark = null;
     item.history.forEach(hist => {
-        if(hist[2] === id) bookmark = hist;
+        if(hist.id === id) bookmark = hist;
     });
     return bookmark;
 }
