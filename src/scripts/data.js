@@ -374,5 +374,12 @@ const Data = Object.freeze({
         NEGATIVE_OR_NULL_VALUE: "The effect cannot be altered because it is null or negative.",
         MAXIMUM_VALUE_REACHED: "This effect cannot be further altered.",
         NONE: "No error!"
+    },
+    ReversionError: {
+        NO_BOOKMARK: "No bookmark has been selected.",
+        NO_DUST: "No Comet Dust has been selected.",
+        DUST_AMOUNT_NULL: "The selected Comet Dust's amount is equal to zero.",
+        INCOMPATIBILITY: "The selected Comet Dust cannot be used to revert an alteration.",
+        NONE: "No error!"
     }
 });

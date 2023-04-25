@@ -545,6 +545,17 @@ class AstralForge {
         this.selectedBookmark = null;
     }
 
+    selectCometDust(dust) {
+        this.selectedCometDust = dust;
+    }
+    clearSelectedCometDust() {
+        this.selectedCometDust = null;
+    }
+
+    canCometDustApplyReversion(cometDust) {
+        return cometDust.name.toLowerCase() === "sparkling comet dust";
+    }
+
     /**
      * Runs various tests to check that an alteration can be casted on this AstralForge.
      * @returns {boolean} whether an alteration can be casted
@@ -560,6 +571,28 @@ class AstralForge {
         if(this.getEffectValue(effect) <= 0) return Data.AlterationError.NEGATIVE_OR_NULL_VALUE;
         if(this.isMaxValueReached(effect)) return Data.AlterationError.MAXIMUM_VALUE_REACHED;
         return Data.AlterationError.NONE;
+    }
+
+    revertAlteration(bookmark) {
+        bookmark.bookmark.forEach(obj => {
+            this.item.addEffect(obj.effect, true);
+            this.updateReferenceAddedValue(obj.effect.effect, -obj.effect.getValue());
+        });
+        this.removeBookmark(bookmark);
+    }
+
+    removeBookmark(bookmark) {
+        removeFromArray(this.history, bookmark);
+    }
+
+    canLaunchReversion() {
+        const bookmark = this.selectedBookmark;
+        const cometDust = this.selectedCometDust;
+        if(!bookmark) return Data.ReversionError.NO_BOOKMARK;
+        if(!cometDust) return Data.ReversionError.NO_DUST;
+        if(cometDust.amount <= 0) return Data.ReversionError.DUST_AMOUNT_NULL;
+        if(!this.canCometDustApplyReversion(cometDust)) return Data.ReversionError.INCOMPATIBILITY;
+        return Data.ReversionError.NONE;
     }
 
     /**

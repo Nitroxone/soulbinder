@@ -3741,6 +3741,9 @@ table.astralForgeShards td {
 .effectSelected {
     border: 1px double rgb(125, 125, 125);
 }
+.cometdustSelected {
+    border: 1px double rgb(125, 125, 125);
+}
 
 .effectAlterSuccess {
     animation: alterSuccess 1s ease-in-out;

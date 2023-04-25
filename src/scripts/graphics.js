@@ -1233,9 +1233,14 @@ function drawAstralForgeScreen(forgeItem, refresh = false) {
         consumesubstrateButton.classList.toggle('selected');
         forgeItem.consumeSubstrate = !forgeItem.consumeSubstrate;
     })
+
+    const revertAlterationButton = document.querySelector('.revertAlterationButton');
+    revertAlterationButton.addEventListener('click', e => {
+        launchReversion(forgeItem);
+    })
 }
 
-function generateAstralForgeScreenEvents(forgeItem, skipShards = false, skipEffects = false, skipHistory = false) {
+function generateAstralForgeScreenEvents(forgeItem, skipShards = false, skipEffects = false, skipHistory = false, skipCometDusts = false) {
     if(!skipShards) document.querySelectorAll('.shardSelectable').forEach(sha => {
         sha.addEventListener('click', e => {
             const shard = getInventoryResourceById(Number(sha.id));
@@ -1243,7 +1248,7 @@ function generateAstralForgeScreenEvents(forgeItem, skipShards = false, skipEffe
             if(forgeItem.selectedShard && forgeItem.selectedShard.name === shard.name) {
                 forgeItem.clearShard();
             } else if(forgeItem.selectedShard) {
-                this.unselectCurrentShard(forgeItem);
+                unselectCurrentShard(forgeItem);
                 forgeItem.clearShard();
                 forgeItem.selectShard(shard);
             } else {
@@ -1261,7 +1266,7 @@ function generateAstralForgeScreenEvents(forgeItem, skipShards = false, skipEffe
             if(forgeItem.selectedEffect && forgeItem.selectedEffect === effect) {
                 forgeItem.clearEffect();
             } else if(forgeItem.selectedEffect) {
-                this.unselectCurrentEffect(forgeItem);
+                unselectCurrentEffect(forgeItem);
                 forgeItem.clearEffect();
                 forgeItem.selectEffect(effect);
             } else {
@@ -1279,7 +1284,7 @@ function generateAstralForgeScreenEvents(forgeItem, skipShards = false, skipEffe
             if(forgeItem.selectedBookmark && forgeItem.selectedBookmark === bookmark) {
                 forgeItem.clearSelectedBookmark();
             } else if(forgeItem.selectedBookmark) {
-                this.unselectCurrentBookmark(forgeItem);
+                unselectCurrentBookmark(forgeItem);
                 forgeItem.clearSelectedBookmark();
                 forgeItem.selectBookmark(bookmark);
             } else {
@@ -1288,6 +1293,24 @@ function generateAstralForgeScreenEvents(forgeItem, skipShards = false, skipEffe
 
             hist.classList.toggle('bookmarkSelected');
             console.log(forgeItem.selectedBookmark);
+        });
+    });
+    if(!skipCometDusts) document.querySelectorAll('.dustSelectable').forEach(comdus => {
+        comdus.addEventListener('click', e => {
+            const dust = getInventoryResourceById(Number(comdus.id));
+            
+            if(forgeItem.selectedCometDust && forgeItem.selectedCometDust === dust) {
+                forgeItem.clearSelectedCometDust();
+            } else if(forgeItem.selectedCometDust) {
+                unselectCurrentCometDust(forgeItem);
+                forgeItem.clearSelectedCometDust();
+                forgeItem.selectCometDust(dust);
+            } else {
+                forgeItem.selectCometDust(dust);
+            }
+
+            comdus.classList.toggle('cometdustSelected');
+            console.log(forgeItem.selectedCometDust);
         });
     });
 }
@@ -1311,11 +1334,33 @@ function launchAlteration(forgeItem) {
         getAstralForgeHistory(forgeItem, true)
         unselectCurrentEffect(forgeItem);
 
-        generateAstralForgeScreenEvents(forgeItem, true);
+        generateAstralForgeScreenEvents(forgeItem, true, false, false, true);
         unselectCurrentBookmark(forgeItem);
         
         astralForgeEffectAnimate(forgeItem);
         forgeItem.clearAnimationQueue();
+    } else {
+        console.info(attemptOutcome);
+    }
+}
+
+function launchReversion(forgeItem) {
+    const attemptOutcome = forgeItem.canLaunchReversion();
+    if(attemptOutcome === Data.ReversionError.NONE) {
+        forgeItem.revertAlteration(forgeItem.selectedBookmark);
+
+        getAstralForgeEffects(forgeItem, true);
+
+        if(forgeItem.selectedCometDust.amount === 0) {
+            unselectCurrentCometDust(forgeItem);
+            forgeItem.clearSelectedCometDust();
+        }
+
+        getAstralForgeHistory(forgeItem, true)
+        unselectCurrentEffect(forgeItem);
+
+        generateAstralForgeScreenEvents(forgeItem, true, false, false, true);
+        unselectCurrentBookmark(forgeItem);
     } else {
         console.info(attemptOutcome);
     }
@@ -1336,10 +1381,20 @@ function getSelectedAstralForgeEffect(forgeItem) {
 function unselectCurrentEffect(forgeItem) {
     getSelectedAstralForgeEffect(forgeItem).classList.toggle('effectSelected');
 }
+function getSelectedAstralForgeCometDust(forgeItem) {
+    const cometDust = forgeItem.selectedCometDust;
+    if(!cometDust) return null;
+    return document.getElementById(cometDust.id);
+}
+function unselectCurrentCometDust(forgeItem) {
+    const cometDust = getSelectedAstralForgeCometDust(forgeItem);
+    if(!cometDust) return;
+    cometDust.classList.toggle('cometdustSelected');
+}
 function getSelectedAstralForgeBookmark(forgeItem) {
     const bookmark = forgeItem.selectedBookmark;
     if(!bookmark) return null;
-    return document.getElementById(bookmark[2]);
+    return document.getElementById(bookmark.id);
 }
 function unselectCurrentBookmark(forgeItem) {
     const bookmark = getSelectedAstralForgeBookmark(forgeItem);
@@ -1376,7 +1431,7 @@ function getAstralForgeShards(refresh = false) {
 
     str += '<table class="astralForgeShards"><tbody>';
     cometDusts.forEach(dust => {
-        str += '<tr class="shard dustSelectable">';
+        str += '<tr id="' + dust.id + '" class="shard dustSelectable">';
         str += '<td style="width: 20%; text-align: center;">' + dust.amount + '</td>';
         str += '<td style="color: ' + getRarityColorCode(dust.rarity) + '">' + dust.name + '</td>';
         str += '</tr>';
@@ -1385,6 +1440,7 @@ function getAstralForgeShards(refresh = false) {
 
     str += '<div class="simpleButton alterButton" style="margin-top: 1rem">Alter</div>';
     str += '<div class="simpleButton consumesubstrateButton" style="margin-top: 0.5rem">Consume substrate</div>';
+    str += '<div class="simpleButton revertAlterationButton" style="margin-top: 0.5rem">Revert alteration</div>';
 
     if(refresh) {
         document.querySelector('.astralForge-shards').innerHTML = str;
