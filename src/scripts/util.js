@@ -1057,6 +1057,12 @@ function isAlterationOutcomeSuccessful(outcome) {
     return outcome === Data.AlterationAttemptOutcome.SUCCESS || outcome === Data.AlterationAttemptOutcome.CRITICAL_SUCCESS;
 }
 
+/**
+ * Returns the provided AstralForge's bookmark from the provided ID. Returns null if none is found.
+ * @param {Item} item the AstralForge to check on
+ * @param {number} id the bookmark's ID
+ * @returns {object|null} the bookmark (or null if none was found)
+ */
 function findAstralForgeBookmarkByID(item, id) {
     let bookmark = null;
     item.history.forEach(hist => {
@@ -1065,10 +1071,21 @@ function findAstralForgeBookmarkByID(item, id) {
     return bookmark;
 }
 
+/**
+ * Returns the rounded up average of the two provided numbers.
+ * @param {number} a 
+ * @param {number} b 
+ * @returns {number} the rounded up average of a and b
+ */
 function getAverage(a, b) {
     return Math.ceil((a+b) / 2);
 }
 
+/**
+ * Returns the color that is associated with the provided Effect.
+ * @param {Data.Effect} effect the Effect to check
+ * @returns {Data.Color} the associated Color
+ */
 function getAstralForgeEffectColor(effect) {
     let color;
     if(effect.effect === Data.Effect.EFFORT) color = effect.getValue() > 0 ? Data.Color.RED : Data.Color.GREEN;
