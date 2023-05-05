@@ -279,6 +279,19 @@ class AstralForge {
         const baseReduction = this.getEffectValue(effect) * 0.2 * factor;
         let finalReduction = factor > 0 ? Math.ceil(baseReduction) : Math.floor(baseReduction);
         finalReduction = getRandomNumber(1 * factor, finalReduction);
+        // SUBSTRATE ?
+        if(this.substrate > 0) {
+            if(this.substrate >= finalReduction) {
+                this.removeSubstrate(finalReduction);
+                console.log('Entirely shielded a ' + effect + ' reduction with substrate. (' + finalReduction + ')');
+                finalReduction = 0;
+                return;
+            } else {
+                finalReduction -= this.substrate;
+                console.log('Partially shielded a ' + effect + ' reduction with substrate (' + this.substrate + ').');
+                this.resetSubstrate();
+            }
+        }
 
         const reductionEffect = new Stat(effect, [finalReduction, finalReduction], false, this.targetedAlterationAllowsPercentage(effect));
         this.item.addEffect(reductionEffect, true);
@@ -508,6 +521,17 @@ class AstralForge {
     resetSubstrate() {
         this.substrate = 0;
         console.log('Resetted substrate on ' + this.item.name + '.');
+        getAstralForgeSubstrateBox(this, true);
+    }
+
+    /**
+     * Removes the provided value from this AstralForge's substrate. 
+     * Also updates the DOM accordingly.
+     * @param {number} value the value to remove
+     */
+    removeSubstrate(value) {
+        this.substrate = Math.max(0, this.substrate - value);
+        console.log('Removed ' + value + ' substrate on ' + this.item.name + '.');
         getAstralForgeSubstrateBox(this, true);
     }
 
