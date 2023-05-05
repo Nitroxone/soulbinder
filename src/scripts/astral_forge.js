@@ -93,6 +93,10 @@ class AstralForge {
         return outcome;
     }
 
+    /**
+     * Returns whether a forced successful outcome should be activated, based on the currently selected comet dust.
+     * @returns {Data.AlterationAttemptOutcome|null} the possibly forced outcome
+     */
     getForceOutcome() {
         if(!this.selectedCometDust) return null;
         else switch(this.selectedCometDust.name.toLowerCase()) {
@@ -553,20 +557,41 @@ class AstralForge {
         this.selectedShard = null;
     }
 
+    /**
+     * Sets the selected bookmark of this AstralForge to the provided bookmark.
+     * @param {object} bookmark the Bookmark to select
+     */
     selectBookmark(bookmark) {
         this.selectedBookmark = bookmark;
     }
+
+    /**
+     * Clears this AstralForge's selected bookmark.
+     */
     clearSelectedBookmark() {
         this.selectedBookmark = null;
     }
 
+    /***
+     * Sets the selected Comet Dust of this AstralForge to the provided Comet Dust.
+     * @param {Resource} dust the Comet Dust to select
+     */
     selectCometDust(dust) {
         this.selectedCometDust = dust;
     }
+
+    /**
+     * Clears this AstralForge's selected comet dust.
+     */
     clearSelectedCometDust() {
         this.selectedCometDust = null;
     }
 
+    /**
+     * Returns whether the provided Comet Dust can apply a bookmark reversion.
+     * @param {Resource} cometDust the comet dust to check
+     * @returns {boolean} whether a bookmark reversion can be applied with this comet dust
+     */
     canCometDustApplyReversion(cometDust) {
         return cometDust.name.toLowerCase() === "sparkling comet dust";
     }
@@ -588,6 +613,10 @@ class AstralForge {
         return Data.AlterationError.NONE;
     }
 
+    /**
+     * Reverts the provided bookmark's effects from this AstralForge.
+     * @param {object} bookmark 
+     */
     revertAlteration(bookmark) {
         bookmark.bookmark.forEach(obj => {
             this.item.addEffect(obj.effect, true);
@@ -597,10 +626,18 @@ class AstralForge {
         game.player.inventory.removeResource(this.selectedCometDust);
     }
 
+    /**
+     * Removes the provided bookmark from this AstralForge's history.
+     * @param {object} bookmark 
+     */
     removeBookmark(bookmark) {
         removeFromArray(this.history, bookmark);
     }
 
+    /**
+     * Runs various tests to check that an alteration can be reversed on this AstralForge.
+     * @returns {boolean} whether an alteration can be reversed
+     */
     canLaunchReversion() {
         const bookmark = this.selectedBookmark;
         const cometDust = this.selectedCometDust;
@@ -634,6 +671,11 @@ class AstralForge {
         return Config.OverloadAvailable.filter(item => !this.allEffects.includes(item));
     }
 
+    /**
+     * Adds the provided effect to this AstralForge's current bookmark.
+     * @param {Stat} effect the effect to add
+     * @param {boolean} asBoolean is the added effect a boolean type?
+     */
     addToBookmark(effect, asBoolean = false) {
         this.bookmark.push({
             effect: effect, 
@@ -641,6 +683,10 @@ class AstralForge {
         });
     }
 
+    /**
+     * Adds the current bookmark to this AstralForge's history.
+     * @param {Data.AlterationAttemptOutcome} outcome the outcome of the alteration
+     */
     addBookmarkToHistory(outcome) {
         this.history.push({
             outcome: outcome,
@@ -650,16 +696,26 @@ class AstralForge {
         this.clearBookmark();
     }
 
+    /**
+     * Clears this AstralForge's current bookmark.
+     */
     clearBookmark() {
         this.bookmark = [];
     }
 
+    /**
+     * Returns a unique history occurrence ID.
+     * @returns {string} a unique ID
+     */
     generateHistoryID() {
         const timestamp = Date.now().toString(36);
         const randomNum = Math.random().toString(36).substring(2, 7);
         return `${timestamp}-${randomNum}`;
     }
 
+    /**
+     * Builds a reference table, which keeps track of all the maximum values and added values of each effect of this AstralForge.
+     */
     buildReferenceTable() {
         this.allEffects.forEach(eff => {
             const max = this.setMaxAllowedAlterationValue(eff);
@@ -674,18 +730,27 @@ class AstralForge {
         });
     }
 
+    /**
+     * Returns the maximum allowed alteration value for the provided effect.
+     * It is equal to the average between the maximum over value of this effect (from the Config), and
+     * its current base value.
+     * @param {Data.Effect} eff the effect to retrieve the max value from
+     * @returns {number} the maximum value
+     */
     setMaxAllowedAlterationValue(eff) {
         if(this.targetedEffectIsBoolean(eff)) return 0;
         // Retrieving bounds
         const max = getOverValueFromConfig(eff);
         const current = this.getEffectValue(eff);
-        console.log('Max: ' + max);
-        console.log('Current: ' + current);
-
-        // return Math.min(current, max);
+        
         return getAverage(current, max);
     }
 
+    /**
+     * Returns the provided effect's associated object from this AstralForge's reference table.
+     * @param {Data.Effect} eff the effect to retrieve
+     * @returns {object} the effect's associated object in the reference table
+     */
     getEffectFromReferenceTable(eff) {
         let reference = null;
         this.referenceTable.forEach(ref => {
@@ -694,6 +759,11 @@ class AstralForge {
         return reference;
     }
 
+    /**
+     * Updates the provided effect's added value in this AstralForge's reference table.
+     * @param {Data.Effect} eff the effect to alter
+     * @param {number} value the value to add to this effect
+     */
     updateReferenceAddedValue(eff, value) {
         let reference = this.getEffectFromReferenceTable(eff);
         if(!reference) throw new Error('Tried to update an unexisting effect\'s mod value in the reference table');
@@ -701,6 +771,11 @@ class AstralForge {
         reference.added += value;   
     }
 
+    /**
+     * Returns whether the provided effect's maximum value is reached.
+     * @param {Data.Effect} eff the effect to check 
+     * @returns {boolean} whether the max value is reached on this effect
+     */
     isMaxValueReached(eff) {
         const reference = this.getEffectFromReferenceTable(eff);
         if(eff === Data.Effect.EFFORT) return reference.max <= Math.abs(reference.added);
