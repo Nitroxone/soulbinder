@@ -1,5 +1,6 @@
 class DungeonEvent {
-    constructor(set, quote, encounter) {
+    constructor(type, set, quote, encounter) {
+        this.type = type;
         this.tags = null;
         this.set = set;
         this.quote = quote;
@@ -8,9 +9,7 @@ class DungeonEvent {
     }
 
     createEvent() {
-        const event = new DungeonEvent(this.set, this.quote, this.encounter);
-        event.tags = this.tags;
-        return event;
+        
     }
   
     action(direction) {

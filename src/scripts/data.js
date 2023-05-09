@@ -381,5 +381,23 @@ const Data = Object.freeze({
         DUST_AMOUNT_NULL: "The selected Comet Dust's amount is equal to zero.",
         INCOMPATIBILITY: "The selected Comet Dust cannot be used to revert an alteration.",
         NONE: "No error!"
+    },
+    DungeonEventType: {
+        ENTRANCE: "entrance",
+        REGULAR: "regular",
+        CLOSING: "closing"
+    },
+    DungeonEncounterType: {
+        HOSTILE: "hostile",
+        FRIENDLY: "friendly",
+        NEUTRAL: "neutral"
+    },
+    DungeonEncounterHostileMobType: {
+        GROUP: "group",
+        WAVE: "wave",
+        BOSS: "boss"
+    },
+    DungeonEncounterFriendlyMobType: {
+        ALLIED: "allied"
     }
 });
