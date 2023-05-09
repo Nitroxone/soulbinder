@@ -1,9 +1,16 @@
 class DungeonEvent {
     constructor(set, quote, encounter) {
-      this.set = set;
-      this.quote = quote;
-      this.encounter = encounter;
-      this.action = "";
+        this.tags = null;
+        this.set = set;
+        this.quote = quote;
+        this.encounter = encounter;
+        this.action = "";
+    }
+
+    createEvent() {
+        const event = new DungeonEvent(this.set, this.quote, this.encounter);
+        event.tags = this.tags;
+        return event;
     }
   
     action(direction) {
@@ -12,5 +19,12 @@ class DungeonEvent {
         } else if (direction === "droite") {
             this.tags.push("droite");
         }
+
+
+    }
+
+    // may stack current event in dungeon history
+    stackEvent() {
+        
     }
 }
