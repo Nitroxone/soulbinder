@@ -1460,7 +1460,9 @@ function getAstralForgeItemBox(forgeItem) {
     const item = forgeItem.item;
     let str = '';
 
-    str += '';
+    str += '<div class="astralForge-item-itemBox">';
+    str += '<h1>' + item.name + '</h1>';
+    str += '</div>';
 
     return str;
 }
