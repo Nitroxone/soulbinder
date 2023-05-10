@@ -15,8 +15,5 @@ class DungeonEvent {
         this.type = game.currentDungeon.isHistoryEmpty()
         ? Data.DungeonEventType.ENTRANCE
         : Data.DungeonEventType.REGULAR;
-
-        game.currentDungeon.currentEvent = this;
-        game.currentDungeon.history.push(this);
     }
 }

@@ -19,6 +19,11 @@ class Dungeon {
     isHistoryEmpty() {
         return this.history.length === 0;
     }
+    
+    generateEvent() {
+        this.currentEvent = new DungeonEvent();
+        // The event is not yet pushed to the Dungeon's history. It will be pushed once the player is done with it
+    }
 }
 
 
