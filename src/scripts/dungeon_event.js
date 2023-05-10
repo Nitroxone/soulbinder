@@ -10,9 +10,7 @@ class DungeonEvent {
     }
 
     createEvent() {
-        const encounter = new DungeonEncounter();
-        encounter.createEncounter();
-        this.encounter = encounter;
+        this.encounter = new DungeonEncounter();
 
         if(game.currentDungeon.isHistoryEmpty()) this.type = Data.DungeonEventType.ENTRANCE
         else this.type = Data.DungeonEventType.REGULAR
