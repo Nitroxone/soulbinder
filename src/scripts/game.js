@@ -35,6 +35,7 @@ class Game {
         this.formationFocus = null;
 
         this.currentBattle = null;
+        this.currentDungeon = null;
 
         this.particlesTooltipCanvasInterval = null;
         this.particlesTooltipCanvasItem = null;

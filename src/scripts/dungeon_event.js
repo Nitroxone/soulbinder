@@ -1,29 +1,20 @@
 class DungeonEvent {
     constructor(type, set, quote, encounter) {
         this.type = type;
-        this.tags = null;
+        this.tags = [];
         this.set = set;
         this.quote = quote;
         this.encounter = encounter;
         this.action = "";
+        this.createEvent()
     }
 
     createEvent() {
-        
-    }
-  
-    action(direction) {
-        if (direction === "gauche") {
-            this.tags.push("gauche");
-        } else if (direction === "droite") {
-            this.tags.push("droite");
-        }
+        const encounter = new DungeonEncounter();
+        encounter.createEncounter();
+        this.encounter = encounter;
 
-
-    }
-
-    // may stack current event in dungeon history
-    stackEvent() {
-        
+        if(game.currentDungeon.isHistoryEmpty()) this.type = Data.DungeonEventType.ENTRANCE
+        else this.type = Data.DungeonEventType.REGULAR
     }
 }
