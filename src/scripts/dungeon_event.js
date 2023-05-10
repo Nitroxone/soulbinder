@@ -12,7 +12,11 @@ class DungeonEvent {
     createEvent() {
         this.encounter = new DungeonEncounter();
 
-        if(game.currentDungeon.isHistoryEmpty()) this.type = Data.DungeonEventType.ENTRANCE
-        else this.type = Data.DungeonEventType.REGULAR
+        this.type = game.currentDungeon.isHistoryEmpty()
+        ? Data.DungeonEventType.ENTRANCE
+        : Data.DungeonEventType.REGULAR;
+
+        game.currentDungeon.currentEvent = this;
+        game.currentDungeon.history.push(this);
     }
 }

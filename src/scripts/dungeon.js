@@ -2,7 +2,7 @@ class Dungeon {
     constructor() {
         this.biome = null;
         this.tags = [];
-        this.playerLocation = null;
+        this.currentEvent = null;
         this.history = [];
         this.createDungeon();
     }
@@ -11,7 +11,7 @@ class Dungeon {
     createDungeon() {
         this.biome = Object.values(Data.DungeonTagBiome)[Math.floor(Math.random() * Object.keys(Data.DungeonTagBiome).length)];
         this.tags = [];
-        this.playerLocation = null;
+        this.currentEvent = null;
         this.history = [];
         game.currentDungeon = this;
     }
@@ -19,10 +19,6 @@ class Dungeon {
     isHistoryEmpty() {
         return this.history.length === 0;
     }
-
-    // getEvent() {
-
-    // }
 }
 
 
