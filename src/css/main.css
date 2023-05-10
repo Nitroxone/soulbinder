@@ -3118,6 +3118,13 @@ hr.leftSided {
     width: 50%;
     background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.8 ) 4%, rgba(0,0,0,0) 100%);
 }
+.barredLeftFull {
+    text-align: left;
+    line-height: 100%;
+    margin: 3px 0;
+    padding: 8px;
+    background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%);
+}
 .simpleButton {
     width: 148px;
     height: 22px;
@@ -3635,8 +3642,53 @@ hr.leftSided {
 .astralForge-item {
     grid-area: astralForge-item;
 
-    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('img/bgLeather.png') repeat 50% 50% scroll;
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('img/astralforge_bg4.png') repeat 50% 50% scroll;
+    background-size: cover;
     background-repeat: repeat;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.astralForge-item-iconBox {
+    height: 100%;
+    width: 100px;
+    aspect-ratio: 1/1;
+
+    background-size: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 3px;
+}
+
+.astralForge-item-itemBox {
+    display: flex;
+    flex-direction: row;
+}
+
+.astralForge-item-infos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.astralForge-item-infos h1 {
+    font-size: 20px;
+    font-variant: small-caps;
+    font-weight: bold;
+    font-family: RobotoSlab, Georgia;
+    text-shadow: 1px 1px 0 #000;
+}
+
+.astralForge-item-infos h3 {
+    font-family: RobotoBold;
+    font-variant: small-caps;
 }
 
 .astralForge-shards {
@@ -3844,4 +3896,24 @@ table.astralForgeShards td {
     border-image-outset: 7px 7px 7px 7px;
     border-image-repeat: stretch stretch; 
     border-image-source: url(img/window-ornate.png);
+}
+
+
+.insetShadowCommon {
+    box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.5),0px 2px 2px rgba(0,0,0,0.25),0px 0px 2px 2px #000 inset,0px 1px 20px 10px rgba(221,221,221,0.35) inset;
+}
+.insetShadowUncommon {
+    box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.5),0px 2px 2px rgba(0,0,0,0.25),0px 0px 2px 2px #000 inset,0px 1px 20px 10px rgba(0,255,0,0.35) inset;
+}
+.insetShadowRare {
+    box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.5),0px 2px 2px rgba(0,0,0,0.25),0px 0px 2px 2px #000 inset,0px 1px 20px 10px rgba(0,221,255,0.35) inset;
+}
+.insetShadowEpic {
+    box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.5),0px 2px 2px rgba(0,0,0,0.25),0px 0px 2px 2px #000 inset,0px 1px 20px 10px rgba(255,0,255,0.35) inset;
+}
+.insetShadowLegendary {
+    box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.5),0px 2px 2px rgba(0,0,0,0.25),0px 0px 2px 2px #000 inset,0px 1px 20px 10px rgba(255,170,0,0.35) inset;
+}
+.insetShadowElder {
+    box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.5),0px 2px 2px rgba(0,0,0,0.25),0px 0px 2px 2px #000 inset,0px 1px 20px 10px rgba(251,62,141,0.35) inset;
 }
