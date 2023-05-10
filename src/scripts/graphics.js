@@ -1214,6 +1214,7 @@ function drawAstralForgeScreen(forgeItem, refresh = false) {
             playSound('sounds/ui/ui5.wav', 1, 1.5);
             forgeItem.clearShard();
             forgeItem.clearEffect();
+            forgeItem.clearSelectedCometDust();
             popupWindow.remove();
         });
     }
