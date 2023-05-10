@@ -1337,6 +1337,8 @@ function launchAlteration(forgeItem) {
 
         generateAstralForgeScreenEvents(forgeItem, true, false, false, true);
         unselectCurrentBookmark(forgeItem);
+
+        getAstralForgeItemBox(forgeItem, true);
         
         astralForgeEffectAnimate(forgeItem);
         forgeItem.clearAnimationQueue();
@@ -1456,14 +1458,23 @@ function getAstralForgeShards(refresh = false) {
     return str;
 }
 
-function getAstralForgeItemBox(forgeItem) {
+function getAstralForgeItemBox(forgeItem, refresh = false) {
     const item = forgeItem.item;
     let str = '';
 
     str += '<div class="astralForge-item-itemBox">';
-    str += '<h1>' + item.name + '</h1>';
+    str += '<div class="astralForge-item-iconBox ' + getInsetShadowFromRarity(item) + '" style="background-image: url(\'' + getIconFileFromItem(item) + '\')"></div>';
+    str += '<div class="astralForge-item-infos">';
+    str += '<h1 class="barredLeftFull" style="margin: 0 0 2px 0">' + item.name + '</h1>';
+    str += '<h3 class="barredLeftFull" style="margin-top: 0px">' + capitalizeFirstLetter(forgeItem.state) + ' ' + capitalizeFirstLetter(item.rarity) + ' ' + capitalizeFirstLetter(getItemType(item)) + '</h3>';
+    str += '</div>';
+    //str += '<h1>' + item.name + '</h1>';
     str += '</div>';
 
+    if(refresh) {
+        document.querySelector('.astralForge-item').innerHTML = str;
+        return;
+    }
     return str;
 }
 

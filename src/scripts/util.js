@@ -1094,3 +1094,37 @@ function getAstralForgeEffectColor(effect) {
 
     return color
 }
+
+/**
+ * Generates a string that contains the filepath to the provided Item's icon.
+ * @param {Item} item the Item to retrieve the file info from
+ * @returns {string} a CSS filepath string
+ */
+function getIconFileFromItem(item) {
+    let filename = 'css/img/';
+
+    if(item instanceof Weapon) filename += 'weapons/';
+    else if(item instanceof Armor) filename += 'armors/';
+    else if(item instanceof Trinket) filename += 'trinkets/';
+
+    return filename + item.icon + '.png';
+}
+
+/**
+ * Returns the type of the provided Item.
+ * @param {Item} item the Item to retrieve to type from
+ * @returns {Data.ItemType|string} the matching ItemType
+ */
+function getItemType(item) {
+    if(item instanceof Weapon || item instanceof Armor) return item.type;
+    else if(item instanceof Trinket) return Data.ItemType.TRINKET;
+}
+
+/**
+ * Generates a string that corresponds to the provided item's rarity inset shadow CSS rule.
+ * @param {Item} item the Item to retrieve the rarity from
+ * @returns {string} a CSS rule
+ */
+function getInsetShadowFromRarity(item) {
+    return "insetShadow" + capitalizeFirstLetter(item.rarity);
+}

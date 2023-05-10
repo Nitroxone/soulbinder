@@ -373,6 +373,8 @@ const Data = Object.freeze({
         EFFECT_ALREADY_EXISTS: "The effect already exists.",
         NEGATIVE_OR_NULL_VALUE: "The effect cannot be altered because it is null or negative.",
         MAXIMUM_VALUE_REACHED: "This effect cannot be further altered.",
+        IS_WARPED: "This item is warped, thus it cannot be altered with a comet dust.",
+        IS_SEALED: "This item is sealed and cannot be altered no more.",
         NONE: "No error!"
     },
     ReversionError: {

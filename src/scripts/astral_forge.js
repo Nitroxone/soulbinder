@@ -634,6 +634,8 @@ class AstralForge {
         if(!this.checkTimeShardValidityForAlteration(shard, effect) && shard.getValueType() !== "string") return Data.AlterationError.INCOMPATIBILITY;
         if(this.getEffectValue(effect) <= 0) return Data.AlterationError.NEGATIVE_OR_NULL_VALUE;
         if(this.isMaxValueReached(effect)) return Data.AlterationError.MAXIMUM_VALUE_REACHED;
+        if(this.state == Data.AstralForgeState.SEALED) return Data.AlterationError.IS_SEALED;
+        if(this.selectedCometDust && this.selectedCometDust.name.toLowerCase() === 'comet dust' && this.state == Data.AstralForgeState.WARPED) return Data.AlterationError.IS_WARPED;
         return Data.AlterationError.NONE;
     }
 
