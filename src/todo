@@ -4,8 +4,13 @@
 
 - Create hub & lordships
 
+- Add effect coloring (bold + green) if it's overloaded
+- Add a notification system
+- Implement item pricing
+
 ASTRAL FORGE:
 - Create GUI -- ONGOING
 - Add effect overload selection
 - Fix stat change on equipping an item that has been altered by the Astral Forge
+- Implement an item pricing change on alteration (increasing/decreasing stats brings the price up and down)
 
