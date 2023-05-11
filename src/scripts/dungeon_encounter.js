@@ -2,6 +2,7 @@ class DungeonEncounter {
     constructor(type, mobType) {
         this.type = type;
         this.mobType = mobType;
+        this.createEncounter();
     }
   
     createEncounter() {

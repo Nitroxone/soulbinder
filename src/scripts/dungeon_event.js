@@ -13,7 +13,9 @@ class DungeonEvent {
         this.encounter = new DungeonEncounter();
 
         this.type = game.currentDungeon.isHistoryEmpty()
-        ? Data.DungeonEventType.ENTRANCE
+        ? (this.tags.push(Object.values(Data.DungeonTagEntrance)[Math.floor(Math.random() * Object.keys(Data.DungeonTagEntrance).length)]), Data.DungeonEventType.ENTRANCE)
         : Data.DungeonEventType.REGULAR;
+
+
     }
 }
