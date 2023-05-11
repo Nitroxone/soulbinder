@@ -20,9 +20,16 @@ let Speech = {
             },
 
             Regular: {
-                JUNGLE: [
+                JUNGLE_BIG_ROOM: [
 
-                    
+                    "You enter a huge room, with limestone stalactites on the ceiling; sharp as fangs and decayed by mold. On the walls, a strange mushroom that lights up when you pass by... Useful to find your way.",
+
+                ],
+                JUNGLE_SMALL_ROOM: [
+
+                ],
+                JUNGLE_TUNNEL: [
+
                 ]
             }
         },
