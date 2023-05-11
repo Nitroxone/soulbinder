@@ -20,37 +20,10 @@ let Speech = {
             },
 
             Regular: {
-                JUNGLE_SMALL_CAVE: [
+                JUNGLE: [
 
-                    "As you progress inside this narrow cave, the air becomes heavier and heavier. The walls are covered with moss and strange mushrooms, which light up when you pass by.",
-
-                    "You advance in the dark, gingerly feeling your way around the walls as you go. A musty smell assaults your nose, like a warning about what sleeps in the depths of these entrails. The cave seems to open on many dark tunnels."
-
-                ],
-
-                JUNGLE_BIG_CAVE: [
-
-                    "You emerge into a large room with limestone stalactites all over the ceiling, like sharp teeth decayed by mold. Putrid fumes seems to rise up from the depths, and your footsteps echo in this stone stomach, whose sound is eventually lost in the dark tunnels.",
-
-                ],
-
-                JUNGLE_SMALL_CAVE_TUNNELS: [
-
-                ],
-
-                JUNGLE_SMALL_CAVE_ROOMS: [
-
-                ],
-
-                JUNGLE_BIG_CAVE_TUNNELS: [
-
-                ],
-                
-                JUNGLE_BIG_CAVE_ROOMS: [
-
+                    
                 ]
-
-                
             }
         },
         Village: {
