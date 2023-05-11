@@ -415,13 +415,4 @@ const Data = Object.freeze({
         CAVE: "cave",
         VILLAGE: "village"
     },
-    DungeonSetJungleCave: {
-        JUNGLE_HIDDEN_CAVE: "After a long journey, your striders land at the entrance of a cave. The vegetation is dense outside, and it is impossible to see what is inside. Who knows what you might stumble upon?",
-        JUNGLE_BIG_CAVE: "The exploration was difficult, but you and your striders eventually got where you wanted to go. Before you, a gaping cave from which emanates putrid fumes. The cave seems to spread out in an intricate network of guts, like intestines ready to slowly digest you. Do you dare to venture into it?"
-    },
-    DungeonQuoteHostileEncounter: {
-        ENCOUNTER_QUOTE_WAVE: "As you were deciding which way to go, you were surprised by a wave of [mob_name] ready to tear you apart. Defend your team!",
-        ENCOUNTER_QUOTE_WAVE_2: "A shrill cry reaches you. Suddenly, a whole group of [mob_name] is threatening to attack you. Be ready to fight!",
-    }
-
 });
