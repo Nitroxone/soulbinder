@@ -402,7 +402,7 @@ const Data = Object.freeze({
     DungeonEncounterFriendlyMobType: {
         ALLIED: "allied"
     },
-    DungeonTagBiome: {
+    DungeonBiome: {
         JUNGLE: "jungle",
         SNOW: "snow",
         PLAIN: "plain",
@@ -410,7 +410,7 @@ const Data = Object.freeze({
         DESERT: "desert",
         MOUNTAIN: "mountain"
     },
-    DungeonTagEntrance: {
+    DungeonEntrance: {
         DENSE: "dense",
         CAVE: "cave",
         VILLAGE: "village"
