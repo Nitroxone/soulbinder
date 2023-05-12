@@ -384,6 +384,9 @@ const Data = Object.freeze({
         INCOMPATIBILITY: "The selected Comet Dust cannot be used to revert an alteration.",
         NONE: "No error!"
     },
+    //------------------------------------------------------
+    // DUNGEON PARAM
+    //------------------------------------------------------
     DungeonEventType: {
         ENTRANCE: "entrance",
         REGULAR: "regular",
@@ -402,7 +405,7 @@ const Data = Object.freeze({
     DungeonEncounterFriendlyMobType: {
         ALLIED: "allied"
     },
-    DungeonBiome: {
+    DungeonTagBiome: {
         JUNGLE: "jungle",
         SNOW: "snow",
         PLAIN: "plain",
@@ -410,7 +413,7 @@ const Data = Object.freeze({
         DESERT: "desert",
         MOUNTAIN: "mountain"
     },
-    DungeonEntrance: {
+    DungeonTagEntrance: {
         DENSE: "dense",
         CAVE: "cave",
         VILLAGE: "village"

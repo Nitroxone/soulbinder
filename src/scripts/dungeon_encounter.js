@@ -11,13 +11,11 @@ class DungeonEncounter {
       
         switch (this.type) {
             case Data.DungeonEncounterType.HOSTILE:
-                const randomHostileMobType = Object.values(Data.DungeonEncounterHostileMobType)[Math.floor(Math.random() * Object.keys(Data.DungeonEncounterHostileMobType).length)];
-                this.mobType = randomHostileMobType;
+                this.mobType = Object.values(Data.DungeonEncounterHostileMobType)[Math.floor(Math.random() * Object.keys(Data.DungeonEncounterHostileMobType).length)];
                 break;
 
             case Data.DungeonEncounterType.FRIENDLY:
-                const randomFriendlyMobType = Object.values(Data.DungeonEncounterFriendlyMobType)[Math.floor(Math.random() * Object.keys(Data.DungeonEncounterFriendlyMobType).length)];
-                this.mobType = randomFriendlyMobType;
+                this.mobType = Object.values(Data.DungeonEncounterFriendlyMobType)[Math.floor(Math.random() * Object.keys(Data.DungeonEncounterFriendlyMobType).length)];
                 break;
 
             default:
