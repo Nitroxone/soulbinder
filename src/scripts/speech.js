@@ -1,16 +1,16 @@
 let Speech = {
     Dungeon: {
-        Dense: {
-            Entrance: {
-                JUNGLE: [
+        dense: {
+            entrance: {
+                jungle: [
                     "Quote 1",
                     "Quote 2"
                 ]
             }
         },
-        Cave: {
-            Entrance: {
-                JUNGLE: [
+        cave: {
+            entrance: {
+                jungle: [
 
                     "After a long journey, your striders land at the entrance of a cave. The vegetation is dense outside, and it is impossible to see what is inside. Who knows what you might stumble upon?",
 
@@ -19,8 +19,8 @@ let Speech = {
                 ],
             },
 
-            Regular: {
-                Jungle: {
+            regular: {
+                jungle: {
                     ROOM_LEVEL_1: [
 
                         "A small room opens to you. The walls are covered with moss, and be careful where you put your feet: the ambient humidity has made the floor slippery. It would be very unfortunate to have arrived here just to die stupidly. But the eons seem to trust you; you're not an idiot... Are you?",

@@ -407,15 +407,15 @@ const Data = Object.freeze({
     },
     DungeonTagBiome: {
         JUNGLE: "jungle",
-        SNOW: "snow",
-        PLAIN: "plain",
-        SWAMP: "swamp",
-        DESERT: "desert",
-        MOUNTAIN: "mountain"
+        // SNOW: "snow",
+        // PLAIN: "plain",
+        // SWAMP: "swamp",
+        // DESERT: "desert",
+        // MOUNTAIN: "mountain"
     },
     DungeonTagEntrance: {
-        DENSE: "dense",
+        // DENSE: "dense",
         CAVE: "cave",
-        VILLAGE: "village"
+        // VILLAGE: "village"
     },
 });

@@ -1,6 +1,7 @@
 class Dungeon {
     constructor() {
         this.biome = null;
+        this.zone = null;
         this.tags = [];
         this.currentEvent = null;
         this.history = [];
@@ -10,6 +11,7 @@ class Dungeon {
 
     createDungeon() {
         this.biome = Object.values(Data.DungeonTagBiome)[Math.floor(Math.random() * Object.values(Data.DungeonTagBiome).length)];
+        this.zone = Object.values(Data.DungeonTagEntrance)[Math.floor(Math.random() * Object.values(Data.DungeonTagEntrance).length)];
         this.tags = [];
         this.currentEvent = null;
         this.history = [];
