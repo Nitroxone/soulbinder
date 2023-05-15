@@ -35,4 +35,13 @@ class DungeonEvent {
         game.currentDungeon.currentEvent = this;
         game.currentDungeon.history.push(this);
     }
+
+    playEvent() {
+
+    }
+
+
+    action() {
+
+    }
 }

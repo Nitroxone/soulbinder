@@ -315,7 +315,8 @@ class Game {
         drawStridersScreen();
         drawHubScreen();
         drawWorkshopScreen();
+        drawExploreScreen();
 
         console.clear();
     }
-}
+}&

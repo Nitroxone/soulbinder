@@ -415,7 +415,8 @@ const Data = Object.freeze({
         // PLAIN: "plain",
         // SWAMP: "swamp",
         // DESERT: "desert",
-        // MOUNTAIN: "mountain"
+        // MOUNTAIN: "mountain",
+        // COAST: "coast"
     },
     DungeonTagEntrance: {
         // DENSE: "dense",

@@ -1612,3 +1612,38 @@ function getAstralForgeEffects(forgeItem, refresh = false) {
     }
     return str;
 }
+
+function drawExploreScreen() {
+    document.querySelector('#explorationDiv').innerHTML = '<div class="dungeonContainer"></div>';
+    let str = '';
+
+    str += '<div class="biomeContainer coolBorder">';
+
+    str += '<div class="jungleBiome biome coolBorderBis">'
+    str += '<h1 class="barredLeftFull">JUNGLE</h1>'
+    str += '</div>';
+
+    str += '<div class="desertBiome biome coolBorderBis">'
+    str += '<h1 class="barredLeftFull">DESERT</h1>'
+    str += '</div>';
+
+    str += '<div class="snowBiome biome coolBorderBis">'
+    str += '<h1 class="barredLeftFull">SNOW</h1>'
+    str += '</div>';
+
+    str += '<div class="swampBiome biome coolBorderBis">'
+    str += '<h1 class="barredLeftFull">SWAMP</h1>'
+    str += '</div>';
+
+    str += '<div class="coastBiome biome coolBorderBis">'
+    str += '<h1 class="barredLeftFull">COAST</h1>'
+    str += '</div>';
+
+    str += '<div class="plainBiome biome coolBorderBis">'
+    str += '<h1 class="barredLeftFull">PLAINS</h1>'
+    str += '</div>';
+
+
+    document.querySelector('.dungeonContainer').innerHTML = str;
+
+}
