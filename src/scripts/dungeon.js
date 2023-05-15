@@ -4,6 +4,7 @@ class Dungeon {
         this.zone = null;
         this.tags = [];
         this.currentEvent = null;
+        this.currentLevel = null;
         this.history = [];
         this.createDungeon();
     }
@@ -14,6 +15,7 @@ class Dungeon {
         this.zone = Object.values(Data.DungeonTagEntrance)[Math.floor(Math.random() * Object.values(Data.DungeonTagEntrance).length)];
         this.tags = [];
         this.currentEvent = null;
+        this.currentLevel = 1;
         this.history = [];
         game.currentDungeon = this;
     }

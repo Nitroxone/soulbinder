@@ -392,6 +392,10 @@ const Data = Object.freeze({
         REGULAR: "regular",
         CLOSING: "closing"
     },
+    DungeoneEventInstance: {
+        ROOM: "room",
+        BRIDGE: "bridge"
+    },
     DungeonEncounterType: {
         HOSTILE: "hostile",
         FRIENDLY: "friendly",
