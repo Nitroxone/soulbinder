@@ -319,4 +319,4 @@ class Game {
 
         console.clear();
     }
-}&
+}
