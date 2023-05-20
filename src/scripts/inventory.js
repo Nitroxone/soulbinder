@@ -259,7 +259,7 @@ class Inventory {
     }
 
     /**
-     * Removes the corrupt state of the provided item if at least 1 Starblossom is possessed AND if the Item was not altered by a Lead Knot.
+     * Removes the corrupt state of the provided item if at least 1 Starblossom is possessed AND if the Item was not altered by a Pearl of Wrath.
      * @param {Item} item the item which should be uncorrupted
      */
     uncorrupt(item) {
@@ -268,7 +268,7 @@ class Inventory {
                 item.uncorrupt();
                 this.removeResource(what(this.resources, "starblossom"));
             } else {
-                console.log("This item could not be uncorrupted because it has been altered by a Lead Knot.");
+                console.log("This item could not be uncorrupted because it has been altered by a Pearl of Wrath.");
             }
         } else {
             console.log("A Starblossom is required to uncorrupt a rune.");
@@ -294,7 +294,7 @@ class Inventory {
      * @param {boolean} forceCorrupt forces corrupt effects on the rune
      */
     amplifyRune(rune, forceCorrupt = false) {
-        if(hasResource(this.resources, "lead knot")) {
+        if(hasResource(this.resources, "pearl of wrath")) {
             if(rune.isMaximized()) {
                 rune.amplify();
                 // Checking for corrupt chances
@@ -305,12 +305,12 @@ class Inventory {
                     effect.fix();
                     rune.echoes.push(effect);
                 }
-                this.removeResource(what(this.resources, "lead knot"));
+                this.removeResource(what(this.resources, "pearl of wrath"));
             } else {
                 console.log("The rune can't be amplified if it's not maximized.");
             }
         } else {
-            console.log("A Lead Knot is required to amplify a rune.");
+            console.log("A Pearl of Wrath is required to amplify a rune.");
         }
     }
 
