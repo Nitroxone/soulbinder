@@ -1619,30 +1619,36 @@ function drawExploreScreen() {
 
     str += '<div class="biomeContainer coolBorder">';
 
-    str += '<div class="jungleBiome biome coolBorderBis">'
+    str += '<div class="biomeContainerHeader">';
+    str += '<h1>EXPLORE THE DUNGEONS</h1>';
+    str += '<p>Gather the eons and get your hands on powerful items!</p>';
+    str += '</div>';
+
+    str += '<div class="jungleBiome biome coolBorderBis insetShadowCommon">'
     str += '<h1 class="barredLeftFull">JUNGLE</h1>'
     str += '</div>';
 
-    str += '<div class="desertBiome biome coolBorderBis">'
+    str += '<div class="desertBiome biome coolBorderBis insetShadowCommon">'
     str += '<h1 class="barredLeftFull">DESERT</h1>'
     str += '</div>';
 
-    str += '<div class="snowBiome biome coolBorderBis">'
+    str += '<div class="snowBiome biome coolBorderBis insetShadowCommon">'
     str += '<h1 class="barredLeftFull">SNOW</h1>'
     str += '</div>';
 
-    str += '<div class="swampBiome biome coolBorderBis">'
+    str += '<div class="swampBiome biome coolBorderBis insetShadowCommon">'
     str += '<h1 class="barredLeftFull">SWAMP</h1>'
     str += '</div>';
 
-    str += '<div class="coastBiome biome coolBorderBis">'
+    str += '<div class="coastBiome biome coolBorderBis insetShadowCommon">'
     str += '<h1 class="barredLeftFull">COAST</h1>'
     str += '</div>';
 
-    str += '<div class="plainBiome biome coolBorderBis">'
+    str += '<div class="plainBiome biome coolBorderBis insetShadowCommon">'
     str += '<h1 class="barredLeftFull">PLAINS</h1>'
     str += '</div>';
 
+    str += '</div>';
 
     document.querySelector('.dungeonContainer').innerHTML = str;
 
