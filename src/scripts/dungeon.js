@@ -1,3 +1,7 @@
+/**
+ * The Dungeon class handles the global Dungeon structure and logic.
+ * More specifically, it works with DungeonEvent and DungeonEncounter classes.
+ */
 class Dungeon {
     constructor() {
         this.biome = null;
@@ -9,7 +13,9 @@ class Dungeon {
         this.createDungeon();
     }
 
-
+    /**
+     * Initializes new data for this Dungeon.
+     */
     createDungeon() {
         this.biome = Object.values(Data.DungeonTagBiome)[Math.floor(Math.random() * Object.values(Data.DungeonTagBiome).length)];
         this.zone = Object.values(Data.DungeonTagEntrance)[Math.floor(Math.random() * Object.values(Data.DungeonTagEntrance).length)];
@@ -20,10 +26,17 @@ class Dungeon {
         game.currentDungeon = this;
     }
 
+    /**
+     * Returns whether this Dungeon's history is empty.
+     * @returns {boolean} whether the history is empty
+     */
     isHistoryEmpty() {
         return this.history.length === 0;
     }
     
+    /**
+     * Generates a new DungeonEvent.
+     */
     generateEvent() {
         this.currentEvent = new DungeonEvent();
         // The event is not yet pushed to the Dungeon's history. It will be pushed once the player is done with it

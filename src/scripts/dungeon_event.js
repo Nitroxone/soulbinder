@@ -9,10 +9,14 @@ class DungeonEvent {
         this.set = set;
         this.encounter = encounter;
         this.action = action;
-        this.createEvent()
+        this.createEvent();
     }
 
+    /**
+     * Initializes new data for this DungeonEvent.
+     */
     createEvent() {
+        // Creates a new DungeonEncounter that is linked to this DungeonEvent.
         this.encounter = new DungeonEncounter();
 
         this.type = game.currentDungeon.isHistoryEmpty()
@@ -39,7 +43,6 @@ class DungeonEvent {
     playEvent() {
 
     }
-
 
     action() {
 
