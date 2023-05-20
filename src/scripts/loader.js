@@ -116,7 +116,7 @@ const Loader = {
                 Data.Rarity.EPIC,
             ),
             new Resource(
-                "Lead Knot",
+                "Pearl of Wrath",
                 "Pushes the rune's effects beyond their maximum bound. May generate corrupt effects.",
                 2,
                 10,

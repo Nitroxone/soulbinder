@@ -2899,6 +2899,8 @@ hr.leftSided {
     cursor: pointer;
     border-color: rgba(155, 155, 155);
     box-shadow: inset 0px 0px 10px 12px rgba(255, 255, 255, 0.1);
+
+    background-size: 53%;
 }
 .striderContainer:active {
     border-color: white;
