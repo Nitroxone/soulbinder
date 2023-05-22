@@ -117,7 +117,7 @@ class Game {
             args: undefined,
             mergeId: undefined,
             replaceOnly: undefined,
-            icon: undefined,
+            bg: undefined,
             domWhat: undefined,
         };
         const scrolled = !(Math.abs(this.messagesWrapDOM.scrollTop - (this.messagesWrapDOM.scrollHeight - this.messagesWrapDOM.offsetHeight)) < 3);
@@ -128,10 +128,12 @@ class Game {
 
         me.type = "normal";
         me.date = datetime;
-        for(let i in obj){me[i] = obj[i];}
+        for(let i in obj) {
+            me[i] = obj[i];
+        };
         const content = me.text || me.textFunc(me.args);
         let str = '<div class="messageTimestamp" title="blank">[' + datetime + ']</div>' +
-            '<div class="messageContent' + (me.icon ? ' hasIcon' : '') + '">' + (me.icon ? getArbitraryIcon(me.icon) : '') + '<span class="messageText">' + content + '</span></div>';
+            '<div class="messageContent' + (me.bg ? ' hasBg" style="background-image: url(\'css/img/' + me.bg + '\')"' : '"') + '>' + '<span class="messageText">' + content + '</span></div>';
 
         const div = document.createElement('div');
         div.innerHTML = str;
@@ -316,6 +318,12 @@ class Game {
         drawHubScreen();
         drawWorkshopScreen();
         drawExploreScreen();
+
+        this.message({type: Data.LogMessageType.IMPORTANT, text:'This is an important message.'});
+        this.message({type: Data.LogMessageType.REGULAR, text:'This is a regular message.'});
+        this.message({type: Data.LogMessageType.GOOD, text:'This is a positive message.'});
+        this.message({type: Data.LogMessageType.BAD, text:'This is a negative message.'});
+        this.message({type: Data.LogMessageType.TALL, text:'This is an bigger message.'});
 
         console.clear();
     }

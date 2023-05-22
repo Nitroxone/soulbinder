@@ -423,4 +423,11 @@ const Data = Object.freeze({
         CAVE: "cave",
         // VILLAGE: "village"
     },
+    LogMessageType: {
+        REGULAR: "regular",
+        IMPORTANT: "important",
+        TALL: "tall",
+        GOOD: "good",
+        BAD: "bad",
+    },
 });
