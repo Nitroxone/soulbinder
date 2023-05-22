@@ -813,11 +813,17 @@ class AstralForge {
 
         str += '<div ';
         
-        if(obj.added > 0) str += 'style="color: ' + Data.Color.GREEN + '">+ ';
-        else if(obj.added < 0) str += 'style="color: ' + Data.Color.RED + '">- ';
+        if(obj.added > 0) {
+            if(obj.effect !== Data.Effect.EFFORT) str += 'style="color: ' + Data.Color.GREEN + '">+ ';
+            else str += 'style="color: ' + Data.Color.RED + '">+ ';
+        }
+        else if(obj.added < 0) {
+            if(obj.effect !== Data.Effect.EFFORT) str += 'style="color: ' + Data.Color.RED + '">- ';
+            else str += 'style="color: ' + Data.Color.GREEN + '">- ';
+        }
         else str += '>~ ';
         
-        str += Math.abs(obj.added) + ' ' + capitalizeFirstLetter(obj.effect);
+        str += Math.abs(obj.added) + (isAstralForgeEffectPercentage(obj.effect) ? '%' : '') + ' ' + capitalizeFirstLetter(obj.effect);
         str += '</div>';
 
         return str;
