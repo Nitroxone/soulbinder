@@ -1648,20 +1648,20 @@ function drawExploreScreen() {
     str += '<h1 class="barredLeftFull">PLAINS</h1>'
     str += '</div>';
 
-    str += '<div class="entrances">';
-
-    str += '<div class="entrance caveEntrance coolBorderBis">';
-    str += '<p>CAVE</p>'
     str += '</div>';
 
-    str += '<div class="entrance denseEntrance coolBorderBis">';
-    str += '<p>DENSE</p>'
+    str += '<div class="entrances coolBorder">';
+
+    str += '<div class="entrance caveEntrance simpleButton normalSized">';
+    str += 'CAVE'
     str += '</div>';
 
-    str += '<div class="entrance fortressEntrance coolBorderBis">';
-    str += '<p>FORTRESS</p>'
+    str += '<div class="entrance denseEntrance simpleButton normalSized">';
+    str += 'DENSE'
     str += '</div>';
 
+    str += '<div class="entrance fortressEntrance simpleButton normalSized">';
+    str += 'FORTRESS'
     str += '</div>';
 
     str += '</div>';

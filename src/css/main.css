@@ -3159,6 +3159,12 @@ hr.leftSided {
     cursor: pointer;
 }
 
+.simpleButton.normalSized {
+    width: auto;
+    text-align: center;
+    padding: 4px 7px;
+}
+
 .striderEquipment {
     grid-area: striderEquipment;
     display: flex;
@@ -3931,6 +3937,7 @@ table.astralForgeShards td {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
 .biomeContainer {
@@ -4012,24 +4019,29 @@ table.astralForgeShards td {
 }
 
 .entrances {
-    width: 100%;
+    width: 450px;
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
     margin-bottom: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0 0 3px 3px;
+    padding: 10px;
+
+    background-image: url('img/bg4.png');
+    background-size: cover;
+    background-repeat: repeat;
+
+    border-top: none !important;
 }
 
 .entrance {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100px;
-    height: 40px;
-    background-color: #1e3799;
-    filter: grayscale(50%);
+}
+
+.entrance:not(:first-child) {
+    margin-left: 10px;
 }
 
 .entrance:hover {
     cursor: pointer;
-    filter: grayscale(0%) brightness(115%);
 }
