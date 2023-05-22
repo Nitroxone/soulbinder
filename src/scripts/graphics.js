@@ -1624,32 +1624,66 @@ function drawExploreScreen() {
     str += '<p>Gather the eons and get your hands on powerful items!</p>';
     str += '</div>';
 
-    str += '<div class="jungleBiome biome coolBorderBis insetShadowCommon">'
+    str += '<div class="jungle biome coolBorderBis insetShadowCommon">'
     str += '<h1 class="barredLeftFull">JUNGLE</h1>'
     str += '</div>';
 
-    str += '<div class="desertBiome biome coolBorderBis insetShadowCommon">'
+    str += '<div class="desert biome coolBorderBis insetShadowCommon">'
     str += '<h1 class="barredLeftFull">DESERT</h1>'
     str += '</div>';
 
-    str += '<div class="snowBiome biome coolBorderBis insetShadowCommon">'
+    str += '<div class="snow biome coolBorderBis insetShadowCommon">'
     str += '<h1 class="barredLeftFull">SNOW</h1>'
     str += '</div>';
 
-    str += '<div class="swampBiome biome coolBorderBis insetShadowCommon">'
+    str += '<div class="swamp biome coolBorderBis insetShadowCommon">'
     str += '<h1 class="barredLeftFull">SWAMP</h1>'
     str += '</div>';
 
-    str += '<div class="coastBiome biome coolBorderBis insetShadowCommon">'
+    str += '<div class="coast biome coolBorderBis insetShadowCommon">'
     str += '<h1 class="barredLeftFull">COAST</h1>'
     str += '</div>';
 
-    str += '<div class="plainBiome biome coolBorderBis insetShadowCommon">'
+    str += '<div class="plain biome coolBorderBis insetShadowCommon">'
     str += '<h1 class="barredLeftFull">PLAINS</h1>'
+    str += '</div>';
+
+    str += '<div class="entrances">';
+
+    str += '<div class="entrance caveEntrance coolBorderBis">';
+    str += '<p>CAVE</p>'
+    str += '</div>';
+
+    str += '<div class="entrance denseEntrance coolBorderBis">';
+    str += '<p>DENSE</p>'
+    str += '</div>';
+
+    str += '<div class="entrance fortressEntrance coolBorderBis">';
+    str += '<p>FORTRESS</p>'
+    str += '</div>';
+
     str += '</div>';
 
     str += '</div>';
 
     document.querySelector('.dungeonContainer').innerHTML = str;
 
+    const biomes = document.querySelectorAll('.biome');
+    biomes.forEach(biome => {
+        biome.addEventListener('click', (event) => {
+            const clickedBiome = event.target;
+            const biomeName = clickedBiome.classList[0];
+    
+        biomes.forEach(otherBiome => {
+            if (otherBiome !== clickedBiome) {
+                otherBiome.classList.remove('biome__active');
+            }
+        });
+    
+        clickedBiome.classList.add('biome__active');
+    
+        console.log(biomeName);
+        return biomeName;
+      });
+    });
 }

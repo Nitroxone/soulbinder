@@ -3986,27 +3986,54 @@ table.astralForgeShards td {
     filter: brightness(115%);
 }
 
-.jungleBiome {
+.biome__active {
+    filter: brightness(115%);
+}
+
+.jungle {
     background-image: url(img/bg/jungle_biome.jpg);
 }
 
-.desertBiome {
+.desert {
     background-image: url(img/bg/desert_biome.jpg);
 }
 
-.snowBiome {
+.snow {
     background-image: url(img/bg/snow_biome.jpg);
 }
 
-.coastBiome {
+.coast {
     background-image: url(img/bg/coast_biome.png);
 }
 
-.swampBiome {
+.swamp {
     background-image: url(img/bg/swamp_biome.jpg);
 }
 
-.plainBiome {
+.plain {
     background-image: url(img/bg/plain_biome.jpg);
     margin-bottom: 10px;
+}
+
+.entrances {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+
+.entrance {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 40px;
+    background-color: #1e3799;
+    filter: grayscale(50%);
+}
+
+.entrance:hover {
+    cursor: pointer;
+    filter: grayscale(0%) brightness(115%);
 }
