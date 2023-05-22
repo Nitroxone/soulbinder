@@ -3986,27 +3986,27 @@ table.astralForgeShards td {
     filter: brightness(115%);
 }
 
-.jungleBiome {
+.jungle.biome {
     background-image: url(img/bg/jungle_biome.png);
 }
 
-.desertBiome {
+.desert.biome {
     background-image: url(img/bg/desert_biome.png);
 }
 
-.snowBiome {
+.snow.biome {
     background-image: url(img/bg/snow_biome.png);
 }
 
-.coast {
+.coast.biome {
     background-image: url(img/bg/coast_biome.png);
 }
 
-.swampBiome {
+.swamp.biome {
     background-image: url(img/bg/swamp_biome.png);
 }
 
-.plainBiome {
+.plain.biome {
     background-image: url(img/bg/plain_biome.png);
     margin-bottom: 10px;
 }
