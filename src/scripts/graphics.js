@@ -13,6 +13,7 @@ function spawnTooltip(item, fromExisting = 0) {
     else if(item instanceof Trinket) tooltip.innerHTML = base + getTrinketTooltip(item, null, true) + '</div>';
     else if(item instanceof EquipmentSet) tooltip.innerHTML = base + getSetTooltip(item) + '</div>';
     // Same position as hovered tooltip, but positioned in such way that it will cut the mouse off the hover event
+
     
     let tooltipPos = {
         top: domWhat('tooltipAnchor').offsetTop - 75 + 'px',
@@ -62,7 +63,16 @@ function spawnTooltip(item, fromExisting = 0) {
         e.stopImmediatePropagation();
         playSound('sounds/ui/ui5.wav', 1, 1.5);
         tooltip.remove();
-    })
+    });
+
+    // IF ASTRAL FORGE COMPATIBLE, ADD ASTRAL FORGE MODIFICATIONS TOOLTIP EVENT
+    if(item instanceof Weapon || item instanceof Armor || item instanceof Trinket) {
+        if(item.astralForgeItem.isModified()) {
+            addTooltip(tooltip.querySelector('.editedIcon'), function(){
+                return item.astralForgeItem.getFormattedModifications();
+            }, {offY: -8});
+        }
+    }
 
     document.body.appendChild(tooltip);
 }
@@ -217,6 +227,8 @@ function getWeaponTooltip(weapon, asResult = null, full = false) {
     str += '<div class="par tooltipDesc">' + weapon.desc + '</div>';
     if(weapon.set) str += '<div class="tooltipSetText">' + weapon.set + '</div>';
     str += '</div>';
+
+    if(weapon.astralForgeItem.isModified()) str += '<div class="editedIcon" id="editedIcon-' + weapon.id + '"></div>';
 
     game.particlesTooltipCanvasItem = weapon;
     return str;

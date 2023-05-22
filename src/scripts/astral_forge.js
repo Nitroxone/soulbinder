@@ -808,7 +808,34 @@ class AstralForge {
         return reference.max <= reference.added;
     }
 
-    revertBookmark(bookmark) {
+    getFormattedModification(obj) {
+        let str = ''; 
 
+        str += '<div ';
+        
+        if(obj.added > 0) str += 'style="color: ' + Data.Color.GREEN + '">+ ';
+        else if(obj.added < 0) str += 'style="color: ' + Data.Color.RED + '">- ';
+        else str += '>~ ';
+        
+        str += Math.abs(obj.added) + ' ' + capitalizeFirstLetter(obj.effect);
+        str += '</div>';
+
+        return str;
+    }
+
+    getFormattedModifications() {
+        let str = '';
+        this.referenceTable.forEach(ref => {
+            if(ref.added !== 0) str += this.getFormattedModification(ref);
+        });
+        if(str !== '') {
+            str = '<div class="editedIconStats"><p>This item is <span style="font-family: RobotoBold; color: ' + getAstralForgeItemStateColorCode(this.state) + '">' + capitalizeFirstLetter(this.state) + '</span>.</p><div class="divider"></div>' + str + '</div>';
+        }
+        return str;
+    }
+
+    isModified() {
+        if(this.getFormattedModifications() === '') return false;
+        return true;
     }
 }

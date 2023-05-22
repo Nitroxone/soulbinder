@@ -1129,6 +1129,16 @@ function getInsetShadowFromRarity(item) {
     return "insetShadow" + capitalizeFirstLetter(item.rarity);
 }
 
+function getAstralForgeItemStateColorCode(state) {
+    switch(state) {
+        case Data.AstralForgeState.STABLE:
+            return Data.Color.TURQUOISE;
+        case Data.AstralForgeState.WARPED:
+            return Data.Color.ORANGE;
+        case Data.AstralForgeState.SEALED:
+            return Data.Color.CORRUPT;
+    }
+}
 
 /**********************DUNGEON LOGIC ***************************/
 

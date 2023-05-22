@@ -6,7 +6,6 @@
 
 - Add effect coloring (bold + green) if it's overloaded
 - Add a notification system
-- Properly implement log system 
 - Implement item pricing
 - Add a GUI element that tells whether an item has been altered/warped/sealed, and how it has been (which stats have been modified), and also add it to Astral Forge screen
 

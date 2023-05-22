@@ -4045,3 +4045,39 @@ table.astralForgeShards td {
 .entrance:hover {
     cursor: pointer;
 }
+
+.editedIcon {
+    background-image: url('img/edited_icon.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 35px;
+    height: 35px;
+
+    position: absolute;
+    top: 5px;
+    right: 5px;
+
+    animation-name: editedIconAnimation;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes editedIconAnimation {
+    0% {
+        filter: drop-shadow(0 0 0.5px rgba(255,255,255,1));
+    }
+    50% {
+        filter: drop-shadow(0 0 2px rgba(255,255,255,1));
+    }
+    100% {
+        filter: drop-shadow(0 0 0.5px rgba(255,255,255,1));
+    }
+}
+
+.editedIconStats {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    
+}

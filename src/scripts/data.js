@@ -25,6 +25,7 @@ const Data = Object.freeze({
         BLUE: '#0097e6',
         GOLD: '#ece2b6',
         TURQUOISE: '#1abc9c',
+        ORANGE: '#ccaa08',
 
         CORRUPT: '#c10000',
         COMMON: '#dddddd',
@@ -33,6 +34,8 @@ const Data = Object.freeze({
         EPIC: '#ff00ff',
         LEGENDARY: '#ffaa00',
         ELDER: '#fb3e8d',
+        
+        OVERLOADED: '#6ebe55'
     },
     Effect: {
         //------------------------------------------------------
