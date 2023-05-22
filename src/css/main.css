@@ -3974,7 +3974,7 @@ table.astralForgeShards td {
     align-items: center;
     background-position: center;
     background-size: cover;
-    filter: brightness(70%) grayscale(30%);
+    filter: brightness(90%);
 }
 
 .biome > h1 {
@@ -3987,15 +3987,15 @@ table.astralForgeShards td {
 }
 
 .jungleBiome {
-    background-image: url(img/bg/jungle_biome.jpg);
+    background-image: url(img/bg/jungle_biome.png);
 }
 
 .desertBiome {
-    background-image: url(img/bg/desert_biome.jpg);
+    background-image: url(img/bg/desert_biome.png);
 }
 
 .snowBiome {
-    background-image: url(img/bg/snow_biome.jpg);
+    background-image: url(img/bg/snow_biome.png);
 }
 
 .coastBiome {
@@ -4003,10 +4003,10 @@ table.astralForgeShards td {
 }
 
 .swampBiome {
-    background-image: url(img/bg/swamp_biome.jpg);
+    background-image: url(img/bg/swamp_biome.png);
 }
 
 .plainBiome {
-    background-image: url(img/bg/plain_biome.jpg);
+    background-image: url(img/bg/plain_biome.png);
     margin-bottom: 10px;
 }
