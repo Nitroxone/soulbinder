@@ -16,3 +16,10 @@ ASTRAL FORGE:
 - Fix stat change on equipping an item that has been altered by the Astral Forge
 - Implement an item pricing change on alteration (increasing/decreasing stats brings the price up and down)
 
+DUNGEONS:
+- define precisely the difference between "room" and "bridge" events
+- write the action() method that will allow the player to choose his path in the dungeon (go to a room or go to a bridge) the choices of the player must influence the dungeon
+- define precisely the number of levels in a dungeon, and the number of rooms that each level can cover
+- define the closing of a dungeon (last event before the exit): what type of encounter? when does it occur?
+- create encounters according to their type (allied, mob waves or bosses... etc)
+- create loot tables
