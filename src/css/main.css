@@ -4149,13 +4149,13 @@ table.astralForgeShards td {
 @keyframes astralForgeNotificationSpawn {
     0% {
         opacity: 0;
-        translate: 25px 0;
+        translate: 15px 0;
     }
-    10% {
+    5% {
         opacity: 1;
         translate: 0 0;
     }
-    90% {
+    95% {
         opacity: 1;
     }
     100% {
