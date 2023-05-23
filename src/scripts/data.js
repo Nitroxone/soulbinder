@@ -386,6 +386,7 @@ const Data = Object.freeze({
         NO_DUST: "No Comet Dust has been selected.",
         DUST_AMOUNT_NULL: "The selected Comet Dust's amount is equal to zero.",
         INCOMPATIBILITY: "The selected Comet Dust cannot be used to revert an alteration.",
+        IS_SEALED: "A reversion cannot be performed on a sealed object.",
         NONE: "No error!"
     },
     //------------------------------------------------------
