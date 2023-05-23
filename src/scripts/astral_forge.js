@@ -17,6 +17,7 @@ class AstralForge {
         this.selectedEffect = null;
         this.selectedBookmark = null;
         this.selectedCometDust = null;
+        this.selectedOverload = null;
 
         this.consumeSubstrate = false;
 
@@ -69,6 +70,7 @@ class AstralForge {
         if(!this.checkTimeShardValidityForAlteration(shard, effect) && shard.getValueType() !== "string") 
             throw new Error(shard.name + ' cannot be used to alter ' + effect + ' on ' + this.item.name + ' (uncompatible types)');
         
+        if(this.selectedOverload && shard.name.toLowerCase() === 'prismatic time shard') effect = this.selectedOverload;
         const forceOutcome = this.getForceOutcome();
         const outcome = forceOutcome ? forceOutcome : this.computeAlterationChances(effect, this.consumeSubstrate);
         switch(outcome) {
@@ -78,7 +80,7 @@ class AstralForge {
             case Data.AlterationAttemptOutcome.FAILURE:
                 this.alterFailure(shard);
                 // DOM UPDATE
-                this.queueAnimation(effect, "effectAlterNeutral");
+                if(!this.selectedOverload && this.selectedShard.name.toLowerCase() !== 'prismatic time shard') this.queueAnimation(effect, "effectAlterNeutral");
                 break;
             case Data.AlterationAttemptOutcome.SUCCESS:
                 this.alterSuccess(shard, effect);
@@ -234,6 +236,7 @@ class AstralForge {
                 const newEffect = new Stat(effect, [value, value], true, isAstralForgeEffectPercentage(effect));
                 this.extraEffects.push(newEffect);
                 this.addToBookmark(newEffect);
+                this.seal();
                 break;
             default:
                 throw new Error('Unrecognized Time Shard type: ' + shard.getValueType());
@@ -612,6 +615,13 @@ class AstralForge {
     }
 
     /**
+     * Clears this AstralForge's selected overload effect.
+     */
+    clearSelectedOverload() {
+        this.selectedOverload = null;
+    }
+
+    /**
      * Returns whether the provided Comet Dust can apply a bookmark reversion.
      * @param {Resource} cometDust the comet dust to check
      * @returns {boolean} whether a bookmark reversion can be applied with this comet dust
@@ -622,18 +632,18 @@ class AstralForge {
 
     /**
      * Runs various tests to check that an alteration can be casted on this AstralForge.
-     * @returns {boolean} whether an alteration can be casted
+     * @returns {Data.AlterationError} whether an alteration can be casted
      */
     canLaunchAlteration() {
         const effect = this.selectedEffect;
         const shard = this.selectedShard;
-        if(!effect) return Data.AlterationError.NO_EFFECT;
+        if(!effect && !this.selectedOverload) return Data.AlterationError.NO_EFFECT;
         if(!shard) return Data.AlterationError.NO_SHARD;
         if(shard.amount <= 0) return Data.AlterationError.SHARD_AMOUNT_NULL;
-        if(shard.getValueType() === 'string' && this.extraEffectAlreadyExists(effect)) return Data.AlterationError.EFFECT_ALREADY_EXISTS;
+        if(shard.getValueType() === 'string' && this.extraEffectAlreadyExists(this.selectedOverload)) return Data.AlterationError.EFFECT_ALREADY_EXISTS;
         if(!this.checkTimeShardValidityForAlteration(shard, effect) && shard.getValueType() !== "string") return Data.AlterationError.INCOMPATIBILITY;
-        if(this.getEffectValue(effect) <= 0) return Data.AlterationError.NEGATIVE_OR_NULL_VALUE;
-        if(this.isMaxValueReached(effect)) return Data.AlterationError.MAXIMUM_VALUE_REACHED;
+        if(this.getEffectValue(effect) <= 0 && !this.selectedOverload) return Data.AlterationError.NEGATIVE_OR_NULL_VALUE;
+        if(this.isMaxValueReached(effect) && !this.selectedOverload) return Data.AlterationError.MAXIMUM_VALUE_REACHED;
         if(this.state == Data.AstralForgeState.SEALED) return Data.AlterationError.IS_SEALED;
         if(this.selectedCometDust && this.selectedCometDust.name.toLowerCase() === 'comet dust' && this.state == Data.AstralForgeState.WARPED) return Data.AlterationError.IS_WARPED;
         return Data.AlterationError.NONE;
@@ -803,6 +813,7 @@ class AstralForge {
      * @returns {boolean} whether the max value is reached on this effect
      */
     isMaxValueReached(eff) {
+        if(!eff) return false;
         const reference = this.getEffectFromReferenceTable(eff);
         if(eff === Data.Effect.EFFORT) return reference.max <= Math.abs(reference.added);
         return reference.max <= reference.added;
@@ -814,7 +825,8 @@ class AstralForge {
         str += '<div ';
         
         if(obj.added > 0) {
-            if(obj.effect !== Data.Effect.EFFORT) str += 'style="color: ' + Data.Color.GREEN + '">+ ';
+            if(obj.effect !== Data.Effect.EFFORT && !obj.overload) str += 'style="color: ' + Data.Color.GREEN + '">+ ';
+            else if(obj.overload) str += 'style="color: ' + Data.Color.OVERLOAD + '">+ ';
             else str += 'style="color: ' + Data.Color.RED + '">+ ';
         }
         else if(obj.added < 0) {
@@ -834,6 +846,9 @@ class AstralForge {
         this.referenceTable.forEach(ref => {
             if(ref.added !== 0) str += this.getFormattedModification(ref);
         });
+        this.extraEffects.forEach(ref => {
+            str += this.getFormattedModification({effect: ref.effect, added: ref.getValue(), overload: true})
+        })
         if(str !== '') {
             str = '<div class="editedIconStats"><p>This item is <span style="font-family: RobotoBold; color: ' + getAstralForgeItemStateColorCode(this.state) + '">' + capitalizeFirstLetter(this.state) + '</span>.</p><div class="divider"></div>' + str + '</div>';
         }

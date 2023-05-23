@@ -7,13 +7,11 @@
 - Add effect coloring (bold + green) if it's overloaded
 - Add a notification system
 - Implement item pricing
-- Add a GUI element that tells whether an item has been altered/warped/sealed, and how it has been (which stats have been modified), and also add it to Astral Forge screen
 
 ASTRAL FORGE:
 - Create GUI -- ONGOING
-- Add effect overload selection
-- Fix stat change on equipping an item that has been altered by the Astral Forge
 - Implement an item pricing change on alteration (increasing/decreasing stats brings the price up and down)
+- Implement AstralForge guide (and general guide system)
 
 DUNGEONS:
 - define precisely the difference between "room" and "bridge" events

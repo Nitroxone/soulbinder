@@ -71,6 +71,10 @@ function spawnTooltip(item, fromExisting = 0) {
             addTooltip(tooltip.querySelector('.editedIcon'), function(){
                 return item.astralForgeItem.getFormattedModifications();
             }, {offY: -8});
+            tooltip.querySelector('.editedIcon').addEventListener('contextmenu', e => {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+            })
         }
     }
 
@@ -1214,7 +1218,7 @@ function drawAstralForgeScreen(forgeItem, refresh = false) {
     str += '</div>';
 
     str += '<div class="astralForge-shards">';
-    str += getAstralForgeShards();
+    str += getAstralForgeShards(forgeItem.selectedOverload);
     str += '</div>';
 
     str += '<div class="astralForge-modifiers coolBorderBis">';
@@ -1231,6 +1235,7 @@ function drawAstralForgeScreen(forgeItem, refresh = false) {
             forgeItem.clearShard();
             forgeItem.clearEffect();
             forgeItem.clearSelectedCometDust();
+            forgeItem.clearSelectedOverload();
             popupWindow.remove();
         });
     }
@@ -1239,22 +1244,26 @@ function drawAstralForgeScreen(forgeItem, refresh = false) {
     // SHARDS AND EFFECTS
     generateAstralForgeScreenEvents(forgeItem);
 
+    generateAstralForgeScreenButtonEvents(forgeItem);
+}
+
+function generateAstralForgeScreenButtonEvents(forgeItem) {
     // SUBSTRATE AND ALTER BUTTONS
     const alterButton = document.querySelector('.alterButton');
     alterButton.addEventListener('click', e => {
         launchAlteration(forgeItem);
-    })
+    });
 
     const consumesubstrateButton = document.querySelector('.consumesubstrateButton');
     consumesubstrateButton.addEventListener('click', e => {
         consumesubstrateButton.classList.toggle('selected');
         forgeItem.consumeSubstrate = !forgeItem.consumeSubstrate;
-    })
+    });
 
     const revertAlterationButton = document.querySelector('.revertAlterationButton');
     revertAlterationButton.addEventListener('click', e => {
         launchReversion(forgeItem);
-    })
+    });
 }
 
 function generateAstralForgeScreenEvents(forgeItem, skipShards = false, skipEffects = false, skipHistory = false, skipCometDusts = false) {
@@ -1280,21 +1289,42 @@ function generateAstralForgeScreenEvents(forgeItem, skipShards = false, skipEffe
                 console.log(forgeItem.selectedShard);
             });
         });
+        // OVERLOAD EFFECT SELECTION
         document.getElementById(what(game.player.inventory.resources, "prismatic time shard").id).addEventListener('click', e => {
             const div = document.createElement('div');
 
             const available = forgeItem.getAvailableOverloadEffects();
+            console.log('Selected overload: ' + forgeItem.selectedOverload);
             let str = '';
             str += '<h3>Overload Effect Selection</h3>';
             str += '<div class="divider"></div>';
             available.forEach(eff => {
-                str += '<p>' + capitalizeFirstLetter(eff) + ' <span class="theoricalval" style="margin-left: 0.2rem;">[' + getOverValueFromConfig(eff) + ']</span>' + '</p>';
-            })
+                str += '<p id="' + eff + '"' + (forgeItem.selectedOverload === eff ? ' class="selectedOverload"' : '') + '>' + capitalizeFirstLetter(eff) + ' <span class="theoricalval" style="margin-left: 0.2rem;">[' + getOverValueFromConfig(eff) + ']</span>' + '</p>';
+            });
 
             div.innerHTML = str;
             div.classList.add('astralForge-overloadWindow', 'tooltipSpawn');
 
-            if(forgeItem.selectedShard.name.toLowerCase() === "prismatic time shard") document.querySelector('.astralForge-effects').appendChild(div);
+            if(forgeItem.selectedShard && forgeItem.selectedShard.name.toLowerCase() === "prismatic time shard") {
+                document.querySelector('.astralForge-effects').appendChild(div);
+                document.querySelectorAll('.astralForge-overloadWindow > p').forEach(line => {
+                    line.addEventListener('click', e => {
+                        forgeItem.selectedOverload = line.id;
+                        console.log('Selected overload: ' + forgeItem.selectedOverload);
+                        e.stopImmediatePropagation();
+                        document.querySelector('.astralForge-overloadWindow').remove();
+                        getAstralForgeShards(forgeItem.selectedOverload, true);
+                        generateAstralForgeScreenEvents(forgeItem, false, true, true, false);
+                        unselectCurrentShard(forgeItem);
+                        generateAstralForgeScreenButtonEvents(forgeItem);
+                    });
+                });
+                document.querySelector('.astralForge-overloadWindow').addEventListener('contextmenu', e => {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                    document.querySelector('.astralForge-overloadWindow').remove();
+                });
+            }
         });
     }
     if(!skipEffects) document.querySelectorAll('.effectSelectable').forEach(eff => {
@@ -1371,7 +1401,7 @@ function launchAlteration(forgeItem) {
         }
         
         getAstralForgeHistory(forgeItem, true)
-        unselectCurrentEffect(forgeItem);
+        if(forgeItem.selectedEffect) unselectCurrentEffect(forgeItem);
 
         generateAstralForgeScreenEvents(forgeItem, true, false, false, true);
         unselectCurrentBookmark(forgeItem);
@@ -1382,7 +1412,18 @@ function launchAlteration(forgeItem) {
         forgeItem.clearAnimationQueue();
     } else {
         console.info(attemptOutcome);
+        addAstralForgeNotification(attemptOutcome);
     }
+}
+
+function addAstralForgeNotification(message) {
+    let str = '';
+
+    str += '<div class="astralForge-notification">';
+    str += message;
+    str += '</div>';
+
+    document.querySelector('.astralForge-notifications').innerHTML = str;
 }
 
 function launchReversion(forgeItem) {
@@ -1452,6 +1493,7 @@ function getAstralForgeEffectDOM(effect) {
     return document.getElementById('eff-' + trimWhitespacesInsideString(effect));
 }
 function astralForgeEffectAnimate(forgeItem) {
+    console.log(forgeItem.animationQueue);
     forgeItem.animationQueue.forEach(anim => {
         getAstralForgeEffectDOM(anim[0]).classList.add(anim[1]);
     });
@@ -1462,14 +1504,16 @@ function clearAnimationClasses() {
     })
 }
 
-function getAstralForgeShards(refresh = false) {
+function getAstralForgeShards(overload, refresh = false) {
     let str = '<table class="astralForgeShards"><tbody>';
     let shards = game.player.inventory.getTimeShards();
     let cometDusts = game.player.inventory.getCometDusts();
     shards.forEach(shard => {
         str += '<tr id="' + shard.id + '" class="shard shardSelectable">';
         str += '<td style="width: 20%; text-align: center;">' + shard.amount + '</td>';
-        str += '<td style="color: ' + getRarityColorCode(shard.rarity) + '">' + shard.name + '</td>';
+        str += '<td style="color: ' + getRarityColorCode(shard.rarity) + '">' + shard.name;
+        if(shard.name.toLowerCase() === 'prismatic time shard' && overload) str += '<br><span class="selectedOverloadIndicator">' + capitalizeFirstLetter(overload) + '</span>'; 
+        str += '</td>';
         str += '</tr>';
     });
     str += '</tbody></table>';
@@ -1506,8 +1550,9 @@ function getAstralForgeItemBox(forgeItem, refresh = false) {
     str += '<h1 class="barredLeftFull" style="margin: 0 0 2px 0">' + item.name + '</h1>';
     str += '<h3 class="barredLeftFull" style="margin-top: 0px">' + capitalizeFirstLetter(forgeItem.state) + ' ' + capitalizeFirstLetter(item.rarity) + ' ' + capitalizeFirstLetter(getItemType(item)) + '</h3>';
     str += '</div>';
-    //str += '<h1>' + item.name + '</h1>';
     str += '</div>';
+
+    str += '<div class="astralForge-notifications"></div>';
 
     if(refresh) {
         document.querySelector('.astralForge-item').innerHTML = str;
@@ -1568,8 +1613,8 @@ function getAstralForgeSubstrateBox(forgeItem, refresh = false) {
 
 function generateAstralForgeEffectLine(forgeItem, effect, cssClass, range = false, noDetails = false, boolTranslate = false) {
     let str = '';
-    const reference = forgeItem.getEffectFromReferenceTable(effect.effect);
-    const addedColor = getAstralForgeEffectColor(new Stat(reference.effect, [reference.added, reference.added]));
+    const reference = noDetails ? {effect: null, max: 1, added: 0} : forgeItem.getEffectFromReferenceTable(effect.effect);
+    const addedColor = noDetails ? 'inherit' : getAstralForgeEffectColor(new Stat(reference.effect, [reference.added, reference.added]));
     if(reference.max === reference.added && !forgeItem.targetedEffectIsBoolean(effect.effect)) cssClass += ' fullyUpgradedEffect';
 
     str += '<tr id="eff-' + trimWhitespacesInsideString(effect.effect) + '" class="' + cssClass + '">';
