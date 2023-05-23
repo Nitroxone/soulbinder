@@ -150,6 +150,8 @@ function getTrinketTooltip(trinket, asResult = null, full = false) {
     if(trinket.set) str += '<div class="tooltipSetText">' + trinket.set + '</div>';
     str += '</div></div>';
 
+    if(trinket.astralForgeItem.isModified()) str += '<div class="editedIcon" id="editedIcon-' + trinket.id + '"></div>';
+
     game.particlesTooltipCanvasItem = trinket;
     return str;
 }
@@ -277,6 +279,8 @@ function getArmorTooltip(armor, asResult = null, full = false) {
     str += '<div class="par tooltipDesc">"' + armor.desc + '"</div>';
     if(armor.set) str += '<div class="tooltipSetText">' + armor.set + '</div>';
     str += '</div>';
+
+    if(armor.astralForgeItem.isModified()) str += '<div class="editedIcon" id="editedIcon-' + armor.id + '"></div>';
 
     game.particlesTooltipCanvasItem = armor;
     return str;
@@ -1254,24 +1258,45 @@ function drawAstralForgeScreen(forgeItem, refresh = false) {
 }
 
 function generateAstralForgeScreenEvents(forgeItem, skipShards = false, skipEffects = false, skipHistory = false, skipCometDusts = false) {
-    if(!skipShards) document.querySelectorAll('.shardSelectable').forEach(sha => {
-        sha.addEventListener('click', e => {
-            const shard = getInventoryResourceById(Number(sha.id));
+    if(!skipShards) {
+        document.querySelectorAll('.shardSelectable').forEach(sha => {
+            sha.addEventListener('click', e => {
+                const shard = getInventoryResourceById(Number(sha.id));
+    
+                if(forgeItem.selectedShard && forgeItem.selectedShard.name === shard.name) {
+                    forgeItem.clearShard();
+                } else if(forgeItem.selectedShard) {
+                    unselectCurrentShard(forgeItem);
+                    forgeItem.clearShard();
+                    forgeItem.selectShard(shard);
+                } else {
+                    forgeItem.selectShard(shard);
+                }
+    
+                const overloadWindow = document.querySelector('.astralForge-overloadWindow');
+                if(overloadWindow) overloadWindow.remove();
 
-            if(forgeItem.selectedShard && forgeItem.selectedShard.name === shard.name) {
-                forgeItem.clearShard();
-            } else if(forgeItem.selectedShard) {
-                unselectCurrentShard(forgeItem);
-                forgeItem.clearShard();
-                forgeItem.selectShard(shard);
-            } else {
-                forgeItem.selectShard(shard);
-            }
-
-            sha.classList.toggle('shardSelected');
-            console.log(forgeItem.selectedShard);
+                sha.classList.toggle('shardSelected');
+                console.log(forgeItem.selectedShard);
+            });
         });
-    });
+        document.getElementById(what(game.player.inventory.resources, "prismatic time shard").id).addEventListener('click', e => {
+            const div = document.createElement('div');
+
+            const available = forgeItem.getAvailableOverloadEffects();
+            let str = '';
+            str += '<h3>Overload Effect Selection</h3>';
+            str += '<div class="divider"></div>';
+            available.forEach(eff => {
+                str += '<p>' + capitalizeFirstLetter(eff) + ' <span class="theoricalval" style="margin-left: 0.2rem;">[' + getOverValueFromConfig(eff) + ']</span>' + '</p>';
+            })
+
+            div.innerHTML = str;
+            div.classList.add('astralForge-overloadWindow', 'tooltipSpawn');
+
+            if(forgeItem.selectedShard.name.toLowerCase() === "prismatic time shard") document.querySelector('.astralForge-effects').appendChild(div);
+        });
+    }
     if(!skipEffects) document.querySelectorAll('.effectSelectable').forEach(eff => {
         eff.addEventListener('click', e => {
             const effect = eff.querySelector('.astralEffectContent').textContent.toLowerCase();

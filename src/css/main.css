@@ -3602,6 +3602,8 @@ hr.leftSided {
 }
 
 .astralForge-effects {
+    position: relative;
+    
     grid-area: astralForge-effects;
 
     background-image: url('img/darkBorders.png'), url('img/astralforge_bg.png');
@@ -3882,6 +3884,45 @@ table.astralForgeShards td {
 .astralForgeHistory-criticalfailure, .astralForgeHistory-success, .astralForgeHistory-criticalsuccess {
     transition: all .1s ease-in-out;
     cursor: pointer;
+}
+
+.astralForge-overloadWindow {
+    border-radius: 3px;
+    border: 7px solid transparent;
+    border-image: url(img/window1-tiny.png) 7 stretch;
+
+    background-image: url('img/bg3.png');
+    background-repeat: repeat;
+    background-position: center;
+    background-size: cover;
+
+    padding: 6px;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+
+    width: fit-content;
+    height: 200px;
+    overflow-y: scroll;
+}
+.astralForge-overloadWindow p {
+    font-size: 11px;
+    color: #dddddd;
+    border-radius: 3px;
+    width: 100%;
+    padding: 6px;
+    cursor: pointer;
+}
+.astralForge-overloadWindow p:hover {
+    background: rgba(175, 175, 175, 0.2);
+}
+.astralForge-overloadWindow h3 {
+    font-family: RobotoSlab;
+    font-variant: small-caps;
+    color: grey;
 }
 
 .detailedWindowFrame {
