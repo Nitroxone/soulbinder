@@ -1316,6 +1316,7 @@ function generateAstralForgeScreenEvents(forgeItem, skipShards = false, skipEffe
                         getAstralForgeShards(forgeItem.selectedOverload, true);
                         generateAstralForgeScreenEvents(forgeItem, false, true, true, false);
                         unselectCurrentShard(forgeItem);
+                        unselectCurrentCometDust(forgeItem);
                         generateAstralForgeScreenButtonEvents(forgeItem);
                     });
                 });
