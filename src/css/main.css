@@ -3784,7 +3784,9 @@ tr.overloadEffect {
 tr.fullyUpgradedEffect {
     font-family: RobotoSlabBold;
     color: #ece2b6;
-    border: 1px double #ece2b6;
+    
+    background: linear-gradient(rgba(0, 0, 0, 0.527),rgb(0, 0, 0)), url('img/ornaments/1.png') top/cover no-repeat !important;
+    box-shadow: inset 0px 0px 10px 6px rgba(255, 255, 255, 0.25)
 }
 table.astralForgeEffects tbody::before {
     content: "@";
