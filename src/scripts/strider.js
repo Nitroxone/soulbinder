@@ -143,11 +143,11 @@ class Strider extends NPC {
                 break;
             case Data.Effect.MAXMANA:
                 this.maxMana += effect.getValue() * factor;
-                this.mana = effect.getValue() * factor;
+                this.mana += effect.getValue() * factor;
                 break;
             case Data.Effect.MAXSTAMINA:
                 this.maxStamina += effect.getValue() * factor;
-                this.stamina = effect.getValue() * factor;
+                this.stamina += effect.getValue() * factor;
                 break;
             case Data.Effect.DODGE:
                 this.dodge += effect.getValue() * factor;
@@ -313,6 +313,9 @@ class Strider extends NPC {
                     this.addEffect(effect);
                 })
             });
+            trinket.astralForgeItem.extraEffects.forEach(extra => {
+                this.addEffect(extra);
+            });
             this.trinkets.push(trinket);
             game.player.inventory.removeItem(trinket);
             this.removeAvailableTrinketSlot();
@@ -335,6 +338,9 @@ class Strider extends NPC {
             echo.stats.forEach(effect => {
                 this.addEffect(effect, true);
             });
+        });
+        trinket.astralForgeItem.extraEffects.forEach(extra => {
+            this.addEffect(extra, true);
         });
         removeFromArray(this.trinkets, trinket);
         game.player.inventory.addItem(trinket, 1, true);
@@ -381,6 +387,9 @@ class Strider extends NPC {
                 this.addEffect(effect);
             })
         });
+        armor.astralForgeItem.extraEffects.forEach(extra => {
+            this.addEffect(extra);
+        });
         game.player.inventory.removeItem(armor);
         console.log(armor.name + ' was equipped to ' + this.name);
         playSound('sounds/ui/equip' + getRandomNumber(1, 3) + '.wav');
@@ -418,6 +427,9 @@ class Strider extends NPC {
             echo.stats.forEach(effect => {
                 this.addEffect(effect, true);
             });
+        });
+        armor.astralForgeItem.extraEffects.forEach(extra => {
+            this.addEffect(extra, true);
         });
         game.player.inventory.addItem(armor, 1, true);
         console.log(armor.name + ' was unequipped from ' + this.name);
@@ -457,6 +469,14 @@ class Strider extends NPC {
                 }
             }
         }
+        weapon.echoes.forEach(echo => {
+            echo.stats.forEach(effect => {
+                this.addEffect(effect);
+            });
+        });
+        weapon.astralForgeItem.extraEffects.forEach(extra => {
+            this.addEffect(extra);
+        });
         game.player.inventory.removeItem(weapon);
         drawInventory();
         spawnStriderPopup(this, true);
@@ -466,16 +486,46 @@ class Strider extends NPC {
             if(!this.eqWeaponRight) return;
             game.player.inventory.addItem(this.eqWeaponRight, 1, true);
             console.log(this.eqWeaponRight.name + ' was unequipped from ' + this.name + '\'s right hand.');
+
+            this.eqWeaponRight.echoes.forEach(echo => {
+                echo.stats.forEach(effect => {
+                    this.addEffect(effect, true);
+                });
+            });
+            this.eqWeaponRight.astralForgeItem.extraEffects.forEach(extra => {
+                this.addEffect(extra, true);
+            });
+
             this.eqWeaponRight = null;
         } else if(hand === Data.WeaponHand.LEFT && this.eqWeaponLeft) {
             if(!this.eqWeaponLeft) return;
             game.player.inventory.addItem(this.eqWeaponLeft, 1, true);
             console.log(this.eqWeaponLeft.name + ' was unequipped from ' + this.name + '\'s left hand.');
+            
+            this.eqWeaponLeft.echoes.forEach(echo => {
+                echo.stats.forEach(effect => {
+                    this.addEffect(effect, true);
+                });
+            });
+            this.eqWeaponLeft.astralForgeItem.extraEffects.forEach(extra => {
+                this.addEffect(extra, true);
+            });
+
             this.eqWeaponLeft = null;
         } else if(hand === Data.WeaponHand.BOTH) {
             if(!this.eqWeaponBoth) return; 
             game.player.inventory.addItem(this.eqWeaponBoth, 1, true);
             console.log(this.eqWeaponBoth.name + ' was unequipped from ' + this.name + '\'s both hands.');
+                        
+            this.eqWeaponBoth.echoes.forEach(echo => {
+                echo.stats.forEach(effect => {
+                    this.addEffect(effect, true);
+                });
+            });
+            this.eqWeaponBoth.astralForgeItem.extraEffects.forEach(extra => {
+                this.addEffect(extra, true);
+            });
+
             this.eqWeaponBoth = null;
         }
         drawInventory();
