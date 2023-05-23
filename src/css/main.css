@@ -4029,11 +4029,6 @@ table.astralForgeShards td {
     font-size: large;
 }
 
-.biome:hover {
-    cursor: pointer;
-    filter: brightness(115%);
-}
-
 .jungle.biome {
     background-image: url(img/bg/jungle_biome.png);
 }
