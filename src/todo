@@ -8,6 +8,8 @@
 - Add a notification system
 - Implement item pricing
 
+- Make it possible to create sets with less than 8 items
+
 ASTRAL FORGE:
 - Create GUI -- ONGOING
 - Implement an item pricing change on alteration (increasing/decreasing stats brings the price up and down)
