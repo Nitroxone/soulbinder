@@ -3659,6 +3659,8 @@ hr.leftSided {
     display: flex;
     justify-content: center;
     align-items: center;
+
+    position: relative;
 }
 
 .astralForge-item-iconBox {
@@ -4120,4 +4122,43 @@ table.astralForgeShards td {
     flex-direction: column;
     justify-content: start;
     align-items: flex-start;
+}
+
+.astralForge-notifications {
+    position: absolute;
+    top: 0;
+    right: 0;
+    max-width: 175px;
+}
+.astralForge-notification {
+    font-size: 11px;
+    border: 1px solid rgba(232, 65, 24, 0.7);
+    background: rgba(232, 65, 24, 0.2);
+    color: #ddd;
+    padding: 6px;
+    border-radius: 3px;
+
+    animation-timing-function: ease-in-out;
+    animation-name: astralForgeNotificationSpawn;
+    animation-fill-mode: forwards;
+    animation-duration: 3s;
+    animation-delay: 0;
+    z-index: 2;
+}
+
+@keyframes astralForgeNotificationSpawn {
+    0% {
+        opacity: 0;
+        translate: 25px 0;
+    }
+    10% {
+        opacity: 1;
+        translate: 0 0;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }

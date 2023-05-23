@@ -632,7 +632,7 @@ class AstralForge {
 
     /**
      * Runs various tests to check that an alteration can be casted on this AstralForge.
-     * @returns {boolean} whether an alteration can be casted
+     * @returns {Data.AlterationError} whether an alteration can be casted
      */
     canLaunchAlteration() {
         const effect = this.selectedEffect;

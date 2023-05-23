@@ -1412,7 +1412,18 @@ function launchAlteration(forgeItem) {
         forgeItem.clearAnimationQueue();
     } else {
         console.info(attemptOutcome);
+        addAstralForgeNotification(attemptOutcome);
     }
+}
+
+function addAstralForgeNotification(message) {
+    let str = '';
+
+    str += '<div class="astralForge-notification">';
+    str += message;
+    str += '</div>';
+
+    document.querySelector('.astralForge-notifications').innerHTML = str;
 }
 
 function launchReversion(forgeItem) {
@@ -1539,8 +1550,9 @@ function getAstralForgeItemBox(forgeItem, refresh = false) {
     str += '<h1 class="barredLeftFull" style="margin: 0 0 2px 0">' + item.name + '</h1>';
     str += '<h3 class="barredLeftFull" style="margin-top: 0px">' + capitalizeFirstLetter(forgeItem.state) + ' ' + capitalizeFirstLetter(item.rarity) + ' ' + capitalizeFirstLetter(getItemType(item)) + '</h3>';
     str += '</div>';
-    //str += '<h1>' + item.name + '</h1>';
     str += '</div>';
+
+    str += '<div class="astralForge-notifications"></div>';
 
     if(refresh) {
         document.querySelector('.astralForge-item').innerHTML = str;
