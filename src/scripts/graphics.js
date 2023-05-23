@@ -71,6 +71,10 @@ function spawnTooltip(item, fromExisting = 0) {
             addTooltip(tooltip.querySelector('.editedIcon'), function(){
                 return item.astralForgeItem.getFormattedModifications();
             }, {offY: -8});
+            tooltip.querySelector('.editedIcon').addEventListener('contextmenu', e => {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+            })
         }
     }
 
