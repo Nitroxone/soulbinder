@@ -1236,6 +1236,7 @@ function drawAstralForgeScreen(forgeItem, refresh = false) {
             forgeItem.clearEffect();
             forgeItem.clearSelectedCometDust();
             forgeItem.clearSelectedOverload();
+            forgeItem.clearSelectedBookmark();
             popupWindow.remove();
         });
     }
@@ -1442,7 +1443,7 @@ function launchReversion(forgeItem) {
         }
 
         getAstralForgeHistory(forgeItem, true)
-        unselectCurrentEffect(forgeItem);
+        if(forgeItem.selectedEffect) unselectCurrentEffect(forgeItem);
 
         generateAstralForgeScreenEvents(forgeItem, true, false, false, true);
         unselectCurrentBookmark(forgeItem);
