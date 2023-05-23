@@ -35,7 +35,8 @@ const Data = Object.freeze({
         LEGENDARY: '#ffaa00',
         ELDER: '#fb3e8d',
         
-        OVERLOADED: '#6ebe55'
+        OVERLOADED: '#6ebe55',
+        OVERLOAD: '#0097e6',
     },
     Effect: {
         //------------------------------------------------------

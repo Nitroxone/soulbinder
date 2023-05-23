@@ -3924,6 +3924,11 @@ table.astralForgeShards td {
     font-variant: small-caps;
     color: grey;
 }
+.selectedOverloadIndicator {
+    font-size: 10px;
+    color: grey;
+    font-variant: small-caps;
+}
 
 .detailedWindowFrame {
     border-style: solid !important;
@@ -4103,7 +4108,7 @@ table.astralForgeShards td {
     border-radius: 3px;
 }
 
-.editedIcon:hover {
+.editedIcon:hover, .selectedOverload {
     border: 1px solid rgb(175, 175, 175);
     background-color: rgba(255, 255, 255, 0.2);
 }
