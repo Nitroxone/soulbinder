@@ -308,14 +308,8 @@ class Strider extends NPC {
             trinket.effects.forEach(effect => {
                 this.addEffect(effect);
             });
-            trinket.echoes.forEach(echo => {
-                echo.stats.forEach(effect => {
-                    this.addEffect(effect);
-                })
-            });
-            trinket.astralForgeItem.extraEffects.forEach(extra => {
-                this.addEffect(extra);
-            });
+            this.applyEchoes(trinket);
+            this.applyAstralForgeExtraEffects(trinket);
             this.trinkets.push(trinket);
             game.player.inventory.removeItem(trinket);
             this.removeAvailableTrinketSlot();
@@ -334,14 +328,8 @@ class Strider extends NPC {
         trinket.effects.forEach(effect => {
             this.addEffect(effect, true);
         });
-        trinket.echoes.forEach(echo => {
-            echo.stats.forEach(effect => {
-                this.addEffect(effect, true);
-            });
-        });
-        trinket.astralForgeItem.extraEffects.forEach(extra => {
-            this.addEffect(extra, true);
-        });
+        this.applyEchoes(trinket, true);
+        this.applyAstralForgeExtraEffects(trinket, true);
         removeFromArray(this.trinkets, trinket);
         game.player.inventory.addItem(trinket, 1, true);
         this.addAvailableTrinketSlot();
@@ -382,14 +370,8 @@ class Strider extends NPC {
         }
         this.addEffect(new Stat(Data.Effect.RESILIENCE, [armor.resilience, armor.resilience], true));
         this.addEffect(new Stat(Data.Effect.WARDING, [armor.warding, armor.warding], true));
-        armor.echoes.forEach(echo => {
-            echo.stats.forEach(effect => {
-                this.addEffect(effect);
-            })
-        });
-        armor.astralForgeItem.extraEffects.forEach(extra => {
-            this.addEffect(extra);
-        });
+        this.applyEchoes(armor);
+        this.applyAstralForgeExtraEffects(armor);
         game.player.inventory.removeItem(armor);
         console.log(armor.name + ' was equipped to ' + this.name);
         playSound('sounds/ui/equip' + getRandomNumber(1, 3) + '.wav');
@@ -423,14 +405,8 @@ class Strider extends NPC {
         }
         this.addEffect(new Stat(Data.Effect.RESILIENCE, [armor.resilience, armor.resilience], true), true);
         this.addEffect(new Stat(Data.Effect.WARDING, [armor.warding, armor.warding], true), true);
-        armor.echoes.forEach(echo => {
-            echo.stats.forEach(effect => {
-                this.addEffect(effect, true);
-            });
-        });
-        armor.astralForgeItem.extraEffects.forEach(extra => {
-            this.addEffect(extra, true);
-        });
+        this.applyEchoes(armor, true);
+        this.applyAstralForgeExtraEffects(armor, true);
         game.player.inventory.addItem(armor, 1, true);
         console.log(armor.name + ' was unequipped from ' + this.name);
         playSound('sounds/ui/closetooltip.wav');
@@ -469,14 +445,8 @@ class Strider extends NPC {
                 }
             }
         }
-        weapon.echoes.forEach(echo => {
-            echo.stats.forEach(effect => {
-                this.addEffect(effect);
-            });
-        });
-        weapon.astralForgeItem.extraEffects.forEach(extra => {
-            this.addEffect(extra);
-        });
+        this.applyEchoes(weapon);
+        this.applyAstralForgeExtraEffects(weapon);
         game.player.inventory.removeItem(weapon);
         drawInventory();
         spawnStriderPopup(this, true);
@@ -487,14 +457,8 @@ class Strider extends NPC {
             game.player.inventory.addItem(this.eqWeaponRight, 1, true);
             console.log(this.eqWeaponRight.name + ' was unequipped from ' + this.name + '\'s right hand.');
 
-            this.eqWeaponRight.echoes.forEach(echo => {
-                echo.stats.forEach(effect => {
-                    this.addEffect(effect, true);
-                });
-            });
-            this.eqWeaponRight.astralForgeItem.extraEffects.forEach(extra => {
-                this.addEffect(extra, true);
-            });
+            this.applyEchoes(this.eqWeaponRight, true);
+            this.applyAstralForgeExtraEffects(this.eqWeaponRight, true);
 
             this.eqWeaponRight = null;
         } else if(hand === Data.WeaponHand.LEFT && this.eqWeaponLeft) {
@@ -502,14 +466,8 @@ class Strider extends NPC {
             game.player.inventory.addItem(this.eqWeaponLeft, 1, true);
             console.log(this.eqWeaponLeft.name + ' was unequipped from ' + this.name + '\'s left hand.');
             
-            this.eqWeaponLeft.echoes.forEach(echo => {
-                echo.stats.forEach(effect => {
-                    this.addEffect(effect, true);
-                });
-            });
-            this.eqWeaponLeft.astralForgeItem.extraEffects.forEach(extra => {
-                this.addEffect(extra, true);
-            });
+            this.applyEchoes(this.eqWeaponLeft, true);
+            this.applyAstralForgeExtraEffects(this.eqWeaponLeft, true);
 
             this.eqWeaponLeft = null;
         } else if(hand === Data.WeaponHand.BOTH) {
@@ -517,18 +475,36 @@ class Strider extends NPC {
             game.player.inventory.addItem(this.eqWeaponBoth, 1, true);
             console.log(this.eqWeaponBoth.name + ' was unequipped from ' + this.name + '\'s both hands.');
                         
-            this.eqWeaponBoth.echoes.forEach(echo => {
-                echo.stats.forEach(effect => {
-                    this.addEffect(effect, true);
-                });
-            });
-            this.eqWeaponBoth.astralForgeItem.extraEffects.forEach(extra => {
-                this.addEffect(extra, true);
-            });
+            this.applyEchoes(this.eqWeaponBoth, true);
+            this.applyAstralForgeExtraEffects(this.eqWeaponBoth, true);
 
             this.eqWeaponBoth = null;
         }
         drawInventory();
         spawnStriderPopup(this, true);
+    }
+
+    /**
+     * Applies the specified item's Echoes to this Strider.
+     * @param {Weapon|Armor|Trinket} item the item which echoes will be applied
+     * @param {boolean} remove whether the echoes should be removed or not (default = false)
+     */
+    applyEchoes(item, remove = false) {
+        item.echoes.forEach(echo => {
+            echo.stats.forEach(effect => {
+                this.addEffect(effect, remove);
+            });
+        });
+    }
+
+    /**
+     * Applies the specified item's extra AstralForge effects to this Strider.
+     * @param {Weapon|Armor|Trinket} item the item which extra AstralForge effects will be applied
+     * @param {boolean} remove whether the effects should be removed or not (default = false)
+     */
+    applyAstralForgeExtraEffects(item, remove = false) {
+        item.astralForgeItem.extraEffects.forEach(extra => {
+            this.addEffect(extra, remove);
+        })
     }
 }
