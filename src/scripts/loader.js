@@ -733,6 +733,25 @@ const Loader = {
                     )
                 ],
             ),
+            new Trinket(
+                "Goodsight Doll",
+                "Refurbished, worn out, it has long been a child's best friend.",
+                38,
+                10,
+                Data.Rarity.COMMON,
+                [
+                    new Stat(
+                        Data.Effect.ACCURACY,
+                        [2, 4],
+                        false,
+                        true
+                    ),
+                    new Stat(
+                        Data.Effect.WARDING,
+                        [-1, -2]
+                    )
+                ],
+            ),
         ];
 
         for(const trinket of trinkets) {
