@@ -89,4 +89,12 @@ class NPC extends Entity {
             if(trigger.type === type) trigger.checker() && trigger.behavior();
         })
     }
+
+    /**
+     * Adds the specified number to this NPC's shield. Cannot exceed maxHealth.
+     * @param {number} amount the amount of shield to add
+     */
+    addShield(amount) {
+        this.shield = Math.min(this.maxHealth, this.shield+amount);
+    }
 }
