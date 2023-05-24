@@ -752,6 +752,52 @@ const Loader = {
                     )
                 ],
             ),
+            new Trinket(
+                "Charm of Second Wind",
+                "The pen shakes of itself, agitated in its heart of an unheard of ardor.",
+                47,
+                10,
+                Data.Rarity.UNCOMMON,
+                [
+                    new Stat(
+                        Data.Effect.MAXSTAMINA,
+                        [40, 55],
+                    ),
+                    new Stat(
+                        Data.Effect.REGEN_STAMINA,
+                        [2, 4],
+                        false,
+                        true
+                    ),
+                    new Stat(
+                        Data.Effect.MODIF_DMG_WEAPON,
+                        [-3, -5],
+                        false,
+                        true
+                    ),
+                ],
+            ),
+            new Trinket(
+                "Talisman of the Prince",
+                "\"Would you dare to cross swords with him? He is the wisest of the Princes of Mithor. But impetuous dexterity does not come without fault; do not tempt the devil, or you may join the grave of the Baron of Gaushire.\" - Jir, Traveling Merchant",
+                22,
+                10,
+                Data.Rarity.RARE,
+                [
+                    new Stat(
+                        Data.Effect.MODIF_DMG_WEAPON,
+                        [10, 15],
+                        false,
+                        true
+                    ),
+                    new Stat(
+                        Data.Effect.MODIF_BLOCK,
+                        [-8, -11],
+                        false,
+                        true
+                    ),
+                ],
+            ),
         ];
 
         for(const trinket of trinkets) {
