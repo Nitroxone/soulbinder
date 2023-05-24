@@ -71,6 +71,7 @@ class Battle {
         this.runTriggersOnAllies(Data.TriggerType.ON_BATTLE_START);
         this.runTriggersOnEnemies(Data.TriggerType.ON_BATTLE_START);
         this.beginRound();
+        drawBattleScreen();
     }
 
     end() {

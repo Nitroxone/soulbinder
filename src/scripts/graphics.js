@@ -1797,10 +1797,84 @@ function drawExploreScreen() {
     });
 }
 
-function drawBattleScreen(refresh = false) {
+function drawBattleScreen() {
     document.querySelector('#battleDiv').innerHTML = '<div class="battleContainer"><div class="battle"></div></div>';
 
     let str = '';
 
+    str += '<div class="battle-fightersContainer">';
+    str += getFormationBattleAllies();
+    str += getFormationBattleEnemies();
+    str += '</div>';
+
     document.querySelector('.battle').innerHTML = str;
+}
+
+function getFormationBattleAllies(refresh = false) {
+    let str = '';
+    if(!refresh) str += '<div id="battle-fighters-allies">';
+    const back = game.currentBattle.allies[0];
+    const middle = game.currentBattle.allies[1];
+    const front = game.currentBattle.allies[2];
+
+    str += '<div id="gw-h-back" class="category" style="display: inline-block"><div class="categoryName">Back</div>';
+    str += '<div id="aw-h-back" class="animationsWrapper"></div>';
+    if(back) {
+        str += '<div id="b-hero-back" class="battleFighter" style="background-image: linear-gradient(transparent 0%, rgba(0, 0, 0, 1) 70%), url(\'css/img/chars/' + back.charset + '\'); ' + (back.health === 0 ? ' filter: grayscale(100%);' : '') + '"></div>';
+    }
+    str += '</div>';
+
+    str += '<div id="gw-h-middle" class="category" style="display: inline-block"><div class="categoryName">Middle</div>';
+    str += '<div id="aw-h-middle" class="animationsWrapper"></div>';
+    if(middle) {
+        str += '<div id="b-hero-middle" class="battleFighter" style="background-image: linear-gradient(transparent 0%, rgba(0, 0, 0, 1) 70%), url(\'css/img/chars/' + middle.charset + '\'); ' + (middle.health === 0 ? ' filter: grayscale(100%);' : '') + '"></div>';
+    }
+    str += '</div>';
+
+    str += '<div id="gw-h-front" class="category" style="display: inline-block"><div class="categoryName">Front</div>';
+    str += '<div id="aw-h-front" class="animationsWrapper"></div>';
+    if(front) {
+        str += '<div id="b-hero-front" class="battleFighter" style="background-image: linear-gradient(transparent 0%, rgba(0, 0, 0, 1) 70%), url(\'css/img/chars/' + front.charset + '\'); ' + (front.health === 0 ? ' filter: grayscale(100%);' : '') + '"></div>';
+    }
+    str += '</div></div>';
+
+    if(refresh) {
+        document.querySelector('.battle-fighters-allies').innerHTML = str;
+        return;
+    }
+    return str;
+}
+function getFormationBattleEnemies(refresh = false) {
+    let str = '';
+    if(!refresh) str += '<div id="battle-fighters-enemies">';
+    const back = game.currentBattle.enemies[0];
+    const middle = game.currentBattle.enemies[1];
+    const front = game.currentBattle.enemies[2];
+
+    str += '<div id="gw-h-back" class="category" style="display: inline-block"><div class="categoryName">Front</div>';
+    str += '<div id="aw-h-back" class="animationsWrapper"></div>';
+    if(back) {
+        str += '<div id="b-enemy-back" class="battleFighter" style="background-image: linear-gradient(transparent 0%, rgba(0, 0, 0, 1) 70%), url(\'css/img/chars/' + back.charset + '\'); ' + (back.health === 0 ? ' filter: grayscale(100%);' : '') + '"></div>';
+    }
+    str += '</div>';
+
+    str += '<div id="gw-h-middle" class="category" style="display: inline-block"><div class="categoryName">Middle</div>';
+    str += '<div id="aw-h-middle" class="animationsWrapper"></div>';
+    if(middle) {
+        str += '<div id="b-enemy-middle" class="battleFighter" style="background-image: linear-gradient(transparent 0%, rgba(0, 0, 0, 1) 70%), url(\'css/img/chars/' + middle.charset + '\'); ' + (middle.health === 0 ? ' filter: grayscale(100%);' : '') + '"></div>';
+    }
+    str += '</div>';
+
+    str += '<div id="gw-h-front" class="category" style="display: inline-block"><div class="categoryName">Back</div>';
+    str += '<div id="aw-h-front" class="animationsWrapper"></div>';
+    if(front) {
+        str += '<div id="b-enemy-front" class="battleFighter" style="background-image: linear-gradient(transparent 0%, rgba(0, 0, 0, 1) 70%), url(\'css/img/chars/' + front.charset + '\'); ' + (front.health === 0 ? ' filter: grayscale(100%);' : '') + '"></div>';
+    }
+    str += '</div></div>';
+
+    if(refresh) {
+        document.querySelector('.battle-fighters-enemies').innerHTML = str;
+        return;
+    }
+    return str;
 }

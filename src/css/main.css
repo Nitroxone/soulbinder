@@ -3898,6 +3898,8 @@ table.astralForgeShards td {
     padding: 4rem;
 }
 .battle {
+    border: 1px dashed grey;
+
     width: 1000px;
     padding: 4rem;
 
@@ -3905,4 +3907,55 @@ table.astralForgeShards td {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.battle-fightersContainer {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+}
+
+.battleFighter {
+    width: 125px;
+    height: 325px;
+
+    border: 2px solid rgb(100, 100, 100);
+    border-radius: 3px;
+    padding: 1.2rem;
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-color: #000;
+    background-size: 200%;
+
+    transition: all .1s ease-in-out;
+}
+
+.battleFighter:hover {
+    cursor: pointer;
+    border-color: rgb(155, 155, 155);
+    box-shadow: inset 0px 0px 10px 12px rgba(255, 255, 255, 0.1);
+}
+
+.categoryName {
+    width: 75%;
+
+    margin: 0 auto;
+    text-align: center;
+    font-variant: small-caps;
+    font-size: 13px;
+    padding: 0.3em;
+    padding-bottom: 0.3em;
+    
+    background-image: url('img/bg4.png');
+    background-size: cover;
+    background-repeat: repeat;
+
+    border-top: 1px solid rgb(100, 100, 100);
+    border-left: 1px solid rgb(100, 100, 100);
+    border-right: 1px solid rgb(100, 100, 100);
+
+    border-radius: 3px 3px 0 0;
 }

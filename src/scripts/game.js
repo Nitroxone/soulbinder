@@ -201,7 +201,8 @@ class Game {
             this.tabs[i].domWhat.onclick = function(tab){return function(){game.setTab(tab);};}(this.tabs[i]);
             addTooltip(this.tabs[i].domWhat, function(tab){return function(){return tab.desc;};}(this.tabs[i]), {offY:-8});
         }
-        this.setTab(this.tabs[1]);
+        // SETS THE STARTING TAB
+        this.setTab(this.tabs[3]);
     }
 
     setTab(tab) {
@@ -336,7 +337,6 @@ class Game {
         drawHubScreen();
         drawWorkshopScreen();
         drawExploreScreen();
-        drawBattleScreen();
 
         this.message({type: Data.LogMessageType.IMPORTANT, text:'This is an important message.'});
         this.message({type: Data.LogMessageType.REGULAR, text:'This is a regular message.'});
