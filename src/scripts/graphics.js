@@ -1817,24 +1817,36 @@ function getFormationBattleAllies(refresh = false) {
     const middle = game.currentBattle.allies[1];
     const front = game.currentBattle.allies[2];
 
-    str += '<div id="gw-h-back" class="category" style="display: inline-block"><div class="categoryName">Back</div>';
+    str += '<div id="gw-h-back" class="category" style="display: inline-block"><div class="battlePositionName">Back</div>';
     str += '<div id="aw-h-back" class="animationsWrapper"></div>';
     if(back) {
-        str += '<div id="b-hero-back" class="battleFighter" style="background-image: linear-gradient(transparent 0%, rgba(0, 0, 0, 1) 70%), url(\'css/img/chars/' + back.charset + '\'); ' + (back.health === 0 ? ' filter: grayscale(100%);' : '') + '"></div>';
+        str += '<div id="b-hero-back" class="battleFighter" style="background-image: linear-gradient(transparent 0%, rgba(0, 0, 0, 1) 70%), url(\'css/img/chars/' + back.charset + '\'); ' + (back.health === 0 ? ' filter: grayscale(100%);' : '') + '">';
+        str += '<div class="gaugeProgress"><div class="statGauge health" style="width:'+ Math.round((back.health*100)/back.maxHealth) +'%"><span class="gaugeIndicator">'+ back.health + '/' + back.maxHealth +'</span></div></div>';
+        str += '<div class="gaugeProgress"><div class="statGauge stamina" style="width:'+ Math.round((back.stamina*100)/back.maxStamina) +'%"><span class="gaugeIndicator">'+ back.stamina + '/' + back.maxStamina +'</span></div></div>';
+        str += '<div class="gaugeProgress"><div class="statGauge mana" style="width:'+ Math.round((back.mana*100)/back.maxMana) +'%"><span class="gaugeIndicator">'+ back.mana + '/' + back.maxMana +'</span></div></div>';
+        str += '</div>';
     }
     str += '</div>';
 
-    str += '<div id="gw-h-middle" class="category" style="display: inline-block"><div class="categoryName">Middle</div>';
+    str += '<div id="gw-h-middle" class="category" style="display: inline-block"><div class="battlePositionName">Middle</div>';
     str += '<div id="aw-h-middle" class="animationsWrapper"></div>';
     if(middle) {
-        str += '<div id="b-hero-middle" class="battleFighter" style="background-image: linear-gradient(transparent 0%, rgba(0, 0, 0, 1) 70%), url(\'css/img/chars/' + middle.charset + '\'); ' + (middle.health === 0 ? ' filter: grayscale(100%);' : '') + '"></div>';
+        str += '<div id="b-hero-middle" class="battleFighter" style="background-image: linear-gradient(transparent 0%, rgba(0, 0, 0, 1) 70%), url(\'css/img/chars/' + middle.charset + '\'); ' + (middle.health === 0 ? ' filter: grayscale(100%);' : '') + '">';
+        str += '<div class="gaugeProgress"><div class="statGauge health" style="width:'+ Math.round((middle.health*100)/middle.maxHealth) +'%"><span class="gaugeIndicator">'+ middle.health + '/' + middle.maxHealth +'</span></div></div>';
+        str += '<div class="gaugeProgress"><div class="statGauge stamina" style="width:'+ Math.round((middle.stamina*100)/middle.maxStamina) +'%"><span class="gaugeIndicator">'+ middle.stamina + '/' + middle.maxStamina +'</span></div></div>';
+        str += '<div class="gaugeProgress"><div class="statGauge mana" style="width:'+ Math.round((middle.mana*100)/middle.maxMana) +'%"><span class="gaugeIndicator">'+ middle.mana + '/' + middle.maxMana +'</span></div></div>';
+        str += '</div>';
     }
     str += '</div>';
 
-    str += '<div id="gw-h-front" class="category" style="display: inline-block"><div class="categoryName">Front</div>';
+    str += '<div id="gw-h-front" class="category" style="display: inline-block"><div class="battlePositionName">Front</div>';
     str += '<div id="aw-h-front" class="animationsWrapper"></div>';
     if(front) {
-        str += '<div id="b-hero-front" class="battleFighter" style="background-image: linear-gradient(transparent 0%, rgba(0, 0, 0, 1) 70%), url(\'css/img/chars/' + front.charset + '\'); ' + (front.health === 0 ? ' filter: grayscale(100%);' : '') + '"></div>';
+        str += '<div id="b-hero-front" class="battleFighter" style="background-image: linear-gradient(transparent 0%, rgba(0, 0, 0, 1) 70%), url(\'css/img/chars/' + front.charset + '\'); ' + (front.health === 0 ? ' filter: grayscale(100%);' : '') + '">';
+        str += '<div class="gaugeProgress"><div class="statGauge health" style="width:'+ Math.round((front.health*100)/front.maxHealth) +'%"><span class="gaugeIndicator">'+ front.health + '/' + front.maxHealth +'</span></div></div>';
+        str += '<div class="gaugeProgress"><div class="statGauge stamina" style="width:'+ Math.round((front.stamina*100)/front.maxStamina) +'%"><span class="gaugeIndicator">'+ front.stamina + '/' + front.maxStamina +'</span></div></div>';
+        str += '<div class="gaugeProgress"><div class="statGauge mana" style="width:'+ Math.round((front.mana*100)/front.maxMana) +'%"><span class="gaugeIndicator">'+ front.mana + '/' + front.maxMana +'</span></div></div>';
+        str += '</div>';
     }
     str += '</div></div>';
 
@@ -1851,24 +1863,37 @@ function getFormationBattleEnemies(refresh = false) {
     const middle = game.currentBattle.enemies[1];
     const front = game.currentBattle.enemies[2];
 
-    str += '<div id="gw-h-back" class="category" style="display: inline-block"><div class="categoryName">Front</div>';
+    str += '<div id="gw-h-back" class="category" style="display: inline-block"><div class="battlePositionName">Front</div>';
     str += '<div id="aw-h-back" class="animationsWrapper"></div>';
     if(back) {
-        str += '<div id="b-enemy-back" class="battleFighter" style="background-image: linear-gradient(transparent 0%, rgba(0, 0, 0, 1) 70%), url(\'css/img/chars/' + back.charset + '\'); ' + (back.health === 0 ? ' filter: grayscale(100%);' : '') + '"></div>';
+        str += '<div id="b-enemy-back" class="battleFighter" style="background-image: linear-gradient(transparent 0%, rgba(0, 0, 0, 1) 70%), url(\'css/img/chars/' + back.charset + '\'); ' + (back.health === 0 ? ' filter: grayscale(100%);' : '') + '">';
+        str += '<div class="gaugeProgress"><div class="statGauge health" style="width:'+ Math.round((back.health*100)/back.maxHealth) +'%"><span class="gaugeIndicator">'+ back.health + '/' + back.maxHealth +'</span></div></div>';
+        str += '<div class="gaugeProgress"><div class="statGauge stamina" style="width:'+ Math.round((back.stamina*100)/back.maxStamina) +'%"><span class="gaugeIndicator">'+ back.stamina + '/' + back.maxStamina +'</span></div></div>';
+        str += '<div class="gaugeProgress"><div class="statGauge mana" style="width:'+ Math.round((back.mana*100)/back.maxMana) +'%"><span class="gaugeIndicator">'+ back.mana + '/' + back.maxMana +'</span></div></div>';
+        str += '</div>';
+        
     }
     str += '</div>';
 
-    str += '<div id="gw-h-middle" class="category" style="display: inline-block"><div class="categoryName">Middle</div>';
+    str += '<div id="gw-h-middle" class="category" style="display: inline-block"><div class="battlePositionName">Middle</div>';
     str += '<div id="aw-h-middle" class="animationsWrapper"></div>';
     if(middle) {
-        str += '<div id="b-enemy-middle" class="battleFighter" style="background-image: linear-gradient(transparent 0%, rgba(0, 0, 0, 1) 70%), url(\'css/img/chars/' + middle.charset + '\'); ' + (middle.health === 0 ? ' filter: grayscale(100%);' : '') + '"></div>';
+        str += '<div id="b-enemy-middle" class="battleFighter" style="background-image: linear-gradient(transparent 0%, rgba(0, 0, 0, 1) 70%), url(\'css/img/chars/' + middle.charset + '\'); ' + (middle.health === 0 ? ' filter: grayscale(100%);' : '') + '">';
+        str += '<div class="gaugeProgress"><div class="statGauge health" style="width:'+ Math.round((middle.health*100)/middle.maxHealth) +'%"><span class="gaugeIndicator">'+ middle.health + '/' + middle.maxHealth +'</span></div></div>';
+        str += '<div class="gaugeProgress"><div class="statGauge stamina" style="width:'+ Math.round((middle.stamina*100)/middle.maxStamina) +'%"><span class="gaugeIndicator">'+ middle.stamina + '/' + middle.maxStamina +'</span></div></div>';
+        str += '<div class="gaugeProgress"><div class="statGauge mana" style="width:'+ Math.round((middle.mana*100)/middle.maxMana) +'%"><span class="gaugeIndicator">'+ middle.mana + '/' + middle.maxMana +'</span></div></div>';
+        str += '</div>';
     }
     str += '</div>';
 
-    str += '<div id="gw-h-front" class="category" style="display: inline-block"><div class="categoryName">Back</div>';
+    str += '<div id="gw-h-front" class="category" style="display: inline-block"><div class="battlePositionName">Back</div>';
     str += '<div id="aw-h-front" class="animationsWrapper"></div>';
     if(front) {
-        str += '<div id="b-enemy-front" class="battleFighter" style="background-image: linear-gradient(transparent 0%, rgba(0, 0, 0, 1) 70%), url(\'css/img/chars/' + front.charset + '\'); ' + (front.health === 0 ? ' filter: grayscale(100%);' : '') + '"></div>';
+        str += '<div id="b-enemy-front" class="battleFighter" style="background-image: linear-gradient(transparent 0%, rgba(0, 0, 0, 1) 70%), url(\'css/img/chars/' + front.charset + '\'); ' + (front.health === 0 ? ' filter: grayscale(100%);' : '') + '">';
+        str += '<div class="gaugeProgress"><div class="statGauge health" style="width:'+ Math.round((front.health*100)/front.maxHealth) +'%"><span class="gaugeIndicator">'+ front.health + '/' + front.maxHealth +'</span></div></div>';
+        str += '<div class="gaugeProgress"><div class="statGauge stamina" style="width:'+ Math.round((front.stamina*100)/front.maxStamina) +'%"><span class="gaugeIndicator">'+ front.stamina + '/' + front.maxStamina +'</span></div></div>';
+        str += '<div class="gaugeProgress"><div class="statGauge mana" style="width:'+ Math.round((front.mana*100)/front.maxMana) +'%"><span class="gaugeIndicator">'+ front.mana + '/' + front.maxMana +'</span></div></div>';
+        str += '</div>';
     }
     str += '</div></div>';
 

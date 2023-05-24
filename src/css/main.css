@@ -2162,6 +2162,7 @@ table.statsTable tbody td:nth-child(3) {
     padding:1px;
     position: relative;
 }
+
 .statGauge {
     /*width:70%;*/
     height:13px;
@@ -2172,15 +2173,16 @@ table.statsTable tbody td:nth-child(3) {
     position: absolute;
     left:0;
     right:0;
+    line-height: normal;
 }
 .health {
-    background: linear-gradient(90deg, rgba(169,0,0,1) 0%, rgba(235,47,6,1) 100%);
+    background: linear-gradient(0deg, rgba(136,41,41,1) 23%, rgba(205,0,0,1) 100%);
 }
 .mana {
-    background: linear-gradient(90deg, rgba(12,36,97,1) 0%, rgba(30,55,153,1) 100%);
+    background: linear-gradient(0deg, rgba(76,41,136,1) 23%, rgba(0,66,205,1) 100%);
 }
 .stamina {
-    background: linear-gradient(90deg, rgba(0,148,50,1) 0%, rgba(68,189,50,1) 100%);
+    background: linear-gradient(0deg, rgba(41,136,76,1) 23%, rgba(0,205,82,1) 100%);
 }
 .gaugeIndicator {
     font-size: 11px;
@@ -3924,11 +3926,15 @@ table.astralForgeShards td {
 
     border: 2px solid rgb(100, 100, 100);
     border-radius: 3px;
-    padding: 1.2rem;
+    padding: 0.5rem;
     background-position: top center;
     background-repeat: no-repeat;
     background-color: #000;
     background-size: 200%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
 
     transition: all .1s ease-in-out;
 }
@@ -3939,7 +3945,7 @@ table.astralForgeShards td {
     box-shadow: inset 0px 0px 10px 12px rgba(255, 255, 255, 0.1);
 }
 
-.categoryName {
+.battlePositionName {
     width: 75%;
 
     margin: 0 auto;
@@ -3958,4 +3964,6 @@ table.astralForgeShards td {
     border-right: 1px solid rgb(100, 100, 100);
 
     border-radius: 3px 3px 0 0;
+
+    font-family: RobotoSlab;
 }
