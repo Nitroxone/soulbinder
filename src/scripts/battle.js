@@ -125,6 +125,7 @@ class Battle {
         this.runTriggersOnAll(Data.TriggerType.ON_ROUND_BEGIN);
         this.round++;
         console.log("New round: " + this.round);
+        this.beginTurn();
     }
 
     /**

@@ -336,6 +336,7 @@ class Game {
         drawHubScreen();
         drawWorkshopScreen();
         drawExploreScreen();
+        drawBattleScreen();
 
         this.message({type: Data.LogMessageType.IMPORTANT, text:'This is an important message.'});
         this.message({type: Data.LogMessageType.REGULAR, text:'This is a regular message.'});
@@ -346,9 +347,8 @@ class Game {
         this.player.formationSet(what(this.player.roster, "amarok"), Data.FormationPosition.FRONT);
         this.player.formationSet(what(this.player.roster, "brim"), Data.FormationPosition.MIDDLE);
         this.player.formationSet(what(this.player.roster, "carhal"), Data.FormationPosition.BACK);
+        console.clear();
 
         this.startBattle([what(this.all_enemies, "mycelial tick"), what(this.all_enemies, "mycelial tick"), what(this.all_enemies, "mycelial tick")]);
-
-        console.clear();
     }
 }

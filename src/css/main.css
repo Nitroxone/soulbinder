@@ -2187,290 +2187,6 @@ table.statsTable tbody td:nth-child(3) {
     text-shadow: 1px 1px 1px #000;
 }
 
-.formationBattle {
-    display:inline-block;
-}
-
-.verticalDivider {
-    width:100px;
-}
-
-.formationBattleContainer {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-
-    margin-top: 50px;
-}
-
-.battleScreen-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    position:absolute;
-    height:100%;
-    width:100%;
-}
-
-.relativeDiv {
-    position: relative;
-}
-
-.battleCommandsContainer {  
-    display: grid; 
-    grid-template-columns: 1fr 1fr 1fr 1fr; 
-    grid-template-rows: 1fr 1fr; 
-    gap: 10px 10px; 
-    grid-template-areas: 
-        "bcc-atk bcc-def bcc-move bcc-skip"
-        "bcc-skill bcc-skill bcc-skill bcc-skill";display: grid; 
-        grid-template-columns: 1fr 1fr 1fr 1fr; 
-        grid-template-rows: 1fr 1fr; 
-        gap: 10px 10px; 
-        grid-template-areas: 
-          "bcc-atk bcc-def bcc-move bcc-skip"
-          "bcc-skill bcc-skill bcc-skill bcc-skill";
-
-    width:500px;
-    height:250px;
-
-    margin-top:50px;
-}
-  
-.bcc-atk {
-    grid-area: bcc-atk; 
-}
-.bcc-atk-equippedTitle, .bcc-def-equippedTitle, .bcc-skip-nextTitle {
-    margin-top: 8px;
-    margin-bottom: 3px;
-
-    font-size:11px;
-    font-family: 'Roboto', Tahoma, Inter, Arial, sans-serif;
-    font-weight: normal;
-}
-.bcc-item-listing {
-    font-size:11px;
-    font-family: 'Roboto', Tahoma, Inter, Arial, sans-serif;
-    font-weight: bold;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
-}
-.bcc-item-listing > div {
-    padding-left: 0;
-}
-.bcc-item-listing > .par {
-    text-indent: 0;
-    margin-bottom:0px;
-}
-.bcc-atk-title, .bcc-def-title, .bcc-skip-title, .bcc-move-title, .bcc-skill-title {
-    font-family: 'RobotoSlab', Georgia, serif;
-    font-size: 17px;
-    font-weight: bold;
-    text-shadow: 1px 1px 0 #000000;
-    font-variant: small-caps;
-    width:80%;
-    color: var(--base-gold);
-
-    /*position:absolute;
-    right: 0;
-    left: 0;
-    margin-left: auto;
-    margin-right: auto;*/
-}
-.bcc-atk-title::after, .bcc-def-title::after, .bcc-skip-title::after, .bcc-move-title::after, .bcc-skill-title::after {
-    content: '';
-    display: block;
-    width: 100%;
-    height: 1px;
-    background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.25), rgba(255,255,255,0));
-    position: relative;
-    bottom: -3px;
-}
-
-.bcc-def { 
-    grid-area: bcc-def; 
-}
-.bcc-skill { 
-    grid-area: bcc-skill; 
-}
-.bcc-skip { 
-    grid-area: bcc-skip; 
-}
-.bcc-move { 
-    grid-area: bcc-move; 
-}
-
-.bcc-atk, .bcc-def, .bcc-skip, .bcc-move, .bcc-skill {
-    font-family: 'Domine', Georgia, serif;
-    font-size: 14px;
-    font-weight: bold;
-    text-shadow: 1px 1px 0 #000000;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-
-    transition: all .1s ease-in-out;
-}
-.bcc-skill {
-    justify-content: start;
-}
-.bcc-skill-title {
-    margin-top:10px;
-}
-.bcc-skill-listing {
-    margin-top:10px;
-    width:100%;
-    padding: 3px 0 3px 0;
-    overflow-x: scroll;
-}
-.bcc-skill-listing > div {
-    margin: 0 4px 0 4px;
-}
-.bcc-atk:hover, .bcc-def:hover, .bcc-skip:hover, .bcc-move:hover {
-    box-shadow: 0 0 0 1px rgba(255,255,255,0.65), 0 0 4px 2px rgba(255,255,255,0.65);
-    /*margin-bottom:30px;*/
-    cursor: pointer;
-}
-
-.battlePlayOrder {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    height:61.5px;
-
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 3px;
-}
-
-.litSquare {
-    box-shadow: 0 0 0 4px rgba(255,255,255,0.85), 0 0 4px 2px rgba(255,255,255,0.25);
-}
-.litSquareGreen {
-    box-shadow: 0 0 0 4px rgba(0, 255, 76, 0.85), 0 0 4px 2px rgba(0, 255, 76, 0.25);
-}
-.litSquareBlue {
-    box-shadow: 0 0 0 4px rgba(0, 135, 255, 0.85), 0 0 4px 2px rgba(0, 135, 255, 0.25);
-}
-.litSquareBlue:hover {
-    box-shadow: 0 0 0 4px rgba(0, 255, 76, 0.85), 0 0 4px 2px rgba(0, 255, 76, 0.25);
-}
-
-.battlePlayOrderTransition {
-    animation: battlePlayOrderTransition 0.15s ease-in-out;
-}
-@keyframes battlePlayOrderTransition {
-    0% {translate: 0 0;}
-    100% {translate: 0 -10px;}
-}
-
-.activeEffectWrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    
-    font-size: 10px;
-}
-.activeEffect {
-    margin-left:8px;
-}
-
-.animationsWrapper {
-    width:52px;
-    height:52px;
-    position:absolute;
-    top: -60px;
-    /* border:1px dashed white;*/
-    box-sizing: border-box;
-    overflow: visible;
-
-    display:flex;
-    align-items: center;
-    justify-content: center;
-
-    overflow: visible;
-}
-.animationsWrapper p {
-    font-size:25px;
-    font-weight: 800;
-    font-family: RobotoSlab;
-    text-shadow: 0 0 5px #000000,
-                 0 0 10px #000000,
-                 0 0 20px #000000;
-}
-.popup {
-    font-size:25px;
-    font-family: RobotoSlab;
-    text-shadow: 0 0 5px #000000,
-                 0 0 10px #000000,
-                 0 0 20px #000000;
-}
-.animatedPopup {
-
-}
-.popupIcon {
-    margin-bottom: -1px;
-    position: relative;
-}
-
-.charmove-LeftOne {
-    transform: translateX(-60px);
-}
-.charmove-LeftTwo {
-    transform: translateX(-120px);
-}
-.charmove-RightOne {
-    transform: translateX(60px);
-}
-.charmove-RightTwo {
-    transform: translateX(120px);
-}
-
-.battleHoverInfo {
-    position: absolute;
-    right: 20px;
-    top: 100px;
-    padding: 1em;
-    
-    background: url(img/darkBorders.png), url(img/bg1.png) !important;
-    background-size: 100% 100%, auto;
-    
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.battlehoverinfo-name {
-    font-family: 'RobotoSlab';
-    font-weight: bold;
-    text-shadow: 0px 1px 0px #733726,0px 2px 0px #875626,0px 2px 1px #000,0px 2px 3px #000;
-    color: var(--base-gold);
-    font-variant: small-caps;
-    font-size: 18px;
-}
-.battlehoverinfo-stats {
-    display: flex;
-    flex-direction: column;
-}
-
-.battleEndContainer {
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-    grid-template-rows: 1fr 3fr;
-    gap: 5px 5px;
-    grid-template-areas: 
-        "be-dungeonInfos be-victory be-soulsAndGold"
-        "be-battleStats be-battleHeroes be-battleLoot"
-        "be-closeButton be-closeButton be-closeButton";
-    padding: .5rem;
-}
 .be-dungeonInfos {
     grid-area: be-dungeonInfos;
 
@@ -4169,4 +3885,24 @@ table.astralForgeShards td {
     100% {
         opacity: 0;
     }
+}
+
+/* BATTLE */
+
+.battleContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem;
+}
+.battle {
+    width: 1000px;
+    padding: 4rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

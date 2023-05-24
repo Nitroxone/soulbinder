@@ -1796,3 +1796,11 @@ function drawExploreScreen() {
         });
     });
 }
+
+function drawBattleScreen(refresh = false) {
+    document.querySelector('#battleDiv').innerHTML = '<div class="battleContainer"><div class="battle"></div></div>';
+
+    let str = '';
+
+    document.querySelector('.battle').innerHTML = str;
+}
