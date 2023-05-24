@@ -1734,17 +1734,17 @@ function drawExploreScreen() {
 
     str += '</div>';
 
-    str += '<div class="entrances coolBorder">';
+    str += '<div class="zones coolBorder">';
 
-    str += '<div class="cave entrance simpleButton normalSized">';
+    str += '<div class="cave zone simpleButton normalSized">';
     str += 'CAVE'
     str += '</div>';
 
-    str += '<div class="dense entrance simpleButton normalSized">';
+    str += '<div class="dense zone simpleButton normalSized">';
     str += 'DENSE'
     str += '</div>';
 
-    str += '<div class="fortress entrance simpleButton normalSized">';
+    str += '<div class="fortress zone simpleButton normalSized">';
     str += 'FORTRESS'
     str += '</div>';
 
@@ -1771,17 +1771,17 @@ function drawExploreScreen() {
       });
     });
 
-    const entrances = document.querySelectorAll('.entrance');
-    entrances.forEach(entrance => {
-        entrance.addEventListener('click', (event) => {
-            const clickedEntrance = event.target;
-            const entranceName = clickedEntrance.classList[0];
+    const zones = document.querySelectorAll('.zone');
+    zones.forEach(zone => {
+        zone.addEventListener('click', (event) => {
+            const clickedZone = event.target;
+            const zoneName = clickedZone.classList[0];
 
-            console.log(entranceName);
-            return entranceName;
+            console.log(zoneName);
+            return zoneName;
         });
     });
-    if(biomeName !== null || entranceName !== null) {
-        
+    if(biomeName !== null || zoneName !== null) {
+
     }
 }

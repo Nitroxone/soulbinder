@@ -4072,7 +4072,7 @@ table.astralForgeShards td {
     margin-bottom: 10px;
 }
 
-.entrances {
+.zones {
     width: 450px;
     display: flex;
     margin-bottom: 10px;
@@ -4089,14 +4089,14 @@ table.astralForgeShards td {
     border-top: none !important;
 }
 
-.entrance {
+.zone {
 }
 
-.entrance:not(:first-child) {
+.zone:not(:first-child) {
     margin-left: 10px;
 }
 
-.entrance:hover {
+.zone:hover {
     cursor: pointer;
 }
 

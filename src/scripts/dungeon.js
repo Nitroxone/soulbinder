@@ -17,8 +17,8 @@ class Dungeon {
      * Initializes new data for this Dungeon.
      */
     createDungeon() {
-        this.biome = Object.values(Data.DungeonTagBiome)[Math.floor(Math.random() * Object.values(Data.DungeonTagBiome).length)];
-        this.zone = Object.values(Data.DungeonTagEntrance)[Math.floor(Math.random() * Object.values(Data.DungeonTagEntrance).length)];
+        this.biome = biomeName;
+        this.zone = zoneName;
         this.tags = [];
         this.currentEvent = null;
         this.currentLevel = 1;
