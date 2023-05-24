@@ -12,6 +12,7 @@ class DungeonEvent {
         this.createEvent();
     }
 
+
     /**
      * Initializes new data for this DungeonEvent.
      */
@@ -39,9 +40,5 @@ class DungeonEvent {
 
         game.currentDungeon.currentEvent = this;
         game.currentDungeon.history.push(this);
-    }
-
-    action() {
-
     }
 }
