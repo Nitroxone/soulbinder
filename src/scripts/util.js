@@ -1129,6 +1129,11 @@ function getInsetShadowFromRarity(item) {
     return "insetShadow" + capitalizeFirstLetter(item.rarity);
 }
 
+/**
+ * Returns the Data.Color that matchest the provided Data.AstralForgeState.
+ * @param {Data.AstralForgeState} state the Data.AstralForgeState
+ * @returns {Data.Color} the Data.Color that matches
+ */
 function getAstralForgeItemStateColorCode(state) {
     switch(state) {
         case Data.AstralForgeState.STABLE:
