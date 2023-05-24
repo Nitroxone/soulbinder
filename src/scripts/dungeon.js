@@ -17,8 +17,8 @@ class Dungeon {
      * Initializes new data for this Dungeon.
      */
     createDungeon() {
-        this.biome = biomeName;
-        this.zone = zoneName;
+        this.biome = null;
+        this.zone = null;
         this.tags = [];
         this.currentEvent = null;
         this.currentLevel = 1;

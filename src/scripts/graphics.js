@@ -1781,7 +1781,4 @@ function drawExploreScreen() {
             return zoneName;
         });
     });
-    if(biomeName !== null || zoneName !== null) {
-
-    }
 }
