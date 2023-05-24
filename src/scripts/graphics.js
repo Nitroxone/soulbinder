@@ -1765,7 +1765,11 @@ function drawExploreScreen() {
                 }
         });
     
-        clickedBiome.classList.add('biome__active');
+        if (clickedBiome.classList.contains('biome__active')) {
+            clickedBiome.classList.remove('biome__active');
+        } else {
+            clickedBiome.classList.add('biome__active');
+        }
     
         console.log(biomeName);
         game.selectedBiome = biomeName;
