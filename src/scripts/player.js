@@ -9,7 +9,7 @@ class Player {
         this.inventory = inventory;
 
         this.roster = [];
-        this.formation = [null, null, null];
+        this.formation = [];
 
         this.playerLevel = new Level("Level", 1, 100, 1, 1000, 0);
 
@@ -32,7 +32,10 @@ class Player {
      */
     formationSet(npc, pos) {
         let found;
-        if(containsByName(this.roster, npc.name)) {
+        if(this.formation.includes(npc)) {
+            console.info(npc.name + " already exists in the formation.");
+        }
+        else if(containsByName(this.roster, npc.name)) {
             switch(pos) {
                 case Data.FormationPosition.BACK:
                     this.formation[0] = npc;
@@ -47,7 +50,7 @@ class Player {
                     found = true;
                     break;
             }
-            if(found) removeFromArray(this.roster, npc);
+            //if(found) removeFromArray(this.roster, npc);
         }
     }
 
