@@ -820,6 +820,11 @@ class AstralForge {
         return reference.max <= reference.added;
     }
 
+    /**
+     * Returns a formatted HTML string of the provided AstralForge modification object.
+     * @param {object} obj the modification object 
+     * @returns {string} an HTML string
+     */
     getFormattedModification(obj) {
         let str = ''; 
 
@@ -842,6 +847,10 @@ class AstralForge {
         return str;
     }
 
+    /**
+     * Generates a string that contains formatted HTML code of this AstralForge's modifications and returns it.
+     * @returns {string} an HTML string
+     */
     getFormattedModifications() {
         let str = '';
         this.referenceTable.forEach(ref => {
@@ -856,6 +865,10 @@ class AstralForge {
         return str;
     }
 
+    /**
+     * Returns whether this AstralForge instance contains modifications.
+     * @returns {boolean} whether the AstralForge contains modifications
+     */
     isModified() {
         if(this.getFormattedModifications() === '') return false;
         return true;
