@@ -681,6 +681,7 @@ class AstralForge {
         if(!cometDust) return Data.ReversionError.NO_DUST;
         if(cometDust.amount <= 0) return Data.ReversionError.DUST_AMOUNT_NULL;
         if(!this.canCometDustApplyReversion(cometDust)) return Data.ReversionError.INCOMPATIBILITY;
+        if(this.state === Data.AstralForgeState.SEALED) return Data.ReversionError.IS_SEALED;
         return Data.ReversionError.NONE;
     }
 
