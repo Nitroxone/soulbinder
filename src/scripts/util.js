@@ -208,6 +208,7 @@ function what(array, name) {
  * @returns {bool} whether the Entity was found 
  */
 function containsByName(array, name) {
+    if(array.length === 0) return false;
     for(let i = 0; i < array.length; i++) {
         if(array[i].name.toLowerCase() === name.toLowerCase()) return true;
     }
