@@ -60,6 +60,7 @@ class Game {
         this.all_masteryPathways = [];
 
         this.all_striders = [];
+        this.all_enemies = [];
 
         this.player = null;
         this.inventory = null;
@@ -268,6 +269,23 @@ class Game {
         this.actionListeners.filter(obj => obj.action === action).forEach(obj => obj.increment());
     }
 
+    startBattle(enemies) {
+        for(let i = 0; i < enemies.length; i++) {
+            enemies[i] = Entity.clone(enemies[i]);
+        }
+        this.currentBattle = new Battle(this.player.formation, enemies);
+        this.currentBattle.start();
+    }
+
+    /**
+     * Loads the game data.
+     */
+    loadData() {
+        for(let func in Loader) {
+            Loader[func]();
+        }
+    }
+
     /**
      * Launches the game.
      */
@@ -278,9 +296,7 @@ class Game {
         this.initMessages();
 
         // LOADING DATA
-        for(let func in Loader) {
-            Loader[func]();
-        }
+        this.loadData();
 
         this.initTabs();
         this.buildTabs();
@@ -326,6 +342,12 @@ class Game {
         this.message({type: Data.LogMessageType.GOOD, text:'This is a positive message.'});
         this.message({type: Data.LogMessageType.BAD, text:'This is a negative message.'});
         this.message({type: Data.LogMessageType.TALL, text:'This is an bigger message.'});
+
+        this.player.formationSet(what(this.player.roster, "amarok"), Data.FormationPosition.FRONT);
+        this.player.formationSet(what(this.player.roster, "brim"), Data.FormationPosition.MIDDLE);
+        this.player.formationSet(what(this.player.roster, "carhal"), Data.FormationPosition.BACK);
+
+        this.startBattle([what(this.all_enemies, "mycelial tick"), what(this.all_enemies, "mycelial tick"), what(this.all_enemies, "mycelial tick")]);
 
         console.clear();
     }

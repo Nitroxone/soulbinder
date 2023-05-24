@@ -67,6 +67,7 @@ class Battle {
      * Starts the battle.
      */
     start() {
+        this.generateOrder();
         this.runTriggersOnAllies(Data.TriggerType.ON_BATTLE_START);
         this.runTriggersOnEnemies(Data.TriggerType.ON_BATTLE_START);
         this.beginRound();
