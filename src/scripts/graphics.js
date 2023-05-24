@@ -1807,9 +1807,14 @@ function drawBattleScreen() {
     str += getFormationBattleEnemies();
     str += '</div>';
 
+    str += '<div class="battle-commandsContainer">';
+    str += getBattleCommands();
+    str += '</div>';
+
     document.querySelector('.battle').innerHTML = str;
 }
 
+// TODO: MERGE THESE TWO FUNCTIONS BELOW INTO ONE
 function getFormationBattleAllies(refresh = false) {
     let str = '';
     if(!refresh) str += '<div id="battle-fighters-allies">';
@@ -1864,5 +1869,25 @@ function getFighterFrame(fighter, type, pos) {
     }
     str += '</div>';
 
+    return str;
+}
+
+function getBattleCommands(refresh = false) {
+    let str = '';
+
+    str += '<div class="battle-actionsContainer">';
+    str += '<div class="battle-actionAtk">Attack</div>';
+    str += '<div class="battle-actionDef">Block</div>';
+    str += '<div class="battle-actionMov">Move</div>';
+    str += '<div class="battle-actionSki">Skip</div>';
+    str += '</div>';
+
+    str += '<div class="battle-skcoContainer">';
+    str += '</div>';
+
+    if(refresh) {
+        document.querySelector('.battle-commandsContainer').innerHTML = str;
+        return;
+    }
     return str;
 }
