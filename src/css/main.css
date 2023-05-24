@@ -3900,7 +3900,8 @@ table.astralForgeShards td {
     padding: 4rem;
 }
 .battle {
-    border: 1px dashed grey;
+    border-right: 1px dashed grey;
+    border-left: 1px dashed grey;
 
     width: 1000px;
     padding: 4rem;
