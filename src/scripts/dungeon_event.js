@@ -41,10 +41,6 @@ class DungeonEvent {
         game.currentDungeon.history.push(this);
     }
 
-    playEvent() {
-
-    }
-
     action() {
 
     }

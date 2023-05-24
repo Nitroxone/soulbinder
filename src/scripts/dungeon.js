@@ -42,7 +42,24 @@ class Dungeon {
     }
 
     playEvent() {
-        
+        this.displaySet();
+        this.displayEncounter();
+        this.promptInstanceChoice();
+    }
+
+    displayEventSet() {
+        console.log("Set: " + this.currentEvent.set);
+    }
+
+    displayEncounter() {
+        if (this.currentEvent.encounter) {
+            console.log("Rencontre: " + this.currentEvent.encounter);
+        }
+    }
+
+    promptInstanceChoice() {
+        const playerChoice = getPlayerInstanceChoice();
+        this.currentEvent.chooseInstance(playerChoice);
     }
 }
 

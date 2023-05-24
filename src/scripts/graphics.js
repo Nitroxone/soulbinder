@@ -1768,4 +1768,10 @@ function drawExploreScreen() {
         return biomeName;
       });
     });
+    
+}
+
+function drawDungeonEvent() {
+    document.querySelector('#explorationDiv').innerHTML = '<div class="dungeonContainer"></div>';
+    let str = '';
 }
