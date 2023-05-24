@@ -1530,6 +1530,29 @@ const Loader = {
         }
     },
 
+    loadEnemies: loadEnemies = () => {
+        const enemies = [
+            new Enemy(
+                "Mycelial Tick",
+                "Monster description",
+                Data.Charset.MYCELIAL_TICK,
+                "Subname",
+                50, 50, 50,
+                20, 15, 85, 0, 5, 1,
+                [0, 0], [2, 0],
+                20, 25,
+                0, 4,
+                [],
+                {},
+                []
+            ),
+        ];
+
+        for(const enemy of enemies) {
+            game.all_enemies.push(enemy);
+        }
+    },
+
     loadMasteryPathways: loadMasteryPathways = () => {
         const masteryPathways = [
             new MasteryPathway(

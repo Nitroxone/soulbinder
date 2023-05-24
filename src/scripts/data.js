@@ -18,6 +18,7 @@ const Data = Object.freeze({
         JUBA_JUN: 'juba_jun.png',
 
         UNSLEEPER: 'unsleeper.png',
+        MYCELIAL_TICK: 'mycelial_tick.png'
     },
     Color: {
         GREEN: '#4cd137',
