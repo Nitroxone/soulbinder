@@ -4034,6 +4034,15 @@ table.astralForgeShards td {
     filter: brightness(90%);
 }
 
+.biome:hover {
+    cursor: pointer;
+    filter: brightness(115%);
+}
+
+.biome__active {
+    filter: brightness(115%);
+}
+
 .biome > h1 {
     font-size: large;
 }

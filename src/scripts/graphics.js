@@ -1736,15 +1736,15 @@ function drawExploreScreen() {
 
     str += '<div class="entrances coolBorder">';
 
-    str += '<div class="entrance caveEntrance simpleButton normalSized">';
+    str += '<div class="cave entrance simpleButton normalSized">';
     str += 'CAVE'
     str += '</div>';
 
-    str += '<div class="entrance denseEntrance simpleButton normalSized">';
+    str += '<div class="dense entrance simpleButton normalSized">';
     str += 'DENSE'
     str += '</div>';
 
-    str += '<div class="entrance fortressEntrance simpleButton normalSized">';
+    str += '<div class="fortress entrance simpleButton normalSized">';
     str += 'FORTRESS'
     str += '</div>';
 
@@ -1758,10 +1758,10 @@ function drawExploreScreen() {
             const clickedBiome = event.target;
             const biomeName = clickedBiome.classList[0];
     
-        biomes.forEach(otherBiome => {
-            if (otherBiome !== clickedBiome) {
-                otherBiome.classList.remove('biome__active');
-            }
+            biomes.forEach(otherBiome => {
+                if (otherBiome !== clickedBiome) {
+                    otherBiome.classList.remove('biome__active');
+                }
         });
     
         clickedBiome.classList.add('biome__active');
@@ -1770,10 +1770,18 @@ function drawExploreScreen() {
         return biomeName;
       });
     });
-    
-}
 
-function drawDungeonEvent() {
-    document.querySelector('#explorationDiv').innerHTML = '<div class="dungeonContainer"></div>';
-    let str = '';
+    const entrances = document.querySelectorAll('.entrance');
+    entrances.forEach(entrance => {
+        entrance.addEventListener('click', (event) => {
+            const clickedEntrance = event.target;
+            const entranceName = clickedEntrance.classList[0];
+
+            console.log(entranceName);
+            return entranceName;
+        });
+    });
+    if(biomeName !== null || entranceName !== null) {
+        
+    }
 }
