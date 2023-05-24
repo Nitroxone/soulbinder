@@ -1752,6 +1752,7 @@ function drawExploreScreen() {
 
     document.querySelector('.dungeonContainer').innerHTML = str;
 
+    // gets the biome chosen by the player and stores it in game.selectedBiome
     const biomes = document.querySelectorAll('.biome');
     biomes.forEach(biome => {
         biome.addEventListener('click', (event) => {
@@ -1767,10 +1768,12 @@ function drawExploreScreen() {
         clickedBiome.classList.add('biome__active');
     
         console.log(biomeName);
+        game.selectedBiome = biomeName;
         return biomeName;
       });
     });
 
+    // gets the zone chosen by the player and stores it in game.selectedZone
     const zones = document.querySelectorAll('.zone');
     zones.forEach(zone => {
         zone.addEventListener('click', (event) => {
@@ -1778,6 +1781,7 @@ function drawExploreScreen() {
             const zoneName = clickedZone.classList[0];
 
             console.log(zoneName);
+            game.selectedZone = zoneName;
             return zoneName;
         });
     });

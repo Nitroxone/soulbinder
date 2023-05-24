@@ -35,6 +35,8 @@ class Game {
         this.formationFocus = null;
 
         this.currentBattle = null;
+        this.selectedBiome = null;
+        this.selectedZone = null;
         this.currentDungeon = null;
 
         this.particlesTooltipCanvasInterval = null;
