@@ -32,6 +32,8 @@ class Stat {
 
         this.value = null;
 
+        if(!Array.isArray(this.theorical)) this.theorical = [this.theorical, this.theorical];
+
         if("fixed" in props) this.fix();
         else this.fixed = false;
     }
