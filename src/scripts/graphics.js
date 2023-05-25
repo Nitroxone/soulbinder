@@ -1792,10 +1792,7 @@ function drawExploreScreen() {
             return zoneName;
         });
     });
-}
 
-function drawDungeon() {
-    document.querySelector('#explorationDiv').innerHTML = '<div class="dungeonContainer"></div>';
     const explore = document.querySelector('.explore');
     explore.addEventListener('click', (e) => {
         game.startDungeon();
@@ -1805,6 +1802,20 @@ function drawDungeon() {
         str += '</div>';
 
         document.querySelector('.dungeonContainer').innerHTML = str;
+    });
+}
+
+function drawDungeon() {
+    document.querySelector('#explorationDiv').innerHTML = '<div class="dungeonContainer"></div>';
+    
+    let str = '';
+    str += '<button class="simpleButton" id="exitDungeon">Exit dungeon</button>';
+
+    document.querySelector('.dungeonContainer').innerHTML = str;
+
+    document.querySelector('#exitDungeon').addEventListener('click', e => {
+        game.currentDungeon = null;
+        drawExploreScreen();
     })
 }
 

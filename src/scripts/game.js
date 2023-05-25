@@ -280,6 +280,7 @@ class Game {
 
     startDungeon() {
         this.currentDungeon = new Dungeon();
+        drawDungeon();
     }
 
     /**
