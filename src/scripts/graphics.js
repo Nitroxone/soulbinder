@@ -1896,6 +1896,8 @@ function getFighterFrame(fighter, type, pos) {
 function getBattleCommands(refresh = false) {
     let str = '';
 
+    str += '<div class="battle-consumablesContainer"></div>'
+
     str += '<div class="battle-actionsContainer">';
     str += '<div class="battle-actionAtk">Attack</div>';
     str += '<div class="battle-actionDef">Block</div>';
@@ -1903,10 +1905,8 @@ function getBattleCommands(refresh = false) {
     str += '<div class="battle-actionSki">Skip</div>';
     str += '</div>';
 
-    str += '<div class="battle-skcoContainer">';
-    str += '<div class="battle-skcoSkills">' + getBattleSkills() + '</div>';
-    str += '<div class="battle-skcoDivider"><div class="divider"></div></div>';
-    str += '<div class="battle-skcoConsumables"></div>';
+    str += '<div class="battle-skillsContainer">';
+    str += getBattleSkills();
     str += '</div>';
 
     if(refresh) {

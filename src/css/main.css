@@ -3976,22 +3976,20 @@ table.astralForgeShards td {
     margin-top: 4em;
     
     display: grid;
-    grid-template-columns: 1fr 1.5fr;
+    grid-template-columns: 1fr 0.95fr 1fr;
     grid-template-rows: 1fr;
     gap: 0 0;
-    grid-template-areas: "b-actions b-skco";
+    grid-template-areas: "battle-consumablesContainer battle-actionsContainer battle-skillsContainer";
 
     background-image: url('img/bg4.png');
     background-size: cover;
     background-repeat: repeat;
-
-    border-radius: 0 3px 3px 0;
 }
 
 
 
 .battle-actionsContainer {
-    grid-area: "b-actions";
+    grid-area: "battle-actionsContainer";
 
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -4008,7 +4006,6 @@ table.astralForgeShards td {
 
     display: flex;
     flex-direction: column;
-    justify-content: end;
 
     font-family: RobotoSlab;
     font-variant: small-caps;
@@ -4028,7 +4025,10 @@ table.astralForgeShards td {
     grid-area: "bc-atk";
     border-top: 2px solid rgb(100, 100, 100);
     border-left: 2px solid rgb(100, 100, 100);
-    border-top-left-radius: 3px;
+    border-top-left-radius: 150px;
+
+    justify-content: end;
+    align-items: end;
 
     background-image: url('img/battle/action_attack.png');
     background-repeat: no-repeat;
@@ -4043,6 +4043,9 @@ table.astralForgeShards td {
     grid-area: "bc-def";
     border-right: 2px solid rgb(100, 100, 100);
     border-top: 2px solid rgb(100, 100, 100);
+    border-top-right-radius: 150px;
+
+    justify-content: end;
 
     background-image: url('img/battle/action_block.png');
     background-repeat: no-repeat;
@@ -4057,7 +4060,9 @@ table.astralForgeShards td {
     grid-area: "bc-mov";
     border-left: 2px solid rgb(100, 100, 100);
     border-bottom: 2px solid rgb(100, 100, 100);
-    border-bottom-left-radius: 3px;
+    border-bottom-left-radius: 150px;
+
+    align-items: end;
 
     background-image: url('img/battle/action_move.png');
     background-repeat: no-repeat;
@@ -4068,45 +4073,22 @@ table.astralForgeShards td {
     grid-area: "bc-ski";
     border-right: 2px solid rgb(100, 100, 100);
     border-bottom: 2px solid rgb(100, 100, 100);
+    border-bottom-right-radius: 150px;
 
     background-image: url('img/battle/action_skip.png');
     background-repeat: no-repeat;
-    background-position: 0% 100%;
+    background-position: 50% 100%;
     background-size: 150%;
 }
 
-.battle-skcoContainer {
-    grid-area: "b-skco";
-
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 0.1fr 1fr;
-    gap: 0 0;
-    grid-template-areas: 
-        "bc-sk"
-        "bc-di"
-        "bc-co";
-
-    border: 2px solid rgb(100, 100, 100);
-    border-left: none;
-    border-radius: 0 3px 3px 0;
+.battle-skillsContainer, .battle-consumablesContainer {
+    overflow: hidden;
+    position: relative;
 }
 
-.battle-skcoSkills {
-    grid-area: "bc-sk";
-
-    padding: 0.75rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+.battle-skillsContainer {
+    grid-area: "battle-skillsContainer";
 }
-.battle-skcoSkills div:not(:first-child) {
-    margin-left: 0.3rem;
-}
-.battle-skcoConsumables {
-    grid-area: "bc-co";
-}
-.battle-skcoDivider {
-    grid-area: "bc-di";
+.battle-consumablesContainer {
+    grid-area: "battle-consumablesContainer";
 }
