@@ -1320,47 +1320,39 @@ const Loader = {
                 [
                     new Skill(
                         "Surge",
-                        "Deals light damage to all enemies and dimishes their Dodge. Boosts Amarok's Protection and diminishes his Might and Spirit.",
+                        "Deals light damage to all enemies and diminishes their Dodge. Boosts Amarok's Protection and diminishes his Might and Spirit.",
                         1,
-                        Data.SkillType.OFFENSIVE,
-                        60,
-                        1,
-                        Data.SkillDamageType.PHYSICAL,
-                        35,
-                        5,
-                        75,
                         {
-                            allies: '-0',
-                            enemies: '@123'
-                        },
-                        [false, true, true],
-                        {
-                            regular: [
-                                new Stat({effect: Data.Effect.PROTECTION, theorical: 5, isPercentage: true, duration: 1}),
-                                new Stat({effect: Data.Effect.MIGHT, theorical: -5, duration: 2}),
-                                new Stat({effect: Data.Effect.SPIRIT, theorical: -5, duration: 2}),
-                            ],
-                            critical: [
-                                new Stat({effect: Data.Effect.PROTECTION, theorical: 7, isPercentage: true, duration: 1, isCritical: true}),
-                                new Stat({effect: Data.Effect.MIGHT, theorical: -7, duration: 2, isCritical: true}),
-                                new Stat({effect: Data.Effect.SPIRIT, theorical: -7, duration: 2, isCritical: true}),
-                            ]
-                        },
-                        {},
-                        {
-                            regular: [
-                                new Stat({effect: Data.Effect.DODGE, theorical: -5, isPercentage: true, duration: 2})
-                            ],
-                            critical: [
-                                new Stat({effect: Data.Effect.DODGE, theorical: -7, isPercentage: true, duration: 2, isCritical: true})
-                            ],
-                        },
-                        {},
-                        [],
-                        [],
-                        [],
-                        true,
-                        []
+                            type: Data.SkillType.OFFENSIVE,
+                            manaCost: 60,
+                            cooldown: 1,
+                            dmgType: Data.SkillDamageType.PHYSICAL,
+                            dmgMultiplier: 35,
+                            criMultiplier: 5,
+                            accMultiplier: 75,
+                            targets: {allies: '-0', enemies: '@123'},
+                            launchPos: [false, true, true],
+                            effectsCaster: {
+                                regular: [
+                                    new Stat({effect: Data.Effect.PROTECTION, theorical: 5, isPercentage: true, duration: 1}),
+                                    new Stat({effect: Data.Effect.MIGHT, theorical: -5, duration: 2}),
+                                    new Stat({effect: Data.Effect.SPIRIT, theorical: -5, duration: 2}),
+                                ],
+                                critical: [
+                                    new Stat({effect: Data.Effect.PROTECTION, theorical: 7, isPercentage: true, duration: 1, isCritical: true}),
+                                    new Stat({effect: Data.Effect.MIGHT, theorical: -7, duration: 2, isCritical: true}),
+                                    new Stat({effect: Data.Effect.SPIRIT, theorical: -7, duration: 2, isCritical: true}),
+                                ]
+                            },
+                            effectsEnemies: {
+                                regular: [
+                                    new Stat({effect: Data.Effect.DODGE, theorical: -5, isPercentage: true, duration: 2})
+                                ],
+                                critical: [
+                                    new Stat({effect: Data.Effect.DODGE, theorical: -7, isPercentage: true, duration: 2, isCritical: true})
+                                ],
+                            }
+                        }
                     )
                 ],
                 '10% 30%'
