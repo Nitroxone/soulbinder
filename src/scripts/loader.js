@@ -1311,6 +1311,52 @@ const Loader = {
                 '"For Ghirgynth\'s servants dance with the dead, Amarok\'s flesh slavers over pain."',
                 0,
                 what(game.all_skillTrees, "amarok"),
+                [
+                    new Skill(
+                        "Surge",
+                        "Deals light damage to all enemies and dimishes their Dodge. Boosts Amarok's Protection and diminishes his Might and Spirit.",
+                        1,
+                        Data.SkillType.OFFENSIVE,
+                        60,
+                        1,
+                        Data.SkillDamageType.PHYSICAL,
+                        35,
+                        5,
+                        75,
+                        {
+                            allies: '-0',
+                            enemies: '@123'
+                        },
+                        [false, true, true],
+                        {
+                            regular: [
+                                new Stat(Data.Effect.PROTECTION, [5, 5], false, true, false, false, 1, 0, Data.StatType.PASSIVE),
+                                new Stat(Data.Effect.MIGHT, [-5, -5], false, false, false, false, 2, 0, Data.StatType.PASSIVE),
+                                new Stat(Data.Effect.SPIRIT, [-5, -5], false, false, false, false, 2, 0, Data.StatType.PASSIVE)
+                            ],
+                            critical: [
+                                new Stat(Data.Effect.PROTECTION, [7, 7], false, true, true, false, 1, 0, Data.StatType.PASSIVE),
+                                new Stat(Data.Effect.MIGHT, [-7, -7], false, false, true, false, 2, 0, Data.StatType.PASSIVE),
+                                new Stat(Data.Effect.SPIRIT, [-7, -7], false, false, true, false, 2, 0, Data.StatType.PASSIVE)
+                            ]
+                        },
+                        {},
+                        {
+                            regular: [
+                                new Stat(Data.Effect.DODGE, [-5, -5], false, true, false, false, 2, 0, Data.StatType.PASSIVE)
+                            ],
+                            critical: [
+                                new Stat(Data.Effect.DODGE, [-7, -7], false, true, false, false, 2, 0, Data.StatType.PASSIVE)
+                            ],
+                        },
+                        {},
+                        [],
+                        [],
+                        [],
+                        true,
+                        []
+                    )
+                ],
                 '10% 30%'
             ),
             new Strider(
@@ -1332,6 +1378,7 @@ const Loader = {
                 'quote',
                 1,
                 what(game.all_skillTrees, "amarok"),
+                [],
                 'top'
             ),
             new Strider(
@@ -1353,6 +1400,7 @@ const Loader = {
                 'quote',
                 1,
                 what(game.all_skillTrees, "amarok"),
+                [],
                 '10% 30%'
             ),
             new Strider(
@@ -1374,6 +1422,7 @@ const Loader = {
                 'quote',
                 1,
                 what(game.all_skillTrees, "amarok"),
+                [],
                 '10% 10%'
             ),
             new Strider(
@@ -1395,6 +1444,7 @@ const Loader = {
                 'quote',
                 1,
                 what(game.all_skillTrees, "amarok"),
+                [],
                 '10% 30%'
             ),
             new Strider(
@@ -1416,6 +1466,7 @@ const Loader = {
                 '"Through the pain, you shall heal. And through healing, you shall embrace inner peace."',
                 1,
                 what(game.all_skillTrees, "amarok"),
+                [],
                 '10% 30%'
             ),
             new Strider(
@@ -1437,6 +1488,7 @@ const Loader = {
                 'quote',
                 1,
                 what(game.all_skillTrees, "amarok"),
+                [],
                 '10% 30%'
             ),
             new Strider(
@@ -1458,6 +1510,7 @@ const Loader = {
                 'quote',
                 1,
                 what(game.all_skillTrees, "amarok"),
+                [],
                 '10% 50%'
             ),
             new Strider(
@@ -1479,6 +1532,7 @@ const Loader = {
                 'quote',
                 1,
                 what(game.all_skillTrees, "amarok"),
+                [],
                 '10% 20%'
             ),
             new Strider(
@@ -1500,6 +1554,7 @@ const Loader = {
                 'quote',
                 1,
                 what(game.all_skillTrees, "amarok"),
+                [],
                 '10% 20%'
             ),
             new Strider(
@@ -1521,6 +1576,7 @@ const Loader = {
                 'quote',
                 1,
                 what(game.all_skillTrees, "amarok"),
+                [],
                 '10% 50%'
             ),
         ];

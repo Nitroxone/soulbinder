@@ -27,6 +27,7 @@ class Strider extends NPC {
                 uniqueQuote,
                 uniqueIcon,
                 skillTree,
+                startingSkills = [],
                 customBgPos = ''
                 ) {
         super(name, desc, charset, subname, health, mana, stamina, dodge, speed, accuracy, protection, might, spirit, resBleed, resPoison, resMove, resStun, resilience, warding, critEffects, variables, triggers);
@@ -45,6 +46,11 @@ class Strider extends NPC {
         this.trinketSlotsFree = 2;
 
         this.skillTree = skillTree;
+
+        this.skills = [];
+        startingSkills.forEach(skill => {
+            this.addSkill(skill);
+        })
 
         this.uniqueName = uniqueName;
         this.uniqueDesc = uniqueDesc;
@@ -506,5 +512,13 @@ class Strider extends NPC {
         item.astralForgeItem.extraEffects.forEach(extra => {
             this.addEffect(extra, remove);
         })
+    }
+
+    addSkill(skill) {
+        this.skills.push(skill);
+    }
+
+    removeSkill(skill) {
+        removeFromArray(this.skills, skill);
     }
 }

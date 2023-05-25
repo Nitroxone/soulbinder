@@ -2,6 +2,7 @@ class Skill extends Entity {
     constructor(name, desc, icon,
                 type,
                 manaCost,
+                cooldown,
                 dmgType,
                 dmgMultiplier,
                 critMultiplier,
@@ -21,6 +22,7 @@ class Skill extends Entity {
 
         this.type = type;
         this.manaCost = manaCost;
+        this.cooldown = cooldown;
         this.dmgType = dmgType;
         this.dmgMultiplier = dmgMultiplier;
         this.critMultiplier = critMultiplier;

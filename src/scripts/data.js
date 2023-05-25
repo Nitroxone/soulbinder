@@ -239,9 +239,9 @@ const Data = Object.freeze({
         REGULAR: "regular",
     },
     SkillType: {
-        MELEE: "melee",
-        DISTANCE: "distance",
+        OFFENSIVE: "offensive",
         FRIENDLY: "friendly",
+        BOTH: "both",
     },
     BattleAction: {
         ATTACK: "attack",
