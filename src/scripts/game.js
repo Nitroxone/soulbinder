@@ -278,6 +278,10 @@ class Game {
         this.currentBattle.start();
     }
 
+    startDungeon() {
+        this.currentDungeon = new Dungeon();
+    }
+
     /**
      * Loads the game data.
      */

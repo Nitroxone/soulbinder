@@ -39,7 +39,7 @@ let Speech = {
         
                         ],
 
-                        action: [
+                        roomendquote: [
 
                             "The cave seems to spread out in an intricate network of guts, like intestines ready to slowly digest you. But you still have the option of staying on the level you are on to explore the surrounding rooms. Which way do you want to go?",
 

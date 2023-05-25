@@ -1700,62 +1700,59 @@ function getAstralForgeEffects(forgeItem, refresh = false) {
 function drawExploreScreen() {
     document.querySelector('#explorationDiv').innerHTML = '<div class="dungeonContainer"></div>';
     let str = '';
-    if(game.currentDungeon === null) {
-        str += '<div class="biomeContainer coolBorder">';
+    str += '<div class="biomeContainer coolBorder">';
 
-        str += '<div class="biomeContainerHeader">';
-        str += '<h1>EXPLORE THE DUNGEONS</h1>';
-        str += '<p>Gather the eons and get your hands on powerful items!</p>';
-        str += '</div>';
+    str += '<div class="biomeContainerHeader">';
+    str += '<h1>EXPLORE THE DUNGEONS</h1>';
+    str += '<p>Gather the eons and get your hands on powerful items!</p>';
+    str += '</div>';
 
-        str += '<div class="jungle biome coolBorderBis insetShadowCommon">'
-        str += '<h1 class="barredLeftFull">JUNGLE</h1>'
-        str += '</div>';
+    str += '<div class="jungle biome coolBorderBis insetShadowCommon">'
+    str += '<h1 class="barredLeftFull">JUNGLE</h1>'
+    str += '</div>';
 
-        str += '<div class="desert biome coolBorderBis insetShadowCommon">'
-        str += '<h1 class="barredLeftFull">DESERT</h1>'
-        str += '</div>';
+    str += '<div class="desert biome coolBorderBis insetShadowCommon">'
+    str += '<h1 class="barredLeftFull">DESERT</h1>'
+    str += '</div>';
 
-        str += '<div class="snow biome coolBorderBis insetShadowCommon">'
-        str += '<h1 class="barredLeftFull">SNOW</h1>'
-        str += '</div>';
+    str += '<div class="snow biome coolBorderBis insetShadowCommon">'
+    str += '<h1 class="barredLeftFull">SNOW</h1>'
+    str += '</div>';
 
-        str += '<div class="swamp biome coolBorderBis insetShadowCommon">'
-        str += '<h1 class="barredLeftFull">SWAMP</h1>'
-        str += '</div>';
+    str += '<div class="swamp biome coolBorderBis insetShadowCommon">'
+    str += '<h1 class="barredLeftFull">SWAMP</h1>'
+    str += '</div>';
 
-        str += '<div class="coast biome coolBorderBis insetShadowCommon">'
-        str += '<h1 class="barredLeftFull">COAST</h1>'
-        str += '</div>';
+    str += '<div class="coast biome coolBorderBis insetShadowCommon">'
+    str += '<h1 class="barredLeftFull">COAST</h1>'
+    str += '</div>';
 
-        str += '<div class="plain biome coolBorderBis insetShadowCommon">'
-        str += '<h1 class="barredLeftFull">PLAINS</h1>'
-        str += '</div>';
+    str += '<div class="plain biome coolBorderBis insetShadowCommon">'
+    str += '<h1 class="barredLeftFull">PLAINS</h1>'
+    str += '</div>';
 
-        str += '</div>';
+    str += '</div>';
 
-        str += '<div class="zones coolBorder">';
+    str += '<div class="zones coolBorder">';
 
-        str += '<div class="cave zone simpleButton normalSized">';
-        str += 'CAVE'
-        str += '</div>';
+    str += '<div class="cave zone simpleButton normalSized">';
+    str += 'CAVE'
+    str += '</div>';
 
-        str += '<div class="dense zone simpleButton normalSized">';
-        str += 'DENSE'
-        str += '</div>';
+    str += '<div class="dense zone simpleButton normalSized">';
+    str += 'DENSE'
+    str += '</div>';
 
-        str += '<div class="fortress zone simpleButton normalSized">';
-        str += 'FORTRESS'
-        str += '</div>';
+    str += '<div class="fortress zone simpleButton normalSized">';
+    str += 'FORTRESS'
+    str += '</div>';
+    
+    str += '</div>';
 
-        str += '<div class="exploreButton simpleButton largeSized">'
-        str += 'EXPLORE'
-        str += '</div>';
-        document.querySelector('.dungeonContainer').innerHTML = str;
-    } else {
-        str += Dungeon.displayEventSet()
-    }
-
+    str += '<div class="explore simpleButton normalSized">';
+    str += 'EXPLORE'
+    str += '</div>';
+    document.querySelector('.dungeonContainer').innerHTML = str;
 
     // gets the biome chosen by the player and stores it in game.selectedBiome
     const biomes = document.querySelectorAll('.biome');
@@ -1795,6 +1792,20 @@ function drawExploreScreen() {
             return zoneName;
         });
     });
+}
+
+function drawDungeon() {
+    document.querySelector('#explorationDiv').innerHTML = '<div class="dungeonContainer"></div>';
+    const explore = document.querySelector('.explore');
+    explore.addEventListener('click', (e) => {
+        game.startDungeon();
+        let str = '';
+        str += '<div class="dungeonDialogue">';
+        str += dungeon.getCurrentEventSet();
+        str += '</div>';
+
+        document.querySelector('.dungeonContainer').innerHTML = str;
+    })
 }
 
 function drawBattleScreen() {
