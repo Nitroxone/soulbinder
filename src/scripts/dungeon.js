@@ -24,6 +24,7 @@ class Dungeon {
         this.currentLevel = 1;
         this.history = [];
         game.currentDungeon = this;
+        this.generateEvent();
     }
 
     /**
@@ -56,6 +57,11 @@ class Dungeon {
         if (this.currentEvent.encounter) {
             console.log("Rencontre: " + this.currentEvent.encounter);
         }
+    }
+
+    // returns the current set of the current dungeon event
+    getCurrentEventSet() {
+        return this.currentEvent.set; 
     }
 
     // to prompt the player's choice (and eventually get back the result, to see how we organize it)

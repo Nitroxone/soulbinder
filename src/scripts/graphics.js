@@ -1796,12 +1796,6 @@ function drawExploreScreen() {
     const explore = document.querySelector('.explore');
     explore.addEventListener('click', (e) => {
         game.startDungeon();
-        let str = '';
-        str += '<div class="dungeonDialogue">';
-        str += dungeon.getCurrentEventSet();
-        str += '</div>';
-
-        document.querySelector('.dungeonContainer').innerHTML = str;
     });
 }
 
@@ -1809,6 +1803,9 @@ function drawDungeon() {
     document.querySelector('#explorationDiv').innerHTML = '<div class="dungeonContainer"></div>';
     
     let str = '';
+    str += '<div class="dungeonDialogue">';
+    str += game.currentDungeon.getCurrentEventSet();
+    str += '</div>';
     str += '<button class="simpleButton" id="exitDungeon">Exit dungeon</button>';
 
     document.querySelector('.dungeonContainer').innerHTML = str;

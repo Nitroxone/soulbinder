@@ -8,7 +8,7 @@ class DungeonEvent {
         this.tags = [];
         this.set = set;
         this.encounter = encounter;
-        this.choiceQuote = choiceQuote;
+        this.choiceQuote = '';
         this.createEvent();
     }
 
@@ -46,10 +46,7 @@ class DungeonEvent {
             
         }
     }
-    // returns the current set of the current dungeon event
-    getCurrentEventSet() {
-        return game.currentDungeon.currentEvent.set; 
-    }
+    
     // stores the event in the current dungeon history, and make it the new current event
     storeEvent() {
         game.currentDungeon.currentEvent = this;
