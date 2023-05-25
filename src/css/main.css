@@ -4094,6 +4094,15 @@ table.astralForgeShards td {
 
 .battle-skcoSkills {
     grid-area: "bc-sk";
+
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.battle-skcoSkills div:not(:first-child) {
+    margin-left: 0.3rem;
 }
 .battle-skcoConsumables {
     grid-area: "bc-co";

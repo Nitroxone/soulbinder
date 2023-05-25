@@ -1831,6 +1831,8 @@ function drawBattleScreen() {
     str += '</div>';
 
     document.querySelector('.battle').innerHTML = str;
+
+    generateBattleScreenEvents();
 }
 
 // TODO: MERGE THESE TWO FUNCTIONS BELOW INTO ONE
@@ -1902,7 +1904,7 @@ function getBattleCommands(refresh = false) {
     str += '</div>';
 
     str += '<div class="battle-skcoContainer">';
-    str += '<div class="battle-skcoSkills"></div>';
+    str += '<div class="battle-skcoSkills">' + getBattleSkills() + '</div>';
     str += '<div class="battle-skcoDivider"><div class="divider"></div></div>';
     str += '<div class="battle-skcoConsumables"></div>';
     str += '</div>';
@@ -1911,5 +1913,67 @@ function getBattleCommands(refresh = false) {
         document.querySelector('.battle-commandsContainer').innerHTML = str;
         return;
     }
+    return str;
+}
+
+function getBattleSkills(refresh = false) {
+    let str = '';
+    console.log('KAKAKROTE');
+
+    const currentPlay = game.currentBattle.currentPlay;
+    currentPlay.skills.forEach(skill => {
+        str += '<div id="' + currentPlay.name + '-' + skill.id + '" class="skillSquare treeNode coolBorder" style="background-image: url(\'css/img/skills/' + currentPlay.name + skill.icon + '.png\')"></div>';
+    })
+
+    if(refresh) {
+        document.querySelector('.battle-skcoSkills').innerHTML = str;
+        return;
+    }
+    return str;
+}
+
+function generateBattleScreenEvents() {
+    const currentPlay = game.currentBattle.currentPlay;
+    const skills = currentPlay.skills;
+    skills.forEach(skill => {
+        addTooltip(document.querySelector('#' + currentPlay.name + '-' + skill.id), function(){
+            return getBattleSkillTooltip(currentPlay, skill)
+        }, {offY: -8})
+    })
+}
+
+function getBattleSkillTooltip(strider, skill) {
+    let str = '';
+    str += '<div class="nodeContainer">'
+
+    str += '<div class="nodeContainerBanner">';
+    str += '<div class="vignette coolBorder" style="background-image: url(\'css/img/skills/' + strider.name + skill.icon + '.png\')"></div>';
+    str += '<div class="desc"><h4>' + skill.name + '</h4>';
+    str += '<div class="treeNodeTags">';
+    str += '<div class="treeNodeType treeNodeType-' + skill.type.toLowerCase() + '">' + capitalizeFirstLetter(skill.type) + '</div>';
+    str += '</div>'
+    str += '</div>'
+    str += '</div>';
+
+    str += '<div class="divider"></div>';
+
+    str += '<div class="skillStatsWrapper">';
+    str += '<div class="skillStatsDisplay"><div class="skillStatsDisplay-num">' + skill.dmgMultiplier + '%</div><div class="skillStatsDisplay-str">Damage</div></div>';
+    str += '<div class="skillStatsDisplay"><div class="skillStatsDisplay-num">' + skill.criMultiplier + '%</div><div class="skillStatsDisplay-str">Critical</div></div>';
+    str += '<div class="skillStatsDisplay"><div class="skillStatsDisplay-num">' + skill.accMultiplier + '%</div><div class="skillStatsDisplay-str">Accuracy</div></div>';
+    str += '</div>';
+
+    str += '<div class="divider"></div>';
+
+    if(skill.effectsCaster) {
+        str += '<div class="par">Caster:</div>';
+        skill.effectsCaster.regular.forEach(single => {
+            str += single.getFormatted('', '', false, false, true);
+        })
+
+    }
+
+    str += '</div>';
+
     return str;
 }
