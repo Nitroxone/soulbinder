@@ -21,3 +21,5 @@ DUNGEONS:
 - define the closing of a dungeon (last event before the exit): what type of encounter? when does it occur?
 - create encounters according to their type (allied, mob waves or bosses... etc)
 - create loot tables
+
+REWORK OBJECT DECLARATION
