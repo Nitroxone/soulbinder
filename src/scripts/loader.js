@@ -246,29 +246,24 @@ const Loader = {
                      Data.Rarity.RARE,
                      Data.RuneType.ARMOR,
                      [
-                        new Stat(
-                            Data.Effect.RESILIENCE,
-                            [3, 5],
-                        )
+                        new Stat({
+                            effect: Data.Effect.RESILIENCE,
+                            theorical: [3, 5]
+                        })
                      ],
                      [
-                        new Stat(
-                            Data.Effect.RESILIENCE,
-                            [1, 2],
-                            false,
-                            false,
-                            true
-                        )
+                        new Stat({
+                            effect: Data.Effect.RESILIENCE,
+                            theorical: [1, 2],
+                            isCritical: true
+                        })
                      ],
                      [
-                        new Stat(
-                            Data.Effect.WARDING,
-                            [-1, -3],
-                            false,
-                            false,
-                            false,
-                            true
-                        )
+                        new Stat({
+                            effect: Data.Effect.WARDING,
+                            theorical: [-1, -3],
+                            isCorrupt: true
+                        })
                      ],
                      []
             ),
@@ -279,29 +274,25 @@ const Loader = {
                      Data.Rarity.UNCOMMON,
                      Data.RuneType.WEAPON,
                      [
-                        new Stat(
-                            Data.Effect.PDMG,
-                            [3, 6],
-                        )
+                        new Stat({
+                            effect: Data.Effect.PDMG,
+                            theorical: [3, 6]
+                        })
                      ],
                      [
-                        new Stat(
-                            Data.Effect.CRIT_LUK,
-                            [1, 3],
-                            false,
-                            true,
-                            true
-                        )
+                        new Stat({
+                            effect: Data.Effect.CRIT_LUK,
+                            theorical: [1, 3],
+                            isCritical: true,
+                            isPercentage: true
+                        })
                      ],
                      [
-                        new Stat(
-                            Data.Effect.MDMG,
-                            [-1, -3],
-                            false,
-                            false,
-                            false,
-                            true
-                        )
+                        new Stat({
+                            effect: Data.Effect.MDMG,
+                            theorical: [-1, -3],
+                            isCorrupt: true
+                        })
                      ],
                      []
             ),
@@ -312,29 +303,24 @@ const Loader = {
                      Data.Rarity.RARE,
                      Data.RuneType.WEAPON,
                      [
-                        new Stat(
-                            Data.Effect.MDMG,
-                            [3, 6],
-                        )
+                        new Stat({
+                            effect: Data.Effect.MDMG,
+                            theorical: [3, 6]
+                        })
                      ],
                      [
-                        new Stat(
-                            Data.Effect.BLOCK,
-                            [1, 2],
-                            false,
-                            false,
-                            true
-                        )
+                        new Stat({
+                            effect: Data.Effect.BLOCK,
+                            theorical: [1, 2],
+                            isCritical: true
+                        })
                      ],
                      [
-                        new Stat(
-                            Data.Effect.PDMG,
-                            [-1, -3],
-                            false,
-                            false,
-                            false,
-                            true
-                        )
+                        new Stat({
+                            effect: Data.Effect.PDMG,
+                            theorical: [-1, -3],
+                            isCorrupt: true
+                        })
                      ],
                      []
             ),
@@ -390,10 +376,10 @@ const Loader = {
                 1,
                 Data.Rarity.UNCOMMON,
                 [
-                    new Stat(
-                        Data.Effect.POISON_DMG,
-                        [2, 4],
-                    )
+                    new Stat({
+                        effect: Data.Effect.POISON_DMG,
+                        theorical: [2, 4]
+                    })
                 ],
                 "Venom coursing through your veins like a malevolent river.",
                 {
@@ -421,16 +407,15 @@ const Loader = {
                 1,
                 Data.Rarity.UNCOMMON,
                 [
-                    new Stat(
-                        Data.Effect.WARDING,
-                        [7, 10],
-                    ),
-                    new Stat(
-                        Data.Effect.RES_STUN,
-                        [-2, -5],
-                        false,
-                        true
-                    )
+                    new Stat({
+                        effect: Data.Effect.WARDING,
+                        theorical: [7, 10]
+                    }),
+                    new Stat({
+                        effect: Data.Effect.RES_STUN,
+                        theorical: [-2, -5],
+                        isPercentage: true
+                    })
                 ],
                 "The mind never sleeps. Your soul sometimes just wander away.",
                 {
@@ -459,22 +444,20 @@ const Loader = {
                 1,
                 Data.Rarity.RARE,
                 [
-                    new Stat(
-                        Data.Effect.SPEED,
-                        [7, 10],
-                    ),
-                    new Stat(
-                        Data.Effect.DODGE,
-                        [2, 8],
-                        false,
-                        true,
-                    ),
-                    new Stat(
-                        Data.Effect.ACCURACY,
-                        [2, 8],
-                        false,
-                        true
-                    )
+                    new Stat({
+                        effect: Data.Effect.SPEED,
+                        theorical: [7, 10]
+                    }),
+                    new Stat({
+                        effect: Data.Effect.DODGE,
+                        theorical: [2, 8],
+                        isPercentage: true
+                    }),
+                    new Stat({
+                        effect: Data.Effect.ACCURACY,
+                        theorical: [2, 8],
+                        isPercentage: true
+                    })
                 ],
                 "To strike fast is to escape beautifully!",
                 {
@@ -489,12 +472,11 @@ const Loader = {
                 1,
                 Data.Rarity.EPIC,
                 [
-                    new Stat(
-                        Data.Effect.PROTECTION,
-                        [-10, -20],
-                        false,
-                        true
-                    )
+                    new Stat({
+                        effect: Data.Effect.PROTECTION,
+                        theorical: [-10, -20],
+                        isPercentage: true
+                    })
                 ],
                 "Whoever hides his anger ensures his revenge.",
                 {
@@ -509,22 +491,20 @@ const Loader = {
                 1,
                 Data.Rarity.LEGENDARY,
                 [
-                    new Stat(
-                        Data.Effect.BLEED_DMG,
-                        [2, 4]
-                    ),
-                    new Stat(
-                        Data.Effect.MODIF_ACCURACY_BLEED,
-                        [3, 7],
-                        false,
-                        true
-                    ),
-                    new Stat(
-                        Data.Effect.MODIF_CRIT_BLEED,
-                        [3, 7],
-                        false,
-                        true,
-                    )
+                    new Stat({
+                        effect: Data.Effect.BLEED_DMG,
+                        theorical: [2, 4]
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MODIF_ACCURACY_BLEED,
+                        theorical: [3, 7],
+                        isPercentage: true
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MODIF_CRIT_BLEED,
+                        theorical: [3, 7],
+                        isPercentage: true
+                    })
                 ],
                 "\"But the hunger, it drives me on\". — Ghorra, the Mudcrawler",
                 {
@@ -679,20 +659,19 @@ const Loader = {
                 10,
                 Data.Rarity.EPIC,
                 [
-                    new Stat(
-                        Data.Effect.MAXHEALTH,
-                        [140, 175],
-                    ),
-                    new Stat(
-                        Data.Effect.REGEN_HEALTH,
-                        [18, 24],
-                        false,
-                        true
-                    ),
-                    new Stat(
-                        Data.Effect.MIGHT,
-                        [22, 28]
-                    ),
+                    new Stat({
+                        effect: Data.Effect.MAXHEALTH,
+                        theorical: [140, 175]
+                    }),
+                    new Stat({
+                        effect: Data.Effect.REGEN_HEALTH,
+                        theorical: [18, 24],
+                        isPercentage: true
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MIGHT,
+                        theorical: [22, 28]
+                    }),
                 ],
             ),
             new Trinket(
@@ -702,16 +681,15 @@ const Loader = {
                 10,
                 Data.Rarity.UNCOMMON,
                 [
-                    new Stat(
-                        Data.Effect.DODGE,
-                        [5, 8],
-                        false,
-                        true
-                    ),
-                    new Stat(
-                        Data.Effect.MAXHEALTH,
-                        [10, 15],
-                    ),
+                    new Stat({
+                        effect: Data.Effect.DODGE,
+                        theorical: [5, 8],
+                        isPercentage: true
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MAXHEALTH,
+                        theorical: [10, 15]
+                    }),
                 ],
             ),
             new Trinket(
@@ -721,16 +699,15 @@ const Loader = {
                 10,
                 Data.Rarity.COMMON,
                 [
-                    new Stat(
-                        Data.Effect.DODGE,
-                        [3, 5],
-                        false,
-                        true
-                    ),
-                    new Stat(
-                        Data.Effect.RESILIENCE,
-                        [-5, -8]
-                    )
+                    new Stat({
+                        effect: Data.Effect.DODGE,
+                        theorical: [3, 5],
+                        isPercentage: true
+                    }),
+                    new Stat({
+                        effect: Data.Effect.RESILIENCE,
+                        theorical: [-5, -8]
+                    })
                 ],
             ),
             new Trinket(
@@ -740,16 +717,15 @@ const Loader = {
                 10,
                 Data.Rarity.COMMON,
                 [
-                    new Stat(
-                        Data.Effect.ACCURACY,
-                        [2, 4],
-                        false,
-                        true
-                    ),
-                    new Stat(
-                        Data.Effect.WARDING,
-                        [-1, -2]
-                    )
+                    new Stat({
+                        effect: Data.Effect.ACCURACY,
+                        theorical: [2, 4],
+                        isPercentage: true
+                    }),
+                    new Stat({
+                        effect: Data.Effect.WARDING,
+                        theorical: [-3, -5]
+                    })
                 ],
             ),
             new Trinket(
@@ -759,22 +735,20 @@ const Loader = {
                 10,
                 Data.Rarity.UNCOMMON,
                 [
-                    new Stat(
-                        Data.Effect.MAXSTAMINA,
-                        [40, 55],
-                    ),
-                    new Stat(
-                        Data.Effect.REGEN_STAMINA,
-                        [2, 4],
-                        false,
-                        true
-                    ),
-                    new Stat(
-                        Data.Effect.MODIF_DMG_WEAPON,
-                        [-3, -5],
-                        false,
-                        true
-                    ),
+                    new Stat({
+                        effect: Data.Effect.MAXSTAMINA,
+                        theorical: [40, 55]
+                    }),
+                    new Stat({
+                        effect: Data.Effect.REGEN_STAMINA,
+                        theorical: [2, 4],
+                        isPercentage: true
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MODIF_DMG_WEAPON,
+                        theorical: [-3, -5],
+                        isPercentage: true
+                    }),
                 ],
             ),
             new Trinket(
@@ -784,18 +758,16 @@ const Loader = {
                 10,
                 Data.Rarity.RARE,
                 [
-                    new Stat(
-                        Data.Effect.MODIF_DMG_WEAPON,
-                        [10, 15],
-                        false,
-                        true
-                    ),
-                    new Stat(
-                        Data.Effect.MODIF_BLOCK,
-                        [-8, -11],
-                        false,
-                        true
-                    ),
+                    new Stat({
+                        effect: Data.Effect.MODIF_DMG_WEAPON,
+                        theorical: [10, 15],
+                        isPercentage: true
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MODIF_BLOCK,
+                        theorical: [-8, -11],
+                        isPercentage: true
+                    }),
                 ],
             ),
         ];
@@ -824,14 +796,32 @@ const Loader = {
                 what(game.all_trinkets, "foresighting ring"),
                 {
                     3: [
-                        new Stat(Data.Effect.DODGE, [3, 3], true, true)
+                        new Stat({
+                            effect: Data.Effect.DODGE,
+                            theorical: [3, 3],
+                            fixed: true,
+                            isPercentage: true
+                        })
                     ],
                     5: [
-                        new Stat(Data.Effect.MAXHEALTH, [10, 10], true)
+                        new Stat({
+                            effect: Data.Effect.MAXHEALTH,
+                            theorical: [10, 10],
+                            fixed: true
+                        })
                     ],
                     7: [
-                        new Stat(Data.Effect.DODGE, [5, 5], true, true),
-                        new Stat(Data.Effect.MAXHEALTH, [20, 20], true)
+                        new Stat({
+                            effect: Data.Effect.DODGE,
+                            theorical: [5, 5],
+                            fixed: true,
+                            isPercentage: true
+                        }),
+                        new Stat({
+                            effect: Data.Effect.MAXHEALTH,
+                            theorical: [20, 20],
+                            fixed: true
+                        })
                     ],
                     8: [
                         new Echo(
@@ -892,12 +882,16 @@ const Loader = {
                                 new SkillTreeNodeReward(
                                     Data.SkillTreeNodeRewardType.STAT,
                                     [
-                                        new Stat(
-                                            Data.Effect.RESILIENCE, [5, 5], true
-                                        ),
-                                        new Stat(
-                                            Data.Effect.WARDING, [5, 5], true
-                                        ),
+                                        new Stat({
+                                            effect: Data.Effect.RESILIENCE,
+                                            theorical: 5,
+                                            fixed: true
+                                        }),
+                                        new Stat({
+                                            effect: Data.Effect.WARDING,
+                                            theorical: 5,
+                                            fixed: true
+                                        }),
                                     ],
                                     "+5 Resilience, +5 Warding"
                                 )
@@ -906,12 +900,16 @@ const Loader = {
                                 new SkillTreeNodeReward(
                                     Data.SkillTreeNodeRewardType.STAT,
                                     [
-                                        new Stat(
-                                            Data.Effect.RESILIENCE, [15, 15], true
-                                        ),
-                                        new Stat(
-                                            Data.Effect.WARDING, [15, 15], true
-                                        ),
+                                        new Stat({
+                                            effect: Data.Effect.RESILIENCE,
+                                            theorical: 15,
+                                            fixed: true
+                                        }),
+                                        new Stat({
+                                            effect: Data.Effect.WARDING,
+                                            theorical: 15,
+                                            fixed: true
+                                        }),
                                     ],
                                     "+15 Resilience, +15 Warding"
                                 )
@@ -920,12 +918,16 @@ const Loader = {
                                 new SkillTreeNodeReward(
                                     Data.SkillTreeNodeRewardType.STAT,
                                     [
-                                        new Stat(
-                                            Data.Effect.RESILIENCE, [30, 30], true
-                                        ),
-                                        new Stat(
-                                            Data.Effect.WARDING, [30, 30], true
-                                        ),
+                                        new Stat({
+                                            effect: Data.Effect.RESILIENCE,
+                                            theorical: 30,
+                                            fixed: true
+                                        }),
+                                        new Stat({
+                                            effect: Data.Effect.WARDING,
+                                            theorical: 30,
+                                            fixed: true
+                                        }),
                                     ],
                                     "+30 Resilience, +30 Warding"
                                 )
@@ -1293,7 +1295,11 @@ const Loader = {
                 [50, 50], [50, 50],
                 30, 45,
                 0, 0,
-                [new Stat(Data.Effect.PROTECTION, [3, 7], false, true)],
+                [new Stat({
+                    effect: Data.Effect.PROTECTION,
+                    theorical: [3, 7],
+                    isPercentage: true
+                })],
                 {
                     threshold_weak: 50,
                     threshold_normal: 30,
@@ -1330,23 +1336,23 @@ const Loader = {
                         [false, true, true],
                         {
                             regular: [
-                                new Stat(Data.Effect.PROTECTION, [5, 5], false, true, false, false, 1, 0, Data.StatType.PASSIVE),
-                                new Stat(Data.Effect.MIGHT, [-5, -5], false, false, false, false, 2, 0, Data.StatType.PASSIVE),
-                                new Stat(Data.Effect.SPIRIT, [-5, -5], false, false, false, false, 2, 0, Data.StatType.PASSIVE)
+                                new Stat({effect: Data.Effect.PROTECTION, theorical: 5, isPercentage: true, duration: 1}),
+                                new Stat({effect: Data.Effect.MIGHT, theorical: -5, duration: 2}),
+                                new Stat({effect: Data.Effect.SPIRIT, theorical: -5, duration: 2}),
                             ],
                             critical: [
-                                new Stat(Data.Effect.PROTECTION, [7, 7], false, true, true, false, 1, 0, Data.StatType.PASSIVE),
-                                new Stat(Data.Effect.MIGHT, [-7, -7], false, false, true, false, 2, 0, Data.StatType.PASSIVE),
-                                new Stat(Data.Effect.SPIRIT, [-7, -7], false, false, true, false, 2, 0, Data.StatType.PASSIVE)
+                                new Stat({effect: Data.Effect.PROTECTION, theorical: 7, isPercentage: true, duration: 1, isCritical: true}),
+                                new Stat({effect: Data.Effect.MIGHT, theorical: -7, duration: 2, isCritical: true}),
+                                new Stat({effect: Data.Effect.SPIRIT, theorical: -7, duration: 2, isCritical: true}),
                             ]
                         },
                         {},
                         {
                             regular: [
-                                new Stat(Data.Effect.DODGE, [-5, -5], false, true, false, false, 2, 0, Data.StatType.PASSIVE)
+                                new Stat({effect: Data.Effect.DODGE, theorical: -5, isPercentage: true, duration: 2})
                             ],
                             critical: [
-                                new Stat(Data.Effect.DODGE, [-7, -7], false, true, false, false, 2, 0, Data.StatType.PASSIVE)
+                                new Stat({effect: Data.Effect.DODGE, theorical: -7, isPercentage: true, duration: 2, isCritical: true})
                             ],
                         },
                         {},
@@ -1369,7 +1375,7 @@ const Loader = {
                 [25, 0], [25, 0],
                 25, 25,
                 0, 0,
-                [new Stat(Data.Effect.DODGE, [3, 7])],
+                [new Stat({effect: Data.Effect.DODGE, theorical: [3, 7]})],
                 {},
                 [],
                 Data.StriderType.STRIKER,
@@ -1391,7 +1397,7 @@ const Loader = {
                 [50, 50], [50, 50],
                 30, 45,
                 0, 0,
-                [new Stat(Data.Effect.ACCURACY, [3, 7], false, true)],
+                [new Stat({effect: Data.Effect.ACCURACY, theorical: [3, 7], isPercentage: true})],
                 {},
                 [],
                 Data.StriderType.SUPPORT,
@@ -1413,7 +1419,7 @@ const Loader = {
                 [50, 50], [50, 50],
                 30, 45,
                 0, 0,
-                [new Stat(Data.Effect.MIGHT, [3, 7], false, true)],
+                [new Stat({effect: Data.Effect.MIGHT, theorical: [3, 7]})],
                 {},
                 [],
                 Data.StriderType.STRIKER,
@@ -1435,7 +1441,7 @@ const Loader = {
                 [50, 50], [50, 50],
                 30, 45,
                 0, 0,
-                [new Stat(Data.Effect.MAXMANA, [3, 7], false, true)],
+                [new Stat({effect: Data.Effect.MAXMANA, theorical: [15, 25]})],
                 {},
                 [],
                 Data.StriderType.STRIKER,
@@ -1457,7 +1463,7 @@ const Loader = {
                 [50, 50], [50, 50],
                 30, 45,
                 0, 0,
-                [new Stat(Data.Effect.WARDING, [3, 7], false, true)],
+                [new Stat({effect: Data.Effect.MODIF_HEAL_GIVEN, theorical: [3, 7], isPercentage: true})],
                 {},
                 [],
                 Data.StriderType.SUPPORT,
@@ -1479,7 +1485,7 @@ const Loader = {
                 [50, 50], [50, 50],
                 30, 45,
                 0, 0,
-                [new Stat(Data.Effect.PROTECTION, [3, 7], false, true)],
+                [new Stat({effect: Data.Effect.PROTECTION, theorical: [3, 7], isPercentage: true})],
                 {},
                 [],
                 Data.StriderType.TANK,
@@ -1501,7 +1507,7 @@ const Loader = {
                 [50, 50], [50, 50],
                 30, 45,
                 0, 0,
-                [new Stat(Data.Effect.WARDING, [3, 7], false, true)],
+                [new Stat({effect: Data.Effect.WARDING, theorical: [3, 7]})],
                 {},
                 [],
                 Data.StriderType.SUPPORT,
@@ -1523,7 +1529,7 @@ const Loader = {
                 [50, 50], [50, 50],
                 30, 45,
                 0, 0,
-                [new Stat(Data.Effect.WARDING, [3, 7], false, true)],
+                [new Stat({effect: Data.Effect.WARDING, theorical: [3, 7]})],
                 {},
                 [],
                 Data.StriderType.STRIKER,
@@ -1545,7 +1551,7 @@ const Loader = {
                 [50, 50], [50, 50],
                 30, 45,
                 0, 0,
-                [new Stat(Data.Effect.WARDING, [3, 7], false, true)],
+                [new Stat({effect: Data.Effect.WARDING, theorical: [3, 7]})],
                 {},
                 [],
                 Data.StriderType.SUPPORT,
@@ -1567,7 +1573,7 @@ const Loader = {
                 [50, 50], [50, 50],
                 30, 45,
                 0, 0,
-                [new Stat(Data.Effect.WARDING, [3, 7], false, true)],
+                [new Stat({effect: Data.Effect.WARDING, theorical: [3, 7]})],
                 {},
                 [],
                 Data.StriderType.TANK,

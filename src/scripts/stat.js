@@ -9,29 +9,33 @@
 
 class Stat {
     /**
-     * @param {string} effect the Effect given by the Stat object
+     * @param {string} effect the Data.Effect given by the Stat object
      * @param {array} theorical the theorical value of the Stat object
      * @param {boolean} fixed TRUE means the value will always be the same, FALSE (default) means it will always be random
      * @param {boolean} isPercentage is the value a percentage?
-     * @param {boolean} critical is the Stat a critical effect?
-     * @param {boolean} corrupt is the Stat a corrupt effect?
+     * @param {boolean} isCritical is the Stat a critical effect?
+     * @param {boolean} isCorrupt is the Stat a corrupt effect?
      * @param {number} duration 0 = permanent, > 0 = duration in rounds,
      * @param {number} delay 0 = immediate, < 0 = delay in rounds
      * @param {string} type is it a PASSIVE or ACTIVE Stat?
      */
-    constructor(effect, theorical, fixed = false, isPercentage = false, critical = false, corrupt = false, duration = 0, delay = 0, type = Data.StatType.PASSIVE) {
-        this.effect = effect;
-        this.theorical = theorical;
-        this.isPercentage = isPercentage;
-        this.critical = critical;
-        this.corrupt = corrupt;
-        this.duration = duration;
-        this.delay = delay;
-        this.type = type;
+    constructor(props) {
+
+        this.effect = ("effect" in props ? props["effect"] : "none");
+        this.theorical = ("theorical" in props ? props["theorical"] : [0, 0]);
+        this.isPercentage = ("isPercentage" in props ? props["isPercentage"] : false);
+        this.isCritical = ("isCritical" in props ? props["isCritical"] : false);
+        this.isCorrupt = ("isCorrupt" in props ? props["isCorrupt"] : false);
+        this.duration = ("duration" in props ? props["duration"] : 0);
+        this.delay = ("delay" in props ? props["delay"] : 0);
+        this.type = ("type" in props ? props["type"] : Data.StatType.PASSIVE);
+
         this.value = null;
 
-        if(fixed) this.fix();
-        else this.fixed = fixed;
+        if(!Array.isArray(this.theorical)) this.theorical = [this.theorical, this.theorical];
+
+        if("fixed" in props) this.fix();
+        else this.fixed = false;
     }
 
     /**

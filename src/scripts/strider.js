@@ -374,8 +374,8 @@ class Strider extends NPC {
                 this.eqShield = armor;
                 break;
         }
-        this.addEffect(new Stat(Data.Effect.RESILIENCE, [armor.resilience, armor.resilience], true));
-        this.addEffect(new Stat(Data.Effect.WARDING, [armor.warding, armor.warding], true));
+        this.addEffect(new Stat({effect: Data.Effect.RESILIENCE, theorical: armor.resilience}));
+        this.addEffect(new Stat({effect: Data.Effect.WARDING, theorical: armor.warding}));
         this.applyEchoes(armor);
         this.applyAstralForgeExtraEffects(armor);
         game.player.inventory.removeItem(armor);
@@ -409,8 +409,8 @@ class Strider extends NPC {
                 this.eqShield = null;
                 break;
         }
-        this.addEffect(new Stat(Data.Effect.RESILIENCE, [armor.resilience, armor.resilience], true), true);
-        this.addEffect(new Stat(Data.Effect.WARDING, [armor.warding, armor.warding], true), true);
+        this.addEffect(new Stat({effect: Data.Effect.RESILIENCE, theorical: armor.resilience}), true);
+        this.addEffect(new Stat({effect: Data.Effect.WARDING, theorical: armor.warding}), true);
         this.applyEchoes(armor, true);
         this.applyAstralForgeExtraEffects(armor, true);
         game.player.inventory.addItem(armor, 1, true);
