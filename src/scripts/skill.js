@@ -12,14 +12,15 @@ class Skill extends Entity {
         this.accMultiplier = ("accMultiplier" in props ? props["accMultiplier"] : 0);
         this.targets = ("targets" in props ? props["targets"] : {allies: '-0', enemies: '-0'});
         this.launchPos = ("launchPos" in props ? props["launchPos"] : [true, true, true]);
-        this.effectsCaster = ("effectsCaster" in props ? props["effectsCaster"] : {});
-        this.effectsAllies = ("effectsAllies" in props ? props["effectsAllies"] : {});
-        this.effectsEnemies = ("effectsEnemies" in props ? props["effectsEnemies"] : {});
-        this.variables = ("variables" in props ? props["variables"] : {});
-        this.triggersCaster = ("triggersCaster" in props ? props["triggersCaster"] : []);
-        this.triggersAllies = ("triggersAllies" in props ? props["triggersAllies"] : []);
-        this.triggersEnemies = ("triggersEnemies" in props ? props["triggersEnemies"] : []);
-        this.triggersSkill = ("triggersSkill" in props ? props["triggersSkill"] : []);
+        this.effectsCaster = ("effectsCaster" in props ? props["effectsCaster"] : null);
+        this.effectsAllies = ("effectsAllies" in props ? props["effectsAllies"] : null);
+        this.effectsEnemies = ("effectsEnemies" in props ? props["effectsEnemies"] : null);
+        this.variables = ("variables" in props ? props["variables"] : null);
+        this.triggersCaster = ("triggersCaster" in props ? props["triggersCaster"] : null);
+        this.triggersAllies = ("triggersAllies" in props ? props["triggersAllies"] : null);
+        this.triggersEnemies = ("triggersEnemies" in props ? props["triggersEnemies"] : null);
+        this.triggersSkill = ("triggersSkill" in props ? props["triggersSkill"] : null);
         this.condition = ("condition" in props ? props["condition"] : true);
+        this.stackable = ("stackable" in props ? props["stackable"] : 0);
     }
 }

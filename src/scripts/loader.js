@@ -1321,7 +1321,7 @@ const Loader = {
                     new Skill(
                         "Surge",
                         "Deals light damage to all enemies and diminishes their Dodge. Boosts Amarok's Protection and diminishes his Might and Spirit.",
-                        1,
+                        13,
                         {
                             type: Data.SkillType.OFFENSIVE,
                             manaCost: 60,

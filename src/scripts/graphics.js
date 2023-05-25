@@ -1950,7 +1950,7 @@ function getBattleSkillTooltip(strider, skill) {
     str += '<div class="vignette coolBorder" style="background-image: url(\'css/img/skills/' + strider.name + skill.icon + '.png\')"></div>';
     str += '<div class="desc"><h4>' + skill.name + '</h4>';
     str += '<div class="treeNodeTags">';
-    str += '<div class="treeNodeType treeNodeType-' + skill.type.toLowerCase() + '">' + capitalizeFirstLetter(skill.type) + '</div>';
+    str += '<div class="treeNodeType">' + capitalizeFirstLetter(skill.type) + '</div>';
     str += '</div>'
     str += '</div>'
     str += '</div>';
@@ -1966,12 +1966,59 @@ function getBattleSkillTooltip(strider, skill) {
     str += '<div class="divider"></div>';
 
     if(skill.effectsCaster) {
-        str += '<div class="par">Caster:</div>';
+        str += '<div class="skills-effectsContainer">';
+        str += '<h4>Caster:</h4>'
         skill.effectsCaster.regular.forEach(single => {
             str += single.getFormatted('', '', false, false, true);
-        })
-
+        });
+        str += '</div>';
     }
+    if(skill.effectsAllies) {
+        str += '<div class="skills-effectsContainer">';
+        str += '<h4>Allies:</h4>'
+        skill.effectsAllies.regular.forEach(single => {
+            str += single.getFormatted('', '', false, false, true);
+        });
+        str += '</div>';
+    }
+    if(skill.effectsEnemies) {
+        str += '<div class="skills-effectsContainer">';
+        str += '<h4>Enemies:</h4>'
+        skill.effectsEnemies.regular.forEach(single => {
+            str += single.getFormatted('', '', false, false, true);
+        });
+        str += '</div>';
+    }
+
+    str += '<div class="divider"></div>';
+    
+    str += '<div class="skillRangeDisplay">';
+
+    str += '<div class="skillRangeDisplay-launch">';
+    str += '<div class="skillRangeDisplay-launch-pos">' + getRangeString(skill.launchPos) + '</div>';
+    str += '<div class="skillRangeDisplay-launch-str">Launch</div>';
+    str += '</div>';
+
+    str += '<div class="skillRangeDisplay-ally">'
+    str += '<div class="skillRangeDisplay-ally-pos">' + getTargetString(skill.targets.allies) + '</div>';
+    str += '<div class="skillRangeDisplay-ally-str">Allies</div>';
+    str += '</div>';
+
+    str += '<div class="skillRangeDisplay-enemy">'
+    str += '<div class="skillRangeDisplay-enemy-pos">' + getTargetString(skill.targets.enemies) + '</div>';
+    str += '<div class="skillRangeDisplay-enemy-str">Enemies</div>';
+    str += '</div>';
+
+    str += '<div class="divider"></div>';
+    str += '<div class="par">"' + skill.desc + '"</div>';
+    str += '</div>';
+    str += '<div class="divider"></div>';
+    
+    str += '<div class="skillBottom">';
+    str += '<div class="skillLevel">' + skill.cooldown + ' Cooldown</div>';
+    str += '<div class="skillCost">' + skill.manaCost + ' Mana</div>'
+    str += '</div>';
+
 
     str += '</div>';
 
