@@ -9,8 +9,8 @@
 
 class Stat {
     /**
-     * @param {string} effect the Data.Effect given by the Stat object
-     * @param {array} theorical the theorical value of the Stat object
+     * @param {Data.Effect} effect the Data.Effect given by the Stat object
+     * @param {number|[number, number]} theorical the theorical value of the Stat object
      * @param {boolean} fixed TRUE means the value will always be the same, FALSE (default) means it will always be random
      * @param {boolean} isPercentage is the value a percentage?
      * @param {boolean} isCritical is the Stat a critical effect?
@@ -21,6 +21,7 @@ class Stat {
      */
     constructor(props) {
 
+        // Set attributes from props, or default values if not in props
         this.effect = ("effect" in props ? props["effect"] : "none");
         this.theorical = ("theorical" in props ? props["theorical"] : [0, 0]);
         this.isPercentage = ("isPercentage" in props ? props["isPercentage"] : false);
@@ -32,6 +33,7 @@ class Stat {
 
         this.value = null;
 
+        // If theorical is not an array, make it an array
         if(!Array.isArray(this.theorical)) this.theorical = [this.theorical, this.theorical];
 
         if("fixed" in props) this.fix();
