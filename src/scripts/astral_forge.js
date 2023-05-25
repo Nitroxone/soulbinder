@@ -219,10 +219,10 @@ class AstralForge {
                 this.queueAnimation(effect, "effectAlterSuccess");
                 break;
             case "boolean":
-                const effectSwitch = new Stat(effect, [0, 0]);
+                const effectSwitch = new Stat({effect: effect});
                 this.item.addEffect(effectSwitch, true);
                 // TODO: fix this by getting the value of the CURRENT boolean effect on the object.
-                this.addToBookmark(new Stat(getOppositeOfBooleanEffect(effect), [0, 0]), true);
+                this.addToBookmark(new Stat({effect: getOppositeOfBooleanEffect(effect)}))
                 // DOM UPDATE
                 this.queueAnimation(effect, "effectAlterSuccess");
                 break;
@@ -233,7 +233,7 @@ class AstralForge {
                     return;
                 }
                 const value = getOverValueFromConfig(effect);
-                const newEffect = new Stat(effect, [value, value], true, isAstralForgeEffectPercentage(effect));
+                const newEffect = new Stat({effect: effect, theorical: value, isPercentage: isAstralForgeEffectPercentage(effect)});
                 this.extraEffects.push(newEffect);
                 this.addToBookmark(newEffect);
                 this.seal();
@@ -257,7 +257,7 @@ class AstralForge {
         let finalValue = Math.min(Math.min(limit, shard.value), reference.max - Math.abs(reference.added));
         // Invert values if it's EFFORT
         if(effect === Data.Effect.EFFORT) finalValue = -finalValue;
-        const newEffect = new Stat(effect, [finalValue, finalValue], true, shard.isPercentage);
+        const newEffect = new Stat({effect: effect, theorical: finalValue, isPercentage: shard.isPercentage});
         this.item.addEffect(newEffect);
         this.addToBookmark(newEffect);
         this.updateReferenceAddedValue(effect, finalValue);
@@ -296,9 +296,9 @@ class AstralForge {
             }
         }
 
-        const reductionEffect = new Stat(effect, [finalReduction, finalReduction], false, this.targetedAlterationAllowsPercentage(effect));
+        const reductionEffect = new Stat({effect: effect, theorical: finalReduction, isPercentage: this.targetedAlterationAllowsPercentage(effect)});
         this.item.addEffect(reductionEffect, true);
-        this.addToBookmark(new Stat(effect, [-finalReduction, -finalReduction], false, this.targetedAlterationAllowsPercentage(effect)));
+        this.addToBookmark(new Stat({effect: effect, theorical: -finalReduction, isPercentage: this.targetedAlterationAllowsPercentage(effect)}));
         this.updateReferenceAddedValue(effect, -finalReduction);
 
         // DOM UPDATE
