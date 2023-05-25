@@ -3978,8 +3978,14 @@ table.astralForgeShards td {
     display: grid;
     grid-template-columns: 1fr 1.5fr;
     grid-template-rows: 1fr;
-    gap: 0 3px;
+    gap: 0 0;
     grid-template-areas: "b-actions b-skco";
+
+    background-image: url('img/bg4.png');
+    background-size: cover;
+    background-repeat: repeat;
+
+    border-radius: 0 3px 3px 0;
 }
 
 
@@ -4071,5 +4077,27 @@ table.astralForgeShards td {
 
 .battle-skcoContainer {
     grid-area: "b-skco";
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 0.1fr 1fr;
+    gap: 0 0;
+    grid-template-areas: 
+        "bc-sk"
+        "bc-di"
+        "bc-co";
+
+    border: 2px solid rgb(100, 100, 100);
+    border-left: none;
+    border-radius: 0 3px 3px 0;
 }
 
+.battle-skcoSkills {
+    grid-area: "bc-sk";
+}
+.battle-skcoConsumables {
+    grid-area: "bc-co";
+}
+.battle-skcoDivider {
+    grid-area: "bc-di";
+}

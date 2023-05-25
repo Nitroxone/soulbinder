@@ -1883,6 +1883,9 @@ function getBattleCommands(refresh = false) {
     str += '</div>';
 
     str += '<div class="battle-skcoContainer">';
+    str += '<div class="battle-skcoSkills"></div>';
+    str += '<div class="battle-skcoDivider"><div class="divider"></div></div>';
+    str += '<div class="battle-skcoConsumables"></div>';
     str += '</div>';
 
     if(refresh) {
