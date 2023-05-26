@@ -135,13 +135,14 @@ class Stat {
 
         let str = '';
         if(skillFormat) {
-            str = '<div class="' 
+            str += '<div class="' 
             + cssClass 
             + '" style="' 
             + (bold ? 'font-family: RobotoBold; ' : '') 
             + (italic ? 'font-style: italic; ' : '') 
             + (color ? 'color: ' + color + ';': '') 
-            + '"><span style="font-weight: normal;">';
+            + '">'
+            + '<span style="font-weight: normal;">';
             if(this.theorical[0] === this.theorical[1]) str += (this.getValue() > 0 ? '' : this.getValue() < 0 ? '- ' : '') + '</span>' + (this.getValue() === 0 ? '' : Math.abs(this.getValue())) + (this.isPercentage ? '%' : '');
             else {
                 str += (this.theorical[0] > 0 ? '' : this.theorical[0] < 0 ? '- ' : '') + '</span>' + (this.theorical[0] === 0 ? '' : Math.abs(this.theorical[0])) + (this.isPercentage ? '%' : '');
@@ -149,13 +150,14 @@ class Stat {
                 str += (this.theorical[1] > 0 ? '' : this.theorical[1] < 0 ? '- ' : '') + '</span>' + (this.theorical[1] === 0 ? '' : Math.abs(this.theorical[1])) + (this.isPercentage ? '%' : '');
             }
             str += ' ' 
-            + capitalizeFirstLetter(this.effect);
-            + (this.delay > 0 ? ' (in ' + this.delay + ' rounds)' : '');
+            + capitalizeFirstLetter(this.effect)
+            + (this.duration > 0 ? ' (' + this.duration + ' rounds)' : '')
+            + (this.delay > 0 ? ' [in ' + this.delay + ' round(s)]' : '');
             str += '</div>';
 
             
         } else {
-            str = '<div class="' 
+            str += '<div class="' 
             + cssClass 
             + '" style="' 
             + (bold ? 'font-family: RobotoBold; ' : '') 

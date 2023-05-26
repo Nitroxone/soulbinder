@@ -1398,7 +1398,7 @@ const Loader = {
                     ),
                     new Skill(
                         "Bloodbound",
-                        "Transfers a part of Amarok's §Health§ to the target ally, then applies a §Health regeneration§ bonus to Amarok. Boosts the targeted ally's §Speed§.",
+                        "Transfers a part of Amarok's §Health§ to the targeted ally, then applies a §Health regeneration§ bonus to Amarok. Boosts the targeted ally's §Speed§.",
                         15,
                         {
                             type: Data.SkillType.FRIENDLY,
