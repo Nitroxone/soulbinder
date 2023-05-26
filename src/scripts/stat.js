@@ -105,7 +105,33 @@ class Stat {
      * @param {boolean} italic makes the text in italics
      * @return {string} an HTML string
      */
-    getFormatted(cssClass = '', color = '', bold = false, italic = false, noTheorical = false) {
+    getFormatted(props) {
+        const cssClass = ("cssClass" in props ? props["cssClass"] : "");
+        let color = ("color" in props ? props["color"] : "");
+        let bold = ("bold" in props ? props["bold"] : false);
+        const italic = ("italic" in props ? props["italic"] : false);
+        const noTheorical = ("noTheorical" in props ? props["noTheorical"] : false);
+        const defaultColor = ("defaultColor" in props ? props["defaultColor"] : false);
+        const allowOverloadedStyling = ("allowOverloadedStyling" in props ? props["allowOverloadedStyling"] : false);
+
+        if(defaultColor) {
+            if(this.getValue() > 0) {
+                if(this.effect !== Data.Effect.EFFORT) color = Data.Color.GREEN;
+                else color = Data.Color.RED;
+            } else if(this.getValue() < 0) {
+                if(this.effect !== Data.Effect.EFFORT) color = Data.Color.RED;
+                else color = Data.Color.GREEN;
+            } else {
+                color = Data.Color.ORANGE;
+            }
+        }
+        if(allowOverloadedStyling) {
+            if(this.fixed && this.getValue() > this.theorical[1] && this.getValue() > 0) {
+                color = Data.Color.OVERLOADED;
+                bold = true;
+            }
+        }
+
         let str = '<div class="' 
         + cssClass 
         + '" style="' 

@@ -2129,16 +2129,17 @@ table.statsTable tbody td:nth-child(3) {
 .skillStatsDisplay-num {
     font-family:'RobotoSlab';
     font-size:23px;
-    color: #fff;
+    color: #ddd;
     /*text-shadow:1px 1px 0 #000000, 0 0 6px rgb(255 255 255 / 75%);*/
 }
 .skillStatsDisplay-str, .skillRangeDisplay-ally-str, .skillRangeDisplay-enemy-str, .skillRangeDisplay-launch-str {
     font-variant: small-caps;
+    color: grey;
 }
 .skillRangeDisplay-launch-pos, .skillRangeDisplay-ally-pos, .skillRangeDisplay-enemy-pos {
     font-variant: small-caps;
     font-family:'RobotoSlab';
-    color: #fff;
+    color: #ddd;
     font-size:18px;
 }
 .skillBottom {
@@ -3053,6 +3054,7 @@ hr.leftSided {
     text-align: left;
     padding: 0 0.5rem;
     line-height: 1.15;
+    color: #ddd;
 }
 .bold {
     font-family: "RobotoBold";

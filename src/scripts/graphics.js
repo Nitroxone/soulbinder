@@ -94,16 +94,16 @@ function getRuneTooltip(rune, asResult) {
     // effects
     str += '<div class="par"></div>';
     rune.effects.forEach(effect => {
-            str += effect.getFormatted("itemEffect");
+            str += effect.getFormatted({cssClass: "itemEffect"});
     });
     if(rune.isCritical) {
         rune.critical.forEach(effect => {
-            str += effect.getFormatted("itemEffect", Data.Color.GOLD, true);
+            str += effect.getFormatted({cssClass: "itemEffect", color: Data.Color.GOLD, bold: true});
         });
     }
     if(rune.isCorrupt) {
         rune.corrupt.forEach(effect => {
-            str += effect.getFormatted("itemEffect", Data.Color.CORRUPT, true);
+            str += effect.getFormatted({cssClass: "itemEffect", color: Data.Color.CORRUPT, bold: true});
         });
     }
     rune.echoes.forEach(echo => {
@@ -135,10 +135,10 @@ function getTrinketTooltip(trinket, asResult = null, full = false) {
     // effects
     str += '<div class="par"></div>';
     trinket.astralForgeItem.extraEffects.forEach(eff => {
-        str += eff.getFormatted("itemEffect", Data.Color.BLUE, true, false, true);
+        str += eff.getFormatted({cssClass: "itemEffect", color: Data.Color.BLUE, bold: true, noTheorical: true});
     });
     trinket.effects.forEach(effect => {
-        str += effect.getFormatted("itemEffect");
+        str += effect.getFormatted({cssClass: "itemEffect", allowOverloadedStyling: true});
     })
 
     // echoes
@@ -195,7 +195,7 @@ function getWeaponTooltip(weapon, asResult = null, full = false) {
 
     str += '<div class="par"></div>';
     weapon.astralForgeItem.extraEffects.forEach(eff => {
-        str += eff.getFormatted("itemEffect", Data.Color.BLUE, true, false, true);
+        str += eff.getFormatted({cssClass: "itemEffect", color: Data.Color.BLUE, bold: true, noTheorical: true});
     });
     str += '<table class="statsTable"><tbody>';
     str += '<tr><td>Sharpness</td><td>' + weapon.pdmg[0] + '-' + weapon.pdmg[1] + '</td></tr>';
@@ -252,7 +252,7 @@ function getArmorTooltip(armor, asResult = null, full = false) {
 
     str += '<div class="par"></div>';
     armor.astralForgeItem.extraEffects.forEach(eff => {
-        str += eff.getFormatted("itemEffect", Data.Color.BLUE, true, false, true);
+        str += eff.getFormatted({cssClass: "itemEffect", color: Data.Color.BLUE, bold: true, noTheorical: true});
     });
     str += '<table class="statsTable"><tbody>';
     str += '<tr><td>Resilience</td><td>' + armor.resilience + '<span class="theoricalval">[' + armor.t_resilience[0] + '-' + armor.t_resilience[1] +']</span>' + '</td></tr>';
@@ -318,7 +318,7 @@ function getSetTooltip(set) {
         str += '<div class="tooltipSetDetail">';
         str += '<div class="tooltipSetDetailTitle">' + key  + ' item' + (key > 1 ? 's' : '') +'</div>';
         set.bonus[key].forEach(bonus => {
-            if(bonus instanceof Stat) str += bonus.getFormatted("itemEffect tooltipSetDetailBonus", '', '', '', true);
+            if(bonus instanceof Stat) str += bonus.getFormatted({cssClass: "itemEffect tooltipSetDetailBonus", noTheorical: true});
             if(bonus instanceof Echo) str += getEchoDetails(bonus, true);
         })
         str += '</div>';
@@ -387,7 +387,7 @@ function getEchoDetails(echo, full = false) {
     if(full) {
         str += '<div class="echoEffects">'
         echo.stats.forEach(effect => {
-            str += effect.getFormatted("echoEffect");
+            str += effect.getFormatted({cssClass: "echoEffect"});
         });
         str += '</div>'
         str += '<br>';
@@ -1584,7 +1584,7 @@ function getAstralForgeHistory(forgeItem, refresh = false) {
             else color = effect.getValue() > 0 ? Data.Color.GREEN : Data.Color.RED;
             
             if(asBoolean) str += capitalizeFirstLetter(effect.effect);
-            else str += effect.getFormatted('astralForgeHistory-effect', color, false, false, true);
+            else str += effect.getFormatted({cssClass: "astralForgeHistory-effect", color: color, noTheorical: true});
         })
 
         str += '</div>';
@@ -1918,7 +1918,6 @@ function getBattleCommands(refresh = false) {
 
 function getBattleSkills(refresh = false) {
     let str = '';
-    console.log('KAKAKROTE');
 
     const currentPlay = game.currentBattle.currentPlay;
     currentPlay.skills.forEach(skill => {
@@ -1966,26 +1965,26 @@ function getBattleSkillTooltip(strider, skill) {
     str += '<div class="divider"></div>';
 
     if(skill.effectsCaster) {
-        str += '<div class="skills-effectsContainer">';
-        str += '<h4>Caster:</h4>'
+        str += '<div class="rewardsWrapper">';
+        str += '<div class="par">Caster:</div>'
         skill.effectsCaster.regular.forEach(single => {
-            str += single.getFormatted('', '', false, false, true);
+            str += single.getFormatted({cssClass: "bulleted", noTheorical: true, defaultColor: true});
         });
         str += '</div>';
     }
     if(skill.effectsAllies) {
-        str += '<div class="skills-effectsContainer">';
-        str += '<h4>Allies:</h4>'
+        str += '<div class="rewardsWrapper">';
+        str += '<div class="par">Allies:</div>'
         skill.effectsAllies.regular.forEach(single => {
-            str += single.getFormatted('', '', false, false, true);
+            str += single.getFormatted({cssClass: "bulleted", noTheorical: true, defaultColor: true});
         });
         str += '</div>';
     }
     if(skill.effectsEnemies) {
-        str += '<div class="skills-effectsContainer">';
-        str += '<h4>Enemies:</h4>'
+        str += '<div class="rewardsWrapper">';
+        str += '<div class="par">Enemies:</div>'
         skill.effectsEnemies.regular.forEach(single => {
-            str += single.getFormatted('', '', false, false, true);
+            str += single.getFormatted({cssClass: "bulleted", noTheorical: true, defaultColor: true});
         });
         str += '</div>';
     }
@@ -2010,13 +2009,13 @@ function getBattleSkillTooltip(strider, skill) {
     str += '</div>';
 
     str += '<div class="divider"></div>';
-    str += '<div class="par">"' + skill.desc + '"</div>';
+    str += '<div class="nodeDesc" style="color:' + Data.Color.ORANGE + '"><div class="par">' + skill.desc + '</div></div>';
     str += '</div>';
     str += '<div class="divider"></div>';
     
     str += '<div class="skillBottom">';
-    str += '<div class="skillLevel">' + skill.cooldown + ' Cooldown</div>';
-    str += '<div class="skillCost">' + skill.manaCost + ' Mana</div>'
+    str += '<div class="skillLevel"><span style="font-family: RobotoBold">' + skill.cooldown + '</span> <span style="color: grey">Cooldown</span></div>';
+    str += '<div class="skillCost"><span style="font-family: RobotoBold">' + skill.manaCost + '</span> <span style="color: grey">Mana</span></div>'
     str += '</div>';
 
 
