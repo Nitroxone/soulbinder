@@ -1795,49 +1795,43 @@ function drawExploreScreen() {
 }
 
 function drawDungeon() {
+    let enter, exit, next;
 
-    // Je pensais à créer une fonction pour chaque cas particulier, ici pour afficher le set d'un événement régulier (par exemple)
-
-    // function displayRegularEventSet() {
-    //     console.log("caca");
-    //     let str = '';
-    //     str += '<div class="dungeonDialogue">';
-    //     str += game.currentDungeon.getCurrentEventSet();
-    //     str += '</div>';
-    //     str += '<button class="simpleButton" id="nextButton">Next</button>';
-    
-    //     document.querySelector('.dungeonContainer').innerHTML = str;
-    // }
+    function buttonBinder() {
+        enter = document.querySelector('#enterDungeon');
+        exit = document.querySelector('#exitDungeon');
+        next = document.querySelector('#nextButton');
+    }
 
     // initialise le code quand le donjon est au début
     switch (game.currentDungeon.history.length) {
         case 1:
             document.querySelector('#explorationDiv').innerHTML = '<div class="dungeonContainer"></div>';
-    
+
             let str = '';
             str += '<div class="dungeonDialogue">';
             str += game.currentDungeon.getCurrentEventSet();
             str += '</div>';
             str += '<button class="simpleButton" id="enterDungeon">Enter dungeon</button>';
             str += '<button class="simpleButton" id="exitDungeon">Exit dungeon</button>';
-    
+
             document.querySelector('.dungeonContainer').innerHTML = str;
-    
-            document.querySelector('#exitDungeon').addEventListener('click', e => {
+
+            buttonBinder();
+
+            exit.addEventListener('click', e => {
                 game.currentDungeon = null;
                 drawExploreScreen();
-    
             });
-            
+             
             //ici, pour afficher la rencontre de l'événement en cours
-            document.querySelector('#enterDungeon').addEventListener('click', e => {
-    
+            enter.addEventListener('click', e => {
                 let str = '';
                 str += '<div class="dungeonDialogue">';
                 str += game.currentDungeon.getCurrentEventEncounter();
                 str += '</div>';
                 str += '<button class="simpleButton" id="nextButton">Next</button>';
-    
+
                 document.querySelector('.dungeonContainer').innerHTML = str;
                 game.currentDungeon.generateEvent();
             });
@@ -1845,14 +1839,16 @@ function drawDungeon() {
             
         //ici, pour afficher le set du prochain événement
         default:
-            document.querySelector('#nextButton').addEventListener('click', e => {
+            buttonBinder();
+
+            next.addEventListener('click', e => {
                 console.log("caca");
                 let str = '';
                 str += '<div class="dungeonDialogue">';
                 str += game.currentDungeon.getCurrentEventSet();
                 str += '</div>';
                 str += '<button class="simpleButton" id="nextButton">Next</button>';
-    
+
                 document.querySelector('.dungeonContainer').innerHTML = str;
             });
             break;
