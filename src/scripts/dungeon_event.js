@@ -46,6 +46,10 @@ class DungeonEvent {
             
         }
     }
+
+    setChoiceQuote() {
+        this.choiceQuote = Speech.Dungeon[this.zone].regular[this.biome][this.level].choiceQuote[Math.floor(Math.random() * Speech.Dungeon[this.zone].regular[this.biome][this.level].choiceQuote.length)];
+    }
     
     // stores the event in the current dungeon history, and make it the new current event
     storeEvent() {

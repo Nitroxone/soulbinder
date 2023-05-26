@@ -42,26 +42,19 @@ class Dungeon {
         this.currentEvent = new DungeonEvent();
     }
 
-    // I was thinking of making a method for each new step to display
-    playEvent() {
-        this.displaySet();
-        this.displayEncounter();
-        this.promptInstanceChoice();
-    }
-    // to display the textual background of the chosen set
-    displayEventSet() {
-        console.log("Set: " + this.currentEvent.set);
-    }
-    // to make the encounter appear
-    displayEncounter() {
-        if (this.currentEvent.encounter) {
-            console.log("Rencontre: " + this.currentEvent.encounter);
-        }
+    // returns the current encounter
+    getCurrentEventEncounter() {
+        console.log(this.currentEvent.encounter);
+        return this.currentEvent.encounter;
     }
 
     // returns the current set of the current dungeon event
     getCurrentEventSet() {
         return this.currentEvent.set; 
+    }
+
+    getCurrentEventChoiceQuote() {
+        return this.currentEvent.choiceQuote;
     }
 
     // to prompt the player's choice (and eventually get back the result, to see how we organize it)
