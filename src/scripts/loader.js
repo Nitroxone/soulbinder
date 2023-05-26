@@ -1333,24 +1333,28 @@ const Loader = {
                             targets: {allies: '-0', enemies: '@123'},
                             launchPos: [false, true, true],
                             effectsCaster: {
-                                regular: [
-                                    new Stat({effect: Data.Effect.PROTECTION, theorical: 5, isPercentage: true, duration: 1}),
-                                    new Stat({effect: Data.Effect.MIGHT, theorical: -5, duration: 2}),
-                                    new Stat({effect: Data.Effect.SPIRIT, theorical: -5, duration: 2}),
-                                ],
-                                critical: [
-                                    new Stat({effect: Data.Effect.PROTECTION, theorical: 7, isPercentage: true, duration: 1, isCritical: true}),
-                                    new Stat({effect: Data.Effect.MIGHT, theorical: -7, duration: 2, isCritical: true}),
-                                    new Stat({effect: Data.Effect.SPIRIT, theorical: -7, duration: 2, isCritical: true}),
-                                ]
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.PROTECTION, theorical: 5, isPercentage: true, duration: 1}),
+                                        new Stat({effect: Data.Effect.MIGHT, theorical: -5, duration: 2}),
+                                        new Stat({effect: Data.Effect.SPIRIT, theorical: -5, duration: 2}),
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.PROTECTION, theorical: 7, isPercentage: true, duration: 1, isCritical: true}),
+                                        new Stat({effect: Data.Effect.MIGHT, theorical: -7, duration: 2, isCritical: true}),
+                                        new Stat({effect: Data.Effect.SPIRIT, theorical: -7, duration: 2, isCritical: true}),
+                                    ]
+                                }
                             },
                             effectsEnemies: {
-                                regular: [
-                                    new Stat({effect: Data.Effect.DODGE, theorical: -5, isPercentage: true, duration: 2})
-                                ],
-                                critical: [
-                                    new Stat({effect: Data.Effect.DODGE, theorical: -7, isPercentage: true, duration: 2, isCritical: true})
-                                ],
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.DODGE, theorical: -5, isPercentage: true, duration: 2})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.DODGE, theorical: -7, isPercentage: true, duration: 2, isCritical: true})
+                                    ],
+                                }
                             }
                         }
                     )

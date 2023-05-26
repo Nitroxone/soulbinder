@@ -22,14 +22,14 @@ class Stat {
     constructor(props) {
 
         // Set attributes from props, or default values if not in props
-        this.effect = ("effect" in props ? props["effect"] : "none");
-        this.theorical = ("theorical" in props ? props["theorical"] : [0, 0]);
-        this.isPercentage = ("isPercentage" in props ? props["isPercentage"] : false);
-        this.isCritical = ("isCritical" in props ? props["isCritical"] : false);
-        this.isCorrupt = ("isCorrupt" in props ? props["isCorrupt"] : false);
-        this.duration = ("duration" in props ? props["duration"] : 0);
-        this.delay = ("delay" in props ? props["delay"] : 0);
-        this.type = ("type" in props ? props["type"] : Data.StatType.PASSIVE);
+        this.effect = getValueFromObject(props, "effect", "none");
+        this.theorical = getValueFromObject(props, "theorical", [0, 0]);
+        this.isPercentage = getValueFromObject(props, "isPercentage", false);
+        this.isCritical = getValueFromObject(props, "isCritical", false);
+        this.isCorrupt = getValueFromObject(props, "isCorrupt", false);
+        this.duration = getValueFromObject(props, "duration", 0);
+        this.delay = getValueFromObject(props, "delay", 0);
+        this.type = getValueFromObject(props, "type", Data.StatType.PASSIVE);
 
         this.value = null;
 
@@ -106,13 +106,13 @@ class Stat {
      * @return {string} an HTML string
      */
     getFormatted(props) {
-        const cssClass = ("cssClass" in props ? props["cssClass"] : "");
-        let color = ("color" in props ? props["color"] : "");
-        let bold = ("bold" in props ? props["bold"] : false);
-        const italic = ("italic" in props ? props["italic"] : false);
-        const noTheorical = ("noTheorical" in props ? props["noTheorical"] : false);
-        const defaultColor = ("defaultColor" in props ? props["defaultColor"] : false);
-        const allowOverloadedStyling = ("allowOverloadedStyling" in props ? props["allowOverloadedStyling"] : false);
+        const cssClass = getValueFromObject(props, "cssClass", "");
+        let color = getValueFromObject(props, "color", "");
+        let bold = getValueFromObject(props, "bold", false);
+        const italic = getValueFromObject(props, "italic", false);
+        const noTheorical = getValueFromObject(props, "noTheorical", false);
+        const defaultColor = getValueFromObject(props, "defaultColor", false);
+        const allowOverloadedStyling = getValueFromObject(props, "allowOverloadedStyling", false);
 
         if(defaultColor) {
             if(this.getValue() > 0) {

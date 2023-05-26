@@ -1968,7 +1968,7 @@ function getBattleSkillTooltip(strider, skill) {
     if(skill.effectsCaster) {
         str += '<div class="rewardsWrapper">';
         str += '<div class="par">Caster:</div>'
-        skill.effectsCaster.regular.forEach(single => {
+        skill.getCurrentEffectsCaster().regular.forEach(single => {
             str += single.getFormatted({cssClass: "bulleted", noTheorical: true, defaultColor: true});
         });
         str += '</div>';
@@ -1976,7 +1976,7 @@ function getBattleSkillTooltip(strider, skill) {
     if(skill.effectsAllies) {
         str += '<div class="rewardsWrapper">';
         str += '<div class="par">Allies:</div>'
-        skill.effectsAllies.regular.forEach(single => {
+        skill.getCurrentEffectsAllies().regular.forEach(single => {
             str += single.getFormatted({cssClass: "bulleted", noTheorical: true, defaultColor: true});
         });
         str += '</div>';
@@ -1984,7 +1984,7 @@ function getBattleSkillTooltip(strider, skill) {
     if(skill.effectsEnemies) {
         str += '<div class="rewardsWrapper">';
         str += '<div class="par">Enemies:</div>'
-        skill.effectsEnemies.regular.forEach(single => {
+        skill.getCurrentEffectsEnemies().regular.forEach(single => {
             str += single.getFormatted({cssClass: "bulleted", noTheorical: true, defaultColor: true});
         });
         str += '</div>';
