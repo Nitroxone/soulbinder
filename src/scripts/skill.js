@@ -21,7 +21,7 @@ class Skill extends Entity {
         this.triggersEnemies = getValueFromObject(props, "triggersEnemies", null);
         this.triggersSkill = getValueFromObject(props, "triggersSkill", null);
         this.condition = getValueFromObject(props, "condition", true)
-        this.stackable = getValueFromObject(props, "stackable", 0);
+        this.stackable = getValueFromObject(props, "stackable", 1);
 
         this.level = 1;
     }
