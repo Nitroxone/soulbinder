@@ -151,11 +151,9 @@ class Stat {
             }
             str += ' ' 
             + capitalizeFirstLetter(this.effect)
-            + (this.duration > 0 ? ' (' + this.duration + ' rounds)' : '')
-            + (this.delay > 0 ? ' [in ' + this.delay + ' round(s)]' : '');
+            + (this.duration > 0 ? '<span style="color: #ddd"> (' + this.duration + ' rounds)</span>' : '')
+            + (this.delay > 0 ? '<span style="color: #ddd"> [in ' + this.delay + ' round(s)]</span>' : '');
             str += '</div>';
-
-            
         } else {
             str += '<div class="' 
             + cssClass 
