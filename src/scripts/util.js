@@ -1146,6 +1146,14 @@ function getAstralForgeItemStateColorCode(state) {
     }
 }
 
+function getColorClassFromSkillType(type) {
+    return 'skillType-' + type;
+}
+
+function getColorClassFromDmgType(type) {
+    return 'skillDmgType-' + type;
+}
+
 /**********************DUNGEON LOGIC ***************************/
 
 // allows you to create a dungeon instance 

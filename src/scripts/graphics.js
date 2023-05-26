@@ -1949,7 +1949,8 @@ function getBattleSkillTooltip(strider, skill) {
     str += '<div class="vignette coolBorder" style="background-image: url(\'css/img/skills/' + strider.name + skill.icon + '.png\')"></div>';
     str += '<div class="desc"><h4>' + skill.name + '</h4>';
     str += '<div class="treeNodeTags">';
-    str += '<div class="treeNodeType">' + capitalizeFirstLetter(skill.type) + '</div>';
+    str += '<div class="treeNodeType ' + getColorClassFromSkillType(skill.type) + '">' + capitalizeFirstLetter(skill.type) + '</div>';
+    str += '<div class="treeNodeType ' + getColorClassFromDmgType(skill.dmgType) + '">' + capitalizeFirstLetter(skill.dmgType) + '</div>';
     str += '</div>'
     str += '</div>'
     str += '</div>';
@@ -2013,7 +2014,7 @@ function getBattleSkillTooltip(strider, skill) {
     str += '</div>';
     str += '<div class="divider"></div>';
     
-    str += '<div class="skillBottom">';
+    str += '<div class="skillBottom" style="margin-top: 0.7rem">';
     str += '<div class="skillLevel"><span style="font-family: RobotoBold">' + skill.cooldown + '</span> <span style="color: grey">Cooldown</span></div>';
     str += '<div class="skillCost"><span style="font-family: RobotoBold">' + skill.manaCost + '</span> <span style="color: grey">Mana</span></div>'
     str += '</div>';

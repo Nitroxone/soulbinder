@@ -4094,3 +4094,28 @@ table.astralForgeShards td {
 .battle-consumablesContainer {
     grid-area: "battle-consumablesContainer";
 }
+
+.skillType-friendly {
+    border-color: #4cd137;
+    color: #4cd137;
+}
+.skillType-offensive {
+    border-color: #e84118;
+    color: #e84118;
+}
+.skillType-both {
+    border-color: #0096FF;
+    color: #0096FF;
+}
+.skillDmgType-physical {
+    border-color: #DAA06D;
+    color: #DAA06D;
+}
+.skillDmgType-magical {
+    border-color: #BF40BF;
+    color: #BF40BF;
+}
+.skillDmgType-both {
+    border-color: #FFBF00;
+    color: #FFBF00;
+}
