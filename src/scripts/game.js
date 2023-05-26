@@ -350,7 +350,7 @@ class Game {
         this.message({type: Data.LogMessageType.TALL, text:'This is an bigger message.'});
 
         this.player.formationSet(what(this.player.roster, "amarok"), Data.FormationPosition.FRONT);
-        this.player.formationSet(what(this.player.roster, "brim"), Data.FormationPosition.MIDDLE);
+        this.player.formationSet(what(this.player.roster, "betheros"), Data.FormationPosition.MIDDLE);
         this.player.formationSet(what(this.player.roster, "carhal"), Data.FormationPosition.BACK);
         console.clear();
 
