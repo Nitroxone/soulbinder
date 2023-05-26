@@ -27,6 +27,7 @@ const Data = Object.freeze({
         GOLD: '#ece2b6',
         TURQUOISE: '#1abc9c',
         ORANGE: '#ccaa08',
+        PURPLE: '#bf40bf',
 
         CORRUPT: '#c10000',
         COMMON: '#dddddd',
@@ -342,7 +343,8 @@ const Data = Object.freeze({
     SkillDamageType: {
         PHYSICAL: "physical",
         MAGICAL: "magical",
-        BOTH: "both"
+        BOTH: "both",
+        NONE: "none"
     },
     MasteryPathwayState: {
         NEOPHYTE: "neophyte",

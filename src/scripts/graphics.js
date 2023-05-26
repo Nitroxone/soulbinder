@@ -2001,7 +2001,7 @@ function getBattleSkillTooltip(strider, skill) {
         str += '<div class="rewardsWrapper">';
         str += '<div class="par">Caster:</div>'
         skill.getCurrentEffectsCaster().regular.forEach(single => {
-            str += single.getFormatted({cssClass: "bulleted", noTheorical: true, defaultColor: true});
+            str += single.getFormatted({cssClass: "bulleted", defaultColor: true, skillFormat: true});
         });
         str += '</div>';
     }
@@ -2009,7 +2009,7 @@ function getBattleSkillTooltip(strider, skill) {
         str += '<div class="rewardsWrapper">';
         str += '<div class="par">Allies:</div>'
         skill.getCurrentEffectsAllies().regular.forEach(single => {
-            str += single.getFormatted({cssClass: "bulleted", noTheorical: true, defaultColor: true});
+            str += single.getFormatted({cssClass: "bulleted", defaultColor: true, skillFormat: true});
         });
         str += '</div>';
     }
@@ -2017,7 +2017,7 @@ function getBattleSkillTooltip(strider, skill) {
         str += '<div class="rewardsWrapper">';
         str += '<div class="par">Enemies:</div>'
         skill.getCurrentEffectsEnemies().regular.forEach(single => {
-            str += single.getFormatted({cssClass: "bulleted", noTheorical: true, defaultColor: true});
+            str += single.getFormatted({cssClass: "bulleted", defaultColor: true, skillFormat: true});
         });
         str += '</div>';
     }
@@ -2042,7 +2042,7 @@ function getBattleSkillTooltip(strider, skill) {
     str += '</div>';
 
     str += '<div class="divider"></div>';
-    str += '<div class="nodeDesc" style="color:' + Data.Color.ORANGE + '"><div class="par">' + skill.desc + '</div></div>';
+    str += '<div class="nodeDesc skillDesc"><div class="par" style="color: #ccc">' + processSkillDescription(skill.desc) + '</div></div>';
     str += '</div>';
     str += '<div class="divider"></div>';
     
