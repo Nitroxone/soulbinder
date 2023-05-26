@@ -303,14 +303,9 @@ function getSetTooltip(set) {
     str += '<div class="tooltipSet">';
 
     str += '<div class="tooltipSetItems">';
-    str += getSetTooltipItem(set.helmet);
-    str += getSetTooltipItem(set.chestplate);
-    str += getSetTooltipItem(set.gloves);
-    str += getSetTooltipItem(set.boots);
-    str += getSetTooltipItem(set.shield);
-    str += getSetTooltipItem(set.weapon);
-    str += getSetTooltipItem(set.trinketOne);
-    str += getSetTooltipItem(set.trinketTwo);
+    set.items.forEach(item => {
+        str += getSetTooltipItem(item);
+    })
     str += '</div>';
 
     str += '<div class="tooltipSetDetails">';
@@ -2017,7 +2012,7 @@ function getBattleSkillTooltip(strider, skill) {
         str += '<div class="rewardsWrapper">';
         str += '<div class="par">Caster:</div>'
         skill.getCurrentEffectsCaster().regular.forEach(single => {
-            str += single.getFormatted({cssClass: "bulleted", noTheorical: true, defaultColor: true});
+            str += single.getFormatted({cssClass: "bulleted", defaultColor: true, skillFormat: true});
         });
         str += '</div>';
     }
@@ -2025,7 +2020,7 @@ function getBattleSkillTooltip(strider, skill) {
         str += '<div class="rewardsWrapper">';
         str += '<div class="par">Allies:</div>'
         skill.getCurrentEffectsAllies().regular.forEach(single => {
-            str += single.getFormatted({cssClass: "bulleted", noTheorical: true, defaultColor: true});
+            str += single.getFormatted({cssClass: "bulleted", defaultColor: true, skillFormat: true});
         });
         str += '</div>';
     }
@@ -2033,7 +2028,7 @@ function getBattleSkillTooltip(strider, skill) {
         str += '<div class="rewardsWrapper">';
         str += '<div class="par">Enemies:</div>'
         skill.getCurrentEffectsEnemies().regular.forEach(single => {
-            str += single.getFormatted({cssClass: "bulleted", noTheorical: true, defaultColor: true});
+            str += single.getFormatted({cssClass: "bulleted", defaultColor: true, skillFormat: true});
         });
         str += '</div>';
     }
@@ -2058,12 +2053,13 @@ function getBattleSkillTooltip(strider, skill) {
     str += '</div>';
 
     str += '<div class="divider"></div>';
-    str += '<div class="nodeDesc" style="color:' + Data.Color.ORANGE + '"><div class="par">' + skill.desc + '</div></div>';
+    str += '<div class="nodeDesc skillDesc"><div class="par" style="color: #ccc">' + processSkillDescription(skill.desc) + '</div></div>';
     str += '</div>';
     str += '<div class="divider"></div>';
     
     str += '<div class="skillBottom" style="margin-top: 0.7rem">';
     str += '<div class="skillLevel"><span style="font-family: RobotoBold">' + skill.cooldown + '</span> <span style="color: grey">Cooldown</span></div>';
+    str += '<div class="skillStackable"><span style="font-family: RobotoBold">' + skill.stackable + '</span> <span style="color: grey">Stackable</span></div>';
     str += '<div class="skillCost"><span style="font-family: RobotoBold">' + skill.manaCost + '</span> <span style="color: grey">Mana</span></div>'
     str += '</div>';
 

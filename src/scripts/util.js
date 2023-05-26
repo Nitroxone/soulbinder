@@ -1176,6 +1176,13 @@ function getValueFromObject(props, property, def) {
     return def;
 }
 
+function processSkillDescription(desc) {
+    const regex = /§(.*?)§/g;
+    const replacedString = desc.replace(regex, '<span style="color: ' + Data.Color.PURPLE + '; font-family: RobotoBold;">$1</span>');
+
+    return replacedString;
+}
+
 /**********************DUNGEON LOGIC ***************************/
 
 // allows you to create a dungeon instance 

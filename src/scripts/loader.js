@@ -786,16 +786,15 @@ const Loader = {
                     extra: Data.Effect.DODGE
                 },
                 "",
-                what(game.all_armors, "highsteel helmet"),
-                what(game.all_armors, "highsteel armor"),
-                what(game.all_armors, "highsteel bracers"),
-                what(game.all_armors, "highsteel boots"),
-                what(game.all_armors, "highsteel shield"),
-                what(game.all_weapons, "highsteel sword"),
-                what(game.all_trinkets, "omen insignia"),
-                what(game.all_trinkets, "foresighting ring"),
+                [
+                    what(game.all_armors, "highsteel helmet"),
+                    what(game.all_armors, "highsteel boots"),
+                    what(game.all_weapons, "highsteel sword"),
+                    what(game.all_trinkets, "omen insignia"),
+                    what(game.all_trinkets, "foresighting ring"),
+                ],
                 {
-                    3: [
+                    2: [
                         new Stat({
                             effect: Data.Effect.DODGE,
                             theorical: [3, 3],
@@ -803,27 +802,14 @@ const Loader = {
                             isPercentage: true
                         })
                     ],
-                    5: [
+                    4: [
                         new Stat({
                             effect: Data.Effect.MAXHEALTH,
                             theorical: [10, 10],
                             fixed: true
                         })
                     ],
-                    7: [
-                        new Stat({
-                            effect: Data.Effect.DODGE,
-                            theorical: [5, 5],
-                            fixed: true,
-                            isPercentage: true
-                        }),
-                        new Stat({
-                            effect: Data.Effect.MAXHEALTH,
-                            theorical: [20, 20],
-                            fixed: true
-                        })
-                    ],
-                    8: [
+                    5: [
                         new Echo(
                             "Swift as Steel",
                             "Dodging an attack replenishes §1% of your total health. An enemy dodging one of your attacks grants you a §2% dodge boost for 1 round.",
@@ -843,14 +829,9 @@ const Loader = {
         ];
 
         for(const equipmentSet of equipmentSets) {
-            equipmentSet.helmet.set = equipmentSet.name;
-            equipmentSet.chestplate.set = equipmentSet.name;
-            equipmentSet.gloves.set = equipmentSet.name;
-            equipmentSet.boots.set = equipmentSet.name;
-            equipmentSet.shield.set = equipmentSet.name;
-            equipmentSet.weapon.set = equipmentSet.name;
-            equipmentSet.trinketOne.set = equipmentSet.name;
-            equipmentSet.trinketTwo.set = equipmentSet.name;
+            equipmentSet.items.forEach(item => {
+                item.set = equipmentSet.name;
+            })
             for(let key in equipmentSet.bonus) {
                 equipmentSet.bonus[key].forEach(bonus => {
                     bonus.fix();
@@ -1320,7 +1301,7 @@ const Loader = {
                 [
                     new Skill(
                         "Surge",
-                        "Deals light damage to all enemies and diminishes their Dodge. Boosts Amarok's Protection and diminishes his Might and Spirit.",
+                        "Deals light damage to all enemies and reduces their §Dodge§. Boosts Amarok's §Protection§ and reduces his §Might§ and §Spirit§.",
                         13,
                         {
                             type: Data.SkillType.OFFENSIVE,
@@ -1354,6 +1335,82 @@ const Loader = {
                                     critical: [
                                         new Stat({effect: Data.Effect.DODGE, theorical: -7, isPercentage: true, duration: 2, isCritical: true})
                                     ],
+                                }
+                            }
+                        }
+                    ),
+                    new Skill(
+                        "Exsanguinate",
+                        "Deals damage, applies §Bleeding§ and reduces §Speed§. Heals Amarok.",
+                        14,
+                        {
+                            type: Data.SkillType.OFFENSIVE,
+                            manaCost: 120,
+                            cooldown: 3,
+                            dmgType: Data.SkillDamageType.PHYSICAL,
+                            dmgMultiplier: 105,
+                            criMultiplier: 10,
+                            accMultiplier: 85,
+                            targets: {allies: '-0', enemies: '-1'},
+                            launchPos: [false, false, true],
+                            effectsCaster: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.REGEN_HEALTH, theorical: [15, 20], isPercentage: true})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.REGEN_HEALTH, theorical: [18, 25], isPercentage: true, isCritical: true})
+                                    ]
+                                }
+                            },
+                            effectsEnemies: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.BLEEDING_CURABLE, theorical: [4, 6], duration: 2}),
+                                        new Stat({effect: Data.Effect.SPEED, theorical: -5, duration: 2})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.BLEEDING_CURABLE, theorical: [5, 7], duration: 3, isCritical: true}),
+                                        new Stat({effect: Data.Effect.SPEED, theorical: -7, duration: 2, isCritical: true})
+                                    ]
+                                }
+                            }
+                        }
+                    ),
+                    new Skill(
+                        "Bloodbound",
+                        "Transfers a part of Amarok's §Health§ to the targeted ally, then applies a §Health regeneration§ bonus to Amarok. Boosts the targeted ally's §Speed§.",
+                        15,
+                        {
+                            type: Data.SkillType.FRIENDLY,
+                            manaCost: 100,
+                            cooldown: 3,
+                            criMultiplier: 10,
+                            accMultiplier: 100,
+                            targets: {allies: '-123', enemies: '-0'},
+                            launchPos: [true, true, false],
+                            effectsCaster: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.HEALTH, theorical: -20, isPercentage: true}),
+                                        new Stat({effect: Data.Effect.REGEN_HEALTH, theorical: 3, isPercentage: true, duration: 3, delay: 1})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.HEALTH, theorical: -20, isPercentage: true, isCritical: true}),
+                                        new Stat({effect: Data.Effect.REGEN_HEALTH, theorical: 4, isPercentage: true, duration: 3, delay: 1, isCritical: true})
+                                    ]
+                                }
+                            },
+                            effectsAllies: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.REGEN_HEALTH, theorical: 20, isPercentage: true}),
+                                        new Stat({effect: Data.Effect.SPEED, theorical: 2, duration: 1})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.REGEN_HEALTH, theorical: 30, isPercentage: true, isCritical: true}),
+                                        new Stat({effect: Data.Effect.SPEED, theorical: 4, duration: 1, isCritical: true})
+                                    ]
                                 }
                             }
                         }
@@ -1468,7 +1525,54 @@ const Loader = {
                 '"Through the pain, you shall heal. And through healing, you shall embrace inner peace."',
                 1,
                 what(game.all_skillTrees, "amarok"),
-                [],
+                [
+                    new Skill(
+                        "Inner Fire",
+                        "Heals Betheros. Boosts the target's §Skill damage§ and §Received healing§ if it is an ally; reduces them if it's an enemy.",
+                        13,
+                        {
+                            type: Data.SkillType.FRIENDLY,
+                            manaCost: 50,
+                            critMultiplier: 20,
+                            accMultiplier: 85,
+                            targets: {allies: '-123', enemies: '-123'},
+                            effectsCaster: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.REGEN_HEALTH, theorical: [0, 8], isPercentage: true})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.REGEN_HEALTH, theorical: [3, 8], isPercentage: true, isCritical: true})
+                                    ]
+                                }
+                            },
+                            effectsAllies: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [2, 4], isPercentage: true, duration: 1}),
+                                        new Stat({effect: Data.Effect.MODIF_HEAL_RECV, theorical: [2, 4], isPercentage: true, duration: 2})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [2, 4], isPercentage: true, duration: 2}),
+                                        new Stat({effect: Data.Effect.MODIF_HEAL_RECV, theorical: [2, 4], isPercentage: true, duration: 2})
+                                    ]
+                                }
+                            },
+                            effectsEnemies: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [-5, -10], isPercentage: true, duration: 1}),
+                                        new Stat({effect: Data.Effect.MODIF_HEAL_RECV, theorical: [-5, -10], isPercentage: true, duration: 2})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [-8, -15], isPercentage: true, duration: 2}),
+                                        new Stat({effect: Data.Effect.MODIF_HEAL_RECV, theorical: [-8, -15], isPercentage: true, duration: 2})
+                                    ]
+                                }
+                            }
+                        }
+                    )
+                ],
                 '10% 30%'
             ),
             new Strider(

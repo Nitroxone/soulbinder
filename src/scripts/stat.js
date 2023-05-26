@@ -113,10 +113,11 @@ class Stat {
         const noTheorical = getValueFromObject(props, "noTheorical", false);
         const defaultColor = getValueFromObject(props, "defaultColor", false);
         const allowOverloadedStyling = getValueFromObject(props, "allowOverloadedStyling", false);
+        const skillFormat = getValueFromObject(props, "skillFormat", false);
 
         if(defaultColor) {
             if(this.getValue() > 0) {
-                if(this.effect !== Data.Effect.EFFORT) color = Data.Color.GREEN;
+                if(this.effect !== Data.Effect.EFFORT && this.effect !== Data.Effect.BLEEDING_CURABLE && this.effect !== Data.Effect.BLEEDING_INCURABLE) color = Data.Color.GREEN;
                 else color = Data.Color.RED;
             } else if(this.getValue() < 0) {
                 if(this.effect !== Data.Effect.EFFORT) color = Data.Color.RED;
@@ -132,27 +133,52 @@ class Stat {
             }
         }
 
-        let str = '<div class="' 
-        + cssClass 
-        + '" style="' 
-        + (bold ? 'font-family: RobotoBold; ' : '') 
-        + (italic ? 'font-style: italic; ' : '') 
-        + (color ? 'color: ' + color + ';': '') 
-        + '"><span style="font-weight: normal;">' 
-        + (this.getValue() > 0 ? '+ ' : this.getValue() < 0 ? '- ' : '') 
-        + '</span>' 
-        + (this.getValue() == 0 ? '' : Math.abs(this.getValue())) 
-        + (this.isPercentage ? '%' : '') 
-        + ' ' 
-        + capitalizeFirstLetter(this.effect);
-        if(!noTheorical) {
-            str += '<span class="theoricalval">[' 
-            + this.theorical[0] 
-            + (this.theorical[1] > 0 ? '-' : ', ') 
-            + this.theorical[1] 
-            + ']</span>';
+        let str = '';
+        if(skillFormat) {
+            str += '<div class="' 
+            + cssClass 
+            + '" style="' 
+            + (bold ? 'font-family: RobotoBold; ' : '') 
+            + (italic ? 'font-style: italic; ' : '') 
+            + (color ? 'color: ' + color + ';': '') 
+            + '">'
+            + '<span style="font-weight: normal;">';
+            if(this.theorical[0] === this.theorical[1]) str += (this.getValue() > 0 ? '' : this.getValue() < 0 ? '- ' : '') + '</span>' + (this.getValue() === 0 ? '' : Math.abs(this.getValue())) + (this.isPercentage ? '%' : '');
+            else {
+                str += (this.theorical[0] > 0 ? '' : this.theorical[0] < 0 ? '- ' : '') + '</span>' + (this.theorical[0] === 0 ? this.theorical[0] : Math.abs(this.theorical[0])) + (this.isPercentage ? '%' : '');
+                str += ' to ';
+                str += (this.theorical[1] > 0 ? '' : this.theorical[1] < 0 ? '- ' : '') + '</span>' + (this.theorical[1] === 0 ? this.theorical[0] : Math.abs(this.theorical[1])) + (this.isPercentage ? '%' : '');
+            }
+            str += ' ' 
+            + capitalizeFirstLetter(this.effect)
+            + (this.duration > 0 ? ' (' + this.duration + ' rounds)' : '')
+            + (this.delay > 0 ? ' [in ' + this.delay + ' round(s)]' : '');
+            str += '</div>';
+
+            
+        } else {
+            str += '<div class="' 
+            + cssClass 
+            + '" style="' 
+            + (bold ? 'font-family: RobotoBold; ' : '') 
+            + (italic ? 'font-style: italic; ' : '') 
+            + (color ? 'color: ' + color + ';': '') 
+            + '"><span style="font-weight: normal;">' 
+            + (this.getValue() > 0 ? '+ ' : this.getValue() < 0 ? '- ' : '') 
+            + '</span>' 
+            + (this.getValue() == 0 ? '' : Math.abs(this.getValue())) 
+            + (this.isPercentage ? '%' : '') 
+            + ' ' 
+            + capitalizeFirstLetter(this.effect);
+            if(!noTheorical) {
+                str += '<span class="theoricalval">[' 
+                + this.theorical[0] 
+                + (this.theorical[1] > 0 ? '-' : ', ') 
+                + this.theorical[1] 
+                + ']</span>';
+            }
+            str += '</div>';
         }
-        str += '</div>';
 
         return str;
     }

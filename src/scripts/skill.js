@@ -6,7 +6,7 @@ class Skill extends Entity {
         this.type = getValueFromObject(props, "type", Data.SkillType.BOTH);
         this.manaCost = getValueFromObject(props, "manaCost", 0);
         this.cooldown = getValueFromObject(props, "cooldown", 0);
-        this.dmgType = getValueFromObject(props, "dmgType", Data.SkillDamageType.BOTH);
+        this.dmgType = getValueFromObject(props, "dmgType", Data.SkillDamageType.NONE);
         this.dmgMultiplier = getValueFromObject(props, "dmgMultiplier", 0);
         this.criMultiplier = getValueFromObject(props, "criMultiplier", 0);
         this.accMultiplier = getValueFromObject(props, "accMultiplier", 0);
@@ -21,7 +21,7 @@ class Skill extends Entity {
         this.triggersEnemies = getValueFromObject(props, "triggersEnemies", null);
         this.triggersSkill = getValueFromObject(props, "triggersSkill", null);
         this.condition = getValueFromObject(props, "condition", true)
-        this.stackable = getValueFromObject(props, "stackable", 0);
+        this.stackable = getValueFromObject(props, "stackable", 1);
 
         this.level = 1;
     }
