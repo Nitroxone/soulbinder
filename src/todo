@@ -9,6 +9,8 @@
 
 - Make it possible to create sets with less than 8 items
 
+- Add effect name coloring in Skills description through special markup
+
 ASTRAL FORGE:
 - Create GUI -- ONGOING
 - Implement an item pricing change on alteration (increasing/decreasing stats brings the price up and down)
