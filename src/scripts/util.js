@@ -1146,6 +1146,36 @@ function getAstralForgeItemStateColorCode(state) {
     }
 }
 
+/**
+ * Returns the CSS class that matches the provided Data.SkillType.
+ * @param {Data.SkillType} type the SkillType
+ * @returns {string} a CSS class
+ */
+function getColorClassFromSkillType(type) {
+    return 'skillType-' + type;
+}
+
+/**
+ * Returns the CSS class that matches the provided Data.SkillDamageType.
+ * @param {Data.SkillDamageType} type the SkillDamageType
+ * @returns {string} a CSS class
+ */
+function getColorClassFromDmgType(type) {
+    return 'skillDmgType-' + type;
+}
+
+/**
+ * Looks for the provided "property" as a key inside the "props" object. If it exists, returns that property. If not, returns the "def" (= default) parameter.
+ * @param {object} props the object to look inside
+ * @param {string} property the property name to look for
+ * @param {any} def the default value of the property
+ * @returns {any} the props property value, or the def parameter if not found
+ */
+function getValueFromObject(props, property, def) {
+    if(property in props) return props[property];
+    return def;
+}
+
 /**********************DUNGEON LOGIC ***************************/
 
 // allows you to create a dungeon instance 

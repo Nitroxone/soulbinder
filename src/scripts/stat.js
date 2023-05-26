@@ -9,8 +9,8 @@
 
 class Stat {
     /**
-     * @param {string} effect the Data.Effect given by the Stat object
-     * @param {array} theorical the theorical value of the Stat object
+     * @param {Data.Effect} effect the Data.Effect given by the Stat object
+     * @param {number|[number, number]} theorical the theorical value of the Stat object
      * @param {boolean} fixed TRUE means the value will always be the same, FALSE (default) means it will always be random
      * @param {boolean} isPercentage is the value a percentage?
      * @param {boolean} isCritical is the Stat a critical effect?
@@ -21,17 +21,19 @@ class Stat {
      */
     constructor(props) {
 
-        this.effect = ("effect" in props ? props["effect"] : "none");
-        this.theorical = ("theorical" in props ? props["theorical"] : [0, 0]);
-        this.isPercentage = ("isPercentage" in props ? props["isPercentage"] : false);
-        this.isCritical = ("isCritical" in props ? props["isCritical"] : false);
-        this.isCorrupt = ("isCorrupt" in props ? props["isCorrupt"] : false);
-        this.duration = ("duration" in props ? props["duration"] : 0);
-        this.delay = ("delay" in props ? props["delay"] : 0);
-        this.type = ("type" in props ? props["type"] : Data.StatType.PASSIVE);
+        // Set attributes from props, or default values if not in props
+        this.effect = getValueFromObject(props, "effect", "none");
+        this.theorical = getValueFromObject(props, "theorical", [0, 0]);
+        this.isPercentage = getValueFromObject(props, "isPercentage", false);
+        this.isCritical = getValueFromObject(props, "isCritical", false);
+        this.isCorrupt = getValueFromObject(props, "isCorrupt", false);
+        this.duration = getValueFromObject(props, "duration", 0);
+        this.delay = getValueFromObject(props, "delay", 0);
+        this.type = getValueFromObject(props, "type", Data.StatType.PASSIVE);
 
         this.value = null;
 
+        // If theorical is not an array, make it an array
         if(!Array.isArray(this.theorical)) this.theorical = [this.theorical, this.theorical];
 
         if("fixed" in props) this.fix();
@@ -103,7 +105,33 @@ class Stat {
      * @param {boolean} italic makes the text in italics
      * @return {string} an HTML string
      */
-    getFormatted(cssClass = '', color = '', bold = false, italic = false, noTheorical = false) {
+    getFormatted(props) {
+        const cssClass = getValueFromObject(props, "cssClass", "");
+        let color = getValueFromObject(props, "color", "");
+        let bold = getValueFromObject(props, "bold", false);
+        const italic = getValueFromObject(props, "italic", false);
+        const noTheorical = getValueFromObject(props, "noTheorical", false);
+        const defaultColor = getValueFromObject(props, "defaultColor", false);
+        const allowOverloadedStyling = getValueFromObject(props, "allowOverloadedStyling", false);
+
+        if(defaultColor) {
+            if(this.getValue() > 0) {
+                if(this.effect !== Data.Effect.EFFORT) color = Data.Color.GREEN;
+                else color = Data.Color.RED;
+            } else if(this.getValue() < 0) {
+                if(this.effect !== Data.Effect.EFFORT) color = Data.Color.RED;
+                else color = Data.Color.GREEN;
+            } else {
+                color = Data.Color.ORANGE;
+            }
+        }
+        if(allowOverloadedStyling) {
+            if(this.fixed && this.getValue() > this.theorical[1] && this.getValue() > 0) {
+                color = Data.Color.OVERLOADED;
+                bold = true;
+            }
+        }
+
         let str = '<div class="' 
         + cssClass 
         + '" style="' 

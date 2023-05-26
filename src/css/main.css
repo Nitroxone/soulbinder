@@ -2129,16 +2129,17 @@ table.statsTable tbody td:nth-child(3) {
 .skillStatsDisplay-num {
     font-family:'RobotoSlab';
     font-size:23px;
-    color: #fff;
+    color: #ddd;
     /*text-shadow:1px 1px 0 #000000, 0 0 6px rgb(255 255 255 / 75%);*/
 }
 .skillStatsDisplay-str, .skillRangeDisplay-ally-str, .skillRangeDisplay-enemy-str, .skillRangeDisplay-launch-str {
     font-variant: small-caps;
+    color: grey;
 }
 .skillRangeDisplay-launch-pos, .skillRangeDisplay-ally-pos, .skillRangeDisplay-enemy-pos {
     font-variant: small-caps;
     font-family:'RobotoSlab';
-    color: #fff;
+    color: #ddd;
     font-size:18px;
 }
 .skillBottom {
@@ -3053,6 +3054,7 @@ hr.leftSided {
     text-align: left;
     padding: 0 0.5rem;
     line-height: 1.15;
+    color: #ddd;
 }
 .bold {
     font-family: "RobotoBold";
@@ -3976,22 +3978,20 @@ table.astralForgeShards td {
     margin-top: 4em;
     
     display: grid;
-    grid-template-columns: 1fr 1.5fr;
+    grid-template-columns: 1fr 0.95fr 1fr;
     grid-template-rows: 1fr;
     gap: 0 0;
-    grid-template-areas: "b-actions b-skco";
+    grid-template-areas: "battle-consumablesContainer battle-actionsContainer battle-skillsContainer";
 
     background-image: url('img/bg4.png');
     background-size: cover;
     background-repeat: repeat;
-
-    border-radius: 0 3px 3px 0;
 }
 
 
 
 .battle-actionsContainer {
-    grid-area: "b-actions";
+    grid-area: "battle-actionsContainer";
 
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -4008,7 +4008,6 @@ table.astralForgeShards td {
 
     display: flex;
     flex-direction: column;
-    justify-content: end;
 
     font-family: RobotoSlab;
     font-variant: small-caps;
@@ -4028,7 +4027,10 @@ table.astralForgeShards td {
     grid-area: "bc-atk";
     border-top: 2px solid rgb(100, 100, 100);
     border-left: 2px solid rgb(100, 100, 100);
-    border-top-left-radius: 3px;
+    border-top-left-radius: 150px;
+
+    justify-content: end;
+    align-items: end;
 
     background-image: url('img/battle/action_attack.png');
     background-repeat: no-repeat;
@@ -4043,6 +4045,9 @@ table.astralForgeShards td {
     grid-area: "bc-def";
     border-right: 2px solid rgb(100, 100, 100);
     border-top: 2px solid rgb(100, 100, 100);
+    border-top-right-radius: 150px;
+
+    justify-content: end;
 
     background-image: url('img/battle/action_block.png');
     background-repeat: no-repeat;
@@ -4057,7 +4062,9 @@ table.astralForgeShards td {
     grid-area: "bc-mov";
     border-left: 2px solid rgb(100, 100, 100);
     border-bottom: 2px solid rgb(100, 100, 100);
-    border-bottom-left-radius: 3px;
+    border-bottom-left-radius: 150px;
+
+    align-items: end;
 
     background-image: url('img/battle/action_move.png');
     background-repeat: no-repeat;
@@ -4068,36 +4075,47 @@ table.astralForgeShards td {
     grid-area: "bc-ski";
     border-right: 2px solid rgb(100, 100, 100);
     border-bottom: 2px solid rgb(100, 100, 100);
+    border-bottom-right-radius: 150px;
 
     background-image: url('img/battle/action_skip.png');
     background-repeat: no-repeat;
-    background-position: 0% 100%;
+    background-position: 50% 100%;
     background-size: 150%;
 }
 
-.battle-skcoContainer {
-    grid-area: "b-skco";
-
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 0.1fr 1fr;
-    gap: 0 0;
-    grid-template-areas: 
-        "bc-sk"
-        "bc-di"
-        "bc-co";
-
-    border: 2px solid rgb(100, 100, 100);
-    border-left: none;
-    border-radius: 0 3px 3px 0;
+.battle-skillsContainer, .battle-consumablesContainer {
+    overflow: hidden;
+    position: relative;
 }
 
-.battle-skcoSkills {
-    grid-area: "bc-sk";
+.battle-skillsContainer {
+    grid-area: "battle-skillsContainer";
 }
-.battle-skcoConsumables {
-    grid-area: "bc-co";
+.battle-consumablesContainer {
+    grid-area: "battle-consumablesContainer";
 }
-.battle-skcoDivider {
-    grid-area: "bc-di";
+
+.skillType-friendly {
+    border-color: #4cd137;
+    color: #4cd137;
+}
+.skillType-offensive {
+    border-color: #e84118;
+    color: #e84118;
+}
+.skillType-both {
+    border-color: #0096FF;
+    color: #0096FF;
+}
+.skillDmgType-physical {
+    border-color: #DAA06D;
+    color: #DAA06D;
+}
+.skillDmgType-magical {
+    border-color: #BF40BF;
+    color: #BF40BF;
+}
+.skillDmgType-both {
+    border-color: #FFBF00;
+    color: #FFBF00;
 }

@@ -101,6 +101,7 @@ class Battle {
         this.nextInOrder();
         this.currentPlay.runTriggers(Data.TriggerType.ON_TURN_BEGIN);
         // execute active effects here
+        drawBattleScreen();
         if(this.isBattleOver()) this.end();
     }
 
@@ -113,6 +114,7 @@ class Battle {
         this.movementQueue = [];
         //this.resetTargetTracker();
         //this.resetEndTurnCounter();
+        drawBattleScreen();
         this.beginTurn();
     }
 
