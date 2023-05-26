@@ -1795,51 +1795,67 @@ function drawExploreScreen() {
 }
 
 function drawDungeon() {
-    if(game.currentDungeon.history.length === 1) {
 
-        document.querySelector('#explorationDiv').innerHTML = '<div class="dungeonContainer"></div>';
-        
-        let str = '';
-        str += '<div class="dungeonDialogue">';
-        str += game.currentDungeon.getCurrentEventSet();
-        str += '</div>';
-        str += '<button class="simpleButton" id="enterDungeon">Enter dungeon</button>';
-        str += '<button class="simpleButton" id="exitDungeon">Exit dungeon</button>';
+    // Je pensais à créer une fonction pour chaque cas particulier, ici pour afficher le set d'un événement régulier (par exemple)
 
-        document.querySelector('.dungeonContainer').innerHTML = str;
+    // function displayRegularEventSet() {
+    //     console.log("caca");
+    //     let str = '';
+    //     str += '<div class="dungeonDialogue">';
+    //     str += game.currentDungeon.getCurrentEventSet();
+    //     str += '</div>';
+    //     str += '<button class="simpleButton" id="nextButton">Next</button>';
+    
+    //     document.querySelector('.dungeonContainer').innerHTML = str;
+    // }
 
-        document.querySelector('#exitDungeon').addEventListener('click', e => {
-            game.currentDungeon = null;
-            drawExploreScreen();
-            
-        })
-
-        document.querySelector('#enterDungeon').addEventListener('click', e => {
-
-            let str = '';
-            str += '<div class="dungeonDialogue">';
-            str += game.currentDungeon.getCurrentEventEncounter();
-            str += '</div>';
-            str += '<button class="simpleButton" id="nextButton">Next</button>';
-
-            document.querySelector('.dungeonContainer').innerHTML = str;
-            game.currentDungeon.generateEvent();
-        })  
-    }
-    else {
-
-        document.querySelector('#nextButton').addEventListener('click', e => {
-            console.log("caca");
+    // initialise le code quand le donjon est au début
+    switch (game.currentDungeon.history.length) {
+        case 1:
+            document.querySelector('#explorationDiv').innerHTML = '<div class="dungeonContainer"></div>';
+    
             let str = '';
             str += '<div class="dungeonDialogue">';
             str += game.currentDungeon.getCurrentEventSet();
             str += '</div>';
-            str += '<button class="simpleButton" id="nextButton2">Next</button>';
-
+            str += '<button class="simpleButton" id="enterDungeon">Enter dungeon</button>';
+            str += '<button class="simpleButton" id="exitDungeon">Exit dungeon</button>';
+    
             document.querySelector('.dungeonContainer').innerHTML = str;
+    
+            document.querySelector('#exitDungeon').addEventListener('click', e => {
+                game.currentDungeon = null;
+                drawExploreScreen();
+    
+            });
             
-        })  
-
+            //ici, pour afficher la rencontre de l'événement en cours
+            document.querySelector('#enterDungeon').addEventListener('click', e => {
+    
+                let str = '';
+                str += '<div class="dungeonDialogue">';
+                str += game.currentDungeon.getCurrentEventEncounter();
+                str += '</div>';
+                str += '<button class="simpleButton" id="nextButton">Next</button>';
+    
+                document.querySelector('.dungeonContainer').innerHTML = str;
+                game.currentDungeon.generateEvent();
+            });
+            break;
+            
+        //ici, pour afficher le set du prochain événement
+        default:
+            document.querySelector('#nextButton').addEventListener('click', e => {
+                console.log("caca");
+                let str = '';
+                str += '<div class="dungeonDialogue">';
+                str += game.currentDungeon.getCurrentEventSet();
+                str += '</div>';
+                str += '<button class="simpleButton" id="nextButton">Next</button>';
+    
+                document.querySelector('.dungeonContainer').innerHTML = str;
+            });
+            break;
     }
 }
 
