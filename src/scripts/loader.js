@@ -1356,21 +1356,21 @@ const Loader = {
                             effectsCaster: {
                                 1: {
                                     regular: [
-                                        new Stat({effect: Data.Effect.REGEN_HEALTH, theorical: [15, 20], isPercentage: true, fixed: true})
+                                        new Stat({effect: Data.Effect.REGEN_HEALTH, theorical: [15, 20], isPercentage: true})
                                     ],
                                     critical: [
-                                        new Stat({effect: Data.Effect.REGEN_HEALTH, theorical: [18, 25], isPercentage: true, fixed: true, isCritical: true})
+                                        new Stat({effect: Data.Effect.REGEN_HEALTH, theorical: [18, 25], isPercentage: true, isCritical: true})
                                     ]
                                 }
                             },
                             effectsEnemies: {
                                 1: {
                                     regular: [
-                                        new Stat({effect: Data.Effect.BLEEDING_CURABLE, theorical: [4, 6], duration: 2, fixed: true}),
+                                        new Stat({effect: Data.Effect.BLEEDING_CURABLE, theorical: [4, 6], duration: 2}),
                                         new Stat({effect: Data.Effect.SPEED, theorical: -5, duration: 2})
                                     ],
                                     critical: [
-                                        new Stat({effect: Data.Effect.BLEEDING_CURABLE, theorical: [5, 7], duration: 3, fixed: true, isCritical: true}),
+                                        new Stat({effect: Data.Effect.BLEEDING_CURABLE, theorical: [5, 7], duration: 3, isCritical: true}),
                                         new Stat({effect: Data.Effect.SPEED, theorical: -7, duration: 2, isCritical: true})
                                     ]
                                 }
@@ -1525,7 +1525,54 @@ const Loader = {
                 '"Through the pain, you shall heal. And through healing, you shall embrace inner peace."',
                 1,
                 what(game.all_skillTrees, "amarok"),
-                [],
+                [
+                    new Skill(
+                        "Inner Fire",
+                        "Heals Betheros. Boosts the target's §Skill damage§ and §Received healing§ if it is an ally; reduces them if it's an enemy.",
+                        13,
+                        {
+                            type: Data.SkillType.FRIENDLY,
+                            manaCost: 50,
+                            critMultiplier: 20,
+                            accMultiplier: 85,
+                            targets: {allies: '-123', enemies: '-123'},
+                            effectsCaster: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.REGEN_HEALTH, theorical: [0, 8], isPercentage: true})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.REGEN_HEALTH, theorical: [3, 8], isPercentage: true, isCritical: true})
+                                    ]
+                                }
+                            },
+                            effectsAllies: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [2, 4], isPercentage: true, duration: 1}),
+                                        new Stat({effect: Data.Effect.MODIF_HEAL_RECV, theorical: [2, 4], isPercentage: true, duration: 2})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [2, 4], isPercentage: true, duration: 2}),
+                                        new Stat({effect: Data.Effect.MODIF_HEAL_RECV, theorical: [2, 4], isPercentage: true, duration: 2})
+                                    ]
+                                }
+                            },
+                            effectsEnemies: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [-5, -10], isPercentage: true, duration: 1}),
+                                        new Stat({effect: Data.Effect.MODIF_HEAL_RECV, theorical: [-5, -10], isPercentage: true, duration: 2})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [-8, -15], isPercentage: true, duration: 2}),
+                                        new Stat({effect: Data.Effect.MODIF_HEAL_RECV, theorical: [-8, -15], isPercentage: true, duration: 2})
+                                    ]
+                                }
+                            }
+                        }
+                    )
+                ],
                 '10% 30%'
             ),
             new Strider(
