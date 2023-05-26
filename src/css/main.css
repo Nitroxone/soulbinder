@@ -3978,10 +3978,13 @@ table.astralForgeShards td {
     margin-top: 4em;
     
     display: grid;
-    grid-template-columns: 1fr 0.95fr 1fr;
-    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 1.3fr 0.1fr 2fr;
     gap: 0 0;
-    grid-template-areas: "battle-consumablesContainer battle-actionsContainer battle-skillsContainer";
+    grid-template-areas: 
+        "actions skills"
+        "actions divider"
+        "actions consumables";
 
     background-image: url('img/bg4.png');
     background-size: cover;
@@ -3991,7 +3994,7 @@ table.astralForgeShards td {
 
 
 .battle-actionsContainer {
-    grid-area: "battle-actionsContainer";
+    grid-area: actions;
 
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -4089,10 +4092,17 @@ table.astralForgeShards td {
 }
 
 .battle-skillsContainer {
-    grid-area: "battle-skillsContainer";
+    grid-area: "skills";
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.battle-skillsContainer div:not(:first-child) {
+    margin-left: 1rem;
 }
 .battle-consumablesContainer {
-    grid-area: "battle-consumablesContainer";
+    grid-area: "consumables";
 }
 
 .skillType-friendly {

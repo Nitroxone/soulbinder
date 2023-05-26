@@ -1923,8 +1923,6 @@ function getFighterFrame(fighter, type, pos) {
 function getBattleCommands(refresh = false) {
     let str = '';
 
-    str += '<div class="battle-consumablesContainer"></div>'
-
     str += '<div class="battle-actionsContainer">';
     str += '<div class="battle-actionAtk">Attack</div>';
     str += '<div class="battle-actionDef">Block</div>';
@@ -1935,6 +1933,8 @@ function getBattleCommands(refresh = false) {
     str += '<div class="battle-skillsContainer">';
     str += getBattleSkills();
     str += '</div>';
+    str += '<div class="divider" style="grid-area: divider"></div>';
+    str += '<div class="battle-consumablesContainer"></div>';
 
     if(refresh) {
         document.querySelector('.battle-commandsContainer').innerHTML = str;
