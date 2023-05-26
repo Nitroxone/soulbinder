@@ -2043,6 +2043,7 @@ function getBattleSkillTooltip(strider, skill) {
     
     str += '<div class="skillBottom" style="margin-top: 0.7rem">';
     str += '<div class="skillLevel"><span style="font-family: RobotoBold">' + skill.cooldown + '</span> <span style="color: grey">Cooldown</span></div>';
+    str += '<div class="skillStackable"><span style="font-family: RobotoBold">' + skill.stackable + '</span> <span style="color: grey">Stackable</span></div>';
     str += '<div class="skillCost"><span style="font-family: RobotoBold">' + skill.manaCost + '</span> <span style="color: grey">Mana</span></div>'
     str += '</div>';
 
