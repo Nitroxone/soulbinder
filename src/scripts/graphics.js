@@ -1800,20 +1800,52 @@ function drawExploreScreen() {
 }
 
 function drawDungeon() {
-    document.querySelector('#explorationDiv').innerHTML = '<div class="dungeonContainer"></div>';
-    
-    let str = '';
-    str += '<div class="dungeonDialogue">';
-    str += game.currentDungeon.getCurrentEventSet();
-    str += '</div>';
-    str += '<button class="simpleButton" id="exitDungeon">Exit dungeon</button>';
+    if(game.currentDungeon.history.length === 1) {
 
-    document.querySelector('.dungeonContainer').innerHTML = str;
+        document.querySelector('#explorationDiv').innerHTML = '<div class="dungeonContainer"></div>';
+        
+        let str = '';
+        str += '<div class="dungeonDialogue">';
+        str += game.currentDungeon.getCurrentEventSet();
+        str += '</div>';
+        str += '<button class="simpleButton" id="enterDungeon">Enter dungeon</button>';
+        str += '<button class="simpleButton" id="exitDungeon">Exit dungeon</button>';
 
-    document.querySelector('#exitDungeon').addEventListener('click', e => {
-        game.currentDungeon = null;
-        drawExploreScreen();
-    })
+        document.querySelector('.dungeonContainer').innerHTML = str;
+
+        document.querySelector('#exitDungeon').addEventListener('click', e => {
+            game.currentDungeon = null;
+            drawExploreScreen();
+            
+        })
+
+        document.querySelector('#enterDungeon').addEventListener('click', e => {
+
+            let str = '';
+            str += '<div class="dungeonDialogue">';
+            str += game.currentDungeon.getCurrentEventEncounter();
+            str += '</div>';
+            str += '<button class="simpleButton" id="nextButton">Next</button>';
+
+            document.querySelector('.dungeonContainer').innerHTML = str;
+            game.currentDungeon.generateEvent();
+        })  
+    }
+    else {
+
+        document.querySelector('#nextButton').addEventListener('click', e => {
+            console.log("caca");
+            let str = '';
+            str += '<div class="dungeonDialogue">';
+            str += game.currentDungeon.getCurrentEventSet();
+            str += '</div>';
+            str += '<button class="simpleButton" id="nextButton2">Next</button>';
+
+            document.querySelector('.dungeonContainer').innerHTML = str;
+            
+        })  
+
+    }
 }
 
 function drawBattleScreen() {
