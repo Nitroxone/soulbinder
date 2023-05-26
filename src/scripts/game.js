@@ -356,5 +356,6 @@ class Game {
 
         this.startBattle([what(this.all_enemies, "mycelial tick"), what(this.all_enemies, "mycelial tick"), what(this.all_enemies, "mycelial tick")]);
         this.currentBattle.endTurn();
+        this.currentBattle.endTurn();
     }
 }
