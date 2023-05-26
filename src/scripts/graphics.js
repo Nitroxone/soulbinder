@@ -303,14 +303,9 @@ function getSetTooltip(set) {
     str += '<div class="tooltipSet">';
 
     str += '<div class="tooltipSetItems">';
-    str += getSetTooltipItem(set.helmet);
-    str += getSetTooltipItem(set.chestplate);
-    str += getSetTooltipItem(set.gloves);
-    str += getSetTooltipItem(set.boots);
-    str += getSetTooltipItem(set.shield);
-    str += getSetTooltipItem(set.weapon);
-    str += getSetTooltipItem(set.trinketOne);
-    str += getSetTooltipItem(set.trinketTwo);
+    set.items.forEach(item => {
+        str += getSetTooltipItem(item);
+    })
     str += '</div>';
 
     str += '<div class="tooltipSetDetails">';

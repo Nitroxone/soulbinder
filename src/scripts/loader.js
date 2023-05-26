@@ -786,16 +786,15 @@ const Loader = {
                     extra: Data.Effect.DODGE
                 },
                 "",
-                what(game.all_armors, "highsteel helmet"),
-                what(game.all_armors, "highsteel armor"),
-                what(game.all_armors, "highsteel bracers"),
-                what(game.all_armors, "highsteel boots"),
-                what(game.all_armors, "highsteel shield"),
-                what(game.all_weapons, "highsteel sword"),
-                what(game.all_trinkets, "omen insignia"),
-                what(game.all_trinkets, "foresighting ring"),
+                [
+                    what(game.all_armors, "highsteel helmet"),
+                    what(game.all_armors, "highsteel boots"),
+                    what(game.all_weapons, "highsteel sword"),
+                    what(game.all_trinkets, "omen insignia"),
+                    what(game.all_trinkets, "foresighting ring"),
+                ],
                 {
-                    3: [
+                    2: [
                         new Stat({
                             effect: Data.Effect.DODGE,
                             theorical: [3, 3],
@@ -803,27 +802,14 @@ const Loader = {
                             isPercentage: true
                         })
                     ],
-                    5: [
+                    4: [
                         new Stat({
                             effect: Data.Effect.MAXHEALTH,
                             theorical: [10, 10],
                             fixed: true
                         })
                     ],
-                    7: [
-                        new Stat({
-                            effect: Data.Effect.DODGE,
-                            theorical: [5, 5],
-                            fixed: true,
-                            isPercentage: true
-                        }),
-                        new Stat({
-                            effect: Data.Effect.MAXHEALTH,
-                            theorical: [20, 20],
-                            fixed: true
-                        })
-                    ],
-                    8: [
+                    5: [
                         new Echo(
                             "Swift as Steel",
                             "Dodging an attack replenishes §1% of your total health. An enemy dodging one of your attacks grants you a §2% dodge boost for 1 round.",
@@ -843,14 +829,9 @@ const Loader = {
         ];
 
         for(const equipmentSet of equipmentSets) {
-            equipmentSet.helmet.set = equipmentSet.name;
-            equipmentSet.chestplate.set = equipmentSet.name;
-            equipmentSet.gloves.set = equipmentSet.name;
-            equipmentSet.boots.set = equipmentSet.name;
-            equipmentSet.shield.set = equipmentSet.name;
-            equipmentSet.weapon.set = equipmentSet.name;
-            equipmentSet.trinketOne.set = equipmentSet.name;
-            equipmentSet.trinketTwo.set = equipmentSet.name;
+            equipmentSet.items.forEach(item => {
+                item.set = equipmentSet.name;
+            })
             for(let key in equipmentSet.bonus) {
                 equipmentSet.bonus[key].forEach(bonus => {
                     bonus.fix();
