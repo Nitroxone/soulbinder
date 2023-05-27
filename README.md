@@ -4,7 +4,7 @@ Soulbinder is a story driven, highly replayable, tactical roguelite dungeon craw
 
 It is developed mainly by myself, @Nitroxone, with my best buddy @wensaqt giving out very helpful advice when it comes to game design aspects. He will also help with the code at a later stage when he feels more comfortable with JavaScript.
 
-The entire project is written in vanilla JavaScript and vanilla CSS/HTML. Everything has been hand-coded, designed and crafted with love. I chose not to use any dependency or library as a personal challenge.
+The entire project is written in vanilla JavaScript and vanilla CSS/HTML. Everything has been hand-coded, designed and crafted with love. I chose not to use any dependency or library as a personal challenge. Yeah, that means not even jQuery or Bootstrap or whatever. Maybe I kinda wanna prove to people that you can still code in vanilla today and make awesome things, so long as you're willing to use your brain a little more.
 
 The game will be entirely free and available for all to play on a website. 
 
