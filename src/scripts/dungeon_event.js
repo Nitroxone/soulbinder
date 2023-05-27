@@ -43,7 +43,7 @@ class DungeonEvent {
 
             this.set = Speech.Dungeon[this.zone][this.type][this.biome][this.level][this.instance][Math.floor(Math.random() * Speech.Dungeon[this.zone][this.type][this.biome][this.level][this.instance].length)];
         } else {
-            
+            this.set = 'KAKAPROOTE';
         }
     }
 

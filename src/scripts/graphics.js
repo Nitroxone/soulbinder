@@ -1750,6 +1750,10 @@ function drawExploreScreen() {
     document.querySelector('.dungeonContainer').innerHTML = str;
 
     // gets the biome chosen by the player and stores it in game.selectedBiome
+    generateExploreScreenEvents();
+}
+
+function generateExploreScreenEvents() {
     const biomes = document.querySelectorAll('.biome');
     biomes.forEach(biome => {
         biome.addEventListener('click', (event) => {
@@ -1795,14 +1799,6 @@ function drawExploreScreen() {
 }
 
 function generateDungeonEntranceEvents() {
-    const enter = document.querySelector('#enterDungeon');
-    const exit = document.querySelector('#exitDungeon');
-
-    exit.addEventListener('click', e => {
-        game.currentDungeon = null;
-        drawExploreScreen();
-    });
-     
     //ici, pour afficher la rencontre de l'événement en cours
     document.querySelector('#explorationDiv').innerHTML = '<div class="dungeonContainer"></div>';
 
@@ -1815,29 +1811,47 @@ function generateDungeonEntranceEvents() {
 
     document.querySelector('.dungeonContainer').innerHTML = str;
 
+    const enter = document.querySelector('#enterDungeon');
+    const exit = document.querySelector('#exitDungeon');
+
+    exit.addEventListener('click', e => {
+        game.currentDungeon = null;
+        drawExploreScreen();
+    }); 
+
     enter.addEventListener('click', e => {
-        game.currentDungeon.generateEvent();
-        generateCurrentEventSet();
+        displayCurrentEventEncounter(game.currentDungeon.getCurrentEventEncounter());
     });
 }
 
 function generateCurrentEventSet() {
-    const next = document.querySelector('#nextButton');
-
-    next.addEventListener('click', e => {
-        let str = '';
+    console.log(game.currentDungeon);
+    let str = '';
         str += '<div class="dungeonDialogue">';
         str += game.currentDungeon.getCurrentEventSet();
         str += '</div>';
         str += '<button class="simpleButton" id="nextButton">Next</button>';
 
         document.querySelector('.dungeonContainer').innerHTML = str;
-        generateDungeonOngoingEvents();
+
+    const next = document.querySelector('#nextButton');
+    next.addEventListener('click', e => {
+        displayCurrentEventEncounter(game.currentDungeon.getCurrentEventEncounter());
     });
 }
 
-function generateCurrentEventEncounter() {
+function displayCurrentEventEncounter(event) {
+    let str = '';
+    str += 'type: ' + event.type + ', mobtype: ' + event.mobType;
+    str += '<button class="simpleButton" id="nextButton">Next</button>';
 
+    document.querySelector('.dungeonContainer').innerHTML = str;
+
+    const next = document.querySelector('#nextButton');
+    next.addEventListener('click', e => {
+        game.currentDungeon.generateEvent();
+        generateCurrentEventSet();
+    });
 }
 
 function generateCurrentEventChoiceQuote() {
@@ -1845,11 +1859,7 @@ function generateCurrentEventChoiceQuote() {
 }
 
 function drawDungeon() {
-    document.querySelector('.explore').addEventListener('click', (e) => {
-
-        generateDungeonEntranceEvents();
-        
-    });
+    generateDungeonEntranceEvents();
 }
 
 function drawBattleScreen() {
