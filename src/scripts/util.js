@@ -1183,6 +1183,23 @@ function processSkillDescription(desc) {
     return replacedString;
 }
 
+function getFighterFromPosition(pos) {
+    switch(pos) {
+        case 'b-hero-back':
+            return game.currentBattle.allies[0];
+        case 'b-hero-middle':
+            return game.currentBattle.allies[1];
+        case 'b-hero-front':
+            return game.currentBattle.allies[2];
+        case 'b-enemy-back':
+            return game.currentBattle.enemies[0];
+        case 'b-enemy-middle':
+            return game.currentBattle.enemies[1];
+        case 'b-enemy-front':
+            return game.currentBattle.enemies[2];
+    }
+}
+
 /**********************DUNGEON LOGIC ***************************/
 
 // allows you to create a dungeon instance 

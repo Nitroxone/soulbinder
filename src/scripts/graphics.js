@@ -1878,7 +1878,8 @@ function drawBattleScreen() {
 
     document.querySelector('.battle').innerHTML = str;
 
-    generateBattleScreenEvents();
+    generateBattleCommandsEvents();
+    generateBattleFightersEvents();
 }
 
 // TODO: MERGE THESE TWO FUNCTIONS BELOW INTO ONE
@@ -1977,14 +1978,27 @@ function getBattleSkills(refresh = false) {
     return str;
 }
 
-function generateBattleScreenEvents() {
+function generateBattleCommandsEvents() {
     const currentPlay = game.currentBattle.currentPlay;
     const skills = currentPlay.skills;
     skills.forEach(skill => {
         addTooltip(document.querySelector('#' + currentPlay.name + '-' + skill.id), function(){
             return getBattleSkillTooltip(currentPlay, skill)
         }, {offY: -8})
-    })
+    });
+}
+
+function generateBattleFightersEvents() {
+    document.querySelectorAll('.battleFighter').forEach(fighter => {
+        fighter.addEventListener('mouseenter', e => {
+            const target = getFighterFromPosition(fighter.id);
+            document.querySelector('.battle-consumablesContainer').innerHTML = getBattleFighterDetails(target);
+        });
+        fighter.addEventListener('mouseleave', e => {
+            document.querySelector('.battle-commandsContainer').innerHTML = getBattleCommands();
+            generateBattleCommandsEvents();
+        });
+    });
 }
 
 function getBattleSkillTooltip(strider, skill) {
@@ -2084,5 +2098,39 @@ function getBattleScreenPlayOrder(refresh = false) {
         document.querySelector('.battle-playOrder').innerHTML = str;
         return;
     }
+    return str;
+}
+
+function getBattleFighterDetails(fighter) {
+    let str = '';
+
+    str += '<table class="battle-fighterDetails">';
+    str += '<tbody>';
+    str += '<tr>';
+    str += '<td>' + fighter.dodge + '% Dodge</td>';
+    str += '<td>' + fighter.resBleed[0] + ' Bleed damage</td>';
+    str += '</tr>';
+    str += '<tr>';
+    str += '<td>' + fighter.speed + ' Speed</td>';
+    str += '<td>' + fighter.resPoison[0] + ' Poison damage</td>';
+    str += '</tr>';
+    str += '<tr>';
+    str += '<td>' + fighter.protection + '% Protection</td>';
+    str += '<td>' + fighter.resMove + ' Movement resistance</td>';
+    str += '</tr>';
+    str += '<tr>';
+    str += '<td>' + fighter.accuracy + '% Accuracy</td>';
+    str += '<td>' + fighter.resStun + ' Stun resistance</td>';
+    str += '</tr>';
+    str += '<tr>';
+    str += '<td>' + fighter.might + ' Might</td>';
+    str += '<td>' + fighter.resilience + ' Resilience</td>';
+    str += '</tr>';
+    str += '<tr>';
+    str += '<td>' + fighter.spirit + ' Spirit</td>';
+    str += '<td>' + fighter.warding + ' Warding</td>';
+    str += '</tr>';
+    str += '</tbody></table>';
+
     return str;
 }

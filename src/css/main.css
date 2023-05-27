@@ -4094,6 +4094,7 @@ table.astralForgeShards td {
 .battle-skillsContainer, .battle-consumablesContainer {
     overflow: hidden;
     position: relative;
+    padding: 0 2em;
 }
 
 .battle-skillsContainer {
@@ -4158,4 +4159,14 @@ table.astralForgeShards td {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+}
+
+.battle-fighterDetails {
+    width: 100%;
+    border: 1px dashed grey;
+
+    table-layout: fixed;
+}
+.battle-fighterDetails tr {
+    width: 50%;
 }
