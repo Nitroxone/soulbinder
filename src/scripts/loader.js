@@ -1644,7 +1644,7 @@ const Loader = {
             new Strider(
                 "Mirai",
                 "Lorem ipsum",
-                Data.Charset.SUPPORT,
+                Data.Charset.MIRAI,
                 "The Time Twister",
                 100, 100, 100,
                 10, 12, 85, 0, 5, 5,

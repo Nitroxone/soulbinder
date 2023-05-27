@@ -1794,15 +1794,46 @@ function drawExploreScreen() {
     });
 }
 
+function generateDungeonEntranceEvents() {
+    const enter = document.querySelector('#enterDungeon');
+    const exit = document.querySelector('#exitDungeon');
+
+    exit.addEventListener('click', e => {
+        game.currentDungeon = null;
+        drawExploreScreen();
+    });
+     
+    //ici, pour afficher la rencontre de l'événement en cours
+    enter.addEventListener('click', e => {
+        let str = '';
+        str += '<div class="dungeonDialogue">';
+        str += game.currentDungeon.getCurrentEventEncounter();
+        str += 'ho non les monstrtent';
+        str += '</div>';
+        str += '<button class="simpleButton" id="nextButton">Next</button>';
+
+        document.querySelector('.dungeonContainer').innerHTML = str;
+        game.currentDungeon.generateEvent();
+        generateDungeonOngoingEvents();
+    });
+}
+
+function generateDungeonOngoingEvents() {
+    const next = document.querySelector('#nextButton');
+
+    next.addEventListener('click', e => {
+        let str = '';
+        str += '<div class="dungeonDialogue">';
+        str += game.currentDungeon.getCurrentEventSet();
+        str += '</div>';
+        str += '<button class="simpleButton" id="nextButton">Next</button>';
+
+        document.querySelector('.dungeonContainer').innerHTML = str;
+        generateDungeonOngoingEvents();
+    });
+}
+
 function drawDungeon() {
-    let enter, exit, next;
-
-    function buttonBinder() {
-        enter = document.querySelector('#enterDungeon');
-        exit = document.querySelector('#exitDungeon');
-        next = document.querySelector('#nextButton');
-    }
-
     // initialise le code quand le donjon est au début
     switch (game.currentDungeon.history.length) {
         case 1:
@@ -1817,40 +1848,12 @@ function drawDungeon() {
 
             document.querySelector('.dungeonContainer').innerHTML = str;
 
-            buttonBinder();
-
-            exit.addEventListener('click', e => {
-                game.currentDungeon = null;
-                drawExploreScreen();
-            });
-             
-            //ici, pour afficher la rencontre de l'événement en cours
-            enter.addEventListener('click', e => {
-                let str = '';
-                str += '<div class="dungeonDialogue">';
-                str += game.currentDungeon.getCurrentEventEncounter();
-                str += '</div>';
-                str += '<button class="simpleButton" id="nextButton">Next</button>';
-
-                document.querySelector('.dungeonContainer').innerHTML = str;
-                game.currentDungeon.generateEvent();
-            });
+            generateDungeonEntranceEvents();
             break;
             
         //ici, pour afficher le set du prochain événement
         default:
-            buttonBinder();
-
-            next.addEventListener('click', e => {
-                console.log("caca");
-                let str = '';
-                str += '<div class="dungeonDialogue">';
-                str += game.currentDungeon.getCurrentEventSet();
-                str += '</div>';
-                str += '<button class="simpleButton" id="nextButton">Next</button>';
-
-                document.querySelector('.dungeonContainer').innerHTML = str;
-            });
+            generateDungeonOngoingEvents();
             break;
     }
 }
@@ -1865,9 +1868,13 @@ function drawBattleScreen() {
     str += getFormationBattleEnemies();
     str += '</div>';
 
-    str += '<div class="battle-commandsContainer">';
+    str += '<div class="battle-commandsContainer coolBorderBis">';
     str += getBattleCommands();
     str += '</div>';
+
+    str += '<div class="battle-playOrder">';
+    str += getBattleScreenPlayOrder();
+    str += '</div>'
 
     document.querySelector('.battle').innerHTML = str;
 
@@ -2062,5 +2069,20 @@ function getBattleSkillTooltip(strider, skill) {
 
     str += '</div>';
 
+    return str;
+}
+
+function getBattleScreenPlayOrder(refresh = false) {
+    let str = '';
+    game.currentBattle.order.forEach(elem => {
+        if(elem) {
+            str += '<div class="playOrderSquare coolBorder" style="background-image: url(\'css/img/chars/' + elem.charset + '\')"></div>';
+        }
+    });
+
+    if(refresh) {
+        document.querySelector('.battle-playOrder').innerHTML = str;
+        return;
+    }
     return str;
 }

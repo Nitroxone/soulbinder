@@ -3913,6 +3913,8 @@ table.astralForgeShards td {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    position: relative;
 }
 
 .battle-fightersContainer {
@@ -4131,4 +4133,29 @@ table.astralForgeShards td {
 .skillDmgType-both {
     border-color: #FFBF00;
     color: #FFBF00;
+}
+
+.battle-playOrder {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.battle-playOrder .playOrderSquare:not(:first-child) {
+    margin-left: 0.7em;
+}
+
+.playOrderSquare {
+    width: 40px;
+    height: 40px;
+    border-radius: 3px;
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }

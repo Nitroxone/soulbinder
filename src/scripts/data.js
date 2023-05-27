@@ -16,6 +16,7 @@ const Data = Object.freeze({
         HAMAN: 'haman.png',
         ZURIJ: 'zurij.png',
         JUBA_JUN: 'juba_jun.png',
+        MIRAI: 'mirai.png',
 
         UNSLEEPER: 'unsleeper.png',
         MYCELIAL_TICK: 'mycelial_tick.png'
