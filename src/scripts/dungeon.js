@@ -40,7 +40,7 @@ class Dungeon {
      */
     generateEvent(instance = Data.DungeonEventInstance.ROOM) {
         this.currentEvent = new DungeonEvent(instance);
-        this.increaseLevel();
+        if(instance === Data.DungeonEventInstance.BRIDGE) this.increaseLevel();
     }
 
     // returns the current encounter
