@@ -35,15 +35,11 @@ class DungeonEvent {
     }
 
     setEventSet() {
-        if (this.type === "entrance") {
-            this.set = Speech.Dungeon[this.zone][this.type][this.biome][Math.floor(Math.random() * Speech.Dungeon[this.zone][this.type][this.biome].length)];
-        } else if(game.currentDungeon.history.length === 1) {
-            // arbitrary for the moment; later the action will have to decide on the next type of instance (room or bridge, depending on the player's choice)
-            this.instance = "room";
-
-            this.set = Speech.Dungeon[this.zone][this.type][this.biome][this.level][this.instance][Math.floor(Math.random() * Speech.Dungeon[this.zone][this.type][this.biome][this.level][this.instance].length)];
+        if (this.type === Data.DungeonEventType.ENTRANCE) {
+            this.set = getDungeonEntranceSet(this);
         } else {
-            this.set = 'KAKAPROOTE';
+            this.instance = Data.DungeoneEventInstance.ROOM;
+            this.set = getDungeonRegularSet(this);
         }
     }
 

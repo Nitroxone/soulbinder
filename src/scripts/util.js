@@ -1176,6 +1176,11 @@ function getValueFromObject(props, property, def) {
     return def;
 }
 
+/**
+ * Replaces each word between two § tokens by a span HTML tag.
+ * @param {string} desc the string to process
+ * @returns {string} the processed string
+ */
 function processSkillDescription(desc) {
     const regex = /§(.*?)§/g;
     const replacedString = desc.replace(regex, '<span style="color: ' + Data.Color.PURPLE + '; font-family: RobotoBold;">$1</span>');
@@ -1183,6 +1188,11 @@ function processSkillDescription(desc) {
     return replacedString;
 }
 
+/**
+ * Returns the fighter that is currently located at the provided position.
+ * @param {string} pos a CSS position class string
+ * @returns {NPC} the fighter that matches
+ */
 function getFighterFromPosition(pos) {
     switch(pos) {
         case 'b-hero-back':
@@ -1198,6 +1208,24 @@ function getFighterFromPosition(pos) {
         case 'b-enemy-front':
             return game.currentBattle.enemies[2];
     }
+}
+
+/**
+ * Returns an entrance set that matches the settings of the provided DungeonEvent.
+ * @param {DungeonEvent} dungeon the DungeonEvent
+ * @returns {string} a matching set
+ */
+function getDungeonEntranceSet(dungeon) {
+    return Speech.Dungeon[dungeon.zone][dungeon.type][dungeon.biome][Math.floor(Math.random() * Speech.Dungeon[dungeon.zone][dungeon.type][dungeon.biome].length)];
+}
+
+/**
+ * Returns a regular set that matches the settings of the provided DungeonEvent.
+ * @param {DungeonEvent} dungeon the DungeonEvent
+ * @returns {string} a matching set
+ */
+function getDungeonRegularSet(dungeon) {
+    return Speech.Dungeon[dungeon.zone][dungeon.type][dungeon.biome][dungeon.level][dungeon.instance][Math.floor(Math.random() * Speech.Dungeon[dungeon.zone][dungeon.type][dungeon.biome][dungeon.level][dungeon.instance].length)]
 }
 
 /**********************DUNGEON LOGIC ***************************/
