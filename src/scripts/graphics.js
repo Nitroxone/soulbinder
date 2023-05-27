@@ -2153,11 +2153,11 @@ function getBattleFighterStats(fighter) {
     str += '</tr>';
     str += '<tr>';
     str += '<td><span style="font-family: RobotoBold">' + fighter.protection + '%</span> <span style="color: grey">Protection</span></td>';
-    str += '<td><span style="font-family: RobotoBold">' + fighter.resMove + '</span> <span style="color: grey">Movement resistance</span></td>';
+    str += '<td><span style="font-family: RobotoBold">' + fighter.resMove + '%</span> <span style="color: grey">Movement resistance</span></td>';
     str += '</tr>';
     str += '<tr>';
     str += '<td><span style="font-family: RobotoBold">' + fighter.accuracy + '%</span> <span style="color: grey">Accuracy</span></td>';
-    str += '<td><span style="font-family: RobotoBold">' + fighter.resStun + '</span> <span style="color: grey">Stun resistance</span></td>';
+    str += '<td><span style="font-family: RobotoBold">' + fighter.resStun + '%</span> <span style="color: grey">Stun resistance</span></td>';
     str += '</tr>';
     str += '<tr>';
     str += '<td><span style="font-family: RobotoBold">' + fighter.might + '</span> <span style="color: grey">Might</span></td>';
