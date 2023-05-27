@@ -1964,10 +1964,24 @@ function getBattleCommands(refresh = false) {
     let str = '';
 
     str += '<div class="battle-actionsContainer">';
-    str += '<div class="battle-actionAtk">Attack</div>';
-    str += '<div class="battle-actionDef">Block</div>';
-    str += '<div class="battle-actionMov">Move</div>';
-    str += '<div class="battle-actionSki">Skip</div>';
+
+    str += '<div class="battle-actionAtk">';
+    str += getCurrentPlayerEquippedWeapons();
+    str += 'Attack'
+    str += '</div>';
+
+    str += '<div class="battle-actionDef">';
+    str += 'Block';
+    str += '</div>';
+
+    str += '<div class="battle-actionMov">';
+    str += 'Move';
+    str += '</div>';
+
+    str += '<div class="battle-actionSki">';
+    str += 'Skip';
+    str += '</div>';
+
     str += '</div>';
 
     str += '<div class="battle-skillsContainer">';
@@ -1980,6 +1994,21 @@ function getBattleCommands(refresh = false) {
         document.querySelector('.battle-commandsContainer').innerHTML = str;
         return;
     }
+    return str;
+}
+
+function getCurrentPlayerEquippedWeapons() {
+    let str = '<div class="battle-weaponIcons">';
+    const current = game.currentBattle.currentPlay;
+
+    if(current.eqWeaponBoth) str += '<div id="bwpn-' + current.eqWeaponBoth.id + '" class="battle-weaponIcon singleWeaponIconPopup" style="background-image: url(\'css/img/weapons/' + current.eqWeaponBoth.icon + '.png\')"></div>';
+    else {
+        if(current.eqWeaponRight) str += '<div id="bwpn-' + current.eqWeaponRight.id + '"  id="" class="battle-weaponIcon ' + (current.eqWeaponRight && current.eqWeaponLeft ? 'doubleWeaponIconPopup' : 'singleWeaponIconPopup') + '" style="background-image: url(\'css/img/weapons/' + current.eqWeaponRight.icon + '.png\')"></div>';
+        if(current.eqWeaponLeft) str += '<div id="bwpn-' + current.eqWeaponLeft.id + '"  id="" class="battle-weaponIcon ' + (current.eqWeaponLeft && current.eqWeaponRight ? 'doubleWeaponIconPopup' : 'singleWeaponIconPopup') + '" style="background-image: url(\'css/img/weapons/' + current.eqWeaponLeft.icon + '.png\')"></div>';
+    }
+
+    str += '</div>';
+
     return str;
 }
 
@@ -2168,6 +2197,31 @@ function getBattleFighterStats(fighter) {
     str += '<td><span style="font-family: RobotoBold">' + fighter.warding + '</span> <span style="color: grey">Warding</span></td>';
     str += '</tr>';
     str += '</tbody></table>';
+
+    str += '<div class="battle-activeEffects framed">';
+    str += getBattleFighterActiveEffects(fighter);
+    str += '</div>'
+
+    return str;
+}
+
+function getBattleFighterActiveEffects(fighter) {
+    let str = '';
+
+    if(fighter.activeEffects.length === 0) return '<h4>No active effects</h4>';
+
+    str += '<h4>Active effects</h4>'
+    fighter.activeEffects.forEach(ae => {
+        str += '<div class="activeEffect-wrapper">';
+        str += '<p class="activeEffectTitle" style="color: ' + (ae.style.color ? ae.style.color : '#ddd') + '; font-family: ' + getFontFamilyFromAeStyling(ae.style) + ';">' + ae.name + '</p>';
+        ae.effects.forEach(eff => {
+            str += eff.getFormatted({noTheorical: true, cssClass: 'activeEffect'});
+        });
+        if(ae.originObject instanceof Skill) str += '<p class="activeEffect">From: ' + ae.originObject.name + ', casted by ' + ae.originUser.name + ' (' + ae.countdown + (ae.countdown > 1 ? ' rounds' : ' round') + 'ago)</p>';
+        else if(ae.originObject instanceof Weapon) str += '<p class="activeEffect">From: <span style="color: ' + getRarityColorCode(ae.originObject.rarity) + ';">' + ae.originObject.name + '</span>, wielded by ' + ae.originUser.name + ' (' + ae.countdown + (ae.countdown > 1 ? ' rounds' : ' round') + ' ago)' + '</p>';
+        else if(ae.originObject === Data.ActiveEffectType.POWER) str += '<p class="activeEffect">Power emanating from ' + ae.originUser.name + '</p>';
+        str += '</div>';
+    });
 
     return str;
 }
