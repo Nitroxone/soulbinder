@@ -2035,6 +2035,24 @@ function generateBattleCommandsEvents() {
             return getBattleSkillTooltip(currentPlay, skill)
         }, {offY: -8})
     });
+
+    const atk = document.querySelector('.battle-actionAtk');
+    const def = document.querySelector('.battle-actionDef');
+    const mov = document.querySelector('.battle-actionMov');
+    const ski = document.querySelector('.battle-actionSki');
+
+    atk.addEventListener('click', e => {
+        console.log('attacking');
+    });
+    def.addEventListener('click', e => {
+        console.log('blocking');
+    });
+    mov.addEventListener('click', e => {
+        console.log('moving');
+    });
+    ski.addEventListener('click', e => {
+        console.log('skipping');
+    });
 }
 
 function generateBattleFightersEvents() {
