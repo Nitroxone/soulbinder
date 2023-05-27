@@ -4104,7 +4104,7 @@ table.astralForgeShards td {
     justify-content: center;
     align-items: center;
 }
-.battle-skillsContainer div:not(:first-child) {
+.battle-skillsContainer .skillSquare:not(:first-child) {
     margin-left: 1rem;
 }
 .battle-consumablesContainer {
@@ -4161,12 +4161,40 @@ table.astralForgeShards td {
     background-position: center;
 }
 
-.battle-fighterDetails {
-    width: 100%;
-    border: 1px dashed grey;
-
+.battle-fighterStats {
+    width: 60%;
     table-layout: fixed;
 }
-.battle-fighterDetails tr {
+.battle-fighterStats tr {
     width: 50%;
+}
+.battle-fighterStats td {
+    padding: 0.1rem;
+    font-size: 11px;
+}
+
+.battle-fighterDetails {
+    width: 100%;
+}
+.battle-fighterDetails h4 {
+    font-family: RobotoSlab;
+    font-variant: small-caps;
+    font-size: 1.5rem;
+    color: #ddd;
+}
+.battle-fighterDetails-infos {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+}
+.battle-fighterDetails-tags {
+    margin-top: 0.25rem;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: start
+}
+.battle-fighterDetails-tags div:not(:first-child) {
+    margin-left: 0.25rem;
 }

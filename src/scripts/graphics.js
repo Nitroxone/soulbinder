@@ -2012,10 +2012,11 @@ function generateBattleFightersEvents() {
     document.querySelectorAll('.battleFighter').forEach(fighter => {
         fighter.addEventListener('mouseenter', e => {
             const target = getFighterFromPosition(fighter.id);
-            document.querySelector('.battle-consumablesContainer').innerHTML = getBattleFighterDetails(target);
+            document.querySelector('.battle-consumablesContainer').innerHTML = getBattleFighterStats(target);
+            document.querySelector('.battle-skillsContainer').innerHTML = getBattleFighterDetails(target);
         });
         fighter.addEventListener('mouseleave', e => {
-            document.querySelector('.battle-commandsContainer').innerHTML = getBattleCommands();
+            getBattleCommands(true);
             generateBattleCommandsEvents();
         });
     });
@@ -2124,31 +2125,47 @@ function getBattleScreenPlayOrder(refresh = false) {
 function getBattleFighterDetails(fighter) {
     let str = '';
 
-    str += '<table class="battle-fighterDetails">';
+    str += '<div class="battle-fighterDetails">';
+    str += '<div class="battle-fighterDetails-infos">';
+    str += '<h4>' + fighter.name + '</h4>';
+    str += '<div class="battle-fighterDetails-tags">';
+    str += '<div class="striderInfos-desc-type coolBorder">' + (fighter instanceof Strider ? capitalizeFirstLetter(fighter.striderType) : 'Monster') + '</div>';
+    if(fighter instanceof Strider) str += '<div class="striderInfos-desc-level coolBorder">Level ' + fighter.level.currentLevel + '</div>';
+    str += '</div>';
+    str += '</div>';
+    str += '</div>';
+
+    return str;
+}
+
+function getBattleFighterStats(fighter) {
+    let str = '';
+
+    str += '<table class="battle-fighterStats">';
     str += '<tbody>';
     str += '<tr>';
-    str += '<td>' + fighter.dodge + '% Dodge</td>';
-    str += '<td>' + fighter.resBleed[0] + ' Bleed damage</td>';
+    str += '<td><span style="font-family: RobotoBold">' + fighter.dodge + '%</span> <span style="color: grey">Dodge</span></td>';
+    str += '<td><span style="font-family: RobotoBold">' + fighter.resBleed[0] + '</span> <span style="color: grey">Bleed resistance</span></td>';
     str += '</tr>';
     str += '<tr>';
-    str += '<td>' + fighter.speed + ' Speed</td>';
-    str += '<td>' + fighter.resPoison[0] + ' Poison damage</td>';
+    str += '<td><span style="font-family: RobotoBold">' + fighter.speed + '</span> <span style="color: grey">Speed</span></td>';
+    str += '<td><span style="font-family: RobotoBold">' + fighter.resPoison[0] + '</span> <span style="color: grey">Poison resistance</span></td>';
     str += '</tr>';
     str += '<tr>';
-    str += '<td>' + fighter.protection + '% Protection</td>';
-    str += '<td>' + fighter.resMove + ' Movement resistance</td>';
+    str += '<td><span style="font-family: RobotoBold">' + fighter.protection + '%</span> <span style="color: grey">Protection</span></td>';
+    str += '<td><span style="font-family: RobotoBold">' + fighter.resMove + '</span> <span style="color: grey">Movement resistance</span></td>';
     str += '</tr>';
     str += '<tr>';
-    str += '<td>' + fighter.accuracy + '% Accuracy</td>';
-    str += '<td>' + fighter.resStun + ' Stun resistance</td>';
+    str += '<td><span style="font-family: RobotoBold">' + fighter.accuracy + '%</span> <span style="color: grey">Accuracy</span></td>';
+    str += '<td><span style="font-family: RobotoBold">' + fighter.resStun + '</span> <span style="color: grey">Stun resistance</span></td>';
     str += '</tr>';
     str += '<tr>';
-    str += '<td>' + fighter.might + ' Might</td>';
-    str += '<td>' + fighter.resilience + ' Resilience</td>';
+    str += '<td><span style="font-family: RobotoBold">' + fighter.might + '</span> <span style="color: grey">Might</span></td>';
+    str += '<td><span style="font-family: RobotoBold">' + fighter.resilience + '</span> <span style="color: grey">Resilience</span></td>';
     str += '</tr>';
     str += '<tr>';
-    str += '<td>' + fighter.spirit + ' Spirit</td>';
-    str += '<td>' + fighter.warding + ' Warding</td>';
+    str += '<td><span style="font-family: RobotoBold">' + fighter.spirit + '</span> <span style="color: grey">Spirit</span></td>';
+    str += '<td><span style="font-family: RobotoBold">' + fighter.warding + '</span> <span style="color: grey">Warding</span></td>';
     str += '</tr>';
     str += '</tbody></table>';
 
