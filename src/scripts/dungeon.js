@@ -38,8 +38,9 @@ class Dungeon {
     /**
      * Generates a new DungeonEvent.
      */
-    generateEvent() {
-        this.currentEvent = new DungeonEvent();
+    generateEvent(instance = Data.DungeonEventInstance.ROOM) {
+        this.currentEvent = new DungeonEvent(instance);
+        this.increaseLevel();
     }
 
     // returns the current encounter
@@ -61,6 +62,10 @@ class Dungeon {
     promptInstanceChoice() {
         const playerChoice = getPlayerInstanceChoice();
         this.currentEvent.chooseInstance(playerChoice);
+    }
+
+    increaseLevel() {
+        this.currentLevel = Math.min(this.currentLevel+1, 5);
     }
 }
 

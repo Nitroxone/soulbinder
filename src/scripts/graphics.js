@@ -1820,23 +1820,44 @@ function generateDungeonEntranceEvents() {
     }); 
 
     enter.addEventListener('click', e => {
-        displayCurrentEventEncounter(game.currentDungeon.getCurrentEventEncounter());
+        displayCurrentEventSet();
     });
 }
 
-function generateCurrentEventSet() {
-    console.log(game.currentDungeon);
+function displayCurrentEventSet() {
     let str = '';
-        str += '<div class="dungeonDialogue">';
-        str += game.currentDungeon.getCurrentEventSet();
-        str += '</div>';
-        str += '<button class="simpleButton" id="nextButton">Next</button>';
+    str += '<div class="dungeonDialogue">';
+    str += game.currentDungeon.getCurrentEventSet();
+    str += '</div>';
+    str += '<button class="simpleButton" id="nextButton">Next</button>';
 
-        document.querySelector('.dungeonContainer').innerHTML = str;
+    document.querySelector('.dungeonContainer').innerHTML = str;
 
     const next = document.querySelector('#nextButton');
     next.addEventListener('click', e => {
         displayCurrentEventEncounter(game.currentDungeon.getCurrentEventEncounter());
+    });
+}
+
+function displayCurrentEventChoiceQuote() {
+    let str = '';
+    str += '<div class="dungeonQuote">';
+    str += game.currentDungeon.getCurrentEventChoiceQuote();
+    str += '</div>';
+    str += '<button class="simpleButton" id="bridgeButton">Go deeper</button>';
+    str += '<button class="simpleButton" id="nextButton">Keep exploring</button>';
+
+    document.querySelector('.dungeonContainer').innerHTML = str;
+
+    document.querySelector('#bridgeButton').addEventListener('click', e => {
+        game.currentDungeon.generateEvent(Data.DungeonEventInstance.BRIDGE);
+        displayCurrentEventSet();
+    });
+
+    const next = document.querySelector('#nextButton');
+    next.addEventListener('click', e => {
+        game.currentDungeon.generateEvent();
+        displayCurrentEventSet();
     });
 }
 
@@ -1849,13 +1870,8 @@ function displayCurrentEventEncounter(event) {
 
     const next = document.querySelector('#nextButton');
     next.addEventListener('click', e => {
-        game.currentDungeon.generateEvent();
-        generateCurrentEventSet();
+        displayCurrentEventChoiceQuote();
     });
-}
-
-function generateCurrentEventChoiceQuote() {
-
 }
 
 function drawDungeon() {

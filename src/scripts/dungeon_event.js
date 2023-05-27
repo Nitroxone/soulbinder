@@ -1,13 +1,13 @@
 class DungeonEvent {
-    constructor(type, set, encounter, action) {
+    constructor(instance = Data.DungeonEventInstance.ROOM) {
         this.biome = game.currentDungeon.biome;
         this.zone = game.currentDungeon.zone;
         this.level = game.currentDungeon.currentLevel;
-        this.instance = null;
-        this.type = type;
+        this.instance = instance;
+        this.type = null;
         this.tags = [];
-        this.set = set;
-        this.encounter = encounter;
+        this.set = null;
+        this.encounter = null;
         this.choiceQuote = '';
         this.createEvent();
     }
@@ -35,16 +35,30 @@ class DungeonEvent {
     }
 
     setEventSet() {
-        if (this.type === Data.DungeonEventType.ENTRANCE) {
-            this.set = getDungeonEntranceSet(this);
-        } else {
-            this.instance = Data.DungeoneEventInstance.ROOM;
-            this.set = getDungeonRegularSet(this);
-        }
+        if (this.type === Data.DungeonEventType.ENTRANCE) this.generateEntranceSet()
+        else this.generateRegularSet();
+
+        this.generateChoiceQuote();
     }
 
-    setChoiceQuote() {
+    /**
+     * 
+     * @param {Data.DungeonEventInstance} type 
+     */
+    setInstance(type) {
+        this.instance = type;
+    }
+
+    generateChoiceQuote() {
         this.choiceQuote = Speech.Dungeon[this.zone].regular[this.biome][this.level].choiceQuote[Math.floor(Math.random() * Speech.Dungeon[this.zone].regular[this.biome][this.level].choiceQuote.length)];
+    }
+
+    generateEntranceSet() {
+        this.set = getDungeonEntranceSet(this);
+    }
+
+    generateRegularSet() {
+        this.set = getDungeonRegularSet(this);
     }
     
     // stores the event in the current dungeon history, and make it the new current event
