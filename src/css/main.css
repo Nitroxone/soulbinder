@@ -4115,7 +4115,7 @@ table.astralForgeShards td {
 }
 
 .battle-skillsContainer, .battle-consumablesContainer {
-    overflow: hidden;
+    
     position: relative;
     padding: 0 2em;
 }
@@ -4132,6 +4132,10 @@ table.astralForgeShards td {
 }
 .battle-consumablesContainer {
     grid-area: "consumables";
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .skillType-friendly {
@@ -4220,4 +4224,51 @@ table.astralForgeShards td {
 }
 .battle-fighterDetails-tags div:not(:first-child) {
     margin-left: 0.25rem;
+}
+
+.battle-activeEffects {
+    width: 30%;
+    background: url(img/bg1.png) repeat;
+
+    box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.5);
+    border: 7px solid transparent;
+    border-image: url(img/window1-tiny.png) 7 stretch;
+
+    position: absolute;
+    top: 25%;
+    right: 2rem;
+    z-index:200;
+}
+
+.battle-activeEffects h4 {
+    font-family: RobotoSlab;
+    color: grey;
+    font-variant: small-caps;
+}
+
+.battle-weaponIcons {
+    display: flex;
+    flex-direction: row;
+}
+
+.battle-weaponIcon {
+    width: 30px;
+    height: 30px;
+    border: 2px solid rgb(100, 100, 100);
+    background-size: 90%;
+    background-repeat: no-repeat;
+    border-radius: 100%;
+    background-position: -50% 100%;
+
+    transition: all .1s ease-in-out;
+}
+
+.battle-weaponIcon:hover {
+    border-color: rgb(155, 155, 155);
+    transform: scale(1.1);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.battle-weaponIcon:not(:first-child) {
+    margin-left: 0.5rem;
 }

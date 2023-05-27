@@ -21,7 +21,7 @@ const Loader = {
                        [[0, 0], [0, 0], true],
                        [true, true, false],
                        2),
-            new Weapon("Arbarean Axe",
+            new Weapon("Entarian Axe",
                        "Axe description",
                        4,
                        10,
@@ -37,7 +37,24 @@ const Loader = {
                        [[2, 4], [1, 1], true],
                        [[0, 0], [0, 0], true],
                        [true, false, false],
-                       2)
+                       2),
+            new Weapon("Drancoran Staff",
+                       "Staff description",
+                       1,
+                       10,
+                       Data.Rarity.UNCOMMON,
+                       Data.WeaponType.STAFF,
+                       Data.WeaponWeight.LIGHT,
+                       [2, 4],
+                       [11, 17],
+                       [3, 5],
+                       [5, 7],
+                       [8, 11],
+                       [4, 6],
+                       [[0, 0], [0, 0], true],
+                       [[1, 3], [1, 1], true],
+                       [true, true, true],
+                       1)
         ];
 
         for(const weapon of weapons) {
