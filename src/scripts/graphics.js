@@ -1804,21 +1804,24 @@ function generateDungeonEntranceEvents() {
     });
      
     //ici, pour afficher la rencontre de l'événement en cours
-    enter.addEventListener('click', e => {
-        let str = '';
-        str += '<div class="dungeonDialogue">';
-        str += game.currentDungeon.getCurrentEventEncounter();
-        str += 'ho non les monstrtent';
-        str += '</div>';
-        str += '<button class="simpleButton" id="nextButton">Next</button>';
+    document.querySelector('#explorationDiv').innerHTML = '<div class="dungeonContainer"></div>';
 
-        document.querySelector('.dungeonContainer').innerHTML = str;
+    let str = '';
+    str += '<div class="dungeonDialogue">';
+    str += game.currentDungeon.getCurrentEventSet();
+    str += '</div>';
+    str += '<button class="simpleButton" id="enterDungeon">Enter dungeon</button>';
+    str += '<button class="simpleButton" id="exitDungeon">Exit dungeon</button>';
+
+    document.querySelector('.dungeonContainer').innerHTML = str;
+
+    enter.addEventListener('click', e => {
         game.currentDungeon.generateEvent();
-        generateDungeonOngoingEvents();
+        generateCurrentEventSet();
     });
 }
 
-function generateDungeonOngoingEvents() {
+function generateCurrentEventSet() {
     const next = document.querySelector('#nextButton');
 
     next.addEventListener('click', e => {
@@ -1833,29 +1836,20 @@ function generateDungeonOngoingEvents() {
     });
 }
 
+function generateCurrentEventEncounter() {
+
+}
+
+function generateCurrentEventChoiceQuote() {
+
+}
+
 function drawDungeon() {
-    // initialise le code quand le donjon est au début
-    switch (game.currentDungeon.history.length) {
-        case 1:
-            document.querySelector('#explorationDiv').innerHTML = '<div class="dungeonContainer"></div>';
+    document.querySelector('.explore').addEventListener('click', (e) => {
 
-            let str = '';
-            str += '<div class="dungeonDialogue">';
-            str += game.currentDungeon.getCurrentEventSet();
-            str += '</div>';
-            str += '<button class="simpleButton" id="enterDungeon">Enter dungeon</button>';
-            str += '<button class="simpleButton" id="exitDungeon">Exit dungeon</button>';
-
-            document.querySelector('.dungeonContainer').innerHTML = str;
-
-            generateDungeonEntranceEvents();
-            break;
-            
-        //ici, pour afficher le set du prochain événement
-        default:
-            generateDungeonOngoingEvents();
-            break;
-    }
+        generateDungeonEntranceEvents();
+        
+    });
 }
 
 function drawBattleScreen() {
