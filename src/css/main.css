@@ -3709,6 +3709,7 @@ table.astralForgeShards td {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    position: relative;
 }
 
 .biomeContainer {
@@ -3815,6 +3816,28 @@ table.astralForgeShards td {
 }
 
 .zone {
+}
+
+.dungeonDialogue, .dungeonQuote {
+    width: 80%;
+    background-image: url(img/bg4.png);
+    padding: 1em;
+    font-size: large;
+}
+
+.dungeonButton {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.dungeonButtons {
+    justify-content: space-around;
+    display: flex;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 100px;
 }
 
 .zone:not(:first-child) {

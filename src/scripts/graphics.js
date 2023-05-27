@@ -1806,8 +1806,11 @@ function generateDungeonEntranceEvents() {
     str += '<div class="dungeonDialogue">';
     str += game.currentDungeon.getCurrentEventSet();
     str += '</div>';
-    str += '<button class="simpleButton" id="enterDungeon">Enter dungeon</button>';
-    str += '<button class="simpleButton" id="exitDungeon">Exit dungeon</button>';
+
+    str += '<div class="dungeonButtons">'
+    str += '<button class="dungeonButton simpleButton" id="enterDungeon">Enter dungeon</button>';
+    str += '<button class="dungeonButton simpleButton" id="exitDungeon">Exit dungeon</button>';
+    str += '</div>'
 
     document.querySelector('.dungeonContainer').innerHTML = str;
 
@@ -1826,10 +1829,12 @@ function generateDungeonEntranceEvents() {
 
 function displayCurrentEventSet() {
     let str = '';
-    str += '<div class="dungeonDialogue">';
+    str += '<div class="dungeonDialogue coolBorder">';
     str += game.currentDungeon.getCurrentEventSet();
     str += '</div>';
-    str += '<button class="simpleButton" id="nextButton">Next</button>';
+    str += '<div class="dungeonButtons">'
+    str += '<button class="dungeonButton simpleButton" id="nextButton">Next</button>';
+    str += '</div>'
 
     document.querySelector('.dungeonContainer').innerHTML = str;
 
@@ -1841,11 +1846,14 @@ function displayCurrentEventSet() {
 
 function displayCurrentEventChoiceQuote() {
     let str = '';
-    str += '<div class="dungeonQuote">';
+    str += '<div class="dungeonQuote coolBorder">';
     str += game.currentDungeon.getCurrentEventChoiceQuote();
     str += '</div>';
-    str += '<button class="simpleButton" id="bridgeButton">Go deeper</button>';
-    str += '<button class="simpleButton" id="nextButton">Keep exploring</button>';
+
+    str += '<div class="dungeonButtons">'
+    str += '<button class="dungeonButton simpleButton" id="bridgeButton">Go deeper</button>';
+    str += '<button class="dungeonButton simpleButton" id="nextButton">Keep exploring</button>';
+    str += '</div>'
 
     document.querySelector('.dungeonContainer').innerHTML = str;
 
@@ -1864,7 +1872,7 @@ function displayCurrentEventChoiceQuote() {
 function displayCurrentEventEncounter(event) {
     let str = '';
     str += 'type: ' + event.type + ', mobtype: ' + event.mobType;
-    str += '<button class="simpleButton" id="nextButton">Next</button>';
+    str += '<button class="dungeonButton simpleButton" id="nextButton">Next</button>';
 
     document.querySelector('.dungeonContainer').innerHTML = str;
 
