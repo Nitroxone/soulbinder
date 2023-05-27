@@ -2036,7 +2036,8 @@ function getBattleSkills(refresh = false) {
 }
 
 function generateBattleCommandsEvents() {
-    const currentPlay = game.currentBattle.currentPlay;
+    const battle = game.currentBattle;
+    const currentPlay = battle.currentPlay;
     const skills = currentPlay.skills;
     skills.forEach(skill => {
         addTooltip(document.querySelector('#' + currentPlay.name + '-' + skill.id), function(){
@@ -2060,6 +2061,7 @@ function generateBattleCommandsEvents() {
     });
     ski.addEventListener('click', e => {
         console.log('skipping');
+        battle.endTurn();
     });
 }
 
