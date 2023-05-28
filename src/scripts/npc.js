@@ -132,4 +132,12 @@ class NPC extends Entity {
         }
         this.health = Math.max(0, this.health - damage);
     }
+
+    /**
+     * Adds the provided ActiveEffect to this NPC's active effects list.
+     * @param {ActiveEffect} ae 
+     */
+    addActiveEffect(ae) {
+        this.activeEffects.push(ae);
+    }
 }
