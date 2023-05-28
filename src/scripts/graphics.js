@@ -1798,8 +1798,8 @@ function generateExploreScreenEvents() {
     });
 }
 
+// this function is exclusive to event entrances, which are a special case in that they have two buttons of their own.
 function generateDungeonEntranceEvents() {
-    //ici, pour afficher la rencontre de l'événement en cours
     document.querySelector('#explorationDiv').innerHTML = '<div class="dungeonContainer"></div>';
 
     let str = '';
@@ -1823,10 +1823,11 @@ function generateDungeonEntranceEvents() {
     }); 
 
     enter.addEventListener('click', e => {
-        displayCurrentEventSet();
+        displayCurrentEventEncounter(game.currentDungeon.getCurrentEventEncounter());
     });
 }
 
+// displays set for the current event; calls up the encounters' display function afterwards
 function displayCurrentEventSet() {
     let str = '';
     str += '<div class="dungeonDialogue coolBorder">';
@@ -1844,6 +1845,7 @@ function displayCurrentEventSet() {
     });
 }
 
+// manages the display of choice quotes, allowing the player to choose whether to stay at the current dungeon level or go deeper
 function displayCurrentEventChoiceQuote() {
     let str = '';
     str += '<div class="dungeonQuote coolBorder">';
@@ -1869,19 +1871,37 @@ function displayCurrentEventChoiceQuote() {
     });
 }
 
+// manages the display of encounters in events (to be linked with battle)
 function displayCurrentEventEncounter(event) {
-    let str = '';
-    str += 'type: ' + event.type + ', mobtype: ' + event.mobType;
-    str += '<button class="dungeonButton simpleButton" id="nextButton">Next</button>';
+    if(game.currentDungeon.currentEvent.type === Data.DungeonEventType.REGULAR) {
+        let str = '';
+        str += 'type: ' + event.type + ', mobtype: ' + event.mobType;
+        str += '<button class="dungeonButton simpleButton" id="nextButton">Next</button>';
 
-    document.querySelector('.dungeonContainer').innerHTML = str;
+        document.querySelector('.dungeonContainer').innerHTML = str;
 
-    const next = document.querySelector('#nextButton');
-    next.addEventListener('click', e => {
-        displayCurrentEventChoiceQuote();
-    });
+        const next = document.querySelector('#nextButton');
+        next.addEventListener('click', e => {
+            displayCurrentEventChoiceQuote();
+        });
+    }
+    // If the current event is an entrance event, then there is no choice quote. We therefore generate a new event to display its set
+    else if(game.currentDungeon.currentEvent.type === Data.DungeonEventType.ENTRANCE) {
+        let str = '';
+        str += 'type: ' + event.type + ', mobtype: ' + event.mobType;
+        str += '<button class="dungeonButton simpleButton" id="nextButton">Next</button>';
+
+        document.querySelector('.dungeonContainer').innerHTML = str;
+
+        const next = document.querySelector('#nextButton');
+        next.addEventListener('click', e => {
+            game.currentDungeon.generateEvent();
+            displayCurrentEventSet();
+        });
+    }
 }
 
+// start of function chain; this function calls the generation of the current dungeon entrance event
 function drawDungeon() {
     generateDungeonEntranceEvents();
 }
