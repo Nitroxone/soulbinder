@@ -14,6 +14,9 @@ class Battle {
         this.targetTracker = 0;
         this.endturnCounter = 0;
         this.movementQueue = [];
+
+        this.params = null;
+        this.resetAttackParams();
     }
 
     /**
@@ -159,6 +162,24 @@ class Battle {
     }
 
     /**
+     * Runs triggers which type matches the provided TriggerType on the current playing Strider.
+     * @param {Data.TriggerType} type the type of Trigger
+     */
+    runTriggersOnCurrent(type) {
+        this.currentPlay.runTriggers(type);
+    }
+
+    /**
+     * Runs triggers which type matches the provided TriggerType on the targeted NPCs.
+     * @param {Data.TriggerType} type the type of Trigger
+     */
+    runTriggersOnTargets(type) {
+        this.target.forEach(tar => {
+            tar.runTriggers(type);
+        });
+    }
+
+    /**
      * Runs triggers which type matches the provided TriggerType on all allies and enemies.
      * @param {Data.TriggerType} type the type of Trigger
      */
@@ -166,5 +187,84 @@ class Battle {
         this.order.forEach(single => {
             single.runTriggers(type);
         });
+    }
+
+    resetAttackParams() {
+        this.params = {
+            phys_damage: 0,
+            magi_damage: 0,
+            crit_damage: 0,
+            success_accuracy: false,
+            success_dodge: false,
+            critical: false
+        };
+    }
+
+    resetTargetTracker() {
+        this.targetTracker = 0;
+    }
+
+    computeAttackParams() {
+        this.resetAttackParams();
+        let baseDmg, finalDmg;
+        const target = this.target[this.targetTracker];
+
+        if(Math.random() * 100 < this.currentPlay.accuracy) {
+            // Accuracy test passed
+            this.params.success_accuracy = true;
+            if(Math.random() * 100 > target.dodge) {
+                // Target is hit!
+                this.params.phys_damage = this.selectedWeapon.getSharpness();
+                this.params.magi_damage = this.selectedWeapon.getWithering();
+
+                if(Math.random() * 100 < this.selectedWeapon.crit_luk) {
+                    // Critical blow! Add critical damage
+                    this.params.crit_damage += this.selectedWeapon.crit_dmg;
+                    this.params.critical = true;
+                }
+            } else {
+                // Dodged
+                this.params.success_dodge = true;
+            }
+        } else {
+            // Missed
+        }
+    }
+
+    executeAttack() {
+        this.runTriggersOnCurrent(Data.TriggerType.ON_ATTACK);
+        this.target.forEach(tar => {
+            this.computeAttackParams();
+            let params = this.params;
+            if(params.success_accuracy && !params.success_dodge) {
+                // Successful hit
+                this.runTriggersOnCurrent(Data.TriggerType.ON_DEAL_DAMAGE);
+                tar.runTriggers(Data.TriggerType.ON_RECV_DAMAGE);
+
+                tar.receiveDamage(params);
+                console.log('Successful hit!');
+
+                if(params.critical) {
+                    console.log('Critical blow!');
+                    //this.currentPlay.addCriticalEffects();
+                    this.runTriggersOnCurrent(Data.TriggerType.ON_DEAL_CRITICAL);
+                    tar.runTriggers(Data.TriggerType.ON_RECV_CRITICAL);
+                }
+                // TODO: ADD BLEEDING AND POISONING
+            } else if(!params.success_accuracy) {
+                // Missed
+                console.log('Missed!');
+                this.runTriggersOnCurrent(Data.TriggerType.ON_DEAL_MISSED);
+                tar.runTriggers(Data.TriggerType.ON_RECV_MISSED);
+            } else if(params.success_dodge) {
+                // Dodged
+                console.log('Dodged!');
+                this.runTriggersOnCurrent(Data.TriggerType.ON_DEAL_DODGED);
+                tar.runTriggers(Data.TriggerType.ON_RECV_DODGED);
+            }
+        });
+
+        this.currentPlay.useWeapon(this.selectedWeapon);
+        this.endTurn();
     }
 }
