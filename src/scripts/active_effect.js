@@ -6,6 +6,7 @@ class ActiveEffect {
         this.effects = getValueFromObject(props, "effects", null);
         this.style = getValueFromObject(props, "style", null);
 
+        this.duration = [];
         for(let i = 0; i < this.effects.length; i++) {
             this.duration[i] = this.effects[i].duration;
         }
