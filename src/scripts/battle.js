@@ -204,6 +204,9 @@ class Battle {
         this.targetTracker = 0;
     }
 
+    /**
+     * Computes attack params for a weapon attack.
+     */
     computeAttackParams() {
         this.resetAttackParams();
         let baseDmg, finalDmg;
@@ -231,6 +234,9 @@ class Battle {
         }
     }
 
+    /**
+     * Executes a Weapon attack based on the selected weapon, current player and target(s).
+     */
     executeAttack() {
         this.runTriggersOnCurrent(Data.TriggerType.ON_ATTACK);
         this.target.forEach(tar => {

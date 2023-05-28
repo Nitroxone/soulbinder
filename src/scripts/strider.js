@@ -511,18 +511,31 @@ class Strider extends NPC {
     applyAstralForgeExtraEffects(item, remove = false) {
         item.astralForgeItem.extraEffects.forEach(extra => {
             this.addEffect(extra, remove);
-        })
+        });
     }
 
+    /**
+     * Adds the provided Skill to this Strider's skills.
+     * @param {Skill} skill the Skill to add
+     */
     addSkill(skill) {
         this.skills.push(skill);
     }
 
+    /**
+     * Removes the provided Skill from this Strider's skills.
+     * @param {Skill} skill the Skill to remove
+     */
     removeSkill(skill) {
         removeFromArray(this.skills, skill);
     }
 
+    /**
+     * Consumes this Strider's stamina according to the provided Weapon's effort value, and runs ON_USE_WEAPON triggers.
+     * @param {Weapon} weapon the Weapon
+     */
     useWeapon(weapon) {
         this.stamina = Math.max(0, this.stamina - weapon.effort);
+        this.runTriggers(Data.TriggerType.ON_USE_WEAPON);
     }
 }
