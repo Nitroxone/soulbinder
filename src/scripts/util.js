@@ -1228,6 +1228,12 @@ function getDungeonRegularSet(dungeon) {
     return Speech.Dungeon[dungeon.zone][dungeon.type][dungeon.biome][dungeon.level][dungeon.instance][Math.floor(Math.random() * Speech.Dungeon[dungeon.zone][dungeon.type][dungeon.biome][dungeon.level][dungeon.instance].length)]
 }
 
+function getEquippedWeaponById(strider, id) {
+    if(strider.eqWeaponBoth && strider.eqWeaponBoth.id === id) return strider.eqWeaponBoth;
+    if(strider.eqWeaponLeft && strider.eqWeaponLeft.id === id) return strider.eqWeaponLeft;
+    if(strider.eqWeaponRight && strider.eqWeaponRight.id === id) return strider.eqWeaponRight;
+}
+
 /**********************DUNGEON LOGIC ***************************/
 
 // allows you to create a dungeon instance 

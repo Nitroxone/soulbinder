@@ -4272,3 +4272,15 @@ table.astralForgeShards td {
 .battle-weaponIcon:not(:first-child) {
     margin-left: 0.5rem;
 }
+
+.battle-actionSelected {
+    filter: grayscale(0%) saturate(150%);
+    cursor: pointer;
+    border: 2px solid #ddd;
+    box-shadow: inset 0px 0px 10px 12px rgba(255, 255, 255, 0.1);
+}
+.battle-weaponSelected {
+    border-color: #ddd;
+    transform: scale(1.1);
+    background-color: rgba(255, 255, 255, 0.25);
+}

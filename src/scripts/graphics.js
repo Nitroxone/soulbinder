@@ -1996,7 +1996,9 @@ function getBattleCommands(refresh = false) {
     str += getBattleSkills();
     str += '</div>';
     str += '<div class="divider" style="grid-area: divider"></div>';
-    str += '<div class="battle-consumablesContainer"></div>';
+    str += '<div class="battle-consumablesContainer">';
+    str += getBattleConsumables();
+    str += '</div>';
 
     if(refresh) {
         document.querySelector('.battle-commandsContainer').innerHTML = str;
@@ -2029,7 +2031,17 @@ function getBattleSkills(refresh = false) {
     })
 
     if(refresh) {
-        document.querySelector('.battle-skcoSkills').innerHTML = str;
+        document.querySelector('.battle-skillsContainer').innerHTML = str;
+        return;
+    }
+    return str;
+}
+
+function getBattleConsumables(refresh = false) {
+    let str = '';
+
+    if(refresh) {
+        document.querySelector('.battle-consumablesContainer').innerHTML = str;
         return;
     }
     return str;
@@ -2037,21 +2049,36 @@ function getBattleSkills(refresh = false) {
 
 function generateBattleCommandsEvents() {
     const battle = game.currentBattle;
-    const currentPlay = battle.currentPlay;
-    const skills = currentPlay.skills;
-    skills.forEach(skill => {
-        addTooltip(document.querySelector('#' + currentPlay.name + '-' + skill.id), function(){
-            return getBattleSkillTooltip(currentPlay, skill)
-        }, {offY: -8})
-    });
-
+    const current = battle.currentPlay;
     const atk = document.querySelector('.battle-actionAtk');
     const def = document.querySelector('.battle-actionDef');
     const mov = document.querySelector('.battle-actionMov');
     const ski = document.querySelector('.battle-actionSki');
 
+    const wpns = document.querySelectorAll('.battle-weaponIcon');
+    wpns.forEach(wpn => {
+        wpn.addEventListener('click', e => {
+            const weapon = getEquippedWeaponById(current, Number(wpn.id.substring(5)));
+            if(battle.action != Data.BattleAction.ATTACK) {
+                battleCommandsCancelCurrent();
+                battle.action = Data.BattleAction.ATTACK;
+                battle.selectedWeapon = weapon;
+                console.log('Preparing attack with ' + battle.selectedWeapon.name);
+                atk.classList.add('battle-actionSelected');
+                wpn.classList.add('battle-weaponSelected');
+            } else if (battle.action === Data.BattleAction.ATTACK && battle.selectedWeapon !== weapon) {
+                battleSelectionRemoveHighlights();
+                document.querySelectorAll('.battle-weaponIcon').forEach(wpn => {wpn.classList.remove('battle-weaponSelected');})
+                battle.selectedWeapon = weapon;
+                wpn.classList.add('battle-weaponSelected');
+                console.log('Preparing attack with ' + battle.selectedWeapon.name);
+            }
+            else battleCommandsCancelCurrent();
+        })
+    })
+
     atk.addEventListener('click', e => {
-        console.log('attacking');
+        
     });
     def.addEventListener('click', e => {
         console.log('blocking');
@@ -2065,6 +2092,41 @@ function generateBattleCommandsEvents() {
     });
 }
 
+function generateBattleSkillsEvents() {
+    const battle = game.currentBattle;
+    const current = battle.currentPlay;
+    const skills = current.skills;
+    skills.forEach(skill => {
+        addTooltip(document.querySelector('#' + current.name + '-' + skill.id), function(){
+            return getBattleSkillTooltip(current, skill)
+        }, {offY: -8})
+    });
+}
+
+function generateBattleConsumablesEvents() {
+
+}
+
+function battleCommandsCancelCurrent() {
+    const battle = game.currentBattle;
+    const current = battle.currentPlay;
+
+    switch(battle.action) {
+        case Data.BattleAction.ATTACK:
+            battle.action = null;
+            battle.selectedWeapon = null;
+            battleSelectionRemoveHighlights();
+            document.querySelector('.battle-actionAtk').classList.remove('battle-actionSelected');
+            document.querySelectorAll('.battle-weaponIcon').forEach(wpn => {wpn.classList.remove('battle-weaponSelected');})
+            console.log('Cancelled: Attack');
+            break;
+    }
+}
+
+function battleSelectionRemoveHighlights() {
+    //
+}
+
 function generateBattleFightersEvents() {
     document.querySelectorAll('.battleFighter').forEach(fighter => {
         fighter.addEventListener('mouseenter', e => {
@@ -2073,8 +2135,10 @@ function generateBattleFightersEvents() {
             document.querySelector('.battle-skillsContainer').innerHTML = getBattleFighterDetails(target);
         });
         fighter.addEventListener('mouseleave', e => {
-            getBattleCommands(true);
-            generateBattleCommandsEvents();
+            getBattleSkills(true);
+            getBattleConsumables(true);
+            generateBattleSkillsEvents();
+            generateBattleConsumablesEvents();
         });
     });
 }
