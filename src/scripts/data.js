@@ -19,7 +19,8 @@ const Data = Object.freeze({
         MIRAI: 'mirai.png',
 
         UNSLEEPER: 'unsleeper.png',
-        MYCELIAL_TICK: 'mycelial_tick.png'
+        MYCELIAL_TICK: 'mycelial_tick.png',
+        FUNGALIANT: 'fungaliant.png',
     },
     Color: {
         GREEN: '#4cd137',

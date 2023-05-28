@@ -1938,9 +1938,9 @@ function getFormationBattleEnemies(refresh = false) {
     const middle = game.currentBattle.enemies[1];
     const front = game.currentBattle.enemies[2];
 
-    str += getFighterFrame(back, Data.BattleFighterType.ENEMY, Data.FormationPosition.FRONT);
+    str += getFighterFrame(front, Data.BattleFighterType.ENEMY, Data.FormationPosition.FRONT);
     str += getFighterFrame(middle, Data.BattleFighterType.ENEMY, Data.FormationPosition.MIDDLE);
-    str += getFighterFrame(front, Data.BattleFighterType.ENEMY, Data.FormationPosition.BACK);
+    str += getFighterFrame(back, Data.BattleFighterType.ENEMY, Data.FormationPosition.BACK);
     str += '</div>';
 
     if(refresh) {
@@ -2098,11 +2098,33 @@ function generateBattleCommandsEvents() {
 
 function battleAttackPickTarget() {
     const battle = game.currentBattle;
+    const front = document.querySelector('#b-enemy-front');
+    const middle = document.querySelector('#b-enemy-middle');
+    const back = document.querySelector('#b-enemy-back');
 
     // HIGHLIGHTING TARGETS
-    battle.selectedWeapon.range[0] ? document.querySelector('#b-enemy-front').classList.add('battle-target') : document.querySelector('#b-enemy-front').classList.remove('battle-target');
-    battle.selectedWeapon.range[1] ? document.querySelector('#b-enemy-middle').classList.add('battle-target') : document.querySelector('#b-enemy-middle').classList.remove('battle-target');
-    battle.selectedWeapon.range[2] ? document.querySelector('#b-enemy-back').classList.add('battle-target') : document.querySelector('#b-enemy-back').classList.remove('battle-target');
+    battle.selectedWeapon.range[0] ? front.classList.add('battle-target') : front.classList.remove('battle-target');
+    battle.selectedWeapon.range[1] ? middle.classList.add('battle-target') : middle.classList.remove('battle-target');
+    battle.selectedWeapon.range[2] ? back.classList.add('battle-target') : back.classList.remove('battle-target');
+
+    front.addEventListener('click', e => {
+        if(battle.selectedWeapon.range[0]) {
+            battle.target.push(battle.enemies[2]);
+            console.log('Attacking: ' + battle.enemies[2].name);
+        }
+    });
+    middle.addEventListener('click', e => {
+        if(battle.selectedWeapon.range[1]) {
+            battle.target.push(battle.enemies[1]);
+            console.log('Attacking: ' + battle.enemies[1].name);
+        }
+    });
+    back.addEventListener('click', e => {
+        if(battle.selectedWeapon.range[2]) {
+            battle.target.push(battle.enemies[0]);
+            console.log('Attacking: ' + battle.enemies[0].name);
+        }
+    });
 }
 
 function generateBattleSkillsEvents() {

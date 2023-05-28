@@ -1725,6 +1725,20 @@ const Loader = {
                 {},
                 []
             ),
+            new Enemy(
+                "Fungaliant",
+                "Monster description",
+                Data.Charset.FUNGALIANT,
+                "Subname",
+                50, 50, 50,
+                20, 15, 85, 0, 5, 1,
+                [0, 0], [2, 0],
+                20, 25,
+                0, 4,
+                [],
+                {},
+                []
+            )
         ];
 
         for(const enemy of enemies) {

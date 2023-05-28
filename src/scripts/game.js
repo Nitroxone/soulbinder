@@ -354,7 +354,7 @@ class Game {
         this.player.formationSet(what(this.player.roster, "carhal"), Data.FormationPosition.BACK);
         console.clear();
 
-        this.startBattle([what(this.all_enemies, "mycelial tick"), what(this.all_enemies, "mycelial tick"), what(this.all_enemies, "mycelial tick")]);
+        this.startBattle([what(this.all_enemies, "mycelial tick"), what(this.all_enemies, "mycelial tick"), what(this.all_enemies, "fungaliant")]);
         this.currentBattle.endTurn();
         this.currentBattle.endTurn();
     }
