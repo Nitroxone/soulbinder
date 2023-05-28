@@ -1873,31 +1873,48 @@ function displayCurrentEventChoiceQuote() {
 
 // manages the display of encounters in events (to be linked with battle)
 function displayCurrentEventEncounter(event) {
-    if(game.currentDungeon.currentEvent.type === Data.DungeonEventType.REGULAR) {
-        let str = '';
-        str += 'type: ' + event.type + ', mobtype: ' + event.mobType;
-        str += '<button class="dungeonButton simpleButton" id="nextButton">Next</button>';
+    switch (game.currentDungeon.currentEvent.type) {
+        case Data.DungeonEventType.REGULAR:
+            if (game.currentDungeon.currentEvent.instance === Data.DungeonEventInstance.ROOM) {
+                let str = '';
+                str += 'type: ' + event.type + ', mobtype: ' + event.mobType;
+                str += '<button class="dungeonButton simpleButton" id="nextButton">Next</button>';
 
-        document.querySelector('.dungeonContainer').innerHTML = str;
+                document.querySelector('.dungeonContainer').innerHTML = str;
 
-        const next = document.querySelector('#nextButton');
-        next.addEventListener('click', e => {
-            displayCurrentEventChoiceQuote();
-        });
-    }
-    // If the current event is an entrance event, then there is no choice quote. We therefore generate a new event to display its set
-    else if(game.currentDungeon.currentEvent.type === Data.DungeonEventType.ENTRANCE) {
-        let str = '';
-        str += 'type: ' + event.type + ', mobtype: ' + event.mobType;
-        str += '<button class="dungeonButton simpleButton" id="nextButton">Next</button>';
+                const next = document.querySelector('#nextButton');
+                next.addEventListener('click', e => {
+                    displayCurrentEventChoiceQuote();
+                });
+            }
+            else {
+                let str = '';
+                str += 'type: ' + event.type + ', mobtype: ' + event.mobType;
+                str += '<button class="dungeonButton simpleButton" id="nextButton">Next</button>';
 
-        document.querySelector('.dungeonContainer').innerHTML = str;
+                document.querySelector('.dungeonContainer').innerHTML = str;
 
-        const next = document.querySelector('#nextButton');
-        next.addEventListener('click', e => {
-            game.currentDungeon.generateEvent();
-            displayCurrentEventSet();
-        });
+                const next = document.querySelector('#nextButton');
+                next.addEventListener('click', e => {
+                    game.currentDungeon.generateEvent();
+                    displayCurrentEventSet();
+                });
+            }
+            break;
+        
+        case Data.DungeonEventType.ENTRANCE:
+            let str = '';
+            str += 'type: ' + event.type + ', mobtype: ' + event.mobType;
+            str += '<button class="dungeonButton simpleButton" id="nextButton">Next</button>';
+
+            document.querySelector('.dungeonContainer').innerHTML = str;
+
+            const next = document.querySelector('#nextButton');
+            next.addEventListener('click', e => {
+                game.currentDungeon.generateEvent();
+                displayCurrentEventSet();
+            });
+            break;
     }
 }
 

@@ -3701,10 +3701,11 @@ table.astralForgeShards td {
 
 
 /* EXPLORE SUBSECTION */
-
 .dungeonContainer {
-    height: 100%;
-    width: 100%;
+    margin: 0 auto;
+    height: 800px;
+    width: 1000px;
+    border: 2px dotted grey;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -3815,14 +3816,12 @@ table.astralForgeShards td {
     border-top: none !important;
 }
 
-.zone {
-}
-
 .dungeonDialogue, .dungeonQuote {
     width: 80%;
     background-image: url(img/bg1.png);
     padding: 1em;
     font-size: medium;
+    line-height: 20px;
 }
 
 .dungeonButton {
