@@ -160,15 +160,12 @@ class NPC extends Entity {
 
     nextPopup() {
         const pos = this.getBattleAnimationStringId();
-        if(this.popupsQueue.length > 0) {
-            this.executePopup(pos, this.popupsQueue[0]);
-        } else {
-            game.currentBattle.addEndTurnCounter();
-        }
+        if(this.popupsQueue.length > 0) this.executePopup(pos, this.popupsQueue[0]);
+        else game.currentBattle.addEndTurnCounter();
     }
 
     executePopup(pos, e) {
-        document.querySelector('#' + pos).innerHTML = '<div id="' + this.getPopupIdString() + '">' + e.content + '</div>';
+        document.querySelector('#' + pos).innerHTML = '<div id="' + this.getPopupIdString() + '" class="battlePopup">' + e.content + '</div>';
         const popup = document.querySelector('#' + this.getPopupIdString());
         popup.classList.add('showUp');
         popup.addEventListener('animationend', e => {

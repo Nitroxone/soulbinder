@@ -1160,7 +1160,7 @@ a:active, .tooltiped:active {
 .thing.zero {opacity: 0.5;}
 
 .category {
-    /*position: relative;*/
+    position: relative;
     overflow: hidden;
     padding: 4px;
 
@@ -4346,4 +4346,46 @@ table.astralForgeShards td {
     from {
         transform: translateY(5px);
     }
+}
+
+.animationsWrapper {
+    width: 105px;
+    height: 52px;
+
+    position: absolute;
+    left: 14px;
+    bottom: 100px;
+
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+
+    z-index: 5;
+    pointer-events: none;
+}
+
+.battlePopup {
+    font-family: RobotoSlab;
+    font-size: 17px;
+    font-variant: small-caps;
+}
+
+.charmove-LeftOne, .charmove-LeftTwo, .charmove-RightOne, .charmove-RightTwo {
+    transition: all .2s ease-in-out;
+}
+
+.charmove-LeftOne {
+    transform: translateX(-133px);
+}
+.charmove-LeftTwo {
+    transform: translateX(-266px);
+}
+.charmove-RightOne {
+    transform: translateX(133px);
+}
+.charmove-RightTwo {
+    transform: translateX(266px);
 }

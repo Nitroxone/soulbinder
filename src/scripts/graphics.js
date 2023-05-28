@@ -1987,14 +1987,16 @@ function getFormationBattleEnemies(refresh = false) {
     return str;
 }
 
-function getFighterFrame(fighter, type, pos) {
+function getFighterFrame(fighter, type, pos, ignoreWrapper = false) {
     let str = '';
     pos = pos.toLowerCase();
     type = type.toLowerCase();
     typeMin = type.charAt(0);
 
-    str += '<div id="gw-' + typeMin + '-' + pos + '" class="category" style="display: inline-block"><div class="battlePositionName">' + capitalizeFirstLetter(pos) + '</div>';
-    str += '<div id="aw-' + typeMin + '-' + pos + '" class="animationsWrapper"></div>';
+    const id = (ignoreWrapper ? 'moveanim-' + capitalizeFirstLetter(pos) : 'aw-' + typeMin + '-' + pos);
+
+    if(!ignoreWrapper) str += '<div id="gw-' + typeMin + '-' + pos + '" class="category" style="display: inline-block"><div class="battlePositionName">' + capitalizeFirstLetter(pos) + '</div>';
+    str += '<div id="' + id + '" class="animationsWrapper"' + (ignoreWrapper ? ' style="position: absolute; top: 25.5px;"' : '') + '></div>';
     if(fighter) {
         str += '<div id="b-' + type + '-' + pos + '" class="battleFighter" style="background-image: linear-gradient(transparent 0%, rgba(0, 0, 0, 1) 70%), url(\'css/img/chars/' + fighter.charset + '\'); ' + (fighter.health === 0 ? ' filter: grayscale(100%);' : '') + '">';
         str += '<div class="gaugeProgress"><div class="statGauge health" style="width:'+ Math.round((fighter.health*100)/fighter.maxHealth) +'%"><span class="gaugeIndicator">'+ fighter.health + '/' + fighter.maxHealth +'</span></div></div>';
@@ -2003,6 +2005,35 @@ function getFighterFrame(fighter, type, pos) {
         str += '</div>';
     }
     str += '</div>';
+
+    return str;
+}
+
+function getBattleScreenFormationAlliesSingle(pos) {
+    let selector;
+    switch(pos) {
+        case Data.FormationPosition.BACK:
+            selector = 0;
+            break;
+        case Data.FormationPosition.MIDDLE:
+            selector = 1;
+            break;
+        case Data.FormationPosition.FRONT:
+            selector = 2;
+            break;
+    }
+
+    const npc = game.currentBattle.allies[selector];
+
+    let str = '';
+    str += '<div id="gw-' + typeMin + '-' + pos + '" class="category" style="display: inline-block"><div class="battlePositionName">' + capitalizeFirstLetter(pos) + '</div>';
+    if(npc) {
+        str += '<div id="b-' + type + '-' + pos + '" class="battleFighter" style="background-image: linear-gradient(transparent 0%, rgba(0, 0, 0, 1) 70%), url(\'css/img/chars/' + fighter.charset + '\'); ' + (fighter.health === 0 ? ' filter: grayscale(100%);' : '') + '">';
+        str += '<div class="gaugeProgress"><div class="statGauge health" style="width:'+ Math.round((fighter.health*100)/fighter.maxHealth) +'%"><span class="gaugeIndicator">'+ fighter.health + '/' + fighter.maxHealth +'</span></div></div>';
+        str += '<div class="gaugeProgress"><div class="statGauge stamina" style="width:'+ Math.round((fighter.stamina*100)/fighter.maxStamina) +'%"><span class="gaugeIndicator">'+ fighter.stamina + '/' + fighter.maxStamina +'</span></div></div>';
+        str += '<div class="gaugeProgress"><div class="statGauge mana" style="width:'+ Math.round((fighter.mana*100)/fighter.maxMana) +'%"><span class="gaugeIndicator">'+ fighter.mana + '/' + fighter.maxMana +'</span></div></div>';
+        str += '</div>';
+    }
 
     return str;
 }
@@ -2125,7 +2156,14 @@ function generateBattleCommandsEvents() {
         console.log('blocking');
     });
     mov.addEventListener('click', e => {
-        console.log('moving');
+        if(battle.action != Data.BattleAction.MOVE) {
+            battleCommandsCancelCurrent();
+            battle.action = Data.BattleAction.MOVE;
+            mov.classList.add('battle-actionSelected');
+            console.log('Moving...');
+            battleMovePickTarget();
+        } 
+        else battleCommandsCancelCurrent();
     });
     ski.addEventListener('click', e => {
         console.log('skipping');
@@ -2261,6 +2299,36 @@ function battleSkillPickTarget() {
     });
 }
 
+function battleMovePickTarget() {
+    const battle = game.currentBattle;
+
+    const back = document.querySelector('#b-hero-back');
+    const middle = document.querySelector('#b-hero-middle');
+    const front = document.querySelector('#b-hero-front');
+
+    if(battle.allies.indexOf(battle.currentPlay) !== 0) {
+        back.classList.add('battle-target');
+        back.addEventListener('click', e => {
+            battle.move(battle.currentPlay, Data.FormationPosition.BACK, "a");
+            setTimeout(() => {battle.endTurn();}, 300); // the setTimeout is kind of a nasty way of waiting for the CSS animations to finish but meh... will fix that later
+        });
+    }
+    if(battle.allies.indexOf(battle.currentPlay) !== 1) {
+        middle.classList.add('battle-target');
+        middle.addEventListener('click', e => {
+            battle.move(battle.currentPlay, Data.FormationPosition.MIDDLE, "a");
+            setTimeout(() => {battle.endTurn();}, 300); 
+        });
+    }
+    if(battle.allies.indexOf(battle.currentPlay) !== 2) {
+        front.classList.add('battle-target');
+        front.addEventListener('click', e => {
+            battle.move(battle.currentPlay, Data.FormationPosition.FRONT, "a");
+            setTimeout(() => {battle.endTurn();}, 300); 
+        });
+    }
+}
+
 function generateBattleSkillsEvents() {
     const battle = game.currentBattle;
     const current = battle.currentPlay;
@@ -2319,6 +2387,13 @@ function battleCommandsCancelCurrent() {
             getFormationBattleEnemies(true);
             getFormationBattleAllies(true);
             console.log('Cancelled: Skill');
+            break;
+        case Data.BattleAction.MOVE:
+            battle.action = null;
+            battleSelectionRemoveHighlights();
+            document.querySelector('.battle-actionMov').classList.remove('battle-actionSelected');
+            getFormationBattleAllies(true);
+            console.log('Cancelled: Move');
             break;
     }
 }
@@ -2436,11 +2511,11 @@ function getBattleSkillTooltip(strider, skill) {
 
 function getBattleScreenPlayOrder(refresh = false) {
     let str = '';
-    game.currentBattle.order.forEach(elem => {
+    /*game.currentBattle.order.forEach(elem => {
         if(elem) {
             str += '<div class="playOrderSquare coolBorder" style="background-image: url(\'css/img/chars/' + elem.charset + '\')"></div>';
         }
-    });
+    });*/
 
     if(refresh) {
         document.querySelector('.battle-playOrder').innerHTML = str;

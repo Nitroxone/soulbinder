@@ -1190,7 +1190,7 @@ function processSkillDescription(desc) {
 
 /**
  * Returns the fighter that is currently located at the provided position.
- * @param {string} pos a CSS position class string
+ * @param {string|Data.FormationPosition} pos a CSS position class string or a Data.FormationPosition string
  * @returns {NPC} the fighter that matches
  */
 function getFighterFromPosition(pos) {
@@ -1207,6 +1207,28 @@ function getFighterFromPosition(pos) {
             return game.currentBattle.enemies[1];
         case 'b-enemy-front':
             return game.currentBattle.enemies[2];
+    }
+}
+
+function getFighterFromPositionAndType(type, position) {
+    if(type === Data.BattleFighterType.ENEMY) {
+        switch(position) {
+            case Data.FormationPosition.BACK:
+                return game.currentBattle.allies[0];
+            case Data.FormationPosition.MIDDLE:
+                return game.currentBattle.allies[1];
+            case Data.FormationPosition.FRONT:
+                return game.currentBattle.allies[2];
+        }
+    } else if(type === Data.BattleFighterType.HERO) {
+        switch(position) {
+            case Data.FormationPosition.BACK:
+                return game.currentBattle.allies[0];
+            case Data.FormationPosition.MIDDLE:
+                return game.currentBattle.allies[1];
+            case Data.FormationPosition.FRONT:
+                return game.currentBattle.allies[2];
+        }
     }
 }
 
@@ -1253,6 +1275,7 @@ function getFontFamilyFromAeStyling(props) {
     }
     if(props.italic) return 'RobotoItalic';
 }
+
 
 /**********************DUNGEON LOGIC ***************************/
 
