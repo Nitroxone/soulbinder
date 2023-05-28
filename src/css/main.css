@@ -4284,3 +4284,32 @@ table.astralForgeShards td {
     transform: scale(1.1);
     background-color: rgba(255, 255, 255, 0.25);
 }
+
+.battle-target {
+    border-color: white;
+    position: relative;
+}
+.battle-target::after {
+    content: '';
+    background: url('img/target.png');
+    width: 17px;
+    height: 24px;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    position: absolute;
+    top: 5px;
+    left: calc(50% - 9px);
+    filter: drop-shadow(0px 0px 15px rgba(0,0,0,1));
+
+    transition: all .1s ease-in-out;
+}
+.battle-target:hover::after {
+    background: url('img/targetHover.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    transform: scale(1.1);
+    width: 17px;
+    height: 24px;
+    filter: drop-shadow(0px 0px 15px rgb(0, 161, 255));
+}

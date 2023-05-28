@@ -1907,6 +1907,8 @@ function drawBattleScreen() {
     document.querySelector('.battle').innerHTML = str;
 
     generateBattleCommandsEvents();
+    generateBattleSkillsEvents();
+    generateBattleConsumablesEvents();
     generateBattleFightersEvents();
 }
 
@@ -2066,12 +2068,14 @@ function generateBattleCommandsEvents() {
                 console.log('Preparing attack with ' + battle.selectedWeapon.name);
                 atk.classList.add('battle-actionSelected');
                 wpn.classList.add('battle-weaponSelected');
+                battleAttackPickTarget();
             } else if (battle.action === Data.BattleAction.ATTACK && battle.selectedWeapon !== weapon) {
                 battleSelectionRemoveHighlights();
                 document.querySelectorAll('.battle-weaponIcon').forEach(wpn => {wpn.classList.remove('battle-weaponSelected');})
                 battle.selectedWeapon = weapon;
                 wpn.classList.add('battle-weaponSelected');
                 console.log('Preparing attack with ' + battle.selectedWeapon.name);
+                battleAttackPickTarget();
             }
             else battleCommandsCancelCurrent();
         })
@@ -2090,6 +2094,15 @@ function generateBattleCommandsEvents() {
         console.log('skipping');
         battle.endTurn();
     });
+}
+
+function battleAttackPickTarget() {
+    const battle = game.currentBattle;
+
+    // HIGHLIGHTING TARGETS
+    battle.selectedWeapon.range[0] ? document.querySelector('#b-enemy-front').classList.add('battle-target') : document.querySelector('#b-enemy-front').classList.remove('battle-target');
+    battle.selectedWeapon.range[1] ? document.querySelector('#b-enemy-middle').classList.add('battle-target') : document.querySelector('#b-enemy-middle').classList.remove('battle-target');
+    battle.selectedWeapon.range[2] ? document.querySelector('#b-enemy-back').classList.add('battle-target') : document.querySelector('#b-enemy-back').classList.remove('battle-target');
 }
 
 function generateBattleSkillsEvents() {
@@ -2124,7 +2137,9 @@ function battleCommandsCancelCurrent() {
 }
 
 function battleSelectionRemoveHighlights() {
-    //
+    document.querySelector('#b-enemy-front').classList.remove('battle-target');
+    document.querySelector('#b-enemy-middle').classList.remove('battle-target');
+    document.querySelector('#b-enemy-back').classList.remove('battle-target');
 }
 
 function generateBattleFightersEvents() {
