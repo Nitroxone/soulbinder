@@ -67,6 +67,16 @@ class Dungeon {
     increaseLevel() {
         this.currentLevel = Math.min(this.currentLevel+1, 5);
     }
+
+    getHistoryCurrentRoomNumber() {
+        let roomCount = 0;
+        for (const event of this.history) {
+            if (event.instance === Data.DungeonEventInstance.ROOM) {
+                roomCount++;
+            }
+        }
+        return roomCount;
+    }
 }
 
 

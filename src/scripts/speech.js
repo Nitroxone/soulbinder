@@ -48,6 +48,52 @@ let Speech = {
                             "Which way to go now? Rather the next room, or the tunnels that go down into the depths of the cave?",
         
                         ],
+                    },
+                    2: {
+                        room: [
+                            "caca pipi proutent xd",
+                        ],
+
+                        bridge: [
+
+                            "proute la crotte",
+
+                            "JAI LA CHIASSOCUL"
+        
+                        ],
+
+                        choiceQuote: [
+
+                            "MERD O FIONGUE",
+
+                            "Oui.",
+
+                            "zgegkicole",
+        
+                        ], 
+                    },
+                    3: {
+                        room: [
+                            "nan sale chiotte",
+                        ],
+
+                        bridge: [
+
+                            "ici cest le niveau 3 biento 4 xd",
+
+                            "JAI toujours LA CHIASSOCUL"
+        
+                        ],
+
+                        choiceQuote: [
+
+                            "MERD O FIONGUE x2",
+
+                            "Oui. ou non, peutetre qui sait ?",
+
+                            "TAYEEEEUUULLL",
+        
+                        ], 
                     }
                 }
             },
