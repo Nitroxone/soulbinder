@@ -4226,7 +4226,7 @@ table.astralForgeShards td {
 }
 
 .battle-activeEffects {
-    width: 30%;
+    width: 40%;
     background: url(img/bg1.png) repeat;
 
     box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.5);
@@ -4235,14 +4235,28 @@ table.astralForgeShards td {
 
     position: absolute;
     top: 25%;
-    right: 2rem;
+    right: 1rem;
     z-index:200;
+}
+
+.activeEffect-wrapper {
+    padding: 0.75em;
+}
+.activeEffect {
+    width: 100%;
+    margin-left: 1rem;
+
+    text-align: left;
+
 }
 
 .battle-activeEffects h4 {
     font-family: RobotoSlab;
     color: grey;
     font-variant: small-caps;
+}
+.battle-activeEffects p {
+    text-align: left;
 }
 
 .battle-weaponIcons {

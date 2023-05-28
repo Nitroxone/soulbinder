@@ -1228,10 +1228,30 @@ function getDungeonRegularSet(dungeon) {
     return Speech.Dungeon[dungeon.zone][dungeon.type][dungeon.biome][dungeon.level][dungeon.instance][Math.floor(Math.random() * Speech.Dungeon[dungeon.zone][dungeon.type][dungeon.biome][dungeon.level][dungeon.instance].length)]
 }
 
+/**
+ * Returns the Weapon which ID is provided, on the provided Strider.
+ * @param {Strider} strider 
+ * @param {number} id 
+ * @returns {Weapon|null} 
+ */
 function getEquippedWeaponById(strider, id) {
     if(strider.eqWeaponBoth && strider.eqWeaponBoth.id === id) return strider.eqWeaponBoth;
     if(strider.eqWeaponLeft && strider.eqWeaponLeft.id === id) return strider.eqWeaponLeft;
     if(strider.eqWeaponRight && strider.eqWeaponRight.id === id) return strider.eqWeaponRight;
+    return null;
+}
+
+/**
+ * Returns the font family that matches the properties of the provided AE styling object.
+ * @param {object} props the AE styling object
+ * @returns {string} a font family string
+ */
+function getFontFamilyFromAeStyling(props) {
+    if(props.bold) {
+        if(props.italic) return 'RobotoBoldItalic';
+        return 'RobotoBold';
+    }
+    if(props.italic) return 'RobotoItalic';
 }
 
 /**********************DUNGEON LOGIC ***************************/

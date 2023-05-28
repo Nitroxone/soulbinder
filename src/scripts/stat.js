@@ -114,6 +114,7 @@ class Stat {
         const defaultColor = getValueFromObject(props, "defaultColor", false);
         const allowOverloadedStyling = getValueFromObject(props, "allowOverloadedStyling", false);
         const skillFormat = getValueFromObject(props, "skillFormat", false);
+        const includeDuration = getValueFromObject(props, "includeDuration", false);
 
         if(defaultColor) {
             if(this.getValue() > 0) {
@@ -175,7 +176,10 @@ class Stat {
                 + this.theorical[1] 
                 + ']</span>';
             }
+            str += (includeDuration && this.duration > 0 ? ' (' + this.duration + ' round' + (this.duration > 1 ? 's' : '') + ' left)' : '');
             str += '</div>';
+
+            if(includeDuration) console.log('Duration included: ' + this.duration);
         }
 
         return str;
