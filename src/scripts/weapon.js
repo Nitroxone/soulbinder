@@ -250,4 +250,20 @@ class Weapon extends Item {
     setAstralForgeItem() {
         this.astralForgeItem = new AstralForge(this.id);
     }
+
+    /**
+     * Gets a random Sharpness number for this Weapon.
+     * @returns {number} a Sharpness value
+     */
+    getSharpness() {
+        return getRandomNumber(this.pdmg[0], this.pdmg[1]);
+    }
+    
+    /**
+     * Gets a random Withering number for this Weapon.
+     * @returns {number} a Withering value
+     */
+    getWithering() {
+        return getRandomNumber(this.mdmg[0], this.mdmg[1]);
+    }
 }
