@@ -97,4 +97,39 @@ class NPC extends Entity {
     addShield(amount) {
         this.shield = Math.min(this.maxHealth, this.shield+amount);
     }
+
+    /**
+     * Applies the damage held in the provided params object to this NPC.
+     * @param {object} params a battle attack params object
+     */
+    receiveDamage(params) {
+        const phys = params.phys_damage;
+        const magi = params.magi_damage;
+        const crit = params.crit_damage;
+        let damage, phys_damage, magi_damage;
+
+        phys_damage = phys - this.resilience;
+        magi_damage = magi - this.warding;
+
+        damage = phys_damage + magi_damage + crit;
+        damage -= Math.round(damage * this.protection / 100);
+
+        this.removeHealth(damage);
+
+        console.log(this.name + ' received ' + damage + ' damage (' + phys + ' phys, effective ' + phys_damage + ' | ' + magi + ' magi, effective ' + magi_damage + ' | ' + crit + ' critical -> Total ' + damage + ' with ' + this.protection + '% reduction');
+    }
+
+    /**
+     * Removes health and eventually shield from this NPC, based on the provided damage value.
+     * @param {number} damage 
+     */
+    removeHealth(damage) {
+        let removeShield = false;
+        if(this.shield > 0) {
+            if(this.shield <= this.damage) removeShield = true;
+            damage = damage - this.shield;
+            if(removeShield) this.shield = 0;
+        }
+        this.health = Math.max(0, this.health - damage);
+    }
 }
