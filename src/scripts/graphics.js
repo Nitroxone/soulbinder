@@ -2103,7 +2103,7 @@ function battleAttackPickTarget() {
     const back = document.querySelector('#b-enemy-back');
     
     if(!battle.selectedWeapon) return;
-    
+
     // HIGHLIGHTING TARGETS
     battle.selectedWeapon.range[0] ? front.classList.add('battle-target') : front.classList.remove('battle-target');
     battle.selectedWeapon.range[1] ? middle.classList.add('battle-target') : middle.classList.remove('battle-target');
@@ -2345,11 +2345,12 @@ function getBattleFighterActiveEffects(fighter) {
     if(fighter.activeEffects.length === 0) return '<h4>No active effects</h4>';
 
     str += '<h4>Active effects</h4>'
+    str += '<div class="divider"></div>';
     fighter.activeEffects.forEach(ae => {
         str += '<div class="activeEffect-wrapper">';
         str += '<p class="activeEffectTitle" style="color: ' + (ae.style.color ? ae.style.color : '#ddd') + '; font-family: ' + getFontFamilyFromAeStyling(ae.style) + ';">' + ae.name + '</p>';
         ae.effects.forEach(eff => {
-            str += eff.getFormatted({noTheorical: true, cssClass: 'activeEffect'});
+            str += eff.getFormatted({noTheorical: true, cssClass: 'activeEffect', includeDuration: true});
         });
         if(ae.originObject instanceof Skill) str += '<p class="activeEffect">From: ' + ae.originObject.name + ', casted by ' + ae.originUser.name + ' (' + ae.countdown + (ae.countdown > 1 ? ' rounds' : ' round') + 'ago)</p>';
         else if(ae.originObject instanceof Weapon) str += '<p class="activeEffect">From: <span style="color: ' + getRarityColorCode(ae.originObject.rarity) + ';">' + ae.originObject.name + '</span>, wielded by ' + ae.originUser.name + ' (' + ae.countdown + (ae.countdown > 1 ? ' rounds' : ' round') + ' ago)' + '</p>';

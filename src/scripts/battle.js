@@ -242,6 +242,8 @@ class Battle {
      * Executes a Weapon attack based on the selected weapon, current player and target(s).
      */
     executeAttack() {
+        const weapon = this.selectedWeapon;
+
         this.runTriggersOnCurrent(Data.TriggerType.ON_ATTACK);
         this.target.forEach(tar => {
             this.computeAttackParams();
@@ -261,6 +263,45 @@ class Battle {
                     tar.runTriggers(Data.TriggerType.ON_RECV_CRITICAL);
                 }
                 // TODO: ADD BLEEDING AND POISONING
+
+                if(weapon.bleed[0] > 0) {
+                    tar.addActiveEffect(new ActiveEffect({
+                        name: "Bleeding", 
+                        originUser: this.currentPlay, 
+                        originObject: weapon, 
+                        effects: [
+                            new Stat({
+                                effect: weapon.bleed[2] ? Data.Effect.BLEEDING_CURABLE : Data.Effect.BLEEDING_INCURABLE,
+                                theorical: weapon.bleed[0],
+                                duration: weapon.bleed[1]
+                            })
+                        ],
+                        style: {
+                            color: Data.Color.RED,
+                            bold: true,
+                            italic: false
+                        }
+                    }));
+                }
+                if(weapon.poison[0] > 0) {
+                    tar.addActiveEffect(new ActiveEffect({
+                        name: "Poisoning", 
+                        originUser: this.currentPlay, 
+                        originObject: weapon, 
+                        effects: [
+                            new Stat({
+                                effect: weapon.poison[2] ? Data.Effect.BLIGHT_CURABLE : Data.Effect.BLIGHT_INCURABLE,
+                                theorical: weapon.poison[0],
+                                duration: weapon.poison[1]
+                            })
+                        ],
+                        style: {
+                            color: Data.Color.GREEN,
+                            bold: true,
+                            italic: false
+                        }
+                    }));
+                }
             } else if(!params.success_accuracy) {
                 // Missed
                 console.log('Missed!');
