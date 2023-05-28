@@ -1946,7 +1946,7 @@ function getFormationBattleAllies(refresh = false) {
     str += '</div>';
 
     if(refresh) {
-        document.querySelector('.battle-fighters-allies').innerHTML = str;
+        document.querySelector('#battle-fighters-allies').innerHTML = str;
         return;
     }
     return str;
@@ -1964,7 +1964,7 @@ function getFormationBattleEnemies(refresh = false) {
     str += '</div>';
 
     if(refresh) {
-        document.querySelector('.battle-fighters-enemies').innerHTML = str;
+        document.querySelector('#battle-fighters-enemies').innerHTML = str;
         return;
     }
     return str;
@@ -2098,7 +2098,7 @@ function generateBattleCommandsEvents() {
                 battleAttackPickTarget();
             }
             else battleCommandsCancelCurrent();
-        })
+        });
     })
 
     atk.addEventListener('click', e => {
@@ -2152,14 +2152,128 @@ function battleAttackPickTarget() {
     });
 }
 
+function battleSkillPickTarget() {
+    const battle = game.currentBattle;
+    const skill = battle.selectedSkill;
+
+    let selector;
+
+    battleSelectionRemoveHighlights();
+
+    selector = skill.targets.allies.charAt(0) == '@' ? 'battle-skillTargetMultiple' : 'battle-skillTargetSingle';
+    if(skill.targets.allies.includes('1')) document.querySelector('#b-hero-front').classList.add(selector);
+    if(skill.targets.allies.includes('2')) document.querySelector('#b-hero-middle').classList.add(selector);
+    if(skill.targets.allies.includes('3')) document.querySelector('#b-hero-back').classList.add(selector);
+
+    selector = skill.targets.enemies.charAt(0) == '@' ? 'battle-skillTargetMultiple' : 'battle-skillTargetSingle';
+    if(skill.targets.enemies.includes('1')) document.querySelector('#b-enemy-front').classList.add(selector);
+    if(skill.targets.enemies.includes('2')) document.querySelector('#b-enemy-middle').classList.add(selector);
+    if(skill.targets.enemies.includes('3')) document.querySelector('#b-enemy-back').classList.add(selector);
+
+    // Highlight Caster's position if no target at all but caster effects exist
+    if(skill.targets.enemies === '-0' && skill.targets.allies === '-0' && skill.effects_caster) {
+        if(containsByName(battle.allies, battle.currentPlay.name)) {
+            document.querySelector('#b-hero-' + battle.getCurrentNPCPos().toLowerCase()).classList.add('battle-skillTargetSingle');
+        }
+    } else {
+        document.querySelector('#b-hero-' + battle.getCurrentNPCPos().toLowerCase()).classList.remove('battle-skillTargetSingle', 'battle-skillTargetMultiple');
+    }
+
+    // ALLIES
+    document.querySelector('#b-hero-front').addEventListener('click', e => {
+        if(skill.targets.allies.includes('1') && battle.getCurrentNPCPos() !== Data.FormationPosition.FRONT) {
+            battle.target.push(battle.allies[2]);
+            if(skill.targets.allies.charAt(0) === '@') {
+                if(skill.targets.allies.includes('2')) battle.target.push(battle.allies[1]);
+                if(skill.targets.allies.includes('3')) battle.target.push(battle.allies[0]);
+            }
+            battle.executeSkill();
+        }
+    });
+    document.querySelector('#b-hero-middle').addEventListener('click', e => {
+        if(skill.targets.allies.includes('2') && battle.getCurrentNPCPos() !== Data.FormationPosition.MIDDLE) {
+            battle.target.push(battle.allies[1]);
+            if(skill.targets.allies.charAt(0) === '@') {
+                if(skill.targets.allies.includes('1')) battle.target.push(battle.allies[2]);
+                if(skill.targets.allies.includes('3')) battle.target.push(battle.allies[0]);
+            }
+            battle.executeSkill();
+        }
+    });
+    document.querySelector('#b-hero-back').addEventListener('click', e => {
+        if(skill.targets.allies.includes('3') && battle.getCurrentNPCPos() !== Data.FormationPosition.BACK) {
+            battle.target.push(battle.allies[0]);
+            if(skill.targets.allies.charAt(0) === '@') {
+                if(skill.targets.allies.includes('2')) battle.target.push(battle.allies[1]);
+                if(skill.targets.allies.includes('1')) battle.target.push(battle.allies[2]);
+            }
+            battle.executeSkill();
+        }
+    });
+
+    // ENEMIES
+    document.querySelector('#b-enemy-back').addEventListener('click', e => {
+        if(skill.targets.enemies.includes('3')) {
+            battle.target.push(battle.enemies[0]);
+            if(skill.targets.enemies.charAt(0) === '@') {
+                if(skill.targets.enemies.includes('2')) battle.target.push(battle.enemies[1]);
+                if(skill.targets.enemies.includes('1')) battle.target.push(battle.enemies[2]);
+            }
+            battle.executeSkill();
+        }
+    });
+    document.querySelector('#b-enemy-middle').addEventListener('click', e => {
+        if(skill.targets.enemies.includes('2')) {
+            battle.target.push(battle.enemies[1]);
+            if(skill.targets.enemies.charAt(0) === '@') {
+                if(skill.targets.enemies.includes('1')) battle.target.push(battle.enemies[2]);
+                if(skill.targets.enemies.includes('3')) battle.target.push(battle.enemies[0]);
+            }
+            battle.executeSkill();
+        }
+    });
+    document.querySelector('#b-enemy-front').addEventListener('click', e => {
+        if(skill.targets.enemies.includes('1')) {
+            battle.target.push(battle.enemies[2]);
+            if(skill.targets.enemies.charAt(0) === '@') {
+                if(skill.targets.enemies.includes('2')) battle.target.push(battle.enemies[1]);
+                if(skill.targets.enemies.includes('3')) battle.target.push(battle.enemies[0]);
+            }
+            battle.executeSkill();
+        }
+    });
+}
+
 function generateBattleSkillsEvents() {
     const battle = game.currentBattle;
     const current = battle.currentPlay;
     const skills = current.skills;
     skills.forEach(skill => {
-        addTooltip(document.querySelector('#' + current.name + '-' + skill.id), function(){
+        const sk = document.querySelector('#' + current.name + '-' + skill.id);
+        addTooltip(sk, function(){
             return getBattleSkillTooltip(current, skill)
         }, {offY: -8})
+
+        sk.addEventListener('click', e => {
+            if(battle.action !== Data.BattleAction.SKILL) {
+                battleCommandsCancelCurrent();
+                battle.action = Data.BattleAction.SKILL;
+                battle.selectedSkill = skill;
+                console.log('Preparing skill with ' + battle.selectedSkill.name);
+                sk.classList.add('battle-skillSelected');
+                battleSkillPickTarget();
+            } else if(battle.action === Data.BattleAction.SKILL && battle.selectedSkill !== skill) {
+                battleCommandsCancelCurrent();
+                battleSelectionRemoveHighlights();
+                document.querySelectorAll('.skillSquare').forEach(wpn => {wpn.classList.remove('battle-skillSelected');});
+                battle.action = Data.BattleAction.SKILL;
+                battle.selectedSkill = skill;
+                sk.classList.add('battle-skillSelected');
+                console.log('Preparing skill with ' + battle.selectedSkill.name);
+                battleSkillPickTarget();
+            } 
+            else battleCommandsCancelCurrent();
+        });
     });
 }
 
@@ -2169,7 +2283,6 @@ function generateBattleConsumablesEvents() {
 
 function battleCommandsCancelCurrent() {
     const battle = game.currentBattle;
-    const current = battle.currentPlay;
 
     switch(battle.action) {
         case Data.BattleAction.ATTACK:
@@ -2178,15 +2291,29 @@ function battleCommandsCancelCurrent() {
             battleSelectionRemoveHighlights();
             document.querySelector('.battle-actionAtk').classList.remove('battle-actionSelected');
             document.querySelectorAll('.battle-weaponIcon').forEach(wpn => {wpn.classList.remove('battle-weaponSelected');})
+            getFormationBattleEnemies(true);
             console.log('Cancelled: Attack');
+            break;
+        case Data.BattleAction.SKILL:
+            battle.action = null;
+            battle.selectedSkill = null;
+            battleSelectionRemoveHighlights();
+            document.querySelectorAll('.skillSquare').forEach(wpn => {wpn.classList.remove('battle-skillSelected');});
+            getFormationBattleEnemies(true);
+            getFormationBattleAllies(true);
+            console.log('Cancelled: Skill');
             break;
     }
 }
 
 function battleSelectionRemoveHighlights() {
-    document.querySelector('#b-enemy-front').classList.remove('battle-target');
-    document.querySelector('#b-enemy-middle').classList.remove('battle-target');
-    document.querySelector('#b-enemy-back').classList.remove('battle-target');
+    document.querySelector('#b-enemy-front').classList.remove('battle-target', 'battle-skillTargetSingle', 'battle-skillTargetMultiple');
+    document.querySelector('#b-enemy-middle').classList.remove('battle-target', 'battle-skillTargetSingle', 'battle-skillTargetMultiple');
+    document.querySelector('#b-enemy-back').classList.remove('battle-target', 'battle-skillTargetSingle', 'battle-skillTargetMultiple');
+
+    document.querySelector('#b-hero-front').classList.remove('battle-skillTargetSingle', 'battle-skillTargetMultiple');
+    document.querySelector('#b-hero-middle').classList.remove('battle-skillTargetSingle', 'battle-skillTargetMultiple');
+    document.querySelector('#b-hero-back').classList.remove('battle-skillTargetSingle', 'battle-skillTargetMultiple');
 }
 
 function generateBattleFightersEvents() {
@@ -2372,9 +2499,9 @@ function getBattleFighterActiveEffects(fighter) {
         ae.effects.forEach(eff => {
             str += eff.getFormatted({noTheorical: true, cssClass: 'activeEffect', includeDuration: true});
         });
-        if(ae.originObject instanceof Skill) str += '<p class="activeEffect">From: ' + ae.originObject.name + ', casted by ' + ae.originUser.name + ' (' + ae.countdown + (ae.countdown > 1 ? ' rounds' : ' round') + 'ago)</p>';
-        else if(ae.originObject instanceof Weapon) str += '<p class="activeEffect">From: <span style="color: ' + getRarityColorCode(ae.originObject.rarity) + ';">' + ae.originObject.name + '</span>, wielded by ' + ae.originUser.name + ' (' + ae.countdown + (ae.countdown > 1 ? ' rounds' : ' round') + ' ago)' + '</p>';
-        else if(ae.originObject === Data.ActiveEffectType.POWER) str += '<p class="activeEffect">Power emanating from ' + ae.originUser.name + '</p>';
+        if(ae.originObject instanceof Skill) str += '<p class="activeEffect">From: ' + ae.originObject.name + ', casted by <span style="color: ' + Data.Color.PURPLE + '">' + ae.originUser.name + '</span> (' + ae.countdown + (ae.countdown > 1 ? ' rounds' : ' round') + 'ago)</p>';
+        else if(ae.originObject instanceof Weapon) str += '<p class="activeEffect">From: <span style="color: ' + getRarityColorCode(ae.originObject.rarity) + ';">' + ae.originObject.name + '</span>, wielded by <span style="color: ' + Data.Color.PURPLE + '">' + ae.originUser.name + '</span> (' + ae.countdown + (ae.countdown > 1 ? ' rounds' : ' round') + ' ago)' + '</p>';
+        else if(ae.originObject === Data.ActiveEffectType.POWER) str += '<p class="activeEffect">Power emanating from <span style="color: ' + Data.Color.PURPLE + '">' + ae.originUser.name + '</span></p>';
         str += '</div>';
     });
 

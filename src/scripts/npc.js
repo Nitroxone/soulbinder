@@ -78,6 +78,8 @@ class NPC extends Entity {
         this.triggers = triggers;
 
         this.activeEffects = [];
+
+        this.popupsQueue = [];
     }
 
     /**
@@ -126,9 +128,16 @@ class NPC extends Entity {
     removeHealth(damage) {
         let removeShield = false;
         if(this.shield > 0) {
-            if(this.shield <= this.damage) removeShield = true;
+            if(this.shield <= this.damage) {
+                removeShield = true;
+                this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.TURQUOISE + '">- ' + this.shield + '</p>'))
+            } else this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.TURQUOISE + '">- ' + params.damage + '</p>'))
             damage = damage - this.shield;
+            
             if(removeShield) this.shield = 0;
+        }
+        if(damage > 0) {
+            this.addBattlePopup(new BattlePopup(0, '<p style="color: rgba(234, 32, 39, 1)">- ' + damage + '</p>'))
         }
         this.health = Math.max(0, this.health - damage);
     }
@@ -139,5 +148,83 @@ class NPC extends Entity {
      */
     addActiveEffect(ae) {
         this.activeEffects.push(ae);
+    }
+
+    addBattlePopup(popup) {
+        this.popupsQueue.push(popup);
+    }
+
+    executePopups() {
+        this.nextPopup();
+    }
+
+    nextPopup() {
+        const pos = this.getBattleAnimationStringId();
+        if(this.popupsQueue.length > 0) {
+            this.executePopup(pos, this.popupsQueue[0]);
+        } else {
+            game.currentBattle.addEndTurnCounter();
+        }
+    }
+
+    executePopup(pos, e) {
+        document.querySelector('#' + pos).innerHTML = '<div id="' + this.getPopupIdString() + '">' + e.content + '</div>';
+        const popup = document.querySelector('#' + this.getPopupIdString());
+        popup.classList.add('showUp');
+        popup.addEventListener('animationend', e => {
+            popup.classList.remove('showUp');
+            popup.classList.add('popupFadeOut');
+            popup.addEventListener('animationend', e => {
+                document.querySelector('#' + pos).innerHTML = '';
+                this.popupsQueue.shift();
+                this.nextPopup();
+            });
+        }, false);
+    }
+
+    getBattleFormationStringId() {
+        const battle = game.currentBattle;
+        let str = 'b-';
+        if(arrayContains(battle.allies, this)) str += 'hero-';
+        else if(arrayContains(battle.enemies, this)) str += 'enemy-';
+
+        return str += this.getSelfPosInBattle().toLowerCase();
+    }
+
+    getBattleFormationWrapperStringId() {
+        const battle = game.currentBattle;
+        let str = 'gw-';
+        if(arrayContains(battle.allies, this)) str += 'h-';
+        else if(arrayContains(battle.enemies, this)) str += 'e-';
+        
+        return str += this.getSelfPosInBattle().toLowerCase();
+    }
+
+    getBattleAnimationStringId() {
+        const battle = game.currentBattle;
+        let str = 'aw-';
+        if(arrayContains(battle.allies, this)) str += 'h-';
+        else if(arrayContains(battle.enemies, this)) str += 'e-';
+        
+        return str += this.getSelfPosInBattle().toLowerCase();
+    }
+
+    getPopupIdString() {
+        const battle = game.currentBattle;
+        let str = 'popup-';
+        if(arrayContains(battle.allies, this)) str += 'h-';
+        else if(arrayContains(battle.enemies, this)) str += 'e-';
+        
+        return str += this.getSelfPosInBattle().toLowerCase();
+    }
+
+    getSelfPosInBattle() {
+        const battle = game.currentBattle;
+        if(battle.allies[0] === this) return Data.FormationPosition.BACK;
+        if(battle.allies[1] === this) return Data.FormationPosition.MIDDLE;
+        if(battle.allies[2] === this) return Data.FormationPosition.FRONT;
+        if(battle.enemies[0] === this) return Data.FormationPosition.BACK;
+        if(battle.enemies[1] === this) return Data.FormationPosition.MIDDLE;
+        if(battle.enemies[2] === this) return Data.FormationPosition.FRONT;
     }
 }

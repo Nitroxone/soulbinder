@@ -116,12 +116,23 @@ class Battle {
         this.target = [];
         this.movementQueue = [];
         //this.resetTargetTracker();
-        //this.resetEndTurnCounter();
+        this.resetEndTurnCounter();
         drawBattleScreen();
         this.beginTurn();
     }
 
-    addEndTurnCounter() {}
+    addEndTurnCounter() {
+        this.endturnCounter += 1;
+        if(this.endturnCounter === this.order.length) {
+            //this.executeMovements();
+            if(this.movementQueue.length !== 0) setTimeout(() => {this.endTurn();}, 300);
+            else this.endTurn();
+        }
+    }
+
+    resetEndTurnCounter() {
+        this.endturnCounter = 0;
+    }
 
     /**
      * Begins a new round, regenerates play order and runs ON_ROUND_BEGINS triggers.
@@ -264,7 +275,7 @@ class Battle {
                 }
                 // TODO: ADD BLEEDING AND POISONING
 
-                if(weapon.bleed[0] > 0) {
+                if(weapon.bleed[0] > 0 && (weapon.bleed[0] - tar.resBleed[0]) > 0) {
                     tar.addActiveEffect(new ActiveEffect({
                         name: "Bleeding", 
                         originUser: this.currentPlay, 
@@ -272,7 +283,7 @@ class Battle {
                         effects: [
                             new Stat({
                                 effect: weapon.bleed[2] ? Data.Effect.BLEEDING_CURABLE : Data.Effect.BLEEDING_INCURABLE,
-                                theorical: weapon.bleed[0],
+                                theorical: weapon.bleed[0] - tar.resBleed[0],
                                 duration: weapon.bleed[1]
                             })
                         ],
@@ -283,7 +294,7 @@ class Battle {
                         }
                     }));
                 }
-                if(weapon.poison[0] > 0) {
+                if(weapon.poison[0] > 0 && (weapon.poison[0] - tar.resPoison[0]) > 0) {
                     tar.addActiveEffect(new ActiveEffect({
                         name: "Poisoning", 
                         originUser: this.currentPlay, 
@@ -291,7 +302,7 @@ class Battle {
                         effects: [
                             new Stat({
                                 effect: weapon.poison[2] ? Data.Effect.BLIGHT_CURABLE : Data.Effect.BLIGHT_INCURABLE,
-                                theorical: weapon.poison[0],
+                                theorical: weapon.poison[0] - tar.resPoison[0],
                                 duration: weapon.poison[1]
                             })
                         ],
@@ -307,15 +318,40 @@ class Battle {
                 console.log('Missed!');
                 this.runTriggersOnCurrent(Data.TriggerType.ON_DEAL_MISSED);
                 tar.runTriggers(Data.TriggerType.ON_RECV_MISSED);
+                tar.addBattlePopup(new BattlePopup(0, '<p>Missed!</p>'));
             } else if(params.success_dodge) {
                 // Dodged
                 console.log('Dodged!');
                 this.runTriggersOnCurrent(Data.TriggerType.ON_DEAL_DODGED);
                 tar.runTriggers(Data.TriggerType.ON_RECV_DODGED);
+                tar.addBattlePopup(new BattlePopup(0, '<p>Dodged!</p>'));
             }
         });
 
         this.currentPlay.useWeapon(this.selectedWeapon);
-        this.endTurn();
+        this.currentPlay.addBattlePopup(new BattlePopup(0, '<p style="color: rgba(0,148,50,1)">-' + weapon.effort + '</p>'));
+        
+        this.runPopups();
+    }
+
+    executeSkill() {
+        const skill = this.selectedSkill;
+
+        this.runTriggersOnCurrent(Data.TriggerType.ON_SKILL);
+    }
+
+    getCurrentNPCPos() {
+        if(this.allies[0] === this.currentPlay) return Data.FormationPosition.BACK;
+        if(this.allies[1] === this.currentPlay) return Data.FormationPosition.MIDDLE;
+        if(this.allies[2] === this.currentPlay) return Data.FormationPosition.FRONT;
+        if(this.enemies[0] === this.currentPlay) return Data.FormationPosition.BACK;
+        if(this.enemies[1] === this.currentPlay) return Data.FormationPosition.MIDDLE;
+        if(this.enemies[2] === this.currentPlay) return Data.FormationPosition.FRONT;
+    }
+
+    runPopups() {
+        this.order.forEach(el => {
+            el.executePopups();
+        })
     }
 }
