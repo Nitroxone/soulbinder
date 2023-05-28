@@ -521,4 +521,8 @@ class Strider extends NPC {
     removeSkill(skill) {
         removeFromArray(this.skills, skill);
     }
+
+    useWeapon(weapon) {
+        this.stamina = Math.max(0, this.stamina - weapon.effort);
+    }
 }
