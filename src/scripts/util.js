@@ -1232,7 +1232,7 @@ function getDungeonRegularSet(dungeon) {
  * Returns the Weapon which ID is provided, on the provided Strider.
  * @param {Strider} strider 
  * @param {number} id 
- * @returns {Weapon|null}
+ * @returns {Weapon|null} 
  */
 function getEquippedWeaponById(strider, id) {
     if(strider.eqWeaponBoth && strider.eqWeaponBoth.id === id) return strider.eqWeaponBoth;
