@@ -396,6 +396,10 @@ const Loader = {
                     new Stat({
                         effect: Data.Effect.POISON_DMG,
                         theorical: [2, 4]
+                    }),
+                    new Stat({
+                        effect: Data.Effect.POISON_DURATION,
+                        theorical: 1
                     })
                 ],
                 "Venom coursing through your veins like a malevolent river.",
@@ -511,6 +515,10 @@ const Loader = {
                     new Stat({
                         effect: Data.Effect.BLEED_DMG,
                         theorical: [2, 4]
+                    }),
+                    new Stat({
+                        effect: Data.Effect.BLEED_DURATION,
+                        theorical: 1
                     }),
                     new Stat({
                         effect: Data.Effect.MODIF_ACCURACY_BLEED,
