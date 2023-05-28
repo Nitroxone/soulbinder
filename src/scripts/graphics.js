@@ -1803,7 +1803,7 @@ function generateDungeonEntranceEvents() {
     document.querySelector('#explorationDiv').innerHTML = '<div class="dungeonContainer"></div>';
 
     let str = '';
-    str += '<div class="dungeonDialogue">';
+    str += '<div class="dungeonDialogue coolBorder">';
     str += game.currentDungeon.getCurrentEventSet();
     str += '</div>';
 
