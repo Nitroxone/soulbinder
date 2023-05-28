@@ -2101,7 +2101,9 @@ function battleAttackPickTarget() {
     const front = document.querySelector('#b-enemy-front');
     const middle = document.querySelector('#b-enemy-middle');
     const back = document.querySelector('#b-enemy-back');
-
+    
+    if(!battle.selectedWeapon) return;
+    
     // HIGHLIGHTING TARGETS
     battle.selectedWeapon.range[0] ? front.classList.add('battle-target') : front.classList.remove('battle-target');
     battle.selectedWeapon.range[1] ? middle.classList.add('battle-target') : middle.classList.remove('battle-target');
