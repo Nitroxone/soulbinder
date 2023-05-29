@@ -152,8 +152,8 @@ class Stat {
             }
             str += ' ' 
             + capitalizeFirstLetter(this.effect)
-            + (this.duration > 0 ? '<span style="color: #ddd"> (' + this.duration + ' rounds)</span>' : '')
-            + (this.delay > 0 ? '<span style="color: #ddd"> [in ' + this.delay + ' round(s)]</span>' : '');
+            + (this.duration > 0 ? '<span style="color: #ddd"> (' + this.duration + ' round' + (this.duration > 1 ? 's' : '') + ')</span>' : '')
+            + (this.delay > 0 ? '<span style="color: #ddd"> [in ' + this.delay + ' round' + (this.delay > 1 ? 's' : '') + ']</span>' : '');
             str += '</div>';
         } else {
             str += '<div class="' 
@@ -177,6 +177,7 @@ class Stat {
                 + ']</span>';
             }
             str += (includeDuration && this.duration > 0 ? ' <span style="color: #ddd">(' + this.duration + ' round' + (this.duration > 1 ? 's' : '') + ' left)</span>' : '');
+            str += (this.delay > 0 ? ' <span style="color: #ddd">(in ' + this.delay + ' round' + (this.delay > 1 ? 's' : '') + ')</span>' : '');
             str += '</div>';
         }
 
