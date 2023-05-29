@@ -224,4 +224,9 @@ class NPC extends Entity {
         if(battle.enemies[1] === this) return Data.FormationPosition.MIDDLE;
         if(battle.enemies[2] === this) return Data.FormationPosition.FRONT;
     }
+
+    useSkill(skill) {
+        this.mana = Math.max(0, this.mana - skill.manaCost);
+        this.runTriggers(Data.TriggerType.ON_USE_SKILL);
+    }
 }

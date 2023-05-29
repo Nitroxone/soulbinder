@@ -9,6 +9,8 @@
 
 - Actually implement set bonuses
 
+- Add a battle order indicator
+
 ASTRAL FORGE:
 - Create GUI -- ONGOING
 - Implement an item pricing change on alteration (increasing/decreasing stats brings the price up and down)

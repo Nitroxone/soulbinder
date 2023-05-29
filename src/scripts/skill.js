@@ -35,4 +35,38 @@ class Skill extends Entity {
     getCurrentEffectsEnemies() {
         return this.effectsEnemies[this.level];
     }
+
+    /**
+     * Tells whether the provided Effect exists among the provided Effect Family in this skill.
+     * @param {Data.SkillEffectFamily} target the Effects to look into
+     * @param {Data.Effect} effect the Effect to look for
+     * @returns {boolean} whether the Effect was found
+     */
+    hasEffect(target, effect) {
+        if((target === Data.SkillEffectFamily.ALLIES || target === Data.SkillEffectFamily.ALL) && this.effectsAllies) {
+            for(let i = 0; i < this.effectsAllies[this.level].regular.length; i++) {
+                if(this.effectsAllies[this.level].regular[i].effect === effect) return true;
+            }
+            for(let i = 0; i < this.effectsAllies[this.level].critical.length; i++) {
+                if(this.effectsAllies[this.level].critical[i].effect === effect) return true;
+            }
+        }
+        if((target === Data.SkillEffectFamily.ENEMIES || target === Data.SkillEffectFamily.ALL) && this.effectsEnemies) {
+            for(let i = 0; i < this.effectsEnemies[this.level].regular.length; i++) {
+                if(this.effectsEnemies[this.level].regular[i].effect === effect) return true;
+            }
+            for(let i = 0; i < this.effectsEnemies[this.level].critical.length; i++) {
+                if(this.effectsEnemies[this.level].critical[i].effect === effect) return true;
+            }
+        }
+        if((target === Data.SkillEffectFamily.CASTER || target === Data.SkillEffectFamily.ALL) && this.effectsCaster) {
+            for(let i = 0; i < this.effectsCaster[this.level].regular.length; i++) {
+                if(this.effectsCaster[this.level].regular[i].effect === effect) return true;
+            }
+            for(let i = 0; i < this.effectsCaster[this.level].critical.length; i++) {
+                if(this.effectsCaster[this.level].critical[i].effect === effect) return true;
+            }
+        }
+        return false;
+    }
 }
