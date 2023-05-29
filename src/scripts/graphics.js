@@ -1963,7 +1963,7 @@ function getFormationBattleAllies(refresh = false) {
     str += '</div>';
 
     if(refresh) {
-        document.querySelector('.battle-fighters-allies').innerHTML = str;
+        document.querySelector('#battle-fighters-allies').innerHTML = str;
         return;
     }
     return str;
@@ -1981,7 +1981,7 @@ function getFormationBattleEnemies(refresh = false) {
     str += '</div>';
 
     if(refresh) {
-        document.querySelector('.battle-fighters-enemies').innerHTML = str;
+        document.querySelector('#battle-fighters-enemies').innerHTML = str;
         return;
     }
     return str;
@@ -1993,8 +1993,10 @@ function getFighterFrame(fighter, type, pos) {
     type = type.toLowerCase();
     typeMin = type.charAt(0);
 
+    const id = 'aw-' + typeMin + '-' + pos;
+
     str += '<div id="gw-' + typeMin + '-' + pos + '" class="category" style="display: inline-block"><div class="battlePositionName">' + capitalizeFirstLetter(pos) + '</div>';
-    str += '<div id="aw-' + typeMin + '-' + pos + '" class="animationsWrapper"></div>';
+    str += '<div id="' + id + '" class="animationsWrapper"></div>';
     if(fighter) {
         str += '<div id="b-' + type + '-' + pos + '" class="battleFighter" style="background-image: linear-gradient(transparent 0%, rgba(0, 0, 0, 1) 70%), url(\'css/img/chars/' + fighter.charset + '\'); ' + (fighter.health === 0 ? ' filter: grayscale(100%);' : '') + '">';
         str += '<div class="gaugeProgress"><div class="statGauge health" style="width:'+ Math.round((fighter.health*100)/fighter.maxHealth) +'%"><span class="gaugeIndicator">'+ fighter.health + '/' + fighter.maxHealth +'</span></div></div>';
@@ -2003,6 +2005,35 @@ function getFighterFrame(fighter, type, pos) {
         str += '</div>';
     }
     str += '</div>';
+
+    return str;
+}
+
+function getBattleScreenFormationAlliesSingle(pos) {
+    let selector;
+    switch(pos) {
+        case Data.FormationPosition.BACK:
+            selector = 0;
+            break;
+        case Data.FormationPosition.MIDDLE:
+            selector = 1;
+            break;
+        case Data.FormationPosition.FRONT:
+            selector = 2;
+            break;
+    }
+
+    const npc = game.currentBattle.allies[selector];
+
+    let str = '';
+    str += '<div id="gw-' + typeMin + '-' + pos + '" class="category" style="display: inline-block"><div class="battlePositionName">' + capitalizeFirstLetter(pos) + '</div>';
+    if(npc) {
+        str += '<div id="b-' + type + '-' + pos + '" class="battleFighter" style="background-image: linear-gradient(transparent 0%, rgba(0, 0, 0, 1) 70%), url(\'css/img/chars/' + fighter.charset + '\'); ' + (fighter.health === 0 ? ' filter: grayscale(100%);' : '') + '">';
+        str += '<div class="gaugeProgress"><div class="statGauge health" style="width:'+ Math.round((fighter.health*100)/fighter.maxHealth) +'%"><span class="gaugeIndicator">'+ fighter.health + '/' + fighter.maxHealth +'</span></div></div>';
+        str += '<div class="gaugeProgress"><div class="statGauge stamina" style="width:'+ Math.round((fighter.stamina*100)/fighter.maxStamina) +'%"><span class="gaugeIndicator">'+ fighter.stamina + '/' + fighter.maxStamina +'</span></div></div>';
+        str += '<div class="gaugeProgress"><div class="statGauge mana" style="width:'+ Math.round((fighter.mana*100)/fighter.maxMana) +'%"><span class="gaugeIndicator">'+ fighter.mana + '/' + fighter.maxMana +'</span></div></div>';
+        str += '</div>';
+    }
 
     return str;
 }
@@ -2115,7 +2146,7 @@ function generateBattleCommandsEvents() {
                 battleAttackPickTarget();
             }
             else battleCommandsCancelCurrent();
-        })
+        });
     })
 
     atk.addEventListener('click', e => {
@@ -2125,7 +2156,14 @@ function generateBattleCommandsEvents() {
         console.log('blocking');
     });
     mov.addEventListener('click', e => {
-        console.log('moving');
+        if(battle.action != Data.BattleAction.MOVE) {
+            battleCommandsCancelCurrent();
+            battle.action = Data.BattleAction.MOVE;
+            mov.classList.add('battle-actionSelected');
+            console.log('Moving...');
+            battleMovePickTarget();
+        } 
+        else battleCommandsCancelCurrent();
     });
     ski.addEventListener('click', e => {
         console.log('skipping');
@@ -2169,14 +2207,158 @@ function battleAttackPickTarget() {
     });
 }
 
+function battleSkillPickTarget() {
+    const battle = game.currentBattle;
+    const skill = battle.selectedSkill;
+
+    let selector;
+
+    battleSelectionRemoveHighlights();
+
+    selector = skill.targets.allies.charAt(0) == '@' ? 'battle-skillTargetMultiple' : 'battle-skillTargetSingle';
+    if(skill.targets.allies.includes('1')) document.querySelector('#b-hero-front').classList.add(selector);
+    if(skill.targets.allies.includes('2')) document.querySelector('#b-hero-middle').classList.add(selector);
+    if(skill.targets.allies.includes('3')) document.querySelector('#b-hero-back').classList.add(selector);
+
+    selector = skill.targets.enemies.charAt(0) == '@' ? 'battle-skillTargetMultiple' : 'battle-skillTargetSingle';
+    if(skill.targets.enemies.includes('1')) document.querySelector('#b-enemy-front').classList.add(selector);
+    if(skill.targets.enemies.includes('2')) document.querySelector('#b-enemy-middle').classList.add(selector);
+    if(skill.targets.enemies.includes('3')) document.querySelector('#b-enemy-back').classList.add(selector);
+
+    // Highlight Caster's position if no target at all but caster effects exist
+    if(skill.targets.enemies === '-0' && skill.targets.allies === '-0' && skill.effects_caster) {
+        if(containsByName(battle.allies, battle.currentPlay.name)) {
+            document.querySelector('#b-hero-' + battle.getCurrentNPCPos().toLowerCase()).classList.add('battle-skillTargetSingle');
+        }
+    } else {
+        document.querySelector('#b-hero-' + battle.getCurrentNPCPos().toLowerCase()).classList.remove('battle-skillTargetSingle', 'battle-skillTargetMultiple');
+    }
+
+    // ALLIES
+    document.querySelector('#b-hero-front').addEventListener('click', e => {
+        if(skill.targets.allies.includes('1') && battle.getCurrentNPCPos() !== Data.FormationPosition.FRONT) {
+            battle.target.push(battle.allies[2]);
+            if(skill.targets.allies.charAt(0) === '@') {
+                if(skill.targets.allies.includes('2')) battle.target.push(battle.allies[1]);
+                if(skill.targets.allies.includes('3')) battle.target.push(battle.allies[0]);
+            }
+            battle.executeSkill();
+        }
+    });
+    document.querySelector('#b-hero-middle').addEventListener('click', e => {
+        if(skill.targets.allies.includes('2') && battle.getCurrentNPCPos() !== Data.FormationPosition.MIDDLE) {
+            battle.target.push(battle.allies[1]);
+            if(skill.targets.allies.charAt(0) === '@') {
+                if(skill.targets.allies.includes('1')) battle.target.push(battle.allies[2]);
+                if(skill.targets.allies.includes('3')) battle.target.push(battle.allies[0]);
+            }
+            battle.executeSkill();
+        }
+    });
+    document.querySelector('#b-hero-back').addEventListener('click', e => {
+        if(skill.targets.allies.includes('3') && battle.getCurrentNPCPos() !== Data.FormationPosition.BACK) {
+            battle.target.push(battle.allies[0]);
+            if(skill.targets.allies.charAt(0) === '@') {
+                if(skill.targets.allies.includes('2')) battle.target.push(battle.allies[1]);
+                if(skill.targets.allies.includes('1')) battle.target.push(battle.allies[2]);
+            }
+            battle.executeSkill();
+        }
+    });
+
+    // ENEMIES
+    document.querySelector('#b-enemy-back').addEventListener('click', e => {
+        if(skill.targets.enemies.includes('3')) {
+            battle.target.push(battle.enemies[0]);
+            if(skill.targets.enemies.charAt(0) === '@') {
+                if(skill.targets.enemies.includes('2')) battle.target.push(battle.enemies[1]);
+                if(skill.targets.enemies.includes('1')) battle.target.push(battle.enemies[2]);
+            }
+            battle.executeSkill();
+        }
+    });
+    document.querySelector('#b-enemy-middle').addEventListener('click', e => {
+        if(skill.targets.enemies.includes('2')) {
+            battle.target.push(battle.enemies[1]);
+            if(skill.targets.enemies.charAt(0) === '@') {
+                if(skill.targets.enemies.includes('1')) battle.target.push(battle.enemies[2]);
+                if(skill.targets.enemies.includes('3')) battle.target.push(battle.enemies[0]);
+            }
+            battle.executeSkill();
+        }
+    });
+    document.querySelector('#b-enemy-front').addEventListener('click', e => {
+        if(skill.targets.enemies.includes('1')) {
+            battle.target.push(battle.enemies[2]);
+            if(skill.targets.enemies.charAt(0) === '@') {
+                if(skill.targets.enemies.includes('2')) battle.target.push(battle.enemies[1]);
+                if(skill.targets.enemies.includes('3')) battle.target.push(battle.enemies[0]);
+            }
+            battle.executeSkill();
+        }
+    });
+}
+
+function battleMovePickTarget() {
+    const battle = game.currentBattle;
+
+    const back = document.querySelector('#b-hero-back');
+    const middle = document.querySelector('#b-hero-middle');
+    const front = document.querySelector('#b-hero-front');
+
+    if(battle.allies.indexOf(battle.currentPlay) !== 0) {
+        back.classList.add('battle-target');
+        back.addEventListener('click', e => {
+            battle.move(battle.currentPlay, Data.FormationPosition.BACK, "a");
+            setTimeout(() => {battle.endTurn();}, 300); // the setTimeout is kind of a nasty way of waiting for the CSS animations to finish but meh... will fix that later
+        });
+    }
+    if(battle.allies.indexOf(battle.currentPlay) !== 1) {
+        middle.classList.add('battle-target');
+        middle.addEventListener('click', e => {
+            battle.move(battle.currentPlay, Data.FormationPosition.MIDDLE, "a");
+            setTimeout(() => {battle.endTurn();}, 300); 
+        });
+    }
+    if(battle.allies.indexOf(battle.currentPlay) !== 2) {
+        front.classList.add('battle-target');
+        front.addEventListener('click', e => {
+            battle.move(battle.currentPlay, Data.FormationPosition.FRONT, "a");
+            setTimeout(() => {battle.endTurn();}, 300); 
+        });
+    }
+}
+
 function generateBattleSkillsEvents() {
     const battle = game.currentBattle;
     const current = battle.currentPlay;
     const skills = current.skills;
     skills.forEach(skill => {
-        addTooltip(document.querySelector('#' + current.name + '-' + skill.id), function(){
+        const sk = document.querySelector('#' + current.name + '-' + skill.id);
+        addTooltip(sk, function(){
             return getBattleSkillTooltip(current, skill)
         }, {offY: -8})
+
+        sk.addEventListener('click', e => {
+            if(battle.action !== Data.BattleAction.SKILL) {
+                battleCommandsCancelCurrent();
+                battle.action = Data.BattleAction.SKILL;
+                battle.selectedSkill = skill;
+                console.log('Preparing skill with ' + battle.selectedSkill.name);
+                sk.classList.add('battle-skillSelected');
+                battleSkillPickTarget();
+            } else if(battle.action === Data.BattleAction.SKILL && battle.selectedSkill !== skill) {
+                battleCommandsCancelCurrent();
+                battleSelectionRemoveHighlights();
+                document.querySelectorAll('.skillSquare').forEach(wpn => {wpn.classList.remove('battle-skillSelected');});
+                battle.action = Data.BattleAction.SKILL;
+                battle.selectedSkill = skill;
+                sk.classList.add('battle-skillSelected');
+                console.log('Preparing skill with ' + battle.selectedSkill.name);
+                battleSkillPickTarget();
+            } 
+            else battleCommandsCancelCurrent();
+        });
     });
 }
 
@@ -2186,7 +2368,6 @@ function generateBattleConsumablesEvents() {
 
 function battleCommandsCancelCurrent() {
     const battle = game.currentBattle;
-    const current = battle.currentPlay;
 
     switch(battle.action) {
         case Data.BattleAction.ATTACK:
@@ -2195,15 +2376,36 @@ function battleCommandsCancelCurrent() {
             battleSelectionRemoveHighlights();
             document.querySelector('.battle-actionAtk').classList.remove('battle-actionSelected');
             document.querySelectorAll('.battle-weaponIcon').forEach(wpn => {wpn.classList.remove('battle-weaponSelected');})
+            getFormationBattleEnemies(true);
             console.log('Cancelled: Attack');
+            break;
+        case Data.BattleAction.SKILL:
+            battle.action = null;
+            battle.selectedSkill = null;
+            battleSelectionRemoveHighlights();
+            document.querySelectorAll('.skillSquare').forEach(wpn => {wpn.classList.remove('battle-skillSelected');});
+            getFormationBattleEnemies(true);
+            getFormationBattleAllies(true);
+            console.log('Cancelled: Skill');
+            break;
+        case Data.BattleAction.MOVE:
+            battle.action = null;
+            battleSelectionRemoveHighlights();
+            document.querySelector('.battle-actionMov').classList.remove('battle-actionSelected');
+            getFormationBattleAllies(true);
+            console.log('Cancelled: Move');
             break;
     }
 }
 
 function battleSelectionRemoveHighlights() {
-    document.querySelector('#b-enemy-front').classList.remove('battle-target');
-    document.querySelector('#b-enemy-middle').classList.remove('battle-target');
-    document.querySelector('#b-enemy-back').classList.remove('battle-target');
+    document.querySelector('#b-enemy-front').classList.remove('battle-target', 'battle-skillTargetSingle', 'battle-skillTargetMultiple');
+    document.querySelector('#b-enemy-middle').classList.remove('battle-target', 'battle-skillTargetSingle', 'battle-skillTargetMultiple');
+    document.querySelector('#b-enemy-back').classList.remove('battle-target', 'battle-skillTargetSingle', 'battle-skillTargetMultiple');
+
+    document.querySelector('#b-hero-front').classList.remove('battle-skillTargetSingle', 'battle-skillTargetMultiple');
+    document.querySelector('#b-hero-middle').classList.remove('battle-skillTargetSingle', 'battle-skillTargetMultiple');
+    document.querySelector('#b-hero-back').classList.remove('battle-skillTargetSingle', 'battle-skillTargetMultiple');
 }
 
 function generateBattleFightersEvents() {
@@ -2309,11 +2511,11 @@ function getBattleSkillTooltip(strider, skill) {
 
 function getBattleScreenPlayOrder(refresh = false) {
     let str = '';
-    game.currentBattle.order.forEach(elem => {
+    /*game.currentBattle.order.forEach(elem => {
         if(elem) {
             str += '<div class="playOrderSquare coolBorder" style="background-image: url(\'css/img/chars/' + elem.charset + '\')"></div>';
         }
-    });
+    });*/
 
     if(refresh) {
         document.querySelector('.battle-playOrder').innerHTML = str;
@@ -2389,9 +2591,9 @@ function getBattleFighterActiveEffects(fighter) {
         ae.effects.forEach(eff => {
             str += eff.getFormatted({noTheorical: true, cssClass: 'activeEffect', includeDuration: true});
         });
-        if(ae.originObject instanceof Skill) str += '<p class="activeEffect">From: ' + ae.originObject.name + ', casted by ' + ae.originUser.name + ' (' + ae.countdown + (ae.countdown > 1 ? ' rounds' : ' round') + 'ago)</p>';
-        else if(ae.originObject instanceof Weapon) str += '<p class="activeEffect">From: <span style="color: ' + getRarityColorCode(ae.originObject.rarity) + ';">' + ae.originObject.name + '</span>, wielded by ' + ae.originUser.name + ' (' + ae.countdown + (ae.countdown > 1 ? ' rounds' : ' round') + ' ago)' + '</p>';
-        else if(ae.originObject === Data.ActiveEffectType.POWER) str += '<p class="activeEffect">Power emanating from ' + ae.originUser.name + '</p>';
+        if(ae.originObject instanceof Skill) str += '<p class="activeEffect">From: ' + ae.originObject.name + ', casted by <span style="color: ' + Data.Color.PURPLE + '">' + ae.originUser.name + '</span> (' + ae.countdown + (ae.countdown > 1 ? ' rounds' : ' round') + 'ago)</p>';
+        else if(ae.originObject instanceof Weapon) str += '<p class="activeEffect">From: <span style="color: ' + getRarityColorCode(ae.originObject.rarity) + ';">' + ae.originObject.name + '</span>, wielded by <span style="color: ' + Data.Color.PURPLE + '">' + ae.originUser.name + '</span> (' + ae.countdown + (ae.countdown > 1 ? ' rounds' : ' round') + ' ago)' + '</p>';
+        else if(ae.originObject === Data.ActiveEffectType.POWER) str += '<p class="activeEffect">Power emanating from <span style="color: ' + Data.Color.PURPLE + '">' + ae.originUser.name + '</span></p>';
         str += '</div>';
     });
 

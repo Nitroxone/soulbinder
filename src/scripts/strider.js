@@ -66,6 +66,8 @@ class Strider extends NPC {
         this.unlocked = false;
 
         this.customBgPos = customBgPos;
+
+        this.popupsQueue = [];
     }
 
     /**

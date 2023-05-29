@@ -1596,6 +1596,38 @@ const Loader = {
                                 }
                             }
                         }
+                    ),
+                    new Skill(
+                        "Ardas Garin",
+                        "Applies §Shield§ to all allies.",
+                        14,
+                        {
+                            type: Data.SkillType.FRIENDLY,
+                            manaCost: 120,
+                            critMultiplier: 15,
+                            accMultiplier: 100,
+                            targets: {allies: '@123', enemies: '-0'},
+                            effectsCaster: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.SHIELD, theorical: [20, 25], duration: 2, cooldown: 5})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.SHIELD, theorical: [25, 30], duration: 3, cooldown: 5})
+                                    ]
+                                }
+                            },
+                            effectsAllies: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.SHIELD, theorical: [20, 25], duration: 2, cooldown: 5})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.SHIELD, theorical: [25, 30], duration: 3, cooldown: 5})
+                                    ]
+                                }
+                            },
+                        }
                     )
                 ],
                 '10% 30%'

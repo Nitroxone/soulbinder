@@ -116,12 +116,23 @@ class Battle {
         this.target = [];
         this.movementQueue = [];
         //this.resetTargetTracker();
-        //this.resetEndTurnCounter();
+        this.resetEndTurnCounter();
         drawBattleScreen();
         this.beginTurn();
     }
 
-    addEndTurnCounter() {}
+    addEndTurnCounter() {
+        this.endturnCounter += 1;
+        if(this.endturnCounter === this.order.length) {
+            this.executeMovements();
+            if(this.movementQueue.length !== 0) setTimeout(() => {this.endTurn();}, 300);
+            else this.endTurn();
+        }
+    }
+
+    resetEndTurnCounter() {
+        this.endturnCounter = 0;
+    }
 
     /**
      * Begins a new round, regenerates play order and runs ON_ROUND_BEGINS triggers.
@@ -264,7 +275,7 @@ class Battle {
                 }
                 // TODO: ADD BLEEDING AND POISONING
 
-                if(weapon.bleed[0] > 0) {
+                if(weapon.bleed[0] > 0 && (weapon.bleed[0] - tar.resBleed[0]) > 0) {
                     tar.addActiveEffect(new ActiveEffect({
                         name: "Bleeding", 
                         originUser: this.currentPlay, 
@@ -272,7 +283,7 @@ class Battle {
                         effects: [
                             new Stat({
                                 effect: weapon.bleed[2] ? Data.Effect.BLEEDING_CURABLE : Data.Effect.BLEEDING_INCURABLE,
-                                theorical: weapon.bleed[0],
+                                theorical: weapon.bleed[0] - tar.resBleed[0],
                                 duration: weapon.bleed[1]
                             })
                         ],
@@ -283,7 +294,7 @@ class Battle {
                         }
                     }));
                 }
-                if(weapon.poison[0] > 0) {
+                if(weapon.poison[0] > 0 && (weapon.poison[0] - tar.resPoison[0]) > 0) {
                     tar.addActiveEffect(new ActiveEffect({
                         name: "Poisoning", 
                         originUser: this.currentPlay, 
@@ -291,7 +302,7 @@ class Battle {
                         effects: [
                             new Stat({
                                 effect: weapon.poison[2] ? Data.Effect.BLIGHT_CURABLE : Data.Effect.BLIGHT_INCURABLE,
-                                theorical: weapon.poison[0],
+                                theorical: weapon.poison[0] - tar.resPoison[0],
                                 duration: weapon.poison[1]
                             })
                         ],
@@ -307,15 +318,257 @@ class Battle {
                 console.log('Missed!');
                 this.runTriggersOnCurrent(Data.TriggerType.ON_DEAL_MISSED);
                 tar.runTriggers(Data.TriggerType.ON_RECV_MISSED);
+                tar.addBattlePopup(new BattlePopup(0, '<p>Missed!</p>'));
             } else if(params.success_dodge) {
                 // Dodged
                 console.log('Dodged!');
                 this.runTriggersOnCurrent(Data.TriggerType.ON_DEAL_DODGED);
                 tar.runTriggers(Data.TriggerType.ON_RECV_DODGED);
+                tar.addBattlePopup(new BattlePopup(0, '<p>Dodged!</p>'));
             }
         });
 
         this.currentPlay.useWeapon(this.selectedWeapon);
-        this.endTurn();
+        this.currentPlay.addBattlePopup(new BattlePopup(0, '<p style="color: rgba(0,148,50,1)">-' + weapon.effort + '</p>'));
+        
+        this.runPopups();
+    }
+
+    executeSkill() {
+        const skill = this.selectedSkill;
+
+        this.runTriggersOnCurrent(Data.TriggerType.ON_SKILL);
+    }
+
+    getCurrentNPCPos() {
+        if(this.allies[0] === this.currentPlay) return Data.FormationPosition.BACK;
+        if(this.allies[1] === this.currentPlay) return Data.FormationPosition.MIDDLE;
+        if(this.allies[2] === this.currentPlay) return Data.FormationPosition.FRONT;
+        if(this.enemies[0] === this.currentPlay) return Data.FormationPosition.BACK;
+        if(this.enemies[1] === this.currentPlay) return Data.FormationPosition.MIDDLE;
+        if(this.enemies[2] === this.currentPlay) return Data.FormationPosition.FRONT;
+    }
+
+    runPopups() {
+        this.order.forEach(el => {
+            el.executePopups();
+        })
+    }
+
+    /**
+     * 
+     * @param {NPC} npc 
+     * @param {Data.FormationPosition} target 
+     * @param {string} type "a" for ally, "e" for enemy
+     */
+    move(npc, target, type) {
+        // have to handle things differently based on whether it's an enemy or an ally because the positions are processed differently (reversed)
+        // type can either be "a" (ally) or "e" (enemy).
+        // HOW DOES IT WORK ?
+        // first, get the array index of the npc that needs to be moved, and the array index of the targeted position.
+        // if both are equal, don't move.
+        // if not, move the npc to the targeted position. there are TWO different types of move according to the npc's position and the targeted position.
+        // if the npc is in front and wants to move to back position (or vice-versa), then it's a PUSH type. otherwise it's a SWITCH type.
+        if(type) {
+            const origIndex = type.charAt(0) === "a" ? this.allies.indexOf(npc) : this.enemies.indexOf(npc);
+            let targetIndex;
+            
+            switch(target) {
+                case Data.FormationPosition.BACK:
+                    targetIndex = 0;
+                    break;
+                case Data.FormationPosition.MIDDLE:
+                    targetIndex = 1;
+                    break;
+                case Data.FormationPosition.FRONT:
+                    targetIndex = 2;
+                    break;
+            }
+
+            console.log('Origin index: ' + origIndex);
+            console.log('Target index: ' + targetIndex);
+            if(origIndex == targetIndex) console.log('Original index is equal to target index. Not moving.');
+            else {
+                console.log('Moving...');
+                let temp;
+                let arr = type.charAt(0) === "a" ? this.allies : this.enemies;
+
+                if(!this.isSwitchMove(origIndex, targetIndex)) {
+                    if(origIndex === 1) {
+                        if(targetIndex === 2) {
+                            if(type === "a") this.moveAnimation(npc, Data.FormationPosition.MIDDLE, Data.AnimMoveType.RIGHT_ONE);
+                            else if(type === "e") this.moveAnimation(npc, Data.FormationPosition.MIDDLE, Data.AnimMoveType.LEFT_ONE);
+                        }
+                        else if(targetIndex === 0) {
+                            if(type === "a") this.moveAnimation(npc, Data.FormationPosition.MIDDLE, Data.AnimMoveType.LEFT_ONE);
+                            else if(type === "e") this.moveAnimation(npc, Data.FormationPosition.MIDDLE, Data.AnimMoveType.RIGHT_ONE);
+                        }
+                    } else if(origIndex === 0) {
+                        if(targetIndex === 1) {
+                            if(type === "a") this.moveAnimation(npc, Data.FormationPosition.BACK, Data.AnimMoveType.RIGHT_ONE);
+                            else if(type === "e") this.moveAnimation(npc, Data.FormationPosition.BACK, Data.AnimMoveType.LEFT_ONE);
+                        }
+                    } else if(origIndex === 2) {
+                        if(targetIndex === 1) {
+                            if(type === "a") this.moveAnimation(npc, Data.FormationPosition.FRONT, Data.AnimMoveType.LEFT_ONE);
+                            else if(type === "e") this.moveAnimation(npc, Data.FormationPosition.FRONT, Data.AnimMoveType.RIGHT_ONE);
+                        }
+                    }
+                    temp = arr[targetIndex];
+                    arr[targetIndex] = arr[origIndex];
+                    arr[origIndex] = temp;
+                    console.log('Moved ' + npc.name + ' to ' + target + ' (switch type)');
+                } else {
+                    if(origIndex == 2 && targetIndex == 0) {
+                        if(type === "a") this.moveAnimation(npc, Data.FormationPosition.FRONT, Data.AnimMoveType.LEFT_TWO);
+                        else if(type === "e") this.moveAnimation(npc, Data.FormationPosition.FRONT, Data.AnimMoveType.RIGHT_TWO);
+                        temp = arr[origIndex];
+                        arr[2] = arr[1];
+                        arr[1] = arr[0];
+                        arr[targetIndex] = temp;
+                        console.log("Moved " + npc.name + " to " + target + " (push type)");
+                    } else if(origIndex == 0 && targetIndex == 2) {
+                        if(type === "a") this.moveAnimation(npc, Data.FormationPosition.BACK, Data.AnimMoveType.RIGHT_TWO);
+                        else if(type === "e") this.moveAnimation(npc, Data.FormationPosition.BACK, Data.AnimMoveType.LEFT_TWO);
+                        temp = arr[origIndex];
+                        arr[0] = arr[1];
+                        arr[1] = arr[2];
+                        arr[targetIndex] = temp;
+                        console.log("Moved " + npc.name + " to " + target + " (push type)");
+                    } else {
+                        throw new Error("Unhandled move case.");
+                    }
+                }
+                type.charAt(0) === 'a' ? this.allies = arr : this.enemies = arr;
+            }
+        } else {
+            throw new Error('No move NPC type was provided.');
+        }
+    }
+
+    /**
+     * Tells whether the provided params correspond to a switch move.
+     * @param {number} x the origin index
+     * @param {number} y the targeted index
+     * @returns {boolean} whether it's a switch move
+     */
+    isSwitchMove(x, y) {
+        return (x == 2 && y == 0) || (x == 0 && y == 2);
+    }
+
+    moveAnimation(npc, origin, type) {
+        // how does the move animation work ?
+        // first, retrieve the position of the current NPC and of the two others (using getOffset());
+        // then, fill NPC div with a blank div of the same size, and simultaneously spawn a new div that contains the NPC character, absolutely positioned.
+        // apply the moving animations to both
+        // refresh the screen.
+        let prefix;
+        let posNPCA, posNPCB;
+        if(arrayContains(this.allies, npc)) {
+            prefix = 'gw-h-';
+        } else if(arrayContains(this.enemies, npc)) {
+            prefix = 'gw-e-';
+        }
+        switch(npc.getSelfPosInBattle()) {
+            case Data.FormationPosition.BACK:
+                posNPCA = Data.FormationPosition.MIDDLE;
+                posNPCB = Data.FormationPosition.FRONT;
+                break;
+            case Data.FormationPosition.MIDDLE:
+                posNPCA = Data.FormationPosition.FRONT;
+                posNPCB = Data.FormationPosition.BACK;
+                break;
+            case Data.FormationPosition.FRONT:
+                posNPCA = Data.FormationPosition.MIDDLE;
+                posNPCB = Data.FormationPosition.BACK;
+                break;
+        }
+        const posSelf = npc.getSelfPosInBattle();
+
+        setTimeout(() => {switch(posSelf) {
+            case Data.FormationPosition.BACK:
+                switch(type) {
+                    case Data.AnimMoveType.RIGHT_ONE:
+                        domWhat(prefix + origin.toLowerCase()).classList.add('charmove-RightOne');
+                        if(posNPCA === Data.FormationPosition.MIDDLE) domWhat(prefix + posNPCA.toLowerCase()).classList.add('charmove-LeftOne');
+                        break;
+                    case Data.AnimMoveType.RIGHT_TWO:
+                        domWhat(prefix + origin.toLowerCase()).classList.add('charmove-RightTwo');
+                        domWhat(prefix + posNPCA.toLowerCase()).classList.add('charmove-LeftOne');
+                        domWhat(prefix + posNPCB.toLowerCase()).classList.add('charmove-LeftOne');
+                        break;
+                    case Data.AnimMoveType.LEFT_ONE:
+                        domWhat(prefix + origin.toLowerCase()).classList.add('charmove-LeftOne');
+                        if(posNPCA === Data.FormationPosition.MIDDLE) domWhat(prefix + posNPCA.toLowerCase()).classList.add('charmove-RightOne');
+                        break;
+                    case Data.AnimMoveType.LEFT_TWO:
+                        domWhat(prefix + origin.toLowerCase()).classList.add('charmove-LeftTwo');
+                        domWhat(prefix + posNPCA.toLowerCase()).classList.add('charmove-RightOne');
+                        domWhat(prefix + posNPCB.toLowerCase()).classList.add('charmove-RightOne');
+                        break;
+                    default:
+                        throw new Error('Impossible move type.');
+                }
+                break;
+            case Data.FormationPosition.MIDDLE:
+                switch(type) {
+                    case Data.AnimMoveType.RIGHT_ONE:
+                        domWhat(prefix + origin.toLowerCase()).classList.add('charmove-RightOne');
+                        if(arrayContains(this.allies, npc)) {
+                            if(posNPCA === Data.FormationPosition.FRONT) domWhat(prefix + posNPCA.toLowerCase()).classList.add('charmove-LeftOne');
+                            if(posNPCB === Data.FormationPosition.FRONT) domWhat(prefix + posNPCB.toLowerCase()).classList.add('charmove-LeftOne');
+                        } else if(arrayContains(this.enemies, npc)) {
+                            if(posNPCA === Data.FormationPosition.BACK) domWhat(prefix + posNPCA.toLowerCase()).classList.add('charmove-LeftOne');
+                            if(posNPCB === Data.FormationPosition.BACK) domWhat(prefix + posNPCB.toLowerCase()).classList.add('charmove-LeftOne');
+                        }
+                        break;
+                    case Data.AnimMoveType.LEFT_ONE:
+                        domWhat(prefix + origin.toLowerCase()).classList.add('charmove-LeftOne');
+                        if(arrayContains(this.allies, npc)) {
+                            if(posNPCB === Data.FormationPosition.BACK) domWhat(prefix + posNPCB.toLowerCase()).classList.add('charmove-RightOne');
+                        } else if(arrayContains(this.enemies, npc)) {
+                            if(posNPCA === Data.FormationPosition.FRONT) domWhat(prefix + posNPCA.toLowerCase()).classList.add('charmove-RightOne');
+                        }
+                        break;
+                    default:
+                        throw new Error('Impossible move type.');
+                }
+                break;
+            case Data.FormationPosition.FRONT:
+                switch(type) {
+                    case Data.AnimMoveType.LEFT_ONE:
+                        domWhat(prefix + origin.toLowerCase()).classList.add('charmove-LeftOne');
+                        if(posNPCA === Data.FormationPosition.MIDDLE) domWhat(prefix + posNPCA.toLowerCase()).classList.add('charmove-RightOne');
+                        break;
+                    case Data.AnimMoveType.LEFT_TWO:
+                        domWhat(prefix + origin.toLowerCase()).classList.add('charmove-LeftTwo');
+                        domWhat(prefix + posNPCA.toLowerCase()).classList.add('charmove-RightOne');
+                        domWhat(prefix + posNPCB.toLowerCase()).classList.add('charmove-RightOne');
+                        break;
+                    case Data.AnimMoveType.RIGHT_ONE:
+                        domWhat(prefix + origin.toLowerCase()).classList.add('charmove-RightOne');
+                        if(posNPCA === Data.FormationPosition.MIDDLE) domWhat(prefix + posNPCA.toLowerCase()).classList.add('charmove-LeftOne');
+                        break;
+                    case Data.AnimMoveType.RIGHT_TWO:
+                        domWhat(prefix + origin.toLowerCase()).classList.add('charmove-RightTwo');
+                        domWhat(prefix + posNPCA.toLowerCase()).classList.add('charmove-LeftOne');
+                        domWhat(prefix + posNPCB.toLowerCase()).classList.add('charmove-LeftOne');
+                        break;
+                    default:
+                        throw new Error('Impossible move type.');
+                }
+                break;
+            default:
+                throw new Error('Impossible move type.');
+        }}, 100);
+    }
+
+    /**
+     * Executes all of the movements in the movement queue.
+     */
+    executeMovements() {
+        this.movementQueue.forEach(mov => {
+            this.move(mov.npc, mov.target, mov.type);
+        });
     }
 }

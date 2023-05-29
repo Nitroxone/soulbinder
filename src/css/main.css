@@ -1160,7 +1160,7 @@ a:active, .tooltiped:active {
 .thing.zero {opacity: 0.5;}
 
 .category {
-    /*position: relative;*/
+    position: relative;
     overflow: hidden;
     padding: 4px;
 
@@ -3925,8 +3925,6 @@ table.astralForgeShards td {
     padding: 4rem;
 }
 .battle {
-    border-right: 1px dashed grey;
-    border-left: 1px dashed grey;
 
     width: 1000px;
     padding: 4rem;
@@ -4298,11 +4296,25 @@ table.astralForgeShards td {
     background-color: rgba(255, 255, 255, 0.25);
 }
 
-.battle-target {
-    border-color: white;
+.battle-skillSelected {
+    border-color: #ddd;
+    box-shadow: inset 0px 0px 3px 5px rgba(255, 255, 255, 0.25);
+}
+
+.battle-target, .battle-skillTargetSingle, .battle-skillTargetMultiple {
     position: relative;
 }
-.battle-target::after {
+.battle-target {
+    border-color: white;
+}
+.battle-skillTargetSingle {
+    border-color: rgb(0, 255, 76);
+}
+.battle-skillTargetMultiple {
+    border-color: rgb(0, 135, 255);
+}
+
+.battle-target::after, .battle-skillTargetSingle::after, .battle-skillTargetMultiple::after {
     content: '';
     background: url('img/target.png');
     width: 17px;
@@ -4316,8 +4328,11 @@ table.astralForgeShards td {
     filter: drop-shadow(0px 0px 15px rgba(0,0,0,1));
 
     transition: all .1s ease-in-out;
+
+    animation-name: battleTargetPopup;
+    animation-duration: 0.35s;
 }
-.battle-target:hover::after {
+.battle-target:hover::after, .battle-skillTargetSingle:hover::after, .battle-skillTargetMultiple:hover::after {
     background: url('img/targetHover.png');
     background-repeat: no-repeat;
     background-size: cover;
@@ -4325,4 +4340,52 @@ table.astralForgeShards td {
     width: 17px;
     height: 24px;
     filter: drop-shadow(0px 0px 15px rgb(0, 161, 255));
+}
+
+@keyframes battleTargetPopup {
+    from {
+        transform: translateY(5px);
+    }
+}
+
+.animationsWrapper {
+    width: 105px;
+    height: 52px;
+
+    position: absolute;
+    left: 14px;
+    bottom: 100px;
+
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+
+    z-index: 5;
+    pointer-events: none;
+}
+
+.battlePopup {
+    font-family: RobotoSlab;
+    font-size: 17px;
+    font-variant: small-caps;
+}
+
+.charmove-LeftOne, .charmove-LeftTwo, .charmove-RightOne, .charmove-RightTwo {
+    transition: all .2s ease-in-out;
+}
+
+.charmove-LeftOne {
+    transform: translateX(-133px);
+}
+.charmove-LeftTwo {
+    transform: translateX(-266px);
+}
+.charmove-RightOne {
+    transform: translateX(133px);
+}
+.charmove-RightTwo {
+    transform: translateX(266px);
 }
