@@ -9,8 +9,15 @@
 
 - Actually implement set bonuses
 
-- Add a battle order indicator
-- Implement skill cooldown, stamina/mana checks, launch pos checks, error messages
+BATTLES:
+- Implement skill cooldown
+- Implement skill launch conditions
+- Implement stamina/mana checks -- ONGOING
+- Implement launch pos checks -- ONGOING
+- Implement error messages
+- Implement effect stackability
+- Implement a battle order indicator
+- Implement Move resistance, Stun resistance
 
 ASTRAL FORGE:
 - Create GUI -- ONGOING
