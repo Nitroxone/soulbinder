@@ -87,6 +87,10 @@ class Dungeon {
     isLastRoom() {
         return this.getCurrentLevelRoomNumber() % 3 === 0;
     }
+
+    isLastLevel() {
+        return this.currentLevel === 5;
+    }
 }
 
 

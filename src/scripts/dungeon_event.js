@@ -67,6 +67,10 @@ class DungeonEvent {
     generateRegularSet() {
         this.set = getDungeonRegularSet(this);
     }
+
+    generateClosingSet() {
+        this.set = getDungeonClosingSet(this);
+    }
     
     // stores the event in the current dungeon history, and make it the new current event
     storeEvent() {
