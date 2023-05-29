@@ -1366,7 +1366,7 @@ const Loader = {
                     ),
                     new Skill(
                         "Exsanguinate",
-                        "Deals damage, applies §Bleeding§ and reduces §Speed§. Heals Amarok.",
+                        "Deals damage, applies §Bleeding§ and reduces §Speed§. §Heals§ Amarok.",
                         14,
                         {
                             type: Data.SkillType.OFFENSIVE,
@@ -1514,7 +1514,7 @@ const Loader = {
                         {
                             type: Data.SkillType.FRIENDLY,
                             manaCost: 30,
-                            critMultiplier: 15,
+                            criMultiplier: 15,
                             accMultiplier: 100,
                             cooldown: 2,
                             launchPos: [false, true, true],
@@ -1527,6 +1527,32 @@ const Loader = {
                                     critical: [
                                         new Stat({effect: Data.Effect.BACK_ONE}),
                                         new Stat({effect: Data.Effect.DODGE, theorical: 7, duration: 2, isPercentage: true, isCritical: true})
+                                    ]
+                                }
+                            }
+                        }
+                    ),
+                    new Skill(
+                        "Howling Arrow",
+                        "§Stuns§ an enemy.",
+                        14,
+                        {
+                            type: Data.SkillType.OFFENSIVE,
+                            dmgType: Data.SkillDamageType.MAGICAL,
+                            manaCost: 40,
+                            dmgMultiplier: 55,
+                            criMultiplier: 10,
+                            accMultiplier: 90,
+                            cooldown: 1,
+                            launchPos: [true, true, false],
+                            targets: {allies: '-0', enemies: '-123'},
+                            effectsEnemies: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.STUN, duration: 1})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.STUN, duration: 2})
                                     ]
                                 }
                             }
@@ -1635,16 +1661,6 @@ const Loader = {
                             targets: {allies: '@123', enemies: '-0'},
                             cooldown: 3,
                             launchPos: [true, false, false],
-                            effectsCaster: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.SHIELD, theorical: [20, 25], duration: 2})
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.SHIELD, theorical: [25, 30], duration: 3, isCritical: true})
-                                    ]
-                                }
-                            },
                             effectsAllies: {
                                 1: {
                                     regular: [
