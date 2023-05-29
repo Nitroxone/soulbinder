@@ -1987,16 +1987,16 @@ function getFormationBattleEnemies(refresh = false) {
     return str;
 }
 
-function getFighterFrame(fighter, type, pos, ignoreWrapper = false) {
+function getFighterFrame(fighter, type, pos) {
     let str = '';
     pos = pos.toLowerCase();
     type = type.toLowerCase();
     typeMin = type.charAt(0);
 
-    const id = (ignoreWrapper ? 'moveanim-' + capitalizeFirstLetter(pos) : 'aw-' + typeMin + '-' + pos);
+    const id = 'aw-' + typeMin + '-' + pos;
 
-    if(!ignoreWrapper) str += '<div id="gw-' + typeMin + '-' + pos + '" class="category" style="display: inline-block"><div class="battlePositionName">' + capitalizeFirstLetter(pos) + '</div>';
-    str += '<div id="' + id + '" class="animationsWrapper"' + (ignoreWrapper ? ' style="position: absolute; top: 25.5px;"' : '') + '></div>';
+    str += '<div id="gw-' + typeMin + '-' + pos + '" class="category" style="display: inline-block"><div class="battlePositionName">' + capitalizeFirstLetter(pos) + '</div>';
+    str += '<div id="' + id + '" class="animationsWrapper"></div>';
     if(fighter) {
         str += '<div id="b-' + type + '-' + pos + '" class="battleFighter" style="background-image: linear-gradient(transparent 0%, rgba(0, 0, 0, 1) 70%), url(\'css/img/chars/' + fighter.charset + '\'); ' + (fighter.health === 0 ? ' filter: grayscale(100%);' : '') + '">';
         str += '<div class="gaugeProgress"><div class="statGauge health" style="width:'+ Math.round((fighter.health*100)/fighter.maxHealth) +'%"><span class="gaugeIndicator">'+ fighter.health + '/' + fighter.maxHealth +'</span></div></div>';

@@ -124,7 +124,7 @@ class Battle {
     addEndTurnCounter() {
         this.endturnCounter += 1;
         if(this.endturnCounter === this.order.length) {
-            //this.executeMovements();
+            this.executeMovements();
             if(this.movementQueue.length !== 0) setTimeout(() => {this.endTurn();}, 300);
             else this.endTurn();
         }

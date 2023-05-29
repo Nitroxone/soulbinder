@@ -152,7 +152,8 @@ const Data = Object.freeze({
         FRONT_ONE: "advances one position",
         FRONT_TWO: "advances two positions",
         BACK_ONE: "backs one position",
-        BACK_TWO: "backs two positions"
+        BACK_TWO: "backs two positions",
+        SHIELD: "shield",
     },
     TriggerType: {
         ON_STAT_CHANGE: 'ON_STAT_CHANGE',
