@@ -1827,6 +1827,28 @@ function generateDungeonEntranceEvents() {
     });
 }
 
+function generateDungeonClosingEvent() {
+    document.querySelector('#explorationDiv').innerHTML = '<div class="dungeonContainer"></div>';
+
+    let str = '';
+    str += '<div class="dungeonDialogue coolBorder">';
+    str += game.currentDungeon.getCurrentEventSet();
+    str += '</div>';
+
+    str += '<div class="dungeonButtons">'
+    str += '<button class="dungeonButton simpleButton" id="exitDungeon">Exit dungeon</button>';
+    str += '</div>'
+
+    document.querySelector('.dungeonContainer').innerHTML = str;
+
+    const exit = document.querySelector('#exitDungeon');
+
+    exit.addEventListener('click', e => {
+        game.currentDungeon = null;
+        drawExploreScreen();
+    }); 
+}
+
 // displays set for the current event; calls up the encounters' display function afterwards
 function displayCurrentEventSet() {
     let str = '';
@@ -1847,7 +1869,7 @@ function displayCurrentEventSet() {
 
 // manages the display of choice quotes, allowing the player to choose whether to stay at the current dungeon level or go deeper
 function displayCurrentEventChoiceQuote() {
-    if(game.currentDungeon.isLastRoom() === false) {
+    if (!game.currentDungeon.isLastRoom() && !game.currentDungeon.isLastLevel()) {
         let str = '';
         str += '<div class="dungeonQuote coolBorder">';
         str += game.currentDungeon.getCurrentEventChoiceQuote();
@@ -1871,7 +1893,8 @@ function displayCurrentEventChoiceQuote() {
             displayCurrentEventSet();
         });
     }
-    else {
+    // handles the special case where the event is the last room of the current level, but the current level is not the last level of the dungeon
+    else if (game.currentDungeon.isLastRoom() && !game.currentDungeon.isLastLevel()) {
         let str = '';
         str += '<div class="dungeonQuote coolBorder">';
         str += game.currentDungeon.getCurrentEventChoiceQuote();
@@ -1886,6 +1909,43 @@ function displayCurrentEventChoiceQuote() {
         document.querySelector('#bridgeButton').addEventListener('click', e => {
             game.currentDungeon.generateEvent(Data.DungeonEventInstance.BRIDGE);
             displayCurrentEventSet();
+        });
+    }
+    // manages the display of events strictly related to the last level of the dungeon, but which are not the last event of the last level
+    else if ((!game.currentDungeon.isLastRoom() && game.currentDungeon.isLastLevel())) {
+        let str = '';
+        str += '<div class="dungeonQuote coolBorder">';
+        str += game.currentDungeon.getCurrentEventChoiceQuote();
+        str += '</div>';
+
+        str += '<div class="dungeonButtons">'
+        str += '<button class="dungeonButton simpleButton" id="nextButton">Keep exploring</button>';
+        str += '</div>'
+
+        document.querySelector('.dungeonContainer').innerHTML = str;
+
+        const next = document.querySelector('#nextButton');
+        next.addEventListener('click', e => {
+            game.currentDungeon.generateEvent();
+            displayCurrentEventSet();
+        });
+    }
+    // must manage the script's orientation towards the GenerateClosingEvent() function to display a particular set, relative to the last event of the last level of a dungeon (not functional at the moment)
+    else {
+        let str = '';
+        str += '<div class="dungeonQuote coolBorder">';
+        str += game.currentDungeon.getCurrentEventChoiceQuote();
+        str += '</div>';
+
+        str += '<div class="dungeonButtons">'
+        str += '<button class="dungeonButton simpleButton" id="nextButton">Keep exploring</button>';
+        str += '</div>'
+
+        document.querySelector('.dungeonContainer').innerHTML = str;
+        const next = document.querySelector('#nextButton');
+        next.addEventListener('click', e => {
+            game.currentDungeon.generateEvent(Data.DungeonEventType.CLOSING);
+            generateDungeonClosingEvent();
         });
     }
 }

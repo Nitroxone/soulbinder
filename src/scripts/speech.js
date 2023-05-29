@@ -17,6 +17,10 @@ let Speech = {
                     "The exploration was difficult, but you and your striders eventually got where you wanted to go. Before you, a gaping cave from which emanates putrid fumes. Do you dare to venture into it?"
 
                 ],
+                closing: [
+
+                    "closing set wsh bon c pas encore ça"
+                ],
             },
             regular: {
                 jungle: {
@@ -99,6 +103,34 @@ let Speech = {
                             "TAYEEEEUUULLL",
         
                         ], 
+                    },
+                    4: {
+                        room: [
+                            "room lvl 4",
+                        ],
+
+                        bridge: [
+
+                            "bridge lvl 4",
+        
+                        ],
+
+                        choiceQuote: [
+
+                            "choice quote lvl 4",
+        
+                        ], 
+                    },
+                    5: {
+                        room: [
+                            "room lvl 5",
+                        ],
+
+                        choiceQuote: [
+
+                            "quote lvl 5",
+
+                        ]
                     }
                 }
             },

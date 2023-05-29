@@ -1251,6 +1251,15 @@ function getDungeonRegularSet(dungeon) {
 }
 
 /**
+ * Returns an entrance set that matches the settings of the provided DungeonEvent (same as entrance, but for closing).
+ * @param {DungeonEvent} dungeon the DungeonEvent
+ * @returns {string} a matching set
+ */
+function getDungeonClosingSet(dungeon) {
+    return Speech.Dungeon[dungeon.zone][dungeon.type][dungeon.biome][Math.floor(Math.random() * Speech.Dungeon[dungeon.zone][dungeon.type][dungeon.biome].length)];
+}
+
+/**
  * Returns the Weapon which ID is provided, on the provided Strider.
  * @param {Strider} strider 
  * @param {number} id 

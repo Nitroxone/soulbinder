@@ -9,6 +9,7 @@ class Dungeon {
         this.tags = [];
         this.currentEvent = null;
         this.currentLevel = null;
+        this.currentLevelRoomNumber = 0;
         this.history = [];
         this.createDungeon();
     }
@@ -40,6 +41,7 @@ class Dungeon {
      */
     generateEvent(instance = Data.DungeonEventInstance.ROOM) {
         this.currentEvent = new DungeonEvent(instance);
+        if(instance === Data.DungeonEventInstance.ROOM) this.addOneToRoomNumber();
         if(instance === Data.DungeonEventInstance.BRIDGE) this.increaseLevel();
     }
 
@@ -64,22 +66,30 @@ class Dungeon {
         this.currentEvent.chooseInstance(playerChoice);
     }
 
+    // 
     increaseLevel() {
         this.currentLevel = Math.min(this.currentLevel+1, 5);
+        this.resetCurrentLevelRoomNumber();
     }
 
-    getHistoryCurrentRoomNumber() {
-        let roomCount = 0;
-        for (const event of this.history) {
-            if (event.instance === Data.DungeonEventInstance.ROOM) {
-                roomCount++;
-            }
-        }
-        return roomCount;
+    getCurrentLevelRoomNumber() {
+        return this.currentLevelRoomNumber;
+    }
+
+    addOneToRoomNumber() {
+        this.currentLevelRoomNumber += 1;
+    }
+
+    resetCurrentLevelRoomNumber() {
+        this.currentLevelRoomNumber = 0;
     }
 
     isLastRoom() {
-        return this.getHistoryCurrentRoomNumber() % 3 === 0;
+        return this.getCurrentLevelRoomNumber() % 3 === 0;
+    }
+
+    isLastLevel() {
+        return this.currentLevel === 5;
     }
 }
 
