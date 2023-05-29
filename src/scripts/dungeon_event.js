@@ -46,16 +46,18 @@ class DungeonEvent {
      * @param {Data.DungeonEventInstance} instance 
      */
     setInstance(instance) {
-        if (Dungeon.isLastRoom() === true) {
-            console.log('ici c bon');
-            this.instance === Data.DungeonEventInstance.LAST_ROOM;
-        } else {
             this.instance = instance;
-        }
     }
 
     generateChoiceQuote() {
-        this.choiceQuote = Speech.Dungeon[this.zone].regular[this.biome][this.level].choiceQuote[Math.floor(Math.random() * Speech.Dungeon[this.zone].regular[this.biome][this.level].choiceQuote.length)];
+        if(game.currentDungeon.isLastRoom() === true && game.currentDungeon.instance === Data.DungeonEventInstance.ROOM) {
+
+            this.choiceQuote = Speech.Dungeon[this.zone].regular[this.biome][this.level].endLevelQuote[Math.floor(Math.random() * Speech.Dungeon[this.zone].regular[this.biome][this.level].endLevelQuote.length)];
+
+        }
+        else {
+            this.choiceQuote = Speech.Dungeon[this.zone].regular[this.biome][this.level].choiceQuote[Math.floor(Math.random() * Speech.Dungeon[this.zone].regular[this.biome][this.level].choiceQuote.length)];
+        }
     }
 
     generateEntranceSet() {
