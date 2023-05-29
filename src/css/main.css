@@ -4399,3 +4399,13 @@ table.astralForgeShards td {
     border-radius: 3px;
     filter: drop-shadow(0px 0px 15px #1abc9c6c);
 }
+
+.disabledSkill {
+    cursor: not-allowed;
+    filter: grayscale() opacity(.7);
+}
+.disabledWeapon:active {
+    border-color: rgb(232, 65, 24);
+    background-color: rgba(232, 65, 24, 0.1);
+    transform: scale(0.9);
+}
