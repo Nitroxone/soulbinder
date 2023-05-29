@@ -218,28 +218,67 @@ class Battle {
     /**
      * Computes attack params for a weapon attack.
      */
-    computeAttackParams() {
+    computeAttackParams(target) {
         this.resetAttackParams();
-        let baseDmg, finalDmg;
-        const target = this.target[this.targetTracker];
+        const weapon = this.selectedWeapon;
 
         if(Math.random() * 100 < this.currentPlay.accuracy) {
             // Accuracy test passed
             this.params.success_accuracy = true;
             if(Math.random() * 100 > target.dodge) {
                 // Target is hit!
-                this.params.phys_damage = this.selectedWeapon.getSharpness();
-                this.params.magi_damage = this.selectedWeapon.getWithering();
+                this.params.phys_damage = weapon.getSharpness();
+                this.params.magi_damage = weapon.getWithering();
 
-                if(Math.random() * 100 < this.selectedWeapon.crit_luk) {
+                if(Math.random() * 100 < weapon.crit_luk) {
                     // Critical blow! Add critical damage
-                    this.params.crit_damage += this.selectedWeapon.crit_dmg;
+                    this.params.crit_damage += weapon.crit_dmg;
                     this.params.critical = true;
                 }
 
                 this.params.phys_damage += (Math.round(this.params.phys_damage * this.currentPlay.modifDmgWeapon/100) + Math.round(this.params.phys_damage * this.currentPlay.modifDmgTotal/100));
                 this.params.magi_damage += (Math.round(this.params.magi_damage * this.currentPlay.modifDmgWeapon/100) + Math.round(this.params.magi_damage * this.currentPlay.modifDmgTotal/100));
                 this.params.crit_damage += (Math.round(this.params.crit_damage * this.currentPlay.modifDmgWeapon/100) + Math.round(this.params.crit_damage * this.currentPlay.modifDmgTotal/100));
+            } else {
+                // Dodged
+                this.params.success_dodge = true;
+            }
+        } else {
+            // Missed
+        }
+    }
+
+    computeSkillParams(target, friendly = false) {
+        this.resetAttackParams();
+        const skill = this.selectedSkill;
+        const accessor = skill.level;
+        const modifier = (skill.type === Data.SkillType.FRIENDLY || friendly) ? 9999 : 0;
+        const current = this.currentPlay;
+
+        if(Math.random()*200 < (current.accuracy + skill.accMultiplier + modifier)) {
+            // Accuracy test passed
+            this.params.success_accuracy = true;
+            if(Math.random() * 100 > target.dodge - modifier) {
+                // Target is hit!
+                switch(skill.dmgType) {
+                    case Data.SkillDamageType.PHYSICAL:
+                        this.params.phys_damage = Math.round((skill.dmgMultiplier / 100) * current.might);
+                        break;
+                    case Data.SkillDamageType.MAGICAL:
+                        this.params.magi_damage = Math.round((skill.dmgMultiplier / 100) * current.spirit);
+                        break;
+                    case Data.SkillDamageType.BOTH:
+                        this.params.phys_damage = Math.round((skill.dmgMultiplier / 100) * current.might);
+                        this.params.magi_damage = Math.round((skill.dmgMultiplier / 100) * current.spirit);
+                        break;
+                }
+                if(Math.random() * 100 < skill.criMultiplier) {
+                    // Critical blow! Add critical effects
+                    this.params.critical = true;
+                }
+
+                this.params.phys_damage += (Math.round(this.params.phys_damage * current.modifDmgSkill/100) + Math.round(this.params.phys_damage * current.modifDmgTotal/100));
+                this.params.magi_damage += (Math.round(this.params.magi_damage * current.modifDmgSkill/100) + Math.round(this.params.magi_damage * current.modifDmgTotal/100));
             } else {
                 // Dodged
                 this.params.success_dodge = true;
@@ -257,7 +296,7 @@ class Battle {
 
         this.runTriggersOnCurrent(Data.TriggerType.ON_ATTACK);
         this.target.forEach(tar => {
-            this.computeAttackParams();
+            this.computeAttackParams(tar);
             let params = this.params;
             if(params.success_accuracy && !params.success_dodge) {
                 // Successful hit
@@ -336,8 +375,146 @@ class Battle {
 
     executeSkill() {
         const skill = this.selectedSkill;
+        const current = this.currentPlay;
+        let effects = [];
+        let accessor = '';
 
-        this.runTriggersOnCurrent(Data.TriggerType.ON_SKILL);
+        this.runTriggersOnCurrent(Data.TriggerType.ON_ATTACK);
+        this.target.forEach(tar => {
+            this.computeSkillParams(tar);
+            let params = this.params;
+            if(params.success_accuracy && !params.success_dodge) {
+                // Successful hit
+                console.log('Successful hit!');
+                if(params.phys_damage > 0 && params.magi_damage > 0) {
+                    this.runTriggersOnCurrent(Data.TriggerType.ON_DEAL_DAMAGE);
+                    tar.runTriggers(Data.TriggerType.ON_RECV_DAMAGE);
+                    tar.receiveDamage(params);
+                }
+
+                // Handle critical triggers and critical effects
+                accessor = (params.critical ? 'critical' : 'regular');
+                if(params.critical) {
+                    console.log('Critical blow!');
+                    //this.currentPlay.addCriticalEffects();
+                    this.runTriggersOnCurrent(Data.TriggerType.ON_DEAL_CRITICAL);
+                    tar.runTriggers(Data.TriggerType.ON_RECV_CRITICAL);
+                }
+
+                // Applying effects
+                effects = [];
+                if(skill.effectsAllies || skill.effectsEnemies) {
+                    if(skill.effectsAllies && arrayContains(this.allies, tar)) {
+                        skill.effectsAllies[skill.level][accessor].forEach(eff => {
+                            effects.push(eff);
+                        });
+                    }
+                    if(skill.effectsEnemies && arrayContains(this.enemies, tar)) {
+                        skill.effectsEnemies[skill.level][accessor].forEach(eff => {
+                            effects.push(eff);
+                            // Moving
+                            this.applyEnemyMovement(eff, tar);
+                        });                         
+                    }
+                    tar.addActiveEffect(new ActiveEffect({
+                        name: skill.name + (params.critical ? ' (critical)' : ''),
+                        originUser: current,
+                        originObject: skill,
+                        effects: effects,
+                        style: {
+                            color: Data.Color.TURQUOISE,
+                            bold: params.critical,
+                            italic: params.critical
+                        }
+                    }));
+                    tar.addBattlePopup(new BattlePopup(0, '<div class="popupIcon" style="background-image: url(\'css/img/skills/' + current.name.toLowerCase() + skill.icon + '.png\');"></div>'));
+                }
+            } else if(!params.success_accuracy) {
+                // Missed
+                console.log('Missed!');
+                this.runTriggersOnCurrent(Data.TriggerType.ON_DEAL_MISSED);
+                tar.runTriggers(Data.TriggerType.ON_RECV_MISSED);
+                tar.addBattlePopup(new BattlePopup(0, '<p>Missed!</p>'));
+            } else if(params.success_dodge) {
+                // Dodged
+                console.log('Dodged!');
+                this.runTriggersOnCurrent(Data.TriggerType.ON_DEAL_DODGED);
+                tar.runTriggers(Data.TriggerType.ON_RECV_DODGED);
+                tar.addBattlePopup(new BattlePopup(0, '<p>Dodged!</p>'));
+            }
+        });
+
+        // CASTER EFFECTS
+        if(skill.effectsCaster) {
+            effects = [];
+            const fcritical = Math.random() * 100 < skill.criMultiplier;
+            accessor = (fcritical ? 'critical' : 'regular');
+            skill.effectsCaster[skill.level][accessor].forEach(eff => {
+                effects.push(eff);
+                // Moving
+                this.applyCasterMovement(eff);
+            });
+            current.addActiveEffect(new ActiveEffect({
+                name: skill.name + (fcritical ? ' (critical)' : ''),
+                originUser: current,
+                originObject: skill,
+                effects: effects,
+                style: {
+                    color: Data.Color.TURQUOISE,
+                    bold: fcritical,
+                    italic: fcritical
+                }
+            }));
+            current.addBattlePopup(new BattlePopup(0, '<div class="popupIcon" style="background-image: url(\'css/img/skills/' + current.name.toLowerCase() + skill.icon + '\'.png);"></div>'));
+        }
+
+        current.useSkill(skill);
+        this.runPopups();
+    }
+
+    applyEnemyMovement(skill, target) {
+        switch(skill.effect) {
+            case Data.Effect.PULL_ONE:
+                if(target.getSelfPosInBattle() === Data.FormationPosition.MIDDLE) this.movementQueue.push(new BattleMove(target, Data.FormationPosition.FRONT, 'e'));
+                else if(target.getSelfPosInBattle() === Data.FormationPosition.BACK) this.movementQueue.push(new BattleMove(target, Data.FormationPosition.MIDDLE, 'e'));
+                break;
+            case Data.Effect.PULL_TWO:
+                this.movementQueue.push(new BattleMove(target, Data.FormationPosition.FRONT, 'e'));
+                break;
+            case Data.Effect.PUSH_ONE:
+                if(target.getSelfPosInBattle() === Data.FormationPosition.FRONT) this.movementQueue.push(new BattleMove(target, Data.FormationPosition.MIDDLE, 'e'));
+                else if(target.getSelfPosInBattle() === Data.FormationPosition.MIDDLE) this.movementQueue.push(new BattleMove(target, Data.FormationPosition.BACK, 'e'));
+                break;
+            case Data.Effect.PUSH_TWO:
+                this.movementQueue.push(new BattleMove(target, Data.FormationPosition.BACK, 'e'))
+                break;
+        }
+    }
+
+    applyCasterMovement(skill) {
+        const current = this.currentPlay;
+        switch(skill.effect) {
+            case Data.Effect.BACK_ONE:
+                if(current.getSelfPosInBattle() === Data.FormationPosition.FRONT) {
+                    this.movementQueue.push(new BattleMove(current, Data.FormationPosition.MIDDLE, 'a'));
+                } else if(current.getSelfPosInBattle() === Data.FormationPosition.MIDDLE) {
+                    this.movementQueue.push(new BattleMove(current, Data.FormationPosition.BACK, 'a'));
+                }
+                break;
+            case Data.Effect.BACK_TWO:
+                this.movementQueue.push(new BattleMove(current, Data.FormationPosition.BACK, 'a'));
+                break;
+            case Data.Effect.FRONT_ONE:
+                if(current.getSelfPosInBattle() === Data.FormationPosition.BACK) {
+                    this.movementQueue.push(new BattleMove(current, Data.FormationPosition.MIDDLE, 'a'));
+                } else if(current.getSelfPosInBattle() === Data.FormationPosition.MIDDLE) {
+                    this.movementQueue.push(new BattleMove(current, Data.FormationPosition.FRONT, 'a'));
+                }
+                break;
+            case Data.Effect.FRONT_TWO:
+                this.movementQueue.push(new BattleMove(current, Data.FormationPosition.FRONT, 'a'));
+                break;
+        } 
     }
 
     getCurrentNPCPos() {
@@ -352,7 +529,7 @@ class Battle {
     runPopups() {
         this.order.forEach(el => {
             el.executePopups();
-        })
+        });
     }
 
     /**

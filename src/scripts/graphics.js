@@ -2245,10 +2245,8 @@ function battleSkillPickTarget() {
     if(skill.targets.enemies.includes('3')) document.querySelector('#b-enemy-back').classList.add(selector);
 
     // Highlight Caster's position if no target at all but caster effects exist
-    if(skill.targets.enemies === '-0' && skill.targets.allies === '-0' && skill.effects_caster) {
-        if(containsByName(battle.allies, battle.currentPlay.name)) {
-            document.querySelector('#b-hero-' + battle.getCurrentNPCPos().toLowerCase()).classList.add('battle-skillTargetSingle');
-        }
+    if(skill.targets.enemies === '-0' && skill.targets.allies === '-0' && skill.effectsCaster) {
+        document.querySelector('#b-hero-' + battle.getCurrentNPCPos().toLowerCase()).classList.add('battle-skillTargetSingle');
     } else {
         document.querySelector('#b-hero-' + battle.getCurrentNPCPos().toLowerCase()).classList.remove('battle-skillTargetSingle', 'battle-skillTargetMultiple');
     }
@@ -2606,11 +2604,11 @@ function getBattleFighterActiveEffects(fighter) {
     str += '<div class="divider"></div>';
     fighter.activeEffects.forEach(ae => {
         str += '<div class="activeEffect-wrapper">';
-        str += '<p class="activeEffectTitle" style="color: ' + (ae.style.color ? ae.style.color : '#ddd') + '; font-family: ' + getFontFamilyFromAeStyling(ae.style) + ';">' + ae.name + '</p>';
+        str += '<p class="activeEffectTitle" style="color: ' + (ae.style.color ? ae.style.color : ae.originObject instanceof Skill ? Data.Color.TURQUOISE : '#ddd') + '; font-family: ' + getFontFamilyFromAeStyling(ae.style) + ';">' + ae.name + '</p>';
         ae.effects.forEach(eff => {
-            str += eff.getFormatted({noTheorical: true, cssClass: 'activeEffect', includeDuration: true});
+            str += eff.getFormatted({noTheorical: true, cssClass: 'activeEffect', includeDuration: true, defaultColor: true});
         });
-        if(ae.originObject instanceof Skill) str += '<p class="activeEffect">From: ' + ae.originObject.name + ', casted by <span style="color: ' + Data.Color.PURPLE + '">' + ae.originUser.name + '</span> (' + ae.countdown + (ae.countdown > 1 ? ' rounds' : ' round') + 'ago)</p>';
+        if(ae.originObject instanceof Skill) str += '<p class="activeEffect">From: <span style="color:' + Data.Color.TURQUOISE + '">' + ae.originObject.name + '</span>, casted by <span style="color: ' + Data.Color.PURPLE + '">' + ae.originUser.name + '</span> (' + ae.countdown + (ae.countdown > 1 ? ' rounds' : ' round') + ' ago)</p>';
         else if(ae.originObject instanceof Weapon) str += '<p class="activeEffect">From: <span style="color: ' + getRarityColorCode(ae.originObject.rarity) + ';">' + ae.originObject.name + '</span>, wielded by <span style="color: ' + Data.Color.PURPLE + '">' + ae.originUser.name + '</span> (' + ae.countdown + (ae.countdown > 1 ? ' rounds' : ' round') + ' ago)' + '</p>';
         else if(ae.originObject === Data.ActiveEffectType.POWER) str += '<p class="activeEffect">Power emanating from <span style="color: ' + Data.Color.PURPLE + '">' + ae.originUser.name + '</span></p>';
         str += '</div>';

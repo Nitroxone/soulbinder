@@ -154,11 +154,15 @@ const Data = Object.freeze({
         BACK_ONE: "backs one position",
         BACK_TWO: "backs two positions",
         SHIELD: "shield",
+        HEALTH_STEAL: "health steal",
+        MANA_STEAL: "mana steal",
+        STAMINA_STEAL: "stamina steal"
     },
     TriggerType: {
         ON_STAT_CHANGE: 'ON_STAT_CHANGE',
         ON_ATTACK: 'ON_ATTACK',
-        ON_SKILL: 'ON_SKILL',
+        ON_USE_SKILL: 'ON_USE_SKILL',
+        ON_USE_WEAPON: 'ON_USE_WEAPON',
         ON_DEAL_DAMAGE: 'ON_DEAL_DAMAGE',
         ON_RECV_DAMAGE: 'ON_RECV_DAMAGE',
         ON_DEAL_MISSED: 'ON_DEAL_MISSED',

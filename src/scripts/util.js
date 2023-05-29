@@ -1274,6 +1274,7 @@ function getFontFamilyFromAeStyling(props) {
         return 'RobotoBold';
     }
     if(props.italic) return 'RobotoItalic';
+    return 'Roboto';
 }
 
 

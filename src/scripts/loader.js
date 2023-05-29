@@ -1504,9 +1504,35 @@ const Loader = {
                 "Hawkeye's Mastery",
                 "Hawkeye's Mastery power description",
                 'quote',
-                1,
+                0,
                 what(game.all_skillTrees, "amarok"),
-                [],
+                [
+                    new Skill(
+                        "Fallback",
+                        "§Moves backwards§ and increases Carhal's §Dodge§.",
+                        13,
+                        {
+                            type: Data.SkillType.FRIENDLY,
+                            manaCost: 30,
+                            critMultiplier: 15,
+                            accMultiplier: 100,
+                            cooldown: 2,
+                            launchPos: [false, true, true],
+                            effectsCaster: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.BACK_ONE}),
+                                        new Stat({effect: Data.Effect.DODGE, theorical: 5, duration: 2, isPercentage: true})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.BACK_ONE}),
+                                        new Stat({effect: Data.Effect.DODGE, theorical: 7, duration: 2, isPercentage: true, isCritical: true})
+                                    ]
+                                }
+                            }
+                        }
+                    )
+                ],
                 '10% 10%'
             ),
             new Strider(
@@ -1553,11 +1579,11 @@ const Loader = {
                 [
                     new Skill(
                         "Inner Fire",
-                        "Heals Betheros. Boosts the target's §Skill damage§ and §Received healing§ if it is an ally; reduces them if it's an enemy.",
+                        "§Heals§ Betheros. Boosts the target's §Skill damage§ and §Received healing§ if it is an ally; reduces them if it's an enemy.",
                         13,
                         {
                             type: Data.SkillType.FRIENDLY,
-                            manaCost: 50,
+                            manaCost: 25,
                             critMultiplier: 20,
                             accMultiplier: 85,
                             targets: {allies: '-123', enemies: '-123'},
@@ -1578,8 +1604,8 @@ const Loader = {
                                         new Stat({effect: Data.Effect.MODIF_HEAL_RECV, theorical: [2, 4], isPercentage: true, duration: 2})
                                     ],
                                     critical: [
-                                        new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [2, 4], isPercentage: true, duration: 2}),
-                                        new Stat({effect: Data.Effect.MODIF_HEAL_RECV, theorical: [2, 4], isPercentage: true, duration: 2})
+                                        new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [2, 4], isPercentage: true, duration: 2, isCritical: true}),
+                                        new Stat({effect: Data.Effect.MODIF_HEAL_RECV, theorical: [2, 4], isPercentage: true, duration: 2, isCritical: true})
                                     ]
                                 }
                             },
@@ -1590,8 +1616,8 @@ const Loader = {
                                         new Stat({effect: Data.Effect.MODIF_HEAL_RECV, theorical: [-5, -10], isPercentage: true, duration: 2})
                                     ],
                                     critical: [
-                                        new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [-8, -15], isPercentage: true, duration: 2}),
-                                        new Stat({effect: Data.Effect.MODIF_HEAL_RECV, theorical: [-8, -15], isPercentage: true, duration: 2})
+                                        new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [-8, -15], isPercentage: true, duration: 2, isCritical: true}),
+                                        new Stat({effect: Data.Effect.MODIF_HEAL_RECV, theorical: [-8, -15], isPercentage: true, duration: 2, isCritical: true})
                                     ]
                                 }
                             }
@@ -1603,30 +1629,68 @@ const Loader = {
                         14,
                         {
                             type: Data.SkillType.FRIENDLY,
-                            manaCost: 120,
+                            manaCost: 50,
                             critMultiplier: 15,
                             accMultiplier: 100,
                             targets: {allies: '@123', enemies: '-0'},
+                            cooldown: 3,
+                            launchPos: [true, false, false],
                             effectsCaster: {
                                 1: {
                                     regular: [
-                                        new Stat({effect: Data.Effect.SHIELD, theorical: [20, 25], duration: 2, cooldown: 5})
+                                        new Stat({effect: Data.Effect.SHIELD, theorical: [20, 25], duration: 2})
                                     ],
                                     critical: [
-                                        new Stat({effect: Data.Effect.SHIELD, theorical: [25, 30], duration: 3, cooldown: 5})
+                                        new Stat({effect: Data.Effect.SHIELD, theorical: [25, 30], duration: 3, isCritical: true})
                                     ]
                                 }
                             },
                             effectsAllies: {
                                 1: {
                                     regular: [
-                                        new Stat({effect: Data.Effect.SHIELD, theorical: [20, 25], duration: 2, cooldown: 5})
+                                        new Stat({effect: Data.Effect.SHIELD, theorical: [20, 25], duration: 2})
                                     ],
                                     critical: [
-                                        new Stat({effect: Data.Effect.SHIELD, theorical: [25, 30], duration: 3, cooldown: 5})
+                                        new Stat({effect: Data.Effect.SHIELD, theorical: [25, 30], duration: 3, isCritical: true})
                                     ]
                                 }
                             },
+                        }
+                    ),
+                    new Skill(
+                        "Banishment",
+                        "§Pushes back§ an enemy. §Heals§ Betheros.",
+                        15,
+                        {
+                            type: Data.SkillType.OFFENSIVE,
+                            manaCost: 20,
+                            dmgType: Data.SkillDamageType.MAGICAL,
+                            dmgMultiplier: 20,
+                            criMultiplier: 10,
+                            accMultiplier: 85,
+                            targets: {allies: '-0', enemies: '-12'},
+                            cooldown: 1,
+                            launchPos: [true, true, false],
+                            effectsCaster: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.REGEN_HEALTH, theorical: [3, 6], isPercentage: true})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.REGEN_HEALTH, theorical: [5, 8], isPercentage: true, isCritical: true})
+                                    ]
+                                }
+                            },
+                            effectsEnemies: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.PUSH_ONE})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.PUSH_ONE})
+                                    ]
+                                }
+                            }
                         }
                     )
                 ],
