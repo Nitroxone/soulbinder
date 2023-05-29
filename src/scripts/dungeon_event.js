@@ -43,10 +43,15 @@ class DungeonEvent {
 
     /**
      * 
-     * @param {Data.DungeonEventInstance} type 
+     * @param {Data.DungeonEventInstance} instance 
      */
-    setInstance(type) {
-        this.instance = type;
+    setInstance(instance) {
+        if (Dungeon.isLastRoom() === true) {
+            console.log('ici c bon');
+            this.instance === Data.DungeonEventInstance.LAST_ROOM;
+        } else {
+            this.instance = instance;
+        }
     }
 
     generateChoiceQuote() {
