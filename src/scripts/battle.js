@@ -377,6 +377,7 @@ class Battle {
         const skill = this.selectedSkill;
         const current = this.currentPlay;
         let effects = [];
+        let accessor = '';
 
         this.runTriggersOnCurrent(Data.TriggerType.ON_ATTACK);
         this.target.forEach(tar => {
@@ -391,70 +392,42 @@ class Battle {
                     tar.receiveDamage(params);
                 }
 
+                // Handle critical triggers and critical effects
+                accessor = (params.critical ? 'critical' : 'regular');
                 if(params.critical) {
-                    // Handle critical triggers and critical effects
                     console.log('Critical blow!');
                     //this.currentPlay.addCriticalEffects();
                     this.runTriggersOnCurrent(Data.TriggerType.ON_DEAL_CRITICAL);
                     tar.runTriggers(Data.TriggerType.ON_RECV_CRITICAL);
+                }
 
-                    // Applying effects
-                    effects = [];
-                    if(skill.effectsAllies || skill.effectsEnemies) {
-                        if(skill.effectsAllies && arrayContains(this.allies, tar)) {
-                            skill.effectsAllies[skill.level].critical.forEach(eff => {
-                                effects.push(eff);
-                            });
-                        }
-                        if(skill.effectsEnemies && arrayContains(this.enemies, tar)) {
-                            skill.effectsEnemies[skill.level].critical.forEach(eff => {
-                                effects.push(eff);
-                                // Moving
-                                this.applyEnemyMovement(eff, tar);
-                            });                         
-                        }
-                        tar.addActiveEffect(new ActiveEffect({
-                            name: skill.name + ' (critical)',
-                            originUser: current,
-                            originObject: skill,
-                            effects: effects,
-                            style: {
-                                color: "#fff",
-                                bold: true,
-                                italic: true
-                            }
-                        }));
-                        tar.addBattlePopup(new BattlePopup(0, '<div class="popupIcon" style="background-image: url(\'css/img/skills/' + current.name.toLowerCase() + skill.icon + '\'.png);"></div>'));
+                // Applying effects
+                effects = [];
+                if(skill.effectsAllies || skill.effectsEnemies) {
+                    if(skill.effectsAllies && arrayContains(this.allies, tar)) {
+                        skill.effectsAllies[skill.level][accessor].forEach(eff => {
+                            effects.push(eff);
+                        });
                     }
-                } else {
-                    // Applying effects
-                    effects = [];
-                    if(skill.effectsAllies || skill.effectsEnemies) {
-                        if(skill.effectsAllies && arrayContains(this.allies, tar)) {
-                            skill.effectsAllies[skill.level].regular.forEach(eff => {
-                                effects.push(eff);
-                            });
-                        }
-                        if(skill.effectsEnemies && arrayContains(this.enemies, tar)) {
-                            skill.effectsEnemies[skill.level].regular.forEach(eff => {
-                                effects.push(eff);
-                                // Moving
-                                this.applyEnemyMovement(eff, tar);
-                            });                         
-                        }
-                        tar.addActiveEffect(new ActiveEffect({
-                            name: skill.name,
-                            originUser: current,
-                            originObject: skill,
-                            effects: effects,
-                            style: {
-                                color: "#fff",
-                                bold: false,
-                                italic: false
-                            }
-                        }));
-                        tar.addBattlePopup(new BattlePopup(0, '<div class="popupIcon" style="background-image: url(\'css/img/skills/' + current.name.toLowerCase() + skill.icon + '\'.png);"></div>'));
+                    if(skill.effectsEnemies && arrayContains(this.enemies, tar)) {
+                        skill.effectsEnemies[skill.level][accessor].forEach(eff => {
+                            effects.push(eff);
+                            // Moving
+                            this.applyEnemyMovement(eff, tar);
+                        });                         
                     }
+                    tar.addActiveEffect(new ActiveEffect({
+                        name: skill.name + (params.critical ? ' (critical)' : ''),
+                        originUser: current,
+                        originObject: skill,
+                        effects: effects,
+                        style: {
+                            color: Data.Color.TURQUOISE,
+                            bold: params.critical,
+                            italic: params.critical
+                        }
+                    }));
+                    tar.addBattlePopup(new BattlePopup(0, '<div class="popupIcon" style="background-image: url(\'css/img/skills/' + current.name.toLowerCase() + skill.icon + '.png\');"></div>'));
                 }
             } else if(!params.success_accuracy) {
                 // Missed
@@ -475,43 +448,24 @@ class Battle {
         if(skill.effectsCaster) {
             effects = [];
             const fcritical = Math.random() * 100 < skill.criMultiplier;
-            if(fcritical) {
-                skill.effectsCaster[skill.level].critical.forEach(eff => {
-                    effects.push(eff);
-                    // Moving
-                    this.applyCasterMovement(eff);
-                });
-                current.addActiveEffect(new ActiveEffect({
-                    name: skill.name + ' (critical)',
-                    originUser: current,
-                    originObject: skill,
-                    effects: effects,
-                    style: {
-                        color: "#fff",
-                        bold: true,
-                        italic: true
-                    }
-                }));
-                current.addBattlePopup(new BattlePopup(0, '<div class="popupIcon" style="background-image: url(\'css/img/skills/' + current.name.toLowerCase() + skill.icon + '\'.png);"></div>'));
-            } else {
-                skill.effectsCaster[skill.level].regular.forEach(eff => {
-                    effects.push(eff);
-                    // Moving
-                    this.applyCasterMovement(eff);
-                });
-                current.addActiveEffect(new ActiveEffect({
-                    name: skill.name,
-                    originUser: current,
-                    originObject: skill,
-                    effects: effects,
-                    style: {
-                        color: "#fff",
-                        bold: false,
-                        italic: false
-                    }
-                }));
-                current.addBattlePopup(new BattlePopup(0, '<div class="popupIcon" style="background-image: url(\'css/img/skills/' + current.name.toLowerCase() + skill.icon + '\'.png);"></div>'));
-            }
+            accessor = (fcritical ? 'critical' : 'regular');
+            skill.effectsCaster[skill.level][accessor].forEach(eff => {
+                effects.push(eff);
+                // Moving
+                this.applyCasterMovement(eff);
+            });
+            current.addActiveEffect(new ActiveEffect({
+                name: skill.name + (fcritical ? ' (critical)' : ''),
+                originUser: current,
+                originObject: skill,
+                effects: effects,
+                style: {
+                    color: Data.Color.TURQUOISE,
+                    bold: fcritical,
+                    italic: fcritical
+                }
+            }));
+            current.addBattlePopup(new BattlePopup(0, '<div class="popupIcon" style="background-image: url(\'css/img/skills/' + current.name.toLowerCase() + skill.icon + '\'.png);"></div>'));
         }
 
         current.useSkill(skill);
@@ -575,7 +529,7 @@ class Battle {
     runPopups() {
         this.order.forEach(el => {
             el.executePopups();
-        })
+        });
     }
 
     /**

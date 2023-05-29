@@ -176,10 +176,8 @@ class Stat {
                 + this.theorical[1] 
                 + ']</span>';
             }
-            str += (includeDuration && this.duration > 0 ? ' (' + this.duration + ' round' + (this.duration > 1 ? 's' : '') + ' left)' : '');
+            str += (includeDuration && this.duration > 0 ? ' <span style="color: #ddd">(' + this.duration + ' round' + (this.duration > 1 ? 's' : '') + ' left)</span>' : '');
             str += '</div>';
-
-            if(includeDuration) console.log('Duration included: ' + this.duration);
         }
 
         return str;
