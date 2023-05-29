@@ -1847,28 +1847,47 @@ function displayCurrentEventSet() {
 
 // manages the display of choice quotes, allowing the player to choose whether to stay at the current dungeon level or go deeper
 function displayCurrentEventChoiceQuote() {
-    let str = '';
-    str += '<div class="dungeonQuote coolBorder">';
-    str += game.currentDungeon.getCurrentEventChoiceQuote();
-    str += '</div>';
+    if(game.currentDungeon.isLastRoom() === false) {
+        let str = '';
+        str += '<div class="dungeonQuote coolBorder">';
+        str += game.currentDungeon.getCurrentEventChoiceQuote();
+        str += '</div>';
 
-    str += '<div class="dungeonButtons">'
-    str += '<button class="dungeonButton simpleButton" id="bridgeButton">Go deeper</button>';
-    str += '<button class="dungeonButton simpleButton" id="nextButton">Keep exploring</button>';
-    str += '</div>'
+        str += '<div class="dungeonButtons">'
+        str += '<button class="dungeonButton simpleButton" id="bridgeButton">Go deeper</button>';
+        str += '<button class="dungeonButton simpleButton" id="nextButton">Keep exploring</button>';
+        str += '</div>'
 
-    document.querySelector('.dungeonContainer').innerHTML = str;
+        document.querySelector('.dungeonContainer').innerHTML = str;
 
-    document.querySelector('#bridgeButton').addEventListener('click', e => {
-        game.currentDungeon.generateEvent(Data.DungeonEventInstance.BRIDGE);
-        displayCurrentEventSet();
-    });
+        document.querySelector('#bridgeButton').addEventListener('click', e => {
+            game.currentDungeon.generateEvent(Data.DungeonEventInstance.BRIDGE);
+            displayCurrentEventSet();
+        });
 
-    const next = document.querySelector('#nextButton');
-    next.addEventListener('click', e => {
-        game.currentDungeon.generateEvent();
-        displayCurrentEventSet();
-    });
+        const next = document.querySelector('#nextButton');
+        next.addEventListener('click', e => {
+            game.currentDungeon.generateEvent();
+            displayCurrentEventSet();
+        });
+    }
+    else {
+        let str = '';
+        str += '<div class="dungeonQuote coolBorder">';
+        str += game.currentDungeon.getCurrentEventChoiceQuote();
+        str += '</div>';
+
+        str += '<div class="dungeonButtons">'
+        str += '<button class="dungeonButton simpleButton" id="bridgeButton">Go deeper</button>';
+        str += '</div>'
+
+        document.querySelector('.dungeonContainer').innerHTML = str;
+
+        document.querySelector('#bridgeButton').addEventListener('click', e => {
+            game.currentDungeon.generateEvent(Data.DungeonEventInstance.BRIDGE);
+            displayCurrentEventSet();
+        });
+    }
 }
 
 // manages the display of encounters in events (to be linked with battle)

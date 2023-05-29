@@ -48,6 +48,11 @@ let Speech = {
                             "Which way to go now? Rather the next room, or the tunnels that go down into the depths of the cave?",
         
                         ],
+
+                        endLevelQuote: [
+
+                            "c la fin du nivo xd"
+                        ]
                     },
                     2: {
                         room: [

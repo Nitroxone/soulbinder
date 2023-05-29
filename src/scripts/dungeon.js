@@ -77,6 +77,10 @@ class Dungeon {
         }
         return roomCount;
     }
+
+    isLastRoom() {
+        return this.getHistoryCurrentRoomNumber() % 3 === 0;
+    }
 }
 
 

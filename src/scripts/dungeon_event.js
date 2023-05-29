@@ -43,14 +43,21 @@ class DungeonEvent {
 
     /**
      * 
-     * @param {Data.DungeonEventInstance} type 
+     * @param {Data.DungeonEventInstance} instance 
      */
-    setInstance(type) {
-        this.instance = type;
+    setInstance(instance) {
+            this.instance = instance;
     }
 
     generateChoiceQuote() {
-        this.choiceQuote = Speech.Dungeon[this.zone].regular[this.biome][this.level].choiceQuote[Math.floor(Math.random() * Speech.Dungeon[this.zone].regular[this.biome][this.level].choiceQuote.length)];
+        if(game.currentDungeon.isLastRoom() === true && game.currentDungeon.instance === Data.DungeonEventInstance.ROOM) {
+
+            this.choiceQuote = Speech.Dungeon[this.zone].regular[this.biome][this.level].endLevelQuote[Math.floor(Math.random() * Speech.Dungeon[this.zone].regular[this.biome][this.level].endLevelQuote.length)];
+
+        }
+        else {
+            this.choiceQuote = Speech.Dungeon[this.zone].regular[this.biome][this.level].choiceQuote[Math.floor(Math.random() * Speech.Dungeon[this.zone].regular[this.biome][this.level].choiceQuote.length)];
+        }
     }
 
     generateEntranceSet() {
