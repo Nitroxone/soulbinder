@@ -10,6 +10,7 @@
 - Actually implement set bonuses
 
 - Add a battle order indicator
+- Implement skill cooldown, stamina/mana checks, launch pos checks, error messages
 
 ASTRAL FORGE:
 - Create GUI -- ONGOING

@@ -1381,21 +1381,21 @@ const Loader = {
                             effectsCaster: {
                                 1: {
                                     regular: [
-                                        new Stat({effect: Data.Effect.REGEN_HEALTH, theorical: [15, 20], isPercentage: true})
+                                        new Stat({effect: Data.Effect.HEALTH, theorical: [15, 20], isPercentage: true, type: Data.StatType.ACTIVE})
                                     ],
                                     critical: [
-                                        new Stat({effect: Data.Effect.REGEN_HEALTH, theorical: [18, 25], isPercentage: true, isCritical: true})
+                                        new Stat({effect: Data.Effect.HEALTH, theorical: [18, 25], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true})
                                     ]
                                 }
                             },
                             effectsEnemies: {
                                 1: {
                                     regular: [
-                                        new Stat({effect: Data.Effect.BLEEDING_CURABLE, theorical: [4, 6], duration: 2}),
+                                        new Stat({effect: Data.Effect.BLEEDING_CURABLE, theorical: [4, 6], type: Data.StatType.ACTIVE, duration: 2}),
                                         new Stat({effect: Data.Effect.SPEED, theorical: -5, duration: 2})
                                     ],
                                     critical: [
-                                        new Stat({effect: Data.Effect.BLEEDING_CURABLE, theorical: [5, 7], duration: 3, isCritical: true}),
+                                        new Stat({effect: Data.Effect.BLEEDING_CURABLE, theorical: [5, 7], type: Data.StatType.ACTIVE, duration: 3, isCritical: true}),
                                         new Stat({effect: Data.Effect.SPEED, theorical: -7, duration: 2, isCritical: true})
                                     ]
                                 }
@@ -1418,22 +1418,22 @@ const Loader = {
                                 1: {
                                     regular: [
                                         new Stat({effect: Data.Effect.HEALTH, theorical: -20, isPercentage: true}),
-                                        new Stat({effect: Data.Effect.REGEN_HEALTH, theorical: 3, isPercentage: true, duration: 3, delay: 1})
+                                        new Stat({effect: Data.Effect.HEALTH, theorical: 3, isPercentage: true, type: Data.StatType.ACTIVE, duration: 3, delay: 1})
                                     ],
                                     critical: [
                                         new Stat({effect: Data.Effect.HEALTH, theorical: -20, isPercentage: true, isCritical: true}),
-                                        new Stat({effect: Data.Effect.REGEN_HEALTH, theorical: 4, isPercentage: true, duration: 3, delay: 1, isCritical: true})
+                                        new Stat({effect: Data.Effect.HEALTH, theorical: 4, isPercentage: true, type: Data.StatType.ACTIVE, duration: 3, delay: 1, isCritical: true})
                                     ]
                                 }
                             },
                             effectsAllies: {
                                 1: {
                                     regular: [
-                                        new Stat({effect: Data.Effect.REGEN_HEALTH, theorical: 20, isPercentage: true}),
+                                        new Stat({effect: Data.Effect.HEALTH, theorical: 20, isPercentage: true, type: Data.StatType.ACTIVE}),
                                         new Stat({effect: Data.Effect.SPEED, theorical: 2, duration: 1})
                                     ],
                                     critical: [
-                                        new Stat({effect: Data.Effect.REGEN_HEALTH, theorical: 30, isPercentage: true, isCritical: true}),
+                                        new Stat({effect: Data.Effect.HEALTH, theorical: 30, isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true}),
                                         new Stat({effect: Data.Effect.SPEED, theorical: 4, duration: 1, isCritical: true})
                                     ]
                                 }
@@ -1590,10 +1590,10 @@ const Loader = {
                             effectsCaster: {
                                 1: {
                                     regular: [
-                                        new Stat({effect: Data.Effect.REGEN_HEALTH, theorical: [0, 8], isPercentage: true})
+                                        new Stat({effect: Data.Effect.HEALTH, theorical: [0, 8], isPercentage: true, type: Data.StatType.ACTIVE})
                                     ],
                                     critical: [
-                                        new Stat({effect: Data.Effect.REGEN_HEALTH, theorical: [3, 8], isPercentage: true, isCritical: true})
+                                        new Stat({effect: Data.Effect.HEALTH, theorical: [3, 8], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true})
                                     ]
                                 }
                             },
@@ -1674,10 +1674,10 @@ const Loader = {
                             effectsCaster: {
                                 1: {
                                     regular: [
-                                        new Stat({effect: Data.Effect.REGEN_HEALTH, theorical: [3, 6], isPercentage: true})
+                                        new Stat({effect: Data.Effect.HEALTH, theorical: [3, 6], isPercentage: true, type: Data.StatType.ACTIVE})
                                     ],
                                     critical: [
-                                        new Stat({effect: Data.Effect.REGEN_HEALTH, theorical: [5, 8], isPercentage: true, isCritical: true})
+                                        new Stat({effect: Data.Effect.HEALTH, theorical: [5, 8], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true})
                                     ]
                                 }
                             },

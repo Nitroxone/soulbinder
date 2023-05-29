@@ -83,6 +83,147 @@ class NPC extends Entity {
     }
 
     /**
+     * Adds the Stat's data to the NPC's data.
+     * @param {Stat} effect the Stat to add
+     * @param {boolean} remove whether the Stat should removed instead of being added
+     */
+    addEffect(effect, remove = false) {
+        const factor = remove ? -1 : 1;
+        switch(effect.effect) {
+            case Data.Effect.HEALTH:
+                this.health = effect.getValue() * factor;
+                break;
+            case Data.Effect.MANA:
+                this.mana = effect.getValue() * factor;
+                break;
+            case Data.Effect.STAMINA:
+                this.stamina = effect.getValue() * factor;
+                break;
+            case Data.Effect.MAXHEALTH:
+                this.maxHealth += effect.getValue() * factor;
+                this.health += effect.getValue() * factor;
+                break;
+            case Data.Effect.MAXMANA:
+                this.maxMana += effect.getValue() * factor;
+                this.mana += effect.getValue() * factor;
+                break;
+            case Data.Effect.MAXSTAMINA:
+                this.maxStamina += effect.getValue() * factor;
+                this.stamina += effect.getValue() * factor;
+                break;
+            case Data.Effect.DODGE:
+                this.dodge += effect.getValue() * factor;
+                break;
+            case Data.Effect.SPEED:
+                this.speed += effect.getValue() * factor;
+                break;
+            case Data.Effect.ACCURACY:
+                this.accuracy += effect.getValue() * factor;
+                break;
+            case Data.Effect.PROTECTION:
+                this.protection += effect.getValue() * factor;
+                break;
+            case Data.Effect.MIGHT:
+                this.might += effect.getValue() * factor;
+                break;
+            case Data.Effect.SPIRIT:
+                this.spirit += effect.getValue() * factor;
+                break;
+            case Data.Effect.RES_BLEED_DMG:
+                this.resBleed[0] += effect.getValue() * factor;
+                break;
+            case Data.Effect.RES_BLEED_DURATION:
+                this.resBleed[1] += effect.getValue() * factor;
+                break;
+            case Data.Effect.RES_POISON_DMG:
+                this.resPoison[0] += effect.getValue() * factor;
+                break;
+            case Data.Effect.RES_POISON_DURATION:
+                this.resPoison[1] += effect.getValue() * factor;
+                break;
+            case Data.Effect.RES_MOVE:
+                this.resMove += effect.getValue() * factor
+                break;
+            case Data.Effect.RES_STUN: 
+                this.resStun += effect.getValue() * factor
+                break;
+            case Data.Effect.RESILIENCE:
+                this.resilience += effect.getValue() * factor;
+                break;
+            case Data.Effect.WARDING:
+                this.warding += effect.getValue() * factor;
+                break;
+            case Data.Effect.REGEN_HEALTH:
+                this.regenHealth += effect.getValue() * factor;
+                break;
+            case Data.Effect.REGEN_MANA:
+                this.regenMana += effect.getValue() * factor;
+                break;
+            case Data.Effect.REGEN_STAMINA:
+                this.regenStamina += effect.getValue() * factor;
+                break;
+            case Data.Effect.MODIF_HEAL_RECV:
+                this.modifHealRecv += effect.getValue() * factor;
+                break;
+            case Data.Effect.MODIF_HEAL_GIVEN:
+                this.modifHealGiven += effect.getValue() * factor;
+                break;
+            case Data.Effect.DAMAGE_REFLECTION:
+                this.damageReflection += effect.getValue() * factor;
+                break;
+            case Data.Effect.MODIF_BLOCK:
+                this.modifBlock += effect.getValue() * factor;
+                break;
+            case Data.Effect.MODIF_DMG_TOTAL:
+                this.modifDmgTotal += effect.getValue() * factor;
+                break;
+            case Data.Effect.MODIF_DMG_WEAPON:
+                this.modifDmgWeapon += effect.getValue() * factor;
+                break;
+            case Data.Effect.MODIF_DMG_SKILL:
+                this.modifDmgSkill += effect.getValue() * factor;
+                break;
+            case Data.Effect.MODIF_DMG_POISON:
+                this.modifDmgPoison += effect.getValue() * factor;
+                break;
+            case Data.Effect.MODIF_DMG_STUN:
+                this.modifDmgStun += effect.getValue() * factor;
+                break;
+            case Data.Effect.MODIF_DMG_BLEED:
+                this.modifDmgBleed += effect.getValue() * factor;
+                break;
+            case Data.Effect.MODIF_ACCURACY_SKILL:
+                this.modifAccuracySkill += effect.getValue() * factor;
+                break;
+            case Data.Effect.MODIF_ACCURACY_STUN:
+                this.modifAccuracyStun += effect.getValue() * factor;
+                break;
+            case Data.Effect.MODIF_ACCURACY_BLEED:
+                this.modifAccuracyBleed += effect.getValue() * factor;
+                break;
+            case Data.Effect.MODIF_ACCURACY_POISON:
+                this.modifAccuracyPoison += effect.getValue() * factor;
+                break;
+            case Data.Effect.MODIF_CRIT_SKILL:
+                this.modifCritSkill += effect.getValue() * factor;
+                break;
+            case Data.Effect.MODIF_CRIT_STUN:
+                this.modifCritStun += effect.getValue() * factor;
+                break;
+            case Data.Effect.MODIF_CRIT_BLEED:
+                this.modifCritBleed += effect.getValue() * factor;
+                break;
+            case Data.Effect.MODIF_CRIT_POISON:
+                this.modifCritPoison += effect.getValue() * factor;
+                break;     
+            default:
+                ERROR('Tried to add an unknown effect.');
+                return;
+        }
+        console.log(this.name + ": " + effect.getValue()*factor + " " + effect.effect);
+    }
+
+    /**
      * Runs the triggers which type matches the provided TriggerType value. 
      * @param {Data.TriggerType} type the type of trigger that must be fired
      */
@@ -110,36 +251,75 @@ class NPC extends Entity {
         const crit = params.crit_damage;
         let damage, phys_damage, magi_damage;
 
-        phys_damage = phys - this.resilience;
-        magi_damage = magi - this.warding;
+        phys_damage = Math.max(0, phys - this.resilience);
+        magi_damage = Math.max(0, magi - this.warding);
 
         damage = phys_damage + magi_damage + crit;
         damage -= Math.round(damage * this.protection / 100);
 
-        this.removeHealth(damage);
+        this.removeBaseStat(new Stat({effect: Data.Effect.HEALTH, theorical: damage}));
 
         console.log(this.name + ' received ' + damage + ' damage (' + phys + ' phys, effective ' + phys_damage + ' | ' + magi + ' magi, effective ' + magi_damage + ' | ' + crit + ' critical -> Total ' + damage + ' with ' + this.protection + '% reduction');
     }
 
     /**
-     * Removes health and eventually shield from this NPC, based on the provided damage value.
-     * @param {number} damage 
+     * Removes the provided effect's value from either Health, Mana, or Stamina.
+     * @param {Stat} eff the effect to add
      */
-    removeHealth(damage) {
-        let removeShield = false;
-        if(this.shield > 0) {
-            if(this.shield <= this.damage) {
-                removeShield = true;
-                this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.TURQUOISE + '">- ' + this.shield + '</p>'))
-            } else this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.TURQUOISE + '">- ' + params.damage + '</p>'))
-            damage = damage - this.shield;
-            
-            if(removeShield) this.shield = 0;
+    removeBaseStat(eff) {
+        let damage;
+        if(eff.effect === Data.Effect.HEALTH) {
+            let removeShield = false;
+            damage = (eff.isPercentage ? this.maxHealth * Math.abs(eff.getValue()) / 100 : Math.abs(eff.getValue()));
+            if(this.shield > 0) {
+                if(this.shield <= this.damage) {
+                    removeShield = true;
+                    this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.TURQUOISE + '">- ' + this.shield + '</p>'));
+                } else this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.TURQUOISE + '">- ' + damage + '</p>'));
+                damage = damage - this.shield;
+                
+                if(removeShield) this.shield = 0;
+            }
+            if(damage > 0) this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.RED + '">- ' + damage + '</p>'));
+            this.health = Math.max(0, this.health - damage);
+        } else if(eff.effect === Data.Effect.STAMINA) {
+            damage = (eff.isPercentage ? this.maxStamina * Math.abs(eff.getValue()) / 100 : Math.abs(eff.getValue()));
+            if(damage > 0) this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.GREEN + '">-' + damage + '</p>'));
+            this.stamina = Math.max(0, this.stamina - damage);
+        } else if(eff.effect === Data.Effect.MANA) {
+            damage = (eff.isPercentage ? this.maxMana * Math.abs(eff.getValue()) / 100 : Math.abs(eff.getValue()));
+            if(damage > 0) this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.BLUE + '">-' + damage + '</p>'));
+            this.mana = Math.max(0, this.mana - damage);
         }
-        if(damage > 0) {
-            this.addBattlePopup(new BattlePopup(0, '<p style="color: rgba(234, 32, 39, 1)">- ' + damage + '</p>'))
+        console.log('REMOVING ' + damage + ' ' + eff.effect + ' FROM ' + this.name);
+    }
+
+    /**
+     * Adds the provided effect's value to either Health, Mana, or Stamina.
+     * @param {Stat} eff the effect to add
+     */
+    addBaseStat(eff) {
+        let amount = 0;
+        if(eff.effect === Data.Effect.HEALTH) {
+            if(eff.isPercentage) amount = this.maxHealth * eff.getValue() / 100;
+            else amount = eff.getValue();
+
+            this.health = Math.min(this.maxHealth, this.health + amount);
+            if(amount > 0) this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.RED + '">+ ' + amount + '</p>'));
+        } else if(eff.effect === Data.Effect.MANA) {
+            if(eff.isPercentage) amount = this.maxMana * eff.getValue() / 100;
+            else amount = eff.getValue();
+
+            this.mana = Math.min(this.maxMana, this.mana + amount);
+            if(amount > 0) this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.BLUE + '">+ ' + amount + '</p>'));
+        } else if(eff.effect === Data.Effect.STAMINA) {
+            if(eff.isPercentage) amount = this.maxStamina * eff.getValue() / 100;
+            else amount = eff.getValue();
+
+            this.stamina = Math.min(this.maxStamina, this.stamina + amount);
+            if(amount > 0) this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.GREEN + '">-' + damage + '</p>'));
         }
-        this.health = Math.max(0, this.health - damage);
+        console.log('ADDING ' + amount + ' ' + eff.effect + ' TO ' + this.name);
     }
 
     /**
@@ -226,7 +406,81 @@ class NPC extends Entity {
     }
 
     useSkill(skill) {
-        this.mana = Math.max(0, this.mana - skill.manaCost);
+        this.removeBaseStat(new Stat({effect: Data.Effect.MANA, theorical: skill.manaCost}));
         this.runTriggers(Data.TriggerType.ON_USE_SKILL);
+    }
+
+    alterBaseStat(eff) {
+        if(eff.effect === Data.Effect.HEALTH || eff.effect === Data.Effect.MANA || eff.effect === Data.Effect.STAMINA) {
+            if(eff.getValue() > 0) this.addBaseStat(eff);
+            else this.removeBaseStat(eff);
+        } else if(eff.effect === Data.Effect.MAXHEALTH || eff.effect === Data.Effect.MAXMANA || eff.effect === Data.Effect.MAXSTAMINA) {
+            if(eff.getValue() > 0) this.increaseBaseStat(eff);
+            else this.decreaseBaseStat(eff);
+        }
+    }
+
+    applyEffects(skill, originUser, effects, critical = false) {
+        console.log(this.name);
+        console.log(effects);
+        effects.forEach(eff => {
+            if(isBaseStatChange(eff)) this.alterBaseStat(eff)
+            else this.addEffect(eff);
+        });
+        for(let i = effects.length - 1; i >= 0; i--) {
+            console.log('occurrence:'+i);
+            if(effects[i].duration === 0) removeFromArray(effects, effects[i]);
+        }
+
+        if(effects.length > 0) this.addActiveEffect(new ActiveEffect({
+            name: skill.name + (critical ? ' (critical)' : ''),
+            originUser: originUser,
+            originObject: skill,
+            effects: effects,
+            style: {
+                color: Data.Color.TURQUOISE,
+                bold: critical,
+                italic: critical
+            }
+        }));
+    }
+
+    executeActiveEffects() {
+        // Explanation:
+        // First, loop through each effect. If the effect is ACTIVE, call addEffect.
+        // Then, loop through each effect again, backwards, and remove 1 duration from each. If duration is 0, remove the effect entirely.
+        // Then, loop through all the active effects. If there is no more effect, remove the active effect entirely.
+        for(let i = 0; i < this.activeEffects.length; i++) {
+            let ae = this.activeEffects[i];
+            console.log(ae);
+            
+            // If effect is ACTIVE, call addEffect
+            ae.effects.forEach(eff => {
+                if(eff.type === Data.StatType.ACTIVE) {
+                    if(isBaseStatChange(eff)) this.alterBaseStat(eff);
+                    else this.addEffect(eff)
+                }
+            });
+
+            for(let j = ae.effects.length - 1; j >= 0; j--) {
+                let eff = ae.effects[j];
+                console.log(eff);
+                if(eff.duration === 1) {
+                    eff.duration = 0;
+                    removeFromArray(ae.effects, eff);
+                    if(eff.type === Data.StatType.PASSIVE) this.addEffect(eff, true);
+                    console.log('Removed: ' + eff.effect);
+                } else {
+                    eff.duration -= 1;
+                    console.log('Removed 1 duration from ' + eff.effect);
+                }
+            }
+
+            ae.countdown++;
+        }
+        for(let i = this.activeEffects.length - 1; i >= 0; i--) {
+            let ae = this.activeEffects[i];
+            if(ae.effects.length === 0) removeFromArray(this.activeEffects, ae);
+        }
     }
 }
