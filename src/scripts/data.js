@@ -156,7 +156,8 @@ const Data = Object.freeze({
         SHIELD: "shield",
         HEALTH_STEAL: "health steal",
         MANA_STEAL: "mana steal",
-        STAMINA_STEAL: "stamina steal"
+        STAMINA_STEAL: "stamina steal",
+        STUN: "stuns the target"
     },
     TriggerType: {
         ON_STAT_CHANGE: 'ON_STAT_CHANGE',
