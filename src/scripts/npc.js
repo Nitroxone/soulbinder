@@ -304,6 +304,8 @@ class NPC extends Entity {
             if(eff.isPercentage) amount = this.maxHealth * eff.getValue() / 100;
             else amount = eff.getValue();
 
+            amount += amount * this.modifHealRecv / 100;
+
             this.health = Math.min(this.maxHealth, this.health + amount);
             if(amount > 0) this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.RED + '">+ ' + amount + '</p>'));
         } else if(eff.effect === Data.Effect.MANA) {
@@ -320,6 +322,14 @@ class NPC extends Entity {
             if(amount > 0) this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.GREEN + '">-' + damage + '</p>'));
         }
         console.log('ADDING ' + amount + ' ' + eff.effect + ' TO ' + this.name);
+    }
+
+    // TODO: code these.
+    increaseBaseStat(eff) {
+
+    }
+    decreaseBaseStat(eff) {
+
     }
 
     /**
@@ -424,8 +434,10 @@ class NPC extends Entity {
         console.log(this.name);
         console.log(effects);
         effects.forEach(eff => {
-            if(isBaseStatChange(eff)) this.alterBaseStat(eff)
-            else this.addEffect(eff);
+            if(eff.delay === 0) {
+                if(isBaseStatChange(eff)) this.alterBaseStat(eff)
+                else this.addEffect(eff);
+            }
         });
         for(let i = effects.length - 1; i >= 0; i--) {
             console.log('occurrence:'+i);
@@ -456,7 +468,8 @@ class NPC extends Entity {
             
             // If effect is ACTIVE, call addEffect
             ae.effects.forEach(eff => {
-                if(eff.type === Data.StatType.ACTIVE) {
+                if(eff.delay > 0) eff.delay--;
+                if(eff.type === Data.StatType.ACTIVE && eff.delay === 0) {
                     if(isBaseStatChange(eff)) this.alterBaseStat(eff);
                     else this.addEffect(eff)
                 }

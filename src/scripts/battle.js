@@ -461,7 +461,6 @@ class Battle {
             current.addBattlePopup(new BattlePopup(0, '<div class="popupIcon" style="background-image: url(\'css/img/skills/' + current.name.toLowerCase() + skill.icon + '\'.png);"></div>'));
         }
 
-        console.log(effects);
         if(effects) current.applyEffects(skill, current, effects, isCrit);
 
         current.useSkill(skill);
