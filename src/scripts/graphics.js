@@ -1798,6 +1798,35 @@ function generateExploreScreenEvents() {
     });
 }
 
+/**
+ * Returns a dungeonButtons div that contains a button for each Data.DungeonEventInstance in the provided array.
+ * @param {Data.DungeonEventInstance[]} list the list of options to generate
+ * @returns {string} a dungeonButtons HTML string
+ */
+function getDungeonButtons(list) {
+    let str = '';
+    let id = '';
+    let message = '';
+
+    str += '<div class="dungeonButtons">';
+    
+    list.forEach(el => {
+        if(el === Data.DungeonEventInstance.BRIDGE) {
+            id = 'bridge';
+            message = 'Go deeper';
+        }
+        else if(el === Data.DungeonEventInstance.ROOM) {
+            id = 'next';
+            message = 'Keep exploring';
+        }
+
+        str += '<button class="dungeonButton simpleButton" id="' + id + 'Button">' + message + '</button>';
+    });
+
+    str += '</div>';
+    return str;
+}
+
 // this function is exclusive to event entrances, which are a special case in that they have two buttons of their own.
 function generateDungeonEntranceEvents() {
     document.querySelector('#explorationDiv').innerHTML = '<div class="dungeonContainer"></div>';
@@ -1869,16 +1898,15 @@ function displayCurrentEventSet() {
 
 // manages the display of choice quotes, allowing the player to choose whether to stay at the current dungeon level or go deeper
 function displayCurrentEventChoiceQuote() {
-    if (!game.currentDungeon.isLastRoom() && !game.currentDungeon.isLastLevel()) {
-        let str = '';
-        str += '<div class="dungeonQuote coolBorder">';
-        str += game.currentDungeon.getCurrentEventChoiceQuote();
-        str += '</div>';
 
-        str += '<div class="dungeonButtons">'
-        str += '<button class="dungeonButton simpleButton" id="bridgeButton">Go deeper</button>';
-        str += '<button class="dungeonButton simpleButton" id="nextButton">Keep exploring</button>';
-        str += '</div>'
+    let str = '';
+    str += '<div class="dungeonQuote coolBorder">';
+    str += game.currentDungeon.getCurrentEventChoiceQuote();
+    str += '</div>';
+
+    if (!game.currentDungeon.isLastRoom() && !game.currentDungeon.isLastLevel()) {
+
+        str += getDungeonButtons([Data.DungeonEventInstance.BRIDGE, Data.DungeonEventInstance.ROOM]);
 
         document.querySelector('.dungeonContainer').innerHTML = str;
 
@@ -1895,14 +1923,8 @@ function displayCurrentEventChoiceQuote() {
     }
     // handles the special case where the event is the last room of the current level, but the current level is not the last level of the dungeon
     else if (game.currentDungeon.isLastRoom() && !game.currentDungeon.isLastLevel()) {
-        let str = '';
-        str += '<div class="dungeonQuote coolBorder">';
-        str += game.currentDungeon.getCurrentEventChoiceQuote();
-        str += '</div>';
 
-        str += '<div class="dungeonButtons">'
-        str += '<button class="dungeonButton simpleButton" id="bridgeButton">Go deeper</button>';
-        str += '</div>'
+        str += getDungeonButtons([Data.DungeonEventInstance.BRIDGE]);
 
         document.querySelector('.dungeonContainer').innerHTML = str;
 
@@ -1913,14 +1935,8 @@ function displayCurrentEventChoiceQuote() {
     }
     // manages the display of events strictly related to the last level of the dungeon, but which are not the last event of the last level
     else if ((!game.currentDungeon.isLastRoom() && game.currentDungeon.isLastLevel())) {
-        let str = '';
-        str += '<div class="dungeonQuote coolBorder">';
-        str += game.currentDungeon.getCurrentEventChoiceQuote();
-        str += '</div>';
 
-        str += '<div class="dungeonButtons">'
-        str += '<button class="dungeonButton simpleButton" id="nextButton">Keep exploring</button>';
-        str += '</div>'
+        str += getDungeonButtons([Data.DungeonEventInstance.BRIDGE, Data.DungeonEventInstance.ROOM]);
 
         document.querySelector('.dungeonContainer').innerHTML = str;
 
@@ -1932,14 +1948,8 @@ function displayCurrentEventChoiceQuote() {
     }
     // must manage the script's orientation towards the GenerateClosingEvent() function to display a particular set, relative to the last event of the last level of a dungeon (not functional at the moment)
     else {
-        let str = '';
-        str += '<div class="dungeonQuote coolBorder">';
-        str += game.currentDungeon.getCurrentEventChoiceQuote();
-        str += '</div>';
 
-        str += '<div class="dungeonButtons">'
-        str += '<button class="dungeonButton simpleButton" id="nextButton">Keep exploring</button>';
-        str += '</div>'
+        str += getDungeonButtons([Data.DungeonEventInstance.BRIDGE, Data.DungeonEventInstance.ROOM]);
 
         document.querySelector('.dungeonContainer').innerHTML = str;
         const next = document.querySelector('#nextButton');
