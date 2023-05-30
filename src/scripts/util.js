@@ -1306,6 +1306,13 @@ function isBaseStatChange(eff) {
             || eff.effect === Data.Effect.MAXSTAMINA;
 }
 
+function isBleedingOrPoisoning(eff) {
+    return eff.effect === Data.Effect.BLEEDING_CURABLE
+            || eff.effect === Data.Effect.BLEEDING_INCURABLE
+            || eff.effect === Data.Effect.BLIGHT_CURABLE
+            || eff.effect === Data.Effect.BLIGHT_INCURABLE
+}
+
 /**********************DUNGEON LOGIC ***************************/
 
 // allows you to create a dungeon instance 

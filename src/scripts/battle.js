@@ -325,7 +325,8 @@ class Battle {
                             new Stat({
                                 effect: weapon.bleed[2] ? Data.Effect.BLEEDING_CURABLE : Data.Effect.BLEEDING_INCURABLE,
                                 theorical: weapon.bleed[0] - tar.resBleed[0],
-                                duration: weapon.bleed[1]
+                                duration: weapon.bleed[1],
+                                type: Data.StatType.ACTIVE
                             })
                         ],
                         style: {
@@ -344,7 +345,8 @@ class Battle {
                             new Stat({
                                 effect: weapon.poison[2] ? Data.Effect.BLIGHT_CURABLE : Data.Effect.BLIGHT_INCURABLE,
                                 theorical: weapon.poison[0] - tar.resPoison[0],
-                                duration: weapon.poison[1]
+                                duration: weapon.poison[1],
+                                type: Data.StatType.ACTIVE
                             })
                         ],
                         style: {

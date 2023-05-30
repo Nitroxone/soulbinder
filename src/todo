@@ -18,7 +18,9 @@ BATTLES:
 - Implement error messages -- DONE
 - Implement effect stackability
 - Implement a battle order indicator -- DONE
-- Implement Move resistance, Stun resistance
+- Implement Move resistance, Stun resistance (and Stun mechanic)
+- Implement remaining GUI (Round, Location...)
+- Implement Bleeding & Poisoning -- DONE
 
 ASTRAL FORGE:
 - Create GUI -- ONGOING
