@@ -1402,7 +1402,8 @@ const Loader = {
                             },
                             condition: {
                                 checker: function() {
-                                    return this.health <= what(game.player.formation, "amarok").variables.threshold_weak;
+                                    const amarok = what(game.player.formation, "amarok");
+                                    return amarok.health <= amarok.variables.threshold_weak * amarok.maxHealth / 100;
                                 },
                                 message: "Amarok's §Health§ < 30%"
                             }
