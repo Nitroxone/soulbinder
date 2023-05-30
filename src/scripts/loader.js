@@ -1547,7 +1547,7 @@ const Loader = {
                             type: Data.SkillType.OFFENSIVE,
                             dmgType: Data.SkillDamageType.MAGICAL,
                             manaCost: 40,
-                            dmgMultiplier: 55,
+                            dmgMultiplier: 90,
                             criMultiplier: 10,
                             accMultiplier: 90,
                             cooldown: 1,

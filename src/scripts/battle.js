@@ -425,9 +425,11 @@ class Battle {
                                 let newEff = Entity.clone(eff);
                                 newEff.fix();
                                 effects.push(newEff);
+                            } else {
+                                // Moving
+                                if(Math.random() * 100 > tar.resMove) this.applyEnemyMovement(eff, tar);
+                                else tar.addBattlePopup(new BattlePopup(0, '<p>Resisted!</p>'));
                             }
-                            // Moving
-                            this.applyEnemyMovement(eff, tar);
                         });                         
                     }
                     tar.addBattlePopup(new BattlePopup(0, '<div class="popupIcon" style="background-image: url(\'css/img/skills/' + current.name.toLowerCase() + skill.icon + '.png\');"></div>'));
