@@ -4014,6 +4014,8 @@ table.astralForgeShards td {
     background-image: url('img/bg4.png');
     background-size: cover;
     background-repeat: repeat;
+
+    position: relative;
 }
 
 
@@ -4404,8 +4406,56 @@ table.astralForgeShards td {
     cursor: not-allowed;
     filter: grayscale() opacity(.7);
 }
+.disabledSkill:active {
+    background-color: rgb(232, 65, 24, 0.1);
+    border-color: rgb(232, 65, 24);
+}
 .disabledWeapon:active {
     border-color: rgb(232, 65, 24);
     background-color: rgba(232, 65, 24, 0.1);
     transform: scale(0.9);
+}
+
+.battle-notifications {
+    position: absolute;
+    max-width: 500px;
+    height: 25px;
+    bottom: -35px;
+    
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.battle-notification {
+    font-size: 11px;
+    border: 1px solid rgba(232, 65, 24, 0.7);
+    border-top: none;
+    background: rgba(232, 65, 24, 0.2);
+    color: #ddd;
+    padding: 6px;
+    border-radius: 0 0 3px 3px;
+
+    animation-timing-function: ease-in-out;
+    animation-name: battleNotificationSpawn;
+    animation-fill-mode: forwards;
+    animation-duration: 3s;
+    animation-delay: 0;
+    z-index: -2;
+}
+
+@keyframes battleNotificationSpawn {
+    0% {
+        opacity: 0;
+        translate: 0 -15px;
+    }
+    5% {
+        opacity: 1;
+        translate: 0 0;
+    }
+    95% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
 }

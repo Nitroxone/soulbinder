@@ -12,7 +12,7 @@
 BATTLES:
 - Implement skill cooldown
 - Implement skill launch conditions
-- Implement stamina/mana checks -- ONGOING
+- Implement stamina/mana checks -- DONE?
 - Implement launch pos checks -- ONGOING
 - Implement error messages
 - Implement effect stackability

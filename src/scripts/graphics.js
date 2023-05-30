@@ -2149,6 +2149,8 @@ function getBattleCommands(refresh = false) {
     str += getBattleConsumables();
     str += '</div>';
 
+    str += '<div class="battle-notifications"></div>';
+
     if(refresh) {
         document.querySelector('.battle-commandsContainer').innerHTML = str;
         return;
@@ -2210,6 +2212,7 @@ function generateBattleCommandsEvents() {
             const weapon = getEquippedWeaponById(current, Number(wpn.id.substring(5)));
             if(current.stamina < weapon.effort) {
                 console.log('Not enough stamina.');
+                addBattleNotification(current.name + '\'s stamina is too low to use ' + weapon.name + '.');
             } else {
                 if(battle.action != Data.BattleAction.ATTACK) {
                     battleCommandsCancelCurrent();
@@ -2423,6 +2426,7 @@ function generateBattleSkillsEvents() {
         sk.addEventListener('click', e => {
             if(current.mana < skill.manaCost) {
                 console.log('Not enough mana.');
+                addBattleNotification(current.name + '\'s mana is too low to use ' + skill.name + '.');
             } else {
                 if(battle.action !== Data.BattleAction.SKILL) {
                     battleCommandsCancelCurrent();
@@ -2683,4 +2687,14 @@ function getBattleFighterActiveEffects(fighter) {
     });
 
     return str;
+}
+
+function addBattleNotification(message) {
+    let str = '';
+
+    str += '<div class="battle-notification">';
+    str += message;
+    str += '</div>';
+
+    document.querySelector('.battle-notifications').innerHTML = str;
 }
