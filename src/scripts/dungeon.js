@@ -43,6 +43,7 @@ class Dungeon {
         this.currentEvent = new DungeonEvent(instance);
         if(instance === Data.DungeonEventInstance.ROOM) this.addOneToRoomNumber();
         if(instance === Data.DungeonEventInstance.BRIDGE) this.increaseLevel();
+        this.currentEvent.generateChoiceQuote();
     }
 
     // returns the current encounter

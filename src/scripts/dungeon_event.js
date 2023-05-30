@@ -50,10 +50,9 @@ class DungeonEvent {
     }
 
     generateChoiceQuote() {
-        if(game.currentDungeon.isLastRoom() && game.currentDungeon.instance === Data.DungeonEventInstance.ROOM) {
-
+        if(game.currentDungeon.isLastRoom() && this.instance === Data.DungeonEventInstance.ROOM) {
+            console.log('END DETECTED');
             this.choiceQuote = Speech.Dungeon[this.zone].regular[this.biome][this.level].endLevelQuote[Math.floor(Math.random() * Speech.Dungeon[this.zone].regular[this.biome][this.level].endLevelQuote.length)];
-
         }
         else {
             this.choiceQuote = Speech.Dungeon[this.zone].regular[this.biome][this.level].choiceQuote[Math.floor(Math.random() * Speech.Dungeon[this.zone].regular[this.biome][this.level].choiceQuote.length)];
