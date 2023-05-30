@@ -340,20 +340,35 @@ class NPC extends Entity {
         this.activeEffects.push(ae);
     }
 
+    /**
+     * Adds the provided BattlePopup to this NPC's popups queue.
+     * @param {BattlePopup} popup 
+     */
     addBattlePopup(popup) {
         this.popupsQueue.push(popup);
     }
 
+    /**
+     * Executes the currently stocked BattlePopup objects in this NPC's popups queue.
+     */
     executePopups() {
         this.nextPopup();
     }
 
+    /**
+     * Executes the next BattlePopup in this NPC's popups queue.
+     */
     nextPopup() {
         const pos = this.getBattleAnimationStringId();
         if(this.popupsQueue.length > 0) this.executePopup(pos, this.popupsQueue[0]);
         else game.currentBattle.addEndTurnCounter();
     }
 
+    /**
+     * 
+     * @param {Data.FormationPosition} pos 
+     * @param {*} e 
+     */
     executePopup(pos, e) {
         document.querySelector('#' + pos).innerHTML = '<div id="' + this.getPopupIdString() + '" class="battlePopup">' + e.content + '</div>';
         const popup = document.querySelector('#' + this.getPopupIdString());
@@ -405,6 +420,10 @@ class NPC extends Entity {
         return str += this.getSelfPosInBattle().toLowerCase();
     }
 
+    /**
+     * Returns this NPC's current position in the current battle.
+     * @returns {Data.FormationPosition} this NPC's current position
+     */
     getSelfPosInBattle() {
         const battle = game.currentBattle;
         if(battle.allies[0] === this) return Data.FormationPosition.BACK;
@@ -415,11 +434,19 @@ class NPC extends Entity {
         if(battle.enemies[2] === this) return Data.FormationPosition.FRONT;
     }
 
+    /**
+     * Removes Mana according to the provided skill's manaCost and fires ON_USE_SKILL triggers.
+     * @param {Skill} skill the Skill that is casted
+     */
     useSkill(skill) {
         this.removeBaseStat(new Stat({effect: Data.Effect.MANA, theorical: skill.manaCost}));
         this.runTriggers(Data.TriggerType.ON_USE_SKILL);
     }
 
+    /**
+     * Calls the adequate function that alters a base stat, based on the provided Effect.
+     * @param {Data.Effect} eff HEALTH or MANA or STAMINA or MAXHEALTH or MAXMANA or MAXSTAMINA
+     */
     alterBaseStat(eff) {
         if(eff.effect === Data.Effect.HEALTH || eff.effect === Data.Effect.MANA || eff.effect === Data.Effect.STAMINA) {
             if(eff.getValue() > 0) this.addBaseStat(eff);
@@ -430,6 +457,13 @@ class NPC extends Entity {
         }
     }
 
+    /**
+     * Applies each Stat stored in "effects" parameter to this NPC, also adding an ActiveEffect?
+     * @param {Skill} skill 
+     * @param {NPC} originUser 
+     * @param {Stat[]} effects 
+     * @param {boolean} critical 
+     */
     applyEffects(skill, originUser, effects, critical = false) {
         console.log(this.name);
         console.log(effects);
@@ -457,6 +491,9 @@ class NPC extends Entity {
         }));
     }
 
+    /**
+     * Executes all of the ActiveEffect objects that are stored in this NPC's activeEffects array.
+     */
     executeActiveEffects() {
         // Explanation:
         // First, loop through each effect. If the effect is ACTIVE, call addEffect.
