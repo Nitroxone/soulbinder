@@ -39,15 +39,11 @@ class Battle {
                 this.currentPlay = this.order[0];
                 // start a new round
                 this.endRound();
+                return true;
             }
         } else {
             this.currentPlay = this.order[0];
         }
-        // skip enemies
-        if(what(this.enemies, this.currentPlay.name)) {
-            this.nextInOrder();
-        }
-        console.log("Currently playing: " + this.currentPlay.name);
     }
 
     /**
@@ -99,12 +95,18 @@ class Battle {
         );
     }
 
+    isEnemyPlaying() {
+        return arrayContains(this.enemies, this.currentPlay);
+    }
 
     beginTurn() {
-        this.nextInOrder();
+        if(this.nextInOrder()) return;
+        console.log("Currently playing: " + this.currentPlay.name);
         this.currentPlay.runTriggers(Data.TriggerType.ON_TURN_BEGIN);
         this.currentPlay.executeActiveEffects();
         drawBattleScreen();
+        // SKIP ENEMIES
+        if(this.isEnemyPlaying()) this.endTurn();
         if(this.isBattleOver()) this.end();
     }
 
@@ -115,7 +117,6 @@ class Battle {
         this.selectedSkill = null;
         this.target = [];
         this.movementQueue = [];
-        //this.resetTargetTracker();
         this.resetEndTurnCounter();
         drawBattleScreen();
         this.beginTurn();
@@ -150,6 +151,7 @@ class Battle {
      */
     endRound() {
         this.runTriggersOnAll(Data.TriggerType.ON_ROUND_END);
+        this.currentPlay = null;
         this.beginRound();
     }
 

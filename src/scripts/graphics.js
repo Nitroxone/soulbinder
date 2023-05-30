@@ -2032,9 +2032,11 @@ function drawBattleScreen() {
 
     document.querySelector('.battle').innerHTML = str;
 
-    generateBattleCommandsEvents();
-    generateBattleSkillsEvents();
-    generateBattleConsumablesEvents();
+    if(!game.currentBattle.isEnemyPlaying()) {
+        generateBattleCommandsEvents();
+        generateBattleSkillsEvents();
+        generateBattleConsumablesEvents();
+    }
     generateBattleFightersEvents();
 }
 
@@ -2131,6 +2133,16 @@ function getBattleScreenFormationAlliesSingle(pos) {
 
 function getBattleCommands(refresh = false) {
     let str = '';
+
+    if(game.currentBattle.isEnemyPlaying()) {
+        str += '<div class="battle-notifications"></div>';
+
+        if(refresh) {
+            document.querySelector('.battle-commandsContainer').innerHTML = str;
+            return;
+        }
+        return str;
+    }
 
     str += '<div class="battle-actionsContainer">';
 

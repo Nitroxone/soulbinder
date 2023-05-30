@@ -355,7 +355,6 @@ class Game {
         console.clear();
 
         this.startBattle([what(this.all_enemies, "mycelial tick"), what(this.all_enemies, "mycelial tick"), what(this.all_enemies, "fungaliant")]);
-        this.currentBattle.endTurn();
-        this.currentBattle.endTurn();
+        
     }
 }
