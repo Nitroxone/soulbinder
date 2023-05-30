@@ -60,6 +60,7 @@ let Speech = {
                     },
                     2: {
                         room: [
+                            
                             "caca pipi proutent xd",
                         ],
 
@@ -80,9 +81,15 @@ let Speech = {
                             "zgegkicole",
         
                         ], 
+
+                        endLevelQuote: [
+
+                            "c la fin du nivo xd"
+                        ]
                     },
                     3: {
                         room: [
+
                             "nan sale chiotte",
                         ],
 
@@ -103,9 +110,15 @@ let Speech = {
                             "TAYEEEEUUULLL",
         
                         ], 
+
+                        endLevelQuote: [
+
+                            "c la fin du nivo xd"
+                        ]
                     },
                     4: {
                         room: [
+
                             "room lvl 4",
                         ],
 
@@ -120,9 +133,15 @@ let Speech = {
                             "choice quote lvl 4",
         
                         ], 
+
+                        endLevelQuote: [
+
+                            "c la fin du nivo xd"
+                        ]
                     },
                     5: {
                         room: [
+
                             "room lvl 5",
                         ],
 

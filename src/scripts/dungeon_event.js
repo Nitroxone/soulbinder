@@ -37,8 +37,6 @@ class DungeonEvent {
     setEventSet() {
         if (this.type === Data.DungeonEventType.ENTRANCE) this.generateEntranceSet()
         else this.generateRegularSet();
-
-        this.generateChoiceQuote();
     }
 
     /**
