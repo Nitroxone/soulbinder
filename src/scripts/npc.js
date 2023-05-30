@@ -484,7 +484,7 @@ class NPC extends Entity {
                     if(eff.type === Data.StatType.PASSIVE) this.addEffect(eff, true);
                     console.log('Removed: ' + eff.effect);
                 } else {
-                    eff.duration -= 1;
+                    if(eff.delay === 0) eff.duration -= 1;
                     console.log('Removed 1 duration from ' + eff.effect);
                 }
             }
