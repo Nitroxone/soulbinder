@@ -2071,10 +2071,11 @@ function getFighterFrame(fighter, type, pos) {
     pos = pos.toLowerCase();
     type = type.toLowerCase();
     typeMin = type.charAt(0);
+    const playOrder = game.currentBattle.order.indexOf(fighter) + 1;
 
     const id = 'aw-' + typeMin + '-' + pos;
 
-    str += '<div id="gw-' + typeMin + '-' + pos + '" class="category" style="display: inline-block"><div class="battlePositionName">' + capitalizeFirstLetter(pos) + '</div>';
+    str += '<div id="gw-' + typeMin + '-' + pos + '" class="category" style="display: inline-block; overflow: visible;"><div class="battlePositionName">' + capitalizeFirstLetter(pos) + '</div>';
     str += '<div id="' + id + '" class="animationsWrapper"></div>';
     if(fighter) {
         str += '<div id="b-' + type + '-' + pos + '" class="battleFighter" style="background-image: linear-gradient(transparent 0%, rgba(0, 0, 0, 1) 70%), url(\'css/img/chars/' + fighter.charset + '\'); ' + (fighter.health === 0 ? ' filter: grayscale(100%);' : '') + '">';
@@ -2083,6 +2084,7 @@ function getFighterFrame(fighter, type, pos) {
         str += '<div class="gaugeProgress"><div class="statGauge mana" style="width:'+ Math.round((fighter.mana*100)/fighter.maxMana) +'%"><span class="gaugeIndicator">'+ fighter.mana + '/' + fighter.maxMana +'</span></div></div>';
         str += '</div>';
     }
+    str += '<div class="playOrderIndicator">' + playOrder + '</div>';
     str += '</div>';
 
     return str;
@@ -2426,7 +2428,7 @@ function generateBattleSkillsEvents() {
         sk.addEventListener('click', e => {
             if(current.mana < skill.manaCost) {
                 console.log('Not enough mana.');
-                addBattleNotification(current.name + '\'s mana is too low to use ' + skill.name + '.');
+                addBattleNotification(current.name + '\'s mana is too low to cast ' + skill.name + '.');
             } else {
                 if(battle.action !== Data.BattleAction.SKILL) {
                     battleCommandsCancelCurrent();
