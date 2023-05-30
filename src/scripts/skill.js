@@ -13,14 +13,17 @@ class Skill extends Entity {
         this.targets = getValueFromObject(props, "targets", {allies: '-0', enemies: '-0'})
         this.launchPos = getValueFromObject(props, "launchPos", [true, true, true])
         this.effectsCaster = getValueFromObject(props, "effectsCaster", null);
+        this.casterIgnoresOtherEffects = getValueFromObject(props, "casterIgnoresOtherEffects", false);
         this.effectsAllies = getValueFromObject(props, "effectsAllies", null);
         this.effectsEnemies = getValueFromObject(props, "effectsEnemies", null);
+        this.effectsTarget = getValueFromObject(props, "effectsTarget", null);
+        this.targetIgnoresOtherEffects = getValueFromObject(props, "targetIgnoresOtherEffects", false);
         this.variables = getValueFromObject(props, "variables", null);
         this.triggersCaster = getValueFromObject(props, "triggersCaster", null);
         this.triggersAllies = getValueFromObject(props, "triggersAllies", null);
         this.triggersEnemies = getValueFromObject(props, "triggersEnemies", null);
         this.triggersSkill = getValueFromObject(props, "triggersSkill", null);
-        this.condition = getValueFromObject(props, "condition", true)
+        this.condition = getValueFromObject(props, "condition", {checker: function(){return true}, message: ''})
         this.stackable = getValueFromObject(props, "stackable", 1);
 
         this.level = 1;
