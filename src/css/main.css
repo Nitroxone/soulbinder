@@ -4481,3 +4481,17 @@ table.astralForgeShards td {
 
     z-index: 10;
 }
+
+.skillCondition {
+    border: 1px solid #cf750e;
+    border-radius: 3px;
+}
+.skillCondition h4 {
+    font-family: RobotoSlab;
+    font-variant: small-caps;
+    color: grey;
+    margin-bottom: 1em;
+}
+.skillConditionDesc {
+    margin-left: 1em;
+}

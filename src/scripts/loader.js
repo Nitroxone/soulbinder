@@ -1370,7 +1370,7 @@ const Loader = {
                         14,
                         {
                             type: Data.SkillType.OFFENSIVE,
-                            manaCost: 120,
+                            manaCost: 50,
                             cooldown: 3,
                             dmgType: Data.SkillDamageType.PHYSICAL,
                             dmgMultiplier: 105,
@@ -1399,6 +1399,12 @@ const Loader = {
                                         new Stat({effect: Data.Effect.SPEED, theorical: -7, duration: 2, isCritical: true})
                                     ]
                                 }
+                            },
+                            condition: {
+                                checker: function() {
+                                    return this.health <= what(game.player.formation, "amarok").variables.threshold_weak;
+                                },
+                                message: "Amarok's §Health§ < 30%"
                             }
                         }
                     ),
