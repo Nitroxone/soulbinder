@@ -1936,7 +1936,7 @@ function displayCurrentEventChoiceQuote() {
     // manages the display of events strictly related to the last level of the dungeon, but which are not the last event of the last level
     else if ((!game.currentDungeon.isLastRoom() && game.currentDungeon.isLastLevel())) {
 
-        str += getDungeonButtons([Data.DungeonEventInstance.BRIDGE, Data.DungeonEventInstance.ROOM]);
+        str += getDungeonButtons([Data.DungeonEventInstance.ROOM]);
 
         document.querySelector('.dungeonContainer').innerHTML = str;
 
