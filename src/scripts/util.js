@@ -1286,6 +1286,25 @@ function getFontFamilyFromAeStyling(props) {
     return 'Roboto';
 }
 
+function isMovementEffect(eff) {
+    return eff === Data.Effect.PULL_ONE
+        || eff === Data.Effect.PULL_TWO
+        || eff === Data.Effect.PUSH_ONE
+        || eff === Data.Effect.PUSH_TWO
+        || eff === Data.Effect.FRONT_ONE
+        || eff === Data.Effect.FRONT_TWO
+        || eff === Data.Effect.BACK_ONE
+        || eff === Data.Effect.BACK_TWO;
+}
+
+function isBaseStatChange(eff) {
+    return eff.effect === Data.Effect.HEALTH
+            || eff.effect === Data.Effect.MAXHEALTH
+            || eff.effect === Data.Effect.MANA
+            || eff.effect === Data.Effect.MAXMANA
+            || eff.effect === Data.Effect.STAMINA
+            || eff.effect === Data.Effect.MAXSTAMINA;
+}
 
 /**********************DUNGEON LOGIC ***************************/
 

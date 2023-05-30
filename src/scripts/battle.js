@@ -103,7 +103,7 @@ class Battle {
     beginTurn() {
         this.nextInOrder();
         this.currentPlay.runTriggers(Data.TriggerType.ON_TURN_BEGIN);
-        // execute active effects here
+        this.currentPlay.executeActiveEffects();
         drawBattleScreen();
         if(this.isBattleOver()) this.end();
     }
@@ -248,11 +248,11 @@ class Battle {
         }
     }
 
-    computeSkillParams(target, friendly = false) {
+    computeSkillParams(target, forceCrit = false) {
         this.resetAttackParams();
         const skill = this.selectedSkill;
         const accessor = skill.level;
-        const modifier = (skill.type === Data.SkillType.FRIENDLY || friendly) ? 9999 : 0;
+        const modifier = (skill.type === Data.SkillType.FRIENDLY) ? 9999 : 0;
         const current = this.currentPlay;
 
         if(Math.random()*200 < (current.accuracy + skill.accMultiplier + modifier)) {
@@ -272,7 +272,7 @@ class Battle {
                         this.params.magi_damage = Math.round((skill.dmgMultiplier / 100) * current.spirit);
                         break;
                 }
-                if(Math.random() * 100 < skill.criMultiplier) {
+                if(Math.random() * 100 < skill.criMultiplier || forceCrit) {
                     // Critical blow! Add critical effects
                     this.params.critical = true;
                 }
@@ -368,7 +368,6 @@ class Battle {
         });
 
         this.currentPlay.useWeapon(this.selectedWeapon);
-        this.currentPlay.addBattlePopup(new BattlePopup(0, '<p style="color: rgba(0,148,50,1)">-' + weapon.effort + '</p>'));
         
         this.runPopups();
     }
@@ -379,14 +378,17 @@ class Battle {
         let effects = [];
         let accessor = '';
 
+        this.computeSkillParams(this.target[0]);
+        const isCrit = this.params.critical;
+
         this.runTriggersOnCurrent(Data.TriggerType.ON_ATTACK);
         this.target.forEach(tar => {
-            this.computeSkillParams(tar);
+            this.computeSkillParams(tar, isCrit);
             let params = this.params;
             if(params.success_accuracy && !params.success_dodge) {
                 // Successful hit
                 console.log('Successful hit!');
-                if(params.phys_damage > 0 && params.magi_damage > 0) {
+                if(params.phys_damage > 0 || params.magi_damage > 0) {
                     this.runTriggersOnCurrent(Data.TriggerType.ON_DEAL_DAMAGE);
                     tar.runTriggers(Data.TriggerType.ON_RECV_DAMAGE);
                     tar.receiveDamage(params);
@@ -406,29 +408,28 @@ class Battle {
                 if(skill.effectsAllies || skill.effectsEnemies) {
                     if(skill.effectsAllies && arrayContains(this.allies, tar)) {
                         skill.effectsAllies[skill.level][accessor].forEach(eff => {
-                            effects.push(eff);
+                            if(!isMovementEffect(eff.effect)) {
+                                let newEff = Entity.clone(eff);
+                                newEff.fix();
+                                effects.push(newEff);
+                            }
                         });
                     }
                     if(skill.effectsEnemies && arrayContains(this.enemies, tar)) {
                         skill.effectsEnemies[skill.level][accessor].forEach(eff => {
-                            effects.push(eff);
+                            if(!isMovementEffect(eff.effect)) {
+                                let newEff = Entity.clone(eff);
+                                newEff.fix();
+                                effects.push(newEff);
+                            }
                             // Moving
                             this.applyEnemyMovement(eff, tar);
                         });                         
                     }
-                    tar.addActiveEffect(new ActiveEffect({
-                        name: skill.name + (params.critical ? ' (critical)' : ''),
-                        originUser: current,
-                        originObject: skill,
-                        effects: effects,
-                        style: {
-                            color: Data.Color.TURQUOISE,
-                            bold: params.critical,
-                            italic: params.critical
-                        }
-                    }));
                     tar.addBattlePopup(new BattlePopup(0, '<div class="popupIcon" style="background-image: url(\'css/img/skills/' + current.name.toLowerCase() + skill.icon + '.png\');"></div>'));
                 }
+
+                tar.applyEffects(skill, current, effects, params.critical);
             } else if(!params.success_accuracy) {
                 // Missed
                 console.log('Missed!');
@@ -447,26 +448,20 @@ class Battle {
         // CASTER EFFECTS
         if(skill.effectsCaster) {
             effects = [];
-            const fcritical = Math.random() * 100 < skill.criMultiplier;
-            accessor = (fcritical ? 'critical' : 'regular');
+            accessor = (isCrit ? 'critical' : 'regular');
             skill.effectsCaster[skill.level][accessor].forEach(eff => {
-                effects.push(eff);
+                if(!isMovementEffect(eff.effect)) {
+                    let newEff = Entity.clone(eff);
+                    newEff.fix();
+                    effects.push(newEff);
+                }
                 // Moving
                 this.applyCasterMovement(eff);
             });
-            current.addActiveEffect(new ActiveEffect({
-                name: skill.name + (fcritical ? ' (critical)' : ''),
-                originUser: current,
-                originObject: skill,
-                effects: effects,
-                style: {
-                    color: Data.Color.TURQUOISE,
-                    bold: fcritical,
-                    italic: fcritical
-                }
-            }));
             current.addBattlePopup(new BattlePopup(0, '<div class="popupIcon" style="background-image: url(\'css/img/skills/' + current.name.toLowerCase() + skill.icon + '\'.png);"></div>'));
         }
+
+        if(effects) current.applyEffects(skill, current, effects, isCrit);
 
         current.useSkill(skill);
         this.runPopups();

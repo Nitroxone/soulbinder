@@ -2081,10 +2081,11 @@ function getFighterFrame(fighter, type, pos) {
     pos = pos.toLowerCase();
     type = type.toLowerCase();
     typeMin = type.charAt(0);
+    const playOrder = game.currentBattle.order.indexOf(fighter) + 1;
 
     const id = 'aw-' + typeMin + '-' + pos;
 
-    str += '<div id="gw-' + typeMin + '-' + pos + '" class="category" style="display: inline-block"><div class="battlePositionName">' + capitalizeFirstLetter(pos) + '</div>';
+    str += '<div id="gw-' + typeMin + '-' + pos + '" class="category" style="display: inline-block; overflow: visible;"><div class="battlePositionName">' + capitalizeFirstLetter(pos) + '</div>';
     str += '<div id="' + id + '" class="animationsWrapper"></div>';
     if(fighter) {
         str += '<div id="b-' + type + '-' + pos + '" class="battleFighter" style="background-image: linear-gradient(transparent 0%, rgba(0, 0, 0, 1) 70%), url(\'css/img/chars/' + fighter.charset + '\'); ' + (fighter.health === 0 ? ' filter: grayscale(100%);' : '') + '">';
@@ -2093,6 +2094,7 @@ function getFighterFrame(fighter, type, pos) {
         str += '<div class="gaugeProgress"><div class="statGauge mana" style="width:'+ Math.round((fighter.mana*100)/fighter.maxMana) +'%"><span class="gaugeIndicator">'+ fighter.mana + '/' + fighter.maxMana +'</span></div></div>';
         str += '</div>';
     }
+    str += '<div class="playOrderIndicator">' + playOrder + '</div>';
     str += '</div>';
 
     return str;
@@ -2159,6 +2161,8 @@ function getBattleCommands(refresh = false) {
     str += getBattleConsumables();
     str += '</div>';
 
+    str += '<div class="battle-notifications"></div>';
+
     if(refresh) {
         document.querySelector('.battle-commandsContainer').innerHTML = str;
         return;
@@ -2170,10 +2174,10 @@ function getCurrentPlayerEquippedWeapons() {
     let str = '<div class="battle-weaponIcons">';
     const current = game.currentBattle.currentPlay;
 
-    if(current.eqWeaponBoth) str += '<div id="bwpn-' + current.eqWeaponBoth.id + '" class="battle-weaponIcon singleWeaponIconPopup" style="background-image: url(\'css/img/weapons/' + current.eqWeaponBoth.icon + '.png\')"></div>';
+    if(current.eqWeaponBoth) str += '<div id="bwpn-' + current.eqWeaponBoth.id + '" class="battle-weaponIcon singleWeaponIconPopup ' + (current.stamina < current.eqWeaponBoth.effort ? 'disabledWeapon' : '') + '" style="background-image: url(\'css/img/weapons/' + current.eqWeaponBoth.icon + '.png\')"></div>';
     else {
-        if(current.eqWeaponRight) str += '<div id="bwpn-' + current.eqWeaponRight.id + '"  id="" class="battle-weaponIcon ' + (current.eqWeaponRight && current.eqWeaponLeft ? 'doubleWeaponIconPopup' : 'singleWeaponIconPopup') + '" style="background-image: url(\'css/img/weapons/' + current.eqWeaponRight.icon + '.png\')"></div>';
-        if(current.eqWeaponLeft) str += '<div id="bwpn-' + current.eqWeaponLeft.id + '"  id="" class="battle-weaponIcon ' + (current.eqWeaponLeft && current.eqWeaponRight ? 'doubleWeaponIconPopup' : 'singleWeaponIconPopup') + '" style="background-image: url(\'css/img/weapons/' + current.eqWeaponLeft.icon + '.png\')"></div>';
+        if(current.eqWeaponRight) str += '<div id="bwpn-' + current.eqWeaponRight.id + '"  id="" class="battle-weaponIcon ' + (current.stamina < current.eqWeaponRight.effort ? 'disabledWeapon' : '') + '" style="background-image: url(\'css/img/weapons/' + current.eqWeaponRight.icon + '.png\')"></div>';
+        if(current.eqWeaponLeft) str += '<div id="bwpn-' + current.eqWeaponLeft.id + '"  id="" class="battle-weaponIcon ' + (current.stamina < current.eqWeaponLeft.effort ? 'disabledWeapon' : '') + '" style="background-image: url(\'css/img/weapons/' + current.eqWeaponLeft.icon + '.png\')"></div>';
     }
 
     str += '</div>';
@@ -2186,7 +2190,7 @@ function getBattleSkills(refresh = false) {
 
     const currentPlay = game.currentBattle.currentPlay;
     currentPlay.skills.forEach(skill => {
-        str += '<div id="' + currentPlay.name + '-' + skill.id + '" class="skillSquare treeNode coolBorder" style="background-image: url(\'css/img/skills/' + currentPlay.name + skill.icon + '.png\')"></div>';
+        str += '<div id="' + currentPlay.name + '-' + skill.id + '" class="skillSquare treeNode coolBorder ' + (currentPlay.mana < skill.manaCost ? 'disabledSkill' : '') + '" style="background-image: url(\'css/img/skills/' + currentPlay.name + skill.icon + '.png\')"></div>';
     })
 
     if(refresh) {
@@ -2218,23 +2222,28 @@ function generateBattleCommandsEvents() {
     wpns.forEach(wpn => {
         wpn.addEventListener('click', e => {
             const weapon = getEquippedWeaponById(current, Number(wpn.id.substring(5)));
-            if(battle.action != Data.BattleAction.ATTACK) {
-                battleCommandsCancelCurrent();
-                battle.action = Data.BattleAction.ATTACK;
-                battle.selectedWeapon = weapon;
-                console.log('Preparing attack with ' + battle.selectedWeapon.name);
-                atk.classList.add('battle-actionSelected');
-                wpn.classList.add('battle-weaponSelected');
-                battleAttackPickTarget();
-            } else if (battle.action === Data.BattleAction.ATTACK && battle.selectedWeapon !== weapon) {
-                battleSelectionRemoveHighlights();
-                document.querySelectorAll('.battle-weaponIcon').forEach(wpn => {wpn.classList.remove('battle-weaponSelected');})
-                battle.selectedWeapon = weapon;
-                wpn.classList.add('battle-weaponSelected');
-                console.log('Preparing attack with ' + battle.selectedWeapon.name);
-                battleAttackPickTarget();
+            if(current.stamina < weapon.effort) {
+                console.log('Not enough stamina.');
+                addBattleNotification(current.name + '\'s stamina is too low to use ' + weapon.name + '.');
+            } else {
+                if(battle.action != Data.BattleAction.ATTACK) {
+                    battleCommandsCancelCurrent();
+                    battle.action = Data.BattleAction.ATTACK;
+                    battle.selectedWeapon = weapon;
+                    console.log('Preparing attack with ' + battle.selectedWeapon.name);
+                    atk.classList.add('battle-actionSelected');
+                    wpn.classList.add('battle-weaponSelected');
+                    battleAttackPickTarget();
+                } else if (battle.action === Data.BattleAction.ATTACK && battle.selectedWeapon !== weapon) {
+                    battleSelectionRemoveHighlights();
+                    document.querySelectorAll('.battle-weaponIcon').forEach(wpn => {wpn.classList.remove('battle-weaponSelected');})
+                    battle.selectedWeapon = weapon;
+                    wpn.classList.add('battle-weaponSelected');
+                    console.log('Preparing attack with ' + battle.selectedWeapon.name);
+                    battleAttackPickTarget();
+                }
+                else battleCommandsCancelCurrent();
             }
-            else battleCommandsCancelCurrent();
         });
     })
 
@@ -2427,24 +2436,29 @@ function generateBattleSkillsEvents() {
         }, {offY: -8})
 
         sk.addEventListener('click', e => {
-            if(battle.action !== Data.BattleAction.SKILL) {
-                battleCommandsCancelCurrent();
-                battle.action = Data.BattleAction.SKILL;
-                battle.selectedSkill = skill;
-                console.log('Preparing skill with ' + battle.selectedSkill.name);
-                sk.classList.add('battle-skillSelected');
-                battleSkillPickTarget();
-            } else if(battle.action === Data.BattleAction.SKILL && battle.selectedSkill !== skill) {
-                battleCommandsCancelCurrent();
-                battleSelectionRemoveHighlights();
-                document.querySelectorAll('.skillSquare').forEach(wpn => {wpn.classList.remove('battle-skillSelected');});
-                battle.action = Data.BattleAction.SKILL;
-                battle.selectedSkill = skill;
-                sk.classList.add('battle-skillSelected');
-                console.log('Preparing skill with ' + battle.selectedSkill.name);
-                battleSkillPickTarget();
-            } 
-            else battleCommandsCancelCurrent();
+            if(current.mana < skill.manaCost) {
+                console.log('Not enough mana.');
+                addBattleNotification(current.name + '\'s mana is too low to cast ' + skill.name + '.');
+            } else {
+                if(battle.action !== Data.BattleAction.SKILL) {
+                    battleCommandsCancelCurrent();
+                    battle.action = Data.BattleAction.SKILL;
+                    battle.selectedSkill = skill;
+                    console.log('Preparing skill with ' + battle.selectedSkill.name);
+                    sk.classList.add('battle-skillSelected');
+                    battleSkillPickTarget();
+                } else if(battle.action === Data.BattleAction.SKILL && battle.selectedSkill !== skill) {
+                    battleCommandsCancelCurrent();
+                    battleSelectionRemoveHighlights();
+                    document.querySelectorAll('.skillSquare').forEach(wpn => {wpn.classList.remove('battle-skillSelected');});
+                    battle.action = Data.BattleAction.SKILL;
+                    battle.selectedSkill = skill;
+                    sk.classList.add('battle-skillSelected');
+                    console.log('Preparing skill with ' + battle.selectedSkill.name);
+                    battleSkillPickTarget();
+                } 
+                else battleCommandsCancelCurrent();
+            }
         });
     });
 }
@@ -2685,4 +2699,14 @@ function getBattleFighterActiveEffects(fighter) {
     });
 
     return str;
+}
+
+function addBattleNotification(message) {
+    let str = '';
+
+    str += '<div class="battle-notification">';
+    str += message;
+    str += '</div>';
+
+    document.querySelector('.battle-notifications').innerHTML = str;
 }

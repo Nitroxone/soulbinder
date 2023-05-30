@@ -1366,7 +1366,7 @@ const Loader = {
                     ),
                     new Skill(
                         "Exsanguinate",
-                        "Deals damage, applies §Bleeding§ and reduces §Speed§. Heals Amarok.",
+                        "Deals damage, applies §Bleeding§ and reduces §Speed§. §Heals§ Amarok.",
                         14,
                         {
                             type: Data.SkillType.OFFENSIVE,
@@ -1381,21 +1381,21 @@ const Loader = {
                             effectsCaster: {
                                 1: {
                                     regular: [
-                                        new Stat({effect: Data.Effect.REGEN_HEALTH, theorical: [15, 20], isPercentage: true})
+                                        new Stat({effect: Data.Effect.HEALTH, theorical: [15, 20], isPercentage: true, type: Data.StatType.ACTIVE})
                                     ],
                                     critical: [
-                                        new Stat({effect: Data.Effect.REGEN_HEALTH, theorical: [18, 25], isPercentage: true, isCritical: true})
+                                        new Stat({effect: Data.Effect.HEALTH, theorical: [18, 25], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true})
                                     ]
                                 }
                             },
                             effectsEnemies: {
                                 1: {
                                     regular: [
-                                        new Stat({effect: Data.Effect.BLEEDING_CURABLE, theorical: [4, 6], duration: 2}),
+                                        new Stat({effect: Data.Effect.BLEEDING_CURABLE, theorical: [4, 6], type: Data.StatType.ACTIVE, duration: 2}),
                                         new Stat({effect: Data.Effect.SPEED, theorical: -5, duration: 2})
                                     ],
                                     critical: [
-                                        new Stat({effect: Data.Effect.BLEEDING_CURABLE, theorical: [5, 7], duration: 3, isCritical: true}),
+                                        new Stat({effect: Data.Effect.BLEEDING_CURABLE, theorical: [5, 7], type: Data.StatType.ACTIVE, duration: 3, isCritical: true}),
                                         new Stat({effect: Data.Effect.SPEED, theorical: -7, duration: 2, isCritical: true})
                                     ]
                                 }
@@ -1418,22 +1418,22 @@ const Loader = {
                                 1: {
                                     regular: [
                                         new Stat({effect: Data.Effect.HEALTH, theorical: -20, isPercentage: true}),
-                                        new Stat({effect: Data.Effect.REGEN_HEALTH, theorical: 3, isPercentage: true, duration: 3, delay: 1})
+                                        new Stat({effect: Data.Effect.HEALTH, theorical: 3, isPercentage: true, type: Data.StatType.ACTIVE, duration: 3, delay: 1})
                                     ],
                                     critical: [
                                         new Stat({effect: Data.Effect.HEALTH, theorical: -20, isPercentage: true, isCritical: true}),
-                                        new Stat({effect: Data.Effect.REGEN_HEALTH, theorical: 4, isPercentage: true, duration: 3, delay: 1, isCritical: true})
+                                        new Stat({effect: Data.Effect.HEALTH, theorical: 4, isPercentage: true, type: Data.StatType.ACTIVE, duration: 3, delay: 1, isCritical: true})
                                     ]
                                 }
                             },
                             effectsAllies: {
                                 1: {
                                     regular: [
-                                        new Stat({effect: Data.Effect.REGEN_HEALTH, theorical: 20, isPercentage: true}),
+                                        new Stat({effect: Data.Effect.HEALTH, theorical: 20, isPercentage: true, type: Data.StatType.ACTIVE}),
                                         new Stat({effect: Data.Effect.SPEED, theorical: 2, duration: 1})
                                     ],
                                     critical: [
-                                        new Stat({effect: Data.Effect.REGEN_HEALTH, theorical: 30, isPercentage: true, isCritical: true}),
+                                        new Stat({effect: Data.Effect.HEALTH, theorical: 30, isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true}),
                                         new Stat({effect: Data.Effect.SPEED, theorical: 4, duration: 1, isCritical: true})
                                     ]
                                 }
@@ -1514,7 +1514,7 @@ const Loader = {
                         {
                             type: Data.SkillType.FRIENDLY,
                             manaCost: 30,
-                            critMultiplier: 15,
+                            criMultiplier: 15,
                             accMultiplier: 100,
                             cooldown: 2,
                             launchPos: [false, true, true],
@@ -1527,6 +1527,32 @@ const Loader = {
                                     critical: [
                                         new Stat({effect: Data.Effect.BACK_ONE}),
                                         new Stat({effect: Data.Effect.DODGE, theorical: 7, duration: 2, isPercentage: true, isCritical: true})
+                                    ]
+                                }
+                            }
+                        }
+                    ),
+                    new Skill(
+                        "Howling Arrow",
+                        "§Stuns§ an enemy.",
+                        14,
+                        {
+                            type: Data.SkillType.OFFENSIVE,
+                            dmgType: Data.SkillDamageType.MAGICAL,
+                            manaCost: 40,
+                            dmgMultiplier: 55,
+                            criMultiplier: 10,
+                            accMultiplier: 90,
+                            cooldown: 1,
+                            launchPos: [true, true, false],
+                            targets: {allies: '-0', enemies: '-123'},
+                            effectsEnemies: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.STUN, duration: 1})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.STUN, duration: 2})
                                     ]
                                 }
                             }
@@ -1590,10 +1616,10 @@ const Loader = {
                             effectsCaster: {
                                 1: {
                                     regular: [
-                                        new Stat({effect: Data.Effect.REGEN_HEALTH, theorical: [0, 8], isPercentage: true})
+                                        new Stat({effect: Data.Effect.HEALTH, theorical: [0, 8], isPercentage: true, type: Data.StatType.ACTIVE})
                                     ],
                                     critical: [
-                                        new Stat({effect: Data.Effect.REGEN_HEALTH, theorical: [3, 8], isPercentage: true, isCritical: true})
+                                        new Stat({effect: Data.Effect.HEALTH, theorical: [3, 8], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true})
                                     ]
                                 }
                             },
@@ -1635,16 +1661,6 @@ const Loader = {
                             targets: {allies: '@123', enemies: '-0'},
                             cooldown: 3,
                             launchPos: [true, false, false],
-                            effectsCaster: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.SHIELD, theorical: [20, 25], duration: 2})
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.SHIELD, theorical: [25, 30], duration: 3, isCritical: true})
-                                    ]
-                                }
-                            },
                             effectsAllies: {
                                 1: {
                                     regular: [
@@ -1674,10 +1690,10 @@ const Loader = {
                             effectsCaster: {
                                 1: {
                                     regular: [
-                                        new Stat({effect: Data.Effect.REGEN_HEALTH, theorical: [3, 6], isPercentage: true})
+                                        new Stat({effect: Data.Effect.HEALTH, theorical: [3, 6], isPercentage: true, type: Data.StatType.ACTIVE})
                                     ],
                                     critical: [
-                                        new Stat({effect: Data.Effect.REGEN_HEALTH, theorical: [5, 8], isPercentage: true, isCritical: true})
+                                        new Stat({effect: Data.Effect.HEALTH, theorical: [5, 8], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true})
                                     ]
                                 }
                             },
