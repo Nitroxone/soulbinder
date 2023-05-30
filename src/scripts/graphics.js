@@ -2190,7 +2190,7 @@ function getBattleSkills(refresh = false) {
 
     const currentPlay = game.currentBattle.currentPlay;
     currentPlay.skills.forEach(skill => {
-        str += '<div id="' + currentPlay.name + '-' + skill.id + '" class="skillSquare treeNode coolBorder ' + (currentPlay.mana < skill.manaCost ? 'disabledSkill' : '') + '" style="background-image: url(\'css/img/skills/' + currentPlay.name + skill.icon + '.png\')"></div>';
+        str += '<div id="' + currentPlay.name + '-' + skill.id + '" class="skillSquare treeNode coolBorder ' + (currentPlay.mana < skill.manaCost || !skill.condition.checker() ? 'disabledSkill' : '') + '" style="background-image: url(\'css/img/skills/' + currentPlay.name + skill.icon + '.png\')"></div>';
     })
 
     if(refresh) {
@@ -2437,8 +2437,9 @@ function generateBattleSkillsEvents() {
 
         sk.addEventListener('click', e => {
             if(current.mana < skill.manaCost) {
-                console.log('Not enough mana.');
                 addBattleNotification(current.name + '\'s mana is too low to cast ' + skill.name + '.');
+            } else if(!skill.condition.checker()) {
+                addBattleNotification('The requirements to cast ' + skill.name + ' are not met.');
             } else {
                 if(battle.action !== Data.BattleAction.SKILL) {
                     battleCommandsCancelCurrent();
@@ -2572,6 +2573,13 @@ function getBattleSkillTooltip(strider, skill) {
             str += single.getFormatted({cssClass: "bulleted", defaultColor: true, skillFormat: true});
         });
         str += '</div>';
+    }
+
+    if(skill.condition.message !== '') {
+        str += '<div class="rewardsWrapper skillCondition">';
+        str += '<h4>Requirements</h4><div class="skillConditionDesc">';
+        str += processSkillDescription(skill.condition.message);
+        str += '</div></div>';
     }
 
     str += '<div class="divider"></div>';
