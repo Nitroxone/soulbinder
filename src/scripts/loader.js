@@ -1840,36 +1840,83 @@ const Loader = {
         const enemies = [
             new Enemy(
                 "Mycelial Tick",
-                "Monster description",
+                "This monster is weak, but it's swift (high Speed and Dodge) and applies poison.",
                 Data.Charset.MYCELIAL_TICK,
                 "Subname",
-                50, 50, 50,
-                20, 15, 85, 0, 5, 1,
+                35, 35, 35,
+                20, 15, 85, 0, 5, 5,
                 [0, 0], [2, 0],
                 20, 25,
                 0, 4,
                 [],
                 {},
-                []
+                [],
+                Data.MobType.LESSER,
             ),
             new Enemy(
                 "Fungaliant",
-                "Monster description",
+                "Very resistant to poison damage, this monster heals others and reduces your resistances.",
                 Data.Charset.FUNGALIANT,
                 "Subname",
                 50, 50, 50,
-                20, 15, 85, 0, 5, 1,
-                [0, 0], [2, 0],
+                10, 10, 85, 10, 10, 10,
+                [0, 0], [5, 0],
                 20, 25,
                 0, 4,
                 [],
                 {},
-                []
+                [],
+                Data.MobType.REGULAR,
+            ),
+            new Enemy(
+                "Gnarly Horror",
+                "Be aware of their high Stun power ; they also don't hesitate to Guard their allies while also increasing their Protection.",
+                Data.Charset.GNARLY_HORROR,
+                "Subname",
+                120, 120, 120,
+                5, 8, 85, 35, 20, 20,
+                [2, 0], [5, 0],
+                80, 50,
+                10, 10,
+                [],
+                {},
+                [],
+                Data.MobType.STRONGER
             )
         ];
 
         for(const enemy of enemies) {
             game.all_enemies.push(enemy);
+        }
+    },
+
+    loadEnemyFormations: loadEnemyFormations = () => {
+        const enemyFormations = [
+            new EnemyFormation({
+                name: "threeTicks",
+                biome: Data.DungeonTagBiome.JUNGLE,
+                levels: [1, 2],
+                formation: [what(game.all_enemies, "mycelial tick"), what(game.all_enemies, "mycelial tick"), what(game.all_enemies, "mycelial tick")],
+                battleType: Data.BattleType.GROUP
+            }),
+            new EnemyFormation({
+                name: "twoFungaliants",
+                biome: Data.DungeonTagBiome.JUNGLE,
+                levels: [2, 3, 4],
+                formation: [what(game.all_enemies, "fungaliant"), what(game.all_enemies, "fungaliant"), what(game.all_enemies, "mycelial tick")],
+                battleType: Data.BattleType.GROUP
+            }),
+            new EnemyFormation({
+                name: "gnarlyAndFungaliant",
+                biome: Data.DungeonTagBiome.JUNGLE,
+                levels: [4, 5],
+                formation: [what(game.all_enemies, "fungaliant"), what(game.all_enemies, "fungaliant"), what(game.all_enemies, "gnarly horror")],
+                battleType: Data.BattleType.GROUP
+            }),
+        ];  
+
+        for(const enemyFormation of enemyFormations) {
+            game.all_enemyFormations.push(enemyFormation);
         }
     },
 
