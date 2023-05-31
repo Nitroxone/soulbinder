@@ -474,7 +474,7 @@ class Battle {
             skill.effectsCaster[skill.level][accessor].forEach(eff => {
                 if(!isMovementEffect(eff.effect)) {
                     if(eff.effect === Data.Effect.STUN) {
-                        if(Math.random() * 100 > current.modifChanceStun + skill.chance - current.resStun) {
+                        if(Math.random() * 100 > current.modifChanceStun + eff.chance - current.resStun) {
                             current.addBattlePopup(new BattlePopup(0, '<p>Resisted!</p>'));
                             return;
                         }
