@@ -1959,29 +1959,66 @@ function displayCurrentEventChoiceQuote() {
         });
     }
 }
+function displayHostileEncounter() {
+    console.log('HOSTILE');
+    let str = '';
+    str += 'quote: ' + game.currentDungeon.getCurrentEventEncounterQuote() + ', enemyFormation: ' + game.currentDungeon.getCurrentEventEncounterEnemyFormation();
+    str += '<button class="dungeonButton simpleButton" id="nextButton">Next</button>';
+
+    document.querySelector('.dungeonContainer').innerHTML = str;
+}
+
+function displayFriendlyEncounter() {
+    let str = '';
+    str += 'quote: ' + game.currentDungeon.getCurrentEventEncounterQuote() + ' friendly encounter';
+    str += '<button class="dungeonButton simpleButton" id="nextButton">Next</button>';
+
+    document.querySelector('.dungeonContainer').innerHTML = str;
+}
+
+function displayNeutralEncounter() {
+    console.log('ici le bug piti piti');
+    let str = '';
+    str += 'quote: ' + game.currentDungeon.getCurrentEventEncounterQuote() + ' neutral encounter';
+    str += '<button class="dungeonButton simpleButton" id="nextButton">Next</button>';
+
+    document.querySelector('.dungeonContainer').innerHTML = str;
+}
+
+
+
 
 // manages the display of encounters in events (to be linked with battle)
 function displayCurrentEventEncounter(event) {
     switch (game.currentDungeon.currentEvent.type) {
         case Data.DungeonEventType.REGULAR:
             if (game.currentDungeon.currentEvent.instance === Data.DungeonEventInstance.ROOM) {
-                let str = '';
-                str += 'type: ' + event.type + ', mobtype: ' + event.mobType;
-                str += '<button class="dungeonButton simpleButton" id="nextButton">Next</button>';
-
-                document.querySelector('.dungeonContainer').innerHTML = str;
+                if (game.currentDungeon.isEncounterHostile()) {
+                    displayHostileEncounter();
+                    game.currentDungeon.startBattle();
+                }
+                else if (game.currentDungeon.isEncounterFriendly()) {
+                    displayFriendlyEncounter();
+                }
+                else {
+                    displayNeutralEncounter();
+                }
 
                 const next = document.querySelector('#nextButton');
                 next.addEventListener('click', e => {
                     displayCurrentEventChoiceQuote();
-                });
+                }); 
             }
             else {
-                let str = '';
-                str += 'type: ' + event.type + ', mobtype: ' + event.mobType;
-                str += '<button class="dungeonButton simpleButton" id="nextButton">Next</button>';
-
-                document.querySelector('.dungeonContainer').innerHTML = str;
+                if (game.currentDungeon.isEncounterHostile()) {
+                    displayHostileEncounter();
+                }
+                else if (game.currentDungeon.isEncounterFriendly()) {
+                    displayFriendlyEncounter();
+                }
+                else {
+                    displayNeutralEncounter();
+                }
 
                 const next = document.querySelector('#nextButton');
                 next.addEventListener('click', e => {

@@ -48,8 +48,15 @@ class Dungeon {
 
     // returns the current encounter
     getCurrentEventEncounter() {
-        console.log(this.currentEvent.encounter);
         return this.currentEvent.encounter;
+    }
+
+    getCurrentEventEncounterEnemyFormation() {
+        return this.currentEvent.encounter.getEnemyFormation;
+    }
+
+    getCurrentEventEncounterQuote() {
+        return this.currentEvent.encounter.quote;
     }
 
     // returns the current set of the current dungeon event
@@ -92,6 +99,19 @@ class Dungeon {
     isLastLevel() {
         return this.currentLevel === 5;
     }
+
+    isEncounterHostile() {
+        return game.currentDungeon.currentEvent.encounter.type === Data.DungeonEncounterType.HOSTILE;
+    }
+
+    isEncounterFriendly() {
+        return game.currentDungeon.currentEvent.encounter.type === Data.DungeonEncounterType.FRIENDLY;
+    }
+
+    startBattle() {
+        const enemyFormation = game.currentDungeon.getCurrentEventEncounterEnemyFormation();
+        game.startBattle(enemyFormation);
+      }
 }
 
 
