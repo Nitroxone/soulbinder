@@ -422,7 +422,7 @@ const Data = Object.freeze({
         FRIENDLY: "friendly",
         NEUTRAL: "neutral"
     },
-    DungeonEncounterHostileMobType: {
+    DungeonEncounterHostileBattleType: {
         GROUP: "group",
         WAVE: "wave",
         BOSS: "boss"
