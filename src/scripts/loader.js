@@ -795,6 +795,42 @@ const Loader = {
                     }),
                 ],
             ),
+            new Trinket(
+                "Trapped Nebulae",
+                "A shifting storm howls in this bottle; warm  and golden, cold and black, it twirls, revealing temporal fragments dating back to the earliest ages of Mithor.",
+                23,
+                10,
+                Data.Rarity.LEGENDARY,
+                [
+                    new Stat({
+                        effect: Data.Effect.MODIF_CHANCE_STUN,
+                        theorical: [20, 30],
+                        isPercentage: true
+                    }),
+                    new Stat({
+                        effect: Data.Effect.SPIRIT,
+                        theorical: [45, 55],
+                    }),
+                ]
+            ),
+            new Trinket(
+                "Duchess's Lyre",
+                "This lute captures the player's full attention, and even when the blistered fingers stop rubbing the strings, you can still hear singular notes playing by themselves.",
+                24,
+                10,
+                Data.Rarity.RARE,
+                [
+                    new Stat({
+                        effect: Data.Effect.MODIF_CHANCE_MOVE,
+                        theorical: [20, 30],
+                        isPercentage: true
+                    }),
+                    new Stat({
+                        effect: Data.Effect.RESILIENCE,
+                        theorical: [-10, -15],
+                    })
+                ]
+            )
         ];
 
         for(const trinket of trinkets) {

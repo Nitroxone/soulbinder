@@ -18,12 +18,13 @@ ONGOING - Implement launch pos checks
 DONE - Implement error messages
 MIGHT ABANDON THIS - Implement skill stackability
 DONE - Implement a battle order indicator
-ONGOING (move done) - Implement Move resistance, Stun resistance
+DONE - Implement Move resistance, Stun resistance
 DONE - Implement Stun mechanic
 - Implement all modifiers (Stun modif, Poison modif, Bleed modif...)
 - Implement remaining GUI (Round, Location...)
 DONE - Implement Bleeding & Poisoning
-- Add Stun chance & Movement chance modifiers
+DONE - Add Stun chance & Movement chance modifiers
+- Thoroughly comment complex battle functions
 
 ASTRAL FORGE:
 - Create GUI -- ONGOING

@@ -423,12 +423,18 @@ class Battle {
                     if(skill.effectsEnemies && arrayContains(this.enemies, tar)) {
                         skill.effectsEnemies[skill.level][accessor].forEach(eff => {
                             if(!isMovementEffect(eff.effect)) {
+                                if(eff.effect === Data.Effect.STUN) {
+                                    if(Math.random() * 100 > current.modifChanceStun + eff.chance - tar.resStun) {
+                                        tar.addBattlePopup(new BattlePopup(0, '<p>Resisted!</p>'));
+                                        return;
+                                    }
+                                }
                                 let newEff = Entity.clone(eff);
                                 newEff.fix();
                                 effects.push(newEff);
                             } else {
                                 // Moving
-                                if(Math.random() * 100 > tar.resMove) this.applyEnemyMovement(eff, tar);
+                                if(Math.random() * 100 < current.modifChanceMove + eff.chance - tar.resMove) this.applyEnemyMovement(eff, tar);
                                 else tar.addBattlePopup(new BattlePopup(0, '<p>Resisted!</p>'));
                             }
                         });                         
@@ -459,6 +465,12 @@ class Battle {
             accessor = (isCrit ? 'critical' : 'regular');
             skill.effectsCaster[skill.level][accessor].forEach(eff => {
                 if(!isMovementEffect(eff.effect)) {
+                    if(eff.effect === Data.Effect.STUN) {
+                        if(Math.random() * 100 > current.modifChanceStun + skill.chance - current.resStun) {
+                            current.addBattlePopup(new BattlePopup(0, '<p>Resisted!</p>'));
+                            return;
+                        }
+                    }
                     let newEff = Entity.clone(eff);
                     newEff.fix();
                     effects.push(newEff);
