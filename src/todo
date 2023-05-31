@@ -12,17 +12,17 @@
 BATTLES:
 - Implement execution of battle popups in the beginning of the round
 - Implement skill cooldown
-- Implement and improve skill launch conditions -- DONE?
-- Implement stamina/mana checks -- DONE?
-- Implement launch pos checks -- ONGOING
-- Implement error messages -- DONE
-- Implement skill stackability -- MIGHT ABANDON THIS
-- Implement a battle order indicator -- DONE
-- Implement Move resistance, Stun resistance -- ONGOING (move done)
-- Implement Stun mechanic -- DONE
+DONE - Implement and improve skill launch conditions
+DONE - Implement stamina/mana checks
+ONGOING - Implement launch pos checks
+DONE - Implement error messages
+MIGHT ABANDON THIS - Implement skill stackability
+DONE - Implement a battle order indicator
+ONGOING (move done) - Implement Move resistance, Stun resistance
+DONE - Implement Stun mechanic
 - Implement all modifiers (Stun modif, Poison modif, Bleed modif...)
 - Implement remaining GUI (Round, Location...)
-- Implement Bleeding & Poisoning -- DONE
+DONE - Implement Bleeding & Poisoning
 - Add Stun chance & Movement chance modifiers
 
 ASTRAL FORGE:
