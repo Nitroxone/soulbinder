@@ -21,6 +21,7 @@ const Data = Object.freeze({
         UNSLEEPER: 'unsleeper.png',
         MYCELIAL_TICK: 'mycelial_tick.png',
         FUNGALIANT: 'fungaliant.png',
+        GNARLY_HORROR: 'gnarly_horror.png',
     },
     Color: {
         GREEN: '#4cd137',
@@ -437,7 +438,8 @@ const Data = Object.freeze({
         // SWAMP: "swamp",
         // DESERT: "desert",
         // MOUNTAIN: "mountain",
-        // COAST: "coast"
+        // COAST: "coast",
+        //ALL: "all",
     },
     DungeonTagEntrance: {
         // DENSE: "dense",
@@ -451,4 +453,16 @@ const Data = Object.freeze({
         GOOD: "good",
         BAD: "bad",
     },
+    MobType: {
+        LESSER: "Lesser",
+        REGULAR: "Regular",
+        STRONGER: "Stronger",
+        MINOR_BOSS: "Minor Boss",
+        MAJOR_BOSS: "Major Boss",
+    },
+    BattleType: {
+        GROUP: "group",
+        WAVE: "wave",
+        BOSS: "boss"
+    }
 });

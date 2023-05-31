@@ -61,6 +61,7 @@ class Game {
 
         this.all_striders = [];
         this.all_enemies = [];
+        this.all_enemyFormations = [];
 
         this.player = null;
         this.inventory = null;
@@ -354,8 +355,6 @@ class Game {
         this.player.formationSet(what(this.player.roster, "carhal"), Data.FormationPosition.BACK);
         console.clear();
 
-        this.startBattle([what(this.all_enemies, "mycelial tick"), what(this.all_enemies, "mycelial tick"), what(this.all_enemies, "fungaliant")]);
-        this.currentBattle.endTurn();
-        this.currentBattle.endTurn();
+        this.startBattle(what(game.all_enemyFormations, "threeTicks").formation);
     }
 }

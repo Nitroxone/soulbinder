@@ -262,6 +262,16 @@ class NPC extends Entity {
         console.log(this.name + ' received ' + damage + ' damage (' + phys + ' phys, effective ' + phys_damage + ' | ' + magi + ' magi, effective ' + magi_damage + ' | ' + crit + ' critical -> Total ' + damage + ' with ' + this.protection + '% reduction');
     }
 
+    receiveBleedOrPoison(eff) {
+        console.log('---TRIGGERED: ' + eff.effect);
+        this.removeBaseStat(new Stat({effect: Data.Effect.HEALTH, theorical: eff.getValue()}));
+        if(eff.effect === Data.Effect.BLIGHT_CURABLE || eff.effect === Data.Effect.BLIGHT_INCURABLE) {
+            this.removeBaseStat(new Stat({effect: Data.Effect.MANA, theorical: eff.getValue()}));
+        } else if(eff.effect === Data.Effect.BLEEDING_CURABLE || eff.effect === Data.Effect.BLEEDING_INCURABLE) {
+            this.removeBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: eff.getValue()}));
+        }
+    }
+
     /**
      * Removes the provided effect's value from either Health, Mana, or Stamina.
      * @param {Stat} eff the effect to add
@@ -508,6 +518,9 @@ class NPC extends Entity {
                 if(eff.delay > 0) eff.delay--;
                 if(eff.type === Data.StatType.ACTIVE && eff.delay === 0) {
                     if(isBaseStatChange(eff)) this.alterBaseStat(eff);
+                    else if(isBleedingOrPoisoning(eff)) {
+                        this.receiveBleedOrPoison(eff);
+                    }
                     else this.addEffect(eff)
                 }
             });
