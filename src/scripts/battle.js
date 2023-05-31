@@ -14,6 +14,7 @@ class Battle {
         this.targetTracker = 0;
         this.endturnCounter = 0;
         this.movementQueue = [];
+        this.beginTurnPopups = false;
 
         this.params = null;
         this.resetAttackParams();
@@ -105,6 +106,9 @@ class Battle {
         this.currentPlay.runTriggers(Data.TriggerType.ON_TURN_BEGIN);
         this.currentPlay.executeActiveEffects();
         drawBattleScreen();
+        this.beginTurnPopups = false;
+        this.runPopups();
+        this.resetEndTurnCounter();
         // SKIP ENEMIES
         if(this.currentPlay.isStunned) this.endTurn();
         if(this.isEnemyPlaying()) this.endTurn();
@@ -127,6 +131,10 @@ class Battle {
         this.endturnCounter += 1;
         if(this.endturnCounter === this.order.length) {
             this.executeMovements();
+            if(!this.beginTurnPopups) {
+                this.beginTurnPopups = true;
+                return;
+            }
             if(this.movementQueue.length !== 0) setTimeout(() => {this.endTurn();}, 300);
             else this.endTurn();
         }

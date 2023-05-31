@@ -18,13 +18,17 @@ DONE - Implement Move resistance, Stun resistance
 DONE - Implement Stun mechanic
 DONE - Implement Bleeding & Poisoning
 DONE - Add Stun chance & Movement chance modifiers
+DONE - Implement execution of battle popups in the beginning of the round
 MIGHT ABANDON THIS - Implement skill stackability
 ONGOING - Implement launch pos checks
-- Implement execution of battle popups in the beginning of the round
 - Implement skill cooldown
 - Implement all modifiers (Stun modif, Poison modif, Bleed modif...)
 - Implement remaining GUI (Round, Location...)
 - Thoroughly comment complex battle functions
+- Implement guarding mechanic
+
+BATTLE AI:
+- Start implementing
 
 ASTRAL FORGE:
 - Create GUI -- ONGOING

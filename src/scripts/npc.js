@@ -508,7 +508,6 @@ class NPC extends Entity {
             }
         });
         for(let i = effects.length - 1; i >= 0; i--) {
-            console.log('occurrence:'+i);
             if(effects[i].duration === 0) removeFromArray(effects, effects[i]);
         }
 
