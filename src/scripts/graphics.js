@@ -2091,6 +2091,7 @@ function getFighterFrame(fighter, type, pos) {
     str += '<div id="' + id + '" class="animationsWrapper"></div>';
     if(fighter) {
         str += '<div id="b-' + type + '-' + pos + '" class="battleFighter" style="background-image: linear-gradient(transparent 0%, rgba(0, 0, 0, 1) 70%), url(\'css/img/chars/' + fighter.charset + '\'); ' + (fighter.health === 0 ? ' filter: grayscale(100%);' : '') + '">';
+        str += '<div class="battle-specialEffectsContainer">' + getSpecialEffects(fighter) + '</div>';
         str += '<div class="gaugeProgress"><div class="statGauge health" style="width:'+ Math.round((fighter.health*100)/fighter.maxHealth) +'%"><span class="gaugeIndicator">'+ fighter.health + '/' + fighter.maxHealth +'</span></div></div>';
         str += '<div class="gaugeProgress"><div class="statGauge stamina" style="width:'+ Math.round((fighter.stamina*100)/fighter.maxStamina) +'%"><span class="gaugeIndicator">'+ fighter.stamina + '/' + fighter.maxStamina +'</span></div></div>';
         str += '<div class="gaugeProgress"><div class="statGauge mana" style="width:'+ Math.round((fighter.mana*100)/fighter.maxMana) +'%"><span class="gaugeIndicator">'+ fighter.mana + '/' + fighter.maxMana +'</span></div></div>';
@@ -2100,6 +2101,40 @@ function getFighterFrame(fighter, type, pos) {
     str += '</div>';
 
     return str;
+}
+
+function getSpecialEffects(fighter) {
+    let str = '';
+
+    if(fighter.isStunned) str += '<div class="specialEffect stun"></div>'; 
+    if(fighter.isGuarded) str += '<div class="specialEffect guarded"></div>'; 
+    if(fighter.isGuarding) str += '<div class="specialEffect guarding"></div>'; 
+
+    return str;
+}
+
+function addSpecialEffect(pos, type) {
+    let str = '';
+    switch(type) {
+        case Data.Effect.STUN:
+            type = 'stun';
+            break;
+    }
+    str += '<div class="specialEffect ' + type.toLowerCase() + '"></div>';
+
+    console.log('Added: ' + str + ' to :' + pos);
+    document.querySelector('#' + pos).querySelector('.battle-specialEffectsContainer').innerHTML += str;
+}
+
+function removeSpecialEffect(pos, type) {
+    switch(type) {
+        case Data.Effect.STUN:
+            type = 'stun';
+            break;
+    }
+    let identifier = '.specialEffect.' + type;
+
+    document.querySelector('#' + pos).querySelector(identifier).remove();
 }
 
 function getBattleScreenFormationAlliesSingle(pos) {

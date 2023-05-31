@@ -80,6 +80,10 @@ class NPC extends Entity {
         this.activeEffects = [];
 
         this.popupsQueue = [];
+
+        this.isStunned = false;
+        this.isGuarded = false;
+        this.isGuarding = false;
     }
 
     /**
@@ -342,6 +346,15 @@ class NPC extends Entity {
 
     }
 
+    applyStun() {
+        this.isStunned = true;
+        addSpecialEffect(this.getBattleFormationStringId(), Data.Effect.STUN);
+    }
+    removeStun() {
+        this.isStunned = false;
+        removeSpecialEffect(this.getBattleFormationStringId(), Data.Effect.STUN);
+    }
+
     /**
      * Adds the provided ActiveEffect to this NPC's active effects list.
      * @param {ActiveEffect} ae 
@@ -480,6 +493,9 @@ class NPC extends Entity {
         effects.forEach(eff => {
             if(eff.delay === 0) {
                 if(isBaseStatChange(eff)) this.alterBaseStat(eff)
+                else if(eff.effect === Data.Effect.STUN) this.applyStun()
+                else if(eff.effect === Data.Effect.GUARDED) this.applyGuarded(eff);
+                else if(eff.effect === Data.Effect.GUARDING) this.applyGuarding(eff);
                 else this.addEffect(eff);
             }
         });
@@ -531,7 +547,10 @@ class NPC extends Entity {
                 if(eff.duration === 1) {
                     eff.duration = 0;
                     removeFromArray(ae.effects, eff);
-                    if(eff.type === Data.StatType.PASSIVE) this.addEffect(eff, true);
+                    if(eff.effect === Data.Effect.STUN) this.removeStun();
+                    if(eff.effect === Data.Effect.GUARDED) this.removeGuarded();
+                    if(eff.effect === Data.Effect.GUARDING) this.removeGuarding();
+                    if(eff.type === Data.StatType.PASSIVE && eff.effect !== Data.Effect.STUN && eff.effect !== Data.Effect.GUARDED && eff.effect !== Data.Effect.GUARDING) this.addEffect(eff, true);
                     console.log('Removed: ' + eff.effect);
                 } else {
                     if(eff.delay === 0) eff.duration -= 1;

@@ -100,12 +100,13 @@ class Battle {
     }
 
     beginTurn() {
-        if(this.nextInOrder()) return;
+        if(this.nextInOrder()) return; // IF A NEW ROUND IS STARTING, CANCEL THE FIRST TURN OR IT WILL BE PLAYED TWICE BY THE SAME FIGHTER.
         console.log("Currently playing: " + this.currentPlay.name);
         this.currentPlay.runTriggers(Data.TriggerType.ON_TURN_BEGIN);
         this.currentPlay.executeActiveEffects();
         drawBattleScreen();
         // SKIP ENEMIES
+        if(this.currentPlay.isStunned) this.endTurn();
         if(this.isEnemyPlaying()) this.endTurn();
         if(this.isBattleOver()) this.end();
     }
@@ -450,6 +451,7 @@ class Battle {
                 tar.addBattlePopup(new BattlePopup(0, '<p>Dodged!</p>'));
             }
         });
+        effects = [];
 
         // CASTER EFFECTS
         if(skill.effectsCaster) {
