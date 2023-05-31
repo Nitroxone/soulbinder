@@ -1312,6 +1312,8 @@ function isBleedingOrPoisoning(eff) {
             || eff.effect === Data.Effect.BLIGHT_CURABLE
             || eff.effect === Data.Effect.BLIGHT_INCURABLE
 }
+<<<<<<< HEAD
+=======
 
 
 /**
@@ -1356,3 +1358,4 @@ function getRandomEnemyFormationFromDungeon(dungeon = game.currentDungeon) {
 //         this.currentEvent = new DungeonEvent();
 //     }
 // }
+>>>>>>> 3c1542d6ed045afa7995f72424e54e4e9f5245d3
