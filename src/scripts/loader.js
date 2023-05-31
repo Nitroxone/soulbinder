@@ -1446,6 +1446,46 @@ const Loader = {
                                 }
                             }
                         }
+                    ),
+                    new Skill(
+                        "Intervention",
+                        "§Guards§ an ally and increases his §Max. mana§.",
+                        16,
+                        {
+                            type: Data.SkillType.FRIENDLY,
+                            manaCost: 40,
+                            cooldown: 3,
+                            criMultiplier: 10,
+                            accMultiplier: 100,
+                            targets: {allies: '-123', enemies: '-0'},
+                            launchPos: [false, false, true],
+                            effectsCaster: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.GUARDING, duration: 2})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.GUARDING, duration: 2, isCritical: true})
+                                    ]
+                                }
+                            },
+                            effectsAllies: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.GUARDED, duration: 2}),
+                                        new Stat({effect: Data.Effect.MAXMANA, theorical: [20, 25], isPercentage: true, duration: 2})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.GUARDED, duration: 2, isCritical: true}),
+                                        new Stat({effect: Data.Effect.MAXMANA, theorical: 30, isPercentage: true, duration: 2, isCritical: true})
+                                    ]
+                                }
+                            },
+                            variables: {
+                                guarding: what(game.player.formation, "amarok"),
+                                guarded: null
+                            }
+                        }
                     )
                 ],
                 '10% 30%'
@@ -1547,7 +1587,7 @@ const Loader = {
                             type: Data.SkillType.OFFENSIVE,
                             dmgType: Data.SkillDamageType.MAGICAL,
                             manaCost: 40,
-                            dmgMultiplier: 90,
+                            dmgMultiplier: 100,
                             criMultiplier: 10,
                             accMultiplier: 90,
                             cooldown: 1,
@@ -1829,6 +1869,28 @@ const Loader = {
                 [],
                 '10% 50%'
             ),
+            new Strider(
+                "Khej",
+                "A childhood friend of Naka, the belief that she was dead drove Khej to madness and regret. He now dances in the darkness, appearing and disappearing, leaving sharp blades in his wake.",
+                Data.Charset.KHEJ,
+                "The Betrayed",
+                100, 100, 100,
+                10, 12, 85, 0, 5, 5,
+                [0, 0], [0, 0],
+                30, 45,
+                0, 0,
+                [new Stat({effect: Data.Effect.MODIF_DMG_WEAPON, theorical: 5})],
+                {},
+                [],
+                Data.StriderType.STRIKER,
+                "Revenge of the Fallen",
+                "Revenge of the Fallen power description",
+                "quote",
+                0,
+                what(game.all_skillTrees, "amarok"),
+                [],
+                '10% 50%'
+            )
         ];
 
         for(const strider of striders) {

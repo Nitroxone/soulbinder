@@ -17,6 +17,7 @@ const Data = Object.freeze({
         ZURIJ: 'zurij.png',
         JUBA_JUN: 'juba_jun.png',
         MIRAI: 'mirai.png',
+        KHEJ: "khej.png",
 
         UNSLEEPER: 'unsleeper.png',
         MYCELIAL_TICK: 'mycelial_tick.png',
@@ -158,7 +159,9 @@ const Data = Object.freeze({
         HEALTH_STEAL: "health steal",
         MANA_STEAL: "mana steal",
         STAMINA_STEAL: "stamina steal",
-        STUN: "stuns the target"
+        STUN: "stuns the target",
+        GUARDING: "Guarding",
+        GUARDED: "Guarded"
     },
     TriggerType: {
         ON_STAT_CHANGE: 'ON_STAT_CHANGE',
