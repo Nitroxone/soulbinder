@@ -1,5 +1,11 @@
 let Speech = {
     Dungeon: {
+        encounterQuote: {
+            encounterGroupQuote: [
+                
+                "As you make your way through this Vestige, you come across a group of ${mobType} ready to rip you to shreds. Go to the Battle tab to fight them off!",
+            ]
+        },
         dense: {
             entrance: {
                 jungle: [
@@ -60,7 +66,7 @@ let Speech = {
                     },
                     2: {
                         room: [
-                            
+
                             "caca pipi proutent xd",
                         ],
 
