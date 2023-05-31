@@ -2392,6 +2392,10 @@ function battleAttackPickTarget() {
     });
 }
 
+function canCastSkillOnSelf(skill) {
+    return skill.targets.enemies === '-0' && skill.targets.allies === '-0' && skill.effectsCaster;
+}
+
 function battleSkillPickTarget() {
     const battle = game.currentBattle;
     const skill = battle.selectedSkill;
@@ -2411,7 +2415,7 @@ function battleSkillPickTarget() {
     if(skill.targets.enemies.includes('3')) document.querySelector('#b-enemy-back').classList.add(selector);
 
     // Highlight Caster's position if no target at all but caster effects exist
-    if(skill.targets.enemies === '-0' && skill.targets.allies === '-0' && skill.effectsCaster) {
+    if(canCastSkillOnSelf(skill)) {
         document.querySelector('#b-hero-' + battle.getCurrentNPCPos().toLowerCase()).classList.add('battle-skillTargetSingle');
     } else {
         document.querySelector('#b-hero-' + battle.getCurrentNPCPos().toLowerCase()).classList.remove('battle-skillTargetSingle', 'battle-skillTargetMultiple');
@@ -2419,7 +2423,7 @@ function battleSkillPickTarget() {
 
     // ALLIES
     document.querySelector('#b-hero-front').addEventListener('click', e => {
-        if(skill.targets.allies.includes('1') && battle.getCurrentNPCPos() !== Data.FormationPosition.FRONT) {
+        if(canCastSkillOnSelf(skill) || (skill.targets.allies.includes('1') && battle.getCurrentNPCPos() !== Data.FormationPosition.FRONT)) {
             battle.target.push(battle.allies[2]);
             if(skill.targets.allies.charAt(0) === '@') {
                 if(skill.targets.allies.includes('2')) battle.target.push(battle.allies[1]);
@@ -2429,7 +2433,7 @@ function battleSkillPickTarget() {
         }
     });
     document.querySelector('#b-hero-middle').addEventListener('click', e => {
-        if(skill.targets.allies.includes('2') && battle.getCurrentNPCPos() !== Data.FormationPosition.MIDDLE) {
+        if(canCastSkillOnSelf(skill) || (skill.targets.allies.includes('2') && battle.getCurrentNPCPos() !== Data.FormationPosition.MIDDLE)) {
             battle.target.push(battle.allies[1]);
             if(skill.targets.allies.charAt(0) === '@') {
                 if(skill.targets.allies.includes('1')) battle.target.push(battle.allies[2]);
@@ -2439,7 +2443,7 @@ function battleSkillPickTarget() {
         }
     });
     document.querySelector('#b-hero-back').addEventListener('click', e => {
-        if(skill.targets.allies.includes('3') && battle.getCurrentNPCPos() !== Data.FormationPosition.BACK) {
+        if(canCastSkillOnSelf(skill) || (skill.targets.allies.includes('3') && battle.getCurrentNPCPos() !== Data.FormationPosition.BACK)) {
             battle.target.push(battle.allies[0]);
             if(skill.targets.allies.charAt(0) === '@') {
                 if(skill.targets.allies.includes('2')) battle.target.push(battle.allies[1]);
@@ -2480,6 +2484,14 @@ function battleSkillPickTarget() {
             battle.executeSkill();
         }
     });
+}
+
+function canLaunchSkill(skill) {
+    const battle = game.currentBattle;
+    const pos = battle.allies.indexOf(battle.currentPlay) === -1 ? battle.enemies.indexOf(battle.currentPlay) : battle.allies.indexOf(battle.currentPlay);
+
+    if(skill.launchPos[pos]) return true;
+    return false;
 }
 
 function battleMovePickTarget() {
@@ -2523,7 +2535,9 @@ function generateBattleSkillsEvents() {
         }, {offY: -8})
 
         sk.addEventListener('click', e => {
-            if(current.mana < skill.manaCost) {
+            if(!canLaunchSkill(skill)) {
+                addBattleNotification(current.name + ' cannot cast ' + skill.name + ' from the ' + current.getSelfPosInBattle() + '.');
+            } else if(current.mana < skill.manaCost) {
                 addBattleNotification(current.name + '\'s mana is too low to cast ' + skill.name + '.');
             } else if(!skill.condition.checker()) {
                 addBattleNotification('The requirements to cast ' + skill.name + ' are not met.');
