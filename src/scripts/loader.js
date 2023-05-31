@@ -797,7 +797,7 @@ const Loader = {
             ),
             new Trinket(
                 "Trapped Nebulae",
-                "A shifting storm howls in this bottle; warm  and golden, cold and black, it twirls, revealing temporal fragments dating back to the earliest ages of Mithor.",
+                "A shifting storm howls in this sphere; warm and golden, cold and black, it twirls, revealing temporal fragments dating back to the earliest ages of Mithor.",
                 23,
                 10,
                 Data.Rarity.LEGENDARY,
@@ -1761,12 +1761,12 @@ const Loader = {
                             effectsAllies: {
                                 1: {
                                     regular: [
-                                        new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [2, 4], isPercentage: true, duration: 1}),
-                                        new Stat({effect: Data.Effect.MODIF_HEAL_RECV, theorical: [2, 4], isPercentage: true, duration: 2})
+                                        new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [8, 10], isPercentage: true, duration: 1}),
+                                        new Stat({effect: Data.Effect.MODIF_HEAL_RECV, theorical: [8, 10], isPercentage: true, duration: 2})
                                     ],
                                     critical: [
-                                        new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [2, 4], isPercentage: true, duration: 2, isCritical: true}),
-                                        new Stat({effect: Data.Effect.MODIF_HEAL_RECV, theorical: [2, 4], isPercentage: true, duration: 2, isCritical: true})
+                                        new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [10, 12], isPercentage: true, duration: 2, isCritical: true}),
+                                        new Stat({effect: Data.Effect.MODIF_HEAL_RECV, theorical: [10, 12], isPercentage: true, duration: 2, isCritical: true})
                                     ]
                                 }
                             },
