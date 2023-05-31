@@ -1997,8 +1997,9 @@ function displayCurrentEventEncounter(event) {
         case Data.DungeonEventType.REGULAR:
             if (game.currentDungeon.currentEvent.instance === Data.DungeonEventInstance.ROOM) {
                 if (game.currentDungeon.isEncounterHostile()) {
+                    console.log('coucou');
                     displayHostileEncounter();
-                    game.currentDungeon.startBattle();
+                    game.currentDungeon.startEncounterFight();
                 }
                 else if (game.currentDungeon.isEncounterFriendly()) {
                     displayFriendlyEncounter();

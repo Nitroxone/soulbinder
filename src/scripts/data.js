@@ -436,21 +436,21 @@ const Data = Object.freeze({
     DungeonEncounterFriendlyMobType: {
         ALLIED: "allied"
     },
-    DungeonTagBiome: {
+    DungeonBiome: {
         JUNGLE: "jungle",
-        // SNOW: "snow",
-        // PLAIN: "plain",
-        // SWAMP: "swamp",
-        // DESERT: "desert",
-        // MOUNTAIN: "mountain",
-        // COAST: "coast",
-        //ALL: "all",
+        SNOW: "snow",
+        PLAIN: "plain",
+        SWAMP: "swamp",
+        DESERT: "desert",
+        MOUNTAIN: "mountain",
+        COAST: "coast",
+        ALL: "all",
     },
-    DungeonTagEntrance: {
-        // DENSE: "dense",
+    DungeonZone: {
+        DENSE: "dense",
         CAVE: "cave",
-        // VILLAGE: "village",
-        //ALL: "all",
+        VILLAGE: "village",
+        ALL: "all",
     },
     LogMessageType: {
         REGULAR: "regular",
