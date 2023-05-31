@@ -10,20 +10,20 @@
 - Actually implement set bonuses
 
 BATTLES:
-- Implement execution of battle popups in the beginning of the round
-- Implement skill cooldown
 DONE - Implement and improve skill launch conditions
 DONE - Implement stamina/mana checks
-ONGOING - Implement launch pos checks
 DONE - Implement error messages
-MIGHT ABANDON THIS - Implement skill stackability
 DONE - Implement a battle order indicator
 DONE - Implement Move resistance, Stun resistance
 DONE - Implement Stun mechanic
-- Implement all modifiers (Stun modif, Poison modif, Bleed modif...)
-- Implement remaining GUI (Round, Location...)
 DONE - Implement Bleeding & Poisoning
 DONE - Add Stun chance & Movement chance modifiers
+MIGHT ABANDON THIS - Implement skill stackability
+ONGOING - Implement launch pos checks
+- Implement execution of battle popups in the beginning of the round
+- Implement skill cooldown
+- Implement all modifiers (Stun modif, Poison modif, Bleed modif...)
+- Implement remaining GUI (Round, Location...)
 - Thoroughly comment complex battle functions
 
 ASTRAL FORGE:
