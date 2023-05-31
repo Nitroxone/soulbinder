@@ -449,7 +449,8 @@ const Data = Object.freeze({
     DungeonTagEntrance: {
         // DENSE: "dense",
         CAVE: "cave",
-        // VILLAGE: "village"
+        // VILLAGE: "village",
+        //ALL: "all",
     },
     LogMessageType: {
         REGULAR: "regular",
