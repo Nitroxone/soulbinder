@@ -1313,6 +1313,20 @@ function isBleedingOrPoisoning(eff) {
             || eff.effect === Data.Effect.BLIGHT_INCURABLE
 }
 
+
+/**
+ * Returns an EnemyFormation object which params match the ones from the provided Dungeon object.
+ * @param {Dungeon} dungeon the Dungeon to retrieve the parameters from
+ * @returns {EnemyFormation} a matching EnemyFormation
+ */
+function getRandomEnemyFormationFromDungeon(dungeon) {
+    let available = [];
+    game.all_enemyFormations.forEach(ef => {
+        if(ef.biome === dungeon.biome && ef.zone === dungeon.zone && ef.levels.includes(dungeon.currentLevel)) available.push(ef);
+    })
+    return choose(available);
+}
+
 /**********************DUNGEON LOGIC ***************************/
 
 // allows you to create a dungeon instance 

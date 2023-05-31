@@ -341,7 +341,7 @@ class NPC extends Entity {
             else amount = eff.getValue();
 
             this.stamina = Math.min(this.maxStamina, this.stamina + amount);
-            if(amount > 0) this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.GREEN + '">-' + damage + '</p>'));
+            if(amount > 0) this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.GREEN + '">+ ' + amount + '</p>'));
         }
         console.log('ADDING ' + amount + ' ' + eff.effect + ' TO ' + this.name);
     }

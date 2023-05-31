@@ -1659,11 +1659,11 @@ const Loader = {
                                 1: {
                                     regular: [
                                         new Stat({effect: Data.Effect.STUN, duration: 1}),
-                                        new Stat({effect: Data.Effect.REGEN_STAMINA, duration: 2, theorical: 4, isPercentage: true})
+                                        new Stat({effect: Data.Effect.STAMINA, duration: 2, theorical: 4, isPercentage: true, type: Data.StatType.ACTIVE})
                                     ],
                                     critical: [
                                         new Stat({effect: Data.Effect.STUN, duration: 1, isCritical: true}),
-                                        new Stat({effect: Data.Effect.REGEN_STAMINA, duration: 2, theorical: 4, isPercentage: true, isCritical: true})
+                                        new Stat({effect: Data.Effect.STAMINA, duration: 2, theorical: 4, isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true})
                                     ]
                                 }
                             }
@@ -2021,6 +2021,7 @@ const Loader = {
             new EnemyFormation({
                 name: "threeTicks",
                 biome: Data.DungeonTagBiome.JUNGLE,
+                zone: Data.DungeonTagEntrance.CAVE,
                 levels: [1, 2],
                 formation: [what(game.all_enemies, "mycelial tick"), what(game.all_enemies, "mycelial tick"), what(game.all_enemies, "mycelial tick")],
                 battleType: Data.BattleType.GROUP
@@ -2028,6 +2029,7 @@ const Loader = {
             new EnemyFormation({
                 name: "twoFungaliants",
                 biome: Data.DungeonTagBiome.JUNGLE,
+                zone: Data.DungeonTagEntrance.CAVE,
                 levels: [2, 3, 4],
                 formation: [what(game.all_enemies, "fungaliant"), what(game.all_enemies, "fungaliant"), what(game.all_enemies, "mycelial tick")],
                 battleType: Data.BattleType.GROUP
@@ -2035,6 +2037,7 @@ const Loader = {
             new EnemyFormation({
                 name: "gnarlyAndFungaliant",
                 biome: Data.DungeonTagBiome.JUNGLE,
+                zone: Data.DungeonTagEntrance.CAVE,
                 levels: [4, 5],
                 formation: [what(game.all_enemies, "fungaliant"), what(game.all_enemies, "fungaliant"), what(game.all_enemies, "gnarly horror")],
                 battleType: Data.BattleType.GROUP
