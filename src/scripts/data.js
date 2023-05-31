@@ -92,6 +92,8 @@ const Data = Object.freeze({
         MODIF_CRIT_STUN: "stun crit. chance",
         MODIF_CRIT_BLEED: "bleed crit. chance",
         MODIF_CRIT_POISON: "poison crit. chance",
+        MODIF_CHANCE_STUN: "stun chance",
+        MODIF_CHANCE_MOVE: "move chance",
 
         //------------------------------------------------------
         // ARMOR EFFECTS

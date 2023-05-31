@@ -221,7 +221,13 @@ class NPC extends Entity {
                 break;
             case Data.Effect.MODIF_CRIT_POISON:
                 this.modifCritPoison += effect.getValue() * factor;
-                break;     
+                break;   
+            case Data.Effect.MODIF_CHANCE_STUN:
+                this.modifChanceStun += effect.getValue() * factor;
+                break; 
+            case Data.Effect.MODIF_CHANCE_MOVE:
+                this.modifChanceMove += effect.getValue() * factor;
+                break; 
             default:
                 ERROR('Tried to add an unknown effect.');
                 return;

@@ -41,6 +41,8 @@ let Config = {
         MODIF_CRIT_STUN: [4, 2, 5],
         MODIF_CRIT_BLEED: [4, 2, 5],
         MODIF_CRIT_POISON: [4, 2, 5],
+        MODIF_CHANCE_STUN: [4, 3, 5],
+        MODIF_CHANCE_MOVE: [4, 3, 5],
 
         //------------------------------------------------------
         // ARMOR EFFECTS
@@ -101,6 +103,8 @@ let Config = {
         MODIF_CRIT_STUN: true,
         MODIF_CRIT_BLEED: true,
         MODIF_CRIT_POISON: true,
+        MODIF_CHANCE_STUN: true,
+        MODIF_CHANCE_MOVE: true,
 
         CRIT_LUK: true, 
     },
@@ -141,6 +145,8 @@ let Config = {
         Data.Effect.MODIF_CRIT_STUN,
         Data.Effect.MODIF_CRIT_BLEED,
         Data.Effect.MODIF_CRIT_POISON,
+        Data.Effect.MODIF_CHANCE_STUN,
+        Data.Effect.MODIF_CHANCE_MOVE,
         Data.Effect.RESILIENCE,
         Data.Effect.WARDING,
     ]
