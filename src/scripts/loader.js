@@ -2020,24 +2020,24 @@ const Loader = {
         const enemyFormations = [
             new EnemyFormation({
                 name: "threeTicks",
-                biome: Data.DungeonTagBiome.JUNGLE,
-                zone: Data.DungeonTagEntrance.CAVE,
+                biome: Data.DungeonBiome.JUNGLE,
+                zone: Data.DungeonZone.CAVE,
                 levels: [1, 2],
                 formation: [what(game.all_enemies, "mycelial tick"), what(game.all_enemies, "mycelial tick"), what(game.all_enemies, "mycelial tick")],
                 battleType: Data.BattleType.GROUP
             }),
             new EnemyFormation({
                 name: "twoFungaliants",
-                biome: Data.DungeonTagBiome.JUNGLE,
-                zone: Data.DungeonTagEntrance.CAVE,
+                biome: Data.DungeonBiome.JUNGLE,
+                zone: Data.DungeonZone.CAVE,
                 levels: [2, 3, 4],
                 formation: [what(game.all_enemies, "fungaliant"), what(game.all_enemies, "fungaliant"), what(game.all_enemies, "mycelial tick")],
                 battleType: Data.BattleType.GROUP
             }),
             new EnemyFormation({
                 name: "gnarlyAndFungaliant",
-                biome: Data.DungeonTagBiome.JUNGLE,
-                zone: Data.DungeonTagEntrance.CAVE,
+                biome: Data.DungeonBiome.JUNGLE,
+                zone: Data.DungeonZone.CAVE,
                 levels: [4, 5],
                 formation: [what(game.all_enemies, "fungaliant"), what(game.all_enemies, "fungaliant"), what(game.all_enemies, "gnarly horror")],
                 battleType: Data.BattleType.GROUP

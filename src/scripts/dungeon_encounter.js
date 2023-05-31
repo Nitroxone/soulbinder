@@ -8,8 +8,8 @@ class DungeonEncounter {
   
     createEncounter() {
         this.generateEncounterType();
-        if(this.type ===  Data.DungeonEncounterType.HOSTILE) {
-            this.getEnemyFormation();
+        if(this.type === Data.DungeonEncounterType.HOSTILE) {
+            this.enemyFormation = getRandomEnemyFormationFromDungeon();
         }
         this.generateEncounterQuote();
     }
@@ -21,9 +21,5 @@ class DungeonEncounter {
 
     generateEncounterQuote() {
         return this.quote = 'quote test pour encounter';
-    }
-
-    getEnemyFormation() {
-        return choose(game.all_enemyFormations);
     }
 }

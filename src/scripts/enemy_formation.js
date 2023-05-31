@@ -1,8 +1,8 @@
 class EnemyFormation {
     constructor(props) {
         this.name = getValueFromObject(props, "name", "");
-        this.biome = getValueFromObject(props, "biome", Data.DungeonTagBiome.ALL);
-        this.zone = getValueFromObject(props, "zone", Data.DungeonTagEntrance.ALL);
+        this.biome = getValueFromObject(props, "biome", Data.DungeonBiome.ALL);
+        this.zone = getValueFromObject(props, "zone", Data.DungeonZone.ALL);
         this.levels = getValueFromObject(props, "levels", [1, 2, 3, 4, 5]);
         this.formation = getValueFromObject(props, "formation", [null, null, null]);
         this.battleType = getValueFromObject(props, "battleType", Data.BattleType.GROUP);

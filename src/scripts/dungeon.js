@@ -108,10 +108,9 @@ class Dungeon {
         return game.currentDungeon.currentEvent.encounter.type === Data.DungeonEncounterType.FRIENDLY;
     }
 
-    startBattle() {
-        const enemyFormation = game.currentDungeon.getCurrentEventEncounterEnemyFormation();
-        game.startBattle(enemyFormation);
-      }
+    startEncounterFight() {
+        game.startBattle(game.currentDungeon.currentEvent.encounter.enemyFormation.formation);
+    }
 }
 
 
