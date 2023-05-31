@@ -1,9 +1,10 @@
 /**
  * The Stat class is used to define any kind of effect within the game : Rune stats, Skills effects...
- * Two parameters are mandatory: the EFFECT and the THEORICAL VALUE (which must be an array). 
- * If size 1, the VALUE is fixed and will always be the same. 
- * If size 2, the VALUE will be random (given that the first element of the array is the minimum, and the second element is the maximum) 
- * each time it is called by the getValue() method.
+ * Two parameters are mandatory: the EFFECT and the THEORICAL VALUE. 
+ * If the Theorical Value is a number, the Stat value will always be the same.
+ * If the Theorical Value is an array (max. size 2), the Stat value will be a randomly generated number between these two bounds,
+ * returned every time the getValue() method is called.
+ * It is possible to freeze the Stat value using the fix() method.
  * @author ntrx
  */
 
@@ -18,6 +19,7 @@ class Stat {
      * @param {number} duration 0 = permanent, > 0 = duration in rounds,
      * @param {number} delay 0 = immediate, < 0 = delay in rounds
      * @param {string} type is it a PASSIVE or ACTIVE Stat?
+     * @param {number} chance base chance of the effect being applied. This is only used for Stun/Move effects in Skills.
      */
     constructor(props) {
 
@@ -30,6 +32,7 @@ class Stat {
         this.duration = getValueFromObject(props, "duration", 0);
         this.delay = getValueFromObject(props, "delay", 0);
         this.type = getValueFromObject(props, "type", Data.StatType.PASSIVE);
+        this.chance = getValueFromObject(props, "chance", 100);
 
         this.value = null;
 
@@ -102,7 +105,13 @@ class Stat {
      * @param {string} cssClass an optional CSS class
      * @param {string} color an optional color
      * @param {boolean} bold makes the text bold
-     * @param {boolean} italic makes the text in italics
+     * @param {boolean} italic makes the text displayed in italics
+     * @param {boolean} noTheorical removes the theorical value display
+     * @param {boolean} defaultColor applies a default color styling (green if > 0, red if < 0, orange if 0)
+     * @param {boolean} allowOverloadedStyling allows an overloaded styling (green+bold styling if the Stat value is > than its higher theorical value.)
+     * @param {boolean} skillFormat applies a different format for a Skill tooltip display.
+     * @param {boolean} includeDuration include the duration of the Stat? (for Skills)
+     * @param {boolean} includeChance include the chance of the Stat? (for Stun/Move effects) -> automatically TRUE for all Stun/Movement effects
      * @return {string} an HTML string
      */
     getFormatted(props) {
@@ -115,6 +124,7 @@ class Stat {
         const allowOverloadedStyling = getValueFromObject(props, "allowOverloadedStyling", false);
         const skillFormat = getValueFromObject(props, "skillFormat", false);
         const includeDuration = getValueFromObject(props, "includeDuration", false);
+        const includeChance = getValueFromObject(props, "includeChance", true);
 
         if(defaultColor) {
             if(this.getValue() > 0) {
@@ -152,6 +162,7 @@ class Stat {
             }
             str += ' ' 
             + capitalizeFirstLetter(this.effect)
+            + (includeChance && this.effect === Data.Effect.STUN || isMovementEffect(this.effect) ? '<span style="color: grey"> (' + this.chance + '% base)' : '')
             + (this.duration > 0 ? '<span style="color: #ddd"> (' + this.duration + ' round' + (this.duration > 1 ? 's' : '') + ')</span>' : '')
             + (this.delay > 0 ? '<span style="color: #ddd"> [in ' + this.delay + ' round' + (this.delay > 1 ? 's' : '') + ']</span>' : '');
             str += '</div>';

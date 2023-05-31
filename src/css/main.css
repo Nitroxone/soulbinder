@@ -4497,3 +4497,43 @@ table.astralForgeShards td {
 .skillConditionDesc {
     margin-left: 1em;
 }
+
+.battle-specialEffectsContainer {
+    
+    height: 16px;
+}
+.battle-specialEffectsContainer .specialEffect:not(:first-child) {
+    margin-left: 0.5rem;
+}
+
+.specialEffect {
+    width: 16px;
+    height: 16px;
+}
+.specialEffect.stun {
+    transform: rotate(45deg);
+    animation-name: stunAnimation;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-fill-mode: forwards;
+    
+    background-color: gold;
+    transition: all .1s ease-in-out;
+    border: 2px solid white;
+    
+    width: 12px;
+    height: 12px;
+}
+
+@keyframes stunAnimation {
+    25% {
+        transform: rotate(90deg);
+        background-color: white;
+        border-radius: 3px;
+    }
+    100% {
+        transform: rotate(135deg);
+        opacity: 0.75;
+    }
+}

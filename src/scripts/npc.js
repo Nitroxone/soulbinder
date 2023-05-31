@@ -72,6 +72,8 @@ class NPC extends Entity {
         this.modifCritStun = 0;
         this.modifCritBleed = 0;
         this.modifCritPoison = 0;
+        this.modifChanceStun = 0;
+        this.modifChanceMove = 0;
 
         this.critEffects = critEffects;
         this.variables = variables;
@@ -80,6 +82,10 @@ class NPC extends Entity {
         this.activeEffects = [];
 
         this.popupsQueue = [];
+
+        this.isStunned = false;
+        this.isGuarded = false;
+        this.isGuarding = false;
     }
 
     /**
@@ -215,7 +221,13 @@ class NPC extends Entity {
                 break;
             case Data.Effect.MODIF_CRIT_POISON:
                 this.modifCritPoison += effect.getValue() * factor;
-                break;     
+                break;   
+            case Data.Effect.MODIF_CHANCE_STUN:
+                this.modifChanceStun += effect.getValue() * factor;
+                break; 
+            case Data.Effect.MODIF_CHANCE_MOVE:
+                this.modifChanceMove += effect.getValue() * factor;
+                break; 
             default:
                 ERROR('Tried to add an unknown effect.');
                 return;
@@ -340,6 +352,15 @@ class NPC extends Entity {
     }
     decreaseBaseStat(eff) {
 
+    }
+
+    applyStun() {
+        this.isStunned = true;
+        addSpecialEffect(this.getBattleFormationStringId(), Data.Effect.STUN);
+    }
+    removeStun() {
+        this.isStunned = false;
+        removeSpecialEffect(this.getBattleFormationStringId(), Data.Effect.STUN);
     }
 
     /**
@@ -480,6 +501,9 @@ class NPC extends Entity {
         effects.forEach(eff => {
             if(eff.delay === 0) {
                 if(isBaseStatChange(eff)) this.alterBaseStat(eff)
+                else if(eff.effect === Data.Effect.STUN) this.applyStun()
+                else if(eff.effect === Data.Effect.GUARDED) this.applyGuarded(eff);
+                else if(eff.effect === Data.Effect.GUARDING) this.applyGuarding(eff);
                 else this.addEffect(eff);
             }
         });
@@ -531,7 +555,10 @@ class NPC extends Entity {
                 if(eff.duration === 1) {
                     eff.duration = 0;
                     removeFromArray(ae.effects, eff);
-                    if(eff.type === Data.StatType.PASSIVE) this.addEffect(eff, true);
+                    if(eff.effect === Data.Effect.STUN) this.removeStun();
+                    if(eff.effect === Data.Effect.GUARDED) this.removeGuarded();
+                    if(eff.effect === Data.Effect.GUARDING) this.removeGuarding();
+                    if(eff.type === Data.StatType.PASSIVE && eff.effect !== Data.Effect.STUN && eff.effect !== Data.Effect.GUARDED && eff.effect !== Data.Effect.GUARDING) this.addEffect(eff, true);
                     console.log('Removed: ' + eff.effect);
                 } else {
                     if(eff.delay === 0) eff.duration -= 1;

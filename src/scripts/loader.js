@@ -795,6 +795,42 @@ const Loader = {
                     }),
                 ],
             ),
+            new Trinket(
+                "Trapped Nebulae",
+                "A shifting storm howls in this bottle; warm  and golden, cold and black, it twirls, revealing temporal fragments dating back to the earliest ages of Mithor.",
+                23,
+                10,
+                Data.Rarity.LEGENDARY,
+                [
+                    new Stat({
+                        effect: Data.Effect.MODIF_CHANCE_STUN,
+                        theorical: [20, 30],
+                        isPercentage: true
+                    }),
+                    new Stat({
+                        effect: Data.Effect.SPIRIT,
+                        theorical: [45, 55],
+                    }),
+                ]
+            ),
+            new Trinket(
+                "Duchess's Lyre",
+                "This lute captures the player's full attention, and even when the blistered fingers stop rubbing the strings, you can still hear singular notes playing by themselves.",
+                24,
+                10,
+                Data.Rarity.RARE,
+                [
+                    new Stat({
+                        effect: Data.Effect.MODIF_CHANCE_MOVE,
+                        theorical: [20, 30],
+                        isPercentage: true
+                    }),
+                    new Stat({
+                        effect: Data.Effect.RESILIENCE,
+                        theorical: [-10, -15],
+                    })
+                ]
+            )
         ];
 
         for(const trinket of trinkets) {
@@ -1446,6 +1482,46 @@ const Loader = {
                                 }
                             }
                         }
+                    ),
+                    new Skill(
+                        "Intervention",
+                        "§Guards§ an ally and increases his §Max. mana§.",
+                        16,
+                        {
+                            type: Data.SkillType.FRIENDLY,
+                            manaCost: 40,
+                            cooldown: 3,
+                            criMultiplier: 10,
+                            accMultiplier: 100,
+                            targets: {allies: '-123', enemies: '-0'},
+                            launchPos: [false, false, true],
+                            effectsCaster: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.GUARDING, duration: 2})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.GUARDING, duration: 2, isCritical: true})
+                                    ]
+                                }
+                            },
+                            effectsAllies: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.GUARDED, duration: 2}),
+                                        new Stat({effect: Data.Effect.MAXMANA, theorical: [20, 25], isPercentage: true, duration: 2})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.GUARDED, duration: 2, isCritical: true}),
+                                        new Stat({effect: Data.Effect.MAXMANA, theorical: 30, isPercentage: true, duration: 2, isCritical: true})
+                                    ]
+                                }
+                            },
+                            variables: {
+                                guarding: what(game.player.formation, "amarok"),
+                                guarded: null
+                            }
+                        }
                     )
                 ],
                 '10% 30%'
@@ -1547,7 +1623,7 @@ const Loader = {
                             type: Data.SkillType.OFFENSIVE,
                             dmgType: Data.SkillDamageType.MAGICAL,
                             manaCost: 40,
-                            dmgMultiplier: 55,
+                            dmgMultiplier: 100,
                             criMultiplier: 10,
                             accMultiplier: 90,
                             cooldown: 1,
@@ -1560,6 +1636,34 @@ const Loader = {
                                     ],
                                     critical: [
                                         new Stat({effect: Data.Effect.STUN, duration: 2})
+                                    ]
+                                }
+                            }
+                        }
+                    ),
+                    new Skill(
+                        "Concussive Blast",
+                        "Deals damage to enemies and applies a §Stamina regeneration§ boost to Carhal. Has a chance to §Stun§ Carhal.",
+                        15,
+                        {
+                            type: Data.SkillType.OFFENSIVE,
+                            dmgType: Data.SkillDamageType.MAGICAL,
+                            manaCost: 50,
+                            dmgMultiplier: 120,
+                            criMultiplier: 20,
+                            accMultiplier: 85,
+                            cooldown: 2,
+                            launchPos: [true, false, false],
+                            targets: {allies: '-0', enemies: '@12'},
+                            effectsCaster: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.STUN, duration: 1}),
+                                        new Stat({effect: Data.Effect.REGEN_STAMINA, duration: 2, theorical: 4, isPercentage: true})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.STUN, duration: 1, isCritical: true}),
+                                        new Stat({effect: Data.Effect.REGEN_STAMINA, duration: 2, theorical: 4, isPercentage: true, isCritical: true})
                                     ]
                                 }
                             }
@@ -1829,6 +1933,28 @@ const Loader = {
                 [],
                 '10% 50%'
             ),
+            new Strider(
+                "Khej",
+                "A childhood friend of Naka, the belief that she was dead drove Khej to madness and regret. He now dances in the darkness, appearing and disappearing, leaving sharp blades in his wake.",
+                Data.Charset.KHEJ,
+                "The Betrayed",
+                100, 100, 100,
+                10, 12, 85, 0, 5, 5,
+                [0, 0], [0, 0],
+                30, 45,
+                0, 0,
+                [new Stat({effect: Data.Effect.MODIF_DMG_WEAPON, theorical: 5})],
+                {},
+                [],
+                Data.StriderType.STRIKER,
+                "Revenge of the Fallen",
+                "Revenge of the Fallen power description",
+                "quote",
+                0,
+                what(game.all_skillTrees, "amarok"),
+                [],
+                '10% 50%'
+            )
         ];
 
         for(const strider of striders) {
