@@ -830,7 +830,31 @@ const Loader = {
                         theorical: [-3, -5],
                     })
                 ]
-            )
+            ),
+            new Trinket(
+                "Fire Lizard Talisman",
+                "\"Quote\" - The Ashen Warden",
+                29,
+                10,
+                Data.Rarity.EPIC,
+                [
+                    new Stat({
+                        effect: Data.Effect.MODIF_DMG_POISON,
+                        theorical: [4, 7],
+                        isPercentage: true
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MODIF_CRIT_POISON,
+                        theorical: [6, 8],
+                        isPercentage: true
+                    }),
+                    new Stat({
+                        effect: Data.Effect.PROTECTION,
+                        theorical: [-8, -15],
+                        isPercentage: true
+                    })
+                ],
+            ),
         ];
 
         for(const trinket of trinkets) {
