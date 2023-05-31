@@ -72,6 +72,8 @@ class NPC extends Entity {
         this.modifCritStun = 0;
         this.modifCritBleed = 0;
         this.modifCritPoison = 0;
+        this.modifChanceStun = 0;
+        this.modifChanceMove = 0;
 
         this.critEffects = critEffects;
         this.variables = variables;

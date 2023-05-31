@@ -1604,6 +1604,34 @@ const Loader = {
                                 }
                             }
                         }
+                    ),
+                    new Skill(
+                        "Concussive Blast",
+                        "Deals damage to enemies and applies a §Stamina regeneration§ boost to Carhal. Has a chance to §Stun§ Carhal.",
+                        15,
+                        {
+                            type: Data.SkillType.OFFENSIVE,
+                            dmgType: Data.SkillDamageType.MAGICAL,
+                            manaCost: 50,
+                            dmgMultiplier: 120,
+                            criMultiplier: 20,
+                            accMultiplier: 85,
+                            cooldown: 2,
+                            launchPos: [true, false, false],
+                            targets: {allies: '-0', enemies: '@12'},
+                            effectsCaster: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.STUN, duration: 1}),
+                                        new Stat({effect: Data.Effect.REGEN_STAMINA, duration: 2, theorical: 4, isPercentage: true})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.STUN, duration: 1, isCritical: true}),
+                                        new Stat({effect: Data.Effect.REGEN_STAMINA, duration: 2, theorical: 4, isPercentage: true, isCritical: true})
+                                    ]
+                                }
+                            }
+                        }
                     )
                 ],
                 '10% 10%'
