@@ -1,4 +1,4 @@
-/**
+div/**
  * Spawns a floating tooltip on screen based on the provided Item's data.
  * @param {Item} item the Item data to fill the tooltip with
  */
@@ -2805,4 +2805,28 @@ function addBattleNotification(message) {
     str += '</div>';
 
     document.querySelector('.battle-notifications').innerHTML = str;
+}
+
+
+function drawEonScreen() {
+    document.querySelector('#eonsDiv').innerHTML = '<div class="eonsContainer"></div>';
+    let str = '';
+
+    str += '<div class="diary">';
+
+    str += '<div class="diaryFirstCol">';
+    str += '<div class="eons">';
+
+    str += '</div>';
+    str += '</div>';
+
+    str += '<div class="diarySecondCol">';
+    str += '<div class="eons">';
+
+    str += '</div>';
+    str += '</div>';
+
+    str += '</div>';
+
+    document.querySelector('.eonsContainer').innerHTML = str;
 }
