@@ -25,6 +25,7 @@ class Skill extends Entity {
         this.triggersSkill = getValueFromObject(props, "triggersSkill", null);
         this.condition = getValueFromObject(props, "condition", {checker: function(){return true}, message: ''})
         this.stackable = getValueFromObject(props, "stackable", 1);
+        this.ignoresProtection = getValueFromObject(props, "ignoreProtection", false);
 
         this.level = 1;
     }

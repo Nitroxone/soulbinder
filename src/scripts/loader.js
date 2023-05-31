@@ -826,8 +826,8 @@ const Loader = {
                         isPercentage: true
                     }),
                     new Stat({
-                        effect: Data.Effect.RESILIENCE,
-                        theorical: [-10, -15],
+                        effect: Data.Effect.SPEED,
+                        theorical: [-3, -5],
                     })
                 ]
             )
