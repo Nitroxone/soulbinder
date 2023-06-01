@@ -229,6 +229,30 @@ class Battle {
     }
 
     /**
+     * Adds the damage from Stun/Bleed/Poison modifiers of the currently playing NPC to this skill's current attack params. 
+     * It is possible to skip crit damage (for Skills).
+     * @param {NPC} target the target to retrieve info from
+     * @param {boolean} skipCrit skip crit damage addition?
+     */
+    addStunPoisonBleedModifiers(target, skipCrit = false) {
+        if(target.isStunned) {
+            this.params.phys_damage += Math.round(this.params.phys_damage * this.currentPlay.modifDmgStun/100);
+            this.params.magi_damage += Math.round(this.params.magi_damage * this.currentPlay.modifDmgStun/100);
+            if(!skipCrit) this.params.crit_damage += Math.round(this.params.crit_damage * this.currentPlay.modifDmgStun/100);
+        }
+        if(target.hasEffect(Data.Effect.BLIGHT_CURABLE) || target.hasEffect(Data.Effect.BLIGHT_INCURABLE)) {
+            this.params.phys_damage += Math.round(this.params.phys_damage * this.currentPlay.modifDmgPoison/100);
+            this.params.magi_damage += Math.round(this.params.magi_damage * this.currentPlay.modifDmgPoison/100);
+            if(!skipCrit) this.params.crit_damage += Math.round(this.params.crit_damage * this.currentPlay.modifDmgPoison/100);
+        }
+        if(target.hasEffect(Data.Effect.BLEEDING_CURABLE) || target.hasEffect(Data.Effect.BLEEDING_INCURABLE)) {
+            this.params.phys_damage += Math.round(this.params.phys_damage * this.currentPlay.modifDmgBleed/100);
+            this.params.magi_damage += Math.round(this.params.magi_damage * this.currentPlay.modifDmgBleed/100);
+            if(!skipCrit) this.params.crit_damage += Math.round(this.params.crit_damage * this.currentPlay.modifDmgBleed/100);
+        }
+    }
+
+    /**
      * Computes attack params for a weapon attack.
      */
     computeAttackParams(target) {
@@ -252,6 +276,8 @@ class Battle {
                 this.params.phys_damage += (Math.round(this.params.phys_damage * this.currentPlay.modifDmgWeapon/100) + Math.round(this.params.phys_damage * this.currentPlay.modifDmgTotal/100));
                 this.params.magi_damage += (Math.round(this.params.magi_damage * this.currentPlay.modifDmgWeapon/100) + Math.round(this.params.magi_damage * this.currentPlay.modifDmgTotal/100));
                 this.params.crit_damage += (Math.round(this.params.crit_damage * this.currentPlay.modifDmgWeapon/100) + Math.round(this.params.crit_damage * this.currentPlay.modifDmgTotal/100));
+
+                this.addStunPoisonBleedModifiers(target);
             } else {
                 // Dodged
                 this.params.success_dodge = true;
@@ -292,6 +318,8 @@ class Battle {
 
                 this.params.phys_damage += (Math.round(this.params.phys_damage * current.modifDmgSkill/100) + Math.round(this.params.phys_damage * current.modifDmgTotal/100));
                 this.params.magi_damage += (Math.round(this.params.magi_damage * current.modifDmgSkill/100) + Math.round(this.params.magi_damage * current.modifDmgTotal/100));
+                
+                this.addStunPoisonBleedModifiers(target, true);
             } else {
                 // Dodged
                 this.params.success_dodge = true;

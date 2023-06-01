@@ -1307,9 +1307,16 @@ function isBaseStatChange(eff) {
 }
 
 function isBleedingOrPoisoning(eff) {
+    return isBleedingEffect() || isPoisoningEffect();
+}
+
+function isBleedingEffect(eff) {
     return eff.effect === Data.Effect.BLEEDING_CURABLE
             || eff.effect === Data.Effect.BLEEDING_INCURABLE
-            || eff.effect === Data.Effect.BLIGHT_CURABLE
+}
+
+function isPoisoningEffect(eff) {
+    return eff.effect === Data.Effect.BLIGHT_CURABLE
             || eff.effect === Data.Effect.BLIGHT_INCURABLE
 }
 

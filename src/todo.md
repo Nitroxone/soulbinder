@@ -26,6 +26,7 @@ MIGHT ABANDON THIS - Implement skill stackability
 ONGOING - Implement all modifiers (Stun modif, Poison modif, Bleed modif...)
 - Thoroughly comment complex battle functions
 - Implement guarding mechanic
+- Implement consumables & using them in combat
 
 BATTLE AI:
 - Start implementing

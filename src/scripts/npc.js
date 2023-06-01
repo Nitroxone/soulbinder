@@ -608,4 +608,21 @@ class NPC extends Entity {
             if(ae.effects.length === 0) removeFromArray(this.activeEffects, ae);
         }
     }
+
+    /**
+     * Returns whether this NPC has the provided effect in its active effects list.
+     * @param {Data.Effect} effect 
+     * @returns {boolean} whether the effect was found among the active effects list
+     */
+    hasEffect(effect) {
+        const found = false;
+        for(let i = 0; i < this.activeEffects.length; i++) {
+            let ae = this.activeEffects[i];
+            for(let j = 0; j < ae.effects.length; j++) {
+                if(ae.effects[j].effect === effect) return true;
+            }
+        }
+        
+        return found;
+    }
 }
