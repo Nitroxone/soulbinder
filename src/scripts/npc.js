@@ -21,6 +21,7 @@ class NPC extends Entity {
                 critEffects,
                 variables,
                 triggers,
+                skills = [],
                 ) {
         super(name, desc, 0);
 
@@ -86,6 +87,11 @@ class NPC extends Entity {
         this.isStunned = false;
         this.isGuarded = false;
         this.isGuarding = false;
+
+        this.skills = [];
+        skills.forEach(skill => {
+            this.addSkill(skill);
+        });
     }
 
     /**
@@ -471,6 +477,8 @@ class NPC extends Entity {
      */
     useSkill(skill) {
         this.removeBaseStat(new Stat({effect: Data.Effect.MANA, theorical: skill.manaCost}));
+        skill.applyCooldown();
+        console.log(skill.name + ' cooldown countdown now set to ' + skill.cooldownCountdown);
         this.runTriggers(Data.TriggerType.ON_USE_SKILL);
     }
 
@@ -522,6 +530,29 @@ class NPC extends Entity {
                 italic: critical
             }
         }));
+    }
+
+    /**
+     * Adds the provided Skill to this NPC's skills.
+     * @param {Skill} skill the Skill to add
+     */
+    addSkill(skill) {
+        this.skills.push(skill);
+    }
+
+    /**
+     * Removes the provided Skill from this NPC's skills.
+     * @param {Skill} skill the Skill to remove
+     */
+    removeSkill(skill) {
+        removeFromArray(this.skills, skill);
+    }
+
+    reduceSkillsCooldown() {
+        this.skills.forEach(sk => {
+            console.log('Reducing ' + sk.name + ' cooldown');
+            sk.reduceCooldown();
+        });
     }
 
     /**

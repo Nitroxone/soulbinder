@@ -105,6 +105,7 @@ class Battle {
         console.log("Currently playing: " + this.currentPlay.name);
         this.currentPlay.runTriggers(Data.TriggerType.ON_TURN_BEGIN);
         this.currentPlay.executeActiveEffects();
+        this.currentPlay.reduceSkillsCooldown();
         drawBattleScreen();
         this.beginTurnPopups = false;
         this.runPopups();

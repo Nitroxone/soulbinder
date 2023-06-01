@@ -2302,7 +2302,7 @@ function getBattleSkills(refresh = false) {
 
     const currentPlay = game.currentBattle.currentPlay;
     currentPlay.skills.forEach(skill => {
-        str += '<div id="' + currentPlay.name + '-' + skill.id + '" class="skillSquare treeNode coolBorder ' + (currentPlay.mana < skill.manaCost || !skill.condition.checker() ? 'disabledSkill' : '') + '" style="background-image: url(\'css/img/skills/' + currentPlay.name + skill.icon + '.png\')"></div>';
+        str += '<div id="' + currentPlay.name + '-' + skill.id + '" class="skillSquare treeNode coolBorder ' + (currentPlay.mana < skill.manaCost || !skill.condition.checker() || skill.cooldownCountdown > 0 ? 'disabledSkill' : '') + '" style="background-image: url(\'css/img/skills/' + currentPlay.name + skill.icon + '.png\')">' + (skill.cooldownCountdown > 0 ? '<span class="skillCooldownIndicator">' + skill.cooldownCountdown + '</span>' : '') + '</div>';
     })
 
     if(refresh) {
@@ -2566,6 +2566,8 @@ function generateBattleSkillsEvents() {
                 addBattleNotification(current.name + '\'s mana is too low to cast ' + skill.name + '.');
             } else if(!skill.condition.checker()) {
                 addBattleNotification('The requirements to cast ' + skill.name + ' are not met.');
+            } else if(skill.cooldownCountdown > 0) {
+                addBattleNotification(skill.name + ' cannot be casted while on cooldown.');
             } else {
                 if(battle.action !== Data.BattleAction.SKILL) {
                     battleCommandsCancelCurrent();
