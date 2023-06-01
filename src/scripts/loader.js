@@ -808,6 +808,11 @@ const Loader = {
                         isPercentage: true
                     }),
                     new Stat({
+                        effect: Data.Effect.MODIF_DMG_STUN,
+                        theorical: [10, 15],
+                        isPercentage: true
+                    }),
+                    new Stat({
                         effect: Data.Effect.SPIRIT,
                         theorical: [45, 55],
                     }),
@@ -840,7 +845,7 @@ const Loader = {
                 [
                     new Stat({
                         effect: Data.Effect.MODIF_DMG_POISON,
-                        theorical: [4, 7],
+                        theorical: [8, 12],
                         isPercentage: true
                     }),
                     new Stat({

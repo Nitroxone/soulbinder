@@ -1307,7 +1307,7 @@ function isBaseStatChange(eff) {
 }
 
 function isBleedingOrPoisoning(eff) {
-    return isBleedingEffect() || isPoisoningEffect();
+    return isBleedingEffect(eff) || isPoisoningEffect(eff);
 }
 
 function isBleedingEffect(eff) {
