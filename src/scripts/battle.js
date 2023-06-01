@@ -106,6 +106,7 @@ class Battle {
         this.currentPlay.runTriggers(Data.TriggerType.ON_TURN_BEGIN);
         this.currentPlay.executeActiveEffects();
         this.currentPlay.reduceSkillsCooldown();
+        this.currentPlay.applySelfRegenerationEffects();
         drawBattleScreen();
         this.beginTurnPopups = false;
         this.runPopups();

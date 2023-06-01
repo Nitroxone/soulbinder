@@ -369,6 +369,12 @@ class NPC extends Entity {
         removeSpecialEffect(this.getBattleFormationStringId(), Data.Effect.STUN);
     }
 
+    applySelfRegenerationEffects() {
+        this.regenHealth > 0 && this.addBaseStat(new Stat({effect: Data.Effect.HEALTH, theorical: this.regenHealth, isPercentage: true}));
+        this.regenMana > 0 && this.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: this.regenMana, isPercentage: true}));
+        this.regenStamina > 0 && this.addBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: this.regenStamina, isPercentage: true}));
+    }
+
     /**
      * Adds the provided ActiveEffect to this NPC's active effects list.
      * @param {ActiveEffect} ae 
