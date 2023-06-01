@@ -1756,7 +1756,7 @@ const Loader = {
                 [new Stat({effect: Data.Effect.MAXMANA, theorical: [15, 25]})],
                 {},
                 [],
-                Data.StriderType.STRIKER,
+                Data.StriderType.TANK,
                 "Witchskin",
                 "Witchskin's power description",
                 'quote',
