@@ -303,53 +303,57 @@ class NPC extends Entity {
                 if(this.shield <= this.damage) {
                     removeShield = true;
                     this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.TURQUOISE + '">- ' + this.shield + '</p>'));
-                } else this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.TURQUOISE + '">- ' + damage + '</p>'));
-                damage = damage - this.shield;
+                } else this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.TURQUOISE + '">- ' + Math.round(damage) + '</p>'));
+                damage = Math.round(damage) - this.shield;
                 
                 if(removeShield) this.shield = 0;
             }
-            if(damage > 0) this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.RED + '">- ' + damage + '</p>'));
-            this.health = Math.max(0, this.health - damage);
+            if(damage > 0) this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.RED + '">- ' + Math.round(damage) + '</p>'));
+            this.health = Math.max(0, this.health - Math.round(damage));
         } else if(eff.effect === Data.Effect.STAMINA) {
             damage = (eff.isPercentage ? this.maxStamina * Math.abs(eff.getValue()) / 100 : Math.abs(eff.getValue()));
-            if(damage > 0) this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.GREEN + '">-' + damage + '</p>'));
-            this.stamina = Math.max(0, this.stamina - damage);
+            if(damage > 0) this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.GREEN + '">-' + Math.round(damage) + '</p>'));
+            this.stamina = Math.max(0, this.stamina - Math.round(damage));
         } else if(eff.effect === Data.Effect.MANA) {
             damage = (eff.isPercentage ? this.maxMana * Math.abs(eff.getValue()) / 100 : Math.abs(eff.getValue()));
-            if(damage > 0) this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.BLUE + '">-' + damage + '</p>'));
-            this.mana = Math.max(0, this.mana - damage);
+            if(damage > 0) this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.BLUE + '">-' + Math.round(damage) + '</p>'));
+            this.mana = Math.max(0, this.mana - Math.round(damage));
         }
-        console.log('REMOVING ' + damage + ' ' + eff.effect + ' FROM ' + this.name);
+        console.log('REMOVING ' + Math.round(damage) + ' ' + eff.effect + ' FROM ' + this.name);
     }
 
     /**
      * Adds the provided effect's value to either Health, Mana, or Stamina.
      * @param {Stat} eff the effect to add
      */
-    addBaseStat(eff) {
+    addBaseStat(eff, originUser = false) {
         let amount = 0;
         if(eff.effect === Data.Effect.HEALTH) {
             if(eff.isPercentage) amount = this.maxHealth * eff.getValue() / 100;
             else amount = eff.getValue();
 
             amount += amount * this.modifHealRecv / 100;
+            if(originUser) {
+                console.info('ORIGIN USER DETECTED!!!! ' + originUser.name + ' on ' + this.name);
+                amount += amount * originUser.modifHealGiven / 100;
+            }
 
-            this.health = Math.min(this.maxHealth, this.health + amount);
-            if(amount > 0) this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.RED + '">+ ' + amount + '</p>'));
+            this.health = Math.min(this.maxHealth, this.health + Math.round(amount));
+            if(amount > 0) this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.RED + '">+ ' + Math.round(amount) + '</p>'));
         } else if(eff.effect === Data.Effect.MANA) {
             if(eff.isPercentage) amount = this.maxMana * eff.getValue() / 100;
             else amount = eff.getValue();
 
-            this.mana = Math.min(this.maxMana, this.mana + amount);
-            if(amount > 0) this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.BLUE + '">+ ' + amount + '</p>'));
+            this.mana = Math.min(this.maxMana, this.mana + Math.round(amount));
+            if(amount > 0) this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.BLUE + '">+ ' + Math.round(amount) + '</p>'));
         } else if(eff.effect === Data.Effect.STAMINA) {
             if(eff.isPercentage) amount = this.maxStamina * eff.getValue() / 100;
             else amount = eff.getValue();
 
-            this.stamina = Math.min(this.maxStamina, this.stamina + amount);
-            if(amount > 0) this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.GREEN + '">+ ' + amount + '</p>'));
+            this.stamina = Math.min(this.maxStamina, this.stamina + Math.round(amount));
+            if(amount > 0) this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.GREEN + '">+ ' + Math.round(amount) + '</p>'));
         }
-        console.log('ADDING ' + amount + ' ' + eff.effect + ' TO ' + this.name);
+        console.log('ADDING ' + Math.round(amount) + ' ' + eff.effect + ' TO ' + this.name);
     }
 
     // TODO: code these.
@@ -492,9 +496,9 @@ class NPC extends Entity {
      * Calls the adequate function that alters a base stat, based on the provided Effect.
      * @param {Data.Effect} eff HEALTH or MANA or STAMINA or MAXHEALTH or MAXMANA or MAXSTAMINA
      */
-    alterBaseStat(eff) {
+    alterBaseStat(eff, originUser = false) {
         if(eff.effect === Data.Effect.HEALTH || eff.effect === Data.Effect.MANA || eff.effect === Data.Effect.STAMINA) {
-            if(eff.getValue() > 0) this.addBaseStat(eff);
+            if(eff.getValue() > 0) this.addBaseStat(eff, originUser);
             else this.removeBaseStat(eff);
         } else if(eff.effect === Data.Effect.MAXHEALTH || eff.effect === Data.Effect.MAXMANA || eff.effect === Data.Effect.MAXSTAMINA) {
             if(eff.getValue() > 0) this.increaseBaseStat(eff);
@@ -514,7 +518,7 @@ class NPC extends Entity {
         console.log(effects);
         effects.forEach(eff => {
             if(eff.delay === 0) {
-                if(isBaseStatChange(eff)) this.alterBaseStat(eff)
+                if(isBaseStatChange(eff)) this.alterBaseStat(eff, originUser);
                 else if(eff.effect === Data.Effect.STUN) this.applyStun()
                 else if(eff.effect === Data.Effect.GUARDED) this.applyGuarded(eff);
                 else if(eff.effect === Data.Effect.GUARDING) this.applyGuarding(eff);
