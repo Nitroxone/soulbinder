@@ -550,7 +550,6 @@ class NPC extends Entity {
 
     reduceSkillsCooldown() {
         this.skills.forEach(sk => {
-            console.log('Reducing ' + sk.name + ' cooldown');
             sk.reduceCooldown();
         });
     }

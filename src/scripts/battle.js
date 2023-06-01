@@ -316,6 +316,7 @@ class Battle {
                 tar.runTriggers(Data.TriggerType.ON_RECV_DAMAGE);
 
                 tar.receiveDamage(params);
+                this.applyDamageReflection(params, tar);
                 console.log('Successful hit!');
 
                 if(params.critical) {
@@ -386,6 +387,17 @@ class Battle {
         this.runPopups();
     }
 
+    applyDamageReflection(params, target) {
+        const total = params.phys_damage + params.magi_damage + params.crit_damage;
+        const dr = target.damageReflection;
+        let final = 0;
+
+        if(total <= dr) final = total;
+        else final = dr;
+
+        if(final > 0) this.currentPlay.removeBaseStat(new Stat({effect: Data.Effect.HEALTH, theorical: final}));
+    }
+
     executeSkill() {
         const skill = this.selectedSkill;
         const current = this.currentPlay;
@@ -406,6 +418,7 @@ class Battle {
                     this.runTriggersOnCurrent(Data.TriggerType.ON_DEAL_DAMAGE);
                     tar.runTriggers(Data.TriggerType.ON_RECV_DAMAGE);
                     tar.receiveDamage(params);
+                    this.applyDamageReflection(params, tar);
                 }
 
                 // Handle critical triggers and critical effects
