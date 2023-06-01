@@ -20,8 +20,8 @@ DONE - Implement Bleeding & Poisoning
 DONE - Add Stun chance & Movement chance modifiers
 DONE - Implement execution of battle popups in the beginning of the round
 DONE - Implement launch pos checks
+DONE - Implement skill cooldown
 MIGHT ABANDON THIS - Implement skill stackability
-- Implement skill cooldown
 - Implement all modifiers (Stun modif, Poison modif, Bleed modif...)
 - Implement remaining GUI (Round, Location...)
 - Thoroughly comment complex battle functions
