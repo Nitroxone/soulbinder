@@ -131,7 +131,7 @@ class Battle {
 
     addEndTurnCounter() {
         this.endturnCounter += 1;
-        if(this.endturnCounter === this.order.length) {
+        if(this.endturnCounter >= this.order.length) {
             this.executeMovements();
             if(!this.beginTurnPopups) {
                 this.beginTurnPopups = true;
