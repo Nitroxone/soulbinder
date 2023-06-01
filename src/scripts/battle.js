@@ -486,7 +486,7 @@ class Battle {
                 // Moving
                 this.applyCasterMovement(eff);
             });
-            current.addBattlePopup(new BattlePopup(0, '<div class="popupIcon" style="background-image: url(\'css/img/skills/' + current.name.toLowerCase() + skill.icon + '\'.png);"></div>'));
+            current.addBattlePopup(new BattlePopup(0, '<div class="popupIcon" style="background-image: url(\'css/img/skills/' + current.name.toLowerCase() + skill.icon + '.png\');"></div>'));
         }
 
         if(effects) current.applyEffects(skill, current, effects, isCrit);
