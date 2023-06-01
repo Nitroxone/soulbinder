@@ -1698,7 +1698,7 @@ const Loader = {
             ),
             new Strider(
                 "Ifrin",
-                "A fearsome mage, Ifrin was banned from the Order of Rhun upon harnessing the power of Yorll's corrupted magic, and is now on a constant need of enhancing his knowledge of the dark arts.",
+                "A fearsome mage, Ifrin was banned from the Order of Rhun upon harnessing the power of Yorll's corrupted magic, and is now on a constant need of enhancing her knowledge of the dark arts.",
                 Data.Charset.IFRIN,
                 "The Prophet of Kaphyst",
                 100, 100, 100,
@@ -1716,7 +1716,7 @@ const Loader = {
                 1,
                 what(game.all_skillTrees, "amarok"),
                 [],
-                '10% 30%'
+                '10% 70%'
             ),
             new Strider(
                 "Betheros",
