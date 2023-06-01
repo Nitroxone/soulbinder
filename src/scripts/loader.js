@@ -1808,7 +1808,7 @@ const Loader = {
                             effectsAllies: {
                                 1: {
                                     regular: [
-                                        new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [8, 10], isPercentage: true, duration: 1}),
+                                        new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [8, 10], isPercentage: true, duration: 2}),
                                         new Stat({effect: Data.Effect.MODIF_HEAL_RECV, theorical: [8, 10], isPercentage: true, duration: 2})
                                     ],
                                     critical: [
