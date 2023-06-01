@@ -21,9 +21,9 @@ DONE - Add Stun chance & Movement chance modifiers
 DONE - Implement execution of battle popups in the beginning of the round
 DONE - Implement launch pos checks
 DONE - Implement skill cooldown
+DONE - Implement remaining GUI (Round, Location...)
 MIGHT ABANDON THIS - Implement skill stackability
-- Implement all modifiers (Stun modif, Poison modif, Bleed modif...)
-- Implement remaining GUI (Round, Location...)
+ONGOING - Implement all modifiers (Stun modif, Poison modif, Bleed modif...)
 - Thoroughly comment complex battle functions
 - Implement guarding mechanic
 
