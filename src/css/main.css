@@ -2408,6 +2408,8 @@ table.statsTable tbody td:nth-child(3) {
     background-size: 70%;
     background-position: center;
     background-repeat: no-repeat;
+
+    position:relative;
 }
 .tooltipDesc, .echoQuote {
     font-family: 'RobotoItalic';
