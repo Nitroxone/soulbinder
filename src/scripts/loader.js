@@ -860,6 +860,24 @@ const Loader = {
                     })
                 ],
             ),
+            new Trinket(
+                "Bloodpearl Insignia",
+                "\"Quote\" - Somebody",
+                32,
+                10,
+                Data.Rarity.RARE,
+                [
+                    new Stat({
+                        effect: Data.Effect.MODIF_HEAL_GIVEN,
+                        theorical: [25, 30],
+                        isPercentage: true
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MAXHEALTH,
+                        theorical: [-50, -65]
+                    })
+                ]
+            )
         ];
 
         for(const trinket of trinkets) {
