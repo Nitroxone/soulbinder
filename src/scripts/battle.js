@@ -258,8 +258,25 @@ class Battle {
     computeAttackParams(target) {
         this.resetAttackParams();
         const weapon = this.selectedWeapon;
+        const current = this.currentPlay;
 
-        if(Math.random() * 100 < this.currentPlay.accuracy) {
+        let accuracyModifiers = 0;
+        let critModifiers = 0;
+
+        if(target.isStunned) {
+            accuracyModifiers += current.modifAccuracyStun;
+            critModifiers += current.modifCritStun;
+        }
+        if(target.hasEffect(Data.Effect.BLEEDING_CURABLE) || target.hasEffect(Data.Effect.BLEEDING_INCURABLE)) {
+            accuracyModifiers += current.modifAccuracyBleed;
+            critModifiers += current.modifCritBleed;
+        }
+        if(target.hasEffect(Data.Effect.BLIGHT_CURABLE) || target.hasEffect(Data.Effect.BLIGHT_INCURABLE)) {
+            accuracyModifiers += current.modifAccuracyPoison;
+            critModifiers += current.modifCritPoison;
+        }
+
+        if(Math.random() * 100 < current.accuracy + accuracyModifiers) {
             // Accuracy test passed
             this.params.success_accuracy = true;
             if(Math.random() * 100 > target.dodge) {
@@ -267,15 +284,15 @@ class Battle {
                 this.params.phys_damage = weapon.getSharpness();
                 this.params.magi_damage = weapon.getWithering();
 
-                if(Math.random() * 100 < weapon.crit_luk) {
+                if(Math.random() * 100 < weapon.crit_luk + critModifiers) {
                     // Critical blow! Add critical damage
                     this.params.crit_damage += weapon.crit_dmg;
                     this.params.critical = true;
                 }
 
-                this.params.phys_damage += (Math.round(this.params.phys_damage * this.currentPlay.modifDmgWeapon/100) + Math.round(this.params.phys_damage * this.currentPlay.modifDmgTotal/100));
-                this.params.magi_damage += (Math.round(this.params.magi_damage * this.currentPlay.modifDmgWeapon/100) + Math.round(this.params.magi_damage * this.currentPlay.modifDmgTotal/100));
-                this.params.crit_damage += (Math.round(this.params.crit_damage * this.currentPlay.modifDmgWeapon/100) + Math.round(this.params.crit_damage * this.currentPlay.modifDmgTotal/100));
+                this.params.phys_damage += (Math.round(this.params.phys_damage * current.modifDmgWeapon/100) + Math.round(this.params.phys_damage * current.modifDmgTotal/100));
+                this.params.magi_damage += (Math.round(this.params.magi_damage * current.modifDmgWeapon/100) + Math.round(this.params.magi_damage * current.modifDmgTotal/100));
+                this.params.crit_damage += (Math.round(this.params.crit_damage * current.modifDmgWeapon/100) + Math.round(this.params.crit_damage * current.modifDmgTotal/100));
 
                 this.addStunPoisonBleedModifiers(target);
             } else {
@@ -294,7 +311,23 @@ class Battle {
         const modifier = (skill.type === Data.SkillType.FRIENDLY) ? 9999 : 0;
         const current = this.currentPlay;
 
-        if(Math.random()*200 < (current.accuracy + skill.accMultiplier + modifier)) {
+        let accuracyModifiers = 0;
+        let critModifiers = 0;
+
+        if(target.isStunned) {
+            accuracyModifiers += current.modifAccuracyStun;
+            critModifiers += current.modifCritStun;
+        }
+        if(target.hasEffect(Data.Effect.BLEEDING_CURABLE) || target.hasEffect(Data.Effect.BLEEDING_INCURABLE)) {
+            accuracyModifiers += current.modifAccuracyBleed;
+            critModifiers += current.modifCritBleed;
+        }
+        if(target.hasEffect(Data.Effect.BLIGHT_CURABLE) || target.hasEffect(Data.Effect.BLIGHT_INCURABLE)) {
+            accuracyModifiers += current.modifAccuracyPoison;
+            critModifiers += current.modifCritPoison;
+        }
+
+        if(Math.random()*200 < (current.accuracy + skill.accMultiplier + current.modifAccuracySkill + accuracyModifiers + modifier)) {
             // Accuracy test passed
             this.params.success_accuracy = true;
             if(Math.random() * 100 > target.dodge - modifier) {
@@ -311,7 +344,7 @@ class Battle {
                         this.params.magi_damage = Math.round((skill.dmgMultiplier / 100) * current.spirit);
                         break;
                 }
-                if(Math.random() * 100 < skill.criMultiplier || forceCrit) {
+                if(Math.random() * 100 < (skill.criMultiplier + critModifiers) || forceCrit) {
                     // Critical blow! Add critical effects
                     this.params.critical = true;
                 }

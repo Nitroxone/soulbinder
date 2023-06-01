@@ -87,6 +87,7 @@ class NPC extends Entity {
         this.isStunned = false;
         this.isGuarded = false;
         this.isGuarding = false;
+        this.isBlocking = false;
 
         this.skills = [];
         skills.forEach(skill => {
@@ -371,6 +372,15 @@ class NPC extends Entity {
     removeStun() {
         this.isStunned = false;
         removeSpecialEffect(this.getBattleFormationStringId(), Data.Effect.STUN);
+    }
+
+    applyBlocking() {
+        this.isBlocking = true;
+        //addSpecialEffect...
+    }
+    removeBlocking() {
+        this.isBlocking = false;
+        //addSpecialEffect...
     }
 
     applySelfRegenerationEffects() {

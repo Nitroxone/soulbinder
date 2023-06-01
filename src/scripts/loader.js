@@ -877,6 +877,30 @@ const Loader = {
                         theorical: [-50, -65]
                     })
                 ]
+            ),
+            new Trinket(
+                "Chalice of Crimson Tears",
+                "\"Quote\" - Somebody",
+                8,
+                10,
+                Data.Rarity.RARE,
+                [
+                    new Stat({
+                        effect: Data.Effect.MODIF_ACCURACY_BLEED,
+                        theorical: [10, 15],
+                        isPercentage: true
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MODIF_CRIT_BLEED,
+                        theorical: [8, 12],
+                        isPercentage: true,
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MODIF_DMG_BLEED,
+                        theorical: [5, 10],
+                        isPercentage: true,
+                    })
+                ]
             )
         ];
 

@@ -22,11 +22,12 @@ DONE - Implement execution of battle popups in the beginning of the round
 DONE - Implement launch pos checks
 DONE - Implement skill cooldown
 DONE - Implement remaining GUI (Round, Location...)
-MIGHT ABANDON THIS - Implement skill stackability
-ONGOING - Implement all modifiers (Stun modif, Poison modif, Bleed modif...)
+DONE - Implement all modifiers (Stun modif, Poison modif, Bleed modif...)
+- Implement skill stackability
 - Thoroughly comment complex battle functions
 - Implement guarding mechanic
 - Implement consumables & using them in combat
+- Add blocking special effect & blocking action
 
 BATTLE AI:
 - Start implementing
