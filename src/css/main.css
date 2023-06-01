@@ -4592,5 +4592,36 @@ table.astralForgeShards td {
     font-size: large;
 }
 
+.battle-globalInfo {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 3em;
+}
 
+.battle-dungeonInfo {
+    text-align: left;
+}
+.battle-dungeonInfo h1 {
+    font-family: RobotoSlabBold;
+    font-size: 1.4rem;
+}
+.battle-dungeonInfo h4 {
+    font-family: RobotoBold;
+    margin-top: 0.25rem;
+    font-size: 0.75rem;
+}
+
+.battle-combatInfo {
+    text-align: right;
+}
+.battle-combatInfo h1 {
+    font-family: RobotoSlab;
+    font-variant: small-caps;
+    font-size: 1.45rem;
+}
+.battle-combatInfo h4 {
+    margin-top: 0.25rem;
+}
 

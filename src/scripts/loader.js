@@ -1565,9 +1565,9 @@ const Loader = {
                 [],
                 Data.StriderType.STRIKER,
                 "Marked for Death",
-                "Marked for Death power description",
-                'quote',
-                1,
+                '<div class="par">Each successful hit from Brim on a enemy marks it with a <span class="bold blue">Black Glyph</span>, which can be stacked up 3 times. Each successful hit on an enemy that is marked with a <span class="bold blue">Black Glyph</span> triggers a Bleeding effect.</div><div class="par bulleted"><span class="bold blue">1 Black Glyph</span>: 2 Bleeding (2 rounds)</div><div class="par bulleted"><span class="bold blue">2 Black Glyphs</span>: 5 Bleeding (2 rounds)</div><div class="par bulleted"><span class="bold blue">3 Black Glyphs</span>: 8 Incurable Bleeding (3 rounds). Next hit removes all of the Black Glyphs on the target.</div>',
+                '"For Ghirgynth\'s servants dance with the dead, Amarok\'s flesh slavers over pain."',
+                0,
                 what(game.all_skillTrees, "amarok"),
                 [],
                 'top'

@@ -2058,6 +2058,10 @@ function drawBattleScreen() {
 
     let str = '';
 
+    str += '<div class="battle-globalInfo">';
+    str += getBattleGlobalInfo();
+    str += '</div>';
+
     str += '<div class="battle-fightersContainer">';
     str += getFormationBattleAllies();
     str += getFormationBattleEnemies();
@@ -2079,6 +2083,26 @@ function drawBattleScreen() {
         generateBattleConsumablesEvents();
     }
     generateBattleFightersEvents();
+}
+
+function getBattleGlobalInfo(refresh = false) {
+    let str = '';
+
+    str += '<div class="battle-dungeonInfo">'
+    str += '<h1>' + (game.currentDungeon ? capitalizeFirstLetter(game.currentDungeon.biome) + ' ' + capitalizeFirstLetter(game.currentDungeon.zone) : 'Unknown Dungeon') + '</h1>';
+    str += '<h4>' + (game.currentDungeon ? 'Depth ' + game.currentDungeon.currentLevel + ', Room ' + game.currentDungeon.currentLevelRoomNumber : 'Depth X, Room Y') + '</h4>'
+    str += '</div>';
+
+    str += '<div class="battle-combatInfo">'
+    str += '<h1>Group fight</h1>';
+    str += '<h4>Round ' + game.currentBattle.round + ' — ' + game.currentBattle.currentPlay.name + '\'s Turn</h4>'
+    str += '</div>'
+
+    if(refresh) {
+        document.querySelector('.battle-globalInfo').innerHTML = str;
+        return;
+    }
+    return str;
 }
 
 // TODO: MERGE THESE TWO FUNCTIONS BELOW INTO ONE
