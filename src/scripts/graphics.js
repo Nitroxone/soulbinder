@@ -2607,6 +2607,8 @@ function battleCommandsCancelCurrent() {
             document.querySelector('.battle-actionAtk').classList.remove('battle-actionSelected');
             document.querySelectorAll('.battle-weaponIcon').forEach(wpn => {wpn.classList.remove('battle-weaponSelected');})
             getFormationBattleEnemies(true);
+            getFormationBattleAllies(true);
+            generateBattleFightersEvents();
             console.log('Cancelled: Attack');
             break;
         case Data.BattleAction.SKILL:
@@ -2616,6 +2618,7 @@ function battleCommandsCancelCurrent() {
             document.querySelectorAll('.skillSquare').forEach(wpn => {wpn.classList.remove('battle-skillSelected');});
             getFormationBattleEnemies(true);
             getFormationBattleAllies(true);
+            generateBattleFightersEvents();
             console.log('Cancelled: Skill');
             break;
         case Data.BattleAction.MOVE:
@@ -2623,6 +2626,8 @@ function battleCommandsCancelCurrent() {
             battleSelectionRemoveHighlights();
             document.querySelector('.battle-actionMov').classList.remove('battle-actionSelected');
             getFormationBattleAllies(true);
+            getFormationBattleEnemies(true);
+            generateBattleFightersEvents();
             console.log('Cancelled: Move');
             break;
     }
