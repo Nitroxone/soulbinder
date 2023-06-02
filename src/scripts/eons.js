@@ -1,9 +1,9 @@
 class Eon {
-    constructor(title, id, unlocked) {
-        this.title = title;
-        this.id = id;
-        this.fragments = [];
-        this.unlocked = unlocked;
+    constructor(props) {
+        this.title = getValueFromObject(props, 'title', 'untitled');
+        this.id = getValueFromObject(props, 'id', 0);
+        this.fragments = getValueFromObject(props, 'fragments', []);
+        this.unlocked = getValueFromObject(props, 'unlocked', false);
     }
 }
 

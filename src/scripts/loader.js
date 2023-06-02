@@ -2202,13 +2202,23 @@ const Loader = {
     loadMajorEons: loadMajorEons = () => {
         const eons = [
             new Eon({
+                id: "ghorrasDiary",
                 title: "Ghorra's Diary",
-
+                fragments: [
+                    {
+                        text: "",
+                        unlocked: false
+                    },
+                    {
+                        text: "",
+                        unlocked: false
+                    },
+                    {
+                        text: "",
+                        unlocked: false
+                    }
+                ]
             }),
-            new Eon(
-            ),
-            new Eon(
-            )
         ];
 
         for(const eon of eons) {

@@ -1330,6 +1330,6 @@ function getRandomEnemyFormationFromDungeon(dungeon = game.currentDungeon) {
     let available = [];
     game.all_enemyFormations.forEach(ef => {
         if(ef.biome === dungeon.biome && ef.zone === dungeon.zone && ef.levels.includes(dungeon.currentLevel)) available.push(ef);
-    })
+    });
     return choose(available);
 }
