@@ -165,7 +165,7 @@ function getResourceTooltip(resource, asResult = null) {
     let str = asResult ? '<h3 class="fancyTitle">Output</h3><div class="divider"></div>' : '';
     str += '<div class="info">';
     str += '<div id="iconcloud-' + resource.id + '"class="iconcloud' + capitalizeFirstLetter(resource.rarity) + '"><div id="res-icon-' + resource.id + '" class="tooltipIcon" style="' + getIcon(resource) + '"></div>';
-    str += '<div class="fancyText infoAmount onLeft">' + (asResult ? asResult.result_amount : resource.amount) + '</div></div>';
+    str += '</div>';
     str += '<div class="fancyText barred infoTitle" style="color: ' + getRarityColorCode(resource.rarity) + '">' + resource.name + '</div>';
     str += '<div class="fancyText barred">' + capitalizeFirstLetter(resource.rarity) + '</div>';
     str += '<div class="infoDesc">';
@@ -182,7 +182,7 @@ function getConsumableTooltip(consumable) {
 
     str += '<div class="info">';
     str += '<div id="iconcloud-' + consumable.id + '"class="iconcloud' + capitalizeFirstLetter(consumable.rarity) + '"><div id="res-icon-' + consumable.id + '" class="tooltipIcon" style="' + getIcon(consumable) + '"></div>';
-    str += '<div class="fancyText infoAmount onLeft">' + consumable.amount + '</div></div>';
+    str += '</div>';
     str += '<div class="fancyText barred infoTitle" style="color: ' + getRarityColorCode(consumable.rarity) + '">' + consumable.name + '</div>';
     str += '<div class="fancyText barred">' + capitalizeFirstLetter(consumable.rarity) + '</div>';
     str += '<div class="infoDesc">';
