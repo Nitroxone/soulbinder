@@ -12,6 +12,7 @@ function spawnTooltip(item, fromExisting = 0) {
     else if(item instanceof Resource) tooltip.innerHTML = base + getResourceTooltip(item, null) + '</div>';
     else if(item instanceof Trinket) tooltip.innerHTML = base + getTrinketTooltip(item, null, true) + '</div>';
     else if(item instanceof EquipmentSet) tooltip.innerHTML = base + getSetTooltip(item) + '</div>';
+    else if(item instanceof Consumable) tooltip.innerHTML = base + getConsumableTooltip(item) + '</div>';
     // Same position as hovered tooltip, but positioned in such way that it will cut the mouse off the hover event
 
     
@@ -825,6 +826,8 @@ function spawnStriderPopup(strider, refresh = false) {
     str += '<div class="spacer"></div>'
     str += '<div class="striderStats-stat">' + '<span class="statTitle">Stun chance</span><span class="statValue">' + strider.modifChanceStun + '%</span>' + '</div>';
     str += '<div class="striderStats-stat">' + '<span class="statTitle">Movement chance</span><span class="statValue">' + strider.modifChanceMove + '%</span>' + '</div>';
+    str += '<div class="spacer"></div>'
+    str += '<div class="striderStats-stat">' + '<span class="statTitle">Toxicity</span><span class="statValue">' + strider.toxicity + '/' + strider.maxToxicity + '</span>' + '</div>';
     str += '</div>';
     str += '</div>';
 
@@ -2877,9 +2880,28 @@ function getBattleFighterStats(fighter) {
     str += '</tr>';
     str += '</tbody></table>';
 
+    if(fighter instanceof Strider) {
+        str += '<div class="battle-toxicityLevel">';
+        str += getBattleFighterToxicityLevel(fighter);
+        str += '</div>';
+    }
+
     str += '<div class="battle-activeEffects framed">';
     str += getBattleFighterActiveEffects(fighter);
     str += '</div>'
+
+    return str;
+}
+
+function getBattleFighterToxicityLevel(fighter) {
+    let str = '';
+
+    str += '<div class="battle-toxicityInfos">';
+    str += '<div>Toxicity</div>';
+    str += '<div>' + fighter.toxicity + '/' + fighter.maxToxicity + '</div>';
+    str += '</div>'
+
+    str += '<div class="gaugeProgress"><div class="statGauge toxicity" style="width:'+ Math.round((fighter.toxicity*100)/fighter.maxToxicity) +'%"></div></div>';
 
     return str;
 }

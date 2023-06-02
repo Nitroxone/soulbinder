@@ -2186,6 +2186,9 @@ table.statsTable tbody td:nth-child(3) {
 .stamina {
     background: linear-gradient(0deg, rgba(41,136,76,1) 23%, rgba(0,205,82,1) 100%);
 }
+.toxicity {
+    background: linear-gradient(0deg, rgb(20, 92, 47) 23%, rgb(0, 136, 54) 100%);
+}
 .gaugeIndicator {
     font-size: 11px;
     text-shadow: 1px 1px 1px #000;
@@ -4236,9 +4239,21 @@ table.astralForgeShards td {
     border-image: url(img/window1-tiny.png) 7 stretch;
 
     position: absolute;
-    top: 25%;
+    top: 50%;
+    padding: 0.75em;
     right: 1rem;
     z-index:200;
+}
+
+.battle-toxicityLevel {
+    position: absolute;
+    top: 0%;
+    right: 1rem;
+    z-index: 200;
+
+    width: 40%;
+    height: 40px;
+    
 }
 
 .activeEffect-wrapper {
@@ -4654,4 +4669,16 @@ table.astralForgeShards td {
 .toxicityIndicator {
     font-family: RobotoBold;
     color: green;
+}
+
+.battle-toxicityInfos {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    font-family: RobotoSlab;
+    color: #ccc;
+    font-variant: small-caps;
+
+    margin-bottom: 0.25rem;
 }
