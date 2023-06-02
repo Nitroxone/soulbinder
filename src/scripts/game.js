@@ -63,6 +63,8 @@ class Game {
         this.all_enemies = [];
         this.all_enemyFormations = [];
 
+        this.all_majorEons = [];
+
         this.player = null;
         this.inventory = null;
 
