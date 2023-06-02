@@ -2919,13 +2919,15 @@ function drawEonScreen() {
     str += '<div class="diary">';
 
     str += '<div class="diaryFirstCol">';
-    str += '<div class="eons">';
+    str += '<div class="leftPage pages">';
+
+    str += drawEonsItems();
 
     str += '</div>';
     str += '</div>';
 
     str += '<div class="diarySecondCol">';
-    str += '<div class="eons">';
+    str += '<div class="rightPage pages">';
 
     str += '</div>';
     str += '</div>';
@@ -2933,4 +2935,15 @@ function drawEonScreen() {
     str += '</div>';
 
     document.querySelector('.eonsContainer').innerHTML = str;
+}
+
+function drawEonsItems() {
+    let str = '';
+
+    game.all_majorEons.forEach(eon => {
+        str += '<div class="eonTitle">'
+        str += eon.title;
+        str += '</div>'
+    }); 
+    return str;
 }
