@@ -44,6 +44,8 @@ class Strider extends NPC {
         this.toxicity = 0;
         this.maxToxicity = 100;
 
+        this.consumablesPerRound = 1;
+
         this.trinkets = [];
         this.trinketSlots = 2;
         this.trinketSlotsFree = 2;
