@@ -2198,4 +2198,21 @@ const Loader = {
             game.all_masteryPathways.push(masteryPathway);
         }
     },
+
+    loadMajorEons: loadMajorEons = () => {
+        const eons = [
+            new Eon({
+                title: "Ghorra's Diary",
+
+            }),
+            new Eon(
+            ),
+            new Eon(
+            )
+        ];
+
+        for(const eon of eons) {
+            game.all_majorEons.push(eon);
+        }
+    },
 }
