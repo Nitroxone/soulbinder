@@ -180,6 +180,23 @@ function getConsumableTooltip(consumable) {
     let str = '';
 
     str += '<div class="info">';
+    str += '<div id="iconcloud-' + consumable.id + '"class="iconcloud' + capitalizeFirstLetter(consumable.rarity) + '"><div id="res-icon-' + consumable.id + '" class="tooltipIcon" style="' + getIcon(consumable) + '"></div>';
+    str += '<div class="fancyText infoAmount onLeft">' + consumable.amount + '</div></div>';
+    str += '<div class="fancyText barred infoTitle" style="color: ' + getRarityColorCode(consumable.rarity) + '">' + consumable.name + '</div>';
+    str += '<div class="fancyText barred">' + capitalizeFirstLetter(consumable.rarity) + '</div>';
+    str += '<div class="infoDesc">';
+    str += '<div class="par"></div>';
+    str += '<div class="par"></div>';
+    consumable.effects.forEach(eff => {
+        str += eff.getFormatted({cssClass: "itemEffect", noTheorical: true});
+    })
+    str += '<div class="divider"></div>';
+    str += '<div class="par"></div>';
+    str += '<div class="par tooltipDesc">' + consumable.desc + '</div>';
+    str += '</div></div>';
+
+    game.particlesTooltipCanvasItem = consumable;
+    return str;
 }
 
 /**

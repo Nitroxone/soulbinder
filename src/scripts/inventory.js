@@ -107,6 +107,9 @@ class Inventory {
             case Data.ItemType.TRINKET:
                 array = {items: this.trinkets};
                 break;
+            case Data.ItemType.CONSUMABLE:
+                array = {items: this.consumables};
+                break;
             default:
                 throw new Error('Unsupported type for item search.');
         }
