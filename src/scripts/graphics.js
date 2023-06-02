@@ -176,6 +176,12 @@ function getResourceTooltip(resource, asResult = null) {
     return str;
 }
 
+function getConsumableTooltip(consumable) {
+    let str = '';
+
+    str += '<div class="info">';
+}
+
 /**
  * Gets the HTML code that contains the provided Weapon's data
  * @param {Weapon} weapon the Weapon data to fill the tooltip with
@@ -640,12 +646,48 @@ function drawTrinketInventory(trinkets) {
     })
 }
 
+function drawConsumablesInventory(consumables) {
+    let str = '';
+    for(let i = 0; i < consumables.length; i++) {
+        if(consumables[i].amount > 0) {
+            let me = consumables[i];
+            str += '<div id="res-' + me.id + '" class="inventoryItem" style="' + getIcon(me) + '; border: 2px solid ' + getRarityColorCode(me.rarity) +'">';
+            str += '</div>';
+        }
+    }
+    domWhat('res-cat-consumables').innerHTML = str;
+    for(let i = 0; i < consumables.length; i++) {
+        let me = consumables[i];
+        if(me.amount > 0) {
+            addTooltip(domWhat('res-' + me.id), function(){
+                return getConsumableTooltip(game.inventory.getItemFromId(Data.ItemType.CONSUMABLE, me.id));
+            }, {offY: -8});
+            // Spawn tooltip and play sound on click
+            domWhat('res-' + me.id).addEventListener('click', function(){
+                playSound('sounds/ui/aa-ui6.wav', 0.3, 1);
+                spawnTooltip(me);
+            });
+            // Play sound on hover
+            domWhat('res-' + me.id).addEventListener('mouseover', function(){
+                let audio = new Audio('sounds/ui/hovertooltip.wav');
+                audio.volume = 0.5;
+                audio.playbackRate = 2;
+                audio.play();
+            });
+        }
+    }
+    document.querySelector('#res-consumables').addEventListener('click', (e) => {
+        document.querySelector('#res-cat-consumables').classList.toggle('hide');
+    });
+}
+
 function drawInventory() {
     drawWeaponInventory(game.inventory.weapons);
     drawArmorInventory(game.inventory.armors);
     drawRuneInventory(game.inventory.runes);
     drawResourceInventory(game.inventory.resources);
     drawTrinketInventory(game.inventory.trinkets);
+    drawConsumablesInventory(game.inventory.consumables);
 }
 
 function drawStridersScreen() {

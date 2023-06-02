@@ -10,6 +10,7 @@ class Inventory {
         this.recipes = [];
         this.trinkets = [];
         this.shards = [];
+        this.consumables = [];
         this.gold = gold;
     }
 
@@ -28,6 +29,11 @@ class Inventory {
         else if(item instanceof Recipe) array = {items: this.recipes};
         else if(item instanceof Resource) {
             what(this.resources, item.name).amount += amount;
+            console.log('Inventory : +' + amount + ' ' + item.name);
+            return;
+        }
+        else if(item instanceof Consumable) {
+            what(this.consumables, item.name).amount += amount;
             console.log('Inventory : +' + amount + ' ' + item.name);
             return;
         }
@@ -66,6 +72,7 @@ class Inventory {
         else if(item instanceof Armor) array = {items: this.armors};
         else if(item instanceof Rune) array = {items: this.runes};
         else if(item instanceof Resource) array = {items: this.resources};
+        else if(item instanceof Consumable) array = {items: this.consumables};
         else if(item instanceof Recipe) array = {items: this.recipes};
         else if(item instanceof Trinket) array = {items: this.trinkets};
         else throw new Error('Unsupported type for item removal.');
@@ -117,6 +124,16 @@ class Inventory {
      */
     removeResource(resource, amount = 1) {
         const me = what(this.resources, resource.name);
+        me.amount = Math.max(0, me.amount - amount);
+    }
+
+    /**
+     * Removes the amount of the provided Resource from the inventory.
+     * @param {Resource} resource 
+     * @param {number} amount 
+     */
+    removeConsumable(consumable, amount = 1) {
+        const me = what(this.consumables, consumable.name);
         me.amount = Math.max(0, me.amount - amount);
     }
 

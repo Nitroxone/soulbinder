@@ -2225,4 +2225,61 @@ const Loader = {
             game.all_majorEons.push(eon);
         }
     },
+
+    loadConsumables: loadConsumables = () => {
+        const consumables = [
+            new Consumable(
+                "Minor Life Potion",
+                "Restores a slight portion of Health.",
+                0,
+                10,
+                Data.Rarity.COMMON,
+                {
+                    type: Data.ConsumableType.POTION,
+                    effects: [new Stat({effect: Data.Effect.HEALTH, theorical: 5, isPercentage: true})],
+                    toxicity: 10
+                }
+            ),
+            new Consumable(
+                "Tear of Conjuring",
+                "Total attack damage is increased for each round you don't deal damage. Lasts 1 fight.",
+                0,
+                10,
+                Data.Rarity.EPIC,
+                {
+                    type: Data.ConsumableType.TEAR,
+                    effects: [new Stat({effect: Data.Effect.MODIF_DMG_TOTAL, theorical: 10, isPercentage: true})],
+                    toxicity: 70
+                }
+            ),
+            new Consumable(
+                "Uziel Peach Candy",
+                "Accuracy is increased by 5% for the entire next fight.",
+                0,
+                10,
+                Data.Rarity.UNCOMMON,
+                {
+                    type: Data.ConsumableType.EDIBLE,
+                    effects: [new Stat({effect: Data.Effect.ACCURACY, theorical: 5, isPercentage: true})],
+                    toxicity: 5,
+                }
+            ),
+            new Consumable(
+                "Crocodile Liver Elixir",
+                "Removes all of the Protection, Warding and Resilience debuffs.",
+                0,
+                10,
+                Data.Rarity.EPIC,
+                {
+                    type: Data.ConsumableType.ELIXIR,
+                    effects: [new Stat({effect: Data.Effect.REMOVES_PROTECTION_DEBUFFS}), new Stat({effect: Data.Effect.REMOVES_WARDING_DEBUFFS}), new Stat({effect: Data.Effect.REMOVES_RESILIENCE_DEBUFFS})],
+                }
+            )
+        ];
+
+        for(const consumable of consumables) {
+            game.all_consumables.push(consumable);
+            game.inventory.consumables.push(consumable);
+        }
+    }
 }

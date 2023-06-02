@@ -55,6 +55,7 @@ class Game {
         this.all_echoes = [];
         this.all_runeCorruptEffects = [];
         this.all_equipmentSets = [];
+        this.all_consumables = [];
 
         this.all_skillTrees = [];
         this.all_masteryPathways = [];
@@ -324,13 +325,16 @@ class Game {
         });
         this.all_resources.forEach(item => {
             this.inventory.addItem(item, 10);
-        })
+        });
         this.all_recipes.forEach(item => {
             this.inventory.addItem(item);
+        });
+        this.all_consumables.forEach(item => {
+            this.inventory.addItem(item, 10);
         })
         this.all_striders.forEach(item => {
             this.player.addToRoster(item);
-        })
+        });
 
         this.inventory.craft(this.inventory.recipes[0], true);
         this.inventory.maximizeRune(this.inventory.runes[2]);

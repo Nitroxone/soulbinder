@@ -163,7 +163,12 @@ const Data = Object.freeze({
         STAMINA_STEAL: "stamina steal",
         STUN: "stuns the target",
         GUARDING: "Guarding",
-        GUARDED: "Guarded"
+        GUARDED: "Guarded",
+
+        // CONSUMABLES EFFECTS:
+        REMOVES_PROTECTION_DEBUFFS: "removes Protection debuffs",
+        REMOVES_WARDING_DEBUFFS: "removes Warding debuffs",
+        REMOVES_RESILIENCE_DEBUFFS: "removes Resilience debuffs",
     },
     TriggerType: {
         ON_STAT_CHANGE: 'ON_STAT_CHANGE',
@@ -310,6 +315,7 @@ const Data = Object.freeze({
         RECIPE: 'RECIPE',
         TRINKET: 'TRINKET',
         ECHO: 'ECHO',
+        CONSUMABLE: 'CONSUMABLE',
     },
     EchoType: {
         ANY: 'ANY',
@@ -318,9 +324,10 @@ const Data = Object.freeze({
         TRINKET: 'TRINKET'
     },
     ConsumableType: {
-        POTION: 'potions',
-        ELIXIR: 'elixirs',
-        EDIBLE: 'edibles'
+        POTION: 'potion',
+        ELIXIR: 'elixir',
+        EDIBLE: 'edible',
+        TEAR: 'tear'
     },
     IconType: {
         WEAPON: 'weapons',
