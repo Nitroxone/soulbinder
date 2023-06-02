@@ -4591,22 +4591,37 @@ table.astralForgeShards td {
 
 .diaryFirstCol {
     grid-area: 1 / 1 / 2 / 2;
+    position: relative;
 }
 
 .diarySecondCol { 
     grid-area: 1 / 2 / 2 / 3; 
+    position: relative;
 }
-
-.eons {
-    height: 100%;
-    width: 100%;
+.pages {
+    position: absolute;
+    height: 80%;
+    width: 85%;
+    top: 30px;
     display: flex;
     flex-direction: column;
     gap: 2em;
 }
 
+.leftPage {
+    right: 0;
+}
+
+.rightPage {
+    left: 0;
+}
+
 .eonsPiece {
     font-size: large;
+}
+
+.eonTitle {
+
 }
 
 .battle-globalInfo {

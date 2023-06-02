@@ -5,5 +5,5 @@ class Eon {
         this.fragments = getValueFromObject(props, 'fragments', []);
         this.unlocked = getValueFromObject(props, 'unlocked', false);
     }
-}
+} 
 
