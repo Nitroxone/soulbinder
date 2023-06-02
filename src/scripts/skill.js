@@ -27,6 +27,8 @@ class Skill extends Entity {
         this.stackable = getValueFromObject(props, "stackable", 1);
         this.ignoresProtection = getValueFromObject(props, "ignoreProtection", false);
 
+        this.cooldownCountdown = 0;
+
         this.level = 1;
     }
 
@@ -38,6 +40,14 @@ class Skill extends Entity {
     }
     getCurrentEffectsEnemies() {
         return this.effectsEnemies[this.level];
+    }
+
+    reduceCooldown() {
+        this.cooldownCountdown = Math.max(0, this.cooldownCountdown-1);
+    }
+    
+    applyCooldown() {
+        this.cooldownCountdown = this.cooldown;
     }
 
     /**

@@ -728,9 +728,9 @@ function spawnStriderPopup(strider, refresh = false) {
     str += '<div class="striderStats-stat">' + '<span class="statTitle">Might</span><span class="statValue">' + strider.might + '</span>' + '</div>'
     str += '<div class="striderStats-stat">' + '<span class="statTitle">Spirit</span><span class="statValue">' + strider.spirit + '</span>' + '</div>'
     str += '<div class="spacer"></div>'
-    str += '<div class="striderStats-stat">' + '<span class="statTitle">Health regen.</span><span class="statValue">' + strider.regenHealth + '</span>' + '</div>';
-    str += '<div class="striderStats-stat">' + '<span class="statTitle">Stamina regen.</span><span class="statValue">' + strider.regenMana + '</span>' + '</div>';
-    str += '<div class="striderStats-stat">' + '<span class="statTitle">Mana regen.</span><span class="statValue">' + strider.regenStamina + '</span>' + '</div>';
+    str += '<div class="striderStats-stat">' + '<span class="statTitle">Health regen.</span><span class="statValue">' + strider.regenHealth + '%</span>' + '</div>';
+    str += '<div class="striderStats-stat">' + '<span class="statTitle">Stamina regen.</span><span class="statValue">' + strider.regenMana + '%</span>' + '</div>';
+    str += '<div class="striderStats-stat">' + '<span class="statTitle">Mana regen.</span><span class="statValue">' + strider.regenStamina + '%</span>' + '</div>';
     str += '<div class="striderStats-stat">' + '<span class="statTitle">Damage reflection</span><span class="statValue">' + strider.damageReflection + '</span>' + '</div>';
     str += '<div class="spacer"></div>'
     str += '<div class="striderStats-stat">' + '<span class="statTitle">Bleed res.</span><span class="statValue">' + strider.resBleed[0] + '</span>' + '</div>';
@@ -2058,6 +2058,10 @@ function drawBattleScreen() {
 
     let str = '';
 
+    str += '<div class="battle-globalInfo">';
+    str += getBattleGlobalInfo();
+    str += '</div>';
+
     str += '<div class="battle-fightersContainer">';
     str += getFormationBattleAllies();
     str += getFormationBattleEnemies();
@@ -2079,6 +2083,26 @@ function drawBattleScreen() {
         generateBattleConsumablesEvents();
     }
     generateBattleFightersEvents();
+}
+
+function getBattleGlobalInfo(refresh = false) {
+    let str = '';
+
+    str += '<div class="battle-dungeonInfo">'
+    str += '<h1>' + (game.currentDungeon ? capitalizeFirstLetter(game.currentDungeon.biome) + ' ' + capitalizeFirstLetter(game.currentDungeon.zone) : 'Unknown Dungeon') + '</h1>';
+    str += '<h4>' + (game.currentDungeon ? 'Depth ' + game.currentDungeon.currentLevel + ', Room ' + game.currentDungeon.currentLevelRoomNumber : 'Depth X, Room Y') + '</h4>'
+    str += '</div>';
+
+    str += '<div class="battle-combatInfo">'
+    str += '<h1>Group fight</h1>';
+    str += '<h4>Round ' + game.currentBattle.round + ' — ' + game.currentBattle.currentPlay.name + '\'s Turn</h4>'
+    str += '</div>'
+
+    if(refresh) {
+        document.querySelector('.battle-globalInfo').innerHTML = str;
+        return;
+    }
+    return str;
 }
 
 // TODO: MERGE THESE TWO FUNCTIONS BELOW INTO ONE
@@ -2278,7 +2302,7 @@ function getBattleSkills(refresh = false) {
 
     const currentPlay = game.currentBattle.currentPlay;
     currentPlay.skills.forEach(skill => {
-        str += '<div id="' + currentPlay.name + '-' + skill.id + '" class="skillSquare treeNode coolBorder ' + (currentPlay.mana < skill.manaCost || !skill.condition.checker() ? 'disabledSkill' : '') + '" style="background-image: url(\'css/img/skills/' + currentPlay.name + skill.icon + '.png\')"></div>';
+        str += '<div id="' + currentPlay.name + '-' + skill.id + '" class="skillSquare treeNode coolBorder ' + (currentPlay.mana < skill.manaCost || !skill.condition.checker() || skill.cooldownCountdown > 0 ? 'disabledSkill' : '') + '" style="background-image: url(\'css/img/skills/' + currentPlay.name + skill.icon + '.png\')">' + (skill.cooldownCountdown > 0 ? '<span class="skillCooldownIndicator">' + skill.cooldownCountdown + '</span>' : '') + '</div>';
     })
 
     if(refresh) {
@@ -2542,6 +2566,8 @@ function generateBattleSkillsEvents() {
                 addBattleNotification(current.name + '\'s mana is too low to cast ' + skill.name + '.');
             } else if(!skill.condition.checker()) {
                 addBattleNotification('The requirements to cast ' + skill.name + ' are not met.');
+            } else if(skill.cooldownCountdown > 0) {
+                addBattleNotification(skill.name + ' cannot be casted while on cooldown.');
             } else {
                 if(battle.action !== Data.BattleAction.SKILL) {
                     battleCommandsCancelCurrent();
@@ -2581,6 +2607,8 @@ function battleCommandsCancelCurrent() {
             document.querySelector('.battle-actionAtk').classList.remove('battle-actionSelected');
             document.querySelectorAll('.battle-weaponIcon').forEach(wpn => {wpn.classList.remove('battle-weaponSelected');})
             getFormationBattleEnemies(true);
+            getFormationBattleAllies(true);
+            generateBattleFightersEvents();
             console.log('Cancelled: Attack');
             break;
         case Data.BattleAction.SKILL:
@@ -2590,6 +2618,7 @@ function battleCommandsCancelCurrent() {
             document.querySelectorAll('.skillSquare').forEach(wpn => {wpn.classList.remove('battle-skillSelected');});
             getFormationBattleEnemies(true);
             getFormationBattleAllies(true);
+            generateBattleFightersEvents();
             console.log('Cancelled: Skill');
             break;
         case Data.BattleAction.MOVE:
@@ -2597,6 +2626,8 @@ function battleCommandsCancelCurrent() {
             battleSelectionRemoveHighlights();
             document.querySelector('.battle-actionMov').classList.remove('battle-actionSelected');
             getFormationBattleAllies(true);
+            getFormationBattleEnemies(true);
+            generateBattleFightersEvents();
             console.log('Cancelled: Move');
             break;
     }

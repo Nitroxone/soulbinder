@@ -105,6 +105,8 @@ class Battle {
         console.log("Currently playing: " + this.currentPlay.name);
         this.currentPlay.runTriggers(Data.TriggerType.ON_TURN_BEGIN);
         this.currentPlay.executeActiveEffects();
+        this.currentPlay.reduceSkillsCooldown();
+        this.currentPlay.applySelfRegenerationEffects();
         drawBattleScreen();
         this.beginTurnPopups = false;
         this.runPopups();
@@ -129,7 +131,7 @@ class Battle {
 
     addEndTurnCounter() {
         this.endturnCounter += 1;
-        if(this.endturnCounter === this.order.length) {
+        if(this.endturnCounter >= this.order.length) {
             this.executeMovements();
             if(!this.beginTurnPopups) {
                 this.beginTurnPopups = true;
@@ -227,13 +229,54 @@ class Battle {
     }
 
     /**
+     * Adds the damage from Stun/Bleed/Poison modifiers of the currently playing NPC to this skill's current attack params. 
+     * It is possible to skip crit damage (for Skills).
+     * @param {NPC} target the target to retrieve info from
+     * @param {boolean} skipCrit skip crit damage addition?
+     */
+    addStunPoisonBleedModifiers(target, skipCrit = false) {
+        if(target.isStunned) {
+            this.params.phys_damage += Math.round(this.params.phys_damage * this.currentPlay.modifDmgStun/100);
+            this.params.magi_damage += Math.round(this.params.magi_damage * this.currentPlay.modifDmgStun/100);
+            if(!skipCrit) this.params.crit_damage += Math.round(this.params.crit_damage * this.currentPlay.modifDmgStun/100);
+        }
+        if(target.hasEffect(Data.Effect.BLIGHT_CURABLE) || target.hasEffect(Data.Effect.BLIGHT_INCURABLE)) {
+            this.params.phys_damage += Math.round(this.params.phys_damage * this.currentPlay.modifDmgPoison/100);
+            this.params.magi_damage += Math.round(this.params.magi_damage * this.currentPlay.modifDmgPoison/100);
+            if(!skipCrit) this.params.crit_damage += Math.round(this.params.crit_damage * this.currentPlay.modifDmgPoison/100);
+        }
+        if(target.hasEffect(Data.Effect.BLEEDING_CURABLE) || target.hasEffect(Data.Effect.BLEEDING_INCURABLE)) {
+            this.params.phys_damage += Math.round(this.params.phys_damage * this.currentPlay.modifDmgBleed/100);
+            this.params.magi_damage += Math.round(this.params.magi_damage * this.currentPlay.modifDmgBleed/100);
+            if(!skipCrit) this.params.crit_damage += Math.round(this.params.crit_damage * this.currentPlay.modifDmgBleed/100);
+        }
+    }
+
+    /**
      * Computes attack params for a weapon attack.
      */
     computeAttackParams(target) {
         this.resetAttackParams();
         const weapon = this.selectedWeapon;
+        const current = this.currentPlay;
 
-        if(Math.random() * 100 < this.currentPlay.accuracy) {
+        let accuracyModifiers = 0;
+        let critModifiers = 0;
+
+        if(target.isStunned) {
+            accuracyModifiers += current.modifAccuracyStun;
+            critModifiers += current.modifCritStun;
+        }
+        if(target.hasEffect(Data.Effect.BLEEDING_CURABLE) || target.hasEffect(Data.Effect.BLEEDING_INCURABLE)) {
+            accuracyModifiers += current.modifAccuracyBleed;
+            critModifiers += current.modifCritBleed;
+        }
+        if(target.hasEffect(Data.Effect.BLIGHT_CURABLE) || target.hasEffect(Data.Effect.BLIGHT_INCURABLE)) {
+            accuracyModifiers += current.modifAccuracyPoison;
+            critModifiers += current.modifCritPoison;
+        }
+
+        if(Math.random() * 100 < current.accuracy + accuracyModifiers) {
             // Accuracy test passed
             this.params.success_accuracy = true;
             if(Math.random() * 100 > target.dodge) {
@@ -241,15 +284,17 @@ class Battle {
                 this.params.phys_damage = weapon.getSharpness();
                 this.params.magi_damage = weapon.getWithering();
 
-                if(Math.random() * 100 < weapon.crit_luk) {
+                if(Math.random() * 100 < weapon.crit_luk + critModifiers) {
                     // Critical blow! Add critical damage
                     this.params.crit_damage += weapon.crit_dmg;
                     this.params.critical = true;
                 }
 
-                this.params.phys_damage += (Math.round(this.params.phys_damage * this.currentPlay.modifDmgWeapon/100) + Math.round(this.params.phys_damage * this.currentPlay.modifDmgTotal/100));
-                this.params.magi_damage += (Math.round(this.params.magi_damage * this.currentPlay.modifDmgWeapon/100) + Math.round(this.params.magi_damage * this.currentPlay.modifDmgTotal/100));
-                this.params.crit_damage += (Math.round(this.params.crit_damage * this.currentPlay.modifDmgWeapon/100) + Math.round(this.params.crit_damage * this.currentPlay.modifDmgTotal/100));
+                this.params.phys_damage += (Math.round(this.params.phys_damage * current.modifDmgWeapon/100) + Math.round(this.params.phys_damage * current.modifDmgTotal/100));
+                this.params.magi_damage += (Math.round(this.params.magi_damage * current.modifDmgWeapon/100) + Math.round(this.params.magi_damage * current.modifDmgTotal/100));
+                this.params.crit_damage += (Math.round(this.params.crit_damage * current.modifDmgWeapon/100) + Math.round(this.params.crit_damage * current.modifDmgTotal/100));
+
+                this.addStunPoisonBleedModifiers(target);
             } else {
                 // Dodged
                 this.params.success_dodge = true;
@@ -266,7 +311,23 @@ class Battle {
         const modifier = (skill.type === Data.SkillType.FRIENDLY) ? 9999 : 0;
         const current = this.currentPlay;
 
-        if(Math.random()*200 < (current.accuracy + skill.accMultiplier + modifier)) {
+        let accuracyModifiers = 0;
+        let critModifiers = 0;
+
+        if(target.isStunned) {
+            accuracyModifiers += current.modifAccuracyStun;
+            critModifiers += current.modifCritStun;
+        }
+        if(target.hasEffect(Data.Effect.BLEEDING_CURABLE) || target.hasEffect(Data.Effect.BLEEDING_INCURABLE)) {
+            accuracyModifiers += current.modifAccuracyBleed;
+            critModifiers += current.modifCritBleed;
+        }
+        if(target.hasEffect(Data.Effect.BLIGHT_CURABLE) || target.hasEffect(Data.Effect.BLIGHT_INCURABLE)) {
+            accuracyModifiers += current.modifAccuracyPoison;
+            critModifiers += current.modifCritPoison;
+        }
+
+        if(Math.random()*200 < (current.accuracy + skill.accMultiplier + current.modifAccuracySkill + accuracyModifiers + modifier)) {
             // Accuracy test passed
             this.params.success_accuracy = true;
             if(Math.random() * 100 > target.dodge - modifier) {
@@ -283,13 +344,15 @@ class Battle {
                         this.params.magi_damage = Math.round((skill.dmgMultiplier / 100) * current.spirit);
                         break;
                 }
-                if(Math.random() * 100 < skill.criMultiplier || forceCrit) {
+                if(Math.random() * 100 < (skill.criMultiplier + critModifiers) || forceCrit) {
                     // Critical blow! Add critical effects
                     this.params.critical = true;
                 }
 
                 this.params.phys_damage += (Math.round(this.params.phys_damage * current.modifDmgSkill/100) + Math.round(this.params.phys_damage * current.modifDmgTotal/100));
                 this.params.magi_damage += (Math.round(this.params.magi_damage * current.modifDmgSkill/100) + Math.round(this.params.magi_damage * current.modifDmgTotal/100));
+                
+                this.addStunPoisonBleedModifiers(target, true);
             } else {
                 // Dodged
                 this.params.success_dodge = true;
@@ -315,6 +378,7 @@ class Battle {
                 tar.runTriggers(Data.TriggerType.ON_RECV_DAMAGE);
 
                 tar.receiveDamage(params);
+                this.applyDamageReflection(params, tar);
                 console.log('Successful hit!');
 
                 if(params.critical) {
@@ -385,6 +449,17 @@ class Battle {
         this.runPopups();
     }
 
+    applyDamageReflection(params, target) {
+        const total = params.phys_damage + params.magi_damage + params.crit_damage;
+        const dr = target.damageReflection;
+        let final = 0;
+
+        if(total <= dr) final = total;
+        else final = dr;
+
+        if(final > 0) this.currentPlay.removeBaseStat(new Stat({effect: Data.Effect.HEALTH, theorical: final}));
+    }
+
     executeSkill() {
         const skill = this.selectedSkill;
         const current = this.currentPlay;
@@ -405,6 +480,7 @@ class Battle {
                     this.runTriggersOnCurrent(Data.TriggerType.ON_DEAL_DAMAGE);
                     tar.runTriggers(Data.TriggerType.ON_RECV_DAMAGE);
                     tar.receiveDamage(params);
+                    this.applyDamageReflection(params, tar);
                 }
 
                 // Handle critical triggers and critical effects
@@ -486,7 +562,7 @@ class Battle {
                 // Moving
                 this.applyCasterMovement(eff);
             });
-            current.addBattlePopup(new BattlePopup(0, '<div class="popupIcon" style="background-image: url(\'css/img/skills/' + current.name.toLowerCase() + skill.icon + '\'.png);"></div>'));
+            current.addBattlePopup(new BattlePopup(0, '<div class="popupIcon" style="background-image: url(\'css/img/skills/' + current.name.toLowerCase() + skill.icon + '.png\');"></div>'));
         }
 
         if(effects) current.applyEffects(skill, current, effects, isCrit);

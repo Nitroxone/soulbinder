@@ -2408,6 +2408,8 @@ table.statsTable tbody td:nth-child(3) {
     background-size: 70%;
     background-position: center;
     background-repeat: no-repeat;
+
+    position:relative;
 }
 .tooltipDesc, .echoQuote {
     font-family: 'RobotoItalic';
@@ -4592,5 +4594,60 @@ table.astralForgeShards td {
     font-size: large;
 }
 
+.battle-globalInfo {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 3em;
+}
 
+.battle-dungeonInfo {
+    text-align: left;
+}
+.battle-dungeonInfo h1 {
+    font-family: RobotoSlabBold;
+    font-size: 1.4rem;
+}
+.battle-dungeonInfo h4 {
+    font-family: RobotoBold;
+    margin-top: 0.25rem;
+    font-size: 0.75rem;
+    color: grey;
+}
+
+.battle-combatInfo {
+    text-align: right;
+}
+.battle-combatInfo h1 {
+    font-family: RobotoSlab;
+    font-variant: small-caps;
+    font-size: 1.45rem;
+}
+.battle-combatInfo h4 {
+    margin-top: 0.25rem;
+}
+
+.skillSquare {
+    position: relative;
+}
+.skillCooldownIndicator {
+    font-family: 'Roboto';
+    font-variant: small-caps;
+    position: absolute;
+    bottom: -5px;
+    right: -5px;
+    background-color: rgb(34, 47, 62);
+    border-radius: 100%;
+    padding: 0.25rem 0.2rem;
+    width: 16px;
+    height: 16px;
+    aspect-ratio: 1/1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgb(100, 100, 100);
+    z-index: 10;
+    font-size: 0.65rem;
+}
 

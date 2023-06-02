@@ -797,7 +797,7 @@ const Loader = {
             ),
             new Trinket(
                 "Trapped Nebulae",
-                "A shifting storm howls in this bottle; warm  and golden, cold and black, it twirls, revealing temporal fragments dating back to the earliest ages of Mithor.",
+                "A shifting storm howls in this sphere; warm and golden, cold and black, it twirls, revealing temporal fragments dating back to the earliest ages of Mithor.",
                 23,
                 10,
                 Data.Rarity.LEGENDARY,
@@ -805,6 +805,11 @@ const Loader = {
                     new Stat({
                         effect: Data.Effect.MODIF_CHANCE_STUN,
                         theorical: [20, 30],
+                        isPercentage: true
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MODIF_DMG_STUN,
+                        theorical: [10, 15],
                         isPercentage: true
                     }),
                     new Stat({
@@ -840,7 +845,7 @@ const Loader = {
                 [
                     new Stat({
                         effect: Data.Effect.MODIF_DMG_POISON,
-                        theorical: [4, 7],
+                        theorical: [8, 12],
                         isPercentage: true
                     }),
                     new Stat({
@@ -855,6 +860,48 @@ const Loader = {
                     })
                 ],
             ),
+            new Trinket(
+                "Bloodpearl Insignia",
+                "\"Quote\" - Somebody",
+                32,
+                10,
+                Data.Rarity.RARE,
+                [
+                    new Stat({
+                        effect: Data.Effect.MODIF_HEAL_GIVEN,
+                        theorical: [25, 30],
+                        isPercentage: true
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MAXHEALTH,
+                        theorical: [-50, -65]
+                    })
+                ]
+            ),
+            new Trinket(
+                "Chalice of Crimson Tears",
+                "\"Quote\" - Somebody",
+                8,
+                10,
+                Data.Rarity.RARE,
+                [
+                    new Stat({
+                        effect: Data.Effect.MODIF_ACCURACY_BLEED,
+                        theorical: [10, 15],
+                        isPercentage: true
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MODIF_CRIT_BLEED,
+                        theorical: [8, 12],
+                        isPercentage: true,
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MODIF_DMG_BLEED,
+                        theorical: [5, 10],
+                        isPercentage: true,
+                    })
+                ]
+            )
         ];
 
         for(const trinket of trinkets) {
@@ -1565,9 +1612,9 @@ const Loader = {
                 [],
                 Data.StriderType.STRIKER,
                 "Marked for Death",
-                "Marked for Death power description",
-                'quote',
-                1,
+                '<div class="par">Each successful hit from Brim on a enemy marks it with a <span class="bold blue">Black Glyph</span>, which can be stacked up 3 times. Each successful hit on an enemy that is marked with a <span class="bold blue">Black Glyph</span> triggers a Bleeding effect.</div><div class="par bulleted"><span class="bold blue">1 Black Glyph</span>: 2 Bleeding (2 rounds)</div><div class="par bulleted"><span class="bold blue">2 Black Glyphs</span>: 5 Bleeding (2 rounds)</div><div class="par bulleted"><span class="bold blue">3 Black Glyphs</span>: 8 Incurable Bleeding (3 rounds). Next hit removes all of the Black Glyphs on the target.</div>',
+                '"For Ghirgynth\'s servants dance with the dead, Amarok\'s flesh slavers over pain."',
+                0,
                 what(game.all_skillTrees, "amarok"),
                 [],
                 'top'
@@ -1698,7 +1745,7 @@ const Loader = {
             ),
             new Strider(
                 "Ifrin",
-                "A fearsome mage, Ifrin was banned from the Order of Rhun upon harnessing the power of Yorll's corrupted magic, and is now on a constant need of enhancing his knowledge of the dark arts.",
+                "A fearsome mage, Ifrin was banned from the Order of Rhun upon harnessing the power of Yorll's corrupted magic, and is now on a constant need of enhancing her knowledge of the dark arts.",
                 Data.Charset.IFRIN,
                 "The Prophet of Kaphyst",
                 100, 100, 100,
@@ -1709,14 +1756,14 @@ const Loader = {
                 [new Stat({effect: Data.Effect.MAXMANA, theorical: [15, 25]})],
                 {},
                 [],
-                Data.StriderType.STRIKER,
+                Data.StriderType.TANK,
                 "Witchskin",
                 "Witchskin's power description",
                 'quote',
                 1,
                 what(game.all_skillTrees, "amarok"),
                 [],
-                '10% 30%'
+                '10% 70%'
             ),
             new Strider(
                 "Betheros",
@@ -1761,12 +1808,12 @@ const Loader = {
                             effectsAllies: {
                                 1: {
                                     regular: [
-                                        new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [2, 4], isPercentage: true, duration: 1}),
-                                        new Stat({effect: Data.Effect.MODIF_HEAL_RECV, theorical: [2, 4], isPercentage: true, duration: 2})
+                                        new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [8, 10], isPercentage: true, duration: 2}),
+                                        new Stat({effect: Data.Effect.MODIF_HEAL_RECV, theorical: [8, 10], isPercentage: true, duration: 2})
                                     ],
                                     critical: [
-                                        new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [2, 4], isPercentage: true, duration: 2, isCritical: true}),
-                                        new Stat({effect: Data.Effect.MODIF_HEAL_RECV, theorical: [2, 4], isPercentage: true, duration: 2, isCritical: true})
+                                        new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [10, 12], isPercentage: true, duration: 2, isCritical: true}),
+                                        new Stat({effect: Data.Effect.MODIF_HEAL_RECV, theorical: [10, 12], isPercentage: true, duration: 2, isCritical: true})
                                     ]
                                 }
                             },
