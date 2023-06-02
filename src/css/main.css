@@ -4651,3 +4651,7 @@ table.astralForgeShards td {
     font-size: 0.65rem;
 }
 
+.toxicityIndicator {
+    font-family: RobotoBold;
+    color: green;
+}

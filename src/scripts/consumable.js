@@ -15,7 +15,7 @@ class Consumable extends Item {
         this.effects = getValueFromObject(props, 'effects', null);
         this.triggers = getValueFromObject(props, 'triggers', null);
         this.variables = getValueFromObject(props, 'variables', null);
-        this.toxicity = getValueFromObject(props, 'toxicity', 10);
+        this.toxicity = getValueFromObject(props, 'toxicity', 0);
 
         this.amount = 0;
     }
