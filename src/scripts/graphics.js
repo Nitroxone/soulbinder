@@ -191,6 +191,10 @@ function getConsumableTooltip(consumable) {
         str += eff.getFormatted({cssClass: "itemEffect", noTheorical: true});
     })
     str += '<div class="divider"></div>';
+    if(consumable.toxicity > 0) {
+        str += '<div class="toxicityIndicator itemEffect">+ ' + consumable.toxicity + ' Toxicity</div>';
+        str += '<div class="divider"></div>';
+    }
     str += '<div class="par"></div>';
     str += '<div class="par tooltipDesc">' + consumable.desc + '</div>';
     str += '</div></div>';
@@ -669,6 +673,7 @@ function drawConsumablesInventory(consumables) {
         if(consumables[i].amount > 0) {
             let me = consumables[i];
             str += '<div id="res-' + me.id + '" class="inventoryItem" style="' + getIcon(me) + '; border: 2px solid ' + getRarityColorCode(me.rarity) +'">';
+            str += '<div id="res-amount-' + me.id + '" class="inventoryItemAmount">' + (me.amount > 99 ? '99+' : me.amount) + '</div>';
             str += '</div>';
         }
     }
