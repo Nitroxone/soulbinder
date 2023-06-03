@@ -1,10 +1,35 @@
-/**
- * The Dungeon class handles the global Dungeon structure and logic.
- * More specifically, it works with DungeonEvent and DungeonEncounter classes.
- */
 class Dungeon {
-    constructor() {
+    constructor(props) {
+        this.name = getValueFromObject(props, "name", "undefined");
+        this.biome = getValueFromObject(props, "biome", Data.DungeonBiome.ALL);
+        this.maximumDepth = getValueFromObject(props, "maximumDepth", 5);
+        this.config = getValueFromObject(props, "config", {
+            floor1: {
+                depth: 1,
+            },
+            floor2: {
+                depth: 2,
+            },
+            floor3: {
+                depth: 3,
+            },
+            floor4: {
+                depth: 4,
+            },
+            floor5: {
+                depth: 5,
+            }
+        });
 
+        this.floors = [];
+
+        this.generateFloors();
+    }
+
+    generateFloors() {
+        for(let i = 0; i < this.maximumDepth; i++) {
+            this.floors.push(new DungeonFloor(this.config['floor' + (i+1)]));
+        }
     }
 }
 

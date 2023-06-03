@@ -1,0 +1,5 @@
+class DungeonRoom {
+    constructor() {
+        
+    }
+}

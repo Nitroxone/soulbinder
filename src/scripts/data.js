@@ -429,7 +429,7 @@ const Data = Object.freeze({
         FRACTURED_HOLLOW: "fractured hollow",
         SACRIFICIAL_ALCOVE: "sacrificial alcove",
         ANTECHAMBER_OF_MARVELS: "antechamber of marvels",
-        INFESTED_ROOM: "infested room",
+        DORMANT_ROOM: "dormant room",
         EMPTY: "empty room",
     },
     DungeonEncounterHostileBattleType: {
