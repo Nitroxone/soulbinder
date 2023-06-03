@@ -348,7 +348,6 @@ class Game {
         drawStridersScreen();
         drawHubScreen();
         drawWorkshopScreen();
-        drawExploreScreen();
         drawEonScreen();
 
         this.message({type: Data.LogMessageType.IMPORTANT, text:'This is an important message.'});
