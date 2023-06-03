@@ -1333,3 +1333,10 @@ function getRandomEnemyFormationFromDungeon(dungeon = game.currentDungeon) {
     });
     return choose(available);
 }
+
+function hasRoomWithCoordinates(rooms, coords) {
+    for(let i = 0; i < rooms.length; i++) {
+        if(rooms[i].coordinates[0] === coords[0] && rooms[i].coordinates[1] === coords[1]) return rooms[i];
+    }
+    return false;
+}
