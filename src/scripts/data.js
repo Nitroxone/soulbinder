@@ -448,6 +448,13 @@ const Data = Object.freeze({
         COAST: "coast",
         ALL: "all",
     },
+    DungeonClusterPattern: {
+        CIRCLE: 'circle',
+        SQUARE: 'square',
+        RECTANGLE: 'rectangle',
+        HALF_CIRCLE: 'half circle',
+        SPLIT_CIRCLE: 'split circle'
+    },
     LogMessageType: {
         REGULAR: "regular",
         IMPORTANT: "important",
