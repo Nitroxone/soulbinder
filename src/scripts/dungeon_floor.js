@@ -35,7 +35,7 @@ class DungeonFloor {
         this.clusters = [];
 
         this.generateFloorLayout();
-        //this.generateRooms();
+        this.generateRooms();
     }
 
     /**
@@ -136,15 +136,11 @@ class DungeonFloor {
         for(let i = 0; i < toAdd; i++) {
             types.push(Data.DungeonRoomType.EMPTY);
         }
+        types = shuffle(types);
         
         // For each room
-        for(let i = 0; i < this.clustersAmount; i++) {
-            const clusterPos = this.clusters[i].coordinates;
-            let count = 0;
-            let j = 1;
-            while(count < this.roomsPerCluster) {
-
-            }
+        for(let i = 0; i < this.roomsAmount; i++) {
+            this.rooms[i].type = types[i];
         }
     }
 
