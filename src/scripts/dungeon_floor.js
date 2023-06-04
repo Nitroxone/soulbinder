@@ -28,7 +28,7 @@ class DungeonFloor {
         this.chaoticCurve = getValueFromObject(props, "chaoticCurve", 2);
         this.clustersAmount = getValueFromObject(props, "clustersAmount", 7);
         this.roomsPerCluster = getValueFromObject(props, "roomsPerCluster", 5);
-        this.clusterPattern = getValueFromObject(props, "clusterPattern", Data.DungeonClusterPattern.CIRCLE);
+        this.unequalRepartition = getValueFromObject(props, "unequalRepartition", true);
 
         this.roomsAmount = this.clustersAmount * this.roomsPerCluster;
 
@@ -40,12 +40,37 @@ class DungeonFloor {
         this.generateRooms();
     }
 
+    generateRoomCounts() {
+        const roomCounts = [];
+        let remainingRooms = this.roomsAmount;
+        for(let i = 0; i < this.clustersAmount; i++) {
+            if(this.unequalRepartition) {
+                if(remainingRooms > 0) {
+                    const randomCount = Math.floor(Math.random() * 3.5) - 1;
+                    const count = Math.min(Math.max(this.roomsPerCluster + randomCount, 0), remainingRooms);
+                    roomCounts.push(count);
+                    remainingRooms -= count;
+                } else {
+                    roomCounts.push(0);
+                }
+            } else {
+                roomCounts.push(this.roomsPerCluster);
+            }
+        }
+        // Make sure that the roomCounts value is equal to the floor's roomsAmount parameter
+        while(roomCounts.reduce((partSum, a) => partSum + a, 0) < this.roomsAmount) {
+            roomCounts[getRandomNumber(0, roomCounts.length - 1)] += 1;
+        }
+        return roomCounts;
+    }
+
     /**
      * Generates this DungeonFloor's layout by placing clusters on the grid, based on the amount of clusters, their curve and their irregularity.
      * Then, around each cluster, rooms are placed.
      */
     generateFloorLayout() {
         const centerColumn = Math.floor(this.gridSize[1] / 2) - 1;
+        const roomCounts = this.generateRoomCounts();
         for(let i = 0; i < this.clustersAmount; i++) {
             const row = Math.floor((this.gridSize[0] - 1) * i / (this.clustersAmount - 1));
             let offset = Math.floor(this.gridSize[1] * this.pathCurve * Math.sin(i * Math.PI * this.chaoticCurve / (this.clustersAmount - 1)));
@@ -57,64 +82,65 @@ class DungeonFloor {
                     type: Data.DungeonRoomType.CLUSTER
                 }));
 
-                let count = 0;
+                const count = roomCounts[i];
+                let addedRooms = 0;
                 let j = 1;
-                while(count < this.roomsPerCluster) { 
-                    if (row - j >= 0 && !hasRoomWithCoordinates(this.rooms, [row - j, column]) && count < this.roomsPerCluster) {
+                while(addedRooms < count) { 
+                    if (row - j >= 0 && !hasRoomWithCoordinates(this.rooms, [row - j, column]) && addedRooms < count) {
                         // Above
                         this.rooms.push(new DungeonRoom({
                             coordinates: [row - j, column]
                         })),
-                        count++;
+                        addedRooms++;
                     }
-                    if (row + j < this.gridSize[0] && !hasRoomWithCoordinates(this.rooms, [row + j, column]) && count < this.roomsPerCluster) {
+                    if (row + j < this.gridSize[0] && !hasRoomWithCoordinates(this.rooms, [row + j, column]) && addedRooms < count) {
                         // Below
                         this.rooms.push(new DungeonRoom({
                             coordinates: [row + j, column]
                         })),
-                        count++;
+                        addedRooms++;
                     }
-                    if (column - j >= 0 && !hasRoomWithCoordinates(this.rooms, [row, column - j]) && count < this.roomsPerCluster) {
+                    if (column - j >= 0 && !hasRoomWithCoordinates(this.rooms, [row, column - j]) && addedRooms < count) {
                         // Left
                         this.rooms.push(new DungeonRoom({
                             coordinates: [row, column - j]
                         })),
-                        count++;
+                        addedRooms++;
                     }
-                    if (column + j < this.gridSize[1] && !hasRoomWithCoordinates(this.rooms, [row, column + j]) && count < this.roomsPerCluster) {
+                    if (column + j < this.gridSize[1] && !hasRoomWithCoordinates(this.rooms, [row, column + j]) && addedRooms < count) {
                         // Right
                         this.rooms.push(new DungeonRoom({
                             coordinates: [row, column + j]
                         })),
-                        count++;
+                        addedRooms++;
                     }
-                    if (row - j >= 0 && column - j >= 0 && !hasRoomWithCoordinates(this.rooms, [row - j, column - j]) && count < this.roomsPerCluster) {
+                    if (row - j >= 0 && column - j >= 0 && !hasRoomWithCoordinates(this.rooms, [row - j, column - j]) && addedRooms < count) {
                         // Top-left
                         this.rooms.push(new DungeonRoom({
                             coordinates: [row - j, column - j]
                         })),
-                        count++;
+                        addedRooms++;
                     }
-                    if (row - j >= 0 && column + j < this.gridSize[1] && !hasRoomWithCoordinates(this.rooms, [row - j, column + j]) && count < this.roomsPerCluster) {
+                    if (row - j >= 0 && column + j < this.gridSize[1] && !hasRoomWithCoordinates(this.rooms, [row - j, column + j]) && addedRooms < count) {
                         // Top-right
                         this.rooms.push(new DungeonRoom({
                             coordinates: [row - j, column + j]
                         })),
-                        count++;
+                        addedRooms++;
                     }
-                    if (row + j < this.gridSize[0] && column - j >= 0 && !hasRoomWithCoordinates(this.rooms, [row + j, column - j]) && count < this.roomsPerCluster) {
+                    if (row + j < this.gridSize[0] && column - j >= 0 && !hasRoomWithCoordinates(this.rooms, [row + j, column - j]) && addedRooms < count) {
                         // Bottom-left
                         this.rooms.push(new DungeonRoom({
                             coordinates: [row + j, column - j]
                         })),
-                        count++;
+                        addedRooms++;
                     }
-                    if (row + j < this.gridSize[0] && column + j < this.gridSize[1] && !hasRoomWithCoordinates(this.rooms, [row + j, column + j]) && count < this.roomsPerCluster) {
+                    if (row + j < this.gridSize[0] && column + j < this.gridSize[1] && !hasRoomWithCoordinates(this.rooms, [row + j, column + j]) && addedRooms < count) {
                         // Bottom-right
                         this.rooms.push(new DungeonRoom({
                             coordinates: [row + j, column + j]
                         })),
-                        count++;
+                        addedRooms++;
                     }
                     j++;
                 }
@@ -153,6 +179,7 @@ class DungeonFloor {
         for(let i = 0; i < this.gridSize[0]; i++) {
             let row = [];
             for(let j = 0; j < this.gridSize[1]; j++) {
+                
                 if(hasRoomWithCoordinates(this.clusters, [i, j])) {
                     row.push('#');
                 }

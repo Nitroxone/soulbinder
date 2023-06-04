@@ -24,12 +24,17 @@ class Dungeon {
         this.floors = [];
 
         this.generateFloors();
+        this.currentFloor = this.floors[0];
     }
 
     generateFloors() {
         for(let i = 0; i < this.maximumDepth; i++) {
             this.floors.push(new DungeonFloor(this.config['floor' + (i+1)]));
         }
+    }
+
+    getNextFloor() {
+        return this.floors[this.floors.indexOf(this.currentFloor) + 1];
     }
 }
 

@@ -2580,6 +2580,9 @@ function addBattleNotification(message) {
     document.querySelector('.battle-notifications').innerHTML = str;
 }
 
+function drawDungeonFloor() {
+    
+}
 
 function drawEonScreen() {
     document.querySelector('#eonsDiv').innerHTML = '<div class="eonsContainer"></div>';
