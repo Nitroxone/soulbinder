@@ -40,10 +40,15 @@ class DungeonFloor {
         this.generateRooms();
     }
 
+    /**
+     * Generates the amount of rooms per cluster. This amount will be randomized if the DungeonFloor parameter "unequalRepartition" is set to true.
+     * @returns {number[]} the amount of rooms per cluster
+     */
     generateRoomCounts() {
         const roomCounts = [];
         let remainingRooms = this.roomsAmount;
         for(let i = 0; i < this.clustersAmount; i++) {
+            // If unequalRepartition is allowed, add randomness. Otherwise just return the default roomsPerCluster value.
             if(this.unequalRepartition) {
                 if(remainingRooms > 0) {
                     const randomCount = Math.floor(Math.random() * 3.5) - 1;
