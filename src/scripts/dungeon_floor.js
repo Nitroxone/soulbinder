@@ -1,3 +1,15 @@
+/**
+ * The DungeonFloor holds all of the logic and data of a Dungeon's floor.
+ * 
+ * TECHNICAL STUFF:
+ * There are different factors that alter the generation of rooms.
+ * First, clusters are generated : they are dots placed on the grid, around which dungeon rooms will be generated.
+ * The clusters' positioning is determined like that :
+ * - A straight vertical, horizontally centered line is drawn on the grid, from top to bottom. 
+ * - The line is by default straight, but it can be altered with two variables.
+ * - The pathCurve variable tells how curvy the line should be. It's a value between 0 and 1 (0 = straight, 1 = very curvy)
+ * - The chaoticCurve variable, which matters only if pathCurve > 0, determines the amplitude of the curve. The higher, the curviest (default = 2).
+ */
 class DungeonFloor {
     constructor(props) {
         this.depth = getValueFromObject(props, "depth", 0);
