@@ -3735,7 +3735,7 @@ table.astralForgeShards td {
     width: 100%;
     height: 100%;
     border: 3px dashed grey;
-    transform: scale(1);
+    transform: scale(0.5);
 
     display: flex;
     justify-content: center;
@@ -3757,6 +3757,9 @@ table.astralForgeShards td {
     position: absolute;
     background-color: black;
     z-index: 1;
+
+    border-radius: 100%;
+    border: 1px solid white;
 }
 
 #exploration-infosPanel {

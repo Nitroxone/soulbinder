@@ -2608,6 +2608,7 @@ function generateExplorationMapEvents() {
     var maxLeft = document.querySelector('.exploration-mapContainer').offsetWidth * 0.75;
 
     document.querySelector('.exploration-mapContainer').addEventListener('wheel', e => {
+        document.querySelector('.exploration-map').style.transition = '';
         e.preventDefault();
 
         const direction = Math.sign(e.deltaY);

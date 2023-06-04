@@ -154,8 +154,8 @@ const Loader = {
                 Data.Rarity.COMMON,
             ),
             new Resource(
-                "Silver Powder",
-                "A pouch of the finest refined silver powder.",
+                "Silver Essence",
+                "A bottle of the finest refined silver essence.",
                 5,
                 10,
                 Data.Rarity.COMMON,
@@ -360,7 +360,7 @@ const Loader = {
                 Data.Rarity.RARE,
                 [
                     new Ingredient(what(game.all_resources, "dark stone"), 1),
-                    new Ingredient(what(game.all_resources, "silver powder"), 2),
+                    new Ingredient(what(game.all_resources, "silver essence"), 2),
                     new Ingredient(what(game.all_resources, "decaying petals"), 1),
                 ],
                 what(game.all_runes, "withering rune")
@@ -373,7 +373,7 @@ const Loader = {
                 Data.Rarity.RARE,
                 [
                     new Ingredient(what(game.all_resources, "dark stone"), 1),
-                    new Ingredient(what(game.all_resources, "silver powder"), 2),
+                    new Ingredient(what(game.all_resources, "silver essence"), 2),
                     new Ingredient(what(game.all_resources, "decaying petals"), 1),
                 ],
                 what(game.all_runes, "sharpness rune")
@@ -819,9 +819,9 @@ const Loader = {
                 ]
             ),
             new Trinket(
-                "Duchess's Lyre",
-                "This lute captures the player's full attention, and even when the blistered fingers stop rubbing the strings, you can still hear singular notes playing by themselves.",
-                24,
+                "Molars of the Jailor",
+                "This bag of coarsly extracted teeth is unexpectedly heavy. Maybe there's not just molars in there, but do you really want to find out?",
+                13,
                 10,
                 Data.Rarity.RARE,
                 [
