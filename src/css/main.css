@@ -3727,11 +3727,14 @@ table.astralForgeShards td {
     overflow: hidden;
     position: relative;
     cursor: move;
+
+    background: url('img/wilderness.jpg');
+    transition: background-size .5s ease-in-out;
 }
 .exploration-map {
     width: 800px;
     height: 800px;
-    background-color: white;
+    border: 3px dashed grey;
     transform: scale(1);
 
     display: flex;
@@ -3739,7 +3742,7 @@ table.astralForgeShards td {
     align-items: center;
 
     position: absolute;
-    transition: transform .5s cubic-bezier(1,0,0,1);
+    transition: transform .35s cubic-bezier(1,0,0,1);
 
     top: 0;
     left: 0;
