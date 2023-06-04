@@ -2,7 +2,7 @@ class DungeonFloor {
     constructor(props) {
         this.depth = getValueFromObject(props, "depth", 0);
         this.roomsAmount = getValueFromObject(props, "roomsAmount", getRandomNumber(20, 30));
-        this.gridSize = getValueFromObject(props, "gridSize", [40, 21]);
+        this.gridSize = getValueFromObject(props, "gridSize", [41, 21]);
         this.config = getValueFromObject(props, "config", {
             roomTypes: {
                 "boss room": 1,
@@ -11,13 +11,34 @@ class DungeonFloor {
                 "sacrificial alcove": getRandomNumber(2, 5),
                 "dormant room": getRandomNumber(3, 8),
                 "antechamber of marvels": 1,
-            }
+            },
         });
+        this.pathCurve = getValueFromObject(props, "pathCurve", 0.3);
+        this.chaoticCurve = getValueFromObject(props, "chaoticCurve", 7);
+        this.clustersAmount = getValueFromObject(props, "clustersAmount", 7);
 
         this.rooms = [];
         this.connectors = [];
+        this.clusters = [];
 
-        this.generateRooms();
+        this.generateFloorLayout();
+        //this.generateRooms();
+    }
+
+    generateFloorLayout() {
+        const centerColumn = Math.floor(this.gridSize[1] / 2) - 1;
+        for(let i = 0; i < this.clustersAmount; i++) {
+            const row = Math.floor((this.gridSize[0] - 1) * i / (this.clustersAmount - 1));
+            let offset = Math.floor(this.gridSize[1] * this.pathCurve * Math.sin(i * Math.PI * this.chaoticCurve / (this.clustersAmount - 1)));
+            offset = Math.max(-centerColumn, Math.min(offset, this.gridSize[1] - 1 - centerColumn));
+            const column = centerColumn + offset;
+            if(row >= 0 && row < this.gridSize[0] && column >= 0 && column < this.gridSize[1]) {
+                this.clusters.push(new DungeonRoom({
+                    coordinates: [row, column],
+                    type: Data.DungeonRoomType.CLUSTER
+                }));
+            }
+        }
     }
 
     generateRooms() {
@@ -55,6 +76,20 @@ class DungeonFloor {
                 coordinates: coordinates,
                 type: i === 0 ? Data.DungeonRoomType.ENTRANCE : i === this.roomsAmount-1 ? Data.DungeonRoomType.CHASM : types[i]
             }));
+        }
+    }
+
+    printClusters() {
+        for(let i = 0; i < this.gridSize[0]; i++) {
+            let row = [];
+            for(let j = 0; j < this.gridSize[1]; j++) {
+                if(hasRoomWithCoordinates(this.clusters, [i, j])) row.push('#');
+                else row.push('.');
+                
+                if(j === this.gridSize[1] - 1) break;
+            }
+            console.log(row.join(' '));
+            if(i === this.gridSize[0] - 1) break;
         }
     }
 

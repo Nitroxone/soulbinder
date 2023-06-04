@@ -431,6 +431,7 @@ const Data = Object.freeze({
         ANTECHAMBER_OF_MARVELS: "antechamber of marvels",
         DORMANT_ROOM: "dormant room",
         EMPTY: "empty room",
+        CLUSTER: "cluster",
     },
     DungeonEncounterHostileBattleType: {
         GROUP: "group",
