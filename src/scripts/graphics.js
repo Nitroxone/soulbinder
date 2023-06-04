@@ -2604,11 +2604,15 @@ function drawExplorationScreen() {
 
 function generateExplorationMapEvents() {
     let zoomLevel = 1;
-    var maxTop = document.querySelector('.exploration-mapContainer').offsetHeight * 0.75;
-    var maxLeft = document.querySelector('.exploration-mapContainer').offsetWidth * 0.75;
+    const map = document.querySelector('.exploration-map');
+    const mapContainer = document.querySelector('.exploration-mapContainer');
+    
+    var maxTop = mapContainer.offsetHeight * 0.75;
+    var maxLeft = mapContainer.offsetWidth * 0.75;
 
-    document.querySelector('.exploration-mapContainer').addEventListener('wheel', e => {
-        document.querySelector('.exploration-map').style.transition = '';
+    mapContainer.addEventListener('wheel', e => {
+        map.style.transition = '';
+        mapContainer.style.transition = '';
         e.preventDefault();
 
         const direction = Math.sign(e.deltaY);
@@ -2617,18 +2621,17 @@ function generateExplorationMapEvents() {
         zoomLevel = Math.max(0.5, zoomLevel);
         zoomLevel = Math.min(1, zoomLevel);
 
-        document.querySelector('.exploration-map').style.transform = 'scale(' + zoomLevel + ')';
+        map.style.transform = 'scale(' + zoomLevel + ')';
     });
-    document.querySelector('.exploration-mapContainer').addEventListener('mousedown', e => {
-        document.querySelector('.exploration-map').style.transition = '';
+    mapContainer.addEventListener('mousedown', e => {
+        map.style.transition = '';
+        mapContainer.style.transition = '';
         var moving = true;
 
         var initX = e.clientX;
         var initY = e.clientY;
 
-        const map = document.querySelector('.exploration-map');
-
-        document.querySelector('.exploration-mapContainer').addEventListener('mousemove', e => {
+        mapContainer.addEventListener('mousemove', e => {
             if(!moving) return;
 
             const deltaX = e.clientX - initX;
@@ -2644,19 +2647,24 @@ function generateExplorationMapEvents() {
             offsetLeft = (offsetLeft > 0 && offsetLeft > maxLeft) ? maxLeft : (offsetLeft < 0 && offsetLeft < -maxLeft) ? -maxLeft : offsetLeft;
             map.style.left = offsetLeft + 'px';
             map.style.top = offsetTop + 'px';
+            mapContainer.style.backgroundPositionX = (offsetLeft/2) + 'px';
+            mapContainer.style.backgroundPositionY = (offsetTop/2) + 'px';
         });
 
-        document.querySelector('.exploration-mapContainer').addEventListener('mouseup', e => {
+        mapContainer.addEventListener('mouseup', e => {
             moving = false;
         });
-        document.querySelector('.exploration-mapContainer').addEventListener('mouseleave', e => {
+        mapContainer.addEventListener('mouseleave', e => {
             moving = false;
         });
     });
     document.querySelector('.exploration-repositionMap').addEventListener('click', e => {
-        document.querySelector('.exploration-map').style.transition = 'left .5s cubic-bezier(1,0,0,1), top .5s cubic-bezier(1,0,0,1)';
-        document.querySelector('.exploration-map').style.left = '0px';
-        document.querySelector('.exploration-map').style.top = '0px';
+        map.style.transition = 'left .5s cubic-bezier(1,0,0,1), top .5s cubic-bezier(1,0,0,1)';
+        mapContainer.style.transition = 'background-position-x .5s cubic-bezier(1,0,0,1), background-position-y .5s cubic-bezier(1,0,0,1)';
+        map.style.left = '0px';
+        map.style.top = '0px';
+        mapContainer.style.backgroundPositionX = '0px';
+        mapContainer.style.backgroundPositionY = '0px';
     })
 }
 
