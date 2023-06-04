@@ -13,7 +13,6 @@
 class DungeonFloor {
     constructor(props) {
         this.depth = getValueFromObject(props, "depth", 0);
-        this.roomsAmount = getValueFromObject(props, "roomsAmount", getRandomNumber(20, 30));
         this.gridSize = getValueFromObject(props, "gridSize", [41, 21]);
         this.config = getValueFromObject(props, "config", {
             roomTypes: {
@@ -28,13 +27,16 @@ class DungeonFloor {
         this.pathCurve = getValueFromObject(props, "pathCurve", 0.3);
         this.chaoticCurve = getValueFromObject(props, "chaoticCurve", 7);
         this.clustersAmount = getValueFromObject(props, "clustersAmount", 7);
+        this.roomsPerCluster = getValueFromObject(props, "roomsPerCluster", 5);
+
+        this.roomsAmount = this.clustersAmount * this.roomsPerCluster;
 
         this.rooms = [];
         this.connectors = [];
         this.clusters = [];
 
         this.generateFloorLayout();
-        //this.generateRooms();
+        this.generateRooms();
     }
 
     generateFloorLayout() {
@@ -73,21 +75,7 @@ class DungeonFloor {
         
         // For each room
         for(let i = 0; i < this.roomsAmount; i++) {
-            // Create coordinates. Regenerate new coordinates if they already exist in the reservedCoordinates array.
-            // First and last room of the dungeon are the Entrance and the Chasm (exit). They're positioned on the first row, middle and last row, middle.
-            do {
-                if(i === 0) coordinates = [0, Math.round((this.gridSize[1] - 1) / 2)];
-                else if(i === this.roomsAmount - 1) coordinates = [this.gridSize[0] - 1, Math.round((this.gridSize[1] - 1) / 2)];
-                else coordinates = [getRandomNumber(0, this.gridSize[0]), getRandomNumber(0, this.gridSize[1])];
-            } while(reservedCoordinates.includes(coordinates));
-            reservedCoordinates.push(coordinates);
-
-            // Create new DungeonRoom with coordinates.
-            // First and last rooms are Entrance and Chasm.
-            this.rooms.push(new DungeonRoom({
-                coordinates: coordinates,
-                type: i === 0 ? Data.DungeonRoomType.ENTRANCE : i === this.roomsAmount-1 ? Data.DungeonRoomType.CHASM : types[i]
-            }));
+            
         }
     }
 
