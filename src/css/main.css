@@ -3707,6 +3707,61 @@ table.astralForgeShards td {
 
 /* ------------- DUNGEONS ------------- */
 
+.explorationContainer {
+    width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem;
+}
+
+#exploration-mapPanel {
+    border: 1px dashed grey;
+    width: 60%;
+    height: 700px;
+}
+.exploration-mapContainer {
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    cursor: move;
+}
+.exploration-map {
+    width: 800px;
+    height: 800px;
+    background-color: white;
+    transform: scale(1);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    transition: transform .5s cubic-bezier(1,0,0,1);
+
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.exploration-repositionMap {
+    width: 25px;
+    height: 25px;
+
+    position: absolute;
+    background-color: black;
+    z-index: 1;
+}
+
+#exploration-infosPanel {
+    border: 1px dashed grey;
+    width: 40%;
+    height: 700px;
+}
+
 /* ------------------------------------ */
 
 .editedIcon {

@@ -2580,8 +2580,83 @@ function addBattleNotification(message) {
     document.querySelector('.battle-notifications').innerHTML = str;
 }
 
-function drawDungeonFloor() {
-    
+function drawExplorationScreen() {
+    document.querySelector('#explorationDiv').innerHTML = '<div class="explorationContainer"></div>';
+
+    let str ='';
+
+    str += '<div id="exploration-mapPanel">'
+    str += '<div class="exploration-repositionMap"></div>';
+    str += '<div class="exploration-mapContainer">';
+    str += '<div class="exploration-map">';
+    str += '<div style="background-color: red; width: 50px; height: 50px;"></div>';
+    str += '</div>';
+    str += '</div>';
+    str += '</div>';
+
+
+    str += '<div id="exploration-infosPanel"></div>';
+
+    document.querySelector('.explorationContainer').innerHTML = str;
+
+    generateExplorationMapEvents();
+}
+
+function generateExplorationMapEvents() {
+    let zoomLevel = 1;
+    var maxTop = document.querySelector('.exploration-mapContainer').offsetHeight * 0.75;
+    var maxLeft = document.querySelector('.exploration-mapContainer').offsetWidth * 0.75;
+
+    document.querySelector('.exploration-mapContainer').addEventListener('wheel', e => {
+        e.preventDefault();
+
+        const direction = Math.sign(e.deltaY);
+
+        zoomLevel += -direction * 0.5;
+        zoomLevel = Math.max(0.5, zoomLevel);
+        zoomLevel = Math.min(1, zoomLevel);
+
+        document.querySelector('.exploration-map').style.transform = 'scale(' + zoomLevel + ')';
+    });
+    document.querySelector('.exploration-mapContainer').addEventListener('mousedown', e => {
+        document.querySelector('.exploration-map').style.transition = '';
+        var moving = true;
+
+        var initX = e.clientX;
+        var initY = e.clientY;
+
+        const map = document.querySelector('.exploration-map');
+
+        document.querySelector('.exploration-mapContainer').addEventListener('mousemove', e => {
+            if(!moving) return;
+
+            const deltaX = e.clientX - initX;
+            const deltaY = e.clientY - initY;
+            initX = e.clientX;
+            initY = e.clientY;
+
+            let left = isNaN(parseInt(map.style.left)) ? 0 : parseInt(map.style.left);
+            let top = isNaN(parseInt(map.style.top)) ? 0 : parseInt(map.style.top);
+            let offsetLeft = left + deltaX;
+            let offsetTop = top + deltaY;
+            offsetTop = (offsetTop > 0 && offsetTop > maxTop) ? maxTop : (offsetTop < 0 && offsetTop < -maxTop) ? -maxTop : offsetTop;
+            offsetLeft = (offsetLeft > 0 && offsetLeft > maxLeft) ? maxLeft : (offsetLeft < 0 && offsetLeft < -maxLeft) ? -maxLeft : offsetLeft;
+            map.style.left = offsetLeft + 'px';
+            map.style.top = offsetTop + 'px';
+        });
+
+        document.querySelector('.exploration-mapContainer').addEventListener('mouseup', e => {
+            moving = false;
+        });
+        document.querySelector('.exploration-mapContainer').addEventListener('mouseleave', e => {
+            moving = false;
+        });
+    });
+    document.querySelector('.exploration-repositionMap').addEventListener('click', e => {
+        document.querySelector('.exploration-map').style.transition = 'left .5s cubic-bezier(1,0,0,1), top .5s cubic-bezier(1,0,0,1)';
+        document.querySelector('.exploration-map').style.left = '0px';
+        document.querySelector('.exploration-map').style.top = '0px';
+    })
 }
 
 function drawEonScreen() {
