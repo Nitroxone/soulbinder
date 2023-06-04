@@ -21,6 +21,8 @@ class DungeonFloor {
             "sacrificial alcove": getRandomNumber(2, 5),
             "dormant room": getRandomNumber(3, 8),
             "antechamber of marvels": 1,
+            "entrance": 1,
+            "chasm": 1,
         });
         this.pathCurve = getValueFromObject(props, "pathCurve", 0);
         this.chaoticCurve = getValueFromObject(props, "chaoticCurve", 2);
@@ -40,6 +42,7 @@ class DungeonFloor {
 
     /**
      * Generates this DungeonFloor's layout by placing clusters on the grid, based on the amount of clusters, their curve and their irregularity.
+     * Then, around each cluster, rooms are placed.
      */
     generateFloorLayout() {
         const centerColumn = Math.floor(this.gridSize[1] / 2) - 1;
@@ -55,7 +58,7 @@ class DungeonFloor {
                 }));
 
                 let count = 0;
-                let j =1;
+                let j = 1;
                 while(count < this.roomsPerCluster) { 
                     if (row - j >= 0 && !hasRoomWithCoordinates(this.rooms, [row - j, column]) && count < this.roomsPerCluster) {
                         // Above
@@ -119,9 +122,10 @@ class DungeonFloor {
         }
     }
 
+    /**
+     * Generates the room types for this floor and assigns them to each room.
+     */
     generateRooms() {
-        let reservedCoordinates = []; // Will contain all of the coordinates that have already been generated
-        let coordinates; // Coordinates for each room
         let types = []; // Contains all of the room types that must be added
 
         // Add all of this floor's room types (in this.roomTypes) to the list of types that will be added
@@ -136,6 +140,7 @@ class DungeonFloor {
         for(let i = 0; i < toAdd; i++) {
             types.push(Data.DungeonRoomType.EMPTY);
         }
+        // Randomize that a little
         types = shuffle(types);
         
         // For each room
@@ -160,7 +165,7 @@ class DungeonFloor {
                             row.push('B');
                             break;
                         case Data.DungeonRoomType.CHASM:
-                            row.push('C');
+                            row.push('?');
                             break;
                         case Data.DungeonRoomType.DORMANT_ROOM:
                             row.push('D');
@@ -169,7 +174,7 @@ class DungeonFloor {
                             row.push('§');
                             break;
                         case Data.DungeonRoomType.ENTRANCE:
-                            row.push('$');
+                            row.push('!');
                             break;
                         case Data.DungeonRoomType.EON_WELL:
                             row.push('E');
