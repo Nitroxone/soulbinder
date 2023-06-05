@@ -2382,6 +2382,10 @@ function getBattleSkills(refresh = false) {
 function getBattleConsumables(refresh = false) {
     let str = '';
 
+    game.inventory.consumables.forEach(cons => {
+        if(cons.amount > 0) str += '<div id="btl-' + cons.id + '" class="inventoryItem" style="' + getIcon(cons) + '; border: 2px solid ' + getRarityColorCode(cons.rarity) +'"></div>'
+    })
+
     if(refresh) {
         document.querySelector('.battle-consumablesContainer').innerHTML = str;
         return;
