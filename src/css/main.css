@@ -4595,7 +4595,7 @@ table.astralForgeShards td {
 
 .eonFragment {
     font-family: RobotoSlabMed;
-    text-shadow: 1px 1px rgba(0, 0, 0, 0.1);
+    text-shadow: 1px 1px rgba(255, 255, 255, 0.15);
     font-size: 13px;
     color: #4d4537;
     text-align: justify;
