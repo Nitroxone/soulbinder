@@ -24,9 +24,10 @@ class DungeonFloor {
             "entrance": 1,
             "chasm": 1,
         });
+        this.shape = getValueFromObject(props, "shape", Data.DungeonClusterPattern.LINE)
         this.pathCurve = getValueFromObject(props, "pathCurve", 0.3);
-        this.chaoticCurve = getValueFromObject(props, "chaoticCurve", 5);
-        this.clustersAmount = getValueFromObject(props, "clustersAmount", 7);
+        this.chaoticCurve = getValueFromObject(props, "chaoticCurve", 2);
+        this.clustersAmount = getValueFromObject(props, "clustersAmount", 6);
         this.roomsPerCluster = getValueFromObject(props, "roomsPerCluster", 5);
         this.unequalRepartition = getValueFromObject(props, "unequalRepartition", true);
 
@@ -77,12 +78,22 @@ class DungeonFloor {
      */
     generateFloorLayout() {
         const centerColumn = Math.floor(this.gridSize[1] / 2);
+        const centerRow = Math.floor(this.gridSize[0] / 2);
         const roomCounts = this.generateRoomCounts();
         for(let i = 0; i < this.clustersAmount; i++) {
-            const row = Math.floor((this.gridSize[0] - 1) * i / (this.clustersAmount - 1));
-            let offset = Math.floor(this.gridSize[1] * this.pathCurve * Math.sin(i * Math.PI * this.chaoticCurve / (this.clustersAmount - 1)));
-            offset = Math.max(-centerColumn, Math.min(offset, this.gridSize[1] - 1 - centerColumn));
-            const column = centerColumn + offset;
+            let row, column;
+            if(this.shape === Data.DungeonClusterPattern.LINE) {
+                row = Math.floor((this.gridSize[0] - 1) * i / (this.clustersAmount - 1));
+                let offset = Math.floor(this.gridSize[1] * this.pathCurve * Math.sin(i * Math.PI * this.chaoticCurve / (this.clustersAmount - 1)));
+                offset = Math.max(-centerColumn, Math.min(offset, this.gridSize[1] - 1 - centerColumn));
+                column = centerColumn + offset;
+            } else if(this.shape === Data.DungeonClusterPattern.CIRCLE) {
+                let angle = i * (2 * Math.PI / this.clustersAmount);
+                let radius = this.pathCurve * Math.min(centerRow, centerColumn);
+                row = Math.round(centerRow + radius * Math.sin(angle));
+                column = Math.round(centerColumn + radius * Math.cos(angle));
+            }
+
             if(row >= 0 && row < this.gridSize[0] && column >= 0 && column < this.gridSize[1]) {
                 const cl = new DungeonRoom({
                     coordinates: [row, column],

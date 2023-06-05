@@ -450,10 +450,7 @@ const Data = Object.freeze({
     },
     DungeonClusterPattern: {
         CIRCLE: 'circle',
-        SQUARE: 'square',
-        RECTANGLE: 'rectangle',
-        HALF_CIRCLE: 'half circle',
-        SPLIT_CIRCLE: 'split circle'
+        LINE: 'line'
     },
     LogMessageType: {
         REGULAR: "regular",
