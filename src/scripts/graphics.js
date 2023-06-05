@@ -1,4 +1,4 @@
-div/**
+/**
  * Spawns a floating tooltip on screen based on the provided Item's data.
  * @param {Item} item the Item data to fill the tooltip with
  */
@@ -854,6 +854,9 @@ function spawnStriderPopup(strider, refresh = false) {
     str += '<div id="strider-trinket2" class="runeInfo runeInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \''+ strider.name +'\').equipTrinket(event);" style="' + getIcon(strider.trinkets[1], 25, true) + '">';
     str += '<div class="runeInfo-infos"><div class="runeTitle" style="text-align: left;">' + (strider.trinkets[1] ? getSmallThingNoIcon(strider.trinkets[1]) : 'No trinket') + '</div>';
     str += '</div></div>';
+    str += '<div id="strider-trinket3" class="runeInfo runeInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \''+ strider.name +'\').equipTrinket(event);" style="' + getIcon(strider.trinkets[2], 25, true) + '">';
+    str += '<div class="runeInfo-infos"><div class="runeTitle" style="text-align: left;">' + (strider.trinkets[2] ? getSmallThingNoIcon(strider.trinkets[2]) : 'No trinket') + '</div>';
+    str += '</div></div>';
     if(!strider.eqWeaponBoth) {
         str += '<div id="strider-weaponLeft" class="runeInfo runeInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \'' + strider.name + '\').equipWeapon(event, \'' + Data.WeaponHand.LEFT + '\');" style="' + getIcon(strider.eqWeaponLeft, 25, true) + '")>';
         str += '<div class="runeInfo-infos"><div class="runeTitle" style="text-align: left;">' + (strider.eqWeaponLeft ? getSmallThingNoIcon(strider.eqWeaponLeft) : 'No weapon') + '</div>';
@@ -898,6 +901,7 @@ function spawnStriderPopup(strider, refresh = false) {
     document.querySelector('#strider-shield').addEventListener('contextmenu', e => {e.stopImmediatePropagation(); e.preventDefault(); strider.unequipArmor(strider.eqShield)});
     document.querySelector('#strider-trinket1').addEventListener('contextmenu', e => {e.stopImmediatePropagation(); e.preventDefault(); strider.unequipTrinket(strider.trinkets[0])});
     document.querySelector('#strider-trinket2').addEventListener('contextmenu', e => {e.stopImmediatePropagation(); e.preventDefault(); strider.unequipTrinket(strider.trinkets[1])});
+    document.querySelector('#strider-trinket3').addEventListener('contextmenu', e => {e.stopImmediatePropagation(); e.preventDefault(); strider.unequipTrinket(strider.trinkets[2])});
     if(!strider.eqWeaponBoth) {
         document.querySelector('#strider-weaponLeft').addEventListener('contextmenu', e => {e.stopImmediatePropagation(); e.preventDefault(); strider.unequipWeapon(Data.WeaponHand.LEFT)});
         document.querySelector('#strider-weaponRight').addEventListener('contextmenu', e => {e.stopImmediatePropagation(); e.preventDefault(); strider.unequipWeapon(Data.WeaponHand.RIGHT)});
@@ -1762,364 +1766,6 @@ function getAstralForgeEffects(forgeItem, refresh = false) {
     return str;
 }
 
-function drawExploreScreen() {
-    document.querySelector('#explorationDiv').innerHTML = '<div class="dungeonContainer"></div>';
-    let str = '';
-    str += '<div class="biomeContainer coolBorder">';
-
-    str += '<div class="biomeContainerHeader">';
-    str += '<h1>EXPLORE THE DUNGEONS</h1>';
-    str += '<p>Gather the eons and get your hands on powerful items!</p>';
-    str += '</div>';
-
-    str += '<div class="jungle biome coolBorderBis insetShadowCommon">'
-    str += '<h1 class="barredLeftFull">JUNGLE</h1>'
-    str += '</div>';
-
-    str += '<div class="desert biome coolBorderBis insetShadowCommon">'
-    str += '<h1 class="barredLeftFull">DESERT</h1>'
-    str += '</div>';
-
-    str += '<div class="snow biome coolBorderBis insetShadowCommon">'
-    str += '<h1 class="barredLeftFull">SNOW</h1>'
-    str += '</div>';
-
-    str += '<div class="swamp biome coolBorderBis insetShadowCommon">'
-    str += '<h1 class="barredLeftFull">SWAMP</h1>'
-    str += '</div>';
-
-    str += '<div class="coast biome coolBorderBis insetShadowCommon">'
-    str += '<h1 class="barredLeftFull">COAST</h1>'
-    str += '</div>';
-
-    str += '<div class="plain biome coolBorderBis insetShadowCommon">'
-    str += '<h1 class="barredLeftFull">PLAINS</h1>'
-    str += '</div>';
-
-    str += '</div>';
-
-    str += '<div class="zones coolBorder">';
-
-    str += '<div class="cave zone simpleButton normalSized">';
-    str += 'CAVE'
-    str += '</div>';
-
-    str += '<div class="dense zone simpleButton normalSized">';
-    str += 'DENSE'
-    str += '</div>';
-
-    str += '<div class="fortress zone simpleButton normalSized">';
-    str += 'FORTRESS'
-    str += '</div>';
-    
-    str += '</div>';
-
-    str += '<div class="explore simpleButton normalSized">';
-    str += 'EXPLORE'
-    str += '</div>';
-    document.querySelector('.dungeonContainer').innerHTML = str;
-
-    // gets the biome chosen by the player and stores it in game.selectedBiome
-    generateExploreScreenEvents();
-}
-
-function generateExploreScreenEvents() {
-    const biomes = document.querySelectorAll('.biome');
-    biomes.forEach(biome => {
-        biome.addEventListener('click', (event) => {
-            const clickedBiome = event.target;
-            const biomeName = clickedBiome.classList[0];
-    
-            biomes.forEach(otherBiome => {
-                if (otherBiome !== clickedBiome) {
-                    otherBiome.classList.remove('biome__active');
-                }
-        });
-    
-        if (clickedBiome.classList.contains('biome__active')) {
-            clickedBiome.classList.remove('biome__active');
-            game.selectedBiome = null;
-        } else {
-            clickedBiome.classList.add('biome__active');
-            game.selectedBiome = biomeName;
-        }
-    
-        console.log(biomeName);
-        return biomeName;
-      });
-    });
-
-    // gets the zone chosen by the player and stores it in game.selectedZone
-    const zones = document.querySelectorAll('.zone');
-    zones.forEach(zone => {
-        zone.addEventListener('click', (event) => {
-            const clickedZone = event.target;
-            const zoneName = clickedZone.classList[0];
-
-            console.log(zoneName);
-            game.selectedZone = zoneName;
-            return zoneName;
-        });
-    });
-
-    const explore = document.querySelector('.explore');
-    explore.addEventListener('click', (e) => {
-        game.startDungeon();
-    });
-}
-
-/**
- * Returns a dungeonButtons div that contains a button for each Data.DungeonEventInstance in the provided array.
- * @param {Data.DungeonEventInstance[]} list the list of options to generate
- * @returns {string} a dungeonButtons HTML string
- */
-function getDungeonButtons(list) {
-    let str = '';
-    let id = '';
-    let message = '';
-
-    str += '<div class="dungeonButtons">';
-    
-    list.forEach(el => {
-        if(el === Data.DungeonEventInstance.BRIDGE) {
-            id = 'bridge';
-            message = 'Go deeper';
-        }
-        else if(el === Data.DungeonEventInstance.ROOM) {
-            id = 'next';
-            message = 'Keep exploring';
-        }
-
-        str += '<button class="dungeonButton simpleButton" id="' + id + 'Button">' + message + '</button>';
-    });
-
-    str += '</div>';
-    return str;
-}
-
-// this function is exclusive to event entrances, which are a special case in that they have two buttons of their own.
-function generateDungeonEntranceEvents() {
-    document.querySelector('#explorationDiv').innerHTML = '<div class="dungeonContainer"></div>';
-
-    let str = '';
-    str += '<div class="dungeonDialogue coolBorder">';
-    str += game.currentDungeon.getCurrentEventSet();
-    str += '</div>';
-
-    str += '<div class="dungeonButtons">'
-    str += '<button class="dungeonButton simpleButton" id="enterDungeon">Enter dungeon</button>';
-    str += '<button class="dungeonButton simpleButton" id="exitDungeon">Exit dungeon</button>';
-    str += '</div>'
-
-    document.querySelector('.dungeonContainer').innerHTML = str;
-
-    const enter = document.querySelector('#enterDungeon');
-    const exit = document.querySelector('#exitDungeon');
-
-    exit.addEventListener('click', e => {
-        game.currentDungeon = null;
-        drawExploreScreen();
-    }); 
-
-    enter.addEventListener('click', e => {
-        displayCurrentEventEncounter(game.currentDungeon.getCurrentEventEncounter());
-    });
-}
-
-function generateDungeonClosingEvent() {
-    document.querySelector('#explorationDiv').innerHTML = '<div class="dungeonContainer"></div>';
-
-    let str = '';
-    str += '<div class="dungeonDialogue coolBorder">';
-    str += game.currentDungeon.getCurrentEventSet();
-    str += '</div>';
-
-    str += '<div class="dungeonButtons">'
-    str += '<button class="dungeonButton simpleButton" id="exitDungeon">Exit dungeon</button>';
-    str += '</div>'
-
-    document.querySelector('.dungeonContainer').innerHTML = str;
-
-    const exit = document.querySelector('#exitDungeon');
-
-    exit.addEventListener('click', e => {
-        game.currentDungeon = null;
-        drawExploreScreen();
-    }); 
-}
-
-// displays set for the current event; calls up the encounters' display function afterwards
-function displayCurrentEventSet() {
-    let str = '';
-    str += '<div class="dungeonDialogue coolBorder">';
-    str += game.currentDungeon.getCurrentEventSet();
-    str += '</div>';
-    str += '<div class="dungeonButtons">'
-    str += '<button class="dungeonButton simpleButton" id="nextButton">Next</button>';
-    str += '</div>'
-
-    document.querySelector('.dungeonContainer').innerHTML = str;
-
-    const next = document.querySelector('#nextButton');
-    next.addEventListener('click', e => {
-        displayCurrentEventEncounter(game.currentDungeon.getCurrentEventEncounter());
-    });
-}
-
-// manages the display of choice quotes, allowing the player to choose whether to stay at the current dungeon level or go deeper
-function displayCurrentEventChoiceQuote() {
-
-    let str = '';
-    str += '<div class="dungeonQuote coolBorder">';
-    str += game.currentDungeon.getCurrentEventChoiceQuote();
-    str += '</div>';
-
-    if (!game.currentDungeon.isLastRoom() && !game.currentDungeon.isLastLevel()) {
-
-        str += getDungeonButtons([Data.DungeonEventInstance.BRIDGE, Data.DungeonEventInstance.ROOM]);
-
-        document.querySelector('.dungeonContainer').innerHTML = str;
-
-        document.querySelector('#bridgeButton').addEventListener('click', e => {
-            game.currentDungeon.generateEvent(Data.DungeonEventInstance.BRIDGE);
-            displayCurrentEventSet();
-        });
-
-        const next = document.querySelector('#nextButton');
-        next.addEventListener('click', e => {
-            game.currentDungeon.generateEvent();
-            displayCurrentEventSet();
-        });
-    }
-    // handles the special case where the event is the last room of the current level, but the current level is not the last level of the dungeon
-    else if (game.currentDungeon.isLastRoom() && !game.currentDungeon.isLastLevel()) {
-
-        str += getDungeonButtons([Data.DungeonEventInstance.BRIDGE]);
-
-        document.querySelector('.dungeonContainer').innerHTML = str;
-
-        document.querySelector('#bridgeButton').addEventListener('click', e => {
-            game.currentDungeon.generateEvent(Data.DungeonEventInstance.BRIDGE);
-            displayCurrentEventSet();
-        });
-    }
-    // manages the display of events strictly related to the last level of the dungeon, but which are not the last event of the last level
-    else if ((!game.currentDungeon.isLastRoom() && game.currentDungeon.isLastLevel())) {
-
-        str += getDungeonButtons([Data.DungeonEventInstance.ROOM]);
-
-        document.querySelector('.dungeonContainer').innerHTML = str;
-
-        const next = document.querySelector('#nextButton');
-        next.addEventListener('click', e => {
-            game.currentDungeon.generateEvent();
-            displayCurrentEventSet();
-        });
-    }
-    // must manage the script's orientation towards the GenerateClosingEvent() function to display a particular set, relative to the last event of the last level of a dungeon (not functional at the moment)
-    else {
-
-        str += getDungeonButtons([Data.DungeonEventInstance.BRIDGE, Data.DungeonEventInstance.ROOM]);
-
-        document.querySelector('.dungeonContainer').innerHTML = str;
-        const next = document.querySelector('#nextButton');
-        next.addEventListener('click', e => {
-            game.currentDungeon.generateEvent(Data.DungeonEventType.CLOSING);
-            generateDungeonClosingEvent();
-        });
-    }
-}
-function displayHostileEncounter() {
-    console.log('HOSTILE');
-    let str = '';
-    str += 'quote: ' + game.currentDungeon.getCurrentEventEncounterQuote() + ', enemyFormation: ' + game.currentDungeon.getCurrentEventEncounterEnemyFormation();
-    str += '<button class="dungeonButton simpleButton" id="nextButton">Next</button>';
-
-    document.querySelector('.dungeonContainer').innerHTML = str;
-}
-
-function displayFriendlyEncounter() {
-    let str = '';
-    str += 'quote: ' + game.currentDungeon.getCurrentEventEncounterQuote() + ' friendly encounter';
-    str += '<button class="dungeonButton simpleButton" id="nextButton">Next</button>';
-
-    document.querySelector('.dungeonContainer').innerHTML = str;
-}
-
-function displayNeutralEncounter() {
-    console.log('ici le bug piti piti');
-    let str = '';
-    str += 'quote: ' + game.currentDungeon.getCurrentEventEncounterQuote() + ' neutral encounter';
-    str += '<button class="dungeonButton simpleButton" id="nextButton">Next</button>';
-
-    document.querySelector('.dungeonContainer').innerHTML = str;
-}
-
-
-
-
-// manages the display of encounters in events (to be linked with battle)
-function displayCurrentEventEncounter(event) {
-    switch (game.currentDungeon.currentEvent.type) {
-        case Data.DungeonEventType.REGULAR:
-            if (game.currentDungeon.currentEvent.instance === Data.DungeonEventInstance.ROOM) {
-                if (game.currentDungeon.isEncounterHostile()) {
-                    console.log('coucou');
-                    displayHostileEncounter();
-                    game.currentDungeon.startEncounterFight();
-                }
-                else if (game.currentDungeon.isEncounterFriendly()) {
-                    displayFriendlyEncounter();
-                }
-                else {
-                    displayNeutralEncounter();
-                }
-
-                const next = document.querySelector('#nextButton');
-                next.addEventListener('click', e => {
-                    displayCurrentEventChoiceQuote();
-                }); 
-            }
-            else {
-                if (game.currentDungeon.isEncounterHostile()) {
-                    displayHostileEncounter();
-                }
-                else if (game.currentDungeon.isEncounterFriendly()) {
-                    displayFriendlyEncounter();
-                }
-                else {
-                    displayNeutralEncounter();
-                }
-
-                const next = document.querySelector('#nextButton');
-                next.addEventListener('click', e => {
-                    game.currentDungeon.generateEvent();
-                    displayCurrentEventSet();
-                });
-            }
-            break;
-        
-        case Data.DungeonEventType.ENTRANCE:
-            let str = '';
-            str += 'type: ' + event.type + ', mobtype: ' + event.mobType;
-            str += '<button class="dungeonButton simpleButton" id="nextButton">Next</button>';
-
-            document.querySelector('.dungeonContainer').innerHTML = str;
-
-            const next = document.querySelector('#nextButton');
-            next.addEventListener('click', e => {
-                game.currentDungeon.generateEvent();
-                displayCurrentEventSet();
-            });
-            break;
-    }
-}
-
-// start of function chain; this function calls the generation of the current dungeon entrance event
-function drawDungeon() {
-    generateDungeonEntranceEvents();
-}
-
 function drawBattleScreen() {
     document.querySelector('#battleDiv').innerHTML = '<div class="battleContainer"><div class="battle"></div></div>';
 
@@ -2942,6 +2588,93 @@ function addBattleNotification(message) {
     document.querySelector('.battle-notifications').innerHTML = str;
 }
 
+function drawExplorationScreen() {
+    document.querySelector('#explorationDiv').innerHTML = '<div class="explorationContainer"></div>';
+
+    let str ='';
+
+    str += '<div id="exploration-mapPanel">'
+    str += '<div class="exploration-repositionMap"></div>';
+    str += '<div class="exploration-mapContainer">';
+    str += '<div class="exploration-map">';
+    str += '<div style="background-color: red; width: 50px; height: 50px;"></div>';
+    str += '</div>';
+    str += '</div>';
+    str += '</div>';
+
+
+    str += '<div id="exploration-infosPanel"></div>';
+
+    document.querySelector('.explorationContainer').innerHTML = str;
+
+    generateExplorationMapEvents();
+}
+
+function generateExplorationMapEvents() {
+    let zoomLevel = 1;
+    const map = document.querySelector('.exploration-map');
+    const mapContainer = document.querySelector('.exploration-mapContainer');
+    
+    var maxTop = mapContainer.offsetHeight * 0.75;
+    var maxLeft = mapContainer.offsetWidth * 0.75;
+
+    mapContainer.addEventListener('wheel', e => {
+        map.style.transition = '';
+        mapContainer.style.transition = '';
+        e.preventDefault();
+
+        const direction = Math.sign(e.deltaY);
+
+        zoomLevel += -direction * 0.5;
+        zoomLevel = Math.max(0.5, zoomLevel);
+        zoomLevel = Math.min(1, zoomLevel);
+
+        map.style.transform = 'scale(' + zoomLevel + ')';
+    });
+    mapContainer.addEventListener('mousedown', e => {
+        map.style.transition = '';
+        mapContainer.style.transition = '';
+        var moving = true;
+
+        var initX = e.clientX;
+        var initY = e.clientY;
+
+        mapContainer.addEventListener('mousemove', e => {
+            if(!moving) return;
+
+            const deltaX = e.clientX - initX;
+            const deltaY = e.clientY - initY;
+            initX = e.clientX;
+            initY = e.clientY;
+
+            let left = isNaN(parseInt(map.style.left)) ? 0 : parseInt(map.style.left);
+            let top = isNaN(parseInt(map.style.top)) ? 0 : parseInt(map.style.top);
+            let offsetLeft = left + deltaX;
+            let offsetTop = top + deltaY;
+            offsetTop = (offsetTop > 0 && offsetTop > maxTop) ? maxTop : (offsetTop < 0 && offsetTop < -maxTop) ? -maxTop : offsetTop;
+            offsetLeft = (offsetLeft > 0 && offsetLeft > maxLeft) ? maxLeft : (offsetLeft < 0 && offsetLeft < -maxLeft) ? -maxLeft : offsetLeft;
+            map.style.left = offsetLeft + 'px';
+            map.style.top = offsetTop + 'px';
+            mapContainer.style.backgroundPositionX = (offsetLeft/2) + 'px';
+            mapContainer.style.backgroundPositionY = (offsetTop/2) + 'px';
+        });
+
+        mapContainer.addEventListener('mouseup', e => {
+            moving = false;
+        });
+        mapContainer.addEventListener('mouseleave', e => {
+            moving = false;
+        });
+    });
+    document.querySelector('.exploration-repositionMap').addEventListener('click', e => {
+        map.style.transition = 'left .5s cubic-bezier(1,0,0,1), top .5s cubic-bezier(1,0,0,1)';
+        mapContainer.style.transition = 'background-position-x .5s cubic-bezier(1,0,0,1), background-position-y .5s cubic-bezier(1,0,0,1)';
+        map.style.left = '0px';
+        map.style.top = '0px';
+        mapContainer.style.backgroundPositionX = '0px';
+        mapContainer.style.backgroundPositionY = '0px';
+    })
+}
 
 function drawEonScreen() {
     document.querySelector('#eonsDiv').innerHTML = '<div class="eonsContainer"></div>';

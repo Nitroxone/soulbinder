@@ -421,27 +421,22 @@ const Data = Object.freeze({
     //------------------------------------------------------
     // DUNGEON PARAM
     //------------------------------------------------------
-    DungeonEventType: {
+    DungeonRoomType: {
         ENTRANCE: "entrance",
-        REGULAR: "regular",
-        CLOSING: "closing"
-    },
-    DungeonEventInstance: {
-        ROOM: "room",
-        BRIDGE: "bridge",
-    },
-    DungeonEncounterType: {
-        HOSTILE: "hostile",
-        FRIENDLY: "friendly",
-        NEUTRAL: "neutral"
+        CHASM: "chasm",
+        BOSS: "boss room",
+        EON_WELL: "eon well",
+        FRACTURED_HOLLOW: "fractured hollow",
+        SACRIFICIAL_ALCOVE: "sacrificial alcove",
+        ANTECHAMBER_OF_MARVELS: "antechamber of marvels",
+        DORMANT_ROOM: "dormant room",
+        EMPTY: "empty room",
+        CLUSTER: "cluster",
     },
     DungeonEncounterHostileBattleType: {
         GROUP: "group",
         WAVE: "wave",
         BOSS: "boss"
-    },
-    DungeonEncounterFriendlyMobType: {
-        ALLIED: "allied"
     },
     DungeonBiome: {
         JUNGLE: "jungle",
@@ -453,11 +448,12 @@ const Data = Object.freeze({
         COAST: "coast",
         ALL: "all",
     },
-    DungeonZone: {
-        DENSE: "dense",
-        CAVE: "cave",
-        VILLAGE: "village",
-        ALL: "all",
+    DungeonClusterPattern: {
+        CIRCLE: 'circle',
+        SQUARE: 'square',
+        RECTANGLE: 'rectangle',
+        HALF_CIRCLE: 'half circle',
+        SPLIT_CIRCLE: 'split circle'
     },
     LogMessageType: {
         REGULAR: "regular",
