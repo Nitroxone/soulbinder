@@ -1802,8 +1802,8 @@ function getBattleGlobalInfo(refresh = false) {
     let str = '';
 
     str += '<div class="battle-dungeonInfo">'
-    str += '<h1>' + (game.currentDungeon ? capitalizeFirstLetter(game.currentDungeon.biome) + ' ' + capitalizeFirstLetter(game.currentDungeon.zone) : 'Unknown Dungeon') + '</h1>';
-    str += '<h4>' + (game.currentDungeon ? 'Depth ' + game.currentDungeon.currentLevel + ', Room ' + game.currentDungeon.currentLevelRoomNumber : 'Depth X, Room Y') + '</h4>'
+    str += '<h1>' + (game.currentDungeon ? capitalizeFirstLetter(game.currentDungeon.name) : 'Unknown Dungeon') + '</h1>';
+    str += '<h4>' + (game.currentDungeon ? 'Depth ' + game.currentDungeon.currentFloor.depth + ' [' + + game.currentDungeon.currentFloor.currentRoom.coordinates[0] + ', ' + game.currentDungeon.currentFloor.currentRoom.coordinates[1] + '] — ' + capitalizeFirstLetter(game.currentDungeon.currentFloor.currentRoom.type) : 'Unknown Position') + '</h4>'
     str += '</div>';
 
     str += '<div class="battle-combatInfo">'
@@ -2028,9 +2028,11 @@ function getBattleSkills(refresh = false) {
 function getBattleConsumables(refresh = false) {
     let str = '';
 
+    str += '<div class="battle-consumables">';
     game.inventory.consumables.forEach(cons => {
         if(cons.amount > 0) str += '<div id="btl-' + cons.id + '" class="inventoryItem" style="' + getIcon(cons) + '; border: 2px solid ' + getRarityColorCode(cons.rarity) +'"></div>'
-    })
+    });
+    str += '</div>';
 
     if(refresh) {
         document.querySelector('.battle-consumablesContainer').innerHTML = str;
@@ -2591,13 +2593,21 @@ function addBattleNotification(message) {
 function drawExplorationScreen() {
     document.querySelector('#explorationDiv').innerHTML = '<div class="explorationContainer"></div>';
 
+    const dungeon = game.currentDungeon;
+    const floor = dungeon.currentFloor;
+
     let str ='';
 
     str += '<div id="exploration-mapPanel">'
     str += '<div class="exploration-repositionMap"></div>';
     str += '<div class="exploration-mapContainer">';
-    str += '<div class="exploration-map">';
-    str += '<div style="background-color: red; width: 50px; height: 50px;"></div>';
+    str += '<div class="exploration-map" style="width: ' + (floor.gridSize[1] * 40) + 'px; height: ' + (floor.gridSize[0] * 40) + 'px;">';
+    floor.clusters.forEach(cl => {
+        str += '<div class="map-clusterContainer" style="top: ' + cl.coordinates[0] * 40 + 'px; left: ' + cl.coordinates[1] * 40 + 'px;"></div>';
+        cl.childrenRooms.forEach(ch => {
+            str += '<div class="map-roomContainer" style="top: ' + ch.coordinates[0] * 40 + 'px; left: ' + ch.coordinates[1] * 40 + 'px;"></div>';
+        });        
+    })
     str += '</div>';
     str += '</div>';
     str += '</div>';
@@ -2651,8 +2661,6 @@ function generateExplorationMapEvents() {
             let top = isNaN(parseInt(map.style.top)) ? 0 : parseInt(map.style.top);
             let offsetLeft = left + deltaX;
             let offsetTop = top + deltaY;
-            offsetTop = (offsetTop > 0 && offsetTop > maxTop) ? maxTop : (offsetTop < 0 && offsetTop < -maxTop) ? -maxTop : offsetTop;
-            offsetLeft = (offsetLeft > 0 && offsetLeft > maxLeft) ? maxLeft : (offsetLeft < 0 && offsetLeft < -maxLeft) ? -maxLeft : offsetLeft;
             map.style.left = offsetLeft + 'px';
             map.style.top = offsetTop + 'px';
             mapContainer.style.backgroundPositionX = (offsetLeft/2) + 'px';

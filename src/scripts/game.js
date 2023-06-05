@@ -344,6 +344,8 @@ class Game {
         this.inventory.enchant(this.inventory.weapons[0], this.inventory.runes[1]);
         this.inventory.enchant(this.inventory.armors[0], this.inventory.runes[0]);
 
+        this.currentDungeon = new Dungeon({name: 'Putrescent ossuary', biome: Data.DungeonBiome.JUNGLE});
+
         drawInventory();
         drawStridersScreen();
         drawHubScreen();
