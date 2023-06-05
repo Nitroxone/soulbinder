@@ -4525,7 +4525,6 @@ table.astralForgeShards td {
     top: 30px;
     display: flex;
     flex-direction: column;
-    gap: 2em;
 }
 
 .leftPage {
@@ -4534,14 +4533,33 @@ table.astralForgeShards td {
 
 .rightPage {
     left: 0;
+    padding: 0 1em 0 3em;
+    overflow: hidden;
+    overflow-y: scroll;
+    gap: 2em;
 }
 
-.eonsPiece {
-    font-size: large;
-}
 
 .eonTitle {
+    background-image: url(img/eons/eon-title-bg-2.png);
+    height: 37px;
+    width: 280px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+.eonTitle:hover {
+    cursor: pointer;
+    background-image: url(img/eons/eon-title-bg.png);
+}
+
+.eonTitleActive {
+    background-image: url(img/eons/eon-title-bg.png);
+}
+
+.eonFragment {
+    font-style: italic;
 }
 
 .battle-globalInfo {

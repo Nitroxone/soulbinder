@@ -2699,6 +2699,20 @@ function drawEonScreen() {
     str += '</div>';
 
     document.querySelector('.eonsContainer').innerHTML = str;
+
+    const eonTitles = document.querySelectorAll('.eonTitle');
+
+    eonTitles.forEach((title, index) => {
+        title.addEventListener('click', () => {
+            drawEonFragments(game.all_majorEons[index]);
+    
+            eonTitles.forEach(otherTitle => {
+                otherTitle.classList.remove('eonTitleActive');
+            });
+    
+            title.classList.add('eonTitleActive');
+        });
+    })
 }
 
 function drawEonsItems() {
@@ -2707,7 +2721,17 @@ function drawEonsItems() {
     game.all_majorEons.forEach(eon => {
         str += '<div class="eonTitle">'
         str += eon.title;
-        str += '</div>'
-    }); 
+        str += '</div>';
+    });
     return str;
+}
+
+function drawEonFragments(eon) {
+    let str = '';
+    eon.fragments.forEach(fragment => {
+        str += '<div class="eonFragment">';
+        str += fragment.text;
+        str += '</div>'
+    });
+    document.querySelector('.rightPage').innerHTML = str;
 }
