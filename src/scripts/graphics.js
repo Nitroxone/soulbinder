@@ -2664,8 +2664,9 @@ function generateExplorationMapEvents() {
             let offsetTop = top + deltaY;
             map.style.left = offsetLeft + 'px';
             map.style.top = offsetTop + 'px';
-            mapContainer.style.backgroundPositionX = (offsetLeft/2) + 'px';
-            mapContainer.style.backgroundPositionY = (offsetTop/2) + 'px';
+            let divider = map.style.transform === 'scale(0.5)' ? 4 : 6;
+            mapContainer.style.backgroundPositionX = (offsetLeft/divider) + 'px';
+            mapContainer.style.backgroundPositionY = (offsetTop/divider) + 'px';
         });
 
         mapContainer.addEventListener('mouseup', e => {
