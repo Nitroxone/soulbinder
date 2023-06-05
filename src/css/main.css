@@ -103,6 +103,12 @@ table {
     font-weight: normal;
     src: url("fonts/RobotoSlab-Light.ttf") format("truetype");
 }
+@font-face {
+    font-family: "RobotoSlabMed";
+    font-style: normal;
+    font-weight: normal;
+    src: url("fonts/RobotoSlab-Regular.ttf") format("truetype");
+}
 
 /* ----------------------------------------------------------------
                                 BASE
@@ -4588,7 +4594,13 @@ table.astralForgeShards td {
 }
 
 .eonFragment {
-    font-style: italic;
+    font-family: RobotoSlabMed;
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.1);
+    font-size: 13px;
+    color: #4d4537;
+    text-align: justify;
+    line-height: 1.25;
+    text-indent: 10px;
 }
 
 .battle-globalInfo {
