@@ -2605,7 +2605,7 @@ function drawExplorationScreen() {
     floor.clusters.forEach(cl => {
         str += '<div class="map-clusterContainer" style="top: ' + cl.coordinates[0] * 40 + 'px; left: ' + cl.coordinates[1] * 40 + 'px;"></div>';
         cl.childrenRooms.forEach(ch => {
-            str += '<div class="map-roomContainer" style="top: ' + ch.coordinates[0] * 40 + 'px; left: ' + ch.coordinates[1] * 40 + 'px;"></div>';
+            str += '<div class="map-roomContainer' + (ch === floor.currentRoom ? ' currentRoom' : '') + '" style="top: ' + ch.coordinates[0] * 40 + 'px; left: ' + ch.coordinates[1] * 40 + 'px;"></div>';
         });        
     })
     str += '</div>';
@@ -2624,9 +2624,6 @@ function generateExplorationMapEvents() {
     let zoomLevel = 1;
     const map = document.querySelector('.exploration-map');
     const mapContainer = document.querySelector('.exploration-mapContainer');
-    
-    var maxTop = mapContainer.offsetHeight * 0.75;
-    var maxLeft = mapContainer.offsetWidth * 0.75;
 
     mapContainer.addEventListener('wheel', e => {
         map.style.transition = '';
@@ -2675,10 +2672,12 @@ function generateExplorationMapEvents() {
         });
     });
     document.querySelector('.exploration-repositionMap').addEventListener('click', e => {
+        const current = game.currentDungeon.currentFloor.currentRoom;
+
         map.style.transition = 'left .5s cubic-bezier(1,0,0,1), top .5s cubic-bezier(1,0,0,1)';
         mapContainer.style.transition = 'background-position-x .5s cubic-bezier(1,0,0,1), background-position-y .5s cubic-bezier(1,0,0,1)';
-        map.style.left = '0px';
-        map.style.top = '0px';
+        map.style.left = (current.coordinates[0]*40 + mapContainer.clientWidth) + 'px';
+        map.style.top = (current.coordinates[1]*40 + mapContainer.clientHeight) + 'px';
         mapContainer.style.backgroundPositionX = '0px';
         mapContainer.style.backgroundPositionY = '0px';
     })

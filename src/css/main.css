@@ -3804,6 +3804,9 @@ table.astralForgeShards td {
 .map-roomContainer:hover {
     border-color: rgb(200, 200, 200);
 }
+.map-roomContainer.currentRoom {
+    border-color: yellow;
+}
 
 /* ------------------------------------ */
 
