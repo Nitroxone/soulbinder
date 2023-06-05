@@ -2028,9 +2028,11 @@ function getBattleSkills(refresh = false) {
 function getBattleConsumables(refresh = false) {
     let str = '';
 
+    str += '<div class="battle-consumables">';
     game.inventory.consumables.forEach(cons => {
         if(cons.amount > 0) str += '<div id="btl-' + cons.id + '" class="inventoryItem" style="' + getIcon(cons) + '; border: 2px solid ' + getRarityColorCode(cons.rarity) +'"></div>'
-    })
+    });
+    str += '</div>';
 
     if(refresh) {
         document.querySelector('.battle-consumablesContainer').innerHTML = str;
@@ -2625,7 +2627,7 @@ function generateExplorationMapEvents() {
 
         const direction = Math.sign(e.deltaY);
 
-        zoomLevel += -direction * 0.5;
+        zoomLevel += -direction * 0.15;
         zoomLevel = Math.max(0.5, zoomLevel);
         zoomLevel = Math.min(1, zoomLevel);
 

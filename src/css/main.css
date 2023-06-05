@@ -4617,3 +4617,15 @@ table.astralForgeShards td {
 
     margin-bottom: 0.25rem;
 }
+
+.battle-consumables {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+}
+.battle-consumables > div:not(:first-child) {
+    margin-left: 1rem;
+}
