@@ -2646,7 +2646,9 @@ function generateMapRoomsEvents() {
         const nextRoomDom = nextRoom ? document.querySelector('#ch-' + nextRoom.id) : null;
         const previousRoomDom = previousRoom ? document.querySelector('#ch-' + previousRoom.id) : null;
 
+        // When clicking on a room tile
         roomDom.addEventListener('click', e => {
+            // Only works if clicking on an accessible tile (next or previous room to the current one)
             if(nextRoom === game.currentDungeon.currentFloor.currentRoom || previousRoom === game.currentDungeon.currentFloor.currentRoom) {
                 if(!room.visited) {
                     room.visited = true;
@@ -2681,17 +2683,21 @@ function generateMapRoomsEvents() {
                     }   
                 }
 
+                // Moving backward
                 if(nextRoom === game.currentDungeon.currentFloor.currentRoom) {
                     nextRoomDom.classList.remove('currentRoom');
+                    document.querySelector('#connector_' + room.id + '_to_' + nextRoom.id).classList.remove('canUseConnector');
                     game.currentDungeon.currentFloor.moveToPreviousRoom();
                 }
+                // Moving forward
                 else if(previousRoom === game.currentDungeon.currentFloor.currentRoom) {
                     previousRoomDom.classList.remove('currentRoom');
+                    document.querySelector('#connector_' + previousRoom.id + '_to_' + room.id).classList.remove('canUseConnector');
                     game.currentDungeon.currentFloor.moveToNextRoom();
                 }
                 
                 roomDom.classList.add('currentRoom');
-                recenterDungeonMap();
+                //recenterDungeonMap();
             }
         });
     })
@@ -2729,7 +2735,6 @@ function drawMapConnectors() {
         const targetPosOriginX = (nextRoomDom.offsetLeft + targetPos.width / 2) + 4.5;
         const targetPosOriginY = (nextRoomDom.offsetTop + targetPos.height / 2) + 4.5;
         const id = 'connector_' + room.id + '_to_' + room.nextRoom.id;
-        const cluster = 'parentCluster-' + room.parentCluster.id;
 
         let color = '';
         if(room.visited) {
@@ -2816,13 +2821,13 @@ function generateExplorationMapEvents() {
         targetLeft -= parseFloat(currentDom.style.left);
         targetTop -= parseFloat(currentDom.style.top);
 
-        map.style.transition = 'transform .35s cubic-bezier(1,0,0,1), left .5s cubic-bezier(1,0,0,1), top .5s cubic-bezier(1,0,0,1)';
+        map.style.transition = 'transform .2s cubic-bezier(.49,-0.02,0,1.05) 0s, left .2s cubic-bezier(.49,-0.02,0,1.05) 0s, top .2s cubic-bezier(.49,-0.02,0,1.05) 0s';
         mapContainer.style.transition = 'background-position-x .5s cubic-bezier(1,0,0,1), background-position-y .5s cubic-bezier(1,0,0,1)';
         map.style.transform = 'scale(1)';
         map.style.left = targetLeft + 'px';
         map.style.top = targetTop + 'px';
-        mapContainer.style.backgroundPositionX = '0px';
-        mapContainer.style.backgroundPositionY = '0px';
+        /*mapContainer.style.backgroundPositionX = '0px';
+        mapContainer.style.backgroundPositionY = '0px';*/
     })
 }
 

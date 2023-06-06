@@ -3787,7 +3787,7 @@ table.astralForgeShards td {
     align-items: center;
 
     position: absolute;
-    transition: transform .35s cubic-bezier(1,0,0,1);
+    transition: transform .2s cubic-bezier(.49,-0.02,0,1.05) 0s;
 
     top: 0;
     left: 0;
@@ -3861,6 +3861,9 @@ table.astralForgeShards td {
     stroke: transparent;
 }
 .visitedConnector {
+    stroke: grey;
+}
+.canUseConnector {
     stroke: white;
 }
 .canVisitConnector {
