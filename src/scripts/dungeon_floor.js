@@ -24,7 +24,7 @@ class DungeonFloor {
             "entrance": 1,
             "chasm": 1,
         });
-        this.shape = getValueFromObject(props, "shape", Data.DungeonClusterPattern.GRID)
+        this.shape = getValueFromObject(props, "shape", Data.DungeonClusterPattern.LINE)
         this.pathCurve = getValueFromObject(props, "pathCurve", 0.3);
         this.chaoticCurve = getValueFromObject(props, "chaoticCurve", 2);
         this.clustersAmount = getValueFromObject(props, "clustersAmount", 9);
@@ -48,8 +48,28 @@ class DungeonFloor {
 
         this.generateFloorLayout();
         this.generateRooms();
+        this.generateConnections();
 
         this.currentRoom = this.getEntranceRoom();
+    }
+
+    /**
+     * Generates connections between each room. 
+     * Each room connects to the next one in the same cluster. 
+     * The last room of a cluster connects to the first room of the next cluster.
+     * The last room of the last cluster has no connection with a next room.
+     */
+    generateConnections() {
+        for(let i = 0; i < this.clusters.length; i++) {
+            let cl = this.clusters[i];
+            for(let j = 0; j < cl.childrenRooms.length; j++) {
+                let ro = cl.childrenRooms[j];
+                if(j+1 === cl.childrenRooms.length) {
+                    if(i+1 !== this.clusters.length) ro.nextRoom = this.clusters[i+1].childrenRooms[0];
+                }
+                else ro.nextRoom = cl.childrenRooms[j+1];
+            }
+        }
     }
 
     /**
@@ -268,6 +288,10 @@ class DungeonFloor {
         }
     }
 
+    /**
+     * Returns the Entrance room of this floor.
+     * @returns {DungeonRoom} this floor's entrance room
+     */
     getEntranceRoom() {
         for(let i = 0; i < this.rooms.length; i++) {
             if(this.rooms[i].type === Data.DungeonRoomType.ENTRANCE) return this.rooms[i];

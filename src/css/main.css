@@ -3099,6 +3099,14 @@ hr.leftSided {
     right: 0;
 }
 
+.mapConnectorsOverlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
 @keyframes animstroke {
     to {
         stroke-dashoffset: -1000;
@@ -3770,7 +3778,7 @@ table.astralForgeShards td {
     width: 100%;
     height: 100%;
     border: 3px dashed grey;
-    transform: scale(0.5);
+    transform: scale(0.75);
 
     display: flex;
     justify-content: center;
@@ -3820,14 +3828,16 @@ table.astralForgeShards td {
     border-radius: 3px;
     position: absolute;
 
-    border: 2px solid rgb(125, 125, 125);
-
     cursor: pointer;
+
+    background-image: url('img/map_room.png');
+    background-repeat: no-repeat;
+    background-size: cover;
 
     transition: all .1s ease-in-out;
 }
 .map-roomContainer:hover {
-    border-color: rgb(200, 200, 200);
+    border-color: white;
 }
 .map-roomContainer.currentRoom {
     border-color: yellow;

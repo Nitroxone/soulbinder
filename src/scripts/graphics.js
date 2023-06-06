@@ -2601,11 +2601,11 @@ function drawExplorationScreen() {
     str += '<div id="exploration-mapPanel" class="coolBorder">'
     str += '<div class="exploration-repositionMap"></div>';
     str += '<div class="exploration-mapContainer">';
-    str += '<div class="exploration-map" style="width: ' + (floor.gridSize[1] * 40) + 'px; height: ' + (floor.gridSize[0] * 40) + 'px;">';
+    str += '<div class="exploration-map" style="width: ' + (floor.gridSize[1] * 50) + 'px; height: ' + (floor.gridSize[0] * 50) + 'px;">';
     floor.clusters.forEach(cl => {
-        str += '<div id="cl-' + cl.id + '" class="map-clusterContainer" style="top: ' + cl.coordinates[0] * 40 + 'px; left: ' + cl.coordinates[1] * 40 + 'px;"></div>';
+        str += '<div id="cl-' + cl.id + '" class="map-clusterContainer" style="top: ' + cl.coordinates[0] * 50 + 'px; left: ' + cl.coordinates[1] * 50 + 'px;"></div>';
         cl.childrenRooms.forEach(ch => {
-            str += '<div id="ch-' + ch.id + '" class="map-roomContainer' + (ch === floor.currentRoom ? ' currentRoom' : '') + '" style="top: ' + ch.coordinates[0] * 40 + 'px; left: ' + ch.coordinates[1] * 40 + 'px;"></div>';
+            str += '<div id="ch-' + ch.id + '" class="map-roomContainer coolBorder' + (ch === floor.currentRoom ? ' currentRoom' : '') + '" style="top: ' + ch.coordinates[0] * 50 + 'px; left: ' + ch.coordinates[1] * 50 + 'px;"></div>';
         });        
     })
     str += '</div>';
@@ -2617,11 +2617,52 @@ function drawExplorationScreen() {
     str += '</div>';
 
 
-    str += '<div id="exploration-infosPanel"></div>';
+    str += '<div id="exploration-infosPanel">';
+    str += '</div>';
 
     document.querySelector('.explorationContainer').innerHTML = str;
 
     generateExplorationMapEvents();
+    drawMapConnectors();
+    bringRoomsForward();
+}
+
+function drawMapConnectors() {
+    const parent = document.querySelector('.exploration-map');
+
+    let str = '';
+
+    str += '<svg class="mapConnectorsOverlay" height="' + parent.scrollHeight + '" width="' + parent.offsetWidth + '">';
+
+    game.currentDungeon.currentFloor.rooms.forEach(room => {
+        if(!room.nextRoom) return;
+        const elem = document.querySelector('#ch-' + room.id);
+        
+        const basePos = elem.getBoundingClientRect();
+        const basePosOriginX = (elem.offsetLeft + basePos.width / 2) + 4.5;
+        const basePosOriginY = (elem.offsetTop + basePos.height / 2) + 4.5;
+
+        const nextRoomDom = document.querySelector('#ch-' + room.nextRoom.id);
+        const targetPos = nextRoomDom.getBoundingClientRect();
+        const targetPosOriginX = (nextRoomDom.offsetLeft + targetPos.width / 2) + 4.5;
+        const targetPosOriginY = (nextRoomDom.offsetTop + targetPos.height / 2) + 4.5;
+        const id = 'connector_' + room.id + '_to_' + room.nextRoom.id;
+
+        str += '<line class="mapConnector" id="' + id + '" x1="' + basePosOriginX + '" y1="' + basePosOriginY + '" x2="' + targetPosOriginX + '" y2="' + targetPosOriginY + '" style="stroke: white; stroke-width: 1; stroke-dasharray: 10; animation-name: animstroke; animation-iteration-count: infinite; animation-duration: 60s; animation-timing-function: linear;" />';
+    });
+
+    str += '</svg>';
+
+    parent.innerHTML += str;
+}
+
+function bringRoomsForward() {
+    document.querySelectorAll('.map-roomContainer').forEach(single => {
+        single.style.zIndex = '1';
+    });
+    document.querySelectorAll('.map-clusterContainer').forEach(single => {
+        single.style.zIndex = '1';
+    });
 }
 
 function generateExplorationMapEvents() {
@@ -2636,8 +2677,8 @@ function generateExplorationMapEvents() {
 
         const direction = Math.sign(e.deltaY);
 
-        zoomLevel += -direction * 0.5;
-        zoomLevel = Math.max(0.5, zoomLevel);
+        zoomLevel += -direction * 0.75;
+        zoomLevel = Math.max(0.75, zoomLevel);
         zoomLevel = Math.min(1, zoomLevel);
 
         map.style.transform = 'scale(' + zoomLevel + ')';
