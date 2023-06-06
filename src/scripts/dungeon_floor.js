@@ -27,7 +27,7 @@ class DungeonFloor {
         this.shape = getValueFromObject(props, "shape", Data.DungeonClusterPattern.GRID)
         this.pathCurve = getValueFromObject(props, "pathCurve", 0.3);
         this.chaoticCurve = getValueFromObject(props, "chaoticCurve", 2);
-        this.clustersAmount = getValueFromObject(props, "clustersAmount", 9);
+        this.clustersAmount = getValueFromObject(props, "clustersAmount", 6);
         this.roomsPerCluster = getValueFromObject(props, "roomsPerCluster", 5);
         this.unequalRepartition = getValueFromObject(props, "unequalRepartition", true);
         this.spacing = getValueFromObject(props, "spacing", getRandomNumber(4, 6));
@@ -48,8 +48,44 @@ class DungeonFloor {
 
         this.generateFloorLayout();
         this.generateRooms();
+        this.generateConnections();
 
         this.currentRoom = this.getEntranceRoom();
+        this.visitCurrentRoom();
+    }
+
+    /**
+     * Generates connections between each room. 
+     * Each room connects to the next one in the same cluster. 
+     * The last room of a cluster connects to the first room of the next cluster.
+     * The last room of the last cluster has no connection with a next room.
+     */
+    generateConnections() {
+        for(let i = 0; i < this.clusters.length; i++) {
+            let cl = this.clusters[i];
+            for(let j = 0; j < cl.childrenRooms.length; j++) {
+                let ro = cl.childrenRooms[j];
+                // If the last room on the current cluster is reached
+                if(j+1 === cl.childrenRooms.length) {
+                    // If there are remaining clusters, nextRoom will be the first room of the next cluster
+                    if(i+1 !== this.clusters.length) ro.nextRoom = this.clusters[i + 1].childrenRooms[0];
+                    // Otherwise, nothing happens (nextRoom remains empty)
+                }
+                // Else, nextRoom is the nextRoom in this cluster
+                else ro.nextRoom = cl.childrenRooms[j+1];
+
+                // If the first room of the cluster is being processed
+                if(j === 0) {
+                    // If it's not the first cluster, previousRoom is the last room of the previous cluster
+                    if(i != 0) {
+                        let previousCluster = this.clusters[i - 1];
+                        ro.previousRoom = previousCluster.childrenRooms[previousCluster.childrenRooms.length - 1];
+                    }
+                    // If it's the first cluster, nothing happens (previousRoom remains empty)
+                } 
+                else ro.previousRoom = cl.childrenRooms[j - 1];
+            }
+        }
     }
 
     /**
@@ -125,56 +161,56 @@ class DungeonFloor {
                 while(addedRooms < count) { 
                     if (row - j >= 0 && !hasRoomWithCoordinates(this.rooms, [row - j, column]) && addedRooms < count) {
                         // Above
-                        const room = new DungeonRoom({coordinates: [row - j, column]});
+                        const room = new DungeonRoom({coordinates: [row - j, column], parentCluster: cl});
                         this.rooms.push(room);
                         cl.childrenRooms.push(room);
                         addedRooms++;
                     }
                     if (row + j < this.gridSize[0] && !hasRoomWithCoordinates(this.rooms, [row + j, column]) && addedRooms < count) {
                         // Below
-                        const room = new DungeonRoom({coordinates: [row + j, column]});
+                        const room = new DungeonRoom({coordinates: [row + j, column], parentCluster: cl});
                         this.rooms.push(room);
                         cl.childrenRooms.push(room);
                         addedRooms++;
                     }
                     if (column - j >= 0 && !hasRoomWithCoordinates(this.rooms, [row, column - j]) && addedRooms < count) {
                         // Left
-                        const room = new DungeonRoom({coordinates: [row, column - j]});
+                        const room = new DungeonRoom({coordinates: [row, column - j], parentCluster: cl});
                         this.rooms.push(room);
                         cl.childrenRooms.push(room);
                         addedRooms++;
                     }
                     if (column + j < this.gridSize[1] && !hasRoomWithCoordinates(this.rooms, [row, column + j]) && addedRooms < count) {
                         // Right
-                        const room = new DungeonRoom({coordinates: [row, column + j]});
+                        const room = new DungeonRoom({coordinates: [row, column + j], parentCluster: cl});
                         this.rooms.push(room);
                         cl.childrenRooms.push(room);
                         addedRooms++;
                     }
                     if (row - j >= 0 && column - j >= 0 && !hasRoomWithCoordinates(this.rooms, [row - j, column - j]) && addedRooms < count) {
                         // Top-left
-                        const room = new DungeonRoom({coordinates: [row - j, column - j]});
+                        const room = new DungeonRoom({coordinates: [row - j, column - j], parentCluster: cl});
                         this.rooms.push(room);
                         cl.childrenRooms.push(room);
                         addedRooms++;
                     }
                     if (row - j >= 0 && column + j < this.gridSize[1] && !hasRoomWithCoordinates(this.rooms, [row - j, column + j]) && addedRooms < count) {
                         // Top-right
-                        const room = new DungeonRoom({coordinates: [row - j, column + j]});
+                        const room = new DungeonRoom({coordinates: [row - j, column + j], parentCluster: cl});
                         this.rooms.push(room);
                         cl.childrenRooms.push(room);
                         addedRooms++;
                     }
                     if (row + j < this.gridSize[0] && column - j >= 0 && !hasRoomWithCoordinates(this.rooms, [row + j, column - j]) && addedRooms < count) {
                         // Bottom-left
-                        const room = new DungeonRoom({coordinates: [row + j, column - j]});
+                        const room = new DungeonRoom({coordinates: [row + j, column - j], parentCluster: cl});
                         this.rooms.push(room);
                         cl.childrenRooms.push(room);
                         addedRooms++;
                     }
                     if (row + j < this.gridSize[0] && column + j < this.gridSize[1] && !hasRoomWithCoordinates(this.rooms, [row + j, column + j]) && addedRooms < count) {
                         // Bottom-right
-                        const room = new DungeonRoom({coordinates: [row + j, column + j]});
+                        const room = new DungeonRoom({coordinates: [row + j, column + j], parentCluster: cl});
                         this.rooms.push(room);
                         cl.childrenRooms.push(room);
                         addedRooms++;
@@ -268,10 +304,31 @@ class DungeonFloor {
         }
     }
 
+    /**
+     * Returns the Entrance room of this floor.
+     * @returns {DungeonRoom} this floor's entrance room
+     */
     getEntranceRoom() {
         for(let i = 0; i < this.rooms.length; i++) {
             if(this.rooms[i].type === Data.DungeonRoomType.ENTRANCE) return this.rooms[i];
         }
         return null;
+    }
+
+    /**
+     * Marks the current room as visited.
+     */
+    visitCurrentRoom() {
+        this.currentRoom.visited = true;
+    }
+
+    moveToNextRoom() {
+        if(this.currentRoom.nextRoom) this.currentRoom = this.currentRoom.nextRoom;
+        else return false;
+    }
+
+    moveToPreviousRoom() {
+        if(this.currentRoom.previousRoom) this.currentRoom = this.currentRoom.previousRoom;
+        else return false;
     }
 }

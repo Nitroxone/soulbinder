@@ -2601,11 +2601,12 @@ function drawExplorationScreen() {
     str += '<div id="exploration-mapPanel" class="coolBorder">'
     str += '<div class="exploration-repositionMap"></div>';
     str += '<div class="exploration-mapContainer">';
-    str += '<div class="exploration-map" style="width: ' + (floor.gridSize[1] * 40) + 'px; height: ' + (floor.gridSize[0] * 40) + 'px;">';
+    str += '<div class="exploration-map" style="width: ' + (floor.gridSize[1] * 50) + 'px; height: ' + (floor.gridSize[0] * 50) + 'px;">';
     floor.clusters.forEach(cl => {
-        str += '<div id="cl-' + cl.id + '" class="map-clusterContainer" style="top: ' + cl.coordinates[0] * 40 + 'px; left: ' + cl.coordinates[1] * 40 + 'px;"></div>';
+        const cluster = 'parentCluster-' + cl.id;
+        str += '<div id="cl-' + cl.id + '" class="map-clusterContainer" style="top: ' + cl.coordinates[0] * 50 + 'px; left: ' + cl.coordinates[1] * 50 + 'px;"></div>';
         cl.childrenRooms.forEach(ch => {
-            str += '<div id="ch-' + ch.id + '" class="map-roomContainer' + (ch === floor.currentRoom ? ' currentRoom' : '') + '" style="top: ' + ch.coordinates[0] * 40 + 'px; left: ' + ch.coordinates[1] * 40 + 'px;"></div>';
+            str += '<div id="ch-' + ch.id + '" class="' + cluster + ' map-roomContainer coolBorder' + (ch === floor.currentRoom ? ' visitedRoom currentRoom' : ' hiddenRoom') + '" style="top: ' + ch.coordinates[0] * 50 + 'px; left: ' + ch.coordinates[1] * 50 + 'px;"></div>';
         });        
     })
     str += '</div>';
@@ -2617,11 +2618,140 @@ function drawExplorationScreen() {
     str += '</div>';
 
 
-    str += '<div id="exploration-infosPanel"></div>';
+    str += '<div id="exploration-infosPanel">';
+    str += '</div>';
 
     document.querySelector('.explorationContainer').innerHTML = str;
 
+    drawMapConnectors();
+    bringRoomsForward();
     generateExplorationMapEvents();
+    generateMapRoomsEvents();
+    recenterDungeonMap();
+}
+
+function revealCluster(cluster) {
+    document.querySelectorAll('.parentCluster-' + cluster.id).forEach(ro => {
+        ro.classList.remove('hiddenRoom');
+        ro.classList.add('revealedRoom');
+    })
+}
+
+function generateMapRoomsEvents() {
+    game.currentDungeon.currentFloor.rooms.forEach(room => {
+        const nextRoom = room.nextRoom || null;
+        const previousRoom = room.previousRoom || null;
+
+        const roomDom = document.querySelector('#ch-' + room.id);
+        const nextRoomDom = nextRoom ? document.querySelector('#ch-' + nextRoom.id) : null;
+        const previousRoomDom = previousRoom ? document.querySelector('#ch-' + previousRoom.id) : null;
+
+        roomDom.addEventListener('click', e => {
+            if(nextRoom === game.currentDungeon.currentFloor.currentRoom || previousRoom === game.currentDungeon.currentFloor.currentRoom) {
+                if(!room.visited) {
+                    room.visited = true;
+                    roomDom.classList.remove('revealedRoom');
+                    roomDom.classList.add('visitedRoom');
+
+                    if(previousRoom) {
+                        let prevLine = document.querySelector('#connector_' + previousRoom.id + '_to_' + room.id);
+                        console.log(prevLine);
+                        if(!previousRoom.visited) prevLine.classList.add('canVisitConnector');
+                        else {
+                            prevLine.classList.remove('canVisitConnector');
+                            prevLine.classList.add('visitedConnector');
+                        }
+
+                        if(previousRoomDom) {
+                            if(previousRoomDom.classList[0] !== roomDom.classList[0]) revealCluster(previousRoom.parentCluster);
+                        }
+                    }
+                    if(nextRoom) {
+                        let nextLine = document.querySelector('#connector_' + room.id + '_to_' + nextRoom.id);
+                        console.log(nextLine);
+                        if(!nextRoom.visited)  nextLine.classList.add('canVisitConnector');
+                        else {
+                            nextLine.classList.remove('canVisitConnector');
+                            nextLine.classList.add('visitedConnector');
+                        }
+
+                        if(nextRoomDom) {
+                            if(nextRoomDom.classList[0] !== roomDom.classList[0]) revealCluster(nextRoom.parentCluster);
+                        }
+                    }   
+                }
+
+                if(nextRoom === game.currentDungeon.currentFloor.currentRoom) {
+                    nextRoomDom.classList.remove('currentRoom');
+                    game.currentDungeon.currentFloor.moveToPreviousRoom();
+                }
+                else if(previousRoom === game.currentDungeon.currentFloor.currentRoom) {
+                    previousRoomDom.classList.remove('currentRoom');
+                    game.currentDungeon.currentFloor.moveToNextRoom();
+                }
+                
+                roomDom.classList.add('currentRoom');
+                recenterDungeonMap();
+            }
+        });
+    })
+}
+
+function drawMapConnectors() {
+    const parent = document.querySelector('.exploration-map');
+
+    let str = '';
+
+    str += '<svg class="mapConnectorsOverlay" height="' + parent.scrollHeight + '" width="' + parent.offsetWidth + '">';
+
+    revealCluster(game.currentDungeon.currentFloor.currentRoom.parentCluster);
+    const currentRoom = game.currentDungeon.currentFloor.currentRoom;
+    const currentRoomDom = document.querySelector('#ch-' + currentRoom.id);
+    if(currentRoom.previousRoom) {
+        let previousRoomDom = document.querySelector('#ch-' + currentRoom.previousRoom.id);
+        if(currentRoomDom.classList[0] !== previousRoomDom.classList[0]) revealCluster(currentRoom.previousRoom.parentCluster);
+    }
+    if(currentRoom.nextRoom) {
+        let nextRoomDom = document.querySelector('#ch-' + currentRoom.nextRoom.id);
+        if(currentRoomDom.classList[0] !== nextRoomDom.classList[0]) revealCluster(currentRoom.nextRoom.parentCluster);
+    }
+
+    game.currentDungeon.currentFloor.rooms.forEach(room => {
+        if(!room.nextRoom) return;
+        const elem = document.querySelector('#ch-' + room.id);
+        
+        const basePos = elem.getBoundingClientRect();
+        const basePosOriginX = (elem.offsetLeft + basePos.width / 2) + 4.5;
+        const basePosOriginY = (elem.offsetTop + basePos.height / 2) + 4.5;
+
+        const nextRoomDom = document.querySelector('#ch-' + room.nextRoom.id);
+        const targetPos = nextRoomDom.getBoundingClientRect();
+        const targetPosOriginX = (nextRoomDom.offsetLeft + targetPos.width / 2) + 4.5;
+        const targetPosOriginY = (nextRoomDom.offsetTop + targetPos.height / 2) + 4.5;
+        const id = 'connector_' + room.id + '_to_' + room.nextRoom.id;
+        const cluster = 'parentCluster-' + room.parentCluster.id;
+
+        let color = '';
+        if(room.visited) {
+            if(!room.nextRoom.visited) color = ' canVisitConnector';
+        }
+        if(!room.visited && room.nextRoom.visited) color = ' canVisitConnector';
+
+        str += '<line class="mapConnector' + color + '" id="' + id + '" x1="' + basePosOriginX + '" y1="' + basePosOriginY + '" x2="' + targetPosOriginX + '" y2="' + targetPosOriginY + '" style="stroke-width: 1;" />';
+    });
+
+    str += '</svg>';
+
+    parent.innerHTML += str;
+}
+
+function bringRoomsForward() {
+    document.querySelectorAll('.map-roomContainer').forEach(single => {
+        single.style.zIndex = '1';
+    });
+    document.querySelectorAll('.map-clusterContainer').forEach(single => {
+        single.style.zIndex = '1';
+    });
 }
 
 function generateExplorationMapEvents() {
@@ -2636,8 +2766,8 @@ function generateExplorationMapEvents() {
 
         const direction = Math.sign(e.deltaY);
 
-        zoomLevel += -direction * 0.5;
-        zoomLevel = Math.max(0.5, zoomLevel);
+        zoomLevel += -direction * 0.65;
+        zoomLevel = Math.max(0.65, zoomLevel);
         zoomLevel = Math.min(1, zoomLevel);
 
         map.style.transform = 'scale(' + zoomLevel + ')';
@@ -2681,13 +2811,23 @@ function generateExplorationMapEvents() {
         const currentDom = document.querySelector('#ch-' + current.id);
         console.log(currentDom);
 
-        map.style.transition = 'left .5s cubic-bezier(1,0,0,1), top .5s cubic-bezier(1,0,0,1)';
+        var targetLeft = (mapContainer.offsetWidth / 2) - (currentDom.offsetWidth / 2);
+        var targetTop = (mapContainer.offsetHeight / 2) - (currentDom.offsetHeight / 2);
+        targetLeft -= parseFloat(currentDom.style.left);
+        targetTop -= parseFloat(currentDom.style.top);
+
+        map.style.transition = 'transform .35s cubic-bezier(1,0,0,1), left .5s cubic-bezier(1,0,0,1), top .5s cubic-bezier(1,0,0,1)';
         mapContainer.style.transition = 'background-position-x .5s cubic-bezier(1,0,0,1), background-position-y .5s cubic-bezier(1,0,0,1)';
-        map.style.left = (mapContainer.clientLeft + currentDom.left) + 'px';
-        map.style.top = (mapContainer.clientTop + currentDom.top) + 'px';
+        map.style.transform = 'scale(1)';
+        map.style.left = targetLeft + 'px';
+        map.style.top = targetTop + 'px';
         mapContainer.style.backgroundPositionX = '0px';
         mapContainer.style.backgroundPositionY = '0px';
     })
+}
+
+function recenterDungeonMap() {
+    document.querySelector('.exploration-repositionMap').dispatchEvent(new Event('click'));
 }
 
 function drawEonScreen() {
