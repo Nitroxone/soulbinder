@@ -2627,6 +2627,7 @@ function drawExplorationScreen() {
     bringRoomsForward();
     generateExplorationMapEvents();
     generateMapRoomsEvents();
+    recenterDungeonMap();
 }
 
 function revealCluster(cluster) {
@@ -2690,6 +2691,7 @@ function generateMapRoomsEvents() {
                 }
                 
                 roomDom.classList.add('currentRoom');
+                recenterDungeonMap();
             }
         });
     })
@@ -2764,8 +2766,8 @@ function generateExplorationMapEvents() {
 
         const direction = Math.sign(e.deltaY);
 
-        zoomLevel += -direction * 0.75;
-        zoomLevel = Math.max(0.75, zoomLevel);
+        zoomLevel += -direction * 0.65;
+        zoomLevel = Math.max(0.65, zoomLevel);
         zoomLevel = Math.min(1, zoomLevel);
 
         map.style.transform = 'scale(' + zoomLevel + ')';
@@ -2822,6 +2824,10 @@ function generateExplorationMapEvents() {
         mapContainer.style.backgroundPositionX = '0px';
         mapContainer.style.backgroundPositionY = '0px';
     })
+}
+
+function recenterDungeonMap() {
+    document.querySelector('.exploration-repositionMap').dispatchEvent(new Event('click'));
 }
 
 function drawEonScreen() {
