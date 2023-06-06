@@ -6,5 +6,8 @@ class DungeonRoom {
         this.childrenRooms = getValueFromObject(props, "childrenRooms", []);
         this.clusterBridge = getValueFromObject(props, "clusterBridge", null);
         this.nextRoom = getValueFromObject(props, "nextRoom", null);
+        this.previousRoom = getValueFromObject(props, "previousRoom", null);
+
+        this.visited = false;
     }
 }
