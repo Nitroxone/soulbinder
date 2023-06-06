@@ -5,5 +5,12 @@ class Eon {
         this.fragments = getValueFromObject(props, 'fragments', []);
         this.unlocked = getValueFromObject(props, 'unlocked', false);
     }
+
+    unlockFragment() {
+        const fragmentToUnlock = this.fragments.find(fragment => fragment.unlocked === false);
+        if (fragmentToUnlock) {
+          fragmentToUnlock.unlocked = true;
+        }
+    }
 } 
 
