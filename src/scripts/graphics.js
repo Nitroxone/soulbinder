@@ -2851,7 +2851,7 @@ function drawEonScreen() {
 
     str += '<div class="diarySecondCol">';
     str += '<div class="rightPage pages">';
-    str += '<h2 class="rightPageTitle pageTitle">Eons</h2>';
+    str += '<h2 class="rightPageTitle pageTitle">Fragments</h2>';
     str += '<div class="eonsBorder"></div>';
     str += '<div class="eonsFragments">';
 
@@ -2875,15 +2875,18 @@ function drawEonScreen() {
     
             title.classList.add('eonTitleActive');
         });
-    })
+    });
 }
 
 function drawEonsTitles() {
     let str = '';
 
     game.all_majorEons.forEach(eon => {
-        str += '<div class="eonTitle">'
+        str += '<div class="eonTitle">';
+        str += '<div class="eonTitleBullet"></div>';
+        str += '<p class="eonTitleContent">';
         str += eon.title;
+        str += '</p>';
         str += '</div>';
     });
     return str;

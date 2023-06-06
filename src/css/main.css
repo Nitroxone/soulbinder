@@ -4571,9 +4571,6 @@ table.astralForgeShards td {
     }
 }
 
-
-
-
 .eonsContainer {
     margin: 0 auto;
     height: 800px;
@@ -4635,7 +4632,10 @@ table.astralForgeShards td {
     overflow-y: scroll;
 }
 
-.eonsTitles {
+.pageTitle {
+    font-family: RobotoSlabMed;
+    font-size: 18px;
+    color: #4d4537;
 }
 
 .eonsFragments {
@@ -4644,15 +4644,35 @@ table.astralForgeShards td {
     gap: 2em;
 }
 
-
 .eonTitle {
     height: 37px;
+    font-family: RobotoSlabMed;
+    font-size: 14px;
     width: 280px;
     display: flex;
+    flex-direction: row;
+    gap: 1em;
+    transition: transform 0.3s ease-in-out; 
+    text-shadow: 1px 1px rgba(255, 255, 255, 0.15);
+    font-size: 13px;
+    color: #4d4537;
+}
+
+.eonTitleBullet {
+    width: 15px;
+    height: 15px;
+    background-image: url(img/eons/eonPassive.png);
+    visibility: hidden;
+    transition: visibility 0s;
 }
 
 .eonTitle:hover {
     cursor: pointer;
+    transform: translateX(10px);
+}
+
+.eonTitle:hover .eonTitleBullet {
+    visibility: visible;
 }
 
 .eonsBorder {
