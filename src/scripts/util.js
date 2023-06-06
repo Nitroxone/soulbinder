@@ -1340,3 +1340,28 @@ function hasRoomWithCoordinates(rooms, coords) {
     }
     return false;
 }
+
+/**
+ * Unlocks the eon whose id has been specified as argument
+ * @param {string} id id the id of the eon you want to unlock
+ * @returns {boolean} the result (true if the specified eon exists)
+ */
+function unlockEon(id) {
+    return game.all_majorEons.find(e => e.id === id).unlocked = true;
+}
+
+/**
+ * Unlocks the first locked fragment of the fragments array in the specified eon
+ * @param {string} id - The id of the eon
+ * @returns {boolean|string} - Returns true if a fragment was successfully unlocked
+ *                            Returns 'All fragments have been unlocked.' if all fragments are already unlocked
+ *                            Returns 'Eon not found.' if the eon was not found
+ */
+function unlockEonFragment(id) {
+    const eon = game.all_majorEons.find(e => e.id === id);
+    if(eon) {
+        const fragmentToUnlock = eon.fragments.find(fragment => !fragment.unlocked);
+        return fragmentToUnlock ? (fragmentToUnlock.unlocked = true, true) : 'All fragments have been unlocked!';
+    }
+    return 'Eon not found.'
+}
