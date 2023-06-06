@@ -2656,6 +2656,10 @@ function generateMapRoomsEvents() {
                         let prevLine = document.querySelector('#connector_' + previousRoom.id + '_to_' + room.id);
                         console.log(prevLine);
                         if(!previousRoom.visited) prevLine.classList.add('canVisitConnector');
+                        else {
+                            prevLine.classList.remove('canVisitConnector');
+                            prevLine.classList.add('visitedConnector');
+                        }
 
                         if(previousRoomDom) {
                             if(previousRoomDom.classList[0] !== roomDom.classList[0]) revealCluster(previousRoom.parentCluster);
@@ -2665,6 +2669,10 @@ function generateMapRoomsEvents() {
                         let nextLine = document.querySelector('#connector_' + room.id + '_to_' + nextRoom.id);
                         console.log(nextLine);
                         if(!nextRoom.visited)  nextLine.classList.add('canVisitConnector');
+                        else {
+                            nextLine.classList.remove('canVisitConnector');
+                            nextLine.classList.add('visitedConnector');
+                        }
 
                         if(nextRoomDom) {
                             if(nextRoomDom.classList[0] !== roomDom.classList[0]) revealCluster(nextRoom.parentCluster);
@@ -2801,10 +2809,16 @@ function generateExplorationMapEvents() {
         const currentDom = document.querySelector('#ch-' + current.id);
         console.log(currentDom);
 
-        map.style.transition = 'left .5s cubic-bezier(1,0,0,1), top .5s cubic-bezier(1,0,0,1)';
+        var targetLeft = (mapContainer.offsetWidth / 2) - (currentDom.offsetWidth / 2);
+        var targetTop = (mapContainer.offsetHeight / 2) - (currentDom.offsetHeight / 2);
+        targetLeft -= parseFloat(currentDom.style.left);
+        targetTop -= parseFloat(currentDom.style.top);
+
+        map.style.transition = 'transform .35s cubic-bezier(1,0,0,1), left .5s cubic-bezier(1,0,0,1), top .5s cubic-bezier(1,0,0,1)';
         mapContainer.style.transition = 'background-position-x .5s cubic-bezier(1,0,0,1), background-position-y .5s cubic-bezier(1,0,0,1)';
-        map.style.left = (mapContainer.clientLeft + currentDom.left) + 'px';
-        map.style.top = (mapContainer.clientTop + currentDom.top) + 'px';
+        map.style.transform = 'scale(1)';
+        map.style.left = targetLeft + 'px';
+        map.style.top = targetTop + 'px';
         mapContainer.style.backgroundPositionX = '0px';
         mapContainer.style.backgroundPositionY = '0px';
     })

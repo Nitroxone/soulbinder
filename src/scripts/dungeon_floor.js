@@ -27,7 +27,7 @@ class DungeonFloor {
         this.shape = getValueFromObject(props, "shape", Data.DungeonClusterPattern.GRID)
         this.pathCurve = getValueFromObject(props, "pathCurve", 0.3);
         this.chaoticCurve = getValueFromObject(props, "chaoticCurve", 2);
-        this.clustersAmount = getValueFromObject(props, "clustersAmount", 9);
+        this.clustersAmount = getValueFromObject(props, "clustersAmount", 6);
         this.roomsPerCluster = getValueFromObject(props, "roomsPerCluster", 5);
         this.unequalRepartition = getValueFromObject(props, "unequalRepartition", true);
         this.spacing = getValueFromObject(props, "spacing", getRandomNumber(4, 6));
