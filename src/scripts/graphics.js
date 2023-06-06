@@ -2598,18 +2598,22 @@ function drawExplorationScreen() {
 
     let str ='';
 
-    str += '<div id="exploration-mapPanel">'
+    str += '<div id="exploration-mapPanel" class="coolBorder">'
     str += '<div class="exploration-repositionMap"></div>';
     str += '<div class="exploration-mapContainer">';
     str += '<div class="exploration-map" style="width: ' + (floor.gridSize[1] * 40) + 'px; height: ' + (floor.gridSize[0] * 40) + 'px;">';
     floor.clusters.forEach(cl => {
-        str += '<div class="map-clusterContainer" style="top: ' + cl.coordinates[0] * 40 + 'px; left: ' + cl.coordinates[1] * 40 + 'px;"></div>';
+        str += '<div id="cl-' + cl.id + '" class="map-clusterContainer" style="top: ' + cl.coordinates[0] * 40 + 'px; left: ' + cl.coordinates[1] * 40 + 'px;"></div>';
         cl.childrenRooms.forEach(ch => {
-            str += '<div class="map-roomContainer" style="top: ' + ch.coordinates[0] * 40 + 'px; left: ' + ch.coordinates[1] * 40 + 'px;"></div>';
+            str += '<div id="ch-' + ch.id + '" class="map-roomContainer' + (ch === floor.currentRoom ? ' currentRoom' : '') + '" style="top: ' + ch.coordinates[0] * 40 + 'px; left: ' + ch.coordinates[1] * 40 + 'px;"></div>';
         });        
     })
     str += '</div>';
     str += '</div>';
+    str += '<img class="mapCornerTl" src="css/img/map_tl_corner.png" />';
+    str += '<img class="mapCornerTr" src="css/img/map_tr_corner.png" />';
+    str += '<img class="mapCornerBl" src="css/img/map_bl_corner.png" />';
+    str += '<img class="mapCornerBr" src="css/img/map_br_corner.png" />';
     str += '</div>';
 
 
@@ -2624,9 +2628,6 @@ function generateExplorationMapEvents() {
     let zoomLevel = 1;
     const map = document.querySelector('.exploration-map');
     const mapContainer = document.querySelector('.exploration-mapContainer');
-    
-    var maxTop = mapContainer.offsetHeight * 0.75;
-    var maxLeft = mapContainer.offsetWidth * 0.75;
 
     mapContainer.addEventListener('wheel', e => {
         map.style.transition = '';
@@ -2663,8 +2664,9 @@ function generateExplorationMapEvents() {
             let offsetTop = top + deltaY;
             map.style.left = offsetLeft + 'px';
             map.style.top = offsetTop + 'px';
-            mapContainer.style.backgroundPositionX = (offsetLeft/2) + 'px';
-            mapContainer.style.backgroundPositionY = (offsetTop/2) + 'px';
+            let divider = map.style.transform === 'scale(0.5)' ? 4 : 6;
+            mapContainer.style.backgroundPositionX = (offsetLeft/divider) + 'px';
+            mapContainer.style.backgroundPositionY = (offsetTop/divider) + 'px';
         });
 
         mapContainer.addEventListener('mouseup', e => {
@@ -2675,10 +2677,14 @@ function generateExplorationMapEvents() {
         });
     });
     document.querySelector('.exploration-repositionMap').addEventListener('click', e => {
+        const current = game.currentDungeon.currentFloor.currentRoom;
+        const currentDom = document.querySelector('#ch-' + current.id);
+        console.log(currentDom);
+
         map.style.transition = 'left .5s cubic-bezier(1,0,0,1), top .5s cubic-bezier(1,0,0,1)';
         mapContainer.style.transition = 'background-position-x .5s cubic-bezier(1,0,0,1), background-position-y .5s cubic-bezier(1,0,0,1)';
-        map.style.left = '0px';
-        map.style.top = '0px';
+        map.style.left = (mapContainer.clientLeft + currentDom.left) + 'px';
+        map.style.top = (mapContainer.clientTop + currentDom.top) + 'px';
         mapContainer.style.backgroundPositionX = '0px';
         mapContainer.style.backgroundPositionY = '0px';
     })

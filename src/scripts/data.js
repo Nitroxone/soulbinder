@@ -450,7 +450,8 @@ const Data = Object.freeze({
     },
     DungeonClusterPattern: {
         CIRCLE: 'circle',
-        LINE: 'line'
+        LINE: 'line',
+        GRID: 'grid',
     },
     LogMessageType: {
         REGULAR: "regular",

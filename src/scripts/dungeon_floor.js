@@ -13,7 +13,7 @@
 class DungeonFloor {
     constructor(props) {
         this.depth = getValueFromObject(props, "depth", 0);
-        this.gridSize = getValueFromObject(props, "gridSize", [41, 21]); // [height, width]
+        this.gridSize = getValueFromObject(props, "gridSize", [31, 31]); // [height, width]
         this.roomTypes = getValueFromObject(props, "roomTypes", {
             "boss room": 1,
             "eon well": getRandomNumber(1, 3),
@@ -24,18 +24,27 @@ class DungeonFloor {
             "entrance": 1,
             "chasm": 1,
         });
-        this.shape = getValueFromObject(props, "shape", Data.DungeonClusterPattern.LINE)
+        this.shape = getValueFromObject(props, "shape", Data.DungeonClusterPattern.GRID)
         this.pathCurve = getValueFromObject(props, "pathCurve", 0.3);
         this.chaoticCurve = getValueFromObject(props, "chaoticCurve", 2);
-        this.clustersAmount = getValueFromObject(props, "clustersAmount", 6);
+        this.clustersAmount = getValueFromObject(props, "clustersAmount", 9);
         this.roomsPerCluster = getValueFromObject(props, "roomsPerCluster", 5);
         this.unequalRepartition = getValueFromObject(props, "unequalRepartition", true);
+        this.spacing = getValueFromObject(props, "spacing", getRandomNumber(4, 6));
 
         this.roomsAmount = this.clustersAmount * this.roomsPerCluster;
 
         this.rooms = [];
         this.connectors = [];
         this.clusters = [];
+
+        if(this.shape === Data.DungeonClusterPattern.GRID) {
+            if(this.gridSize[0] > this.gridSize[1]) this.gridSize = [this.gridSize[1], this.gridSize[0]];
+            if(this.clustersAmount > 6) {
+                this.gridSize[0] += 5;
+                this.gridSize[1] += 5;
+            }
+        }
 
         this.generateFloorLayout();
         this.generateRooms();
@@ -54,8 +63,8 @@ class DungeonFloor {
             // If unequalRepartition is allowed, add randomness. Otherwise just return the default roomsPerCluster value.
             if(this.unequalRepartition) {
                 if(remainingRooms > 0) {
-                    const randomCount = Math.floor(Math.random() * 3.5) - 1;
-                    const count = Math.min(Math.max(this.roomsPerCluster + randomCount, 0), remainingRooms);
+                    const randomCount = Math.floor(Math.random() * 3) - 1;
+                    const count = Math.min(Math.max(this.roomsPerCluster + randomCount, 2), remainingRooms);
                     roomCounts.push(count);
                     remainingRooms -= count;
                 } else {
@@ -69,6 +78,7 @@ class DungeonFloor {
         while(roomCounts.reduce((partSum, a) => partSum + a, 0) < this.roomsAmount) {
             roomCounts[getRandomNumber(0, roomCounts.length - 1)] += 1;
         }
+
         return roomCounts;
     }
 
@@ -79,6 +89,11 @@ class DungeonFloor {
     generateFloorLayout() {
         const centerColumn = Math.floor(this.gridSize[1] / 2);
         const centerRow = Math.floor(this.gridSize[0] / 2);
+
+        const sideLength = Math.ceil(Math.sqrt(this.clustersAmount));
+        const startRow = centerRow - Math.floor(sideLength / 2);
+        const startColumn = centerColumn - Math.floor(sideLength / 2);
+
         const roomCounts = this.generateRoomCounts();
         for(let i = 0; i < this.clustersAmount; i++) {
             let row, column;
@@ -92,6 +107,9 @@ class DungeonFloor {
                 let radius = this.pathCurve * Math.min(centerRow, centerColumn);
                 row = Math.round(centerRow + radius * Math.sin(angle));
                 column = Math.round(centerColumn + radius * Math.cos(angle));
+            } else if(this.shape === Data.DungeonClusterPattern.GRID) {
+                row = startRow + Math.floor(i / sideLength) * this.spacing;
+                column = startColumn + (i % sideLength) * this.spacing;
             }
 
             if(row >= 0 && row < this.gridSize[0] && column >= 0 && column < this.gridSize[1]) {
@@ -163,6 +181,12 @@ class DungeonFloor {
                     }
                     j++;
                 }
+                console.log('Added: ' + addedRooms + ', count: ' + count);
+                console.log(this.roomsAmount);
+                console.log(this.rooms.length);
+            } else {
+                console.log('DID NOT ENTER');
+                this.roomsAmount -= roomCounts[i];
             }
         }
     }
@@ -187,6 +211,8 @@ class DungeonFloor {
         }
         // Randomize that a little
         types = shuffle(types);
+
+        console.log('There are ' + this.rooms.length + ' for ' + this.roomsAmount + ' expected');
         
         // For each room
         for(let i = 0; i < this.roomsAmount; i++) {
