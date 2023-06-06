@@ -2696,17 +2696,26 @@ function drawEonScreen() {
 
     str += '<div class="diary">';
 
-    str += '<div class="diaryFirstCol">';
+    str += '<div class="diaryFirstCol">'
     str += '<div class="leftPage pages">';
+    str += '<h2 class="leftPageTitle pageTitle">Eons</h2>';
+    str += '<div class="eonsBorder"></div>';
+    str += '<div class="eonsTitles">'
 
-    str += drawEonsItems();
 
+    str += drawEonsTitles();
+
+    str += '</div>';
     str += '</div>';
     str += '</div>';
 
     str += '<div class="diarySecondCol">';
     str += '<div class="rightPage pages">';
+    str += '<h2 class="rightPageTitle pageTitle">Eons</h2>';
+    str += '<div class="eonsBorder"></div>';
+    str += '<div class="eonsFragments">';
 
+    str += '</div>';
     str += '</div>';
     str += '</div>';
 
@@ -2729,7 +2738,7 @@ function drawEonScreen() {
     })
 }
 
-function drawEonsItems() {
+function drawEonsTitles() {
     let str = '';
 
     game.all_majorEons.forEach(eon => {
@@ -2747,5 +2756,5 @@ function drawEonFragments(eon) {
         str += fragment.text;
         str += '</div>'
     });
-    document.querySelector('.rightPage').innerHTML = str;
+    document.querySelector('.eonsFragments').innerHTML = str;
 }
