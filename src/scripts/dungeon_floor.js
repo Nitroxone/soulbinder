@@ -51,6 +51,7 @@ class DungeonFloor {
         this.generateConnections();
 
         this.currentRoom = this.getEntranceRoom();
+        this.visitCurrentRoom();
     }
 
     /**

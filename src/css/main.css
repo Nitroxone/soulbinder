@@ -3813,8 +3813,8 @@ table.astralForgeShards td {
     position: absolute;
 
     border-radius: 100%;
-    border: 2px solid rgb(175, 175, 175);
-    background-color:rgb(0, 0, 0);
+    /*border: 2px solid rgb(175, 175, 175);
+    background-color:rgb(0, 0, 0);*/
 
     width: 24px;
     height: 24px;

@@ -2648,7 +2648,14 @@ function drawMapConnectors() {
         const targetPosOriginY = (nextRoomDom.offsetTop + targetPos.height / 2) + 4.5;
         const id = 'connector_' + room.id + '_to_' + room.nextRoom.id;
 
-        str += '<line class="mapConnector" id="' + id + '" x1="' + basePosOriginX + '" y1="' + basePosOriginY + '" x2="' + targetPosOriginX + '" y2="' + targetPosOriginY + '" style="stroke: white; stroke-width: 1; stroke-dasharray: 10; animation-name: animstroke; animation-iteration-count: infinite; animation-duration: 60s; animation-timing-function: linear;" />';
+        let color = 'transparent';
+        if(room.visited) {
+            if(room.nextRoom.visited) color = 'white';
+            else color = 'grey';
+        }
+        if(room.nextRoom.visited) color = 'grey';
+
+        str += '<line class="mapConnector" id="' + id + '" x1="' + basePosOriginX + '" y1="' + basePosOriginY + '" x2="' + targetPosOriginX + '" y2="' + targetPosOriginY + '" style="stroke: ' + color + '; stroke-width: 1;" />';
     });
 
     str += '</svg>';
