@@ -321,4 +321,14 @@ class DungeonFloor {
     visitCurrentRoom() {
         this.currentRoom.visited = true;
     }
+
+    moveToNextRoom() {
+        if(this.currentRoom.nextRoom) this.currentRoom = this.currentRoom.nextRoom;
+        else return false;
+    }
+
+    moveToPreviousRoom() {
+        if(this.currentRoom.previousRoom) this.currentRoom = this.currentRoom.previousRoom;
+        else return false;
+    }
 }

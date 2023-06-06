@@ -2605,7 +2605,7 @@ function drawExplorationScreen() {
     floor.clusters.forEach(cl => {
         str += '<div id="cl-' + cl.id + '" class="map-clusterContainer" style="top: ' + cl.coordinates[0] * 50 + 'px; left: ' + cl.coordinates[1] * 50 + 'px;"></div>';
         cl.childrenRooms.forEach(ch => {
-            str += '<div id="ch-' + ch.id + '" class="map-roomContainer coolBorder' + (ch === floor.currentRoom ? ' currentRoom' : '') + '" style="top: ' + ch.coordinates[0] * 50 + 'px; left: ' + ch.coordinates[1] * 50 + 'px;"></div>';
+            str += '<div id="ch-' + ch.id + '" class="map-roomContainer coolBorder' + (ch === floor.currentRoom ? ' visitedRoom currentRoom' : '') + '" style="top: ' + ch.coordinates[0] * 50 + 'px; left: ' + ch.coordinates[1] * 50 + 'px;"></div>';
         });        
     })
     str += '</div>';
@@ -2622,9 +2622,43 @@ function drawExplorationScreen() {
 
     document.querySelector('.explorationContainer').innerHTML = str;
 
-    generateExplorationMapEvents();
     drawMapConnectors();
     bringRoomsForward();
+    generateExplorationMapEvents();
+    generateMapRoomsEvents();
+}
+
+function generateMapRoomsEvents() {
+    game.currentDungeon.currentFloor.rooms.forEach(room => {
+        const nextRoom = room.nextRoom || null;
+        const previousRoom = room.previousRoom || null;
+
+        const roomDom = document.querySelector('#ch-' + room.id);
+        const nextRoomDom = nextRoom ? document.querySelector('#ch-' + nextRoom.id) : null;
+        const previousRoomDom = previousRoom ? document.querySelector('#ch-' + previousRoom.id) : null;
+
+        roomDom.addEventListener('click', e => {
+            if(nextRoom === game.currentDungeon.currentFloor.currentRoom || previousRoom === game.currentDungeon.currentFloor.currentRoom) {
+                if(!room.visited) {
+                    room.visited = true;
+                    roomDom.classList.add('visitedRoom');
+                }
+
+                if(nextRoom === game.currentDungeon.currentFloor.currentRoom) {
+                    nextRoomDom.classList.remove('currentRoom');
+                    game.currentDungeon.currentFloor.moveToPreviousRoom();
+                }
+                else if(previousRoom === game.currentDungeon.currentFloor.currentRoom) {
+                    previousRoomDom.classList.remove('currentRoom');
+                    game.currentDungeon.currentFloor.moveToNextRoom();
+                }
+                
+                
+                
+                roomDom.classList.add('currentRoom');
+            }
+        });
+    })
 }
 
 function drawMapConnectors() {
