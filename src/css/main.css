@@ -3834,18 +3834,36 @@ table.astralForgeShards td {
     background-repeat: no-repeat;
     background-size: cover;
 
-    transition: all .1s ease-in-out;
+    transition: opacity .5s cubic-bezier(1, 0, 0, 1), border-color .1s ease-in-out;
 }
 .map-roomContainer:hover {
     border-color: white;
 }
+
+.map-roomContainer.hiddenRoom {
+    opacity: 0;
+}
+.map-roomContainer.revealedRoom {
+    opacity: 0.5;
+}
 .map-roomContainer.visitedRoom {
     border-color: rgb(175, 175, 175);
+    opacity: 1;
 }
 .map-roomContainer.currentRoom {
     border-color: yellow;
 }
 
+.mapConnector {
+    transition: all 1s cubic-bezier(1, 0, 0, 1);
+    stroke: transparent;
+}
+.visitedConnector {
+    stroke: white;
+}
+.canVisitConnector {
+    stroke: grey;
+}
 /* ------------------------------------ */
 
 .editedIcon {

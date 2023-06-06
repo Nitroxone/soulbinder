@@ -161,56 +161,56 @@ class DungeonFloor {
                 while(addedRooms < count) { 
                     if (row - j >= 0 && !hasRoomWithCoordinates(this.rooms, [row - j, column]) && addedRooms < count) {
                         // Above
-                        const room = new DungeonRoom({coordinates: [row - j, column]});
+                        const room = new DungeonRoom({coordinates: [row - j, column], parentCluster: cl});
                         this.rooms.push(room);
                         cl.childrenRooms.push(room);
                         addedRooms++;
                     }
                     if (row + j < this.gridSize[0] && !hasRoomWithCoordinates(this.rooms, [row + j, column]) && addedRooms < count) {
                         // Below
-                        const room = new DungeonRoom({coordinates: [row + j, column]});
+                        const room = new DungeonRoom({coordinates: [row + j, column], parentCluster: cl});
                         this.rooms.push(room);
                         cl.childrenRooms.push(room);
                         addedRooms++;
                     }
                     if (column - j >= 0 && !hasRoomWithCoordinates(this.rooms, [row, column - j]) && addedRooms < count) {
                         // Left
-                        const room = new DungeonRoom({coordinates: [row, column - j]});
+                        const room = new DungeonRoom({coordinates: [row, column - j], parentCluster: cl});
                         this.rooms.push(room);
                         cl.childrenRooms.push(room);
                         addedRooms++;
                     }
                     if (column + j < this.gridSize[1] && !hasRoomWithCoordinates(this.rooms, [row, column + j]) && addedRooms < count) {
                         // Right
-                        const room = new DungeonRoom({coordinates: [row, column + j]});
+                        const room = new DungeonRoom({coordinates: [row, column + j], parentCluster: cl});
                         this.rooms.push(room);
                         cl.childrenRooms.push(room);
                         addedRooms++;
                     }
                     if (row - j >= 0 && column - j >= 0 && !hasRoomWithCoordinates(this.rooms, [row - j, column - j]) && addedRooms < count) {
                         // Top-left
-                        const room = new DungeonRoom({coordinates: [row - j, column - j]});
+                        const room = new DungeonRoom({coordinates: [row - j, column - j], parentCluster: cl});
                         this.rooms.push(room);
                         cl.childrenRooms.push(room);
                         addedRooms++;
                     }
                     if (row - j >= 0 && column + j < this.gridSize[1] && !hasRoomWithCoordinates(this.rooms, [row - j, column + j]) && addedRooms < count) {
                         // Top-right
-                        const room = new DungeonRoom({coordinates: [row - j, column + j]});
+                        const room = new DungeonRoom({coordinates: [row - j, column + j], parentCluster: cl});
                         this.rooms.push(room);
                         cl.childrenRooms.push(room);
                         addedRooms++;
                     }
                     if (row + j < this.gridSize[0] && column - j >= 0 && !hasRoomWithCoordinates(this.rooms, [row + j, column - j]) && addedRooms < count) {
                         // Bottom-left
-                        const room = new DungeonRoom({coordinates: [row + j, column - j]});
+                        const room = new DungeonRoom({coordinates: [row + j, column - j], parentCluster: cl});
                         this.rooms.push(room);
                         cl.childrenRooms.push(room);
                         addedRooms++;
                     }
                     if (row + j < this.gridSize[0] && column + j < this.gridSize[1] && !hasRoomWithCoordinates(this.rooms, [row + j, column + j]) && addedRooms < count) {
                         // Bottom-right
-                        const room = new DungeonRoom({coordinates: [row + j, column + j]});
+                        const room = new DungeonRoom({coordinates: [row + j, column + j], parentCluster: cl});
                         this.rooms.push(room);
                         cl.childrenRooms.push(room);
                         addedRooms++;
