@@ -9,6 +9,12 @@ class DungeonRoom {
         this.previousRoom = getValueFromObject(props, "previousRoom", null);
         this.parentCluster = getValueFromObject(props, "parentCluster", null);
 
+        this.status = Data.DungeonRoomStatus.UNCLEARED;
         this.visited = false;
+        this.action = getActionFromRoomType(this.type);
+    }
+
+    getRoomDescription() {
+        return choose(Speech.Dungeon.Rooms[this.type][game.currentDungeon.name.toLowerCase()][this.status]);
     }
 }

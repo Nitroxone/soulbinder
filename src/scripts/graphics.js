@@ -2615,10 +2615,12 @@ function drawExplorationScreen() {
     str += '<img class="mapCornerTr" src="css/img/map_tr_corner.png" />';
     str += '<img class="mapCornerBl" src="css/img/map_bl_corner.png" />';
     str += '<img class="mapCornerBr" src="css/img/map_br_corner.png" />';
+    str += '<div class="map-dungeonName">' + dungeon.name + '</div>';
     str += '</div>';
 
 
-    str += '<div id="exploration-infosPanel">';
+    str += '<div id="exploration-infosPanel" class="coolBorderBis">';
+    str += drawExplorationInfosPanel();
     str += '</div>';
 
     document.querySelector('.explorationContainer').innerHTML = str;
@@ -2628,6 +2630,32 @@ function drawExplorationScreen() {
     generateExplorationMapEvents();
     generateMapRoomsEvents();
     recenterDungeonMap();
+}
+
+function drawExplorationInfosPanel(refresh = false) {
+    let str = '';
+    const currentRoom = game.currentDungeon.currentFloor.currentRoom;
+
+    str += '<div class="infosPanel-roomHeader' + (currentRoom.status === Data.DungeonRoomStatus.CLEARED ? ' clearedHeader' : '') + '">';
+    str += '<div class="roomHeader-status">' + currentRoom.status + '</div>';
+    str += '<div class="roomHeader-type">' + currentRoom.type + '</div>';
+    str += '</div>';
+
+    str += '<div class="infosPanel-roomDesc">';
+    str += currentRoom.getRoomDescription();
+    str += '</div>';
+
+    str += '<div class="infosPanel-roomActions">';
+    str += '</div>';
+
+    str += '<div class="infosPanel-actionResult">';
+    str += '</div>';
+
+    if(refresh) {
+        document.querySelector('#exploration-infosPanel').innerHTML = str;
+        return;
+    }
+    return str;
 }
 
 function revealCluster(cluster) {
@@ -2686,18 +2714,16 @@ function generateMapRoomsEvents() {
                 // Moving backward
                 if(nextRoom === game.currentDungeon.currentFloor.currentRoom) {
                     nextRoomDom.classList.remove('currentRoom');
-                    document.querySelector('#connector_' + room.id + '_to_' + nextRoom.id).classList.remove('canUseConnector');
                     game.currentDungeon.currentFloor.moveToPreviousRoom();
                 }
                 // Moving forward
                 else if(previousRoom === game.currentDungeon.currentFloor.currentRoom) {
                     previousRoomDom.classList.remove('currentRoom');
-                    document.querySelector('#connector_' + previousRoom.id + '_to_' + room.id).classList.remove('canUseConnector');
                     game.currentDungeon.currentFloor.moveToNextRoom();
                 }
-                
+
                 roomDom.classList.add('currentRoom');
-                //recenterDungeonMap();
+                drawExplorationInfosPanel(true);
             }
         });
     })

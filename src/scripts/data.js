@@ -421,17 +421,29 @@ const Data = Object.freeze({
     //------------------------------------------------------
     // DUNGEON PARAM
     //------------------------------------------------------
+    DungeonNames: {
+        PUTRESCENT_OSSUARY: "putrescent ossuary",
+    },  
     DungeonRoomType: {
         ENTRANCE: "entrance",
         CHASM: "chasm",
         BOSS: "boss room",
-        EON_WELL: "eon well",
+        ETERNITY_WELL: "eternity well",
         FRACTURED_HOLLOW: "fractured hollow",
         SACRIFICIAL_ALCOVE: "sacrificial alcove",
         ANTECHAMBER_OF_MARVELS: "antechamber of marvels",
+        DESECRATED_SANCTUARY: "desecrated sanctuary",
         DORMANT_ROOM: "dormant room",
         EMPTY: "empty room",
         CLUSTER: "cluster",
+    },
+    DungeonRoomAction: {
+        SEARCH: "search",
+    },
+    DungeonRoomStatus: {
+        UNCLEARED: "uncleared",
+        ENGAGED: "engaged",
+        CLEARED: "cleared"
     },
     DungeonEncounterHostileBattleType: {
         GROUP: "group",
