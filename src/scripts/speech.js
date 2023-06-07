@@ -1,164 +1,132 @@
 let Speech = {
     Dungeon: {
-        encounterQuote: {
-            encounterGroupQuote: [
-                
-                "As you make your way through this Vestige, you come across a group of ${mobType} ready to rip you to shreds. Go to the Battle tab to fight them off!",
-            ]
-        },
-        dense: {
-            entrance: {
-                jungle: [
-                    "Quote 1",
-                    "Quote 2"
-                ]
-            }
-        },
-        cave: {
-            entrance: {
-                jungle: [
-
-                    "After a long journey, your striders land at the entrance of a cave. The vegetation is dense outside, and it is impossible to see what is inside. Who knows what you might stumble upon?",
-
-                    "The exploration was difficult, but you and your striders eventually got where you wanted to go. Before you, a gaping cave from which emanates putrid fumes. Do you dare to venture into it?"
-
-                ],
-                closing: [
-
-                    "closing set wsh bon c pas encore ça"
-                ],
-            },
-            regular: {
-                jungle: {
-                    1: {
-                        room: [
-
-                            "A small room opens to you. The walls are covered with moss, and be careful where you put your feet: the ambient humidity has made the floor slippery. It would be very unfortunate to have arrived here just to die stupidly. But the eons seem to trust you; you're not an idiot... Are you?",
-        
-                            "You enter a vast chamber adorned with limestone stalactites, sharp as fangs and tinged with mold. The walls are embellished with luminescent mushrooms that softly glow as you pass by, providing a helpful source of light to navigate through the room. The combination of stalactites and glowing fungi creates an otherworldly atmosphere, casting mysterious shadows and illuminating hidden details. The chamber feels ancient and untouched, hinting at a forgotten history waiting to be unveiled.",
-
-                            "You step into a damp cavern, shrouded in an eerie and suffocating humidity. The walls ooze with moisture, creating a cascade of glistening droplets along the moss-covered rocks. Through the darkness, you glimpse an unsettling sight of grotesque, phosphorescent fungi sprouting from every nook and cranny, casting an ominous glow that flickers and dances in the gloom. The air is heavy with a putrid scent, as if the very essence of decay permeates the atmosphere. Sinister, sinewy roots dangle from the ceiling, descending from the surface above like grasping tendrils. The cave exudes a dreadful aura, whispering ancient secrets and hinting at malevolent forces that lie in wait."
-        
-                        ],
-
-                        bridge: [
-
-                            "You enter a dark and narrow tunnel, a nauseating smell assaults your nose. Once again, the progression is difficult as the path is sinuous and strewn with heavy stones.",
-
-                            "The tunnel you enter is wet, and putrid fumes burn your eyes. You and your striders struggle to breathe without suffocating. Hoping that the end of the tunnel will be more lenient with you..."
-        
-                        ],
-
-                        choiceQuote: [
-
-                            "The cave seems to spread out in an intricate network of guts, like intestines ready to slowly digest you. But you still have the option of staying on the level you are on to explore the surrounding rooms. Which way do you want to go?",
-
-                            "The cavern sprawls like a complex labyrinth, its convoluted passages resembling twisted arteries that seem to pulse with an unsettling energy. However, you have the choice to remain on your current level or delve into the depths. Which direction would you like to proceed?",
-
-                            "Which way to go now? Rather the next room, or the tunnels that go down into the depths of the cave?",
-        
-                        ],
-
-                        endLevelQuote: [
-
-                            "c la fin du nivo xd"
-                        ]
-                    },
-                    2: {
-                        room: [
-
-                            "caca pipi proutent xd",
-                        ],
-
-                        bridge: [
-
-                            "proute la crotte",
-
-                            "JAI LA CHIASSOCUL"
-        
-                        ],
-
-                        choiceQuote: [
-
-                            "MERD O FIONGUE",
-
-                            "Oui.",
-
-                            "zgegkicole",
-        
-                        ], 
-
-                        endLevelQuote: [
-
-                            "c la fin du nivo xd"
-                        ]
-                    },
-                    3: {
-                        room: [
-
-                            "nan sale chiotte",
-                        ],
-
-                        bridge: [
-
-                            "ici cest le niveau 3 biento 4 xd",
-
-                            "JAI toujours LA CHIASSOCUL"
-        
-                        ],
-
-                        choiceQuote: [
-
-                            "MERD O FIONGUE x2",
-
-                            "Oui. ou non, peutetre qui sait ?",
-
-                            "TAYEEEEUUULLL",
-        
-                        ], 
-
-                        endLevelQuote: [
-
-                            "c la fin du nivo xd"
-                        ]
-                    },
-                    4: {
-                        room: [
-
-                            "room lvl 4",
-                        ],
-
-                        bridge: [
-
-                            "bridge lvl 4",
-        
-                        ],
-
-                        choiceQuote: [
-
-                            "choice quote lvl 4",
-        
-                        ], 
-
-                        endLevelQuote: [
-
-                            "c la fin du nivo xd"
-                        ]
-                    },
-                    5: {
-                        room: [
-
-                            "room lvl 5",
-                        ],
-
-                        choiceQuote: [
-
-                            "quote lvl 5",
-
-                        ]
-                    }
+        Rooms: {
+            "entrance": {
+                "putrescent ossuary": {
+                    uncleared: [
+                        "As the striders descend into the gaping chasm, the air grows thick with an acrid stench that permeates the putrid ossuary below. The walls are adorned with skeletal remains, their bleached bones jutting out at odd angles. A dim, flickering light barely illuminates the path ahead, casting long, eerie shadows that seem to dance in time with their racing hearts. The toxic fumes assault their senses, causing their eyes to water and throats to burn. Each step is accompanied by an unnerving creaking sound, as if the very bones of the dead echo their presence.",
+                        "Entering the dark and desolate ossuary, the striders feel a weight settle upon their chests. The air hangs heavy with a sense of foreboding, and their eyes strain to pierce through the gloom. Soft, ominous growls reverberate through the murky depths, a chorus of unseen creatures lurking just beyond their line of sight. Shadows dance along the walls, seeming to whisper secrets of long-forgotten horrors. The explorers' steps falter as a bone-chilling cold seeps into their bones, causing shivers to run down their spines. Fear clenches their hearts, but they know turning back is not an option.",
+                        "The putrescent ossuary greets the striders with an assault on their senses. The air is thick with the stench of decay, a nauseating aroma that clings to their clothing and invades their nostrils. Dim, sickly green light emanates from luminescent fungi growing on the damp walls, casting grotesque, distorted shadows on the ancient bones. Toxic fumes waft through the air, causing them to cough and gasp for breath. Fear pulses in their veins as they hear the eerie echoes of growls and slithering sounds, their imaginations running wild with the grotesque possibilities lurking in the darkness.",
+                        "The striders descend into the putrescent ossuary, their bravado waning with each step. The air turns foul, assaulting their senses with a noxious blend of decay and rot. Sinister whispers seem to ride on the currents of toxic fumes, playing tricks on their minds and sowing seeds of doubt. Shadows dance menacingly along the crumbling walls, as if mocking their presence in this macabre realm. Fear creeps up their spines as they strain to identify the source of the low, guttural growls echoing through the darkness, threatening to shatter their resolve. Yet, they press on, their hearts pounding in a symphony of both dread and determination."
+                    ],
                 }
             },
+            "chasm": {
+                "putrescent ossuary": {
+                    uncleared: [
+    
+                    ],
+                    cleared: [
+    
+                    ]
+                }
+            },
+            "boss": {
+                "putrescent ossuary": {
+                    uncleared: [
+    
+                    ],
+                    engaged: [
+    
+                    ],
+                    cleared: [
+    
+                    ]
+                },
+            },
+            "eternity well": {
+                "putrescent ossuary": {
+                    uncleared: [
+    
+                    ],
+                    cleared: [
+    
+                    ]
+                },
+            },
+            "fractured hollow": {
+                "putrescent ossuary": {
+                    uncleared: [
+    
+                    ],
+                    engaged: [
+                        
+                    ],
+                    cleared: [
+    
+                    ]
+                },
+            },
+            "sacrificial alcove": {
+                "putrescent ossuary": {
+                    uncleared: [
+    
+                    ],
+                    engaged: [
+                        
+                    ],
+                    cleared: [
+    
+                    ]
+                },
+            },
+            "antechamber of marvels": {
+                "putrescent ossuary": {
+                    uncleared: [
+    
+                    ],
+                    cleared: [
+    
+                    ]
+                },
+            },
+            "dormant room": {
+                "putrescent ossuary": {
+                    uncleared: [
+    
+                    ],
+                    engaged: [
+                        
+                    ],
+                    cleared: [
+    
+                    ]
+                },
+            },
+            "empty room": {
+                "putrescent ossuary": {
+                    uncleared: [
+    
+                    ],
+                    cleared: [
+    
+                    ]
+                },
+            },
+            "desecrated sanctuary": {
+                "putrescent ossuary": {
+                    uncleared: [
+    
+                    ],
+                    cleared: [
+    
+                    ]
+                },
+            },
         },
+        Actions: {
+            Search: {
+                "putrescent ossuary": {
+                    successful: [
+                        "Leaving the room behind, the striders carry the weight of anticipation on their shoulders. The air feels charged with possibility, tinged with a hint of excitement. Their eyes gleam with satisfaction as they secure newfound artifacts and mysterious scrolls. The room exudes a sense of accomplishment, every nook and cranny explored and plundered for its secrets. They move forward, invigorated by the spoils of their search.",
+                        "Emerging from the room they meticulously combed, the striders wear expressions of triumph. The air crackles with an electric energy, charged by their successful findings. Their hands clasp newfound treasures, glimmering in the dim light. The room resonates with a sense of accomplishment, a testament to their resourcefulness and keen eyes. Emboldened by their triumph, they venture forth, fueled by the promise of further discoveries.",
+                    ],
+                    failed: [
+                        "The striders emerge from the room they meticulously searched, their brows furrowed with disappointment. The air feels stagnant, heavy with unfulfilled expectations. Shadows cling to the corners, silent witnesses to their fruitless efforts. Their hands, dusty and empty, hang limply by their sides. A sense of defeat lingers in the room, mingling with the faint scent of aged parchment and forgotten treasures.",
+                        "Having concluded their meticulous search, the striders depart from the room with a mix of relief and intrigue. The air feels lighter, as if freed from the weight of uncertainty. Their fingers trace patterns in the dust, leaving behind their mark of thorough exploration. The room, now devoid of its secrets, radiates a sense of quietude. With their minds filled with newfound knowledge, they march forward, eager to unravel the next mystery.",
+                    ]
+                }
+            }
+        }
     },
 }
