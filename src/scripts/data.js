@@ -425,7 +425,7 @@ const Data = Object.freeze({
         ENTRANCE: "entrance",
         CHASM: "chasm",
         BOSS: "boss room",
-        EON_WELL: "eon well",
+        ETERNITY_WELL: "eternity well",
         FRACTURED_HOLLOW: "fractured hollow",
         SACRIFICIAL_ALCOVE: "sacrificial alcove",
         ANTECHAMBER_OF_MARVELS: "antechamber of marvels",

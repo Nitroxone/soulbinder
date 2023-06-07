@@ -16,7 +16,7 @@ class DungeonFloor {
         this.gridSize = getValueFromObject(props, "gridSize", [31, 31]); // [height, width]
         this.roomTypes = getValueFromObject(props, "roomTypes", {
             "boss room": 1,
-            "eon well": getRandomNumber(1, 3),
+            "eternity well": getRandomNumber(1, 3),
             "fractured hollow": 1,
             "sacrificial alcove": getRandomNumber(2, 5),
             "dormant room": getRandomNumber(3, 8),
@@ -285,7 +285,7 @@ class DungeonFloor {
                         case Data.DungeonRoomType.ENTRANCE:
                             row.push('!');
                             break;
-                        case Data.DungeonRoomType.EON_WELL:
+                        case Data.DungeonRoomType.ETERNITY_WELL:
                             row.push('E');
                             break;
                         case Data.DungeonRoomType.FRACTURED_HOLLOW:
