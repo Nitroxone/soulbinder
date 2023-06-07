@@ -327,7 +327,7 @@ class DungeonFloor {
      * Marks the current room as cleared.
      */
     clearCurrentRoom() {
-        this.currentRoom.cleared = true;
+        this.currentRoom.status = Data.DungeonRoomStatus.CLEARED;
     }
 
     moveToNextRoom() {

@@ -429,9 +429,15 @@ const Data = Object.freeze({
         FRACTURED_HOLLOW: "fractured hollow",
         SACRIFICIAL_ALCOVE: "sacrificial alcove",
         ANTECHAMBER_OF_MARVELS: "antechamber of marvels",
+        DESECRATED_SANCTUARY: "desecrated sanctuary",
         DORMANT_ROOM: "dormant room",
         EMPTY: "empty room",
         CLUSTER: "cluster",
+    },
+    DungeonRoomStatus: {
+        UNCLEARED: "uncleared",
+        ENGAGED: "engaged",
+        CLEARED: "cleared"
     },
     DungeonEncounterHostileBattleType: {
         GROUP: "group",

@@ -2636,8 +2636,8 @@ function drawExplorationInfosPanel(refresh = false) {
     let str = '';
     const currentRoom = game.currentDungeon.currentFloor.currentRoom;
 
-    str += '<div class="infosPanel-roomHeader">';
-    str += '<div class="roomHeader-status">' + translateRoomStatus(currentRoom.cleared) + '</div>';
+    str += '<div class="infosPanel-roomHeader' + (currentRoom.cleared ? ' clearedHeader' : '') + '">';
+    str += '<div class="roomHeader-status">' + currentRoom.status + '</div>';
     str += '<div class="roomHeader-type">' + currentRoom.type + '</div>';
     str += '</div>';
 

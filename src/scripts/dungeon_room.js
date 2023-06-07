@@ -9,7 +9,7 @@ class DungeonRoom {
         this.previousRoom = getValueFromObject(props, "previousRoom", null);
         this.parentCluster = getValueFromObject(props, "parentCluster", null);
 
-        this.cleared = false;
+        this.status = Data.DungeonRoomStatus.UNCLEARED;
         this.visited = false;
     }
 }
