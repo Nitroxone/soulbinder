@@ -23,6 +23,9 @@ class Player {
         this.af_failure = 40;
         this.af_success = 40;
         this.af_criticalSuccess = 5;
+
+        // DUNGEONS CONFIG
+        this.du_identifyRoomChance = 30;
     }
 
     /**

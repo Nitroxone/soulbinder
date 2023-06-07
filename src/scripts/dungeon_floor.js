@@ -52,7 +52,8 @@ class DungeonFloor {
 
         this.currentRoom = this.getEntranceRoom();
         this.revealCurrentRoom();
-        this.visitCurrentRoom();
+        this.identifyCurrentRoom();
+        //this.visitCurrentRoom();
         //this.clearCurrentRoom();
     }
 
@@ -332,19 +333,40 @@ class DungeonFloor {
     }
 
     /**
+     * Marks the current room as identified.
+     */
+    identifyCurrentRoom() {
+        this.currentRoom.identified = true;
+    }
+
+    /**
      * Marks the current room as cleared.
      */
     clearCurrentRoom() {
         this.currentRoom.status = Data.DungeonRoomStatus.CLEARED;
     }
 
+    canIdentifyRoom() {
+        return Math.random() * 100 < game.player.du_identifyRoomChance;
+    }
+
+    attemptToIdentifyRoom() {
+        if(this.canIdentifyRoom()) this.identifyCurrentRoom();
+    }
+
     moveToNextRoom() {
-        if(this.currentRoom.nextRoom) this.currentRoom = this.currentRoom.nextRoom;
+        if(this.currentRoom.nextRoom) {
+            this.currentRoom = this.currentRoom.nextRoom;
+            this.attemptToIdentifyRoom();
+        }
         else return false;
     }
 
     moveToPreviousRoom() {
-        if(this.currentRoom.previousRoom) this.currentRoom = this.currentRoom.previousRoom;
+        if(this.currentRoom.previousRoom) {
+            this.currentRoom = this.currentRoom.previousRoom;
+            this.attemptToIdentifyRoom();
+        }
         else return false;
     }
 }

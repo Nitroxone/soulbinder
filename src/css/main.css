@@ -3911,6 +3911,25 @@ table.astralForgeShards td {
     opacity: 0.25;
 }
 
+.infosPanel-roomActions {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.roomActions-action.enter {
+    flex: 1;
+    min-width: 100%;
+}
+.roomActions-action.scout {
+    flex: 1;
+    min-width: 50%;
+}
+.roomActions-action.search {
+    flex: 1;
+    min-width: 100%;
+}
+
 .clearedHeader.infosPanel-roomHeader::before {
     opacity: 1;
 }

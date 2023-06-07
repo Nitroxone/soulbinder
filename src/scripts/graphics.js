@@ -2639,7 +2639,7 @@ function drawExplorationInfosPanel(refresh = false) {
 
     str += '<div class="infosPanel-roomHeader' + (currentRoom.status === Data.DungeonRoomStatus.CLEARED ? ' clearedHeader' : '') + '">';
     str += '<div class="roomHeader-status">' + currentRoom.status + '</div>';
-    str += '<div class="roomHeader-type">' + currentRoom.type + '</div>';
+    str += '<div class="roomHeader-type">' + (currentRoom.identified ? currentRoom.type : 'Unknown') + '</div>';
     str += '</div>';
 
     str += '<div class="infosPanel-roomDesc">';
@@ -2647,7 +2647,16 @@ function drawExplorationInfosPanel(refresh = false) {
     str += '</div>';
 
     str += '<div class="infosPanel-roomActions">';
-    // HANDLE ACTIONS
+    // HANDLE ACTION
+    if(actions.includes(Data.DungeonRoomAction.ENTER)) {
+        str += '<div class="roomActions-action enter">Enter</div>';
+    }
+    if(actions.includes(Data.DungeonRoomAction.SCOUT)) {
+        str += '<div class="roomActions-action scout"><h4>Scout</h4><h6>' + what(game.inventory.resources, 'lunar firefly').amount + '/1 <span class="lunarFirefly">Lunar Firefly</span></h6></div>';
+    }
+    if(actions.includes(Data.DungeonRoomAction.SEARCH)) {
+        str += '<div class="roomActions-action search">Search</div>';
+    }
     str += '</div>';
 
     str += '<div class="infosPanel-actionResult">';
@@ -2680,15 +2689,15 @@ function generateMapRoomsEvents() {
         roomDom.addEventListener('click', e => {
             // Only works if clicking on an accessible tile (next or previous room to the current one)
             if(nextRoom === game.currentDungeon.currentFloor.currentRoom || previousRoom === game.currentDungeon.currentFloor.currentRoom) {
-                if(!room.visited) {
-                    room.visited = true;
+                if(!room.revealed) {
+                    room.revealed = true;
                     roomDom.classList.remove('revealedRoom');
                     roomDom.classList.add('visitedRoom');
 
                     if(previousRoom) {
                         let prevLine = document.querySelector('#connector_' + previousRoom.id + '_to_' + room.id);
                         console.log(prevLine);
-                        if(!previousRoom.visited) prevLine.classList.add('canVisitConnector');
+                        if(!previousRoom.revealed) prevLine.classList.add('canVisitConnector');
                         else {
                             prevLine.classList.remove('canVisitConnector');
                             prevLine.classList.add('visitedConnector');
@@ -2701,7 +2710,7 @@ function generateMapRoomsEvents() {
                     if(nextRoom) {
                         let nextLine = document.querySelector('#connector_' + room.id + '_to_' + nextRoom.id);
                         console.log(nextLine);
-                        if(!nextRoom.visited)  nextLine.classList.add('canVisitConnector');
+                        if(!nextRoom.revealed)  nextLine.classList.add('canVisitConnector');
                         else {
                             nextLine.classList.remove('canVisitConnector');
                             nextLine.classList.add('visitedConnector');
@@ -2765,10 +2774,10 @@ function drawMapConnectors() {
         const id = 'connector_' + room.id + '_to_' + room.nextRoom.id;
 
         let color = '';
-        if(room.visited) {
-            if(!room.nextRoom.visited) color = ' canVisitConnector';
+        if(room.revealed) {
+            if(!room.nextRoom.revealed) color = ' canVisitConnector';
         }
-        if(!room.visited && room.nextRoom.visited) color = ' canVisitConnector';
+        if(!room.revealed && room.nextRoom.revealed) color = ' canVisitConnector';
 
         str += '<line class="mapConnector' + color + '" id="' + id + '" x1="' + basePosOriginX + '" y1="' + basePosOriginY + '" x2="' + targetPosOriginX + '" y2="' + targetPosOriginY + '" style="stroke-width: 1;" />';
     });
@@ -2827,9 +2836,9 @@ function generateExplorationMapEvents() {
             let offsetTop = top + deltaY;
             map.style.left = offsetLeft + 'px';
             map.style.top = offsetTop + 'px';
-            let divider = map.style.transform === 'scale(0.5)' ? 4 : 6;
+            /*let divider = map.style.transform === 'scale(0.5)' ? 4 : 6;
             mapContainer.style.backgroundPositionX = (offsetLeft/divider) + 'px';
-            mapContainer.style.backgroundPositionY = (offsetTop/divider) + 'px';
+            mapContainer.style.backgroundPositionY = (offsetTop/divider) + 'px';*/
         });
 
         mapContainer.addEventListener('mouseup', e => {

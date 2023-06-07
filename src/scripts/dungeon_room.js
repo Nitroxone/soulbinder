@@ -12,6 +12,7 @@ class DungeonRoom {
         this.status = Data.DungeonRoomStatus.UNCLEARED;
         this.visited = false;
         this.revealed = false;
+        this.identified = false;
     }
 
     getRoomDescription() {
@@ -28,11 +29,12 @@ class DungeonRoom {
 
     getActions() {
         let actions = [];
-        if(this.revealed) {
+        if(this.identified) {
             if(!this.visited) {
                 if(this.canSearch()) actions.push(Data.DungeonRoomAction.SEARCH);
                 else actions.push(Data.DungeonRoomAction.ENTER);
             }
-        } else actions.push([Data.DungeonRoomAction.ENTER, Data.DungeonRoomAction.SCOUT])
+        } else actions.push(Data.DungeonRoomAction.ENTER, Data.DungeonRoomAction.SCOUT);
+        return actions;
     }
 }
