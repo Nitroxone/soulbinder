@@ -3836,7 +3836,7 @@ table.astralForgeShards td {
     font-variant: small-caps;
     font-size: 1.05rem;
 
-    text-shadow: 0px 1px 0px #733726,0px 2px 0px #875626,0px 2px 1px #000,0px 2px 3px #000;
+    /*text-shadow: 0px 1px 0px #733726,0px 2px 0px #875626,0px 2px 1px #000,0px 2px 3px #000;*/
 }
 
 .infosPanel-roomHeader {
@@ -3876,6 +3876,19 @@ table.astralForgeShards td {
     background: rgb(238,149,81, 0.5);
     background: radial-gradient(circle, rgba(238,149,81,0.25) 0%, rgba(255,255,255,0) 100%);
 }
+
+.infosPanel-roomDesc {
+    padding: 1rem;
+    line-height: 1.2;
+    color: rgb(200, 200, 200);
+    text-align: justify;
+    font-size: 0.8rem;
+    
+    font-family: RobotoSlab;
+    font-style: italic;
+    text-indent: 1rem;
+}
+
 .clearedHeader.infosPanel-roomHeader::before {
     opacity: 1;
 }
@@ -3896,23 +3909,7 @@ table.astralForgeShards td {
     font-size: 1.4rem;
 }
 .clearedHeader > .roomHeader-type {
-    text-shadow: 0 -1px 0 #ccc, 
-                0 1px 0 #2e2e2e, 
-                0 2px 0 #2c2c2c, 
-                0 3px 0 #2a2a2a, 
-                0 4px 0 #282828, 
-                0 5px 0 #262626, 
-                0 6px 0 #242424, 
-                0 7px 0 #222, 
-                0 8px 0 #202020, 
-                0 9px 0 #1e1e1e, 
-                0 10px 0 #1c1c1c, 
-                0 11px 0 #1a1a1a, 
-                0 12px 0 #181818, 
-                0 13px 0 #161616, 
-                0 14px 0 #141414, 
-                0 15px 0 #121212, 
-                0 22px 10px rgba(0, 0, 0, 0.9);
+    text-shadow: 0 -1px 0 #ccc, 0 1px 0 #2e2e2e, 0 2px 0 #2c2c2c, 0 3px 0 #2a2a2a, 0 4px 0 #282828;
 }
 
 .map-roomContainer {
