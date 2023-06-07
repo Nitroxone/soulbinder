@@ -52,6 +52,7 @@ class DungeonFloor {
 
         this.currentRoom = this.getEntranceRoom();
         this.visitCurrentRoom();
+        this.clearCurrentRoom();
     }
 
     /**
@@ -320,6 +321,13 @@ class DungeonFloor {
      */
     visitCurrentRoom() {
         this.currentRoom.visited = true;
+    }
+
+    /**
+     * Marks the current room as cleared.
+     */
+    clearCurrentRoom() {
+        this.currentRoom.cleared = true;
     }
 
     moveToNextRoom() {

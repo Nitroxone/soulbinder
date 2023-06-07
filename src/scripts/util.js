@@ -1365,3 +1365,8 @@ function unlockEonFragment(id) {
     }
     return 'Eon not found.'
 }
+
+function translateRoomStatus(status) {
+    if(status) return "cleared";
+    else return "uncleared";
+}

@@ -3806,9 +3806,11 @@ table.astralForgeShards td {
 }
 
 #exploration-infosPanel {
-    border: 1px dashed grey;
     width: 40%;
     height: 700px;
+
+    background-image: url('img/bg1.png');
+
 }
 
 .map-clusterContainer {
@@ -3821,7 +3823,57 @@ table.astralForgeShards td {
     width: 24px;
     height: 24px;
 
-    transform: translate(5px, 5px)
+    transform: translate(5px, 5px);
+}
+
+.map-dungeonName {
+    position: absolute;
+    top: 0.1rem;
+    left: 50%;
+    transform: translateX(-50%);
+
+    font-family: RobotoSlab;
+    font-variant: small-caps;
+    font-size: 1.05rem;
+
+    text-shadow: 0px 1px 0px #733726,0px 2px 0px #875626,0px 2px 1px #000,0px 2px 3px #000;
+}
+
+.infosPanel-roomHeader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+
+    padding: 0.75rem;
+
+    overflow: visible;
+}
+.infosPanel-roomHeader::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: radial-gradient(circle, rgba(255,255,255,0), rgba(255,255,255,0.25), rgba(255,255,255,0));
+    position: relative;
+
+    top: 5px;
+}
+.infosPanel-roomHeader > .roomHeader-status {
+    font-variant: small-caps;
+    font-family: RobotoSlab;
+    color: #ccc;
+    font-size: 0.9rem;
+
+    margin-bottom: 0.2rem;
+}
+.infosPanel-roomHeader > .roomHeader-type {
+    font-family: RobotoSlabBold;
+    color: #e7c19a;
+    text-transform: capitalize;
+
+    font-size: 1.4rem;
 }
 
 .map-roomContainer {
