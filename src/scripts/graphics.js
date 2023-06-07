@@ -2635,6 +2635,7 @@ function drawExplorationScreen() {
 function drawExplorationInfosPanel(refresh = false) {
     let str = '';
     const currentRoom = game.currentDungeon.currentFloor.currentRoom;
+    const actions = currentRoom.getActions();
 
     str += '<div class="infosPanel-roomHeader' + (currentRoom.status === Data.DungeonRoomStatus.CLEARED ? ' clearedHeader' : '') + '">';
     str += '<div class="roomHeader-status">' + currentRoom.status + '</div>';
@@ -2646,6 +2647,7 @@ function drawExplorationInfosPanel(refresh = false) {
     str += '</div>';
 
     str += '<div class="infosPanel-roomActions">';
+    // HANDLE ACTIONS
     str += '</div>';
 
     str += '<div class="infosPanel-actionResult">';

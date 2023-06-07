@@ -11,10 +11,28 @@ class DungeonRoom {
 
         this.status = Data.DungeonRoomStatus.UNCLEARED;
         this.visited = false;
-        this.action = getActionFromRoomType(this.type);
+        this.revealed = false;
     }
 
     getRoomDescription() {
         return choose(Speech.Dungeon.Rooms[this.type][game.currentDungeon.name.toLowerCase()][this.status]);
+    }
+
+    canSearch() {
+        return this.type === Data.DungeonRoomType.ANTECHAMBER_OF_MARVELS 
+                || this.type === Data.DungeonRoomType.DESECRATED_SANCTUARY
+                || this.type === Data.DungeonRoomType.EMPTY
+                || this.type === Data.DungeonRoomType.ENTRANCE
+                || this.type === Data.DungeonRoomType.ETERNITY_WELL;
+    }
+
+    getActions() {
+        let actions = [];
+        if(this.revealed) {
+            if(!this.visited) {
+                if(this.canSearch()) actions.push(Data.DungeonRoomAction.SEARCH);
+                else actions.push(Data.DungeonRoomAction.ENTER);
+            }
+        } else actions.push([Data.DungeonRoomAction.ENTER, Data.DungeonRoomAction.SCOUT])
     }
 }

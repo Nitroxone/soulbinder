@@ -439,6 +439,8 @@ const Data = Object.freeze({
     },
     DungeonRoomAction: {
         SEARCH: "search",
+        SCOUT: "scout",
+        ENTER: "enter",
     },
     DungeonRoomStatus: {
         UNCLEARED: "uncleared",

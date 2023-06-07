@@ -51,6 +51,7 @@ class DungeonFloor {
         this.generateConnections();
 
         this.currentRoom = this.getEntranceRoom();
+        this.revealCurrentRoom();
         this.visitCurrentRoom();
         //this.clearCurrentRoom();
     }
@@ -321,6 +322,13 @@ class DungeonFloor {
      */
     visitCurrentRoom() {
         this.currentRoom.visited = true;
+    }
+
+    /**
+     * Marks the current room as revealed.
+     */
+    revealCurrentRoom() {
+        this.currentRoom.revealed = true;
     }
 
     /**
