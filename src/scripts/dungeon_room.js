@@ -11,5 +11,10 @@ class DungeonRoom {
 
         this.status = Data.DungeonRoomStatus.UNCLEARED;
         this.visited = false;
+        this.action = getActionFromRoomType(this.type);
+    }
+
+    getRoomDescription() {
+        return choose(Speech.Dungeon.Rooms[this.type][game.currentDungeon.name.toLowerCase()][this.status]);
     }
 }

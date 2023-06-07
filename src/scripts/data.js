@@ -421,6 +421,9 @@ const Data = Object.freeze({
     //------------------------------------------------------
     // DUNGEON PARAM
     //------------------------------------------------------
+    DungeonNames: {
+        PUTRESCENT_OSSUARY: "putrescent ossuary",
+    },  
     DungeonRoomType: {
         ENTRANCE: "entrance",
         CHASM: "chasm",
@@ -433,6 +436,9 @@ const Data = Object.freeze({
         DORMANT_ROOM: "dormant room",
         EMPTY: "empty room",
         CLUSTER: "cluster",
+    },
+    DungeonRoomAction: {
+        SEARCH: "search",
     },
     DungeonRoomStatus: {
         UNCLEARED: "uncleared",

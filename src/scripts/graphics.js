@@ -2636,9 +2636,19 @@ function drawExplorationInfosPanel(refresh = false) {
     let str = '';
     const currentRoom = game.currentDungeon.currentFloor.currentRoom;
 
-    str += '<div class="infosPanel-roomHeader' + (currentRoom.cleared ? ' clearedHeader' : '') + '">';
+    str += '<div class="infosPanel-roomHeader' + (currentRoom.status === Data.DungeonRoomStatus.CLEARED ? ' clearedHeader' : '') + '">';
     str += '<div class="roomHeader-status">' + currentRoom.status + '</div>';
     str += '<div class="roomHeader-type">' + currentRoom.type + '</div>';
+    str += '</div>';
+
+    str += '<div class="infosPanel-roomDesc">';
+    str += currentRoom.getRoomDescription();
+    str += '</div>';
+
+    str += '<div class="infosPanel-roomActions">';
+    str += '</div>';
+
+    str += '<div class="infosPanel-actionResult">';
     str += '</div>';
 
     if(refresh) {

@@ -1370,3 +1370,7 @@ function translateRoomStatus(status) {
     if(status) return "cleared";
     else return "uncleared";
 }
+
+function getActionFromRoomType(type) {
+    if(type === Data.DungeonRoomType.EMPTY || type === Data.DungeonRoomType.ENTRANCE) return Data.DungeonRoomAction.SEARCH;
+}

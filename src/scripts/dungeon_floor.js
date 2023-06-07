@@ -52,7 +52,7 @@ class DungeonFloor {
 
         this.currentRoom = this.getEntranceRoom();
         this.visitCurrentRoom();
-        this.clearCurrentRoom();
+        //this.clearCurrentRoom();
     }
 
     /**
