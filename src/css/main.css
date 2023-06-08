@@ -4795,7 +4795,6 @@ table.astralForgeShards td {
 }
 .pages {
     position: absolute;
-    height: 80%;
     width: 85%;
     top: 30px;
     display: flex;
@@ -4810,8 +4809,6 @@ table.astralForgeShards td {
 .rightPage {
     left: 0;
     padding: 0 1em 0 3em;
-    overflow: hidden;
-    overflow-y: scroll;
 }
 
 .pageTitle {
@@ -4821,23 +4818,30 @@ table.astralForgeShards td {
 }
 
 .eonsFragments {
+    height: 400px;
     display: flex;
     flex-direction: column;
     gap: 2em;
+    overflow: hidden;
+    overflow-y: scroll;
+    padding-right: 10px;
 }
 
 .eonTitle {
-    height: 37px;
+    padding: 5px;
+    height: 44px;
     font-family: RobotoSlabMed;
     font-size: 14px;
     width: 280px;
     display: flex;
+    align-items: center;
     flex-direction: row;
-    gap: 1em;
+    gap: 0.5em;
     transition: transform 0.3s ease-in-out; 
     text-shadow: 1px 1px rgba(255, 255, 255, 0.15);
     font-size: 13px;
     color: #4d4537;
+    border-radius: 5px;
 }
 
 .eonTitleBullet {
@@ -4865,6 +4869,12 @@ table.astralForgeShards td {
 }
 
 .eonTitleActive {
+    background-image: url(img/eons/eon-highlight.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    display: flex;
+    color: white;
+    background-blend-mode: color-dodge;
 }
 
 .eonFragment {
