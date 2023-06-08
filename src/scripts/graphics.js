@@ -2635,6 +2635,22 @@ function drawExplorationScreen() {
 
 function generateExplorationInfosPanelEvents() {
     const currentRoom = game.currentDungeon.currentFloor.currentRoom;
+
+    const enter = document.querySelector('.roomActions-action.enter');
+    const scout = document.querySelector('.roomActions-action.scout');
+    const search = document.querySelector('.roomActions-action.search');
+
+    if(enter) {
+
+    }
+    if(scout) {
+
+    }
+    if(search) {
+        search.addEventListener('click', e => {
+            
+        })
+    }
 }
 
 function drawExplorationInfosPanel(refresh = false) {
