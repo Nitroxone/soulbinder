@@ -4823,7 +4823,6 @@ table.astralForgeShards td {
     flex-direction: column;
     gap: 2em;
     overflow: hidden;
-    overflow-y: scroll;
     padding-right: 10px;
 }
 

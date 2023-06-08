@@ -2928,10 +2928,12 @@ function drawEonScreen() {
     document.querySelector('.eonsContainer').innerHTML = str;
 
     const eonTitles = document.querySelectorAll('.eonTitle');
+    const eonsFragments = document.querySelector('.eonsFragments');
 
     eonTitles.forEach((title, index) => {
         title.addEventListener('click', () => {
             drawEonFragments(game.all_majorEons[index]);
+            eonsFragments.style.overflowY = "scroll";
     
             eonTitles.forEach(otherTitle => {
                 otherTitle.classList.remove('eonTitleActive');
