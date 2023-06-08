@@ -2628,8 +2628,13 @@ function drawExplorationScreen() {
     drawMapConnectors();
     bringRoomsForward();
     generateExplorationMapEvents();
+    generateExplorationInfosPanelEvents();
     generateMapRoomsEvents();
     recenterDungeonMap();
+}
+
+function generateExplorationInfosPanelEvents() {
+    const currentRoom = game.currentDungeon.currentFloor.currentRoom;
 }
 
 function drawExplorationInfosPanel(refresh = false) {
@@ -2735,6 +2740,7 @@ function generateMapRoomsEvents() {
 
                 roomDom.classList.add('currentRoom');
                 drawExplorationInfosPanel(true);
+                generateExplorationInfosPanelEvents();
             }
         });
     })

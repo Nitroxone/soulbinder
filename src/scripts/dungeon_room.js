@@ -16,7 +16,10 @@ class DungeonRoom {
     }
 
     getRoomDescription() {
-        return choose(Speech.Dungeon.Rooms[this.type][game.currentDungeon.name.toLowerCase()][this.status]);
+        let desc = '';
+        if(!this.identified) desc = choose(Speech.Dungeon.Rooms["unknown"]);
+        else desc = choose(Speech.Dungeon.Rooms[this.type][game.currentDungeon.name.toLowerCase()][this.status]);
+        return desc;
     }
 
     canSearch() {
@@ -36,5 +39,16 @@ class DungeonRoom {
             }
         } else actions.push(Data.DungeonRoomAction.ENTER, Data.DungeonRoomAction.SCOUT);
         return actions;
+    }
+
+    scout() {
+        if(hasResource(game.player.inventory.resources, 'solar firefly')) {
+            this.identify();
+            game.player.inventory.removeResource('solar firefly');
+        } else return false;
+    }
+
+    identify() {
+        this.identified = true;
     }
 }

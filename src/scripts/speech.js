@@ -113,6 +113,13 @@ let Speech = {
                     ]
                 },
             },
+            "unknown": [
+                "The striders stand before the foreboding entrance of the unknown room, their hearts pounding in anticipation. The air is heavy with a palpable tension, as if the very walls hold their breath in anticipation of what lies beyond. Their eyes dart back and forth, searching for clues or any hint of what awaits them. Nervous whispers pass between them, a mixture of excitement and trepidation, as they gather their resolve to step into the unknown.",
+                "Before them looms a mysterious room, its secrets shrouded in darkness. The striders exchange wary glances, uncertainty etched on their faces. The air inside feels different, charged with an otherworldly energy that sends shivers down their spines. They cannot shake the feeling that stepping through that threshold will forever alter their fate. Their hands hover uncertainly, hesitating to push open the door and reveal the mysteries within.",
+                "The striders stand at the precipice of the unknown, their hearts entangled in a web of curiosity and fear. The room before them is a gateway to a realm untouched by light or reason. Shadows dance along the edges, whispering secrets that stir their imagination. They share a silent understanding, knowing that whatever lies behind that door will test their mettle, challenging their skills and resolve. With a collective breath, they prepare to face the enigma that awaits.",
+                "In front of them stands an enigmatic room, its aura both alluring and intimidating. The striders find themselves caught in a conundrum, teetering between the desire for discovery and the fear of the unknown. Their eyes trace the intricate carvings on the door, searching for hints or warnings. The air grows still, as if the dungeon itself holds its breath, waiting to witness their next move. With a mixture of trepidation and determination, they prepare to step into the abyss of uncertainty.",
+                "The striders find themselves at a crossroads, their path leading into a room obscured by darkness. Doubt lingers in the air, mirroring their own apprehension. Each step toward the unknown feels heavy, as if laden with the weight of their expectations and fears. They exchange glances, drawing strength from the camaraderie that binds them. With a shared resolve, they push open the door, ready to confront the mysteries that lie within the uncharted room.",
+            ]
         },
         Actions: {
             Search: {
