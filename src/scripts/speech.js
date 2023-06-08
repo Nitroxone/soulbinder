@@ -128,7 +128,7 @@ let Speech = {
             Scout: [
                 "With the flick of their hand, a strider releases a luminous firefly that darts through the unknown, casting an ethereal glow on the hidden wonders that awaits them.",
                 "The striders set free a mystical firefly. In an instant, it soars across the unseen, revealing what lies ahead, guiding them towards salvation.",
-                "A lunar firefly is summoned, and it zips through the air. Its radiant glow pierces through the thick gloom, exposing the wonders ahead, illuminating the way.",
+                "A solar firefly is summoned, and it zips through the air. Its radiant glow pierces through the thick gloom, exposing the wonders ahead, illuminating the way.",
                 "A strider unleashes a glowing firefly into the unknown. With its speedy flight, it defies the darkness, casting an otherwordly luminescence that reveals what awaits them.",
             ]
         }

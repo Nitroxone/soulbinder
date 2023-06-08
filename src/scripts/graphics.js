@@ -2652,7 +2652,7 @@ function drawExplorationInfosPanel(refresh = false) {
         str += '<div class="roomActions-action enter">Enter</div>';
     }
     if(actions.includes(Data.DungeonRoomAction.SCOUT)) {
-        str += '<div class="roomActions-action scout"><h4>Scout</h4><h6>' + what(game.inventory.resources, 'lunar firefly').amount + '/1 <span class="lunarFirefly">Lunar Firefly</span></h6></div>';
+        str += '<div class="roomActions-action scout"><h4>Scout</h4><h6>' + what(game.inventory.resources, 'solar firefly').amount + '/1 <span class="solarFirefly">Solar Firefly</span></h6></div>';
     }
     if(actions.includes(Data.DungeonRoomAction.SEARCH)) {
         str += '<div class="roomActions-action search">Search</div>';

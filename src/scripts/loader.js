@@ -247,8 +247,8 @@ const Loader = {
                 Data.Rarity.LEGENDARY,
             ),
             new Resource(
-                "Lunar Firefly",
-                "Hovering in stillness, its ethereal wings wriggle as it emanates a mesmerizing, silvery glow that adores even the most encompassing darkness.<br><br>Can be used to scout unknown rooms in dungeons.",
+                "Solar Firefly",
+                "Hovering in stillness, its ethereal wings wriggle as it emanates a mesmerizing, golden glow that adores even the most encompassing darkness.<br><br>Can be used to scout unknown rooms in dungeons.",
                 11,
                 11,
                 Data.Rarity.RARE
