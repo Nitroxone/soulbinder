@@ -3888,6 +3888,9 @@ table.astralForgeShards td {
     text-indent: 1rem;
 
     position: relative;
+
+    overflow-y: scroll;
+    height: 230px;
 }
 
 .infosPanel-roomDesc::before {
@@ -3914,20 +3917,67 @@ table.astralForgeShards td {
 .infosPanel-roomActions {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.roomActions-action.enter, .roomActions-action.scout, .roomActions-action.search {
+    border: 1px solid rgb(100, 100, 100);
+    cursor: pointer;
+    filter: grayscale(100%);
+
+    border-radius: 3px;
+    height: 60px;
+
+    font-family: RobotoSlab;
+    font-variant: small-caps;
+    font-size: 0.85rem;
+    padding: 0.75rem;   
+
+    transition: all .1s ease-in-out;
+}
+
+.roomActions-action.scout h6 {
+    color: #ccc;
+
+    font-size: 0.65rem;
+}
+
+.roomActions-action.enter:hover, .roomActions-action.scout:hover, .roomActions-action.search:hover {
+    border: 2px solid rgb(155, 155, 155);
+    filter: grayscale(0%) saturate(150%);
+    box-shadow: inset 0px 0px 10px 12px rgba(255, 255, 255, 0.1);
 }
 
 .roomActions-action.enter {
-    flex: 1;
-    min-width: 100%;
+    width: 100%;
+
+    background-image: url('img/dungeon/action_enter.png');
+    background-repeat: no-repeat;
+    background-position: 30% 0%;
+    background-size: 115%;
+}
+.roomActions-action.enter.minEnter {
+    width: 49%;
+
+    background-position: 40% 0%;
+    background-size: 125%;
 }
 .roomActions-action.scout {
-    flex: 1;
-    min-width: 50%;
+    width: 49%;
+
+    background-image: url('img/dungeon/action_scout.png');
+    background-repeat: no-repeat;
+    background-position: 0% 30%;
+    background-size: 125%;
 }
 .roomActions-action.search {
-    flex: 1;
-    min-width: 100%;
+    width: 100%;
+    margin: 0 1rem;
+
+    background-image: url('img/dungeon/action_search.png');
+    background-repeat: no-repeat;
+    background-position: 50% 60%;
+    background-size: 150%;
 }
 
 .clearedHeader.infosPanel-roomHeader::before {
