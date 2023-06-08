@@ -103,7 +103,7 @@ let Speech = {
                     ]
                 },
             },
-            "desecrated sanctuary": {
+            "desecrated altar": {
                 "putrescent ossuary": {
                     uncleared: [
     

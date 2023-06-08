@@ -21,7 +21,7 @@ class DungeonRoom {
 
     canSearch() {
         return this.type === Data.DungeonRoomType.ANTECHAMBER_OF_MARVELS 
-                || this.type === Data.DungeonRoomType.DESECRATED_SANCTUARY
+                || this.type === Data.DungeonRoomType.DESECRATED_ALTAR
                 || this.type === Data.DungeonRoomType.EMPTY
                 || this.type === Data.DungeonRoomType.ENTRANCE
                 || this.type === Data.DungeonRoomType.ETERNITY_WELL;
