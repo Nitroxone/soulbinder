@@ -2900,11 +2900,13 @@ function drawEonScreen() {
 
     str += '<div class="diary">';
 
-    str += '<div class="diaryFirstCol">'
+    str += '<input class ="eonSearchBar" type="text" id="eonSearchInput" placeholder="Search eon...">';
+
+    str += '<div class="diaryFirstCol">';
     str += '<div class="leftPage pages">';
     str += '<h2 class="leftPageTitle pageTitle">Eons</h2>';
     str += '<div class="eonsBorder"></div>';
-    str += '<div class="eonsTitles">'
+    str += '<div class="eonsTitles">';
 
 
     str += drawEonsTitles();
@@ -2938,10 +2940,12 @@ function drawEonScreen() {
             eonTitles.forEach(otherTitle => {
                 otherTitle.classList.remove('eonTitleActive');
             });
-    
+      
             title.classList.add('eonTitleActive');
         });
     });
+
+
 }
 
 function drawEonsTitles() {
@@ -2966,4 +2970,19 @@ function drawEonFragments(eon) {
         str += '</div>'
     });
     document.querySelector('.eonsFragments').innerHTML = str;
+}
+
+function searchEon() {
+    const search = document.querySelector('.eonSearchBar').value.toLowerCase();
+    
+    const eonTitles = document.querySelectorAll('.eonTitle');
+    
+    eonTitles.forEach(title => {
+        const titleContent = title.querySelector('.eonTitleContent').textContent.toLowerCase();
+        if (titleContent.includes(search)) {
+            title.classList.add('eonTitleActive');
+        } else {
+            title.classList.remove('eonTitleActive');
+        }
+    });
 }

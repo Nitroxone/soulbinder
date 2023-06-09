@@ -4766,6 +4766,7 @@ table.astralForgeShards td {
 }
 
 .diary {
+    position: relative;
     height: 563px;
     width: 709px;
     background-image: url(img/eons/book_bottom_pages.png);
@@ -4884,6 +4885,21 @@ table.astralForgeShards td {
     text-align: justify;
     line-height: 1.25;
     text-indent: 10px;
+}
+
+.eonSearchBar {
+    background-color: white;
+    height: 30px;
+    width: 300px;
+    position: relative;
+    left: 50%;
+    top: 50px;
+    opacity: 0%;
+    transition: all 0.5s;
+}
+
+.diary:hover .eonSearchBar {
+    opacity: 100%;
 }
 
 .battle-globalInfo {
