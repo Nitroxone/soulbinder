@@ -3902,6 +3902,14 @@ table.astralForgeShards td {
     top: 0;
     left: 0;
     opacity: 0.25;
+
+    animation: dungeonRoomDescOpeningQuoteAnim .2s;
+    animation-timing-function: ease-in-out;
+}
+@keyframes dungeonRoomDescOpeningQuoteAnim {
+    from {
+        transform: translateX(20px);
+    }
 }
 .infosPanel-roomDesc::after {
     content: '❞';
@@ -3912,6 +3920,14 @@ table.astralForgeShards td {
     bottom: -10px;
     right: 15px;
     opacity: 0.25;
+
+    animation: dungeonRoomDescClosingQuoteAnim .2s;
+    animation-timing-function: ease-in-out;
+}
+@keyframes dungeonRoomDescClosingQuoteAnim {
+    from {
+        transform: translateX(-20px);
+    }
 }
 
 .infosPanel-roomActions {
