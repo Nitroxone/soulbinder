@@ -142,7 +142,10 @@ let LootTable = {
                             let eligible = pool.filter(rsc => rsc.rarity === rarity);
                             let final = choose(eligible);
     
-                            results.push({
+                            if(results.some(obj => obj.item === final)) {
+                                results.find(obj => obj.item === final).amount += 1;
+                            }
+                            else results.push({
                                 type: lootType,
                                 rarity: rarity,
                                 amount: final.lootModifiers.amount,
