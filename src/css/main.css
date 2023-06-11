@@ -3903,8 +3903,8 @@ table.astralForgeShards td {
     left: 0;
     opacity: 0.25;
 
-    animation: dungeonRoomDescOpeningQuoteAnim .2s;
-    animation-timing-function: ease-in-out;
+    animation: dungeonRoomDescOpeningQuoteAnim .5s;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 @keyframes dungeonRoomDescOpeningQuoteAnim {
     from {
@@ -3921,8 +3921,8 @@ table.astralForgeShards td {
     right: 15px;
     opacity: 0.25;
 
-    animation: dungeonRoomDescClosingQuoteAnim .2s;
-    animation-timing-function: ease-in-out;
+    animation: dungeonRoomDescClosingQuoteAnim .5s;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 @keyframes dungeonRoomDescClosingQuoteAnim {
     from {
@@ -4019,6 +4019,26 @@ table.astralForgeShards td {
 }
 .clearedHeader > .roomHeader-type {
     text-shadow: 0 1px 0 #ccc, 0 -1px 0 #2e2e2e, 0 -1.5px 0 #2c2c2c, 0 -2px 0 #2a2a2a, 0 -2.5px 0 #282828;
+}
+
+.revealingLoot {
+    opacity: 0;
+    animation-name: lootRevealSlideIn;
+    animation-duration: 0.5s;
+    /*animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);*/
+    animation-timing-function: cubic-bezier(.68,-0.55,.27,1.55);
+    animation-fill-mode: forwards;
+}
+@keyframes lootRevealSlideIn {
+    from {
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+    }
+}
+.revealingLoot > .runeTitle {
+    /*opacity: 0;*/
 }
 
 .infosPanel-actionResult {

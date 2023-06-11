@@ -14,6 +14,7 @@ class DungeonRoom {
         this.revealed = false;
         this.identified = false;
         this.desc = '';
+        this.actionDesc = '';
 
         this.foundLoot = null;
     }
@@ -27,6 +28,10 @@ class DungeonRoom {
         return desc;
     }
 
+    getActionDesc() {
+        
+    }
+
     canSearch() {
         return this.type === Data.DungeonRoomType.ANTECHAMBER_OF_MARVELS 
                 || this.type === Data.DungeonRoomType.DESECRATED_ALTAR
@@ -37,6 +42,7 @@ class DungeonRoom {
 
     getActions() {
         let actions = [];
+        if(this.isCleared()) return actions;
         if(this.identified) {
             if(!this.visited) {
                 if(this.canSearch()) actions.push(Data.DungeonRoomAction.SEARCH);
@@ -59,6 +65,10 @@ class DungeonRoom {
 
     clear() {
         this.status = Data.DungeonRoomStatus.CLEARED;
+    }
+
+    isCleared() {
+        return this.status === Data.DungeonRoomStatus.CLEARED;
     }
 
     engage() {

@@ -2635,6 +2635,8 @@ function drawExplorationScreen() {
 
 function generateExplorationInfosPanelEvents() {
     const currentRoom = game.currentDungeon.currentFloor.currentRoom;
+    const delay = currentRoom.isCleared() ? 0 : 1;
+    displayTextLetterByLetter(currentRoom.getRoomDescription(), '.infosPanel-roomDesc', delay);
 
     const enter = document.querySelector('.roomActions-action.enter');
     const scout = document.querySelector('.roomActions-action.scout');
@@ -2649,36 +2651,65 @@ function generateExplorationInfosPanelEvents() {
     if(search) {
         search.addEventListener('click', e => {
             currentRoom.foundLoot = LootTable.Generators.generateLoot(LootTable.Presets.Dungeon[currentRoom.type]);
-            drawDungeonFoundLoot();
+            drawDungeonFoundLoot(true);
             clearCurrentRoom();
         });
     }
+}
+
+function displayTextLetterByLetter(text, dom, delay = 1) {
+    let index = 0;
+    dom = document.querySelector(dom);
+
+    if(delay === 0) {
+        dom.innerHTML = text;
+        return;
+    }
+
+    function displayNextLetter() {
+        if(index < text.length) {
+            const letter = text[index];
+            dom.innerHTML += letter;
+
+            index++;
+            setTimeout(displayNextLetter, delay)
+        }
+    }
+
+    displayNextLetter();
 }
 
 function clearCurrentRoom() {
     game.currentDungeon.currentFloor.currentRoom.clear();
     document.querySelector('.infosPanel-roomHeader').classList.add('clearedHeader');
     document.querySelector('.roomHeader-status').innerHTML = game.currentDungeon.currentFloor.currentRoom.status;
+    //displayTextLetterByLetter(game.currentDungeon.currentFloor.currentRoom.getRoomDescription(), '.infosPanel-roomDesc', 0);
 }
 
-function drawDungeonFoundLoot() {
+function drawDungeonFoundLoot(refresh = false) {
     let loot = game.currentDungeon.currentFloor.currentRoom.foundLoot;
 
-    const lootResultsContainer = document.querySelector('.infosPanel-actionResult');
-    lootResultsContainer.innerHTML += '<div class="divider"></div>';
+    let str = '';
+    str += '<div class="divider"></div>'
+
     if(loot.length > 0) {
-        lootResultsContainer.innerHTML += '<div class="roomLootResult-title">Loot found</div>';
+        let timer = 0;
+        str += '<div class="roomLootResult-title">Loot found</div>';
         loot.forEach(lo => {
-            let str = '';
-            str += '<div class="roomLootResult-listItem runeInfo" style="' + (lo.type === 'gold' ? 'background-image: url(\'css/img/goldicon.png\'); background-size: 25%;' : getIcon(lo.item, 25, true)) + '">';
+            str += '<div class="roomLootResult-listItem runeInfo revealingLoot" style="animation-delay: ' + timer + 's;' + (lo.type === 'gold' ? 'background-image: url(\'css/img/goldicon.png\'); background-size: 25%;' : getIcon(lo.item, 25, true)) + '">';
             str += '<div class="runeTitle" style="text-align: left">' + '<span class="lootQuantity">' + lo.amount + ' </span>' + (lo.type === 'gold' ? '<span class="smallThingNoIcon" style="color: yellow">Gold</span>' : getSmallThingNoIcon(lo.item, null)) + '</div>';
             str += '</div>';
-
-            lootResultsContainer.innerHTML += str;
+            timer += 0.25;
         });
     } else {
-        lootResultsContainer.innerHTML += '<div class="roomLootResult-title">No loot found</div>';
+        str += '<div class="roomLootResult-title">No loot found</div>';
     }
+
+    if(refresh) {
+        document.querySelector('.infosPanel-actionResult').innerHTML = str;
+        return;
+    }
+    return str;
 }
 
 function drawExplorationInfosPanel(refresh = false) {
@@ -2692,7 +2723,6 @@ function drawExplorationInfosPanel(refresh = false) {
     str += '</div>';
 
     str += '<div class="infosPanel-roomDesc">';
-    str += currentRoom.getRoomDescription();
     str += '</div>';
 
     str += '<div class="infosPanel-roomActions">';
@@ -2709,6 +2739,7 @@ function drawExplorationInfosPanel(refresh = false) {
     str += '</div>';
 
     str += '<div class="infosPanel-actionResult">';
+    if(currentRoom.foundLoot) str += drawDungeonFoundLoot();
     str += '</div>';
 
     if(refresh) {

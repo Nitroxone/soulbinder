@@ -10,6 +10,8 @@ class LootParams {
             elder: 0,
         });
         this.chance = getValueFromObject(props, "chance", 100);
+        this.includes = getValueFromObject(props, "includes", {});
+        this.includesOnly = getValueFromObject(props, "includesOnly", false);
     }
 
     /**
