@@ -59,8 +59,8 @@ let LootTable = {
     },
     Presets: {
         Dungeon: {
-            EMPTY: {
-                resource: {
+            "empty room": {
+                resource: new LootParams({
                     amount: [1, 3],
                     rarities: {
                         common: 10,
@@ -69,11 +69,11 @@ let LootTable = {
                         legendary: -100,
                         elder: -100,
                     }
-                },
+                }),
                 gold: [50, 70],
             },
-            ENTRANCE: {
-                resource: {
+            "entrance": {
+                resource: new LootParams({
                     amount: [1, 2],
                     rarities: {
                         common: 10,
@@ -82,48 +82,73 @@ let LootTable = {
                         legendary: -100,
                         elder: -100,
                     }
-                },
-                gold: [4, 20],
+                }),
+                weapon: new LootParams({
+                    chance: 10,
+                    rarities: {
+                        epic: -100,
+                        legendary: -100,
+                        elder: -100
+                    }
+                }),
+                gold: [50, 70],
             },
         }
     },
     Generators: {
         generateLoot: generateLoot = (preset) => {
+            // Declaring an empty results array that will be filled.
             let results = [];
+            // For each type of reward in the preset
             for(const type in preset) {
                 if(type === 'gold') {
+                    // Gold just pushes a random amount of gold specified in the preset.
                     results.push({
                         type: "gold", 
                         amount: getRandomNumber(preset[type][0], preset[type][1])
                     });
-                } else if(type === 'resource') {
-                    let amount = getRandomNumber(1, 3);
-                    for(let i = 0; i < amount; i++) {
-                        let rarity = null;
-                        let luck = getRandomNumber(0, 100);
-                        for(const key in LootTable.DropRates.Resource) {
-                            let modifier = preset[type].hasOwnProperty('rarities');
-                            modifier = preset[type].rarities[key] !== undefined ? preset[type].rarities[key] : 0;
-                            const percentage = LootTable.DropRates.Resource[key] + modifier;
-                            if(luck <= percentage && percentage < 100) {
-                                rarity = key;
-                            }
-                        }
-                        if(rarity === null && luck > 0) {
-                            rarity = Object.keys(LootTable.DropRates.Resource)[0];
-                        }
-
-                        // Retrieving the resource
-                        let eligible = game.all_resources.filter(rsc => rsc.rarity === rarity);
-                        let final = choose(eligible);
-
-                        results.push({
-                            type: 'resource',
-                            rarity: rarity,
-                            amount: 1,
-                            item: final
-                        });
+                } else {
+                    let dropRate, lootType, pool;
+                    if(type === 'resource') {
+                        dropRate = LootTable.DropRates.Resource;
+                        lootType = 'resource';
+                        pool = game.all_resources;
+                    } else if(type === 'weapon') {
+                        dropRate = LootTable.DropRates.Weapon;
+                        lootType = 'weapon';
+                        pool = game.all_weapons;
                     }
+
+                    if(getRandomNumber(0, 100) > preset[type].chance) continue;
+                        // Get the amount (add modifiers for that later)
+                        let amount = preset[type].getAmount();
+                        // For each modifier
+                        for(let i = 0; i < amount; i++) {
+                            let rarity = null;
+                            let luck = getRandomNumber(0, 100);
+                            for(const key in dropRate) {
+                                let modifier = preset[type].rarities[key];
+                                
+                                const percentage = dropRate[key] + modifier;
+                                if(luck <= percentage) {
+                                    rarity = key;
+                                }
+                            }
+                            if(rarity === null && luck > 0) {
+                                rarity = Object.keys(dropRate)[0];
+                            }
+    
+                            // Retrieving the resource
+                            let eligible = pool.filter(rsc => rsc.rarity === rarity);
+                            let final = choose(eligible);
+    
+                            results.push({
+                                type: lootType,
+                                rarity: rarity,
+                                amount: final.lootModifiers.amount,
+                                item: final
+                            });
+                        }
                 }
             }
             

@@ -3934,6 +3934,8 @@ table.astralForgeShards td {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+
+    margin-top: 0.25rem;
 }
 
 .roomActions-action.enter, .roomActions-action.scout, .roomActions-action.search {
@@ -4016,7 +4018,35 @@ table.astralForgeShards td {
     font-size: 1.4rem;
 }
 .clearedHeader > .roomHeader-type {
-    /*text-shadow: 0 -1px 0 #ccc, 0 1px 0 #2e2e2e, 0 2px 0 #2c2c2c, 0 3px 0 #2a2a2a, 0 4px 0 #282828;*/
+    text-shadow: 0 1px 0 #ccc, 0 -1px 0 #2e2e2e, 0 -1.5px 0 #2c2c2c, 0 -2px 0 #2a2a2a, 0 -2.5px 0 #282828;
+}
+
+.infosPanel-actionResult {
+    height: 200px;
+    overflow-y: scroll;
+}
+.lootQuantity {
+    font-family: RobotoSlabBold;
+    font-variant: small-caps;
+    font-size: 11px;
+    color: #ccc;
+
+    margin-right: 0.2rem;
+}
+
+.roomLootResult-title {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+
+    font-family: RobotoSlabBold;
+    font-variant: small-caps;
+    font-size: 0.85rem;
+
+    margin-bottom: 0.45rem;
+}
+.roomLootResult-listWrapper {
+    width: 75%;
 }
 
 .map-roomContainer {
