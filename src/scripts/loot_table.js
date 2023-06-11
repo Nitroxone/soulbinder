@@ -3,58 +3,58 @@ let LootTable = {
         Any: {
             "common": 100,
             "uncommon": 75,
-            "rare": 50,
-            "epic": 30,
-            "legendary": 15,
-            "elder": 8,
+            "rare": 40,
+            "epic": 25,
+            "legendary": 10,
+            "elder": 5,
         },
         Weapon: {
             "common": 100,
             "uncommon": 75,
-            "rare": 50,
-            "epic": 30,
-            "legendary": 15,
-            "elder": 8,
+            "rare": 40,
+            "epic": 25,
+            "legendary": 10,
+            "elder": 5,
         },
         Armor: {
             "common": 100,
             "uncommon": 75,
-            "rare": 50,
-            "epic": 30,
-            "legendary": 15,
-            "elder": 8,
+            "rare": 40,
+            "epic": 25,
+            "legendary": 10,
+            "elder": 5,
         },
         Trinket: {
             "common": 100,
             "uncommon": 75,
-            "rare": 50,
-            "epic": 30,
-            "legendary": 15,
-            "elder": 8,
+            "rare": 40,
+            "epic": 25,
+            "legendary": 10,
+            "elder": 5,
         },
         Resource: {
             "common": 100,
             "uncommon": 75,
-            "rare": 50,
-            "epic": 30,
-            "legendary": 15,
-            "elder": 8,
+            "rare": 40,
+            "epic": 25,
+            "legendary": 10,
+            "elder": 5,
         },
         Consumable: {
             "common": 100,
             "uncommon": 75,
-            "rare": 50,
-            "epic": 30,
-            "legendary": 15,
-            "elder": 8,
+            "rare": 40,
+            "epic": 25,
+            "legendary": 10,
+            "elder": 5,
         },
         Rune: {
             "common": 100,
             "uncommon": 75,
-            "rare": 50,
-            "epic": 30,
-            "legendary": 15,
-            "elder": 8,
+            "rare": 40,
+            "epic": 25,
+            "legendary": 10,
+            "elder": 5,
         }
     },
     Presets: {
@@ -65,7 +65,9 @@ let LootTable = {
                     rarities: {
                         common: 10,
                         uncommon: 5,
-                        elder: 0,
+                        epic: -100,
+                        legendary: -100,
+                        elder: -100,
                     }
                 },
                 gold: [50, 70],
@@ -76,7 +78,9 @@ let LootTable = {
                     rarities: {
                         common: 10,
                         uncommon: 5,
-                        elder: 0,
+                        epic: -100,
+                        legendary: -100,
+                        elder: -100,
                     }
                 },
                 gold: [4, 20],
@@ -98,7 +102,9 @@ let LootTable = {
                         let rarity = null;
                         let luck = getRandomNumber(0, 100);
                         for(const key in LootTable.DropRates.Resource) {
-                            const percentage = LootTable.DropRates.Resource[key];
+                            let modifier = preset[type].hasOwnProperty('rarities');
+                            modifier = preset[type].rarities[key] !== undefined ? preset[type].rarities[key] : 0;
+                            const percentage = LootTable.DropRates.Resource[key] + modifier;
                             if(luck <= percentage && percentage < 100) {
                                 rarity = key;
                             }
