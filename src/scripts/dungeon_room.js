@@ -14,6 +14,8 @@ class DungeonRoom {
         this.revealed = false;
         this.identified = false;
         this.desc = '';
+
+        this.foundLoot = null;
     }
 
     getRoomDescription() {
@@ -53,5 +55,13 @@ class DungeonRoom {
 
     identify() {
         this.identified = true;
+    }
+
+    clear() {
+        this.status = Data.DungeonRoomStatus.CLEARED;
+    }
+
+    engage() {
+        this.status = Data.DungeonRoomStatus.ENGAGED;
     }
 }
