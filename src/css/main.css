@@ -4033,6 +4033,9 @@ table.astralForgeShards td {
 
     margin-right: 0.2rem;
 }
+.roomLootResult-listItem {
+    width: 55%;
+}
 
 .roomLootResult-title {
     width: 100%;

@@ -2648,23 +2648,36 @@ function generateExplorationInfosPanelEvents() {
     }
     if(search) {
         search.addEventListener('click', e => {
-            const loot = LootTable.Generators.generateLoot(LootTable.Presets.Dungeon[currentRoom.type]);
-            const lootResultsContainer = document.querySelector('.infosPanel-actionResult');
-            lootResultsContainer.innerHTML += '<div class="divider"></div>';
-            if(loot.length > 0) {
-                lootResultsContainer.innerHTML += '<div class="roomLootResult-title">Loot found</div>';
-                lootResultsContainer.innerHTML += '<div class="roomLootResult-listWrapper">';
-                loot.forEach(lo => {
-                    let str = '';
-                    str += '<div class="roomLootResult-listItem runeInfo" style="' + (lo.type === 'gold' ? 'background-image: url(\'css/img/goldicon.png\'); background-size: 25%;' : getIcon(lo.item, 25, true)) + '">';
-                    str += '<div class="runeTitle" style="text-align: left">' + '<span class="lootQuantity">' + lo.amount + ' </span>' + (lo.type === 'gold' ? '<span class="smallThingNoIcon" style="color: yellow">Gold</span>' : getSmallThingNoIcon(lo.item, null)) + '</div>';
-                    str += '</div>';
-
-                    lootResultsContainer.innerHTML += str;
-                });
-                lootResultsContainer.innerHTML += '</div>';
-            }
+            currentRoom.foundLoot = LootTable.Generators.generateLoot(LootTable.Presets.Dungeon[currentRoom.type]);
+            drawDungeonFoundLoot();
+            clearCurrentRoom();
         });
+    }
+}
+
+function clearCurrentRoom() {
+    game.currentDungeon.currentFloor.currentRoom.clear();
+    document.querySelector('.infosPanel-roomHeader').classList.add('clearedHeader');
+    document.querySelector('.roomHeader-status').innerHTML = game.currentDungeon.currentFloor.currentRoom.status;
+}
+
+function drawDungeonFoundLoot() {
+    let loot = game.currentDungeon.currentFloor.currentRoom.foundLoot;
+
+    const lootResultsContainer = document.querySelector('.infosPanel-actionResult');
+    lootResultsContainer.innerHTML += '<div class="divider"></div>';
+    if(loot.length > 0) {
+        lootResultsContainer.innerHTML += '<div class="roomLootResult-title">Loot found</div>';
+        loot.forEach(lo => {
+            let str = '';
+            str += '<div class="roomLootResult-listItem runeInfo" style="' + (lo.type === 'gold' ? 'background-image: url(\'css/img/goldicon.png\'); background-size: 25%;' : getIcon(lo.item, 25, true)) + '">';
+            str += '<div class="runeTitle" style="text-align: left">' + '<span class="lootQuantity">' + lo.amount + ' </span>' + (lo.type === 'gold' ? '<span class="smallThingNoIcon" style="color: yellow">Gold</span>' : getSmallThingNoIcon(lo.item, null)) + '</div>';
+            str += '</div>';
+
+            lootResultsContainer.innerHTML += str;
+        });
+    } else {
+        lootResultsContainer.innerHTML += '<div class="roomLootResult-title">No loot found</div>';
     }
 }
 
