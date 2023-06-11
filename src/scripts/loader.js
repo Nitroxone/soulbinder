@@ -908,7 +908,57 @@ const Loader = {
                         isPercentage: true,
                     })
                 ]
-            )
+            ),
+            new Trinket(
+                "Prismatic Lapis Lazuli of Darkness",
+                "\"Quote\" - Somebody",
+                24,
+                10,
+                Data.Rarity.LEGENDARY,
+                [
+                    new Stat({
+                        effect: Data.Effect.MAXHEALTH,
+                        theorical: [100, 150],
+                    }),
+                    new Stat({
+                        effect: Data.Effect.BLOCK,
+                        theorical: [10, 15],
+                        isPercentage: true
+                    }),
+                    new Stat({
+                        effect: Data.Effect.DAMAGE_REFLECTION,
+                        theorical: [5, 10],
+                    }),
+                    new Stat({
+                        effect: Data.Effect.SPIRIT,
+                        theorical: [25, 30],
+                    }),
+                ]
+            ),
+            new Trinket(
+                "Emerald of Lies",
+                "\"Quote\" - Somebody",
+                25,
+                10,
+                Data.Rarity.RARE,
+                [
+                    new Stat({
+                        effect: Data.Effect.MODIF_ACCURACY_BLEED,
+                        theorical: [10, 15],
+                        isPercentage: true
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MODIF_CRIT_BLEED,
+                        theorical: [8, 12],
+                        isPercentage: true,
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MODIF_DMG_BLEED,
+                        theorical: [5, 10],
+                        isPercentage: true,
+                    })
+                ]
+            ),
         ];
 
         for(const trinket of trinkets) {
