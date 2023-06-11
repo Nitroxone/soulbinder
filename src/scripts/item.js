@@ -16,5 +16,9 @@ class Item extends Entity {
         super(name, desc, icon);
         this.price = price;
         this.rarity = rarity;
+
+        this.lootModifiers = {
+            amount: 1
+        }
     }
 }

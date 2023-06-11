@@ -14,102 +14,102 @@ let Speech = {
             "chasm": {
                 "putrescent ossuary": {
                     uncleared: [
-    
+                        ""
                     ],
                     cleared: [
-    
+                        ""
                     ]
                 }
             },
             "boss": {
                 "putrescent ossuary": {
                     uncleared: [
-    
+                        ""
                     ],
                     engaged: [
-    
+                        ""
                     ],
                     cleared: [
-    
+                        ""
                     ]
                 },
             },
             "eternity well": {
                 "putrescent ossuary": {
                     uncleared: [
-    
+                        ""
                     ],
                     cleared: [
-    
+                        ""
                     ]
                 },
             },
             "fractured hollow": {
                 "putrescent ossuary": {
                     uncleared: [
-    
+                        ""
                     ],
                     engaged: [
-                        
+                        ""
                     ],
                     cleared: [
-    
+                        ""
                     ]
                 },
             },
             "sacrificial alcove": {
                 "putrescent ossuary": {
                     uncleared: [
-    
+                        ""
                     ],
                     engaged: [
-                        
+                        ""
                     ],
                     cleared: [
-    
+                        ""
                     ]
                 },
             },
             "antechamber of marvels": {
                 "putrescent ossuary": {
                     uncleared: [
-    
+                        ""
                     ],
                     cleared: [
-    
+                        ""
                     ]
                 },
             },
             "dormant room": {
                 "putrescent ossuary": {
                     uncleared: [
-    
+                        ""
                     ],
                     engaged: [
-                        
+                        ""
                     ],
                     cleared: [
-    
+                        ""
                     ]
                 },
             },
             "empty room": {
                 "putrescent ossuary": {
                     uncleared: [
-    
+                        ""
                     ],
                     cleared: [
-    
+                        ""
                     ]
                 },
             },
             "desecrated altar": {
                 "putrescent ossuary": {
                     uncleared: [
-    
+                        ""
                     ],
                     cleared: [
-    
+                        ""
                     ]
                 },
             },

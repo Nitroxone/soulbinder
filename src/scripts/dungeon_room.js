@@ -13,12 +13,15 @@ class DungeonRoom {
         this.visited = false;
         this.revealed = false;
         this.identified = false;
+        this.desc = '';
     }
 
     getRoomDescription() {
+        if(this.desc !== '') return this.desc;
         let desc = '';
         if(!this.identified) desc = choose(Speech.Dungeon.Rooms["unknown"]);
         else desc = choose(Speech.Dungeon.Rooms[this.type][game.currentDungeon.name.toLowerCase()][this.status]);
+        this.desc = desc;
         return desc;
     }
 
