@@ -2983,15 +2983,11 @@ function drawEonScreen() {
 
     str += '<div class="diary">';
 
-    str += '<div class="eonSearch">'
-    str += '<input class ="eonSearchBar" type="text" id="eonSearchInput" placeholder="Search eon..." />';
-    str += '<div class="eonSearchResults"></div>'
-    str += '</div>'
-
     str += '<div class="diaryFirstCol">';
     str += '<div class="leftPage pages">';
     str += '<h2 class="leftPageTitle pageTitle">Eons</h2>';
     str += '<div class="eonsBorder"></div>';
+    str += '<input class ="eonSearchBar" type="text" id="eonSearchInput" placeholder="Search eon..." />';
     str += '<div class="eonsTitles">';
 
 
@@ -3016,7 +3012,7 @@ function drawEonScreen() {
     document.querySelector('.eonsContainer').innerHTML = str;
 
     generateEonEvents();
-    generateEonSearchEvents();
+    searchEon();
 }
 
 function generateEonEvents() {
@@ -3069,56 +3065,21 @@ function drawEonFragments(eon) {
     document.querySelector('.eonsFragments').innerHTML = str;
 }
 
-function generateEonSearchEvents() {
+function searchEon() {
     const eonSearchBar = document.querySelector('.eonSearchBar');
-    const eonSearchResults = document.querySelector('.eonSearchResults');
     const eonsTitles = document.querySelectorAll('.eonTitle');
-    const eonsTitlesContainer = document.querySelector('.eonsTitles');
-  
+
     eonSearchBar.addEventListener('input', e => {
-        const value = eonSearchBar.value;
-  
-        if (value.trim() !== '') {
-            const results = searchEon(value);
-            eonSearchResults.innerHTML = '';
-            results.forEach(res => {
-                eonSearchResults.innerHTML += '<p>' + res + '</p>';
-            });
-            eonSearchResults.style.display = 'block';
-        } else {
-            eonSearchResults.innerHTML = '';
-            eonSearchResults.style.display = 'none';
-        }
+        const value = eonSearchBar.value.toLowerCase().trim();
+
+        eonsTitles.forEach(title => {
+            const titleText = title.querySelector('.eonTitleContent').innerText.toLowerCase();
+
+            if (titleText.includes(value)) {
+                title.style.display = 'flex';
+            } else {
+                title.style.display = 'none';
+            }
+        });
     });
-  
-    eonSearchResults.addEventListener('click', e => {
-        if (e.target.tagName === 'P') {
-            const clickedTitle = e.target.innerText;
-            eonsTitles.forEach(title => {
-                if (title.innerText === clickedTitle) {
-                    title.classList.add('eonTitleActive');
-
-                    const containerHeight = eonsTitlesContainer.clientHeight;
-                    const titleTop = title.offsetTop;
-                    const titleHeight = title.offsetHeight;
-
-                    if (titleTop < eonsTitlesContainer.scrollTop) {
-                        eonsTitlesContainer.scrollTop = titleTop;
-                        //doesn't work yet idk why
-                    } else if (titleTop + titleHeight > eonsTitlesContainer.scrollTop + containerHeight) {
-                        eonsTitlesContainer.scrollTop = titleTop + titleHeight - containerHeight;
-                    }
-
-                } else {
-                    title.classList.remove('eonTitleActive');
-                }
-            });
-        }
-    });
-}
-
-function searchEon(query) {
-    return game.all_majorEons
-        .filter(eon => eon.unlocked && eon.title.toLowerCase().includes(query.toLowerCase()))
-        .map(eon => eon.title);
 }
