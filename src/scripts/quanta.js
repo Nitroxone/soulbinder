@@ -6,19 +6,17 @@ class Quanta {
     static burst(props) {
         const canvas = getValueFromObject(props, "canvas", null);
         const color = getValueFromObject(props, "color", 'white');
-        const blur = getValueFromObject(props, "blur", "1px");
         const amount = getValueFromObject(props, "amount", 100);
+        const particleSize = getValueFromObject(props, "particleSize", 3);
         if(!canvas) throw new Error('Passed an unexisting Canvas to Quanta.');
-        const ctx = canvas.getContext("2d");
 
         const psettings = {
-            particleSize: 3,
+            particleSize: particleSize,
             getStartX: () => { return getRandomNumber(0, canvas.width) },
             getStartY: () => { return canvas.height },
             gravity: -0.1,
             fillStyle: color
         };
-        //ctx.filter = 'blur(' + blur + ')';
 
         let particles = [];
         for(let i = 0; i < amount; i++) {
@@ -31,11 +29,10 @@ class Quanta {
             }));
         }
         
-        const cprops = {
+        Quanta.update({
             canvas: canvas,
             particles: particles
-        };
-        Quanta.update(cprops)
+        });
     }
 
     static update(props) {
