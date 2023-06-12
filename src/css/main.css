@@ -4114,7 +4114,44 @@ table.astralForgeShards td {
     font-size: 0.85rem;
 
     margin-bottom: 0.45rem;
+
+    position: relative;
 }
+.roomLootResult-title::before, .roomLootResult-title::after {
+    content: '';
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    background-image: url('img/particles/cloud1.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 0.2;
+
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(.25,.15,.17,1);
+    animation-fill-mode: forwards;
+}
+.roomLootResult-title::before {
+    left: 0;
+    animation-name: lootResultCloudLeft;
+}
+.roomLootResult-title::after {
+    right: 0;
+    animation-name: lootResultCloudRight;
+}
+@keyframes lootResultCloudLeft {
+    to {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+@keyframes lootResultCloudRight {
+    to {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
 .roomLootResult-listWrapper {
     width: 75%;
 }
