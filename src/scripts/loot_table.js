@@ -152,6 +152,7 @@ let LootTable = {
                     for(let i = 0; i < amount; i++) {
                         let rarity = null;
                         let luck = getRandomNumber(0, 100);
+                        if(luck === 0) luck++;
                         for(const key in dropRate) {
                             let modifier = preset[type].rarities[key];
                             
@@ -167,7 +168,6 @@ let LootTable = {
                         // Retrieving the resource
                         let eligible = pool.filter(rsc => rsc.rarity === rarity);
                         let final = choose(eligible);
-                        if(final.length === 0) continue;
 
                         if(results.some(obj => obj.item === final)) {
                             results.find(obj => obj.item === final).amount += 1;
@@ -181,7 +181,6 @@ let LootTable = {
                     }
                 }
             }
-            console.log(results);
             return results;
         },
     }
