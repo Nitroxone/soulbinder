@@ -43,6 +43,8 @@ const Data = Object.freeze({
         
         OVERLOADED: '#6ebe55',
         OVERLOAD: '#0097e6',
+
+        GOLD: 'yellow',
     },
     Effect: {
         //------------------------------------------------------
@@ -213,6 +215,7 @@ const Data = Object.freeze({
         BACK: "Back",
     },
     Rarity: {
+        GOLD: 'gold',
         CORRUPT: "corrupt",
         COMMON: "common",
         UNCOMMON: "uncommon",

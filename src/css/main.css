@@ -3937,6 +3937,9 @@ table.astralForgeShards td {
 
     margin-top: 0.25rem;
 }
+.roomActions-action:active {
+    border-color: white !important;
+}
 
 .roomActions-action.enter, .roomActions-action.scout, .roomActions-action.search {
     border: 1px solid rgb(100, 100, 100);
@@ -4030,6 +4033,7 @@ table.astralForgeShards td {
     animation-fill-mode: forwards;
 
     position: relative;
+    overflow: visible;
 }
 @keyframes lootRevealSlideIn {
     from {
@@ -4046,7 +4050,7 @@ table.astralForgeShards td {
     top: 0;
     left: 0;
     width: 100%;
-    height: 40px;
+    height: 31px;
     animation-name: lootRevealAnim;
     animation-duration: 1s;
     animation-delay: 0s;
@@ -4084,12 +4088,28 @@ table.astralForgeShards td {
         background-size: 500%;
     }
 }
-.revealingLoot > .runeTitle {
-    /*opacity: 0;*/
+
+.revealingLootCanvas {
+    position: absolute;
+    height: 100px;
+
+    /*top: -100%;*/
+    /*left: -10%;*/
+    width: 100%;
+    right: 0;
+    bottom: 0;
+
+    /*border: 1px dashed grey;*/
+    z-index: 100;
 }
+
+.infosPanel-dungeonStats {
+    height: 120px;
+} 
 
 .infosPanel-actionResult {
     height: 200px;
+    overflow-x: hidden;
     overflow-y: scroll;
 }
 .lootQuantity {
@@ -4116,6 +4136,14 @@ table.astralForgeShards td {
     margin-bottom: 0.45rem;
 
     position: relative;
+
+    animation: lootResultTitlePopup .5s cubic-bezier(.25, .15, .17, 1);
+}
+@keyframes lootResultTitlePopup {
+    from {
+        transform: translateY(10px);
+        opacity: 0;
+    }
 }
 .roomLootResult-title::before, .roomLootResult-title::after {
     content: '';

@@ -617,6 +617,8 @@ function getRarityColorCode(rarity) {
             return Data.Color.LEGENDARY;
         case Data.Rarity.ELDER:
             return Data.Color.ELDER;
+        case Data.Rarity.GOLD:
+            return Data.Color.GOLD;
     }
 }
 
@@ -639,6 +641,8 @@ function getParticleDensity(rarity) {
             return 8;
         case Data.Rarity.ELDER:
             return 10;
+        case Data.Rarity.GOLD:
+            return 2;
     }
 }
 
