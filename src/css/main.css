@@ -4116,6 +4116,14 @@ table.astralForgeShards td {
     margin-bottom: 0.45rem;
 
     position: relative;
+
+    animation: lootResultTitlePopup .5s cubic-bezier(.25, .15, .17, 1);
+}
+@keyframes lootResultTitlePopup {
+    from {
+        transform: translateY(10px);
+        opacity: 0;
+    }
 }
 .roomLootResult-title::before, .roomLootResult-title::after {
     content: '';
