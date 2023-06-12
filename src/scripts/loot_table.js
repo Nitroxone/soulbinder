@@ -167,6 +167,7 @@ let LootTable = {
                         // Retrieving the resource
                         let eligible = pool.filter(rsc => rsc.rarity === rarity);
                         let final = choose(eligible);
+                        if(final.length === 0) continue;
 
                         if(results.some(obj => obj.item === final)) {
                             results.find(obj => obj.item === final).amount += 1;

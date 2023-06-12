@@ -2698,6 +2698,7 @@ function drawDungeonFoundLoot(refresh = false) {
         loot.forEach(lo => {
             str += '<div class="roomLootResult-listItem runeInfo revealingLoot" style="animation-delay: ' + timer + 's;' + (lo.type === 'gold' ? 'background-image: url(\'css/img/goldicon.png\'); background-size: 25%;' : getIcon(lo.item, 25, true)) + '">';
             str += '<div class="runeTitle" style="text-align: left">' + '<span class="lootQuantity">' + lo.amount + ' </span>' + (lo.type === 'gold' ? '<span class="smallThingNoIcon" style="color: yellow">Gold</span>' : getSmallThingNoIcon(lo.item, null)) + '</div>';
+            str += '<div class="revealingLootAnim" style="animation-delay: ' + (timer) + 's;"></div>';
             str += '</div>';
             timer += 0.25;
         });
