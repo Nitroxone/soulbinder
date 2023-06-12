@@ -3049,10 +3049,12 @@ function drawEonFragments(eon) {
 function generateEonSearchEvents() {
     const eonSearchBar = document.querySelector('.eonSearchBar');
     const eonSearchResults = document.querySelector('.eonSearchResults');
-
+    const eonsTitles = document.querySelectorAll('.eonTitle');
+    const eonsTitlesContainer = document.querySelector('.eonsTitles');
+  
     eonSearchBar.addEventListener('input', e => {
         const value = eonSearchBar.value;
-
+  
         if (value.trim() !== '') {
             const results = searchEon(value);
             eonSearchResults.innerHTML = '';
@@ -3065,16 +3067,35 @@ function generateEonSearchEvents() {
             eonSearchResults.style.display = 'none';
         }
     });
+  
+    eonSearchResults.addEventListener('click', e => {
+        if (e.target.tagName === 'P') {
+            const clickedTitle = e.target.innerText;
+            eonsTitles.forEach(title => {
+                if (title.innerText === clickedTitle) {
+                    title.classList.add('eonTitleActive');
+
+                    const containerHeight = eonsTitlesContainer.clientHeight;
+                    const titleTop = title.offsetTop;
+                    const titleHeight = title.offsetHeight;
+
+                    if (titleTop < eonsTitlesContainer.scrollTop) {
+                        eonsTitlesContainer.scrollTop = titleTop;
+                        //doesn't work yet idk why
+                    } else if (titleTop + titleHeight > eonsTitlesContainer.scrollTop + containerHeight) {
+                        eonsTitlesContainer.scrollTop = titleTop + titleHeight - containerHeight;
+                    }
+
+                } else {
+                    title.classList.remove('eonTitleActive');
+                }
+            });
+        }
+    });
 }
 
 function searchEon(query) {
-    const matchedEons = game.all_majorEons.filter(eon => {
-      if (eon.unlocked) {
-        return eon.title.toLowerCase().includes(query.toLowerCase());
-      }
-      return false;
-    });
-  
-    const matchedEonTitles = matchedEons.map(eon => eon.title);
-    return matchedEonTitles;
+    return game.all_majorEons
+        .filter(eon => eon.unlocked && eon.title.toLowerCase().includes(query.toLowerCase()))
+        .map(eon => eon.title);
 }

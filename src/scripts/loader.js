@@ -2271,7 +2271,7 @@ const Loader = {
                 ]
             }),
             new Eon({
-                id: "echoesofTheRivers",
+                id: "echoesOfTheRivers",
                 title: "Echoes of the Rivers",
                 fragments: [
                     {
