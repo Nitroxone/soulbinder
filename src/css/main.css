@@ -4956,15 +4956,30 @@ table.astralForgeShards td {
     text-indent: 10px;
 }
 
-.eonSearchBar {
-    background-color: bisque;
-    height: 30px;
+.eonSearch {
     width: 300px;
     position: relative;
+    background-color: red;
     left: 50%;
     top: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.eonSearchBar {
+    width: 100%;
+    height: 30px;
+    background-color: bisque;
     opacity: 0%;
     transition: all 0.5s;
+}
+
+.eonSearchResults {
+    background-color: bisque;
+    height: 300px;
+    width: 100%;
+    display: block;
+    background-color: blue;
 }
 
 .diary:hover .eonSearchBar {
