@@ -2960,7 +2960,10 @@ function drawEonScreen() {
 
     str += '<div class="diary">';
 
-    str += '<input class ="eonSearchBar" type="text" id="eonSearchInput" placeholder="Search eon...">';
+    str += '<div class="eonSearch">'
+    str += '<input class ="eonSearchBar" type="text" id="eonSearchInput" placeholder="Search eon..." />';
+    str += '<div class="eonSearchResults"></div>'
+    str += '</div>'
 
     str += '<div class="diaryFirstCol">';
     str += '<div class="leftPage pages">';
@@ -2969,7 +2972,7 @@ function drawEonScreen() {
     str += '<div class="eonsTitles">';
 
 
-    str += drawEonsTitles();
+    str += drawEonTitles();
 
     str += '</div>';
     str += '</div>';
@@ -2989,6 +2992,10 @@ function drawEonScreen() {
 
     document.querySelector('.eonsContainer').innerHTML = str;
 
+    generateEonEvents()
+}
+
+function generateEonEvents() {
     const eonTitles = document.querySelectorAll('.eonTitle');
     const eonsFragments = document.querySelector('.eonsFragments');
 
@@ -3004,11 +3011,9 @@ function drawEonScreen() {
             title.classList.add('eonTitleActive');
         });
     });
-
-
 }
 
-function drawEonsTitles(refresh = false) {
+function drawEonTitles(refresh = false) {
     let str = '';
 
     game.all_majorEons.forEach(eon => {
@@ -3024,6 +3029,7 @@ function drawEonsTitles(refresh = false) {
 
     if(refresh) {
         document.querySelector('.eonsTitles').innerHTML = str;
+        generateEonEvents();
         return;
     }
     return str;
@@ -3039,7 +3045,24 @@ function drawEonFragments(eon) {
     document.querySelector('.eonsFragments').innerHTML = str;
 }
 
-function searchEon() {
-    const search = document.querySelector('.eonSearchBar');
-    const content = document.querySelector('.eonTitles');
+function searchEon(query) {
+    const matchedEons = game.all_majorEons.filter(eon => {
+      return eon.toLowerCase().includes(query.toLowerCase());
+    });
+    
+    return matchedEons;
+}
+
+function generateEonSearchEvents() {
+    const eonSearchBar = document.querySelector('.eonSearchBar');
+    const eonSearchResults = document.querySelector('.eonSearchResults');
+    eonSearchBar.addEventListener('input', e => {
+        const value = eonSearchBar.value;
+      
+        eonSearchResults.innerHTML = '';
+        const results = searchEon(value);
+        results.forEach(res => {
+            eonSearchResults.innerHTML += '<p>' + res + '</p>';
+        })
+    });
 }
