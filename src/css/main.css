@@ -4028,6 +4028,8 @@ table.astralForgeShards td {
     /*animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);*/
     animation-timing-function: cubic-bezier(.68,-0.55,.27,1.55);
     animation-fill-mode: forwards;
+
+    position: relative;
 }
 @keyframes lootRevealSlideIn {
     from {
@@ -4035,6 +4037,32 @@ table.astralForgeShards td {
     }
     to {
         opacity: 1;
+    }
+}
+.revealingLootAnim {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background:
+        linear-gradient(90deg, white 0%, transparent 100%);
+    animation-name: lootRevealCommon;
+    animation-duration: 1s;
+    animation-delay: 0s;
+    animation-timing-function: cubic-bezier(.25,.15,.17,1);
+    animation-fill-mode: forwards;
+
+    background-size: 400%;
+    background-position: 0% 0%;
+    transition: all .1s ease-in-out;
+}
+@keyframes lootRevealCommon {
+    to {
+        background-position: 100% 100%;
+        background-size: 500%;
     }
 }
 .revealingLoot > .runeTitle {
