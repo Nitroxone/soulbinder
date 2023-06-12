@@ -2992,7 +2992,8 @@ function drawEonScreen() {
 
     document.querySelector('.eonsContainer').innerHTML = str;
 
-    generateEonEvents()
+    generateEonEvents();
+    generateEonSearchEvents();
 }
 
 function generateEonEvents() {
@@ -3045,24 +3046,56 @@ function drawEonFragments(eon) {
     document.querySelector('.eonsFragments').innerHTML = str;
 }
 
-function searchEon(query) {
-    const matchedEons = game.all_majorEons.filter(eon => {
-      return eon.toLowerCase().includes(query.toLowerCase());
-    });
-    
-    return matchedEons;
-}
-
 function generateEonSearchEvents() {
     const eonSearchBar = document.querySelector('.eonSearchBar');
     const eonSearchResults = document.querySelector('.eonSearchResults');
+    const eonsTitles = document.querySelectorAll('.eonTitle');
+    const eonsTitlesContainer = document.querySelector('.eonsTitles');
+  
     eonSearchBar.addEventListener('input', e => {
         const value = eonSearchBar.value;
-      
-        eonSearchResults.innerHTML = '';
-        const results = searchEon(value);
-        results.forEach(res => {
-            eonSearchResults.innerHTML += '<p>' + res + '</p>';
-        })
+  
+        if (value.trim() !== '') {
+            const results = searchEon(value);
+            eonSearchResults.innerHTML = '';
+            results.forEach(res => {
+                eonSearchResults.innerHTML += '<p>' + res + '</p>';
+            });
+            eonSearchResults.style.display = 'block';
+        } else {
+            eonSearchResults.innerHTML = '';
+            eonSearchResults.style.display = 'none';
+        }
     });
+  
+    eonSearchResults.addEventListener('click', e => {
+        if (e.target.tagName === 'P') {
+            const clickedTitle = e.target.innerText;
+            eonsTitles.forEach(title => {
+                if (title.innerText === clickedTitle) {
+                    title.classList.add('eonTitleActive');
+
+                    const containerHeight = eonsTitlesContainer.clientHeight;
+                    const titleTop = title.offsetTop;
+                    const titleHeight = title.offsetHeight;
+
+                    if (titleTop < eonsTitlesContainer.scrollTop) {
+                        eonsTitlesContainer.scrollTop = titleTop;
+                        //doesn't work yet idk why
+                    } else if (titleTop + titleHeight > eonsTitlesContainer.scrollTop + containerHeight) {
+                        eonsTitlesContainer.scrollTop = titleTop + titleHeight - containerHeight;
+                    }
+
+                } else {
+                    title.classList.remove('eonTitleActive');
+                }
+            });
+        }
+    });
+}
+
+function searchEon(query) {
+    return game.all_majorEons
+        .filter(eon => eon.unlocked && eon.title.toLowerCase().includes(query.toLowerCase()))
+        .map(eon => eon.title);
 }
