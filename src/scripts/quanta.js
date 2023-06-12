@@ -1,6 +1,8 @@
 // Quanta is Soulbinder's homemade particle engine.
 class Quanta {
 
+    static fps = 60;
+
     static burst(props) {
         const canvas = getValueFromObject(props, "canvas", null);
         const color = getValueFromObject(props, "color", 'white');
@@ -41,31 +43,41 @@ class Quanta {
         const fadeAwayRate = getValueFromObject(props, "fadeAwayRate", 0.009);
         let particles = getValueFromObject(props, "particles", []);
 
-        // Clear out the old particles
-        if(typeof ctx !== 'undefined') {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.globalAlpha -= fadeAwayRate;
-        }
+        let lastFrameTime = 0;
+        const targetFrameTime = 1000 / Quanta.fps;
 
-        // Draw 
-        for(let i = 0; i < particles.length; i++) {
-            let p = particles[i];
+        function animate(currentTime) {
+            const elapsed = currentTime - lastFrameTime;
 
-            p.draw(ctx);
-
-            // Simple way to clean up if the last particle is done animating
-            if(i === particles.length - 1) {
-                let percent = (Date.now() - p.startTime) / p.animationDuration;
-                if(percent > 1) {
-                    particles = [];
+            if(elapsed > targetFrameTime) {
+                // Clear out the old particles
+                if(typeof ctx !== 'undefined') {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.globalAlpha -= fadeAwayRate;
                 }
+
+                // Draw 
+                for(let i = 0; i < particles.length; i++) {
+                    let p = particles[i];
+
+                    p.draw(ctx);
+
+                    // Simple way to clean up if the last particle is done animating
+                    if(i === particles.length - 1) {
+                        let percent = (Date.now() - p.startTime) / p.animationDuration;
+                        if(percent > 1) {
+                            particles = [];
+                        }
+                    }
+                }
+
+                lastFrameTime = currentTime;
             }
+
+            if(particles.length > 0) requestAnimationFrame(animate);
         }
 
-        if(particles.length > 0) window.requestAnimationFrame(() => {Quanta.update({
-            canvas: canvas,
-            particles: particles
-        })});
+        requestAnimationFrame(animate);
     }
 }
 
