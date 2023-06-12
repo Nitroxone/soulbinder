@@ -4127,25 +4127,18 @@ table.astralForgeShards td {
     background-repeat: no-repeat;
     opacity: 0.2;
 
+    animation-name: lootResultCloud;
     animation-duration: 1s;
     animation-timing-function: cubic-bezier(.25,.15,.17,1);
     animation-fill-mode: forwards;
 }
 .roomLootResult-title::before {
     left: 0;
-    animation-name: lootResultCloudLeft;
 }
 .roomLootResult-title::after {
     right: 0;
-    animation-name: lootResultCloudRight;
 }
-@keyframes lootResultCloudLeft {
-    to {
-        transform: scale(2);
-        opacity: 0;
-    }
-}
-@keyframes lootResultCloudRight {
+@keyframes lootResultCloud {
     to {
         transform: scale(2);
         opacity: 0;
