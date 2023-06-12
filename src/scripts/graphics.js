@@ -2652,6 +2652,18 @@ function generateExplorationInfosPanelEvents() {
         search.addEventListener('click', e => {
             currentRoom.foundLoot = LootTable.Generators.generateLoot(LootTable.Presets.Dungeon[currentRoom.type]);
             drawDungeonFoundLoot(true);
+
+            let quantadelay = 0;
+            document.querySelectorAll('.revealingLootCanvas').forEach(cv => {
+                setTimeout(() => {
+                    let color = getRarityColorCode(cv.classList[1]);
+                    Quanta.burst({
+                        canvas: cv,
+                        color: color
+                    });
+                }, quantadelay);
+                quantadelay += 250;
+            })
             clearCurrentRoom();
         });
     }
@@ -2699,6 +2711,7 @@ function drawDungeonFoundLoot(refresh = false) {
             str += '<div class="roomLootResult-listItem runeInfo revealingLoot" style="animation-delay: ' + timer + 's;' + (lo.type === 'gold' ? 'background-image: url(\'css/img/goldicon.png\'); background-size: 25%;' : getIcon(lo.item, 25, true)) + '">';
             str += '<div class="runeTitle" style="text-align: left">' + '<span class="lootQuantity">' + lo.amount + ' </span>' + (lo.type === 'gold' ? '<span class="smallThingNoIcon" style="color: yellow">Gold</span>' : getSmallThingNoIcon(lo.item, null)) + '</div>';
             str += '<div class="revealingLootAnim revealLoot' + (lo.type === 'gold' ? 'Gold' : capitalizeFirstLetter(lo.item.rarity)) + '" style="animation-delay: ' + (timer) + 's;"></div>';
+            if(refresh) str += '<canvas class="revealingLootCanvas ' + (lo.type === 'gold' ? 'gold' : lo.item.rarity) + '"></canvas>';
             str += '</div>';
             timer += 0.25;
         });
@@ -2710,6 +2723,11 @@ function drawDungeonFoundLoot(refresh = false) {
         document.querySelector('.infosPanel-actionResult').innerHTML = str;
         return;
     }
+    return str;
+}
+
+function drawDungeonStats() {
+    let str = '';
     return str;
 }
 
@@ -2742,6 +2760,10 @@ function drawExplorationInfosPanel(refresh = false) {
     str += '<div class="infosPanel-actionResult">';
     if(currentRoom.foundLoot) str += drawDungeonFoundLoot();
     str += '</div>';
+
+    str += '<div class="infosPanel-dungeonStats">';
+    str += drawDungeonStats();
+    str += '</div>'
 
     if(refresh) {
         document.querySelector('#exploration-infosPanel').innerHTML = str;

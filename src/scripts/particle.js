@@ -35,25 +35,25 @@ function getTooltipParticlesCanvas(item) {
 
     // particles
     let particles = {},
-        lines = {},
-        lineIndex = 0,
-        particleIndex = 0,
-        psettings = {
-            density: getParticleDensity(item.rarity),
-            particleSize: 3,
-            startingX: () => { return getRandomNumber(canvas.width / 3, canvas.width / 3 * 2)},
-            startingY: () => { return canvas.height},
-            gravity: getParticleGravity(item.rarity),
-            fillStyle: getRarityColorCode(item.rarity),
-        },
-        lsettings = {
-            density: 2,
-            startingX: () => { return getRandomNumber(canvas.width / 2 - 15, canvas.width / 2 + 15)},
-            fillStyle: hexToRGBA(getRarityColorCode(item.rarity), getRandomNumber(0.2, 0.7)),
-        };
-    
+    lines = {},
+    lineIndex = 0,
+    particleIndex = 0,
+    psettings = {
+        density: getParticleDensity(item.rarity),
+        particleSize: 3,
+        startingX: () => { return getRandomNumber(canvas.width / 3, canvas.width / 3 * 2)},
+        startingY: () => { return canvas.height},
+        gravity: getParticleGravity(item.rarity),
+        fillStyle: getRarityColorCode(item.rarity),
+    },
+    lsettings = {
+        density: 2,
+        startingX: () => { return getRandomNumber(canvas.width / 2 - 15, canvas.width / 2 + 15)},
+        fillStyle: hexToRGBA(getRarityColorCode(item.rarity), getRandomNumber(0.2, 0.7)),
+    };
 
-        ctx.filter = 'blur(1px)';
+
+    ctx.filter = 'blur(1px)';
     // handling particles
     clearInterval(this.particlesTooltipCanvasInterval);
     this.particlesTooltipCanvasInterval = setInterval(() => {
