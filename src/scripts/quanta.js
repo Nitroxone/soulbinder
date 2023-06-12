@@ -1,12 +1,10 @@
 // Quanta is Soulbinder's homemade particle engine.
 class Quanta {
 
-    static anims = [];
-
     static burst(props) {
         const canvas = getValueFromObject(props, "canvas", null);
         const color = getValueFromObject(props, "color", 'white');
-        const amount = getValueFromObject(props, "amount", 100);
+        const amount = getValueFromObject(props, "amount", 200);
         const particleSize = getValueFromObject(props, "particleSize", 3);
         if(!canvas) throw new Error('Passed an unexisting Canvas to Quanta.');
 
@@ -31,20 +29,22 @@ class Quanta {
         
         Quanta.update({
             canvas: canvas,
-            particles: particles
+            particles: particles,
+            fadeAwayRate: 0,
         });
     }
 
     static update(props) {
-        console.log('called');
         const canvas = getValueFromObject(props, "canvas", null);
         if(!canvas) throw new Error('Passed an unexisting Canvas to Quanta.');
         const ctx = canvas.getContext('2d');
+        const fadeAwayRate = getValueFromObject(props, "fadeAwayRate", 0.009);
         let particles = getValueFromObject(props, "particles", []);
 
         // Clear out the old particles
         if(typeof ctx !== 'undefined') {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.globalAlpha -= fadeAwayRate;
         }
 
         // Draw 
@@ -83,8 +83,9 @@ class QuantaParticle {
             x: -2 + Math.random() * 2,
             y: -2 + Math.random() * 10,
         });
+        this.origRadius = getValueFromObject(props, "radius", 1);
         this.radius = getValueFromObject(props, "radius", 1);
-        this.color = getValueFromObject(props, "color", "white");
+        this.color = getValueFromObject(props, "color", "#ccc");
         this.animationDuration = getValueFromObject(props, "animationDuration", 1000);
     }
 
@@ -92,7 +93,6 @@ class QuantaParticle {
         let p = this;
 
         if(p.life > 0 && p.radius > 0) {
-            console.log('drew');
             ctx.beginPath();
             ctx.arc(p.startX, p.startY, p.radius, 0, Math.PI * 2);
             ctx.fillStyle = p.color;

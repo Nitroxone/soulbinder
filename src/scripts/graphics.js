@@ -2657,6 +2657,7 @@ function generateExplorationInfosPanelEvents() {
             document.querySelectorAll('.revealingLootCanvas').forEach(cv => {
                 setTimeout(() => {
                     let color = getRarityColorCode(cv.classList[1]);
+
                     Quanta.burst({
                         canvas: cv,
                         color: color
