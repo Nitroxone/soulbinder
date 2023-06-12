@@ -26,6 +26,7 @@ class Quanta {
                 gravity: psettings.gravity,
                 startX: psettings.getStartX(),
                 startY: psettings.getStartY(),
+                animationDuration: 1500
             }));
         }
         
@@ -75,6 +76,7 @@ class Quanta {
             }
 
             if(particles.length > 0) requestAnimationFrame(animate);
+            else ctx.clearRect(0, 0, canvas.width, canvas.height);
         }
 
         requestAnimationFrame(animate);
