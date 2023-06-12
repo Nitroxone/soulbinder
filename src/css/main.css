@@ -4924,6 +4924,12 @@ table.astralForgeShards td {
     padding-right: 10px;
 }
 
+.eonsTitles {
+    overflow: hidden;
+    overflow-y: scroll;
+    height: 400px;
+}
+
 .eonTitle {
     padding: 5px;
     height: 44px;
@@ -4987,7 +4993,6 @@ table.astralForgeShards td {
 .eonSearch {
     width: 300px;
     position: relative;
-    background-color: red;
     left: 50%;
     top: 50px;
     display: flex;
@@ -4995,7 +5000,6 @@ table.astralForgeShards td {
 }
 
 .eonSearchBar {
-    width: 100%;
     height: 30px;
     background-color: bisque;
     opacity: 0%;
@@ -5004,10 +5008,11 @@ table.astralForgeShards td {
 
 .eonSearchResults {
     background-color: bisque;
-    height: 300px;
+    display: none;
     width: 100%;
-    display: block;
-    background-color: blue;
+    max-height: 100px;
+    overflow-y: scroll;
+    padding: 1em;
 }
 
 .diary:hover .eonSearchBar {

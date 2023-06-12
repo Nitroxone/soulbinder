@@ -2992,7 +2992,8 @@ function drawEonScreen() {
 
     document.querySelector('.eonsContainer').innerHTML = str;
 
-    generateEonEvents()
+    generateEonEvents();
+    generateEonSearchEvents();
 }
 
 function generateEonEvents() {
@@ -3045,24 +3046,35 @@ function drawEonFragments(eon) {
     document.querySelector('.eonsFragments').innerHTML = str;
 }
 
-function searchEon(query) {
-    const matchedEons = game.all_majorEons.filter(eon => {
-      return eon.toLowerCase().includes(query.toLowerCase());
-    });
-    
-    return matchedEons;
-}
-
 function generateEonSearchEvents() {
     const eonSearchBar = document.querySelector('.eonSearchBar');
     const eonSearchResults = document.querySelector('.eonSearchResults');
+
     eonSearchBar.addEventListener('input', e => {
         const value = eonSearchBar.value;
-      
-        eonSearchResults.innerHTML = '';
-        const results = searchEon(value);
-        results.forEach(res => {
-            eonSearchResults.innerHTML += '<p>' + res + '</p>';
-        })
+
+        if (value.trim() !== '') {
+            const results = searchEon(value);
+            eonSearchResults.innerHTML = '';
+            results.forEach(res => {
+                eonSearchResults.innerHTML += '<p>' + res + '</p>';
+            });
+            eonSearchResults.style.display = 'block';
+        } else {
+            eonSearchResults.innerHTML = '';
+            eonSearchResults.style.display = 'none';
+        }
     });
+}
+
+function searchEon(query) {
+    const matchedEons = game.all_majorEons.filter(eon => {
+      if (eon.unlocked) {
+        return eon.title.toLowerCase().includes(query.toLowerCase());
+      }
+      return false;
+    });
+  
+    const matchedEonTitles = matchedEons.map(eon => eon.title);
+    return matchedEonTitles;
 }
