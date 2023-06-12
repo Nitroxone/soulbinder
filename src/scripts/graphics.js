@@ -3032,16 +3032,6 @@ function drawEonFragments(eon) {
 }
 
 function searchEon() {
-    const search = document.querySelector('.eonSearchBar').value.toLowerCase();
-    
-    const eonTitles = document.querySelectorAll('.eonTitle');
-    
-    eonTitles.forEach(title => {
-        const titleContent = title.querySelector('.eonTitleContent').textContent.toLowerCase();
-        if (titleContent.includes(search)) {
-            title.classList.add('eonTitleActive');
-        } else {
-            title.classList.remove('eonTitleActive');
-        }
-    });
+    const search = document.querySelector('.eonSearchBar');
+    const content = document.querySelector('.eonTitles');
 }
