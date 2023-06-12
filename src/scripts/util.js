@@ -1347,7 +1347,8 @@ function hasRoomWithCoordinates(rooms, coords) {
  * @returns {boolean} the result (true if the specified eon exists)
  */
 function unlockEon(id) {
-    return game.all_majorEons.find(e => e.id === id).unlocked = true;
+    game.all_majorEons.find(e => e.id === id).unlocked = true;
+    drawEonsTitles();
 }
 
 /**

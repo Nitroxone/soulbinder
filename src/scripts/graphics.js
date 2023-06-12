@@ -3007,17 +3007,24 @@ function drawEonScreen() {
 
 }
 
-function drawEonsTitles() {
+function drawEonsTitles(refresh = false) {
     let str = '';
 
     game.all_majorEons.forEach(eon => {
-        str += '<div class="eonTitle">';
-        str += '<div class="eonTitleBullet"></div>';
-        str += '<p class="eonTitleContent">';
-        str += eon.title;
-        str += '</p>';
-        str += '</div>';
+        if (eon.unlocked) {
+            str += '<div class="eonTitle">';
+            str += '<div class="eonTitleBullet"></div>';
+            str += '<p class="eonTitleContent">';
+            str += eon.title;
+            str += '</p>';
+            str += '</div>';
+        }
     });
+
+    if(refresh) {
+        document.querySelector('.eonsTitles').innerHTML = str;
+        return;
+    }
     return str;
 }
 
