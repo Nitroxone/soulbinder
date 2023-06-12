@@ -4047,9 +4047,7 @@ table.astralForgeShards td {
     left: 0;
     width: 100%;
     height: 40px;
-    background:
-        linear-gradient(90deg, white 0%, transparent 100%);
-    animation-name: lootRevealCommon;
+    animation-name: lootRevealAnim;
     animation-duration: 1s;
     animation-delay: 0s;
     animation-timing-function: cubic-bezier(.25,.15,.17,1);
@@ -4059,7 +4057,28 @@ table.astralForgeShards td {
     background-position: 0% 0%;
     transition: all .1s ease-in-out;
 }
-@keyframes lootRevealCommon {
+.revealLootCommon {
+    background: linear-gradient(90deg, #dddddd 0%, transparent 100%);
+}
+.revealLootUncommon {
+    background: linear-gradient(90deg, #00ff00 0%, transparent 100%);
+}
+.revealLootRare {
+    background: linear-gradient(90deg, #00ddff 0%, transparent 100%);
+}
+.revealLootEpic {
+    background: linear-gradient(90deg, #ff00ff 0%, transparent 100%);
+}
+.revealLootLegendary {
+    background: linear-gradient(90deg, #ffaa00 0%, transparent 100%);
+}
+.revealLootElder {
+    background: linear-gradient(90deg, #fb3e8d 0%, transparent 100%);
+}
+.revealLootGold {
+    background: linear-gradient(90deg, yellow 0%, transparent 100%);
+}
+@keyframes lootRevealAnim {
     to {
         background-position: 100% 100%;
         background-size: 500%;
