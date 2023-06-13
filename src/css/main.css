@@ -5014,7 +5014,7 @@ table.astralForgeShards td {
     color: #4d4537;
 }
 
-.eonsFragments {
+.eonFragmentsContainer {
     height: 400px;
     display: flex;
     flex-direction: column;
@@ -5023,9 +5023,8 @@ table.astralForgeShards td {
     padding-right: 10px;
 }
 
-.eonsTitles {
+.eonTitlesContainer {
     overflow: hidden;
-    overflow-y: scroll;
     height: 366px;
 }
 

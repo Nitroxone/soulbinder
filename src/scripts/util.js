@@ -1378,6 +1378,10 @@ function unlockEonFragment(id) {
     return 'Eon not found.'
 }
 
+function isElementEmpty(element) {
+    return element.innerHTML.trim() === '';
+}
+
 function translateRoomStatus(status) {
     if(status) return "cleared";
     else return "uncleared";
