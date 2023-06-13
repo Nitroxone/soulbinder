@@ -2656,12 +2656,15 @@ function generateExplorationInfosPanelEvents() {
                     amount: 100,
                     particleSize: 4,
                     duration: 4000,
-                    fadeAwayRate: 0,
                     speed: {
                         x: () => { return (-2 + Math.random() * 2) },
                         y: () => { return (-4 + Math.random() * 10) }
                     },
-                    delay: () => { return getRandomNumber(0, 100) }
+                    delay: () => { return getRandomNumber(0, 100) },
+                    /*acceleration: {
+                        x: () => { return 0; },
+                        y: () => { return -1 * (Math.random()/5) }
+                    }*/
                 });
             }
         })
