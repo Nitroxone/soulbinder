@@ -3073,6 +3073,7 @@ function drawEonTitles(refresh = false) {
     if(refresh) {
         document.querySelector('.eonsTitles').innerHTML = str;
         generateEonEvents();
+        searchEon(true);
         return;
     }
     return str;
@@ -3081,14 +3082,16 @@ function drawEonTitles(refresh = false) {
 function drawEonFragments(eon) {
     let str = '';
     eon.fragments.forEach(fragment => {
-        str += '<div class="eonFragment">';
-        str += fragment.text;
-        str += '</div>'
+        if(fragment.unlocked) {
+            str += '<div class="eonFragment">';
+            str += fragment.text;
+            str += '</div>'
+        }
     });
     document.querySelector('.eonsFragments').innerHTML = str;
 }
 
-function searchEon() {
+function searchEon(refresh = false) {
     const eonSearchBar = document.querySelector('.eonSearchBar');
     const eonsTitles = document.querySelectorAll('.eonTitle');
 
@@ -3105,4 +3108,8 @@ function searchEon() {
             }
         });
     });
+
+    if(refresh) {
+        eonSearchBar.value = '';
+    }
 }

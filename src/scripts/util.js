@@ -1352,7 +1352,14 @@ function hasRoomWithCoordinates(rooms, coords) {
  */
 function unlockEon(id) {
     game.all_majorEons.find(e => e.id === id).unlocked = true;
-    drawEonTitles();
+    drawEonTitles(true);
+}
+
+function unlockAllEons() {
+    game.all_majorEons.forEach(eon => {
+        eon.unlocked = true;
+        drawEonTitles(true);
+    })
 }
 
 /**
