@@ -135,7 +135,7 @@ class QuantaParticle {
             p.startX += p.speed.x;
             p.startY += p.speed.y;
 
-            if(p.curve.factor !== 0 && p.curve.amplitude !== 0) p.startX += p.curve.amplitude * Math.sin(p.curve.factor * p.startY);
+            if(p.curve.factor !== 0 && p.curve.amplitude !== 0) p.startX += p.curve.amplitude * Math.sin(p.curve.factor * p.startY * Math.PI);
         }
     }
 }
