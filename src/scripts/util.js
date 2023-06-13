@@ -1379,3 +1379,50 @@ function translateRoomStatus(status) {
 function getActionFromRoomType(type) {
     if(type === Data.DungeonRoomType.EMPTY || type === Data.DungeonRoomType.ENTRANCE) return Data.DungeonRoomAction.SEARCH;
 }
+
+function getQuantaBurstParamsFromRarity(rarity) {
+    switch(rarity) {
+        case Data.Rarity.GOLD:
+            return {
+                color: Data.Color.GOLD,
+                amount: 100,
+                particleSize: 2
+            }
+        case Data.Rarity.COMMON:
+            return {
+                color: Data.Color.COMMON,
+                amount: 0,
+                particleSize: 3,
+            }
+        case Data.Rarity.UNCOMMON:
+            return {
+                color: Data.Color.UNCOMMON,
+                amount: 50,
+                particleSize: 3,
+            }
+        case Data.Rarity.RARE:
+            return {
+                color: Data.Color.RARE,
+                amount: 200,
+                particleSize: 3,
+            }
+        case Data.Rarity.EPIC:
+            return {
+                color: Data.Color.EPIC,
+                amount: 250,
+                particleSize: 3,
+            }
+        case Data.Rarity.LEGENDARY:
+            return {
+                color: Data.Color.LEGENDARY,
+                amount: 300,
+                particleSize: 4,
+            }
+        case Data.Rarity.ELDER:
+            return {
+                color: Data.Color.ELDER,
+                amount: 500,
+                particleSize: 6,
+            }
+    }
+}

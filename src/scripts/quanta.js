@@ -18,6 +18,7 @@ class Quanta {
             fillStyle: color
         };
 
+        if(amount <= 0) return;
         let particles = [];
         for(let i = 0; i < amount; i++) {
             particles.push(new QuantaParticle({

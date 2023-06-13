@@ -2656,11 +2656,13 @@ function generateExplorationInfosPanelEvents() {
             let quantadelay = 0;
             document.querySelectorAll('.revealingLootCanvas').forEach(cv => {
                 setTimeout(() => {
-                    let color = getRarityColorCode(cv.classList[1]);
+                    let params = getQuantaBurstParamsFromRarity(cv.classList[1]);
 
                     Quanta.burst({
                         canvas: cv,
-                        color: color
+                        color: params.color,
+                        amount: params.amount,
+                        particleSize: params.particleSize
                     });
                 }, quantadelay);
                 quantadelay += 250;
