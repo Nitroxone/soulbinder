@@ -3060,6 +3060,7 @@ function generateEonEvents() {
 }
 
 function drawEonTitles(refresh = false) {
+    const eonsTitles = document.querySelector('.eonsTitles');
     let str = '';
 
     game.all_majorEons.forEach(eon => {
@@ -3074,24 +3075,31 @@ function drawEonTitles(refresh = false) {
     });
 
     if(refresh) {
-        document.querySelector('.eonsTitles').innerHTML = str;
+       eonsTitles.innerHTML = str;
         generateEonEvents();
         searchEon(true);
         return;
     }
-    return str;
+    return eonsTitles.innerHTML = str;
 }
 
 function drawEonFragments(eon) {
     let str = '';
     eon.fragments.forEach(fragment => {
-        if(fragment.unlocked) {
+        if (fragment.unlocked) {
             str += '<div class="eonFragment">';
             str += fragment.text;
             str += '</div>'
         }
     });
-    document.querySelector('.eonsFragments').innerHTML = str;
+    const eonsFragments = document.querySelector('.eonsFragments');
+    eonsFragments.innerHTML = str;
+
+    if (eonsFragments.innerHTML === '') {
+        eonsFragments.style.overflowY = 'none';
+    } else {
+        eonsFragments.style.overflowY = 'scroll';
+    }
 }
 
 function searchEon(refresh = false) {
