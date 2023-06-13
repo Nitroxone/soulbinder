@@ -119,8 +119,4 @@ class QuantaParticle {
             p.startY += p.speed.y;
         }
     }
-
-    isDead() {
-        return this.life === 0;
-    }
 }
