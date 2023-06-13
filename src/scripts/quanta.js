@@ -17,7 +17,12 @@ class Quanta {
         const start = getValueFromObject(props, "start", {
             x: () => { return getRandomNumber(0, canvas.width) },
             y: () => { return canvas.height }
+        });
+        const acceleration = getValueFromObject(props, "acceleration", {
+            x: () => { return 0 },
+            y: () => { return 0 }
         })
+        const delay = getValueFromObject(props, "delay", () => { return 0; });
 
         if(!canvas) throw new Error('Passed an unexisting Canvas to Quanta.');
 
@@ -33,7 +38,12 @@ class Quanta {
                 speed: {
                     x: speed.x(),
                     y: speed.y(),
-                }
+                },
+                acceleration: {
+                    x: acceleration.x(),
+                    y: acceleration.y(),
+                },
+                delay: delay()
             }));
         }
         
@@ -116,12 +126,16 @@ class QuantaParticle {
         this.radius = getValueFromObject(props, "radius", 1);
         this.color = getValueFromObject(props, "color", "#ccc");
         this.animationDuration = getValueFromObject(props, "animationDuration", 1000);
+        this.delay = getValueFromObject(props, 'delay', 0);
+
+        this.animationDuration += this.delay * 50;
     }
 
     draw(ctx) {
         let p = this;
 
-        if(p.life > 0 && p.radius > 0) {
+        if(p.delay > 0) p.delay--;
+        else if(p.life > 0 && p.radius > 0) {
             ctx.beginPath();
             ctx.arc(p.startX, p.startY, p.radius, 0, Math.PI * 2);
             ctx.fillStyle = p.color;
