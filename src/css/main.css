@@ -4002,13 +4002,7 @@ table.astralForgeShards td {
     animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 @keyframes revealSearchButtonAnim {
-    0% {
-        background: rgba(255, 255, 255, 0);
-    }
-    25% {
-        background: rgba(255, 255, 255, 0.1);
-    }
-    50% {
+    from {
         background: rgba(255, 255, 255, 0.5);
     }
 }
