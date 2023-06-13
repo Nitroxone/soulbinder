@@ -3963,9 +3963,13 @@ table.astralForgeShards td {
     align-items: center;
     box-shadow: inset 0px 0px 10px 12px rgba(255, 255, 255, 0.1);
     border: 2px solid rgb(155, 155, 155) !important;
+    cursor:default !important;
 }
 .disabledActionButton:hover {
     filter: grayscale(100%) !important;
+}
+.disabledActionButton:active {
+    border-color: rgb(155, 155, 155) !important;
 }
 
 .roomActions-action.scout h6 {
@@ -4023,6 +4027,61 @@ table.astralForgeShards td {
     left: 0;
 }
 
+.roomHeader-type::before {
+    content: '';
+    width: 150%;
+    height: 60px;
+
+    position: absolute;
+    top: -60%;
+    left: -30%;
+    right: 0;
+    bottom: 0;
+    
+    opacity: 0;
+}
+.roomHeader-type.roomType-animateReveal::before {
+    display: block;
+    background: radial-gradient(circle, rgba(155, 155, 155, 0.2) 0%, transparent 50%);
+    border-radius: 100%;
+
+    animation-name: roomTypeReveal;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+}
+@keyframes roomTypeReveal {
+    0% {
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 0;
+        transform: scale(2);
+    }
+}
+
+.infosPanel-roomHeader.roomHeader-animateReveal::before {
+    animation: roomHeaderReveal;
+    animation-timing-function: ease-in-out;
+    animation-duration: 1.5s;
+    animation-delay: 0s;
+}
+@keyframes roomHeaderReveal {
+    0% {
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, rgba(255,255,255,0) 100%);
+        left: -250px;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, rgba(255,255,255,0) 100%);
+        left: 250px;
+        opacity: 0;
+    }
+}
+
 .clearedHeader.infosPanel-roomHeader::before {
     opacity: 1;
 }
@@ -4041,6 +4100,8 @@ table.astralForgeShards td {
     transition: text-shadow 2s ease-in-out;
 
     font-size: 1.4rem;
+
+    position: relative;
 }
 .clearedHeader > .roomHeader-type {
     text-shadow: 0 1px 0 #ccc, 0 -1px 0 #2e2e2e, 0 -1.5px 0 #2c2c2c, 0 -2px 0 #2a2a2a, 0 -2.5px 0 #282828;
