@@ -2647,61 +2647,91 @@ function generateExplorationInfosPanelEvents() {
     }
     if(scout) {
         scout.addEventListener('click', e => {
-            if(currentRoom.scout()) {
-                const sfCv = document.querySelector('#solarFireflyCanvas');
-                
-                Quanta.burst({
-                    canvas: sfCv,
-                    color: Data.Color.ORANGE,
-                    amount: 100,
-                    particleSize: 4,
-                    duration: 4000,
-                    fadeAwayRate: 0,
-                    speed: {
-                        x: () => { return (-2 + Math.random() * 2) },
-                        y: () => { return (-4 + Math.random() * 10) }
-                    },
-                    delay: () => { return getRandomNumber(0, 100) }
-                });
-
-                document.querySelector('.infosPanel-roomHeader').classList.add('roomHeader-animateReveal');
-                setTimeout(() => {
-                    document.querySelector('.roomHeader-type').textContent = currentRoom.type;
-                    document.querySelector('.roomHeader-type').classList.add('roomType-animateReveal');
-                }, 500);
-            }
-        })
+            dungeonScoutEvent();
+        });
     }
     if(search) {
         search.addEventListener('click', e => {
-            if(!currentRoom.isCleared()) {
-                currentRoom.foundLoot = LootTable.Generators.generateLoot(LootTable.Presets.Dungeon[currentRoom.type]);
-                drawDungeonFoundLoot(true);
-
-                let quantadelay = 0;
-                document.querySelectorAll('.revealingLootCanvas').forEach(cv => {
-                    setTimeout(() => {
-                        let params = getQuantaBurstParamsFromRarity(cv.classList[1]);
-
-                        Quanta.burst({
-                            canvas: cv,
-                            color: params.color,
-                            amount: params.amount,
-                            particleSize: params.particleSize
-                        });
-                    }, quantadelay);
-                    quantadelay += 250;
-                })
-                clearCurrentRoom();
-
-                dungeonActionApplySearchedStyle(search);
-            }
+            dungeonSearchEvent();
         });
     }
 }
 
+function dungeonScoutEvent() {
+    const scout = document.querySelector('.roomActions-action.scout');
+    const currentRoom = game.currentDungeon.currentFloor.currentRoom;
+    if(currentRoom.scout()) {
+        const sfCv = document.querySelector('#solarFireflyCanvas');
+        
+        Quanta.burst({
+            canvas: sfCv,
+            color: Data.Color.ORANGE,
+            amount: 100,
+            particleSize: 4,
+            duration: 4000,
+            fadeAwayRate: 0,
+            speed: {
+                x: () => { return (-2 + Math.random() * 2) },
+                y: () => { return (-4 + Math.random() * 10) }
+            },
+            delay: () => { return getRandomNumber(0, 100) }
+        });
+
+        document.querySelector('.infosPanel-roomHeader').classList.add('roomHeader-animateReveal');
+        setTimeout(() => {
+            document.querySelector('.roomHeader-type').textContent = currentRoom.type;
+            document.querySelector('.roomHeader-type').classList.add('roomType-animateReveal');
+        }, 500);
+
+        dungeonActionApplyScoutedStyle(scout);
+        if(currentRoom.canSearch()) {
+            document.querySelector('.roomActions-action.enter').outerHTML = getDungeonSearchButton(true);
+            document.querySelector('.roomActions-action.search').addEventListener('click', e => {
+                dungeonSearchEvent();
+            })
+        }
+    }
+}
+
+function dungeonSearchEvent() {
+    const search = document.querySelector('.roomActions-action.search');
+    const currentRoom = game.currentDungeon.currentFloor.currentRoom;
+    if(!currentRoom.isCleared()) {
+        currentRoom.foundLoot = LootTable.Generators.generateLoot(LootTable.Presets.Dungeon[currentRoom.type]);
+        drawDungeonFoundLoot(true);
+
+        let quantadelay = 0;
+        document.querySelectorAll('.revealingLootCanvas').forEach(cv => {
+            setTimeout(() => {
+                let params = getQuantaBurstParamsFromRarity(cv.classList[1]);
+
+                Quanta.burst({
+                    canvas: cv,
+                    color: params.color,
+                    amount: params.amount,
+                    particleSize: params.particleSize
+                });
+            }, quantadelay);
+            quantadelay += 250;
+        })
+        clearCurrentRoom();
+
+        dungeonActionApplySearchedStyle(search);
+    }
+}
+
+function dungeonActionApplyEnteredStyle(html) {
+    html.textContent = 'Entered';
+    html.classList.add('disabledActionButton');
+}
+
+function dungeonActionApplyScoutedStyle(html) {
+    html.querySelector('h4').textContent = 'Scouted';
+    html.querySelector('h6').remove();
+    html.classList.add('disabledActionButton');
+}
+
 function dungeonActionApplySearchedStyle(html) {
-    console.log(html);
     html.textContent = 'Searched';
     html.classList.add('disabledActionButton');
 }
@@ -2782,19 +2812,7 @@ function drawExplorationInfosPanel(refresh = false) {
     str += '</div>';
 
     str += '<div class="infosPanel-roomActions">';
-    // HANDLE ACTION
-    if(actions.includes(Data.DungeonRoomAction.ENTER)) {
-        str += '<div class="roomActions-action enter' + (actions.includes(Data.DungeonRoomAction.SCOUT) ? ' minEnter' : '') + '">Enter</div>';
-    }
-    if(actions.includes(Data.DungeonRoomAction.SCOUT)) {
-        str += '<div class="roomActions-action scout">';
-        str += '<h4>Scout</h4><h6>' + what(game.inventory.resources, 'solar firefly').amount + '/1 <span class="solarFirefly">Solar Firefly</span></h6>';
-        str += '<canvas id="solarFireflyCanvas"></canvas>';
-        str += '</div>';
-    }
-    if(actions.includes(Data.DungeonRoomAction.SEARCH)) {
-        str += '<div class="roomActions-action search">Search</div>';
-    }
+    str += drawDungeonPanelActions()
     str += '</div>';
 
     str += '<div class="infosPanel-actionResult">';
@@ -2807,6 +2825,27 @@ function drawExplorationInfosPanel(refresh = false) {
 
     if(refresh) {
         document.querySelector('#exploration-infosPanel').innerHTML = str;
+        return;
+    }
+    return str;
+}
+
+function drawDungeonPanelActions(refresh = false) {
+    let str = '';
+    const actions = game.currentDungeon.currentFloor.currentRoom.getActions();
+
+    if(actions.includes(Data.DungeonRoomAction.ENTER)) {
+        str += getDungeonEnterButton(actions.includes(Data.DungeonRoomAction.SCOUT));
+    }
+    if(actions.includes(Data.DungeonRoomAction.SCOUT)) {
+        str += getDungeonScoutButton();
+    }
+    if(actions.includes(Data.DungeonRoomAction.SEARCH)) {
+        str += getDungeonSearchButton(actions.includes(Data.DungeonRoomAction.SCOUT));
+    }
+
+    if(refresh) {
+        document.querySelector('.infosPanel-roomActions').innerHTML = str;
         return;
     }
     return str;

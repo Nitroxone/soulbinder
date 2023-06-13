@@ -3957,8 +3957,21 @@ table.astralForgeShards td {
     transition: all .1s ease-in-out;
 }
 
+.roomAction-shrinkAnim {
+    transition: background .2s ease-in-out, width 2s cubic-bezier(0.075, 0.82, 0.165, 1), padding 2s cubic-bezier(0.075, 0.82, 0.165, 1) !important;
+    width: 0% !important;
+    padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
+}
+.roomAction-expandAnim {
+    transition: width 2s cubic-bezier(0.075, 0.82, 0.165, 1) !important;
+    width: 100% !important;
+}
+
 .disabledActionButton {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     box-shadow: inset 0px 0px 10px 12px rgba(255, 255, 255, 0.1);
@@ -4017,11 +4030,17 @@ table.astralForgeShards td {
 
     position: relative;
 }
+.roomActions-action.search.minEnter {
+    width: 49%;
+    margin: 0;
+    background-position: 40% 0%;
+    background-size: 125%;
+}
 
 #solarFireflyCanvas {
     position: absolute;
     width: 100%;
-    height: 60px;
+    height: 58px;
 
     top: 0;
     left: 0;
@@ -4030,10 +4049,10 @@ table.astralForgeShards td {
 .roomHeader-type::before {
     content: '';
     width: 150%;
-    height: 60px;
+    height: 10px;
 
     position: absolute;
-    top: -60%;
+    top: 35%;
     left: -30%;
     right: 0;
     bottom: 0;
@@ -4042,10 +4061,10 @@ table.astralForgeShards td {
 }
 .roomHeader-type.roomType-animateReveal::before {
     display: block;
-    background: radial-gradient(circle, rgba(155, 155, 155, 0.2) 0%, transparent 50%);
+    background: radial-gradient(circle, rgba(238,149,81,0.5) 0%, rgba(255,255,255,0) 35%);
     border-radius: 100%;
 
-    animation-name: roomTypeReveal;
+    /*animation-name: roomTypeReveal;*/
     animation-duration: 1s;
     animation-timing-function: ease-in-out;
 }
@@ -4069,14 +4088,12 @@ table.astralForgeShards td {
 }
 @keyframes roomHeaderReveal {
     0% {
-        background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, rgba(255,255,255,0) 100%);
         left: -250px;
     }
     50% {
         opacity: 1;
     }
     100% {
-        background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, rgba(255,255,255,0) 100%);
         left: 250px;
         opacity: 0;
     }
@@ -4180,7 +4197,7 @@ table.astralForgeShards td {
     /*left: -10%;*/
     width: 100%;
     right: 0;
-    bottom: 0;
+    bottom: 1px;
 
     /*border: 1px dashed grey;*/
     z-index: 100;

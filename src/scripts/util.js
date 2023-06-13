@@ -1441,3 +1441,18 @@ function getQuantaBurstParamsFromRarity(rarity) {
 function getRandomSign() {
     return Math.random() < 0.5 ? -1 : 1;
 }
+
+function getDungeonSearchButton(min = false) {
+    return '<div class="roomActions-action search' + (min ? ' minEnter' : '') + '">Search</div>';
+}
+
+function getDungeonScoutButton() {
+    return '<div class="roomActions-action scout">'
+    + '<h4>Scout</h4><h6>' + what(game.inventory.resources, 'solar firefly').amount + '/1 <span class="solarFirefly">Solar Firefly</span></h6>'
+    + '<canvas id="solarFireflyCanvas"></canvas>'
+    + '</div>';
+}
+
+function getDungeonEnterButton(min = false) {
+    return '<div class="roomActions-action enter' + (min ? ' minEnter' : '') + '">Enter</div>';
+}
