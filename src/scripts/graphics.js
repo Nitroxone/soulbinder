@@ -2661,10 +2661,10 @@ function generateExplorationInfosPanelEvents() {
                         y: () => { return (-4 + Math.random() * 10) }
                     },
                     delay: () => { return getRandomNumber(0, 100) },
-                    acceleration: {
+                    /*acceleration: {
                         x: () => { return 0; },
                         y: () => { return -1 * (Math.random()/5) }
-                    }
+                    }*/
                 });
             }
         })
@@ -3080,7 +3080,7 @@ function drawEonTitles(refresh = false) {
         searchEon(true);
         return;
     }
-    return eonsTitles.innerHTML = str;
+    return str;
 }
 
 function drawEonFragments(eon) {
