@@ -2646,7 +2646,24 @@ function generateExplorationInfosPanelEvents() {
 
     }
     if(scout) {
-
+        scout.addEventListener('click', e => {
+            if(currentRoom.scout()) {
+                const sfCv = document.querySelector('#solarFireflyCanvas');
+                
+                Quanta.burst({
+                    canvas: sfCv,
+                    color: Data.Color.ORANGE,
+                    amount: 100,
+                    particleSize: 4,
+                    duration: 4000,
+                    fadeAwayRate: 0.005,
+                    speed: {
+                        x: () => { return (-2 + Math.random() * 2) },
+                        y: () => { return (-4 + Math.random() * 10) }
+                    },
+                });
+            }
+        })
     }
     if(search) {
         search.addEventListener('click', e => {
@@ -2753,7 +2770,10 @@ function drawExplorationInfosPanel(refresh = false) {
         str += '<div class="roomActions-action enter' + (actions.includes(Data.DungeonRoomAction.SCOUT) ? ' minEnter' : '') + '">Enter</div>';
     }
     if(actions.includes(Data.DungeonRoomAction.SCOUT)) {
-        str += '<div class="roomActions-action scout"><h4>Scout</h4><h6>' + what(game.inventory.resources, 'solar firefly').amount + '/1 <span class="solarFirefly">Solar Firefly</span></h6></div>';
+        str += '<div class="roomActions-action scout">';
+        str += '<h4>Scout</h4><h6>' + what(game.inventory.resources, 'solar firefly').amount + '/1 <span class="solarFirefly">Solar Firefly</span></h6>';
+        str += '<canvas id="solarFireflyCanvas"></canvas>';
+        str += '</div>';
     }
     if(actions.includes(Data.DungeonRoomAction.SEARCH)) {
         str += '<div class="roomActions-action search">Search</div>';

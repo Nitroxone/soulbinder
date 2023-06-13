@@ -3999,6 +3999,17 @@ table.astralForgeShards td {
     background-repeat: no-repeat;
     background-position: 50% 60%;
     background-size: 150%;
+
+    position: relative;
+}
+
+#solarFireflyCanvas {
+    position: absolute;
+    width: 100%;
+    height: 60px;
+
+    top: 0;
+    left: 0;
 }
 
 .clearedHeader.infosPanel-roomHeader::before {

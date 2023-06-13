@@ -8,33 +8,39 @@ class Quanta {
         const color = getValueFromObject(props, "color", 'white');
         const amount = getValueFromObject(props, "amount", 200);
         const particleSize = getValueFromObject(props, "particleSize", 3);
-        if(!canvas) throw new Error('Passed an unexisting Canvas to Quanta.');
+        const duration = getValueFromObject(props, "duration", 1500);
+        const fadeAwayRate = getValueFromObject(props, "fadeAwayRate", 0);
+        const speed = getValueFromObject(props, "speed", {
+            x: () => { return (-2 + Math.random() * 2) },
+            y: () => { return (-2 + Math.random() * 10) }
+        });
+        const start = getValueFromObject(props, "start", {
+            x: () => { return getRandomNumber(0, canvas.width) },
+            y: () => { return canvas.height }
+        })
 
-        const psettings = {
-            particleSize: particleSize,
-            getStartX: () => { return getRandomNumber(0, canvas.width) },
-            getStartY: () => { return canvas.height },
-            gravity: -0.1,
-            fillStyle: color
-        };
+        if(!canvas) throw new Error('Passed an unexisting Canvas to Quanta.');
 
         if(amount <= 0) return;
         let particles = [];
         for(let i = 0; i < amount; i++) {
             particles.push(new QuantaParticle({
                 color: color,
-                radius: psettings.particleSize,
-                gravity: psettings.gravity,
-                startX: psettings.getStartX(),
-                startY: psettings.getStartY(),
-                animationDuration: 1500
+                radius: particleSize,
+                startX: start.x(),
+                startY: start.y(),
+                animationDuration: duration,
+                speed: {
+                    x: speed.x(),
+                    y: speed.y(),
+                }
             }));
         }
         
         Quanta.update({
             canvas: canvas,
             particles: particles,
-            fadeAwayRate: 0,
+            fadeAwayRate: fadeAwayRate,
         });
     }
 
@@ -48,6 +54,7 @@ class Quanta {
         let lastFrameTime = 0;
         const targetFrameTime = 1000 / Quanta.fps;
 
+        ctx.globalAlpha = 1;
         function animate(currentTime) {
             const elapsed = currentTime - lastFrameTime;
 
@@ -93,10 +100,17 @@ class QuantaParticle {
         this.startTime = getValueFromObject(props, 'startTime', Date.now());
         this.maxlife = getValueFromObject(props, 'maxlife', 50 + Math.random() * 10);
         this.life = this.maxlife;
-        this.gravity = getValueFromObject(props, "gravity", -0.1);
         this.speed = getValueFromObject(props, "speed", {
             x: -2 + Math.random() * 2,
-            y: -2 + Math.random() * 10,
+            y: -2 + Math.random() * 10
+        });
+        this.acceleration = getValueFromObject(props, "acceleration", {
+            x: 0,
+            y: 0
+        })
+        this.curve = getValueFromObject(props, "curve", {
+            factor: 0,
+            amplitude: 0
         });
         this.origRadius = getValueFromObject(props, "radius", 1);
         this.radius = getValueFromObject(props, "radius", 1);
@@ -116,8 +130,12 @@ class QuantaParticle {
             // Update
             p.life--;
             p.radius -= 0.05;
+            p.speed.x += p.acceleration.x;
+            p.speed.y += p.acceleration.y;
             p.startX += p.speed.x;
             p.startY += p.speed.y;
+
+            if(p.curve.factor !== 0 && p.curve.amplitude !== 0) p.startX += p.curve.amplitude * Math.sin(p.curve.factor * p.startY);
         }
     }
 }

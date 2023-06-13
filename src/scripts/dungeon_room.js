@@ -55,7 +55,8 @@ class DungeonRoom {
     scout() {
         if(hasResource(game.player.inventory.resources, 'solar firefly')) {
             this.identify();
-            game.player.inventory.removeResource('solar firefly');
+            game.player.inventory.removeResource(what(game.player.inventory.resources, 'solar firefly'));
+            return true;
         } else return false;
     }
 
