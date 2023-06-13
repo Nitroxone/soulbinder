@@ -2689,6 +2689,7 @@ function dungeonScoutEvent() {
             document.querySelector('.roomActions-action.search').addEventListener('click', e => {
                 dungeonSearchEvent();
             });
+            document.querySelector('.roomActions-action.search').classList.add('revealSearchButton');
         }
 
         clearCurrentDungeonPanelDesc();

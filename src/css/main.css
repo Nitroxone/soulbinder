@@ -3996,6 +3996,23 @@ table.astralForgeShards td {
     }
 }
 
+.revealSearchButton {
+    animation-name: revealSearchButtonAnim;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+@keyframes revealSearchButtonAnim {
+    0% {
+        background: rgba(255, 255, 255, 0);
+    }
+    25% {
+        background: rgba(255, 255, 255, 0.1);
+    }
+    50% {
+        background: rgba(255, 255, 255, 0.5);
+    }
+}
+
 .roomActions-action.scout h6 {
     color: #ccc;
 
