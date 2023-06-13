@@ -19,17 +19,18 @@ class DungeonRoom {
         this.foundLoot = null;
     }
 
-    getRoomDescription() {
-        if(this.desc !== '') return this.desc;
+    getRoomDescription(reassign = false) {
+        if(this.desc !== '' && !reassign) return this.desc;
         let desc = '';
-        if(!this.identified) desc = choose(Speech.Dungeon.Rooms["unknown"]);
-        else desc = choose(Speech.Dungeon.Rooms[this.type][game.currentDungeon.name.toLowerCase()][this.status]);
-        this.desc = desc;
-        return desc;
-    }
 
-    getActionDesc() {
-        
+        if(!this.identified) desc = choose(Speech.Dungeon.Rooms["unknown"]);
+        else {
+            if(this.type === Data.DungeonRoomType.ANTECHAMBER_OF_MARVELS) desc = choose(Speech.Dungeon.Rooms['antechamber of marvels']);
+            else desc = choose(Speech.Dungeon.Rooms[this.type][game.currentDungeon.name.toLowerCase()][this.status]);
+        }
+        this.desc = desc;
+
+        return desc;
     }
 
     canSearch() {
@@ -62,6 +63,7 @@ class DungeonRoom {
 
     identify() {
         this.identified = true;
+        this.getRoomDescription(true);
     }
 
     clear() {

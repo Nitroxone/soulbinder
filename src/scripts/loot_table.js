@@ -102,6 +102,49 @@ let LootTable = {
                 }),
                 gold: [50, 70],
             },
+            "antechamber of marvels": {
+                weapon: new LootParams({
+                    amount: [1, 2],
+                    rarities: {
+                        rare: 20,
+                        uncommon: 20,
+                        epic: 20,
+                        legendary: 20,
+                        elder: -100
+                    }
+                }),
+                trinket: new LootParams({
+                    amount: [2, 4],
+                    rarities: {
+                        rare: 20,
+                        uncommon: 20,
+                        epic: 20,
+                        legendary: 20,
+                        elder: -100
+                    }
+                }),
+                armor: new LootParams({
+                    amount: [2, 4],
+                    rarities: {
+                        rare: 20,
+                        uncommon: 20,
+                        epic: 20,
+                        legendary: 20,
+                        elder: -100
+                    }
+                }),
+                rune: new LootParams({
+                    amount: [1, 2],
+                    rarities: {
+                        rare: 20,
+                        uncommon: 20,
+                        epic: 20,
+                        legendary: 20,
+                        elder: -100
+                    }
+                }),
+                gold: [200, 500],
+            }
         }
     },
     Generators: {
@@ -130,6 +173,18 @@ let LootTable = {
                         dropRate = LootTable.DropRates.Trinket;
                         lootType = 'trinket';
                         pool = game.all_trinkets;
+                    } else if(type === 'armor') {
+                        dropRate = LootTable.DropRates.Armor;
+                        lootType = 'armor';
+                        pool = game.all_armors;
+                    } else if(type === 'rune') {
+                        dropRate = LootTable.DropRates.Rune;
+                        lootType = 'rune';
+                        pool = game.all_runes;
+                    } else if(type === 'consumable') {
+                        dropRate = LootTable.DropRates.Consumable;
+                        lootType = 'consumable';
+                        pool = game.all_consumables;
                     }
 
                     if(getRandomNumber(0, 100) > preset[type].chance) continue;
@@ -168,6 +223,7 @@ let LootTable = {
                         // Retrieving the resource
                         let eligible = pool.filter(rsc => rsc.rarity === rarity);
                         let final = choose(eligible);
+                        if(final === undefined) continue;
 
                         if(results.some(obj => obj.item === final)) {
                             results.find(obj => obj.item === final).amount += 1;

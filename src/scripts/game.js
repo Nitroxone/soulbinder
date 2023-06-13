@@ -70,6 +70,8 @@ class Game {
         this.inventory = null;
 
         this.actionListeners = [];
+
+        this.textDisplaySwitch = false;
     }
 
     addCallbacks() {
@@ -324,7 +326,7 @@ class Game {
             this.inventory.addItem(item);
         });
         this.all_resources.forEach(item => {
-            this.inventory.addItem(item, 10);
+            this.inventory.addItem(item, 100);
         });
         this.all_recipes.forEach(item => {
             this.inventory.addItem(item);

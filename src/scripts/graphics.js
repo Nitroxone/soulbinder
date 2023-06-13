@@ -2688,8 +2688,12 @@ function dungeonScoutEvent() {
             document.querySelector('.roomActions-action.enter').outerHTML = getDungeonSearchButton(true);
             document.querySelector('.roomActions-action.search').addEventListener('click', e => {
                 dungeonSearchEvent();
-            })
+            });
         }
+
+        clearCurrentDungeonPanelDesc();
+        console.log(currentRoom);
+        setTimeout(() => {displayTextLetterByLetter(currentRoom.getRoomDescription(), '.infosPanel-roomDesc', 1);}, 10);
     }
 }
 
@@ -2737,6 +2741,7 @@ function dungeonActionApplySearchedStyle(html) {
 }
 
 function displayTextLetterByLetter(text, dom, delay = 1) {
+    game.textDisplaySwitch = false;
     let index = 0;
     dom = document.querySelector(dom);
 
@@ -2746,7 +2751,7 @@ function displayTextLetterByLetter(text, dom, delay = 1) {
     }
 
     function displayNextLetter() {
-        if(index < text.length) {
+        if(index < text.length && !game.textDisplaySwitch) {
             const letter = text[index];
             dom.innerHTML += letter;
 
@@ -2758,11 +2763,22 @@ function displayTextLetterByLetter(text, dom, delay = 1) {
     displayNextLetter();
 }
 
+function stopDisplayTextLetterByLetter() {
+    game.textDisplaySwitch = true;
+}
+
+function clearCurrentDungeonPanelDesc() {
+    stopDisplayTextLetterByLetter();
+    document.querySelector('.infosPanel-roomDesc').innerHTML = '';
+}
+
 function clearCurrentRoom() {
     game.currentDungeon.currentFloor.currentRoom.clear();
     document.querySelector('.infosPanel-roomHeader').classList.add('clearedHeader');
     document.querySelector('.roomHeader-status').innerHTML = game.currentDungeon.currentFloor.currentRoom.status;
-    //displayTextLetterByLetter(game.currentDungeon.currentFloor.currentRoom.getRoomDescription(), '.infosPanel-roomDesc', 0);
+
+    clearCurrentDungeonPanelDesc();
+    setTimeout(() => {displayTextLetterByLetter(game.currentDungeon.currentFloor.currentRoom.getRoomDescription(), '.infosPanel-roomDesc', 0);}, 10);
 }
 
 function drawDungeonFoundLoot(refresh = false) {
