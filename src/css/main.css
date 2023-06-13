@@ -3957,6 +3957,17 @@ table.astralForgeShards td {
     transition: all .1s ease-in-out;
 }
 
+.disabledActionButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: inset 0px 0px 10px 12px rgba(255, 255, 255, 0.1);
+    border: 2px solid rgb(155, 155, 155) !important;
+}
+.disabledActionButton:hover {
+    filter: grayscale(100%) !important;
+}
+
 .roomActions-action.scout h6 {
     color: #ccc;
 
