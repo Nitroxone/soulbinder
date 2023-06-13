@@ -2668,26 +2668,36 @@ function generateExplorationInfosPanelEvents() {
     }
     if(search) {
         search.addEventListener('click', e => {
-            currentRoom.foundLoot = LootTable.Generators.generateLoot(LootTable.Presets.Dungeon[currentRoom.type]);
-            drawDungeonFoundLoot(true);
+            if(!currentRoom.isCleared()) {
+                currentRoom.foundLoot = LootTable.Generators.generateLoot(LootTable.Presets.Dungeon[currentRoom.type]);
+                drawDungeonFoundLoot(true);
 
-            let quantadelay = 0;
-            document.querySelectorAll('.revealingLootCanvas').forEach(cv => {
-                setTimeout(() => {
-                    let params = getQuantaBurstParamsFromRarity(cv.classList[1]);
+                let quantadelay = 0;
+                document.querySelectorAll('.revealingLootCanvas').forEach(cv => {
+                    setTimeout(() => {
+                        let params = getQuantaBurstParamsFromRarity(cv.classList[1]);
 
-                    Quanta.burst({
-                        canvas: cv,
-                        color: params.color,
-                        amount: params.amount,
-                        particleSize: params.particleSize
-                    });
-                }, quantadelay);
-                quantadelay += 250;
-            })
-            clearCurrentRoom();
+                        Quanta.burst({
+                            canvas: cv,
+                            color: params.color,
+                            amount: params.amount,
+                            particleSize: params.particleSize
+                        });
+                    }, quantadelay);
+                    quantadelay += 250;
+                })
+                clearCurrentRoom();
+
+                dungeonActionApplySearchedStyle(search);
+            }
         });
     }
+}
+
+function dungeonActionApplySearchedStyle(html) {
+    console.log(html);
+    html.textContent = 'Searched';
+    html.classList.add('disabledActionButton');
 }
 
 function displayTextLetterByLetter(text, dom, delay = 1) {
