@@ -2663,6 +2663,12 @@ function generateExplorationInfosPanelEvents() {
                     },
                     delay: () => { return getRandomNumber(0, 100) }
                 });
+
+                document.querySelector('.infosPanel-roomHeader').classList.add('roomHeader-animateReveal');
+                setTimeout(() => {
+                    document.querySelector('.roomHeader-type').textContent = currentRoom.type;
+                    document.querySelector('.roomHeader-type').classList.add('roomType-animateReveal');
+                }, 500);
             }
         })
     }
