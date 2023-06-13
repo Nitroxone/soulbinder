@@ -3970,19 +3970,30 @@ table.astralForgeShards td {
 }
 
 .disabledActionButton {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     box-shadow: inset 0px 0px 10px 12px rgba(255, 255, 255, 0.1);
     border: 2px solid rgb(155, 155, 155) !important;
     cursor:default !important;
+    position: relative;
 }
 .disabledActionButton:hover {
     filter: grayscale(100%) !important;
 }
 .disabledActionButton:active {
     border-color: rgb(155, 155, 155) !important;
+}
+.disabledActionButton > h4 {
+    position: absolute;
+    animation-name: disableCenterAnimation;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation-fill-mode: forwards;
+}
+@keyframes disableCenterAnimation {
+    to {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
 }
 
 .roomActions-action.scout h6 {

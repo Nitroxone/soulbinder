@@ -1443,7 +1443,7 @@ function getRandomSign() {
 }
 
 function getDungeonSearchButton(min = false) {
-    return '<div class="roomActions-action search' + (min ? ' minEnter' : '') + '">Search</div>';
+    return '<div class="roomActions-action search' + (min ? ' minEnter' : '') + '"><h4>Search</h4></div>';
 }
 
 function getDungeonScoutButton() {
@@ -1454,5 +1454,5 @@ function getDungeonScoutButton() {
 }
 
 function getDungeonEnterButton(min = false) {
-    return '<div class="roomActions-action enter' + (min ? ' minEnter' : '') + '">Enter</div>';
+    return '<div class="roomActions-action enter' + (min ? ' minEnter' : '') + '"><h4>Enter</h4></div>';
 }

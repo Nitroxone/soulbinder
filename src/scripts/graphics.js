@@ -2721,7 +2721,7 @@ function dungeonSearchEvent() {
 }
 
 function dungeonActionApplyEnteredStyle(html) {
-    html.textContent = 'Entered';
+    html.querySelector('h4').textContent = 'Entered';
     html.classList.add('disabledActionButton');
 }
 
@@ -2732,7 +2732,7 @@ function dungeonActionApplyScoutedStyle(html) {
 }
 
 function dungeonActionApplySearchedStyle(html) {
-    html.textContent = 'Searched';
+    html.querySelector('h4').textContent = 'Searched';
     html.classList.add('disabledActionButton');
 }
 
