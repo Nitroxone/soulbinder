@@ -4037,12 +4037,28 @@ table.astralForgeShards td {
     left: -30%;
     right: 0;
     bottom: 0;
-
+    
+    opacity: 0;
 }
 .roomHeader-type.roomType-animateReveal::before {
     display: block;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
+    background: radial-gradient(circle, rgba(155, 155, 155, 0.2) 0%, transparent 50%);
     border-radius: 100%;
+
+    animation-name: roomTypeReveal;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+}
+@keyframes roomTypeReveal {
+    0% {
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 0;
+        transform: scale(2);
+    }
 }
 
 .infosPanel-roomHeader.roomHeader-animateReveal::before {
@@ -4054,14 +4070,14 @@ table.astralForgeShards td {
 @keyframes roomHeaderReveal {
     0% {
         background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, rgba(255,255,255,0) 100%);
-        left: -100px;
+        left: -250px;
     }
     50% {
         opacity: 1;
     }
     100% {
         background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, rgba(255,255,255,0) 100%);
-        left: 100px;
+        left: 250px;
         opacity: 0;
     }
 }
