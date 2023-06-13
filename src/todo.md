@@ -9,6 +9,8 @@
 
 - Actually implement set bonuses
 
+- Rename: Rune -> Sigil
+
 BATTLES:
 DONE - Implement and improve skill launch conditions
 DONE - Implement stamina/mana checks
