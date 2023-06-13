@@ -2656,15 +2656,12 @@ function generateExplorationInfosPanelEvents() {
                     amount: 100,
                     particleSize: 4,
                     duration: 4000,
+                    fadeAwayRate: 0,
                     speed: {
                         x: () => { return (-2 + Math.random() * 2) },
                         y: () => { return (-4 + Math.random() * 10) }
                     },
-                    delay: () => { return getRandomNumber(0, 100) },
-                    /*acceleration: {
-                        x: () => { return 0; },
-                        y: () => { return -1 * (Math.random()/5) }
-                    }*/
+                    delay: () => { return getRandomNumber(0, 100) }
                 });
             }
         })
@@ -3060,7 +3057,6 @@ function generateEonEvents() {
 }
 
 function drawEonTitles(refresh = false) {
-    const eonsTitles = document.querySelector('.eonsTitles');
     let str = '';
 
     game.all_majorEons.forEach(eon => {
@@ -3075,7 +3071,7 @@ function drawEonTitles(refresh = false) {
     });
 
     if(refresh) {
-       eonsTitles.innerHTML = str;
+        document.querySelector('.eonsTitles').innerHTML = str;
         generateEonEvents();
         searchEon(true);
         return;
@@ -3086,20 +3082,13 @@ function drawEonTitles(refresh = false) {
 function drawEonFragments(eon) {
     let str = '';
     eon.fragments.forEach(fragment => {
-        if (fragment.unlocked) {
+        if(fragment.unlocked) {
             str += '<div class="eonFragment">';
             str += fragment.text;
             str += '</div>'
         }
     });
-    const eonsFragments = document.querySelector('.eonsFragments');
-    eonsFragments.innerHTML = str;
-
-    if (eonsFragments.innerHTML === '') {
-        eonsFragments.style.overflowY = 'none';
-    } else {
-        eonsFragments.style.overflowY = 'scroll';
-    }
+    document.querySelector('.eonsFragments').innerHTML = str;
 }
 
 function searchEon(refresh = false) {
