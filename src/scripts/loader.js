@@ -2111,9 +2111,9 @@ const Loader = {
                     actions: [
                         new EnemyAction({
                             title: 'regular',
-                            owner: function(){ return what(game.all_enemies, "mycelial tick") },
+                            owner: function(){ return what(game.currentBattle.enemies, "mycelial tick") },
                             behavior: function(){
-                                console.log(this.owner);
+                                console.log('my owner is :' + this.owner);
                             }
                         })
                     ]
@@ -2157,7 +2157,6 @@ const Loader = {
 
         for(const enemy of enemies) {
             game.all_enemies.push(enemy);
-            if(enemy.behavior) enemy.behavior.build();
         }
     },
 

@@ -20,6 +20,13 @@ class Battle {
         this.resetAttackParams();
     }
 
+    buildBehaviors() {
+        // Prepare enemy AI
+        this.enemies.forEach(en => {
+            if(en.behavior) en.behavior.build();
+        })
+    }
+
     /**
      * Generates the battle order based on the speed of each NPC. This method is supposed to be called at the beginning of each round.
      */
@@ -67,6 +74,7 @@ class Battle {
      * Starts this battle.
      */
     start() {
+        this.buildBehaviors();
         this.generateOrder();
         this.runTriggersOnAllies(Data.TriggerType.ON_BATTLE_START);
         this.runTriggersOnEnemies(Data.TriggerType.ON_BATTLE_START);
@@ -107,6 +115,10 @@ class Battle {
         return arrayContains(this.enemies, this.currentPlay);
     }
 
+    handleEnemyTurn() {
+        this.currentPlay.play();
+    }
+
     /**
      * Begins a new turn.
      */
@@ -123,7 +135,9 @@ class Battle {
         this.resetEndTurnCounter();
         // SKIP ENEMIES
         if(this.currentPlay.isStunned) this.endTurn();
-        if(this.isEnemyPlaying()) this.endTurn();
+        if(this.isEnemyPlaying()) {
+            this.handleEnemyTurn();
+        }
         if(this.isBattleOver()) this.end();
     }
 

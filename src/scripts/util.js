@@ -1456,3 +1456,9 @@ function getDungeonScoutButton() {
 function getDungeonEnterButton(min = false) {
     return '<div class="roomActions-action enter' + (min ? ' minEnter' : '') + '"><h4>Enter</h4></div>';
 }
+
+function getEnemyById(id) {
+    for(let i = 0; i < game.currentBattle.enemies.length; i++) {
+        if(game.currentBattle.enemies[i].id === id) return game.currentBattle.enemies[i];
+    }
+}
