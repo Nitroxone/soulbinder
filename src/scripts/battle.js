@@ -64,7 +64,7 @@ class Battle {
     }
 
     /**
-     * Starts the battle.
+     * Starts this battle.
      */
     start() {
         this.generateOrder();
@@ -74,6 +74,9 @@ class Battle {
         drawBattleScreen();
     }
 
+    /**
+     * Ends this battle.
+     */
     end() {
         console.log("Battle ends!");
         this.runTriggersOnAll(Data.TriggerType.ON_BATTLE_END);
@@ -96,10 +99,17 @@ class Battle {
         );
     }
 
+    /**
+     * Returns whether the currently playing NPC is an enemy.
+     * @returns {boolean} whether the currently playing NPC is an enemy
+     */
     isEnemyPlaying() {
         return arrayContains(this.enemies, this.currentPlay);
     }
 
+    /**
+     * Begins a new turn.
+     */
     beginTurn() {
         if(this.nextInOrder()) return; // IF A NEW ROUND IS STARTING, CANCEL THE FIRST TURN OR IT WILL BE PLAYED TWICE BY THE SAME FIGHTER.
         console.log("Currently playing: " + this.currentPlay.name);
@@ -117,6 +127,9 @@ class Battle {
         if(this.isBattleOver()) this.end();
     }
 
+    /**
+     * Ends the current turn.
+     */
     endTurn() {
         this.currentPlay.runTriggers(Data.TriggerType.ON_TURN_END);
         this.action = null;
@@ -129,6 +142,9 @@ class Battle {
         this.beginTurn();
     }
 
+    /**
+     * Adds an end turn counter to this battle. 
+     */
     addEndTurnCounter() {
         this.endturnCounter += 1;
         if(this.endturnCounter >= this.order.length) {
@@ -142,6 +158,9 @@ class Battle {
         }
     }
 
+    /**
+     * Resets the battle's end turn counter.
+     */
     resetEndTurnCounter() {
         this.endturnCounter = 0;
     }
@@ -213,6 +232,9 @@ class Battle {
         });
     }
 
+    /**
+     * Resets the battle's attack params.
+     */
     resetAttackParams() {
         this.params = {
             phys_damage: 0,
@@ -224,6 +246,9 @@ class Battle {
         };
     }
 
+    /**
+     * Resets the battle's target tracker.
+     */
     resetTargetTracker() {
         this.targetTracker = 0;
     }
@@ -254,6 +279,7 @@ class Battle {
 
     /**
      * Computes attack params for a weapon attack.
+     * @param {NPC} target the target
      */
     computeAttackParams(target) {
         this.resetAttackParams();
@@ -304,6 +330,11 @@ class Battle {
         }
     }
 
+    /**
+     * Computes the attack params based on the selected skill and the provided target. 
+     * @param {NPC} target the target
+     * @param {boolean} forceCrit forces a critical strike (default: false)
+     */
     computeSkillParams(target, forceCrit = false) {
         this.resetAttackParams();
         const skill = this.selectedSkill;
@@ -449,6 +480,11 @@ class Battle {
         this.runPopups();
     }
 
+    /**
+     * Applies damage reflection on the target.
+     * @param {object} params the attack params
+     * @param {NPC} target the target
+     */
     applyDamageReflection(params, target) {
         const total = params.phys_damage + params.magi_damage + params.crit_damage;
         const dr = target.damageReflection;
@@ -460,6 +496,9 @@ class Battle {
         if(final > 0) this.currentPlay.removeBaseStat(new Stat({effect: Data.Effect.HEALTH, theorical: final}));
     }
 
+    /**
+     * Executes all of the effects and damage of the selected Skill on the selected target(s).
+     */
     executeSkill() {
         const skill = this.selectedSkill;
         const current = this.currentPlay;
@@ -571,6 +610,10 @@ class Battle {
         this.runPopups();
     }
 
+    /**
+     * Applies a movement to the enemy.
+     * @param {Skill} skill the Skill to retrieve the movement effect from
+     */
     applyEnemyMovement(skill, target) {
         switch(skill.effect) {
             case Data.Effect.PULL_ONE:
@@ -590,6 +633,10 @@ class Battle {
         }
     }
 
+    /**
+     * Applies a movement to the caster.
+     * @param {Skill} skill the Skill to retrieve the movement effect from
+     */
     applyCasterMovement(skill) {
         const current = this.currentPlay;
         switch(skill.effect) {
@@ -616,6 +663,10 @@ class Battle {
         } 
     }
 
+    /**
+     * Returns the position of the currently playing NPC.
+     * @returns {Data.FormationPosition} the currently playing NPC's position
+     */
     getCurrentNPCPos() {
         if(this.allies[0] === this.currentPlay) return Data.FormationPosition.BACK;
         if(this.allies[1] === this.currentPlay) return Data.FormationPosition.MIDDLE;
@@ -625,6 +676,9 @@ class Battle {
         if(this.enemies[2] === this.currentPlay) return Data.FormationPosition.FRONT;
     }
 
+    /**
+     * Executes all of the popups on every fighter in order.
+     */
     runPopups() {
         this.order.forEach(el => {
             el.executePopups();
@@ -632,9 +686,9 @@ class Battle {
     }
 
     /**
-     * 
-     * @param {NPC} npc 
-     * @param {Data.FormationPosition} target 
+     * Applies a movement on the provided NPC to the provided target position. 
+     * @param {NPC} npc the NPC to move
+     * @param {Data.FormationPosition} target the position to move to
      * @param {string} type "a" for ally, "e" for enemy
      */
     move(npc, target, type) {
@@ -732,6 +786,12 @@ class Battle {
         return (x == 2 && y == 0) || (x == 0 && y == 2);
     }
 
+    /**
+     * Applies a movement animation on the provided NPC, to the provided position.
+     * @param {NPC} npc the NPC to move
+     * @param {Data.FormationPosition} origin the position to move to
+     * @param {Data.AnimMoveType} type the movement type 
+     */
     moveAnimation(npc, origin, type) {
         // how does the move animation work ?
         // first, retrieve the position of the current NPC and of the two others (using getOffset());
