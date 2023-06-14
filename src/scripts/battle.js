@@ -9,7 +9,7 @@ class Battle {
         this.action = null;
         this.selectedWeapon = null;
         this.selectedSkill = null;
-        this.target = null;
+        this.target = [];
         this.moveTarget = null;
         this.targetTracker = 0;
         this.endturnCounter = 0;
