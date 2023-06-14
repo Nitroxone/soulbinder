@@ -1,4 +1,4 @@
-- Add consumables (potions)
+- Add consumables (potions) -- ONGOING
 - Add books
 
 - Create hub & lordships
@@ -6,6 +6,7 @@
 - Add effect coloring (bold + green) if it's overloaded -- ONGOING
 - Add a notification system
 - Implement item pricing
+- Implement an arbitrary "Power" unit to weapons, armors, and trinkets
 
 - Actually implement set bonuses
 
@@ -38,9 +39,8 @@ ASTRAL FORGE:
 - Implement AstralForge guide (and general guide system)
 
 DUNGEONS:
-- define precisely the difference between "room" and "bridge" events
-- write the action() method that will allow the player to choose his path in the dungeon (go to a room or go to a bridge) the choices of the player must influence the dungeon
-- define precisely the number of levels in a dungeon, and the number of rooms that each level can cover
-- define the closing of a dungeon (last event before the exit): what type of encounter? when does it occur?
-- create encounters according to their type (allied, mob waves or bosses... etc)
-- create loot tables
+- Create floor transitions
+- Connect dungeons to combats
+
+CRAFTING:
+- Start working on Sigil crafting
