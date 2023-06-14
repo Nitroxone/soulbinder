@@ -456,13 +456,13 @@ const Data = Object.freeze({
         BOSS: "boss"
     },
     DungeonBiome: {
-        JUNGLE: "jungle",
-        SNOW: "snow",
-        PLAIN: "plain",
-        SWAMP: "swamp",
-        DESERT: "desert",
-        MOUNTAIN: "mountain",
-        COAST: "coast",
+        UZIEL_JUNGLES: "uziel jungles",
+        SERPENTINE_MOUNTAINS: "serpentine mountains",
+        MITHOR: "mithor",
+        CRIMSON_MARSHLANDS: "crimson marshlands",
+        ELJINN_DESERT: "eljinn desert",
+        SHATTERED_ISLES: "shattered isles",
+        ASTRAL: "astral",
         ALL: "all",
     },
     DungeonClusterPattern: {
