@@ -137,4 +137,15 @@ let Speech = {
             ]
         }
     },
+    Battle: {
+        Empty: [
+            "A temporary ceasefire has blanketed the battlefield.",
+            "The clash of steel has faded into silence.",
+            "The tempest of battle has abated.",
+            "The tumultuous dance of combat has ceased.",
+            "The battle drums have fallen silent.",
+            "The clash of arms has yielded to a serene calm.",
+            "The symphony of battle has receded."
+        ]
+    }
 }

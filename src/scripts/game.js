@@ -354,6 +354,7 @@ class Game {
         drawWorkshopScreen();
         drawExplorationScreen();
         drawEonScreen();
+        drawEmptyBattleScreen();
 
         this.message({type: Data.LogMessageType.IMPORTANT, text:'This is an important message.'});
         this.message({type: Data.LogMessageType.REGULAR, text:'This is a regular message.'});
@@ -366,6 +367,6 @@ class Game {
         this.player.formationSet(what(this.player.roster, "carhal"), Data.FormationPosition.BACK);
         console.clear();
 
-        this.startBattle(what(game.all_enemyFormations, "threeTicks").formation);
+        //this.startBattle(what(game.all_enemyFormations, "threeTicks").formation);
     }
 }

@@ -1766,6 +1766,14 @@ function getAstralForgeEffects(forgeItem, refresh = false) {
     return str;
 }
 
+function drawEmptyBattleScreen() {
+    document.querySelector('#battleDiv').innerHTML = '<div class="noBattle"></div>';
+
+    let str = '<h1>' + choose(Speech.Battle.Empty) + '</h1>';
+
+    document.querySelector('.noBattle').innerHTML = str;
+}
+
 function drawBattleScreen() {
     document.querySelector('#battleDiv').innerHTML = '<div class="battleContainer"><div class="battle"></div></div>';
 
