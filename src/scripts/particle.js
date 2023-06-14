@@ -40,7 +40,7 @@ function getTooltipParticlesCanvas(item) {
     particleIndex = 0,
     psettings = {
         density: getParticleDensity(item.rarity),
-        particleSize: 3,
+        particleSize: 1.3,
         startingX: () => { return getRandomNumber(canvas.width / 3, canvas.width / 3 * 2)},
         startingY: () => { return canvas.height},
         gravity: getParticleGravity(item.rarity),
@@ -53,7 +53,7 @@ function getTooltipParticlesCanvas(item) {
     };
 
 
-    ctx.filter = 'blur(1px)';
+    ctx.filter = 'blur(0.5px)';
     // handling particles
     clearInterval(this.particlesTooltipCanvasInterval);
     this.particlesTooltipCanvasInterval = setInterval(() => {
@@ -63,14 +63,6 @@ function getTooltipParticlesCanvas(item) {
                 particleIndex++;
                 particles[particleIndex] = particle;
                 particle.id = particleIndex;
-            }
-        }
-        for(let i = 0; i < lsettings.density; i++) {
-            if(Math.random() > 0.97) {
-                let line = new ParticleLine(lsettings.startingX(), Math.random(-0.7, 0.7) * getRandomNumber(0.2, 0.4), 0, 50);
-                lineIndex++;
-                lines[lineIndex] = line;
-                line.id = lineIndex;
             }
         }
         ctx.clearRect(0, 0, canvas.width, canvas.height);  
@@ -91,22 +83,9 @@ function getTooltipParticlesCanvas(item) {
             // create shapes
             ctx.fillStyle = psettings.fillStyle;
             // draw
-            ctx.fillRect(me.x, me.y, psettings.particleSize, psettings.particleSize);
-        }
-        for(let i in lines) {
-            let me = lines[i];
-            me.x += me.vx;
-
-            me.life++;
-
-            if(me.life >= me.maxlife) delete lines[me.id];
-
             ctx.beginPath();
-            ctx.moveTo(me.x, getRandomNumber(4, 15));
-            ctx.lineTo(me.x, canvas.height);
-            ctx.strokeStyle = lsettings.fillStyle;
-            ctx.lineWidth = 1;
-            //ctx.stroke();
+            ctx.arc(me.x, me.y, psettings.particleSize, 0, Math.PI * 2);
+            ctx.fill();
         }
     }, 30);
 
