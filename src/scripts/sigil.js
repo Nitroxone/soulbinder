@@ -1,18 +1,18 @@
 /**
- * The Rune class holds data for Rune objects in the game.
+ * The Sigil class holds data for Sigil objects in the game.
  */
-class Rune extends Item {
+class Sigil extends Item {
     /**
-     * @param {string} name the Rune's name
-     * @param {string} desc the Rune's description
-     * @param {number} icon the Rune's icon
-     * @param {number} price the Rune's price
-     * @param {string} rarity the Rune's rarity (Data.Rarity)
-     * @param {string} type the Rune's type (Data.RuneType)
-     * @param {array} effects the Rune's effects (array of Stat objects)
-     * @param {array} critical the Rune's critical effects
-     * @param {array} corrupt the Rune's corrupt effects
-     * @param {array} echoes the Rune's corrupt echoes
+     * @param {string} name the Sigil's name
+     * @param {string} desc the Sigil's description
+     * @param {number} icon the Sigil's icon
+     * @param {number} price the Sigil's price
+     * @param {string} rarity the Sigil's rarity (Data.Rarity)
+     * @param {string} type the Sigil's type (Data.SigilType)
+     * @param {array} effects the Sigil's effects (array of Stat objects)
+     * @param {array} critical the Sigil's critical effects
+     * @param {array} corrupt the Sigil's corrupt effects
+     * @param {array} echoes the Sigil's corrupt echoes
      */
     constructor(name, desc, icon, price, rarity,
                 type, 
@@ -35,7 +35,7 @@ class Rune extends Item {
     }
 
     /**
-     * Fixes all of the Rune's stats.
+     * Fixes all of the Sigil's stats.
      */
     generateStats() {
         this.effects.forEach((stat) => {
@@ -50,7 +50,7 @@ class Rune extends Item {
     }
 
     /**
-     * Maximizes all of the Rune's stats.
+     * Maximizes all of the Sigil's stats.
      */
     maximize() {
         this.effects.forEach((stat) => {
@@ -65,7 +65,7 @@ class Rune extends Item {
     }
 
     /**
-     * Amplifies all of the Rune's stats.
+     * Amplifies all of the Sigil's stats.
      */
     amplify() {
         this.effects.forEach((stat) => {
@@ -82,7 +82,7 @@ class Rune extends Item {
 
     /**
      * 
-     * @returns {boolean} whether the Rune's stats are all maximized
+     * @returns {boolean} whether the Sigil's stats are all maximized
      */
     isMaximized() {
         let breaker = true;
@@ -108,37 +108,37 @@ class Rune extends Item {
     }
 
     /**
-     * Makes the Rune critical.
+     * Makes the Sigil critical.
      */
     setCritical() {
         this.isCritical = true;
     }
 
     /**
-     * Makes the Rune corrupt.
+     * Makes the Sigil corrupt.
      */
     setCorrupt() {
         this.isCorrupt = true;
     }
 
     /**
-     * Makes the Rune altered.
+     * Makes the Sigil altered.
      */
     setAltered() {
         this.isAltered = true;
     }
 
     /**
-     * Removes the corrupted state of the Rune.
+     * Removes the corrupted state of the Sigil.
      */
     uncorrupt() {
         this.isCorrupt = false;
     }
 
     /**
-     * Returns the amount of effects that are active on the rune. 
-     * Also returns the amount of critical effects is the rune is critical, and the amount of corrupt effects if the rune is corrupt.
-     * @returns {number} the amount of effects that are active on the rune
+     * Returns the amount of effects that are active on the sigil. 
+     * Also returns the amount of critical effects is the sigil is critical, and the amount of corrupt effects if the sigil is corrupt.
+     * @returns {number} the amount of effects that are active on the sigil
      */
     getEffectsAmount() {
         let amount = this.effects.length;

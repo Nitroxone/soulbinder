@@ -1,5 +1,5 @@
 /**
- * The Entity class is the base of many things in the game such as Weapons, Armors, Runes... any object that needs a unique ID, name, description, and icon.
+ * The Entity class is the base of many things in the game such as Weapons, Armors, Sigils... any object that needs a unique ID, name, description, and icon.
  * @author ntrx
  */
 class Entity {

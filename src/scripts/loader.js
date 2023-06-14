@@ -1,5 +1,5 @@
 /**
- * The Loader file contains functions that load all of the Weapons, Armors, Runes and so on, into the game.
+ * The Loader file contains functions that load all of the Weapons, Armors, Sigils and so on, into the game.
  */
 const Loader = {
     loadWeapons: loadWeapons = () => {
@@ -120,21 +120,21 @@ const Loader = {
         const resources = [
             new Resource(
                 "Starblossom",
-                "Cleanses a rune's corrupted effects.",
+                "Cleanses a sigil's corrupted effects.",
                 4,
                 10,
                 Data.Rarity.EPIC,
             ),
             new Resource(
                 "Time Stream Catalyst",
-                "Maxes out a rune's effects.",
+                "Maxes out a sigil's effects.",
                 1,
                 10,
                 Data.Rarity.EPIC,
             ),
             new Resource(
                 "Pearl of Wrath",
-                "Pushes the rune's effects beyond their maximum bound. May generate corrupt effects.",
+                "Pushes the sigil's effects beyond their maximum bound. May generate corrupt effects.",
                 2,
                 10,
                 Data.Rarity.LEGENDARY,
@@ -261,14 +261,14 @@ const Loader = {
         }
     },
 
-    loadRunes: loadRunes = () => {
-        const runes = [
-            new Rune("Resilience Rune",
-                     "The indecipherable carvings on the rune strenghten your very flesh and the hardiness of your armor.",
+    loadSigils: loadSigils = () => {
+        const sigils = [
+            new Sigil("Resilience Sigil",
+                     "The indecipherable carvings on the sigil strenghten your very flesh and the hardiness of your armor.",
                      1,
                      10,
                      Data.Rarity.RARE,
-                     Data.RuneType.ARMOR,
+                     Data.SigilType.ARMOR,
                      [
                         new Stat({
                             effect: Data.Effect.RESILIENCE,
@@ -291,12 +291,12 @@ const Loader = {
                      ],
                      []
             ),
-            new Rune("Sharpness Rune",
+            new Sigil("Sharpness Sigil",
                      "From the stone emanates a singular power, that flows through the metal to your muscles, and floods your whole being with a supernatural strength.",
                      13,
                      10,
                      Data.Rarity.UNCOMMON,
-                     Data.RuneType.WEAPON,
+                     Data.SigilType.WEAPON,
                      [
                         new Stat({
                             effect: Data.Effect.PDMG,
@@ -320,12 +320,12 @@ const Loader = {
                      ],
                      []
             ),
-            new Rune("Withering Rune",
+            new Sigil("Withering Sigil",
                      "The wounds burn with a terrible heat or biting cold. Bodies crumble and die at its touch.",
                      25,
                      10,
                      Data.Rarity.RARE,
-                     Data.RuneType.WEAPON,
+                     Data.SigilType.WEAPON,
                      [
                         new Stat({
                             effect: Data.Effect.MDMG,
@@ -352,16 +352,16 @@ const Loader = {
                      
         ];
 
-        for(const rune of runes) {
-            game.all_runes.push(rune);
+        for(const sigil of sigils) {
+            game.all_sigils.push(sigil);
         }
     },
 
     loadRecipes: loadRecipes = () => {
         const recipes = [
             new Recipe(
-                "Withering Rune",
-                "Rune description",
+                "Withering Sigil",
+                "Sigil description",
                 1,
                 10,
                 Data.Rarity.RARE,
@@ -370,11 +370,11 @@ const Loader = {
                     new Ingredient(what(game.all_resources, "silver essence"), 2),
                     new Ingredient(what(game.all_resources, "decaying petals"), 1),
                 ],
-                what(game.all_runes, "withering rune")
+                what(game.all_sigils, "withering sigil")
             ),
             new Recipe(
-                "Sharpness Rune",
-                "Rune description",
+                "Sharpness Sigil",
+                "Sigil description",
                 1,
                 10,
                 Data.Rarity.RARE,
@@ -383,7 +383,7 @@ const Loader = {
                     new Ingredient(what(game.all_resources, "silver essence"), 2),
                     new Ingredient(what(game.all_resources, "decaying petals"), 1),
                 ],
-                what(game.all_runes, "sharpness rune")
+                what(game.all_sigils, "sharpness sigil")
             ),
         ]
 
@@ -630,8 +630,8 @@ const Loader = {
         }
     },
 
-    loadRuneCorruptEffects: loadRuneCorruptEffects = () => {
-        const runeCorruptEffects = [
+    loadSigilCorruptEffects: loadSigilCorruptEffects = () => {
+        const sigilCorruptEffects = [
             new Echo(
                 "Whispers of Despair",
                 "Might, Spirit, Warding and Resilience decreased by §1% each round. Resets at the end of the fight.",
@@ -678,8 +678,8 @@ const Loader = {
             )
         ];
 
-        for(const runeCorruptEffect of runeCorruptEffects) {
-            game.all_runeCorruptEffects.push(runeCorruptEffect);
+        for(const sigilCorruptEffect of sigilCorruptEffects) {
+            game.all_sigilCorruptEffects.push(sigilCorruptEffect);
         }
     },
     loadTrinkets: loadTrinkets = () => {

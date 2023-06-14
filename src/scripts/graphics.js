@@ -8,7 +8,7 @@ function spawnTooltip(item, fromExisting = 0) {
     const tooltip = document.createElement('div');
     if(item instanceof Weapon) tooltip.innerHTML = base + getWeaponTooltip(item, null, true) + '</div>';
     else if(item instanceof Armor) tooltip.innerHTML = base + getArmorTooltip(item, null, true) + '</div>';
-    else if(item instanceof Rune) tooltip.innerHTML = base + getRuneTooltip(item, null) + '</div>';
+    else if(item instanceof Sigil) tooltip.innerHTML = base + getSigilTooltip(item, null) + '</div>';
     else if(item instanceof Resource) tooltip.innerHTML = base + getResourceTooltip(item, null) + '</div>';
     else if(item instanceof Trinket) tooltip.innerHTML = base + getTrinketTooltip(item, null, true) + '</div>';
     else if(item instanceof EquipmentSet) tooltip.innerHTML = base + getSetTooltip(item) + '</div>';
@@ -82,33 +82,33 @@ function spawnTooltip(item, fromExisting = 0) {
     document.body.appendChild(tooltip);
 }
 
-function getRuneTooltip(rune, asResult) {
+function getSigilTooltip(sigil, asResult) {
     let str = asResult ? '<h3 class="fancyTitle">Output</h3><div class="divider"></div>' : '';
     str += '<div class="info">';
-    str += '<div id="iconcloud-' + rune.id + '"class="iconcloud' + capitalizeFirstLetter(rune.rarity) + '"><div id="res-icon-' + rune.id + '" class="tooltipIcon" style="' + getIcon(rune) + '"></div>';
+    str += '<div id="iconcloud-' + sigil.id + '"class="iconcloud' + capitalizeFirstLetter(sigil.rarity) + '"><div id="res-icon-' + sigil.id + '" class="tooltipIcon" style="' + getIcon(sigil) + '"></div>';
     str += '<div class="fancyText infoAmount onLeft">' + (asResult ? asResult.result_amount : '') + '</div></div>';
-    str += '<div class="fancyText barred infoTitle" style="color: ' + getRarityColorCode(rune.rarity) +'">' + rune.name + '</div>';
-    str += '<div class="fancyText barred">' + capitalizeFirstLetter(rune.rarity) + '</div>';
-    str += '<div class="fancyText barred">' + capitalizeFirstLetter(rune.type) + ' rune</div>';
+    str += '<div class="fancyText barred infoTitle" style="color: ' + getRarityColorCode(sigil.rarity) +'">' + sigil.name + '</div>';
+    str += '<div class="fancyText barred">' + capitalizeFirstLetter(sigil.rarity) + '</div>';
+    str += '<div class="fancyText barred">' + capitalizeFirstLetter(sigil.type) + ' sigil</div>';
     str += '<div class="infoDesc">';
 
     // effects
     str += '<div class="par"></div>';
-    rune.effects.forEach(effect => {
+    sigil.effects.forEach(effect => {
             str += effect.getFormatted({cssClass: "itemEffect"});
     });
-    if(rune.isCritical) {
-        rune.critical.forEach(effect => {
-            str += effect.getFormatted({cssClass: "itemEffect", color: Data.Color.GOLD, bold: true});
+    if(sigil.isCritical) {
+        sigil.critical.forEach(effect => {
+            str += effect.getFormatted({cssClass: "itemEffect", color: Data.Color.CRITICAL_EFF, bold: true});
         });
     }
-    if(rune.isCorrupt) {
-        rune.corrupt.forEach(effect => {
+    if(sigil.isCorrupt) {
+        sigil.corrupt.forEach(effect => {
             str += effect.getFormatted({cssClass: "itemEffect", color: Data.Color.CORRUPT, bold: true});
         });
     }
-    rune.echoes.forEach(echo => {
-        str += '<div class="runeCorruption">';
+    sigil.echoes.forEach(echo => {
+        str += '<div class="sigilCorruption">';
         str += '<p class="name">' + echo.name +'</p>';
         str += '<p>' + echo.desc +'</p>'
         str += '<br>';
@@ -117,10 +117,10 @@ function getRuneTooltip(rune, asResult) {
     })
 
     str += '<div class="divider"></div>';
-    str += '<div class="par tooltipDesc">' + rune.desc + '</div>';
+    str += '<div class="par tooltipDesc">' + sigil.desc + '</div>';
     str += '</div></div>';
 
-    game.particlesTooltipCanvasItem = rune;
+    game.particlesTooltipCanvasItem = sigil;
     return str;
 }
 
@@ -208,7 +208,7 @@ function getConsumableTooltip(consumable) {
  * Gets the HTML code that contains the provided Weapon's data
  * @param {Weapon} weapon the Weapon data to fill the tooltip with
  * @param {*} asResult should tooltip be converted to a recipe result display?
- * @param {*} full display all of the infos (runes details, echoes details)
+ * @param {*} full display all of the infos (sigils details, echoes details)
  * @returns {string} an HTML code that contains the data
  */
 function getWeaponTooltip(weapon, asResult = null, full = false) {
@@ -240,12 +240,12 @@ function getWeaponTooltip(weapon, asResult = null, full = false) {
 
     // sockets
     str += '<div class="divider"></div>';
-    weapon.sockets.forEach(rune => {
-        str += getRuneDetails(rune, full);
+    weapon.sockets.forEach(sigil => {
+        str += getSigilDetails(sigil, full);
     })
-    // empty runes
+    // empty sigils
     for(let i = 0; i < weapon.sockets_free; i++) {
-        str += getEmptyRuneHTML();
+        str += getEmptySigilHTML();
     }
 
     // echoes
@@ -290,12 +290,12 @@ function getArmorTooltip(armor, asResult = null, full = false) {
 
     // sockets
     str += '<div class="divider"></div>';
-    armor.sockets.forEach(rune => {
-        str += getRuneDetails(rune, full);
+    armor.sockets.forEach(sigil => {
+        str += getSigilDetails(sigil, full);
     })
-    // empty runes
+    // empty sigils
     for(let i = 0; i < armor.sockets_free; i++) {
-        str += getEmptyRuneHTML();
+        str += getEmptySigilHTML();
     }
 
     // echoes
@@ -355,43 +355,43 @@ function getSetTooltip(set) {
 }
 
 function getSetTooltipItem(item) {
-    let str = '<div class="runeInfo" style="' + getIcon(item, 25) + '">';
-    str += '<div class="runeInfo-infos">';
-    str += '<div class="runeTitle" style="text-align: left">' + getSmallThingNoIcon(item, null) + '</div>';
+    let str = '<div class="sigilInfo" style="' + getIcon(item, 25) + '">';
+    str += '<div class="sigilInfo-infos">';
+    str += '<div class="sigilTitle" style="text-align: left">' + getSmallThingNoIcon(item, null) + '</div>';
     str += '</div></div>';
 
     return str;
 }
 
-function getEmptyRuneHTML() {
-    let str = '<div class="runeInfo runeInfoEmpty">'
-    str += '<div class="runeInfo-infos">'
-    str += '<div class="runeTitle">Empty rune slot</div>';
+function getEmptySigilHTML() {
+    let str = '<div class="sigilInfo sigilInfoEmpty">'
+    str += '<div class="sigilInfo-infos">'
+    str += '<div class="sigilTitle">Empty sigil slot</div>';
     str += '</div></div>'
     return str;
 }
 
-function getRuneDetails(rune, full = false) {
-    let str = '<div class="runeInfo" style="background-image: url(css/img/runes/' + rune.icon + '.png)">';
-    str += '<div class="runeInfo-infos">'
-    str += '<div class="runeTitle">' + getSmallThingNoIcon(rune, null) + '</div>';
+function getSigilDetails(sigil, full = false) {
+    let str = '<div class="sigilInfo" style="background-image: url(css/img/sigils/' + sigil.icon + '.png)">';
+    str += '<div class="sigilInfo-infos">'
+    str += '<div class="sigilTitle">' + getSmallThingNoIcon(sigil, null) + '</div>';
     if(full) {
-        rune.effects.forEach(effect => {
-            str += '<div class="runeEffect"' + (effect.critical ? ' style="font-weight:bold; color:'+ Data.Color.GOLD +'; font-style:italic;"' : '') + '>' + (effect.value > 0 ? '+ ' : effect.value < 0 ? '- ' : '') + (effect.value == 0 ? '' : Math.abs(effect.value)) + (effect.isPercentage ? '%' : '') + ' ' + capitalizeFirstLetter(effect.effect) + '<span class="theoricalval">[' + effect.theorical[0] + '-' + effect.theorical[1] + ']</span>' + '</div>';
+        sigil.effects.forEach(effect => {
+            str += '<div class="sigilEffect"' + (effect.critical ? ' style="font-weight:bold; color:'+ Data.Color.CRITICAL_EFF +'; font-style:italic;"' : '') + '>' + (effect.value > 0 ? '+ ' : effect.value < 0 ? '- ' : '') + (effect.value == 0 ? '' : Math.abs(effect.value)) + (effect.isPercentage ? '%' : '') + ' ' + capitalizeFirstLetter(effect.effect) + '<span class="theoricalval">[' + effect.theorical[0] + '-' + effect.theorical[1] + ']</span>' + '</div>';
         });
-        if(rune.isCritical) {
-            rune.critical.forEach(effect => {
-                str += '<div class="runeEffect"' + ' style="font-family:\'RobotoBold\'; color:'+ Data.Color.GOLD +';"' + '><span style="font-family:Roboto">' + (effect.value > 0 ? '+ ' : effect.value < 0 ? '- ' : '') + '</span>' + (effect.value == 0 ? '' : Math.abs(effect.value)) + (effect.isPercentage ? '%' : '') + ' ' + capitalizeFirstLetter(effect.effect) + '<span class="theoricalval">[' + effect.theorical[0] + '-' + effect.theorical[1] + ']</span>' + '</div>';
+        if(sigil.isCritical) {
+            sigil.critical.forEach(effect => {
+                str += '<div class="sigilEffect"' + ' style="font-family:\'RobotoBold\'; color:'+ Data.Color.CRITICAL_EFF +';"' + '><span style="font-family:Roboto">' + (effect.value > 0 ? '+ ' : effect.value < 0 ? '- ' : '') + '</span>' + (effect.value == 0 ? '' : Math.abs(effect.value)) + (effect.isPercentage ? '%' : '') + ' ' + capitalizeFirstLetter(effect.effect) + '<span class="theoricalval">[' + effect.theorical[0] + '-' + effect.theorical[1] + ']</span>' + '</div>';
             });
         }
-        if(rune.isCorrupt) {
-            rune.corrupt.forEach(effect => {
-                str += '<div class="runeEffect"' + ' style="font-weight:bold; color:'+ Data.Color.CORRUPT +';"' + '><span style="font-weight:normal">' + (effect.value > 0 ? '+ ' : effect.value < 0 ? '- ' : '') + '</span>' + (effect.value == 0 ? '' : Math.abs(effect.value)) + (effect.isPercentage ? '%' : '') + ' ' + capitalizeFirstLetter(effect.effect) + '<span class="theoricalval">[' + effect.theorical[0] + '-' + effect.theorical[1] + ']</span>' + '</div>';
+        if(sigil.isCorrupt) {
+            sigil.corrupt.forEach(effect => {
+                str += '<div class="sigilEffect"' + ' style="font-weight:bold; color:'+ Data.Color.CORRUPT +';"' + '><span style="font-weight:normal">' + (effect.value > 0 ? '+ ' : effect.value < 0 ? '- ' : '') + '</span>' + (effect.value == 0 ? '' : Math.abs(effect.value)) + (effect.isPercentage ? '%' : '') + ' ' + capitalizeFirstLetter(effect.effect) + '<span class="theoricalval">[' + effect.theorical[0] + '-' + effect.theorical[1] + ']</span>' + '</div>';
             });
         }
     }
-    rune.echoes.forEach(echo => {
-        str += '<div class="runeCorruption">';
+    sigil.echoes.forEach(echo => {
+        str += '<div class="sigilCorruption">';
         str += '<p class="name">' + echo.name +'</p>';
         if(full) str += '<p>' + echo.desc +'</p>';
         str += '</div>';
@@ -511,19 +511,19 @@ function drawWeaponInventory(weapons) {
     })
 }
 
-function drawRuneInventory(runes) {
+function drawSigilInventory(sigils) {
     let str = '';
-    for(let i = 0; i < runes.length; i++) {
-        let me = runes[i];
+    for(let i = 0; i < sigils.length; i++) {
+        let me = sigils[i];
         str += '<div id="res-' + me.id + '" class="inventoryItem" style="' + getIcon(me) + '; border: 2px solid ' + getRarityColorCode(me.rarity) +'">';
         str += '</div>';
     }
-    domWhat('res-cat-runes').innerHTML = str;
-    for(let i = 0; i < runes.length; i++) {
-        let me = runes[i];
+    domWhat('res-cat-sigils').innerHTML = str;
+    for(let i = 0; i < sigils.length; i++) {
+        let me = sigils[i];
         // Add tooltip
         addTooltip(domWhat('res-' + me.id), function(){
-            return getRuneTooltip(game.inventory.getItemFromId(Data.ItemType.RUNE, me.id));
+            return getSigilTooltip(game.inventory.getItemFromId(Data.ItemType.SIGIL, me.id));
         }, {offY: -8});
         // Spawn tooltip and play sound on click
         domWhat('res-' + me.id).addEventListener('click', function(){
@@ -538,8 +538,8 @@ function drawRuneInventory(runes) {
             audio.play();
         })
     }
-    document.querySelector('#res-runes').addEventListener('click', (e) => {
-        document.querySelector('#res-cat-runes').classList.toggle('hide');
+    document.querySelector('#res-sigils').addEventListener('click', (e) => {
+        document.querySelector('#res-cat-sigils').classList.toggle('hide');
     })
 }
 
@@ -707,7 +707,7 @@ function drawConsumablesInventory(consumables) {
 function drawInventory() {
     drawWeaponInventory(game.inventory.weapons);
     drawArmorInventory(game.inventory.armors);
-    drawRuneInventory(game.inventory.runes);
+    drawSigilInventory(game.inventory.sigils);
     drawResourceInventory(game.inventory.resources);
     drawTrinketInventory(game.inventory.trinkets);
     drawConsumablesInventory(game.inventory.consumables);
@@ -833,40 +833,40 @@ function spawnStriderPopup(strider, refresh = false) {
 
     str += '<div class="striderEquipment">';
     str += '<div class="striderEquipmentSlots">';
-    str += '<div id="strider-helmet" class="runeInfo runeInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \'' + strider.name + '\').equipArmor(event);" style="' + getIcon(strider.eqHelmet, 25, true) + '">';
-    str += '<div class="runeInfo-infos"><div class="runeTitle" style="text-align: left;">' + (strider.eqHelmet ? getSmallThingNoIcon(strider.eqHelmet) : 'No helmet') + '</div>';
+    str += '<div id="strider-helmet" class="sigilInfo sigilInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \'' + strider.name + '\').equipArmor(event);" style="' + getIcon(strider.eqHelmet, 25, true) + '">';
+    str += '<div class="sigilInfo-infos"><div class="sigilTitle" style="text-align: left;">' + (strider.eqHelmet ? getSmallThingNoIcon(strider.eqHelmet) : 'No helmet') + '</div>';
     str += '</div></div>';
-    str += '<div id="strider-chestplate" class="runeInfo runeInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \'' + strider.name + '\').equipArmor(event);" style="' + getIcon(strider.eqChestplate, 25, true) + '">';
-    str += '<div class="runeInfo-infos"><div class="runeTitle" style="text-align: left;">' + (strider.eqChestplate ? getSmallThingNoIcon(strider.eqChestplate) : 'No chestplate') + '</div>';
+    str += '<div id="strider-chestplate" class="sigilInfo sigilInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \'' + strider.name + '\').equipArmor(event);" style="' + getIcon(strider.eqChestplate, 25, true) + '">';
+    str += '<div class="sigilInfo-infos"><div class="sigilTitle" style="text-align: left;">' + (strider.eqChestplate ? getSmallThingNoIcon(strider.eqChestplate) : 'No chestplate') + '</div>';
     str += '</div></div>';
-    str += '<div id="strider-gloves" class="runeInfo runeInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \'' + strider.name + '\').equipArmor(event);" style="' + getIcon(strider.eqGloves, 25, true) + '">';
-    str += '<div class="runeInfo-infos"><div class="runeTitle" style="text-align: left;">' + (strider.eqGloves ? getSmallThingNoIcon(strider.eqGloves) : 'No gloves') + '</div>';
+    str += '<div id="strider-gloves" class="sigilInfo sigilInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \'' + strider.name + '\').equipArmor(event);" style="' + getIcon(strider.eqGloves, 25, true) + '">';
+    str += '<div class="sigilInfo-infos"><div class="sigilTitle" style="text-align: left;">' + (strider.eqGloves ? getSmallThingNoIcon(strider.eqGloves) : 'No gloves') + '</div>';
     str += '</div></div>';
-    str += '<div id="strider-boots" class="runeInfo runeInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \'' + strider.name + '\').equipArmor(event);" style="' + getIcon(strider.eqBoots, 25, true) + '">';
-    str += '<div class="runeInfo-infos"><div class="runeTitle" style="text-align: left;">' + (strider.eqBoots ? getSmallThingNoIcon(strider.eqBoots) : 'No boots') + '</div>';
+    str += '<div id="strider-boots" class="sigilInfo sigilInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \'' + strider.name + '\').equipArmor(event);" style="' + getIcon(strider.eqBoots, 25, true) + '">';
+    str += '<div class="sigilInfo-infos"><div class="sigilTitle" style="text-align: left;">' + (strider.eqBoots ? getSmallThingNoIcon(strider.eqBoots) : 'No boots') + '</div>';
     str += '</div></div>';
-    str += '<div id="strider-shield" class="runeInfo runeInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \'' + strider.name + '\').equipArmor(event);" style="' + getIcon(strider.eqShield, 25, true) + '">';
-    str += '<div class="runeInfo-infos"><div class="runeTitle" style="text-align: left;">' + (strider.eqShield ? getSmallThingNoIcon(strider.eqShield) : 'No shield') + '</div>';
+    str += '<div id="strider-shield" class="sigilInfo sigilInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \'' + strider.name + '\').equipArmor(event);" style="' + getIcon(strider.eqShield, 25, true) + '">';
+    str += '<div class="sigilInfo-infos"><div class="sigilTitle" style="text-align: left;">' + (strider.eqShield ? getSmallThingNoIcon(strider.eqShield) : 'No shield') + '</div>';
     str += '</div></div>';
-    str += '<div id="strider-trinket1" class="runeInfo runeInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \''+ strider.name +'\').equipTrinket(event);" style="' + getIcon(strider.trinkets[0], 25, true) + '">';
-    str += '<div class="runeInfo-infos"><div class="runeTitle" style="text-align: left;">' + (strider.trinkets[0] ? getSmallThingNoIcon(strider.trinkets[0]) : 'No trinket') + '</div>';
+    str += '<div id="strider-trinket1" class="sigilInfo sigilInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \''+ strider.name +'\').equipTrinket(event);" style="' + getIcon(strider.trinkets[0], 25, true) + '">';
+    str += '<div class="sigilInfo-infos"><div class="sigilTitle" style="text-align: left;">' + (strider.trinkets[0] ? getSmallThingNoIcon(strider.trinkets[0]) : 'No trinket') + '</div>';
     str += '</div></div>';
-    str += '<div id="strider-trinket2" class="runeInfo runeInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \''+ strider.name +'\').equipTrinket(event);" style="' + getIcon(strider.trinkets[1], 25, true) + '">';
-    str += '<div class="runeInfo-infos"><div class="runeTitle" style="text-align: left;">' + (strider.trinkets[1] ? getSmallThingNoIcon(strider.trinkets[1]) : 'No trinket') + '</div>';
+    str += '<div id="strider-trinket2" class="sigilInfo sigilInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \''+ strider.name +'\').equipTrinket(event);" style="' + getIcon(strider.trinkets[1], 25, true) + '">';
+    str += '<div class="sigilInfo-infos"><div class="sigilTitle" style="text-align: left;">' + (strider.trinkets[1] ? getSmallThingNoIcon(strider.trinkets[1]) : 'No trinket') + '</div>';
     str += '</div></div>';
-    str += '<div id="strider-trinket3" class="runeInfo runeInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \''+ strider.name +'\').equipTrinket(event);" style="' + getIcon(strider.trinkets[2], 25, true) + '">';
-    str += '<div class="runeInfo-infos"><div class="runeTitle" style="text-align: left;">' + (strider.trinkets[2] ? getSmallThingNoIcon(strider.trinkets[2]) : 'No trinket') + '</div>';
+    str += '<div id="strider-trinket3" class="sigilInfo sigilInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \''+ strider.name +'\').equipTrinket(event);" style="' + getIcon(strider.trinkets[2], 25, true) + '">';
+    str += '<div class="sigilInfo-infos"><div class="sigilTitle" style="text-align: left;">' + (strider.trinkets[2] ? getSmallThingNoIcon(strider.trinkets[2]) : 'No trinket') + '</div>';
     str += '</div></div>';
     if(!strider.eqWeaponBoth) {
-        str += '<div id="strider-weaponLeft" class="runeInfo runeInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \'' + strider.name + '\').equipWeapon(event, \'' + Data.WeaponHand.LEFT + '\');" style="' + getIcon(strider.eqWeaponLeft, 25, true) + '")>';
-        str += '<div class="runeInfo-infos"><div class="runeTitle" style="text-align: left;">' + (strider.eqWeaponLeft ? getSmallThingNoIcon(strider.eqWeaponLeft) : 'No weapon') + '</div>';
+        str += '<div id="strider-weaponLeft" class="sigilInfo sigilInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \'' + strider.name + '\').equipWeapon(event, \'' + Data.WeaponHand.LEFT + '\');" style="' + getIcon(strider.eqWeaponLeft, 25, true) + '")>';
+        str += '<div class="sigilInfo-infos"><div class="sigilTitle" style="text-align: left;">' + (strider.eqWeaponLeft ? getSmallThingNoIcon(strider.eqWeaponLeft) : 'No weapon') + '</div>';
         str += '</div></div>';
-        str += '<div id="strider-weaponRight" class="runeInfo runeInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \'' + strider.name + '\').equipWeapon(event, \'' + Data.WeaponHand.RIGHT + '\');" style="' + getIcon(strider.eqWeaponRight, 25, true) + '")>';
-        str += '<div class="runeInfo-infos"><div class="runeTitle" style="text-align: left;">' + (strider.eqWeaponRight ? getSmallThingNoIcon(strider.eqWeaponRight) : 'No weapon') + '</div>';
+        str += '<div id="strider-weaponRight" class="sigilInfo sigilInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \'' + strider.name + '\').equipWeapon(event, \'' + Data.WeaponHand.RIGHT + '\');" style="' + getIcon(strider.eqWeaponRight, 25, true) + '")>';
+        str += '<div class="sigilInfo-infos"><div class="sigilTitle" style="text-align: left;">' + (strider.eqWeaponRight ? getSmallThingNoIcon(strider.eqWeaponRight) : 'No weapon') + '</div>';
         str += '</div></div>';
     } else {
-        str += '<div id="strider-weaponBoth" class="runeInfo runeInfoEmpty bigSlot" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \'' + strider.name + '\').equipWeapon(event);" style="' + getIcon(strider.eqWeaponBoth, 25, true) + '")>';
-        str += '<div class="runeInfo-infos"><div class="runeTitle" style="text-align: left;">' + (strider.eqWeaponBoth ? getSmallThingNoIcon(strider.eqWeaponBoth) : 'No weapon') + '</div>';
+        str += '<div id="strider-weaponBoth" class="sigilInfo sigilInfoEmpty bigSlot" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \'' + strider.name + '\').equipWeapon(event);" style="' + getIcon(strider.eqWeaponBoth, 25, true) + '")>';
+        str += '<div class="sigilInfo-infos"><div class="sigilTitle" style="text-align: left;">' + (strider.eqWeaponBoth ? getSmallThingNoIcon(strider.eqWeaponBoth) : 'No weapon') + '</div>';
         str += '</div></div>';
     }
     str += '</div>';
@@ -2792,8 +2792,8 @@ function drawDungeonFoundLoot(refresh = false) {
         let timer = 0;
         str += '<div class="roomLootResult-title">Loot found</div>';
         loot.forEach(lo => {
-            str += '<div class="roomLootResult-listItem runeInfo revealingLoot" style="animation-delay: ' + timer + 's;' + (lo.type === 'gold' ? 'background-image: url(\'css/img/goldicon.png\'); background-size: 25%;' : getIcon(lo.item, 25, true)) + '">';
-            str += '<div class="runeTitle" style="text-align: left">' + '<span class="lootQuantity">' + lo.amount + ' </span>' + (lo.type === 'gold' ? '<span class="smallThingNoIcon" style="color: yellow">Gold</span>' : getSmallThingNoIcon(lo.item, null)) + '</div>';
+            str += '<div class="roomLootResult-listItem sigilInfo revealingLoot" style="animation-delay: ' + timer + 's;' + (lo.type === 'gold' ? 'background-image: url(\'css/img/goldicon.png\'); background-size: 25%;' : getIcon(lo.item, 25, true)) + '">';
+            str += '<div class="sigilTitle" style="text-align: left">' + '<span class="lootQuantity">' + lo.amount + ' </span>' + (lo.type === 'gold' ? '<span class="smallThingNoIcon" style="color: yellow">Gold</span>' : getSmallThingNoIcon(lo.item, null)) + '</div>';
             str += '<div class="revealingLootAnim revealLoot' + (lo.type === 'gold' ? 'Gold' : capitalizeFirstLetter(lo.item.rarity)) + '" style="animation-delay: ' + (timer) + 's;"></div>';
             if(refresh) str += '<canvas class="revealingLootCanvas ' + (lo.type === 'gold' ? 'gold' : lo.item.rarity) + '"></canvas>';
             str += '</div>';

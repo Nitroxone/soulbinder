@@ -119,8 +119,8 @@ function getIcon(entity, forceModif = 0, border = false) {
     }
     else if(entity instanceof Resource) type = "resources";
     else if(entity instanceof Trinket) type = "trinkets";
-    else if(entity instanceof Rune) {
-        type = "runes";
+    else if(entity instanceof Sigil) {
+        type = "sigils";
         bgModif = 60;
     }
     if(forceModif != 0) bgModif = forceModif;
@@ -374,17 +374,17 @@ function getRecipeType(recipe) {
     if(recipe.result instanceof Weapon) return "weaponscrafting";
     else if(recipe.result instanceof Armor) return "armorscrafting";
     else if(recipe.result instanceof Trinket) return "trinketscrafting";
-    else if(recipe.result instanceof Rune) return "runescrafting";
+    else if(recipe.result instanceof Sigil) return "sigilscrafting";
 }
 
 /**
- * Generates an object that contains empty rune stats based on its type.
- * @param {string} type the rune type ("weapon" or "armor")
- * @param {boolean} bleedIncurable does the rune have the bleedIncurable effect?
- * @param {boolean} poisonIncurable does the rune have the poisonIncurable effect?
- * @returns {object} an object containing the empty rune stats
+ * Generates an object that contains empty sigil stats based on its type.
+ * @param {string} type the sigil type ("weapon" or "armor")
+ * @param {boolean} bleedIncurable does the sigil have the bleedIncurable effect?
+ * @param {boolean} poisonIncurable does the sigil have the poisonIncurable effect?
+ * @returns {object} an object containing the empty sigil stats
  */
-function getEmptyRuneStats(type, bleedIncurable, poisonIncurable) {
+function getEmptySigilStats(type, bleedIncurable, poisonIncurable) {
     if(type === "weapon") {
         const bcur = (bleedIncurable !== null) ? bleedIncurable : true;
         const pcur = (poisonIncurable !== null) ? poisonIncurable : true;
@@ -414,13 +414,13 @@ function getEmptyRuneStats(type, bleedIncurable, poisonIncurable) {
 
 /**
  * 
- * @param {Rune} rune the Rune to retrieve the stats from
+ * @param {Sigil} sigil the Sigil to retrieve the stats from
  * @param {boolean} bleedIncurable should the bleeding be incurable?
  * @param {boolean} poisonIncurable should the poison be incurable?
  * @returns 
  */
-function getRuneStats(rune, bleedIncurable, poisonIncurable) {
-    if(rune.type == "weapon") {
+function getSigilStats(sigil, bleedIncurable, poisonIncurable) {
+    if(sigil.type == "weapon") {
         let stats = {
             pdmg: 0,
             mdmg: 0,
@@ -438,7 +438,7 @@ function getRuneStats(rune, bleedIncurable, poisonIncurable) {
         }
         if(bleedIncurable !== null) stats.bleed_cur = bleedIncurable;
         if(poisonIncurable !== null) stats.poisn_cur = poisonIncurable;
-        rune.stats.forEach( (element) => {
+        sigil.stats.forEach( (element) => {
            switch(element.effect) {
                 case Data.Effect.PDMG:
                     stats.pdmg = element.value;
@@ -501,17 +501,17 @@ function getRuneStats(rune, bleedIncurable, poisonIncurable) {
                     stats.range[2] = null;
                     break;
                default:
-                   ERROR('Unknown rune effect!');
+                   ERROR('Unknown sigil effect!');
            }
         });
         return stats;
-    } else if(rune.type == "armor") {
+    } else if(sigil.type == "armor") {
         let stats = {
             resilience: 0,
             warding: 0,
             optres: [false, false, false, false, false, false, false, false], //axe, bow, dagger, hammer, spear, staff, sword, warscythe
         };
-        rune.stats.forEach( (element) => {
+        sigil.stats.forEach( (element) => {
             switch(element.effect) {
                 case Data.Effect.RESILIENCE:
                     stats.resilience = element.value;
@@ -568,7 +568,7 @@ function getRuneStats(rune, bleedIncurable, poisonIncurable) {
                     stats.optres[7] = null;
                     break;
                 default:
-                    ERROR('Unknown rune effect!');
+                    ERROR('Unknown sigil effect!');
             }
         });
         return stats;

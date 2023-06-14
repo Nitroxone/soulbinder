@@ -1,5 +1,5 @@
 /**
- * The Stat class is used to define any kind of effect within the game : Rune stats, Skills effects...
+ * The Stat class is used to define any kind of effect within the game : Sigil stats, Skills effects...
  * Two parameters are mandatory: the EFFECT and the THEORICAL VALUE. 
  * If the Theorical Value is a number, the Stat value will always be the same.
  * If the Theorical Value is an array (max. size 2), the Stat value will be a randomly generated number between these two bounds,

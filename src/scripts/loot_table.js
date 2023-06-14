@@ -48,7 +48,7 @@ let LootTable = {
             "legendary": 10,
             "elder": 5,
         },
-        Rune: {
+        Sigil: {
             "common": 100,
             "uncommon": 75,
             "rare": 40,
@@ -133,7 +133,7 @@ let LootTable = {
                         elder: -100
                     }
                 }),
-                rune: new LootParams({
+                sigil: new LootParams({
                     amount: [1, 2],
                     rarities: {
                         rare: 20,
@@ -177,10 +177,10 @@ let LootTable = {
                         dropRate = LootTable.DropRates.Armor;
                         lootType = 'armor';
                         pool = game.all_armors;
-                    } else if(type === 'rune') {
-                        dropRate = LootTable.DropRates.Rune;
-                        lootType = 'rune';
-                        pool = game.all_runes;
+                    } else if(type === 'sigil') {
+                        dropRate = LootTable.DropRates.Sigil;
+                        lootType = 'sigil';
+                        pool = game.all_sigils;
                     } else if(type === 'consumable') {
                         dropRate = LootTable.DropRates.Consumable;
                         lootType = 'consumable';

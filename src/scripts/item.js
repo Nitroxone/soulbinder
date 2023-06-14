@@ -1,6 +1,6 @@
 /**
  * The Item class basically adds price and rarity properties to Entity objects.
- * From there are generated other classes such as Rune, Weapon, Armor, and more.
+ * From there are generated other classes such as Sigil, Weapon, Armor, and more.
  * @author ntrx
  */
 

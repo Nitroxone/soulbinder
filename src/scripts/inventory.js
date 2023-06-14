@@ -5,7 +5,7 @@ class Inventory {
     constructor(gold = 1000) {
         this.weapons = [];
         this.armors = [];
-        this.runes = [];
+        this.sigils = [];
         this.resources = [];
         this.recipes = [];
         this.trinkets = [];
@@ -25,7 +25,7 @@ class Inventory {
         let array = null;
         if(item instanceof Weapon) array = {items: this.weapons};
         else if(item instanceof Armor) array = {items: this.armors};
-        else if(item instanceof Rune) array = {items: this.runes};
+        else if(item instanceof Sigil) array = {items: this.sigils};
         else if(item instanceof Recipe) array = {items: this.recipes};
         else if(item instanceof Resource) {
             what(this.resources, item.name).amount += amount;
@@ -48,7 +48,7 @@ class Inventory {
                     cloned.generateStats();
                     cloned.addEcho();
                 };
-                if(cloned instanceof Rune) cloned.generateStats();
+                if(cloned instanceof Sigil) cloned.generateStats();
             }
         } else {
             cloned = item;
@@ -70,7 +70,7 @@ class Inventory {
         let array = null;
         if(item instanceof Weapon) array = {items: this.weapons};
         else if(item instanceof Armor) array = {items: this.armors};
-        else if(item instanceof Rune) array = {items: this.runes};
+        else if(item instanceof Sigil) array = {items: this.sigils};
         else if(item instanceof Resource) array = {items: this.resources};
         else if(item instanceof Consumable) array = {items: this.consumables};
         else if(item instanceof Recipe) array = {items: this.recipes};
@@ -95,8 +95,8 @@ class Inventory {
             case Data.ItemType.ARMOR:
                 array = {items: this.armors};
                 break;
-            case Data.ItemType.RUNE:
-                array = {items: this.runes};
+            case Data.ItemType.SIGIL:
+                array = {items: this.sigils};
                 break;
             case Data.ItemType.RECIPE:
                 array = {items: this.recipes};
@@ -141,69 +141,69 @@ class Inventory {
     }
 
     /**
-     * Tells whether the provided Item can be enchanted with the provided Rune.
-     * @param {Weapon|Armor} item the Item that would host the Rune
-     * @param {Rune} rune the Rune that would be bound to the Item
+     * Tells whether the provided Item can be enchanted with the provided Sigil.
+     * @param {Weapon|Armor} item the Item that would host the Sigil
+     * @param {Sigil} sigil the Sigil that would be bound to the Item
      * @returns whether the provided Item can be enchanted
      */
-    allowEnchant(item, rune) {
-        return (item instanceof Armor && rune.type === Data.RuneType.ARMOR && item.hasFreeSockets()) || (item instanceof Weapon && rune.type === Data.RuneType.WEAPON && item.hasFreeSockets());
+    allowEnchant(item, sigil) {
+        return (item instanceof Armor && sigil.type === Data.SigilType.ARMOR && item.hasFreeSockets()) || (item instanceof Weapon && sigil.type === Data.SigilType.WEAPON && item.hasFreeSockets());
     }
 
     /**
-     * Unbinds the provided Rune to the provided Weapon or Armor and updates the stats accordingly.
-     * @param {Weapon|Armor} item the Weapon or Armor to remove the Rune from
-     * @param {Rune} rune the Rune to remove
+     * Unbinds the provided Sigil to the provided Weapon or Armor and updates the stats accordingly.
+     * @param {Weapon|Armor} item the Weapon or Armor to remove the Sigil from
+     * @param {Sigil} sigil the Sigil to remove
      */
-    disenchant(item, rune) {
-        if(containsByName(item.sockets, rune.name)) {
-            rune.effects.forEach(effect => {
+    disenchant(item, sigil) {
+        if(containsByName(item.sockets, sigil.name)) {
+            sigil.effects.forEach(effect => {
                 item.addEffect(effect, true);
             });
-            if(rune.isCritical) {
-                rune.critical.forEach(effect => {
+            if(sigil.isCritical) {
+                sigil.critical.forEach(effect => {
                     item.addEffect(effect, true);
                 });
             }
-            if(rune.isCorrupt) {
-                rune.corrupt.forEach(effect => {
+            if(sigil.isCorrupt) {
+                sigil.corrupt.forEach(effect => {
                     item.addEffect(effect, true);
                 });
             }
-            item.unbindRune(rune);
+            item.unbindSigil(sigil);
             item.addAvailableSocket();
-            console.log(rune.name + ' was unbound from ' + item.name);
+            console.log(sigil.name + ' was unbound from ' + item.name);
         } else {
-            ERROR('No such rune is bound to ' + item.name);
+            ERROR('No such sigil is bound to ' + item.name);
         }
     }
 
     /**
-     * Binds the provided Rune to the provided Weapon or Armor and updates the stats accordingly.
-     * @param {Weapon|Armor} armor the Weapon or Armor that will host the Rune
-     * @param {Rune} rune the Rune that will be bound to the Weapon or Armor
+     * Binds the provided Sigil to the provided Weapon or Armor and updates the stats accordingly.
+     * @param {Weapon|Armor} armor the Weapon or Armor that will host the Sigil
+     * @param {Sigil} sigil the Sigil that will be bound to the Weapon or Armor
      */
-    enchant(item, rune) {
-        if(this.allowEnchant(item, rune)) {
-            rune.effects.forEach(effect => {
+    enchant(item, sigil) {
+        if(this.allowEnchant(item, sigil)) {
+            sigil.effects.forEach(effect => {
                 item.addEffect(effect);
             });
-            if(rune.isCritical) {
-                rune.critical.forEach(effect => {
+            if(sigil.isCritical) {
+                sigil.critical.forEach(effect => {
                     item.addEffect(effect);
                 });
             }
-            if(rune.isCorrupt) {
-                rune.corrupt.forEach(effect => {
+            if(sigil.isCorrupt) {
+                sigil.corrupt.forEach(effect => {
                     item.addEffect(effect);
                 });
             }
-            this.removeItem(rune);
-            item.sockets.push(rune);
+            this.removeItem(sigil);
+            item.sockets.push(sigil);
             item.removeAvailableSocket();
-            console.log(rune.name + ' was bound to ' + item.name + '.');
+            console.log(sigil.name + ' was bound to ' + item.name + '.');
         } else {
-            console.log(rune.name + ' cannot be bound to ' + item.name + ' because their type is incompatible.');
+            console.log(sigil.name + ' cannot be bound to ' + item.name + ' because their type is incompatible.');
         }
     }
 
@@ -247,12 +247,12 @@ class Inventory {
 
             // Checking for crit chances
             if(computeChance(game.player.criticalFactor ) || forceCritAndCorrupt) {
-                if(result instanceof Rune) result.setCritical();
+                if(result instanceof Sigil) result.setCritical();
             }
 
             // Checking for corrupt chances
             if(computeChance(game.player.corruptionFactor ) || forceCritAndCorrupt) {
-                if(result instanceof Rune) result.setCorrupt();
+                if(result instanceof Sigil) result.setCorrupt();
             }
 
             // Removing ingredients
@@ -274,7 +274,7 @@ class Inventory {
             item.generateStats();
             this.removeResource(what(this.resources, "reminder"));
         } else {
-            console.log("A Reminder is required to recast a rune.");
+            console.log("A Reminder is required to recast a sigil.");
         }
     }
 
@@ -291,46 +291,46 @@ class Inventory {
                 console.log("This item could not be uncorrupted because it has been altered by a Pearl of Wrath.");
             }
         } else {
-            console.log("A Starblossom is required to uncorrupt a rune.");
+            console.log("A Starblossom is required to uncorrupt a sigil.");
         }
     }
 
     /**
-     * Maximizes all of the stats of the provided Rune.
-     * @param {Rune} rune the Rune which stats should be maximized
+     * Maximizes all of the stats of the provided Sigil.
+     * @param {Sigil} sigil the Sigil which stats should be maximized
      */
-    maximizeRune(rune) {
+    maximizeSigil(sigil) {
         if(hasResource(this.resources, "time stream catalyst")) {
-            rune.maximize();
+            sigil.maximize();
             this.removeResource(what(this.resources, "time stream catalyst"));
         } else {
-            console.log("A Time Stream Catalyst is required to maximize a rune.");
+            console.log("A Time Stream Catalyst is required to maximize a sigil.");
         }
     }
 
     /**
-     * Amplifies the Rune. Depending on the player's corruption factor, may also add corrupt effects.
-     * @param {Rune} rune the Rune to amplify
-     * @param {boolean} forceCorrupt forces corrupt effects on the rune
+     * Amplifies the Sigil. Depending on the player's corruption factor, may also add corrupt effects.
+     * @param {Sigil} sigil the Sigil to amplify
+     * @param {boolean} forceCorrupt forces corrupt effects on the sigil
      */
-    amplifyRune(rune, forceCorrupt = false) {
+    amplifySigil(sigil, forceCorrupt = false) {
         if(hasResource(this.resources, "pearl of wrath")) {
-            if(rune.isMaximized()) {
-                rune.amplify();
+            if(sigil.isMaximized()) {
+                sigil.amplify();
                 // Checking for corrupt chances
                 if(computeChance(game.player.corruptionFactor ) || forceCorrupt) {
-                    console.log("This rune has been corrupted.");
+                    console.log("This sigil has been corrupted.");
                     // Creates the corrupt effect
-                    let effect = Entity.clone(choose(game.all_runeCorruptEffects));
+                    let effect = Entity.clone(choose(game.all_sigilCorruptEffects));
                     effect.fix();
-                    rune.echoes.push(effect);
+                    sigil.echoes.push(effect);
                 }
                 this.removeResource(what(this.resources, "pearl of wrath"));
             } else {
-                console.log("The rune can't be amplified if it's not maximized.");
+                console.log("The sigil can't be amplified if it's not maximized.");
             }
         } else {
-            console.log("A Pearl of Wrath is required to amplify a rune.");
+            console.log("A Pearl of Wrath is required to amplify a sigil.");
         }
     }
 

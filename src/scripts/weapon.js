@@ -93,11 +93,11 @@ class Weapon extends Item {
     }
 
     /**
-     * Unbinds the provided Rune from the Weapon.
-     * @param {Rune} rune the rune to unbind from the Weapon
+     * Unbinds the provided Sigil from the Weapon.
+     * @param {Sigil} sigil the sigil to unbind from the Weapon
      */
-    unbindRune(rune) {
-        removeFromArray(this.sockets, rune);
+    unbindSigil(sigil) {
+        removeFromArray(this.sockets, sigil);
     }
 
     /**

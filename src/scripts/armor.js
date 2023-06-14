@@ -54,11 +54,11 @@ class Armor extends Item {
     }
 
     /**
-     * Unbinds the provided Rune from the Armor.
-     * @param {Rune} rune the rune to unbind from the Armor
+     * Unbinds the provided Sigil from the Armor.
+     * @param {Sigil} sigil the sigil to unbind from the Armor
      */
-    unbindRune(rune) {
-        removeFromArray(this.sockets, rune);
+    unbindSigil(sigil) {
+        removeFromArray(this.sockets, sigil);
     }
 
     /**

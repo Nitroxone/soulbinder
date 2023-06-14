@@ -26,10 +26,10 @@ class Game {
 
         this.buttons = 0;
         this.texts = 0;
-        this.runeSelection = 0;
+        this.sigilSelection = 0;
 
         this.enchantingItem = null;
-        this.enchantingRune = null;
+        this.enchantingSigil = null;
         this.craftingRecipe = null;
 
         this.formationFocus = null;
@@ -44,7 +44,7 @@ class Game {
 
         this.all_weapons = [];
         this.all_armors = [];
-        this.all_runes = [];
+        this.all_sigils = [];
         this.all_npcs = [];
         this.all_powers = [];
         this.all_skills = [];
@@ -53,7 +53,7 @@ class Game {
         this.all_trinkets = [];
         this.all_shards = [];
         this.all_echoes = [];
-        this.all_runeCorruptEffects = [];
+        this.all_sigilCorruptEffects = [];
         this.all_equipmentSets = [];
         this.all_consumables = [];
 
@@ -319,7 +319,7 @@ class Game {
         this.all_armors.forEach(item => {
             this.inventory.addItem(item);
         });
-        this.all_runes.forEach(item => {
+        this.all_sigils.forEach(item => {
             this.inventory.addItem(item);
         });
         this.all_trinkets.forEach(item => {
@@ -339,12 +339,12 @@ class Game {
         });
 
         this.inventory.craft(this.inventory.recipes[0], true);
-        this.inventory.maximizeRune(this.inventory.runes[2]);
-        this.inventory.amplifyRune(this.inventory.runes[2], true);
-        this.inventory.enchant(this.inventory.weapons[0], this.inventory.runes[2]);
+        this.inventory.maximizeSigil(this.inventory.sigils[2]);
+        this.inventory.amplifySigil(this.inventory.sigils[2], true);
+        this.inventory.enchant(this.inventory.weapons[0], this.inventory.sigils[2]);
         this.inventory.craft(this.inventory.recipes[1]);
-        this.inventory.enchant(this.inventory.weapons[0], this.inventory.runes[1]);
-        this.inventory.enchant(this.inventory.armors[0], this.inventory.runes[0]);
+        this.inventory.enchant(this.inventory.weapons[0], this.inventory.sigils[1]);
+        this.inventory.enchant(this.inventory.armors[0], this.inventory.sigils[0]);
 
         this.currentDungeon = new Dungeon({name: 'Putrescent ossuary', biome: Data.DungeonBiome.JUNGLE});
 

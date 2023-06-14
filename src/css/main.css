@@ -2353,7 +2353,7 @@ table.statsTable tbody td:nth-child(3) {
     font-weight: normal;
 }
 
-.runeInfo {
+.sigilInfo {
     border: 1px solid rgba(255,255,255,0.9);
     position: relative;
     background-size: 35%;
@@ -2368,7 +2368,7 @@ table.statsTable tbody td:nth-child(3) {
 
     overflow: hidden;
 }
-.runeInfo::before {
+.sigilInfo::before {
     content: "";
     position: absolute;
     top: 0px;
@@ -2377,30 +2377,30 @@ table.statsTable tbody td:nth-child(3) {
     left: 0px;
     background-color: rgba(0,0,0,0.3);
 }
-.runeInfo:not(:first-child) {
+.sigilInfo:not(:first-child) {
     margin-top: 6px;
 }
-.runeTitle .smallThingNoIcon {
+.sigilTitle .smallThingNoIcon {
     font-family: 'RobotoSlabBold';
     font-size: 12px;
     font-weight: normal;
 }
-.runeCorruption {
+.sigilCorruption {
     border: 1px solid rgba(169,0,0,0.9);
     border-radius: 3px;
     padding: 0.5rem;
     margin-top: 6px;
 }
-.runeCorruption .name {
+.sigilCorruption .name {
     font-family: 'RobotoSlabBold';
     color: #c10000;
     font-size: 12px;
     margin-bottom: 2px;
 }
-.runeInfo > * {
+.sigilInfo > * {
     position: relative;
 }
-.runeInfoEmpty {
+.sigilInfoEmpty {
     border: 1px solid rgba(255,255,255,0.35) !important;
 }
 .itemEffect {
@@ -2912,7 +2912,7 @@ hr.leftSided {
     margin-top: 1em;
     width: 150px;
 }
-.striderEquipmentSlots > .runeInfo {
+.striderEquipmentSlots > .sigilInfo {
     width: 100%;
     height: 31px;
 

@@ -28,7 +28,7 @@ const Data = Object.freeze({
         GREEN: '#4cd137',
         RED: '#e84118',
         BLUE: '#0097e6',
-        GOLD: '#ece2b6',
+        CRITICAL_EFF: '#ece2b6',
         TURQUOISE: '#1abc9c',
         ORANGE: '#ccaa08',
         PURPLE: '#bf40bf',
@@ -133,8 +133,8 @@ const Data = Object.freeze({
 
         // CRAFTING EFFECTS
         CRAFTING_TRINKET_CORRUPTION: "trinket corruption chance",
-        CRAFTING_RUNE_CRIT: "critical rune effect chance",
-        CRAFTING_RUNE_CORRUPTION: "rune corruption chance",
+        CRAFTING_SIGIL_CRIT: "critical sigil effect chance",
+        CRAFTING_SIGIL_CORRUPTION: "sigil corruption chance",
 
         // SPELL EFFECTS
         SPELL_DMG: "spell damage",
@@ -231,13 +231,13 @@ const Data = Object.freeze({
         HELMET: "helmet",
         SHIELD: "shield",
     },
-    RuneType: {
+    SigilType: {
         WEAPON: "weapon",
         ARMOR: "armor",
     },
     ShardTarget: {
         GLOBAL: "global",
-        RUNES: "runes",
+        SIGILS: "sigils",
         TRINKETS: "trinkets",
     },
     WeaponType: {
@@ -313,7 +313,7 @@ const Data = Object.freeze({
     ItemType: {
         WEAPON: 'WEAPON',
         ARMOR: 'ARMOR',
-        RUNE: 'RUNE',
+        SIGIL: 'SIGIL',
         RESOURCE: 'RESOURCE',
         RECIPE: 'RECIPE',
         TRINKET: 'TRINKET',
@@ -335,7 +335,7 @@ const Data = Object.freeze({
     IconType: {
         WEAPON: 'weapons',
         ARMOR: 'armors',
-        RUNE: 'runes',
+        SIGIL: 'sigils',
         RESOURCE: 'resources',
         RECIPE: 'recipes',
     },
