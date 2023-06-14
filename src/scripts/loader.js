@@ -2106,6 +2106,18 @@ const Loader = {
                 {},
                 [],
                 Data.MobType.LESSER,
+                [],
+                new EnemyBehavior({
+                    actions: [
+                        new EnemyAction({
+                            title: 'regular',
+                            owner: function(){ return what(game.all_enemies, "mycelial tick") },
+                            behavior: function(){
+                                console.log(this.owner);
+                            }
+                        })
+                    ]
+                })
             ),
             new Enemy(
                 "Fungaliant",
@@ -2121,6 +2133,8 @@ const Loader = {
                 {},
                 [],
                 Data.MobType.REGULAR,
+                [],
+                null,
             ),
             new Enemy(
                 "Gnarly Horror",
@@ -2135,12 +2149,15 @@ const Loader = {
                 [],
                 {},
                 [],
-                Data.MobType.STRONGER
+                Data.MobType.STRONGER,
+                [],
+                null,
             )
         ];
 
         for(const enemy of enemies) {
             game.all_enemies.push(enemy);
+            if(enemy.behavior) enemy.behavior.build();
         }
     },
 

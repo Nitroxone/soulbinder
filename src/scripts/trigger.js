@@ -8,10 +8,10 @@ class Trigger {
      * @param {Function} checker 
      * @param {Function} behavior 
      */
-    constructor(name, type, checker, behavior) {
-        this.name = name;
-        this.type = type;
-        this.checker = checker;
-        this.behavior = behavior;
+    constructor(props) {
+        this.name = getValueFromObject(props, "name", "untitled");
+        this.type = getValueFromObject(props, "type", Data.TriggerType);
+        this.checker = getValueFromObject(props, "checker", () => { return true; });
+        this.behavior = getValueFromObject(props, "behavior", () => { console.log('Undefined Trigger called!') });
     }
 }
