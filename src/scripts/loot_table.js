@@ -136,10 +136,11 @@ let LootTable = {
                 sigil: new LootParams({
                     amount: [1, 2],
                     rarities: {
+                        common: -100,
                         rare: 20,
                         uncommon: 20,
-                        epic: 20,
-                        legendary: 20,
+                        epic: -100,
+                        legendary: -100,
                         elder: -100
                     }
                 }),
