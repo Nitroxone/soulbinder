@@ -145,7 +145,12 @@ let Speech = {
             "The tumultuous dance of combat has ceased.",
             "The battle drums have fallen silent.",
             "The clash of arms has yielded to a serene calm.",
-            "The symphony of battle has receded."
+            "The symphony of battle has receded.",
+            "The battlefield has found solace in stillness.",
+            "Silence has befallen the embattled realm.",
+            "The clash of swords has yielded to a tranquil lull.",
+            "The tumultuous strife has retreated.",
+            "The fervor of combat has waned."
         ]
     }
 }
