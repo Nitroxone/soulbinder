@@ -3268,6 +3268,99 @@ hr.leftSided {
     justify-content: center;
 }
 
+.workshopMenu {
+    height: 800px;
+    width: 1000px;
+    position: relative;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+.workshopTab {
+    border: 1px solid rgb(100, 100, 100);
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.workshopTab-titles {
+    z-index: 999;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0%;
+    transition: opacity 0.3s;
+    font-family: RobotoSlabBold;
+    font-size: 2em;
+}
+
+.workshopTab:hover {
+    cursor: pointer;
+}
+
+.workshopTab:hover .workshopTab-backgrounds {
+    filter: brightness(30%);
+}
+
+.workshopTab:hover .workshopTab-titles {
+    opacity: 100%;
+}
+
+.workshopTab-crafting {
+    grid-area: 1 / 1 / 2 / 2;
+}
+
+.workshopTab-alchemy {
+    grid-area: 1 / 2 / 2 / 3;
+}
+
+.workshopTab-sigils {
+    grid-area: 2 / 1 / 3 / 2;
+}
+
+.workshopTab-enchanting {
+    grid-area: 2 / 2 / 3 / 3;
+}
+
+.workshopTab-backgrounds {
+    height: 100%;
+    width: 100%;
+
+    background-position: center;
+    background-size: cover;
+}
+
+.crafting-background {
+    background-image: url(img/bg/bg-crafting.png);
+}
+
+.enchanting-background {
+    background-image: url(img/bg_enchanting.png);
+}
+
+.alchemy-background {
+    background-image: url(img/bg/bg-alchemy.jpg);
+}
+
+.sigils-background {
+    background-image: url(img/bg/bg-tannery.jpg);
+}
+
+.workshopTab-astralForge {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: none;
+}
+
 .astralForgeReceptacle {
     width: 100px;
     height: 100px;
@@ -5110,9 +5203,11 @@ table.astralForgeShards td {
 }
 
 .pageTitle {
-    font-family: RobotoSlabMed;
+    font-family: Domine;
     font-size: 18px;
     color: #4d4537;
+    text-shadow: 1px 1px rgba(255, 255, 255, 0.15);
+    
 }
 
 .eonFragmentsContainer {
