@@ -488,5 +488,9 @@ const Data = Object.freeze({
         GROUP: "group",
         WAVE: "wave",
         BOSS: "boss"
+    },
+    BattleOutcome: {
+        VICTORY: "victory",
+        FAILURE: "failure",
     }
 });

@@ -102,6 +102,7 @@ class Battle {
     end() {
         console.log("Battle ends!");
         this.runTriggersOnAll(Data.TriggerType.ON_BATTLE_END);
+        this.outcome = Data.BattleOutcome.VICTORY;
         drawEndBattleScreen();
         game.currentBattle = null;
     }

@@ -1780,11 +1780,24 @@ function drawEndBattleScreen() {
 
     let str = '';
 
-    str += '<div class="battleEnd-header"></div>';
-    str += '<div class="battleEnd-stats"></div>';
-    str += '<div class="battleEnd-fighters"></div>';
-    str += '<div class="battleEnd-loot"></div>';
-    str += '<div class="battleEnd-progress"></div>';
+    str += '<div class="battleEnd-header">';
+    str += '<div class="titles">';
+    str += '<h1>' + battle.outcome + '</h1>';
+    str += '<h3>' + game.currentDungeon.currentFloor.currentRoom.type + ' completed</h3>'
+    str += '</div>';
+    str += '</div>';
+
+    str += '<div class="battleEnd-stats">';
+    str += '</div>';
+
+    str += '<div class="battleEnd-fighters">';
+    str += '</div>';
+
+    str += '<div class="battleEnd-loot">';
+    str += '</div>';
+
+    str += '<div class="battleEnd-progress">';
+    str += '</div>';
 
     document.querySelector('.battleEndContainer').innerHTML = str;
 }

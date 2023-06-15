@@ -5306,14 +5306,18 @@ table.astralForgeShards td {
 /* BATTLE END SCREEN */
 
 .battleEndContainer {
-    width: 100%;
+    border: 1px dashed blue;
+
+    margin: 0 auto;
+    padding: 2em;
+    width: 80%;
     height: 100%;
 
     margin-top: 6em;
 
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 0.2fr 1fr 1fr;
+    grid-template-rows: 0.3fr 1fr 1fr;
     gap: 1em 1em;
     grid-template-areas: 
         "battleEnd-header battleEnd-header battleEnd-header"
@@ -5321,9 +5325,38 @@ table.astralForgeShards td {
         "battleEnd-progress battleEnd-progress battleEnd-loot";
 }
 
+.battleEnd-header, .battleEnd-stats, .battleEnd-fighters, .battleEnd-loot, .battleEnd-progress {
+    border: 1px dashed grey;
+}
+
 .battleEnd-header {
     grid-area: battleEnd-header;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
+.battleEnd-header > .titles {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.battleEnd-header > .titles h1 {
+    font-family: RobotoSlabBold;
+    font-variant: small-caps;
+    font-size: 2.55rem;
+    color: #ddd;
+}
+.battleEnd-header > .titles h3 {
+    font-family: RobotoSlab;
+    font-variant: small-caps;
+    color: #ccc;
+    font-size: 1.2rem;
+}
+
+
 .battleEnd-stats {
     grid-area: battleEnd-stats;
 }
