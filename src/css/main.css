@@ -68,6 +68,36 @@ table {
     src: url("fonts/CrimsonPro-Regular.ttf") format("truetype");
 }
 @font-face {
+    font-family: "CrimsonProItalic";
+    font-style: normal;
+    font-weight: normal;
+    src: url("fonts/CrimsonPro-Italic.ttf") format("truetype");
+}
+@font-face {
+    font-family: "CrimsonProBold";
+    font-style: normal;
+    font-weight: normal;
+    src: url("fonts/CrimsonPro-Bold.ttf") format("truetype");
+}
+@font-face {
+    font-family: "CrimsonProBoldItalic";
+    font-style: normal;
+    font-weight: normal;
+    src: url("fonts/CrimsonPro-BoldItalic.ttf") format("truetype");
+}
+@font-face {
+    font-family: "CrimsonProBlack";
+    font-style: normal;
+    font-weight: normal;
+    src: url("fonts/CrimsonPro-Black.ttf") format("truetype");
+}
+@font-face {
+    font-family: "CrimsonProBlackItalic";
+    font-style: normal;
+    font-weight: normal;
+    src: url("fonts/CrimsonPro-BlackItalic.ttf") format("truetype");
+}
+@font-face {
     font-family: "Roboto";
     font-style: normal;
     font-weight: normal;
@@ -3259,8 +3289,10 @@ hr.leftSided {
 }
 
 .workshopContainer {
-    width: 100%;
+    width: 1000px;
     height: 100%;
+
+    margin: 0 auto;
 
     display: flex;
     flex-direction: column;
