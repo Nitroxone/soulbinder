@@ -12,7 +12,7 @@ class EnemyBehavior {
     play() {
         for(let i = 0; i < this.actions.length; i++) {
             if(this.actions[i].checker()) {
-                this.actions[i].behavior();
+                setTimeout(() => {this.actions[i].behavior();}, 1000);
                 //game.currentBattle.endTurn();
                 return;
             }
