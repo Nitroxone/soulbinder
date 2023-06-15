@@ -910,7 +910,7 @@ const Loader = {
                 ]
             ),
             new Trinket(
-                "Prismatic Lapis Lazuli of Darkness",
+                "Lapis Lazuli of Darkness",
                 "\"Quote\" - Somebody",
                 24,
                 10,
@@ -959,6 +959,34 @@ const Loader = {
                     })
                 ]
             ),
+            new Trinket(
+                "Foggorth's Armored Horn",
+                "\"Quote\" - Somebody",
+                9,
+                10,
+                Data.Rarity.EPIC,
+                [
+                    new Stat({
+                        effect: Data.Effect.MODIF_CHANCE_STUN,
+                        theorical: [20, 25],
+                        isPercentage: true
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MIGHT,
+                        theorical: [20, 30],
+                        isPercentage: true,
+                    }),
+                    new Stat({
+                        effect: Data.Effect.PROTECTION,
+                        theorical: [5, 8],
+                        isPercentage: true,
+                    }),
+                    new Stat({
+                        effect: Data.Effect.SPEED,
+                        theorical: [-2, -4],
+                    })
+                ]
+            )
         ];
 
         for(const trinket of trinkets) {
