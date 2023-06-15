@@ -5302,3 +5302,37 @@ table.astralForgeShards td {
     font-variant: small-caps;
     font-size: 1rem;
 }
+
+/* BATTLE END SCREEN */
+
+.battleEndContainer {
+    width: 100%;
+    height: 100%;
+
+    margin-top: 6em;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 0.2fr 1fr 1fr;
+    gap: 1em 1em;
+    grid-template-areas: 
+        "battleEnd-header battleEnd-header battleEnd-header"
+        "battleEnd-stats battleEnd-fighters battleEnd-fighters"
+        "battleEnd-progress battleEnd-progress battleEnd-loot";
+}
+
+.battleEnd-header {
+    grid-area: battleEnd-header;
+}
+.battleEnd-stats {
+    grid-area: battleEnd-stats;
+}
+.battleEnd-fighters {
+    grid-area: battleEnd-fighters;
+}
+.battleEnd-loot {
+    grid-area: battleEnd-loot;
+}
+.battleEnd-progress {
+    grid-area: battleEnd-progress;
+}

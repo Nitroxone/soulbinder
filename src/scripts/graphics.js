@@ -1775,9 +1775,18 @@ function drawEmptyBattleScreen() {
 }
 
 function drawEndBattleScreen() {
+    const battle = game.currentBattle;
+    document.querySelector('#battleDiv').innerHTML = '<div class="battleEndContainer"></div>';
+
     let str = '';
-    
-    document.querySelector('.battleContainer').innerHTML = str;
+
+    str += '<div class="battleEnd-header"></div>';
+    str += '<div class="battleEnd-stats"></div>';
+    str += '<div class="battleEnd-fighters"></div>';
+    str += '<div class="battleEnd-loot"></div>';
+    str += '<div class="battleEnd-progress"></div>';
+
+    document.querySelector('.battleEndContainer').innerHTML = str;
 }
 
 function drawBattleScreen() {
