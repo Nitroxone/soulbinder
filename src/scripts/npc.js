@@ -236,7 +236,7 @@ class NPC extends Entity {
                 this.modifChanceMove += effect.getValue() * factor;
                 break; 
             default:
-                ERROR('Tried to add an unknown effect.');
+                console.info('Tried to add an unknown effect :' + effect.effect + ' on ' + this.name);
                 return;
         }
         console.log(this.name + ": " + effect.getValue()*factor + " " + effect.effect);
