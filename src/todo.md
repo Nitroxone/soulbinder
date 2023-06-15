@@ -39,7 +39,6 @@ ASTRAL FORGE:
 DUNGEONS:
 - Create floor transitions
 - Connect dungeons to combats
-- Find out why the dungeon connectors are sometimes not drawn properly
 
 CRAFTING:
 - Start working on Sigil crafting
