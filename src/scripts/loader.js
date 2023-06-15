@@ -2129,6 +2129,10 @@ const Loader = {
                             owner: function(){ return what(game.currentBattle.enemies, "mycelial tick") },
                             behavior: function(){
                                 console.log(this.owner);
+                                game.currentBattle.target.push(choose(game.currentBattle.allies));
+                                game.currentBattle.selectedSkill = this.owner.skills[0];
+                                console.log('attacking ' + game.currentBattle.target[0].name + ' with ' + game.currentBattle.selectedSkill.name);
+                                game.currentBattle.executeSkill();
                             }
                         })
                     ]
