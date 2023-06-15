@@ -1250,7 +1250,34 @@ function openAstralForge(event) {
 function drawWorkshopScreen() {
     document.querySelector('#workshopDiv').innerHTML = '<div class="workshopContainer"></div>';
 
-    let str = '<div class="astralForgeReceptacle" ondrop="openAstralForge(event)" ondragover="allowDrop(event)"></div>';
+    let str = '';
+    str += '<div class="workshopMenu coolBorder">';
+
+    str += '<div class="workshopTab workshopTab-crafting">';
+    str += '<div class="workshopTab-backgrounds crafting-background"></div>';
+    str += '<p class="workshopTab-titles">CRAFTING</p>';
+    str += '</div>';
+
+    str += '<div class="workshopTab workshopTab-alchemy">';
+    str += '<div class="workshopTab-backgrounds alchemy-background"></div>';
+    str += '<p class="workshopTab-titles">ALCHEMY</p>';
+    str += '</div>';
+
+    str += '<div class="workshopTab workshopTab-sigils">';
+    str += '<div class="workshopTab-backgrounds sigils-background"></div>';
+    str += '<p class="workshopTab-titles">SIGILS</p>';
+    str += '</div>';
+
+    str += '<div class="workshopTab workshopTab-enchanting">';
+    str += '<div class="workshopTab-backgrounds enchanting-background"></div>';
+    str += '<p class="workshopTab-titles">ENCHANTING</p>';
+    str += '</div>';
+
+    str += '<div class="workshopTab workshopTab-astralForge">';
+    str += '<div class="astralForgeReceptacle" ondrop="openAstralForge(event)" ondragover="allowDrop(event)"></div>';
+    str += '</div>';
+
+    str += '</div>';
 
     document.querySelector('.workshopContainer').innerHTML = str;
 
