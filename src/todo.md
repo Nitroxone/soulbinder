@@ -30,9 +30,6 @@ DONE - Implement all modifiers (Stun modif, Poison modif, Bleed modif...)
 - Implement skill stackability
 - Thoroughly comment complex battle functions
 
-BATTLE AI:
-- Start implementing
-
 ASTRAL FORGE:
 - Create GUI -- ONGOING
 - Implement an item pricing change on alteration (increasing/decreasing stats brings the price up and down)
@@ -41,6 +38,7 @@ ASTRAL FORGE:
 DUNGEONS:
 - Create floor transitions
 - Connect dungeons to combats
+- Find out why the dungeon connectors are sometimes not drawn properly
 
 CRAFTING:
 - Start working on Sigil crafting

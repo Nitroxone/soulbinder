@@ -1774,6 +1774,12 @@ function drawEmptyBattleScreen() {
     document.querySelector('.noBattle').innerHTML = str;
 }
 
+function drawEndBattleScreen() {
+    let str = '';
+    
+    document.querySelector('.battleContainer').innerHTML = str;
+}
+
 function drawBattleScreen() {
     document.querySelector('#battleDiv').innerHTML = '<div class="battleContainer"><div class="battle"></div></div>';
 

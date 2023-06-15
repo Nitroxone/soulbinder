@@ -102,6 +102,7 @@ class Battle {
     end() {
         console.log("Battle ends!");
         this.runTriggersOnAll(Data.TriggerType.ON_BATTLE_END);
+        drawEndBattleScreen();
         game.currentBattle = null;
     }
 
@@ -145,9 +146,9 @@ class Battle {
         this.currentPlay.reduceSkillsCooldown();
         this.currentPlay.applySelfRegenerationEffects();
         drawBattleScreen();
+        this.executingPopups = false;
         this.beginTurnPopups = false;
         this.runPopups();
-        this.resetEndTurnCounter();
         // SKIP ENEMIES
         if(this.currentPlay.isStunned) this.endTurn();
         if(this.isEnemyPlaying()) {
@@ -178,7 +179,9 @@ class Battle {
     addEndTurnCounter() {
         this.endturnCounter += 1;
         if(this.endturnCounter >= this.order.length) {
+            this.executingPopups = false;
             this.executeMovements();
+            this.resetEndTurnCounter();
             if(!this.beginTurnPopups) {
                 console.log('----------BEGIN TURN POPUPS HAVE BEEN EXECUTED!');
                 this.beginTurnPopups = true;
@@ -428,6 +431,8 @@ class Battle {
      * Executes a Weapon attack based on the selected weapon, current player and target(s).
      */
     executeAttack() {
+        this.overloadPopups();
+
         const weapon = this.selectedWeapon;
 
         this.runTriggersOnCurrent(Data.TriggerType.ON_ATTACK);
@@ -531,6 +536,8 @@ class Battle {
      * Executes all of the effects and damage of the selected Skill on the selected target(s).
      */
     executeSkill() {
+        this.overloadPopups();
+
         const skill = this.selectedSkill;
         const current = this.currentPlay;
         let effects = [];
@@ -711,6 +718,7 @@ class Battle {
      * Executes all of the popups on every fighter in order.
      */
     runPopups() {
+        
         this.order.forEach(el => {
             el.executePopups();
         });
@@ -942,6 +950,12 @@ class Battle {
     emptyBattlePopupsQueues() {
         this.order.forEach(fi => {
             fi.emptyPopupsQueue();
-        })
+        });
+    }
+
+    overloadPopups() {
+        this.emptyBattlePopupsQueues();
+        this.resetEndTurnCounter();
+        this.beginTurnPopups = true;
     }
 }

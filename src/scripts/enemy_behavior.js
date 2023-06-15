@@ -10,12 +10,14 @@ class EnemyBehavior {
     }
 
     play() {
+        let hasPlayed = false;
         for(let i = 0; i < this.actions.length; i++) {
             if(this.actions[i].checker()) {
                 setTimeout(() => {this.actions[i].behavior();}, 1000);
-                //game.currentBattle.endTurn();
+                hasPlayed = true;
                 return;
             }
         }
+        if(!hasPlayed) game.currentBattle.endTurn();
     }
 }
