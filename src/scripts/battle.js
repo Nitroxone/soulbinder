@@ -130,7 +130,8 @@ class Battle {
     }
 
     handleEnemyTurn() {
-        this.currentPlay.behavior.play();
+        if(!this.currentPlay.isDead()) this.currentPlay.behavior.play();
+        else this.endTurn();
     }
 
     /**
