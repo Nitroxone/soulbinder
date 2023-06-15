@@ -2106,14 +2106,29 @@ const Loader = {
                 {},
                 [],
                 Data.MobType.LESSER,
-                [],
+                [
+                    new Skill(
+                        "Fungal scratch",
+                        "",
+                        0,
+                        {
+                            type: Data.SkillType.OFFENSIVE,
+                            manaCost: 10,
+                            dmgType: Data.SkillDamageType.PHYSICAL,
+                            dmgMultiplier: 100,
+                            criMultiplier: 20,
+                            accMultiplier: 90,
+                            targets: {allies: '-0', enemies: '-123'},
+                        }
+                    )
+                ],
                 new EnemyBehavior({
                     actions: [
                         new EnemyAction({
                             title: 'regular',
                             owner: function(){ return what(game.currentBattle.enemies, "mycelial tick") },
                             behavior: function(){
-                                console.log('my owner is :' + this.owner);
+                                console.log(this.owner);
                             }
                         })
                     ]

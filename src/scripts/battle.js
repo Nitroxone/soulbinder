@@ -20,11 +20,25 @@ class Battle {
         this.resetAttackParams();
     }
 
+    /**
+     * Initializes enemy AI behaviors.
+     * >*Why is this necessary?* 
+     * - Each enemy actions needs a link to their parent (in order to access skills, stats and so on).
+     * - The "owner" variable of an action is determined by searching for an enemy name inside the battle's enemies.
+     * - A problem is raised here: what if there are the same enemy multiple times? It will always return the first occurrence in the enemies array.
+     * - To fix this problem, the enemies array is progressively shifted as the AI are built in order to guarantee a proper ID attribution.
+     * - Then, everything is brought back to normal by adding the enemies back to the enemies array.
+     */
     buildBehaviors() {
+        let temp = [];
         // Prepare enemy AI
-        this.enemies.forEach(en => {
-            if(en.behavior) en.behavior.build();
-        })
+        for(let i = 0; i < this.enemies.length; i += 0) {
+            if(this.enemies.length <= 0) break;
+            if(this.enemies[i].behavior) this.enemies[i].behavior.build();
+            temp.push(this.enemies[i]);
+            this.enemies.shift();
+        }
+        this.enemies = temp;
     }
 
     /**
@@ -116,7 +130,7 @@ class Battle {
     }
 
     handleEnemyTurn() {
-        this.currentPlay.play();
+        this.currentPlay.behavior.play();
     }
 
     /**

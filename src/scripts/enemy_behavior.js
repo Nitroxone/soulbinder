@@ -13,6 +13,7 @@ class EnemyBehavior {
         for(let i = 0; i < this.actions.length; i++) {
             if(this.actions[i].checker()) {
                 this.actions[i].behavior();
+                //game.currentBattle.endTurn();
                 return;
             }
         }

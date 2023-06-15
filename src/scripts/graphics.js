@@ -1955,35 +1955,27 @@ function getBattleScreenFormationAlliesSingle(pos) {
 function getBattleCommands(refresh = false) {
     let str = '';
 
-    if(game.currentBattle.isEnemyPlaying()) {
-        str += '<div class="battle-notifications"></div>';
-
-        if(refresh) {
-            document.querySelector('.battle-commandsContainer').innerHTML = str;
-            return;
-        }
-        return str;
-    }
-
     str += '<div class="battle-actionsContainer">';
+    if(game.currentBattle.isEnemyPlaying()) {
 
-    str += '<div class="battle-actionAtk">';
-    str += getCurrentPlayerEquippedWeapons();
-    str += 'Attack'
-    str += '</div>';
+    } else {
+        str += '<div class="battle-actionAtk">';
+        str += getCurrentPlayerEquippedWeapons();
+        str += 'Attack'
+        str += '</div>';
 
-    str += '<div class="battle-actionDef">';
-    str += 'Block';
-    str += '</div>';
+        str += '<div class="battle-actionDef">';
+        str += 'Block';
+        str += '</div>';
 
-    str += '<div class="battle-actionMov">';
-    str += 'Move';
-    str += '</div>';
+        str += '<div class="battle-actionMov">';
+        str += 'Move';
+        str += '</div>';
 
-    str += '<div class="battle-actionSki">';
-    str += 'Skip';
-    str += '</div>';
-
+        str += '<div class="battle-actionSki">';
+        str += 'Skip';
+        str += '</div>';
+    }
     str += '</div>';
 
     str += '<div class="battle-skillsContainer">';
@@ -2021,10 +2013,12 @@ function getCurrentPlayerEquippedWeapons() {
 function getBattleSkills(refresh = false) {
     let str = '';
 
-    const currentPlay = game.currentBattle.currentPlay;
-    currentPlay.skills.forEach(skill => {
-        str += '<div id="' + currentPlay.name + '-' + skill.id + '" class="skillSquare treeNode coolBorder ' + (currentPlay.mana < skill.manaCost || !skill.condition.checker() || skill.cooldownCountdown > 0 ? 'disabledSkill' : '') + '" style="background-image: url(\'css/img/skills/' + currentPlay.name + skill.icon + '.png\')">' + (skill.cooldownCountdown > 0 ? '<span class="skillCooldownIndicator">' + skill.cooldownCountdown + '</span>' : '') + '</div>';
-    })
+    if(!game.currentBattle.isEnemyPlaying()) {
+        const currentPlay = game.currentBattle.currentPlay;
+        currentPlay.skills.forEach(skill => {
+            str += '<div id="' + currentPlay.name + '-' + skill.id + '" class="skillSquare treeNode coolBorder ' + (currentPlay.mana < skill.manaCost || !skill.condition.checker() || skill.cooldownCountdown > 0 ? 'disabledSkill' : '') + '" style="background-image: url(\'css/img/skills/' + currentPlay.name + skill.icon + '.png\')">' + (skill.cooldownCountdown > 0 ? '<span class="skillCooldownIndicator">' + skill.cooldownCountdown + '</span>' : '') + '</div>';
+        })
+    }
 
     if(refresh) {
         document.querySelector('.battle-skillsContainer').innerHTML = str;
@@ -2380,8 +2374,10 @@ function generateBattleFightersEvents() {
         fighter.addEventListener('mouseleave', e => {
             getBattleSkills(true);
             getBattleConsumables(true);
-            generateBattleSkillsEvents();
-            generateBattleConsumablesEvents();
+            if(!game.currentBattle.isEnemyPlaying()) {
+                generateBattleSkillsEvents();
+                generateBattleConsumablesEvents();
+            }
         });
     });
 }
