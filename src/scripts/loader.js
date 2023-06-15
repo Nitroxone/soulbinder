@@ -2119,6 +2119,16 @@ const Loader = {
                             criMultiplier: 20,
                             accMultiplier: 90,
                             targets: {allies: '-0', enemies: '-123'},
+                            effectsAllies: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.BLIGHT_CURABLE, theorical: [2, 4], type: Data.StatType.ACTIVE, duration: 2})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.BLIGHT_CURABLE, theorical: [4, 6], type: Data.StatType.ACTIVE, duration: 2})
+                                    ]
+                                }
+                            }
                         }
                     )
                 ],
@@ -2128,11 +2138,11 @@ const Loader = {
                             title: 'regular',
                             owner: function(){ return what(game.currentBattle.enemies, "mycelial tick") },
                             behavior: function(){
-                                console.log(this.owner);
                                 game.currentBattle.target.push(choose(game.currentBattle.allies));
                                 game.currentBattle.selectedSkill = this.owner.skills[0];
                                 console.log('attacking ' + game.currentBattle.target[0].name + ' with ' + game.currentBattle.selectedSkill.name);
                                 game.currentBattle.executeSkill();
+
                             }
                         })
                     ]
