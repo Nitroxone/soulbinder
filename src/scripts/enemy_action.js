@@ -8,6 +8,6 @@ class EnemyAction {
     }
 
     build() {
-        this.owner = this.owner().id;
+        this.owner = getEnemyById(this.owner().id);
     }
 }
