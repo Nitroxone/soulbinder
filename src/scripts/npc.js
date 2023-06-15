@@ -643,4 +643,8 @@ class NPC extends Entity {
     isDead() {
         return this.health <= 0;
     }
+
+    emptyPopupsQueue() {
+        this.popupsQueue = [];
+    }
 }

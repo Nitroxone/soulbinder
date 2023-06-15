@@ -167,6 +167,7 @@ class Battle {
         this.target = [];
         this.movementQueue = [];
         this.resetEndTurnCounter();
+        this.emptyBattlePopupsQueues();
         drawBattleScreen();
         this.beginTurn();
     }
@@ -179,6 +180,7 @@ class Battle {
         if(this.endturnCounter >= this.order.length) {
             this.executeMovements();
             if(!this.beginTurnPopups) {
+                console.log('----------BEGIN TURN POPUPS HAVE BEEN EXECUTED!');
                 this.beginTurnPopups = true;
                 return;
             }
@@ -935,5 +937,11 @@ class Battle {
         this.movementQueue.forEach(mov => {
             this.move(mov.npc, mov.target, mov.type);
         });
+    }
+
+    emptyBattlePopupsQueues() {
+        this.order.forEach(fi => {
+            fi.emptyPopupsQueue();
+        })
     }
 }
