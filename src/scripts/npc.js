@@ -639,4 +639,8 @@ class NPC extends Entity {
         
         return found;
     }
+
+    isDead() {
+        return this.health <= 0;
+    }
 }
