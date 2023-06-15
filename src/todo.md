@@ -29,6 +29,7 @@ DONE - Implement all modifiers (Stun modif, Poison modif, Bleed modif...)
 - Implement guarding mechanic
 - Implement skill stackability
 - Thoroughly comment complex battle functions
+- Freeze events on action (prevent action spamming)
 
 ASTRAL FORGE:
 - Create GUI -- ONGOING
