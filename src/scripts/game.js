@@ -368,6 +368,6 @@ class Game {
         console.clear();
 
         this.startBattle(what(game.all_enemyFormations, "threeTicks").formation);
-        // this.currentBattle.end();
+        this.currentBattle.end();
     }
 }

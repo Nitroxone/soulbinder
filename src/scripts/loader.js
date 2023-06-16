@@ -120,7 +120,7 @@ const Loader = {
         const resources = [
             new Resource(
                 "Starblossom",
-                "Cleanses a sigil's corrupted effects.",
+                "The petals of this uncanny flower, delicate yet deadly, appear as midnight velvet veined with the essence of a dying star.<br><br>Cleanses a sigil's corrupted effects.",
                 4,
                 10,
                 Data.Rarity.EPIC,
@@ -134,7 +134,7 @@ const Loader = {
             ),
             new Resource(
                 "Pearl of Wrath",
-                "Pushes the sigil's effects beyond their maximum bound. May generate corrupt effects.",
+                "This cracked pink pearl screams from within. It flutters in the palm of your hand, shooting inexplicable anger through every fibre of the person who admires it.<br><br>Pushes the sigil's effects beyond their maximum bound. May generate corrupt effects.",
                 2,
                 10,
                 Data.Rarity.LEGENDARY,
@@ -910,7 +910,7 @@ const Loader = {
                 ]
             ),
             new Trinket(
-                "Prismatic Lapis Lazuli of Darkness",
+                "Lapis Lazuli of Darkness",
                 "\"Quote\" - Somebody",
                 24,
                 10,
@@ -959,6 +959,34 @@ const Loader = {
                     })
                 ]
             ),
+            new Trinket(
+                "Foggorth's Armored Horn",
+                "\"Quote\" - Somebody",
+                9,
+                10,
+                Data.Rarity.EPIC,
+                [
+                    new Stat({
+                        effect: Data.Effect.MODIF_CHANCE_STUN,
+                        theorical: [20, 25],
+                        isPercentage: true
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MIGHT,
+                        theorical: [20, 30],
+                        isPercentage: true,
+                    }),
+                    new Stat({
+                        effect: Data.Effect.PROTECTION,
+                        theorical: [5, 8],
+                        isPercentage: true,
+                    }),
+                    new Stat({
+                        effect: Data.Effect.SPEED,
+                        theorical: [-2, -4],
+                    })
+                ]
+            )
         ];
 
         for(const trinket of trinkets) {
