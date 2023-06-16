@@ -1522,7 +1522,7 @@ const Loader = {
                         13,
                         {
                             type: Data.SkillType.OFFENSIVE,
-                            manaCost: 60,
+                            manaCost: 10,
                             cooldown: 1,
                             dmgType: Data.SkillDamageType.PHYSICAL,
                             dmgMultiplier: 35,
@@ -1971,6 +1971,37 @@ const Loader = {
                                     ],
                                     critical: [
                                         new Stat({effect: Data.Effect.PUSH_ONE})
+                                    ]
+                                }
+                            }
+                        }
+                    ),
+                    new Skill(
+                        "Arcane Mending",
+                        "§Heals§ the targeted ally. Increases Betheros' §Given healing§.",
+                        16,
+                        {
+                            type: Data.SkillType.FRIENDLY,
+                            manaCost: 30,
+                            criMultiplier: 15,
+                            targets: {allies: '-123', enemies: '-0'},
+                            effectsCaster: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.MODIF_HEAL_GIVEN, theorical: [5, 10], isPercentage: true})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.MODIF_HEAL_GIVEN, theorical: [10, 15], isPercentage: true})
+                                    ]
+                                }
+                            },
+                            effectsAllies: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.HEALTH, theorical: [10, 15], isPercentage: true, type: Data.StatType.ACTIVE})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.HEALTH, theorical: [15, 20], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true})
                                     ]
                                 }
                             }
