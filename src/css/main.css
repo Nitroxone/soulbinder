@@ -5467,7 +5467,7 @@ table.astralForgeShards td {
     margin: 0 auto;
     padding: 2em;
     width: 650px;
-    height: 100%;
+    min-height: 850px;
 
     margin-top: 6em;
 
