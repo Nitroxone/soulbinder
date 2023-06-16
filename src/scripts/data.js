@@ -478,11 +478,11 @@ const Data = Object.freeze({
         BAD: "bad",
     },
     MobType: {
-        LESSER: "Engeance",
-        REGULAR: "Wretch",
-        MAJOR: "Archbeast",
-        LESSER_BOSS: "Lesser Boss",
-        MAJOR_BOSS: "Major Boss",
+        LESSER: "engeance",
+        REGULAR: "wretch",
+        MAJOR: "archbeast",
+        LESSER_BOSS: "lesser boss",
+        MAJOR_BOSS: "major boss",
     },
     BattleType: {
         GROUP: "group",
