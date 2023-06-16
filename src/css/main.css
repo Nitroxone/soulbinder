@@ -5624,7 +5624,7 @@ table.astralForgeShards td {
     justify-content: space-between;
 
     background-position: right;
-    background-size: 50%;
+    background-size: 65%;
     background-repeat: no-repeat;
 }
 .battleEnd-fighter.fighterAlly {
@@ -5633,7 +5633,7 @@ table.astralForgeShards td {
     justify-content: space-between;
 
     background-position: left center;
-    background-size: 50%;
+    background-size: 65%;
     background-repeat: no-repeat;
 }
 
