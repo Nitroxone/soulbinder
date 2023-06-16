@@ -1823,7 +1823,7 @@ function drawEndBattleScreen() {
     str += '<div class="statsHeader">Stats</div>';
     str += '<table class="statsListing">';
     str += '<tbody>';
-    str += '<tr><td>Rounds</td><td>5</td>';
+    str += '<tr><td>Rounds</td><td>' + battle.round + '</td>';
     str += '<tr><td>Str. damage</td><td>524</td>';
     str += '<tr><td>Ene. damage</td><td>12</td>';
     str += '<tr><td>Str. accuracy</td><td>76%</td>';
