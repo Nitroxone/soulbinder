@@ -5486,8 +5486,8 @@ table.astralForgeShards td {
 }
 @keyframes battleEndSlideIn {
     from {
-        opacity: 0.5;
-        transform: translateY(15px);
+        opacity: 0;
+        transform: translateY(30px);
     }
 }
 
