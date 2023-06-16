@@ -27,6 +27,7 @@ DONE - Implement all modifiers (Stun modif, Poison modif, Bleed modif...)
 - Freeze events on action (prevent action spamming)
 - Add blocking special effect & blocking action
 - Implement guarding mechanic
+- Implement shield in combats
 - Implement consumables & using them in combat
 - Implement skill stackability
 - Thoroughly comment complex battle functions
