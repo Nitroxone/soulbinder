@@ -3320,7 +3320,7 @@ hr.leftSided {
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    transition: filter 0.3s ease-in-out;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .workshopTab-titles, .workshopTab-subtitles {
@@ -3330,7 +3330,7 @@ hr.leftSided {
     left: 50%;
     transform: translate(-50%, -50%);
     opacity: 0%;
-    transition: opacity 0.3s;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
     font-family: RobotoSlabBold;
     font-size: 1.8em;
 }
@@ -3350,7 +3350,7 @@ hr.leftSided {
 .workshopTab:hover .workshopTab-backgrounds {
     filter: brightness(30%);
     transform: scale(1.05);
-    transition: transform 0.3s ease-in-out;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .workshopTab:hover .workshopTab-titles {
