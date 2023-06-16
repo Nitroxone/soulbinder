@@ -1808,7 +1808,7 @@ function drawEmptyBattleScreen() {
 function drawEndBattleScreen() {
     const battle = game.currentBattle;
     console.log(battle);
-    document.querySelector('#battleDiv').innerHTML = '<div class="battleEndContainer"></div>';
+    document.querySelector('#battleDiv').innerHTML = '<div class="battleEndContainer coolBorderBis" style="background-image: linear-gradient(0deg, transparent 0%, rgba(0, 0, 0, 1) 100%), url(\'css/img/bg/' + game.currentDungeon.background + '\')"></div>';
 
     let str = '';
 
@@ -1819,21 +1819,21 @@ function drawEndBattleScreen() {
     str += '</div>';
     str += '</div>';
 
-    str += '<div class="battleEnd-stats">';
+    str += '<div class="battleEnd-stats coolBorderBis">';
     str += '<div class="statsHeader">Stats</div>';
     str += '<table class="statsListing">';
     str += '<tbody>';
     str += '<tr><td>Rounds</td><td>5</td>';
-    str += '<tr><td>Damage from striders</td><td>524</td>';
-    str += '<tr><td>Damage from enemies</td><td>12</td>';
-    str += '<tr><td>Striders accuracy</td><td>76%</td>';
-    str += '<tr><td>Enemies accuracy</td><td>81%</td>';
-    str += '<tr><td>Striders dodge</td><td>12%</td>';
-    str += '<tr><td>Enemies dodge</td><td>29%</td>';
-    str += '<tr><td>Striders bleeding damage</td><td>52</td>';
-    str += '<tr><td>Enemies bleeding damage</td><td>5</td>';
-    str += '<tr><td>Striders poison damage</td><td>0</td>';
-    str += '<tr><td>Enemies poison damage</td><td>62</td>';
+    str += '<tr><td>Str. damage</td><td>524</td>';
+    str += '<tr><td>Ene. damage</td><td>12</td>';
+    str += '<tr><td>Str. accuracy</td><td>76%</td>';
+    str += '<tr><td>Ene. accuracy</td><td>81%</td>';
+    str += '<tr><td>Str. dodge</td><td>12%</td>';
+    str += '<tr><td>Ene. dodge</td><td>29%</td>';
+    str += '<tr><td>Str. bleeding damage</td><td>52</td>';
+    str += '<tr><td>Ene. bleeding damage</td><td>5</td>';
+    str += '<tr><td>Str. poison damage</td><td>0</td>';
+    str += '<tr><td>Ene. poison damage</td><td>62</td>';
     str += '</tbody>';
     str += '</table>';
     str += '</div>';
@@ -1841,17 +1841,17 @@ function drawEndBattleScreen() {
     str += '<div class="battleEnd-fighters">';
     str += '<div class="battleEnd-fightersAllies">';
     battle.allies.forEach(al => {
-        str += '<div class="battleEnd-fighter fighterAlly">' + al.name + '</div>';
+        str += '<div class="battleEnd-fighter fighterAlly" style="background-image:linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 1) 100%), url(\'css/img/chars/' + al.charset + '\')"><span class="fi-name">' + al.name + '</span><span class="fi-type">' + al.striderType + '</span></div>';
     });
     str += '</div>';
     str += '<div class="battleEnd-fightersEnemies">';
     battle.enemies.forEach(en => {
-        str += '<div class="battleEnd-fighter fighterEnemy"><span class="fe-name">' + en.name + '</span><span class="fe-type">' + en.mobType + '</span></div>';
+        str += '<div class="battleEnd-fighter fighterEnemy" style="background-image:linear-gradient(270deg, transparent 0%, rgba(0, 0, 0, 1) 100%), url(\'css/img/chars/' + en.charset + '\')"><span class="fi-name">' + en.name + '</span><span class="fi-type">' + en.mobType + '</span></div>';
     });
     str += '</div>'
     str += '</div>';
 
-    str += '<div class="battleEnd-loot">';
+    str += '<div class="battleEnd-loot coolBorderBis">';
     str += '<div class="lootHeader">Loot</div>';
     str += '</div>';
 

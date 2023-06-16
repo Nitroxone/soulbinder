@@ -5460,18 +5460,20 @@ table.astralForgeShards td {
 /* BATTLE END SCREEN */
 
 .battleEndContainer {
-    border: 1px dashed blue;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 
     margin: 0 auto;
     padding: 2em;
-    width: 800px;
+    width: 650px;
     height: 100%;
 
     margin-top: 6em;
 
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 0.3fr 1fr 1fr;
+    grid-template-rows: 0.3fr 1.2fr 1fr;
     gap: 1em 1em;
     grid-template-areas: 
         "battleEnd-header battleEnd-header battleEnd-header"
@@ -5480,7 +5482,7 @@ table.astralForgeShards td {
 }
 
 .battleEnd-header, .battleEnd-stats, .battleEnd-fighters, .battleEnd-loot, .battleEnd-progress {
-    border: 1px dashed grey;
+    /*border: 1px dashed grey;*/
     border-radius: 3px;
     padding: 0.5rem;
 }
@@ -5512,26 +5514,33 @@ table.astralForgeShards td {
     font-size: 1.05rem;
 }
 
+.battleEnd-stats, .battleEnd-loot {
+    background: url('img/bg3.png') repeat;
+}
+
+.battleEnd-stats .statsHeader, .battleEnd-loot .lootHeader {
+    background: url('img/bottom_texture.png') no-repeat;
+    background-size: contain;
+    padding: 0.5rem;
+
+    text-align: center;
+    font-family: RobotoSlabBold;
+    color: #ddd;
+    font-size: 14px;
+    margin-bottom: 1rem;
+    height: 32px;
+}
 
 .battleEnd-stats {
     grid-area: battleEnd-stats;
-
-}
-.battleEnd-stats .statsHeader {
-    text-align: center;
-    font-family: RobotoSlab;
-    font-variant: small-caps;
-    color: #ddd;
-    font-size: 1.1rem;
-    margin-bottom: 1rem;
 }
 .battleEnd-stats > .statsListing {
     margin: 0 auto;
-    width: 80%;
+    width: 100%;
 }
 .battleEnd-stats > .statsListing tr td {
     padding: 0.15rem 0;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: grey;
 }
 .battleEnd-stats > .statsListing tr td:last-child {
@@ -5540,14 +5549,15 @@ table.astralForgeShards td {
     color: #ddd;
 }
 
-
 .battleEnd-fighters {
     grid-area: battleEnd-fighters;
 
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
+
+    padding: 0 !important;
 }
 .battleEnd-fightersAllies, .battleEnd-fightersEnemies {
     width: 100%;
@@ -5558,11 +5568,28 @@ table.astralForgeShards td {
     align-items: center;
 }
 .battleEnd-fighter {
-    width: 95%;
+    width: 100%;
     padding: 1rem;
+    height: 50px;
+    background-color: #000;
 
-    border: 1px solid red;
+    border: 2px solid rgb(100, 100, 100);
     border-radius: 3px;
+}
+.battleEnd-fighter:hover {
+    /*border-color: rgb(155, 155, 155);*/
+}
+.battleEnd-fighter > .fi-name {
+    font-family: RobotoSlab;
+    font-size: 1.1rem;
+    font-variant: small-caps;
+    line-height: 0.6;
+}
+.battleEnd-fighter > .fi-type {
+    font-family: RobotoBoldItalic;
+    font-size: 0.75rem;
+    line-height: 1.2;
+    text-transform: capitalize;
 }
 .battleEnd-fighter:not(:last-child) {
     margin-bottom: 0.5rem;
@@ -5571,6 +5598,19 @@ table.astralForgeShards td {
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-between;
+
+    background-position: right;
+    background-size: 50%;
+    background-repeat: no-repeat;
+}
+.battleEnd-fighter.fighterAlly {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    background-position: left center;
+    background-size: 50%;
+    background-repeat: no-repeat;
 }
 
 .battleEnd-loot {
