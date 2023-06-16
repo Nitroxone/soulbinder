@@ -1803,6 +1803,7 @@ function drawEmptyBattleScreen() {
 
 function drawEndBattleScreen() {
     const battle = game.currentBattle;
+    console.log(battle);
     document.querySelector('#battleDiv').innerHTML = '<div class="battleEndContainer"></div>';
 
     let str = '';
@@ -1815,12 +1816,39 @@ function drawEndBattleScreen() {
     str += '</div>';
 
     str += '<div class="battleEnd-stats">';
+    str += '<div class="statsHeader">Stats</div>';
+    str += '<table class="statsListing">';
+    str += '<tbody>';
+    str += '<tr><td>Rounds</td><td>5</td>';
+    str += '<tr><td>Damage from striders</td><td>524</td>';
+    str += '<tr><td>Damage from enemies</td><td>12</td>';
+    str += '<tr><td>Striders accuracy</td><td>76%</td>';
+    str += '<tr><td>Enemies accuracy</td><td>81%</td>';
+    str += '<tr><td>Striders dodge</td><td>12%</td>';
+    str += '<tr><td>Enemies dodge</td><td>29%</td>';
+    str += '<tr><td>Striders bleeding damage</td><td>52</td>';
+    str += '<tr><td>Enemies bleeding damage</td><td>5</td>';
+    str += '<tr><td>Striders poison damage</td><td>0</td>';
+    str += '<tr><td>Enemies poison damage</td><td>62</td>';
+    str += '</tbody>';
+    str += '</table>';
     str += '</div>';
 
     str += '<div class="battleEnd-fighters">';
+    str += '<div class="battleEnd-fightersAllies">';
+    battle.allies.forEach(al => {
+        str += '<div class="battleEnd-fighter fighterAlly">' + al.name + '</div>';
+    });
+    str += '</div>';
+    str += '<div class="battleEnd-fightersEnemies">';
+    battle.enemies.forEach(en => {
+        str += '<div class="battleEnd-fighter fighterEnemy"><span class="fe-name">' + en.name + '</span><span class="fe-type">' + en.mobType + '</span></div>';
+    });
+    str += '</div>'
     str += '</div>';
 
     str += '<div class="battleEnd-loot">';
+    str += '<div class="lootHeader">Loot</div>';
     str += '</div>';
 
     str += '<div class="battleEnd-progress">';

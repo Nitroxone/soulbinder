@@ -5437,7 +5437,7 @@ table.astralForgeShards td {
 
     margin: 0 auto;
     padding: 2em;
-    width: 1000px;
+    width: 800px;
     height: 100%;
 
     margin-top: 6em;
@@ -5448,12 +5448,14 @@ table.astralForgeShards td {
     gap: 1em 1em;
     grid-template-areas: 
         "battleEnd-header battleEnd-header battleEnd-header"
-        "battleEnd-stats battleEnd-fighters battleEnd-fighters"
-        "battleEnd-progress battleEnd-progress battleEnd-loot";
+        "battleEnd-loot battleEnd-fighters battleEnd-fighters"
+        "battleEnd-progress battleEnd-progress battleEnd-stats";
 }
 
 .battleEnd-header, .battleEnd-stats, .battleEnd-fighters, .battleEnd-loot, .battleEnd-progress {
     border: 1px dashed grey;
+    border-radius: 3px;
+    padding: 0.5rem;
 }
 
 .battleEnd-header {
@@ -5471,25 +5473,79 @@ table.astralForgeShards td {
     align-items: center;
 }
 .battleEnd-header > .titles h1 {
-    font-family: RobotoSlabBold;
+    font-family: RobotoSlab;
     font-variant: small-caps;
-    font-size: 2.55rem;
+    font-size: 2rem;
     color: #ddd;
 }
 .battleEnd-header > .titles h3 {
     font-family: RobotoSlab;
     font-variant: small-caps;
     color: #ccc;
-    font-size: 1.2rem;
+    font-size: 1.05rem;
 }
 
 
 .battleEnd-stats {
     grid-area: battleEnd-stats;
+
 }
+.battleEnd-stats .statsHeader {
+    text-align: center;
+    font-family: RobotoSlab;
+    font-variant: small-caps;
+    color: #ddd;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+.battleEnd-stats > .statsListing {
+    margin: 0 auto;
+    width: 80%;
+}
+.battleEnd-stats > .statsListing tr td {
+    padding: 0.15rem 0;
+    font-size: 0.75rem;
+    color: grey;
+}
+.battleEnd-stats > .statsListing tr td:last-child {
+    text-align: right;
+    font-family: RobotoBold;
+    color: #ddd;
+}
+
+
 .battleEnd-fighters {
     grid-area: battleEnd-fighters;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
 }
+.battleEnd-fightersAllies, .battleEnd-fightersEnemies {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.battleEnd-fighter {
+    width: 95%;
+    padding: 1rem;
+
+    border: 1px solid red;
+    border-radius: 3px;
+}
+.battleEnd-fighter:not(:last-child) {
+    margin-bottom: 0.5rem;
+}
+.battleEnd-fighter.fighterEnemy {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+
 .battleEnd-loot {
     grid-area: battleEnd-loot;
 }
