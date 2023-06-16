@@ -1995,6 +1995,15 @@ function addSpecialEffect(pos, type) {
         case Data.Effect.STUN:
             type = 'stun';
             break;
+        case Data.Effect.BLOCK:
+            type = 'block';
+            break;
+        case Data.Effect.GUARDING:
+            type = 'guarding';
+            break;
+        case Data.Effect.GUARDED:
+            type = 'guarded';
+            break;
     }
     str += '<div class="specialEffect ' + type.toLowerCase() + '"></div>';
 
@@ -2006,6 +2015,15 @@ function removeSpecialEffect(pos, type) {
     switch(type) {
         case Data.Effect.STUN:
             type = 'stun';
+            break;
+        case Data.Effect.BLOCK:
+            type = 'block';
+            break;
+        case Data.Effect.GUARDING:
+            type = 'guarding';
+            break;
+        case Data.Effect.GUARDED:
+            type = 'guarded';
             break;
     }
     let identifier = '.specialEffect.' + type;
@@ -2175,6 +2193,8 @@ function generateBattleCommandsEvents() {
     });
     def.addEventListener('click', e => {
         console.log('blocking');
+        current.applyBlocking();
+        battle.endTurn();
     });
     mov.addEventListener('click', e => {
         if(battle.action != Data.BattleAction.MOVE) {

@@ -376,11 +376,11 @@ class NPC extends Entity {
 
     applyBlocking() {
         this.isBlocking = true;
-        //addSpecialEffect...
+        addSpecialEffect(this.getBattleFormationStringId(), Data.Effect.BLOCK);
     }
     removeBlocking() {
         this.isBlocking = false;
-        //addSpecialEffect...
+        removeSpecialEffect(this.getBattleFormationStringId(), Data.Effect.BLOCK);
     }
 
     applySelfRegenerationEffects() {
@@ -582,6 +582,7 @@ class NPC extends Entity {
         // First, loop through each effect. If the effect is ACTIVE, call addEffect.
         // Then, loop through each effect again, backwards, and remove 1 duration from each. If duration is 0, remove the effect entirely.
         // Then, loop through all the active effects. If there is no more effect, remove the active effect entirely.
+        if(this.isBlocking) this.removeBlocking();
         for(let i = 0; i < this.activeEffects.length; i++) {
             let ae = this.activeEffects[i];
             console.log(ae);
