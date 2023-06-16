@@ -1840,13 +1840,16 @@ function drawEndBattleScreen() {
 
     str += '<div class="battleEnd-fighters">';
     str += '<div class="battleEnd-fightersAllies">';
+    let delay = 0;
     battle.allies.forEach(al => {
-        str += '<div class="battleEnd-fighter fighterAlly" style="background-image:linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 1) 100%), url(\'css/img/chars/' + al.charset + '\')"><span class="fi-name">' + al.name + '</span><span class="fi-type">' + al.striderType + '</span></div>';
+        str += '<div class="battleEnd-fighter fighterAlly" style="animation-delay: ' + delay + 's; background-image:linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 1) 100%), url(\'css/img/chars/' + al.charset + '\')"><span class="fi-name">' + al.name + '</span><span class="fi-type">' + al.striderType + '</span></div>';
+        delay += 0.1;
     });
     str += '</div>';
     str += '<div class="battleEnd-fightersEnemies">';
     battle.enemies.forEach(en => {
-        str += '<div class="battleEnd-fighter fighterEnemy" style="background-image:linear-gradient(270deg, transparent 0%, rgba(0, 0, 0, 1) 100%), url(\'css/img/chars/' + en.charset + '\')"><span class="fi-name">' + en.name + '</span><span class="fi-type">' + en.mobType + '</span></div>';
+        str += '<div class="battleEnd-fighter fighterEnemy" style="animation-delay: ' + delay + 's; background-image:linear-gradient(270deg, transparent 0%, rgba(0, 0, 0, 1) 100%), url(\'css/img/chars/' + en.charset + '\')"><span class="fi-name">' + en.name + '</span><span class="fi-type">' + en.mobType + '</span></div>';
+        delay += 0.1;
     });
     str += '</div>'
     str += '</div>';

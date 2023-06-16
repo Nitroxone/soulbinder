@@ -5479,6 +5479,16 @@ table.astralForgeShards td {
         "battleEnd-header battleEnd-header battleEnd-header"
         "battleEnd-loot battleEnd-fighters battleEnd-fighters"
         "battleEnd-progress battleEnd-progress battleEnd-stats";
+
+    animation-name: battleEndSlideIn;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+@keyframes battleEndSlideIn {
+    from {
+        opacity: 0.5;
+        transform: translateY(15px);
+    }
 }
 
 .battleEnd-header, .battleEnd-stats, .battleEnd-fighters, .battleEnd-loot, .battleEnd-progress {
@@ -5575,7 +5585,21 @@ table.astralForgeShards td {
 
     border: 2px solid rgb(100, 100, 100);
     border-radius: 3px;
+
+    animation-name: battleEndFighterSlideIn;
+    animation-duration: .5s;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation-fill-mode: forwards;
+    opacity: 0;
+    transform: translateX(-30px);
 }
+@keyframes battleEndFighterSlideIn {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
 .battleEnd-fighter:hover {
     /*border-color: rgb(155, 155, 155);*/
 }
