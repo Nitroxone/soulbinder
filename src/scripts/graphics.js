@@ -1263,18 +1263,22 @@ function drawWorkshopScreen() {
     str += '<p class="workshopTab-titles">ALCHEMY</p>';
     str += '</div>';
 
-    str += '<div class="workshopTab workshopTab-sigils">';
-    str += '<div class="workshopTab-backgrounds sigils-background"></div>';
-    str += '<p class="workshopTab-titles">SIGILS</p>';
+    str += '<div class="workshopTab workshopTab-soulwriting">';
+    str += '<div class="workshopTab-backgrounds soulwriting-background"></div>';
+    str += '<p class="workshopTab-titles">SOULWRITING</p>';
     str += '</div>';
 
-    str += '<div class="workshopTab workshopTab-enchanting">';
-    str += '<div class="workshopTab-backgrounds enchanting-background"></div>';
-    str += '<p class="workshopTab-titles">ENCHANTING</p>';
+    str += '<div class="workshopTab workshopTab-soulbiding">';
+    str += '<div class="workshopTab-backgrounds soulbinding-background"></div>';
+    str += '<p class="workshopTab-titles">SOULBINDING</p>';
     str += '</div>';
 
     str += '<div class="workshopTab workshopTab-astralForge">';
-    str += '<div class="astralForgeReceptacle" ondrop="openAstralForge(event)" ondragover="allowDrop(event)"></div>';
+    str += '<div class="astralForgeReceptacle" ondrop="openAstralForge(event)" ondragover="allowDrop(event)">';
+    str += '<div class="workshopTab-backgrounds astralForge-background"></div>';
+    str += '<p class="workshopTab-titles" id="workshop-title-astralForge">ASTRAL FORGE</p>';
+    str += '<p class="workshopTab-subtitles">Drag and drop any weapon or armor into the circle to alter its capabilities</p>';
+    str += '</div>';
     str += '</div>';
 
     str += '</div>';
