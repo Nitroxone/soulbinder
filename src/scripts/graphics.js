@@ -1862,8 +1862,6 @@ function drawEndBattleScreen() {
     str += '</div>';
 
     document.querySelector('.battleEndContainer').innerHTML = str;
-
-    game.currentBattle = null;
 }
 
 function drawBattleScreen() {
