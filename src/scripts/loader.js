@@ -2231,7 +2231,7 @@ const Loader = {
                         new EnemyAction({
                             title: 'regular',
                             owner: function(){ return what(game.currentBattle.enemies, "mycelial tick") },
-                            checker: function(){ return this.owner.skills[0].manaCost >= this.owner.mana },
+                            checker: function(){ return this.owner.skills[0].manaCost <= this.owner.mana },
                             behavior: function(){
                                 game.currentBattle.target.push(choose(game.currentBattle.allies));
                                 game.currentBattle.selectedSkill = this.owner.skills[0];
