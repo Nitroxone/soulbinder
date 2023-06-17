@@ -5163,8 +5163,7 @@ table.astralForgeShards td {
 }
 
 .battle-specialEffectsContainer {
-    display: flex;
-    flex-direction: row;
+    display: inline-block;
     height: 16px;
 }
 .battle-specialEffectsContainer .specialEffect:not(:first-child) {
@@ -5206,16 +5205,29 @@ table.astralForgeShards td {
 .specialEffect.block {
     animation-name: blockAnimation;
     animation-duration: 2s;
-    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation-timing-function: ease-in-out;
     animation-iteration-count: infinite;
     animation-fill-mode: forwards;
 
-    background-color: var(--base-blue);
+    background-color: #3498db;
     transition: all .1s ease-in-out;
-    border: 1px solid white;
+    border-radius: 3px;
+    transform: rotate(45deg);
 
     width: 12px;
     height: 12px;
+}
+
+@keyframes blockAnimation {
+    25% {
+        transform: scale(1.1)
+    }
+    75% {
+        transform: scale(1.12);
+    }
+    100% {
+        transform: scale(0.9) rotate(225deg);
+    }
 }
 
 .eonsContainer {

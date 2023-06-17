@@ -921,7 +921,7 @@ const Loader = {
                         theorical: [100, 150],
                     }),
                     new Stat({
-                        effect: Data.Effect.BLOCK,
+                        effect: Data.Effect.MODIF_BLOCK,
                         theorical: [10, 15],
                         isPercentage: true
                     }),
@@ -974,7 +974,6 @@ const Loader = {
                     new Stat({
                         effect: Data.Effect.MIGHT,
                         theorical: [20, 30],
-                        isPercentage: true,
                     }),
                     new Stat({
                         effect: Data.Effect.PROTECTION,

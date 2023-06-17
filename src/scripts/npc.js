@@ -276,6 +276,14 @@ class NPC extends Entity {
         damage = phys_damage + magi_damage + crit;
         damage -= Math.round(damage * this.protection / 100);
 
+        if(this.isBlocking) {
+            let reduction = 0;
+            if(this instanceof Strider) reduction += this.getTotalBlockValue();
+            reduction += Math.round(damage * (0.2 + this.modifBlock/100));
+            console.log('Blocking: Reduced ' + reduction + ' damage');
+            damage = Math.max(0, damage - reduction);
+        }
+
         this.removeBaseStat(new Stat({effect: Data.Effect.HEALTH, theorical: damage}));
 
         console.log(this.name + ' received ' + damage + ' damage (' + phys + ' phys, effective ' + phys_damage + ' | ' + magi + ' magi, effective ' + magi_damage + ' | ' + crit + ' critical -> Total ' + damage + ' with ' + this.protection + '% reduction');

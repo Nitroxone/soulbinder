@@ -383,4 +383,14 @@ class Strider extends NPC {
         this.removeBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: weapon.effort}));
         this.runTriggers(Data.TriggerType.ON_USE_WEAPON);
     }
+
+    getTotalBlockValue() {
+        let val = 0;
+
+        if(this.eqWeaponBoth) val += this.eqWeaponBoth.block;
+        if(this.eqWeaponLeft) val += this.eqWeaponLeft.block;    
+        if(this.eqWeaponRight) val += this.eqWeaponRight.block;
+
+        return val;
+    }
 }

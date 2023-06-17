@@ -104,7 +104,6 @@ class Battle {
         this.runTriggersOnAll(Data.TriggerType.ON_BATTLE_END);
         this.outcome = Data.BattleOutcome.VICTORY;
         drawEndBattleScreen();
-        game.currentBattle = null;
     }
 
     /**

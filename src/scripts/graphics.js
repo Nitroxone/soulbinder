@@ -1862,6 +1862,8 @@ function drawEndBattleScreen() {
     str += '</div>';
 
     document.querySelector('.battleEndContainer').innerHTML = str;
+
+    game.currentBattle = null;
 }
 
 function drawBattleScreen() {
@@ -1983,6 +1985,7 @@ function getSpecialEffects(fighter) {
     let str = '';
 
     if(fighter.isStunned) str += '<div class="specialEffect stun"></div>'; 
+    if(fighter.isBlocking) str += '<div class="specialEffect block"></div>'; 
     if(fighter.isGuarded) str += '<div class="specialEffect guarded"></div>'; 
     if(fighter.isGuarding) str += '<div class="specialEffect guarding"></div>'; 
 
