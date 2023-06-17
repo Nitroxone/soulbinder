@@ -5163,7 +5163,7 @@ table.astralForgeShards td {
 }
 
 .battle-specialEffectsContainer {
-    display: inline-block;
+    display: flex;
     height: 16px;
 }
 .battle-specialEffectsContainer .specialEffect:not(:first-child) {
@@ -5213,6 +5213,8 @@ table.astralForgeShards td {
     transition: all .1s ease-in-out;
     border-radius: 3px;
     transform: rotate(45deg);
+
+    margin:0;
 
     width: 12px;
     height: 12px;

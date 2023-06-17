@@ -1777,7 +1777,7 @@ const Loader = {
                         {
                             type: Data.SkillType.OFFENSIVE,
                             dmgType: Data.SkillDamageType.MAGICAL,
-                            manaCost: 40,
+                            manaCost: 20,
                             dmgMultiplier: 100,
                             criMultiplier: 10,
                             accMultiplier: 90,
@@ -1803,7 +1803,7 @@ const Loader = {
                         {
                             type: Data.SkillType.OFFENSIVE,
                             dmgType: Data.SkillDamageType.MAGICAL,
-                            manaCost: 50,
+                            manaCost: 30,
                             dmgMultiplier: 120,
                             criMultiplier: 20,
                             accMultiplier: 85,
@@ -1930,10 +1930,10 @@ const Loader = {
                             effectsAllies: {
                                 1: {
                                     regular: [
-                                        new Stat({effect: Data.Effect.SHIELD, theorical: [20, 25], duration: 2})
+                                        new Stat({effect: Data.Effect.SHIELD, theorical: [20, 25], duration: 3})
                                     ],
                                     critical: [
-                                        new Stat({effect: Data.Effect.SHIELD, theorical: [25, 30], duration: 3, isCritical: true})
+                                        new Stat({effect: Data.Effect.SHIELD, theorical: [25, 30], duration: 4, isCritical: true})
                                     ]
                                 }
                             },
@@ -1987,10 +1987,10 @@ const Loader = {
                             effectsCaster: {
                                 1: {
                                     regular: [
-                                        new Stat({effect: Data.Effect.MODIF_HEAL_GIVEN, theorical: [5, 10], isPercentage: true})
+                                        new Stat({effect: Data.Effect.MODIF_HEAL_GIVEN, theorical: [5, 10], isPercentage: true, duration: 2})
                                     ],
                                     critical: [
-                                        new Stat({effect: Data.Effect.MODIF_HEAL_GIVEN, theorical: [10, 15], isPercentage: true})
+                                        new Stat({effect: Data.Effect.MODIF_HEAL_GIVEN, theorical: [10, 15], isPercentage: true, duration: 2})
                                     ]
                                 }
                             },
@@ -2001,6 +2001,42 @@ const Loader = {
                                     ],
                                     critical: [
                                         new Stat({effect: Data.Effect.HEALTH, theorical: [15, 20], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true})
+                                    ]
+                                }
+                            }
+                        }
+                    ),
+                    new Skill(
+                        "Dazzling Truth",
+                        "Replenishes Betheros' §Mana§ and boosts his §Accuracy§. Reduces the targets' §Dodge§.",
+                        17,
+                        {
+                            type: Data.SkillType.OFFENSIVE,
+                            manaCost: 20,
+                            dmgMultiplier: 90,
+                            accMultiplier: 90,
+                            criMultiplier: 10,
+                            targets: {allies: '-0', enemies: '@23'},
+                            cooldown: 2,
+                            effectsCaster: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.MANA, theorical: [10, 15], isPercentage: true, type: Data.StatType.ACTIVE, duration: 2}),
+                                        new Stat({effect: Data.Effect.ACCURACY, theorical: 10, isPercentage: true, duration: 3})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.MANA, theorical: [15, 20], isPercentage: true, type: Data.StatType.ACTIVE, duration: 2, isCritical: true}),
+                                        new Stat({effect: Data.Effect.ACCURACY, theorical: 15, isPercentage: true, duration: 3, isCritical: true})
+                                    ]
+                                }
+                            },
+                            effectsEnemies: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.DODGE, theorical: [-5, -8], isPercentage: true, duration: 3})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.DODGE, theorical: [-8, -12], isPercentage: true, duration: 3, isCritical: true})
                                     ]
                                 }
                             }
@@ -2195,14 +2231,26 @@ const Loader = {
                         new EnemyAction({
                             title: 'regular',
                             owner: function(){ return what(game.currentBattle.enemies, "mycelial tick") },
+                            checker: function(){ return this.owner.skills[0].manaCost >= this.owner.mana },
                             behavior: function(){
                                 game.currentBattle.target.push(choose(game.currentBattle.allies));
                                 game.currentBattle.selectedSkill = this.owner.skills[0];
                                 console.log('attacking ' + game.currentBattle.target[0].name + ' with ' + game.currentBattle.selectedSkill.name);
                                 game.currentBattle.executeSkill();
-
+                                
                             }
-                        })
+                        }),
+                        new EnemyAction({
+                            title: 'block',
+                            owner: function(){ return what(game.currentBattle.enemies, "mycelial tick") },
+                            checker: function(){ return this.owner.stamina > 0 },
+                            behavior: function() {
+                                console.log('blocks');
+                                this.owner.applyBlocking();
+                                this.owner.removeBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 5}));
+                                game.currentBattle.endTurn();
+                            }
+                        }),
                     ]
                 })
             ),
