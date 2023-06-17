@@ -440,6 +440,8 @@ class Battle {
             this.computeAttackParams(tar);
             let params = this.params;
             if(params.success_accuracy && !params.success_dodge) {
+                if(tar.isGuarded) tar = tar.guardedBy;
+
                 // Successful hit
                 this.runTriggersOnCurrent(Data.TriggerType.ON_DEAL_DAMAGE);
                 tar.runTriggers(Data.TriggerType.ON_RECV_DAMAGE);
@@ -551,6 +553,8 @@ class Battle {
             this.computeSkillParams(tar, isCrit);
             let params = this.params;
             if(params.success_accuracy && !params.success_dodge) {
+                if(tar.isGuarded) tar = tar.guardedBy;
+
                 // Successful hit
                 console.log('Successful hit!');
                 if(params.phys_damage > 0 || params.magi_damage > 0) {
@@ -575,6 +579,7 @@ class Battle {
                     if(skill.effectsAllies && arrayContains(this.allies, tar)) {
                         skill.effectsAllies[skill.level][accessor].forEach(eff => {
                             if(!isMovementEffect(eff.effect)) {
+                                if(eff.effect === Data.Effect.GUARDED) skill.variables.guarded = tar;
                                 let newEff = Entity.clone(eff);
                                 newEff.fix();
                                 effects.push(newEff);
@@ -590,6 +595,7 @@ class Battle {
                                         return;
                                     }
                                 }
+                                if(eff.effect === Data.Effect.GUARDED) skill.variables.guarded = tar;
                                 let newEff = Entity.clone(eff);
                                 newEff.fix();
                                 effects.push(newEff);
@@ -632,6 +638,7 @@ class Battle {
                             return;
                         }
                     }
+                    if(eff.effect === Data.Effect.GUARDED) skill.variables.guarded = tar;
                     let newEff = Entity.clone(eff);
                     newEff.fix();
                     effects.push(newEff);

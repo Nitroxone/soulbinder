@@ -1673,7 +1673,6 @@ const Loader = {
                                 }
                             },
                             variables: {
-                                guarding: what(game.player.formation, "amarok"),
                                 guarded: null
                             }
                         }

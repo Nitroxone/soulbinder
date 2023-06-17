@@ -24,13 +24,13 @@ DONE - Implement launch pos checks
 DONE - Implement skill cooldown
 DONE - Implement remaining GUI (Round, Location...)
 DONE - Implement all modifiers (Stun modif, Poison modif, Bleed modif...)
+DONE - Add blocking special effect & blocking action
+DONE - Implement guarding mechanic
 - Freeze events on action (prevent action spamming)
-- Add blocking special effect & blocking action
-- Implement guarding mechanic
 - Implement shield in combats
 - Implement consumables & using them in combat
-- Implement skill stackability
 - Thoroughly comment complex battle functions
+ABANDONED - Implement skill stackability
 
 ASTRAL FORGE:
 - Create GUI -- ONGOING

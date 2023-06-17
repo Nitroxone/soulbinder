@@ -88,6 +88,8 @@ class NPC extends Entity {
         this.isGuarded = false;
         this.isGuarding = false;
         this.isBlocking = false;
+        this.guardedBy = null;
+        this.guarding = null;
 
         this.skills = [];
         skills.forEach(skill => {
@@ -391,6 +393,26 @@ class NPC extends Entity {
         removeSpecialEffect(this.getBattleFormationStringId(), Data.Effect.BLOCK);
     }
 
+    applyGuarded(npc) {
+        this.isGuarded = true;
+        this.guardedBy = npc;
+        addSpecialEffect(this.getBattleFormationStringId(), Data.Effect.GUARDED);
+    }
+    removeGuarded() {
+        this.isGuarded = false;
+        this.guardedBy = null;
+        removeSpecialEffect(this.getBattleFormationStringId(), Data.Effect.GUARDED);
+    }
+
+    applyGuarding(npc) {
+        this.isGuarding = true;
+        this.guarding = npc;
+    }
+    removeGuarding() {
+        this.isGuarding = false;
+        this.guarding = null;
+    }
+
     applySelfRegenerationEffects() {
         this.regenHealth > 0 && this.addBaseStat(new Stat({effect: Data.Effect.HEALTH, theorical: this.regenHealth, isPercentage: true}));
         this.regenMana > 0 && this.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: this.regenMana, isPercentage: true}));
@@ -538,8 +560,8 @@ class NPC extends Entity {
             if(eff.delay === 0) {
                 if(isBaseStatChange(eff)) this.alterBaseStat(eff, originUser);
                 else if(eff.effect === Data.Effect.STUN) this.applyStun()
-                else if(eff.effect === Data.Effect.GUARDED) this.applyGuarded(eff);
-                else if(eff.effect === Data.Effect.GUARDING) this.applyGuarding(eff);
+                else if(eff.effect === Data.Effect.GUARDED) this.applyGuarded(originUser);
+                else if(eff.effect === Data.Effect.GUARDING) this.applyGuarding(skill.variables.guarded);
                 else this.addEffect(eff);
             }
         });

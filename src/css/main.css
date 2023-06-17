@@ -5186,8 +5186,8 @@ table.astralForgeShards td {
     transition: all .1s ease-in-out;
     border: 2px solid white;
     
-    width: 12px;
-    height: 12px;
+    /*width: 12px;
+    height: 12px;*/
 }
 
 @keyframes stunAnimation {
@@ -5203,33 +5203,37 @@ table.astralForgeShards td {
 }
 
 .specialEffect.block {
-    animation-name: blockAnimation;
-    animation-duration: 2s;
-    animation-timing-function: ease-in-out;
-    animation-iteration-count: infinite;
-    animation-fill-mode: forwards;
-
-    background-color: #3498db;
-    transition: all .1s ease-in-out;
-    border-radius: 3px;
-    transform: rotate(45deg);
+    background: url('img/blocking_icon.png');
+    background-size: cover;
+    background-repeat: no-repeat;
 
     margin:0;
 
-    width: 12px;
-    height: 12px;
+    transition: all .1s ease-in-out;
+
+    /*animation-name: blockIconSlideIn;
+    animation-duration: .5s;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);*/
+}
+@keyframes blockIconSlideIn {
+    from {
+        transform: translateY(10px);
+        opacity: 0;
+    }
 }
 
-@keyframes blockAnimation {
-    25% {
-        transform: scale(1.1)
-    }
-    75% {
-        transform: scale(1.12);
-    }
-    100% {
-        transform: scale(0.9) rotate(225deg);
-    }
+.specialEffect.block:hover, .specialEffect.guarded:hover {
+    filter: brightness(120%);
+}
+
+.specialEffect.guarded {
+    background: url('img/guarded_icon.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    margin: 0;
+
+    transition: all .1s ease-in-out;
 }
 
 .eonsContainer {
