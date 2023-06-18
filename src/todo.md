@@ -26,8 +26,8 @@ DONE - Implement remaining GUI (Round, Location...)
 DONE - Implement all modifiers (Stun modif, Poison modif, Bleed modif...)
 DONE - Add blocking special effect & blocking action
 DONE - Implement guarding mechanic
+DONE - Implement shield in combats
 - Freeze events on action (prevent action spamming)
-- Implement shield in combats
 - Implement consumables & using them in combat
 - Thoroughly comment complex battle functions
 ABANDONED - Implement skill stackability
