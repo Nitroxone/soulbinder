@@ -294,7 +294,7 @@ class NPC extends Entity {
 
     receiveBleedOrPoison(eff) {
         console.log('---TRIGGERED: ' + eff.effect);
-        this.removeBaseStat(new Stat({effect: Data.Effect.HEALTH, theorical: eff.getValue()}));
+        this.removeBaseStat(new Stat({effect: Data.Effect.HEALTH, theorical: eff.getValue(), ignoreShield: true}));
         if(eff.effect === Data.Effect.BLIGHT_CURABLE || eff.effect === Data.Effect.BLIGHT_INCURABLE) {
             this.removeBaseStat(new Stat({effect: Data.Effect.MANA, theorical: eff.getValue()}));
         } else if(eff.effect === Data.Effect.BLEEDING_CURABLE || eff.effect === Data.Effect.BLEEDING_INCURABLE) {
@@ -311,7 +311,7 @@ class NPC extends Entity {
         if(eff.effect === Data.Effect.HEALTH) {
             let removeShield = false;
             damage = (eff.isPercentage ? this.maxHealth * Math.abs(eff.getValue()) / 100 : eff.getValue());
-            if(this.shield > 0) {
+            if(this.shield > 0 && !eff.ignoreShield) {
                 if(this.shield <= Math.abs(damage)) {
                     removeShield = true;
                     this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.TURQUOISE + '">- ' + this.shield + '</p>'));
@@ -322,7 +322,7 @@ class NPC extends Entity {
                 }
                 if(removeShield) this.shield = 0;
             }
-            if(this.shield <= 0) {
+            if(this.shield <= 0 || eff.ignoreShield) {
                 if(damage > 0) this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.RED + '">- ' + Math.round(damage) + '</p>'));
                 this.health = Math.max(0, this.health - Math.round(damage));
             }

@@ -20,6 +20,7 @@ class Stat {
      * @param {number} delay 0 = immediate, < 0 = delay in rounds
      * @param {string} type is it a PASSIVE or ACTIVE Stat?
      * @param {number} chance base chance of the effect being applied. This is only used for Stun/Move effects in Skills.
+     * @param {boolean} ignoreShield this is used to bypass shield protection while removing health from Blight and Bleeding effects.
      */
     constructor(props) {
 
@@ -33,6 +34,7 @@ class Stat {
         this.delay = getValueFromObject(props, "delay", 0);
         this.type = getValueFromObject(props, "type", Data.StatType.PASSIVE);
         this.chance = getValueFromObject(props, "chance", 100);
+        this.ignoreShield = getValueFromObject(props, "ignoreShield", false);
 
         this.value = null;
 
