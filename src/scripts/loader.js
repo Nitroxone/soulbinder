@@ -146,26 +146,68 @@ const Loader = {
                 10,
                 Data.Rarity.RARE
             ),
-            new Resource(
+            new AlchemicalIngredient(
                 "Dark Stone",
-                "A chunk of a stone darkened by corruption.",
+                "The Dark Stone is a foreboding artifact of ancient origin, radiating an unsettling aura of malevolence. Hewn from the depths of the abyss, its surface is smooth and obsidian-like, yet marred with jagged cracks that seem to pulse with a faint, eerie glow. Legends speak of its connection to the darkest forces of the world, making it both a coveted and feared object.",
                 6,
                 10,
                 Data.Rarity.COMMON,
+                {
+                    passive: {
+                        effect: new Stat({effect: Data.Effect.PROTECTION, theorical: 2, isPercentage: true}),
+                        toxicity: 5,
+                    },
+                    recovery: {
+                        effect: new Stat({effect: Data.Effect.MANA, theorical: 4, isPercentage: true}),
+                        toxicity: 20
+                    },
+                    special: {
+                        effect: new Stat({effect: Data.Effect.REMOVES_PROTECTION_DEBUFFS}),
+                        toxicity: 50
+                    }
+                }
             ),
-            new Resource(
+            new AlchemicalIngredient(
                 "Silver Essence",
-                "A bottle of the finest refined silver essence.",
+                "Silver Essence is a rare and coveted substance that is whispered to be the distilled essence of moonlight itself. It is a shimmering, ethereal liquid contained within a small vial adorned with intricate silver engravings. The power it holds is both enchanting and treacherous, capable of transforming ordinary weapons and armor into formidable tools of destruction.",
                 5,
                 10,
                 Data.Rarity.COMMON,
+                {
+                    passive: {
+                        effect: new Stat({effect: Data.Effect.MIGHT, theorical: 2,}),
+                        toxicity: 5,
+                    },
+                    recovery: {
+                        effect: new Stat({effect: Data.Effect.STAMINA, theorical: 4, isPercentage: true}),
+                        toxicity: 20
+                    },
+                    special: {
+                        effect: new Stat({effect: Data.Effect.REMOVES_WARDING_DEBUFFS}),
+                        toxicity: 50
+                    }
+                }
             ),
-            new Resource(
+            new AlchemicalIngredient(
                 "Decaying Petals",
-                "blabla",
+                "These withered petals, once vibrant and fragrant, have fallen from a cursed blossom in a forgotten realm. Despite their decaying state, their ominous beauty holds a sinister power. When ingested, Decaying Petals infuse the user with a potent essence of darkness.",
                 7,
                 10,
                 Data.Rarity.UNCOMMON,
+                {
+                    passive: {
+                        effect: new Stat({effect: Data.Effect.WARDING, theorical: 2}),
+                        toxicity: 5,
+                    },
+                    recovery: {
+                        effect: new Stat({effect: Data.Effect.HEALTH, theorical: 4, isPercentage: true}),
+                        toxicity: 20
+                    },
+                    special: {
+                        effect: new Stat({effect: Data.Effect.REMOVES_RESILIENCE_DEBUFFS}),
+                        toxicity: 50
+                    }
+                }
             ),
             new TimeShard(
                 "Minor Time Shard",

@@ -170,6 +170,36 @@ function getResourceTooltip(resource, asResult = null) {
     str += '<div class="fancyText barred">' + capitalizeFirstLetter(resource.rarity) + '</div>';
     str += '<div class="infoDesc">';
     str += '<div class="par"></div>';
+
+    if(resource instanceof AlchemicalIngredient) {
+        str += '<div class="alchemicalProps">';
+        str += '<div class="alchemicalPropsTitle">Alchemical properties</div>';
+
+        str += '<br>';
+
+        str += '<div class="alchemicalPropsItem">';
+        str += '<div class="alchemicalPropsType"><span class="alchtype">Passive</span><span class="alchtoxi">' + resource.passive.toxicity + ' Toxicity</span></div>';
+        str += resource.passive.effect.getFormatted({cssClass: 'alchemicalPropsEff', noTheorical: true});
+        str += '</div>';
+
+        str += '<br>';
+
+        str += '<div class="alchemicalPropsItem">';
+        str += '<div class="alchemicalPropsType"><span class="alchtype">Recovery</span><span class="alchtoxi">' + resource.recovery.toxicity + ' Toxicity</span></div>';
+        str += resource.recovery.effect.getFormatted({cssClass: 'alchemicalPropsEff', noTheorical: true});
+        str += '</div>';
+
+        str += '<br>';
+
+        str += '<div class="alchemicalPropsItem">';
+        str += '<div class="alchemicalPropsType"><span class="alchtype">Special</span><span class="alchtoxi">' + resource.special.toxicity + ' Toxicity</span></div>';
+        str += resource.special.effect.getFormatted({cssClass: 'alchemicalPropsEff', noTheorical: true});
+        str += '</div>';
+
+        str += '</div>';
+        str += '<div class="divider"></div>';
+    }
+
     str += '<div class="par tooltipDesc">' + resource.desc + '</div>';
     str += '</div></div>';
 
