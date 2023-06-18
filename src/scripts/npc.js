@@ -260,6 +260,7 @@ class NPC extends Entity {
      */
     addShield(amount) {
         this.shield = Math.min(this.maxHealth, this.shield+amount);
+        if(amount > 0) this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.TURQUOISE + '">+ ' + Math.round(amount) + '</p>'));
     }
 
     /**
@@ -306,21 +307,25 @@ class NPC extends Entity {
      * @param {Stat} eff the effect to add
      */
     removeBaseStat(eff) {
-        let damage;
+        let damage; // 22 shield, 20 dmg
         if(eff.effect === Data.Effect.HEALTH) {
             let removeShield = false;
-            damage = (eff.isPercentage ? this.maxHealth * Math.abs(eff.getValue()) / 100 : Math.abs(eff.getValue()));
+            damage = (eff.isPercentage ? this.maxHealth * Math.abs(eff.getValue()) / 100 : eff.getValue());
             if(this.shield > 0) {
-                if(this.shield <= this.damage) {
+                if(this.shield <= Math.abs(damage)) {
                     removeShield = true;
                     this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.TURQUOISE + '">- ' + this.shield + '</p>'));
-                } else this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.TURQUOISE + '">- ' + Math.round(damage) + '</p>'));
-                damage = Math.round(damage) - this.shield;
-                
+                    damage = Math.round(damage) - this.shield;
+                } else {
+                    this.shield = Math.max(0, this.shield - damage);
+                    this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.TURQUOISE + '">- ' + Math.round(damage) + '</p>'));
+                }
                 if(removeShield) this.shield = 0;
             }
-            if(damage > 0) this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.RED + '">- ' + Math.round(damage) + '</p>'));
-            this.health = Math.max(0, this.health - Math.round(damage));
+            if(this.shield <= 0) {
+                if(damage > 0) this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.RED + '">- ' + Math.round(damage) + '</p>'));
+                this.health = Math.max(0, this.health - Math.round(damage));
+            }
         } else if(eff.effect === Data.Effect.STAMINA) {
             damage = (eff.isPercentage ? this.maxStamina * Math.abs(eff.getValue()) / 100 : Math.abs(eff.getValue()));
             if(damage > 0) this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.GREEN + '">-' + Math.round(damage) + '</p>'));
@@ -559,6 +564,7 @@ class NPC extends Entity {
         effects.forEach(eff => {
             if(eff.delay === 0) {
                 if(isBaseStatChange(eff)) this.alterBaseStat(eff, originUser);
+                else if(eff.effect === Data.Effect.SHIELD) this.addShield(eff.getValue());
                 else if(eff.effect === Data.Effect.STUN) this.applyStun()
                 else if(eff.effect === Data.Effect.GUARDED) this.applyGuarded(originUser);
                 else if(eff.effect === Data.Effect.GUARDING) this.applyGuarding(skill.variables.guarded);

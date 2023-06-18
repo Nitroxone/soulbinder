@@ -1967,6 +1967,7 @@ function getFighterFrame(fighter, type, pos) {
     str += '<div id="' + id + '" class="animationsWrapper"></div>';
     if(fighter) {
         str += '<div id="b-' + type + '-' + pos + '" class="battleFighter" style="background-image: linear-gradient(transparent 0%, rgba(0, 0, 0, 1) 70%), url(\'css/img/chars/' + fighter.charset + '\'); ' + (fighter.health === 0 ? ' filter: grayscale(100%);' : '') + '">';
+        str += '<div class="battle-shieldContainer">' + getBattleShieldAmount(fighter) + '</div>';
         str += '<div class="battle-specialEffectsContainer">' + getSpecialEffects(fighter) + '</div>';
         str += '<div class="gaugeProgress"><div class="statGauge health" style="width:'+ Math.round((fighter.health*100)/fighter.maxHealth) +'%"><span class="gaugeIndicator">'+ fighter.health + '/' + fighter.maxHealth +'</span></div></div>';
         str += '<div class="gaugeProgress"><div class="statGauge stamina" style="width:'+ Math.round((fighter.stamina*100)/fighter.maxStamina) +'%"><span class="gaugeIndicator">'+ fighter.stamina + '/' + fighter.maxStamina +'</span></div></div>';
@@ -1975,6 +1976,14 @@ function getFighterFrame(fighter, type, pos) {
     }
     str += '<div class="playOrderIndicator">' + playOrder + '</div>';
     str += '</div>';
+
+    return str;
+}
+
+function getBattleShieldAmount(fighter) {
+    let str = '';
+
+    if(fighter.shield > 0) str += '<div class="shieldAmount">' + fighter.shield + '</div>';
 
     return str;
 }
@@ -2009,6 +2018,7 @@ function addSpecialEffect(pos, type) {
     str += '<div class="specialEffect ' + type.toLowerCase() + '"></div>';
 
     console.log('Added: ' + str + ' to :' + pos);
+    if(!document.querySelector('.battle-specialEffectsContainer')) document.
     document.querySelector('#' + pos).querySelector('.battle-specialEffectsContainer').innerHTML += str;
 }
 

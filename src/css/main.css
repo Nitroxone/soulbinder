@@ -5491,6 +5491,18 @@ table.astralForgeShards td {
     font-size: 1rem;
 }
 
+.battle-shieldContainer {
+    display: flex;
+    flex-direction: row;
+    height: 16px;
+}
+.battle-shieldContainer > .shieldAmount {
+    font-family: RobotoSlab;
+    font-variant: small-caps;
+    color: #1abc9c;
+    font-size: 0.75rem;
+}
+
 /* BATTLE END SCREEN */
 
 .battleEndContainer {
