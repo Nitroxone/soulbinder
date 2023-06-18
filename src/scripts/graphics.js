@@ -182,15 +182,11 @@ function getResourceTooltip(resource, asResult = null) {
         str += resource.passive.effect.getFormatted({cssClass: 'alchemicalPropsEff', noTheorical: true});
         str += '</div>';
 
-        str += '<br>';
-
         str += '<div class="alchemicalPropsItem">';
         str += '<div class="alchemicalPropsType"><span class="alchtype">Recovery</span><span class="alchtoxi">' + resource.recovery.toxicity + ' Toxicity</span></div>';
         str += resource.recovery.effect.getFormatted({cssClass: 'alchemicalPropsEff', noTheorical: true});
         str += '</div>';
-
-        str += '<br>';
-
+        
         str += '<div class="alchemicalPropsItem">';
         str += '<div class="alchemicalPropsType"><span class="alchtype">Special</span><span class="alchtoxi">' + resource.special.toxicity + ' Toxicity</span></div>';
         str += resource.special.effect.getFormatted({cssClass: 'alchemicalPropsEff', noTheorical: true});
