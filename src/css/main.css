@@ -2201,6 +2201,9 @@ table.statsTable tbody td:nth-child(3) {
     background-color: grey;
     line-height: 12px;
 }
+.statGauge.toxicitySmaller {
+    height: 10px;
+}
 .statGauge > .gaugeIndicator {
     position: absolute;
     left:0;
@@ -2216,7 +2219,7 @@ table.statsTable tbody td:nth-child(3) {
 .stamina {
     background: linear-gradient(0deg, rgba(41,136,76,1) 23%, rgba(0,205,82,1) 100%);
 }
-.toxicity {
+.toxicity, .toxicitySmaller {
     background: linear-gradient(0deg, rgb(20, 92, 47) 23%, rgb(0, 136, 54) 100%);
 }
 .gaugeIndicator {
@@ -3464,13 +3467,12 @@ hr.leftSided {
 .alchPotionPreview-wrapper {
     display: flex;
     flex-direction: row;
-    justify-content: center;
     align-items: center;
-    width: 100%;
+    width: 60%;
+
+    padding: 1rem !important;
 }
 .alchPotionPreview-vignette {
-    margin-left: 4rem;
-
     width: 96px;
     height: 96px;
 
@@ -3485,7 +3487,7 @@ hr.leftSided {
     display: flex;
     flex-direction: column;
     justify-content: start;
-    width: 40%;
+    width: 80%;
     min-height: 96px;
 }
 .alchPotionPreview-name {
@@ -3494,6 +3496,36 @@ hr.leftSided {
     font-variant: small-caps;
     color: #ccc;
     text-shadow: 0px 1px 0px #733726,0px 2px 0px #875626,0px 2px 1px #000,0px 2px 2px #000;
+}
+.alchPotionPreview-effects {
+    padding: 1rem 0;
+    display: flex;
+    flex-direction: column;
+}
+.alchNoEffects {
+    font-family: RobotoItalic;
+    color: grey;
+}
+.alchPreviewEffect, .alchNoEffects {
+    padding-left: 1rem;
+
+    font-size: 0.75rem;
+}
+.alchPreviewEffect::before, .alchNoEffects::before {
+    content: '\2022';
+    padding-right: 8px;
+}
+
+.alchToxicity {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    font-family: RobotoSlab;
+    color: #ccc;
+    font-variant: small-caps;
+
+    margin-top: 0.25rem;
 }
 
 .alchIngredientOne {

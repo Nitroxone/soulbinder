@@ -1336,7 +1336,7 @@ function drawAlchemyScreen() {
     let str = '';
 
     str += '<div class="alchPotionPreview">';
-    str += '<div class="alchPotionPreview-wrapper">';
+    str += '<div class="alchPotionPreview-wrapper coolBorderBis">';
     str += '<div class="alchPotionPreview-vignette"></div>';
 
     str += '<div class="alchPotionPreview-infos">';
@@ -1347,6 +1347,7 @@ function drawAlchemyScreen() {
         str += '<div class="alchPreviewEffect">' + eff.effect + '</div>';
     })
     str += '</div>';
+    str += getAlchemyPreviewToxicity();
     str += '</div>';
     str += '</div></div>';
 
@@ -1363,6 +1364,18 @@ function drawAlchemyScreen() {
     str += '</div>';
 
     document.querySelector('.alchInterface').innerHTML = str;
+}
+
+function getAlchemyPreviewToxicity(refresh = false) {
+    let str = '';
+
+    str += '<div class="gaugeProgress"><div class="statGauge toxicitySmaller" style="width:'+ Math.round((game.alchemy.toxicity*100)/100) +'%"></div></div>';
+    str += '<div class="alchToxicity">';
+    str += '<div>Toxicity</div>';
+    str += '<div>' + game.alchemy.toxicity + '/100</div>';
+    str += '</div>'
+
+    return str;
 }
 
 function drawAstralForgeScreen(forgeItem, refresh = false) {
