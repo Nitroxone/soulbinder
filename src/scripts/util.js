@@ -1462,3 +1462,37 @@ function getEnemyById(id) {
         if(game.currentBattle.enemies[i].id === id) return game.currentBattle.enemies[i];
     }
 }
+
+function getRandomPotionName() {
+    const adj = choose([
+        "Unknown",
+        "Strange",
+        "Bizarre",
+        "Curious",
+        "Outlandish",
+        "Erratic",
+        "Uncanny",
+        "Mysterious",
+        "Singular",
+        "Atypical",
+        "Abnormal",
+        "Perplexing"
+    ]);
+    const type = choose([
+        "Potion",
+        "Draught",
+        "Beverage",
+        "Elixir",
+        "Tonic",
+        "Philter",
+        "Brew",
+        "Concoction",
+        "Remedy",
+        "Serum",
+        "Infusion",
+        "Essence",
+        "Decoction"
+    ]);
+
+    return adj + ' ' + type;
+}

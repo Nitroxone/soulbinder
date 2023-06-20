@@ -3295,8 +3295,8 @@ hr.leftSided {
 }
 
 .workshopMenu {
-    height: 600px;
-    width: 800px;
+    height: 650px;
+    width: 850px;
     position: relative;
 
     display: grid;
@@ -3307,6 +3307,8 @@ hr.leftSided {
 
     border: 7px solid transparent;
     border-image: url(img/window1.png) 7 stretch;
+
+    overflow: hidden;
 }
 
 .workshopTab {
@@ -3321,7 +3323,6 @@ hr.leftSided {
 }
 
 .workshopTab-titles, .workshopTab-subtitles {
-    z-index: 999;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -3411,6 +3412,101 @@ hr.leftSided {
     left: 50%;
     transform: translate(-50%, -50%);
     border: none;
+}
+
+.alchInterface {
+    position: absolute;
+    top: 100%;
+    right: 100%;
+
+    background: url(img/darkBorders.png), url('img/bg3.png');
+    background-size: 100% 100%, 60%;
+
+    animation-name: alchInterfaceSlideIn;
+    animation-duration: .65s;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation-fill-mode: forwards;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 0.5fr;
+    gap: 0 0;
+    grid-template-areas: 
+        "alchPotionPreview alchPotionPreview alchPotionPreview"
+        "alchIngredientOne alchIngredientTwo alchIngredientThree"
+        "alchAction alchAction alchAction";
+
+    transition: all .1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+@keyframes alchInterfaceSlideIn {
+    0% {
+        border-radius: 100%;
+        opacity: 0;
+    }
+    to {
+        top: 0%;
+        right: 0%;
+    }
+}
+
+.alchPotionPreview, .alchIngredientOne, .alchIngredientTwo, .alchIngredientThree, .alchAction {
+    border: 1px dashed grey;
+}
+
+.alchPotionPreview {
+    grid-area: alchPotionPreview;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.alchPotionPreview-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.alchPotionPreview-vignette {
+    margin-left: 4rem;
+
+    width: 96px;
+    height: 96px;
+
+    border: 3px solid transparent;
+    border-image: url(img/window1.png) 3 stretch;
+
+    background: url('img/bg1.png');
+}
+.alchPotionPreview-infos {
+    margin-left: 0.55rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    width: 40%;
+    min-height: 96px;
+}
+.alchPotionPreview-name {
+    font-family: RobotoSlab;
+    font-size: 23px;
+    font-variant: small-caps;
+    color: #ccc;
+    text-shadow: 0px 1px 0px #733726,0px 2px 0px #875626,0px 2px 1px #000,0px 2px 2px #000;
+}
+
+.alchIngredientOne {
+    grid-area: alchIngredientOne;
+}
+.alchIngredientTwo {
+    grid-area: alchIngredientTwo;
+}
+.alchIngredientThree {
+    grid-area: alchIngredientThree;
+}
+.alchAction {
+    grid-area: alchAction;
 }
 
 .astralForgeReceptacle {

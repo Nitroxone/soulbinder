@@ -1311,7 +1311,58 @@ function drawWorkshopScreen() {
 
     document.querySelector('.workshopContainer').innerHTML = str;
 
-    //document.querySelector('.astralForgeReceptacle').
+    generateWorkshopTabsEvents();
+}
+
+function generateWorkshopTabsEvents() {
+    const container = document.querySelector('.workshopMenu');
+    const alch = document.querySelector('.workshopTab-alchemy');
+
+    alch.addEventListener('click', e => {
+        alchInterface = document.createElement('div');
+        console.log(alchInterface);
+    
+        alchInterface.style.width = alch.offsetWidth*2 + 'px';
+        alchInterface.style.height = alch.offsetHeight*2 + 'px';
+        alchInterface.classList.add('alchInterface', 'coolBorderBis');
+
+        container.appendChild(alchInterface);
+
+        drawAlchemyScreen();
+    });
+}
+
+function drawAlchemyScreen() {
+    let str = '';
+
+    str += '<div class="alchPotionPreview">';
+    str += '<div class="alchPotionPreview-wrapper">';
+    str += '<div class="alchPotionPreview-vignette"></div>';
+
+    str += '<div class="alchPotionPreview-infos">';
+    str += '<div class="alchPotionPreview-name">' + getRandomPotionName() + '</div>';
+    str += '<div class="alchPotionPreview-effects">';
+    if(game.alchemy.effects.length === 0) str += '<div class="alchNoEffects">No effect</div>';
+    else game.alchemy.effects.forEach(eff => {
+        str += '<div class="alchPreviewEffect">' + eff.effect + '</div>';
+    })
+    str += '</div>';
+    str += '</div>';
+    str += '</div></div>';
+
+    str += '<div class="alchIngredientOne">';
+    str += '</div>';
+
+    str += '<div class="alchIngredientTwo">';
+    str += '</div>';
+
+    str += '<div class="alchIngredientThree">';
+    str += '</div>';
+
+    str += '<div class="alchAction">';
+    str += '</div>';
+
+    document.querySelector('.alchInterface').innerHTML = str;
 }
 
 function drawAstralForgeScreen(forgeItem, refresh = false) {

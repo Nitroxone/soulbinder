@@ -208,7 +208,7 @@ class Game {
             addTooltip(this.tabs[i].domWhat, function(tab){return function(){return tab.desc;};}(this.tabs[i]), {offY:-8});
         }
         // SETS THE STARTING TAB
-        this.setTab(this.tabs[3]);
+        this.setTab(this.tabs[1]);
     }
 
     setTab(tab) {
@@ -304,6 +304,7 @@ class Game {
     launch() {
         this.inventory = new Inventory();
         this.player = new Player("root", this.inventory);
+        this.alchemy = new Alchemy();
 
         this.initMessages();
 
