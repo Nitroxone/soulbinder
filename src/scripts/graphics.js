@@ -1340,7 +1340,7 @@ function drawAlchemyScreen() {
     str += '<div class="alchPotionPreview-vignette"></div>';
 
     str += '<div class="alchPotionPreview-infos">';
-    str += '<div class="alchPotionPreview-name">' + getRandomPotionName() + '</div>';
+    str += '<div class="alchPotionPreview-name" contenteditable>' + getRandomPotionName() + '</div>';
     str += '<div class="alchPotionPreview-effects">';
     if(game.alchemy.effects.length === 0) str += '<div class="alchNoEffects">No effect</div>';
     else game.alchemy.effects.forEach(eff => {
@@ -1351,19 +1351,32 @@ function drawAlchemyScreen() {
     str += '</div>';
     str += '</div></div>';
 
-    str += '<div class="alchIngredientOne">';
+    str += '<div class="alchIngredient alchIngredientOne">';
+    str += getAlchemyIngredient(game.alchemy.ingredients[0]);
     str += '</div>';
 
-    str += '<div class="alchIngredientTwo">';
+    str += '<div class="alchIngredient alchIngredientTwo">';
+    str += getAlchemyIngredient(game.alchemy.ingredients[1]);
     str += '</div>';
 
-    str += '<div class="alchIngredientThree">';
+    str += '<div class="alchIngredient alchIngredientThree">';
+    str += getAlchemyIngredient(game.alchemy.ingredients[2]);
     str += '</div>';
 
     str += '<div class="alchAction">';
     str += '</div>';
 
     document.querySelector('.alchInterface').innerHTML = str;
+}
+
+function getAlchemyIngredient(ingr) {
+    let str = '';
+
+    str += '<div class="alchIngredient-name" style="display: ' + (ingr ? 'block' : 'none') + '"></div>';
+    str += '<div class="alchIngredient-vignette"></div>';
+    str += '<div class="alchIngredient-effects" style="display: ' + (ingr ? 'block' : 'none') + '"></div>';
+
+    return str;
 }
 
 function getAlchemyPreviewToxicity(refresh = false) {

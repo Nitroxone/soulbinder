@@ -3419,14 +3419,13 @@ hr.leftSided {
 
 .alchInterface {
     position: absolute;
-    top: 100%;
-    right: 100%;
+
 
     background: url(img/darkBorders.png), url('img/bg3.png');
     background-size: 100% 100%, 60%;
 
     animation-name: alchInterfaceSlideIn;
-    animation-duration: .65s;
+    animation-duration: 1s;
     animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
     animation-fill-mode: forwards;
 
@@ -3445,6 +3444,7 @@ hr.leftSided {
     0% {
         border-radius: 100%;
         opacity: 0;
+        transform: translateY(-20px);
     }
     to {
         top: 0%;
@@ -3452,7 +3452,7 @@ hr.leftSided {
     }
 }
 
-.alchPotionPreview, .alchIngredientOne, .alchIngredientTwo, .alchIngredientThree, .alchAction {
+.alchIngredientOne, .alchIngredientTwo, .alchIngredientThree, .alchAction {
     border: 1px dashed grey;
 }
 
@@ -3463,6 +3463,13 @@ hr.leftSided {
     flex-direction: row;
     justify-content: center;
     align-items: center;
+
+    background: url('img/bg/bg-alchemy_extended.png');
+    background-size: cover;
+    background-position: center 20%;
+    background-repeat: no-repeat;
+
+    border-bottom: 2px dashed grey;
 }
 .alchPotionPreview-wrapper {
     display: flex;
@@ -3471,6 +3478,8 @@ hr.leftSided {
     width: 60%;
 
     padding: 1rem !important;
+
+    background: url('img/bg4.png') repeat;
 }
 .alchPotionPreview-vignette {
     width: 96px;
@@ -3502,6 +3511,9 @@ hr.leftSided {
     display: flex;
     flex-direction: column;
 }
+.alchPotionPreview-effects > div:not(:first-child) {
+    margin-top: 0.25rem;
+}
 .alchNoEffects {
     font-family: RobotoItalic;
     color: grey;
@@ -3526,6 +3538,19 @@ hr.leftSided {
     font-variant: small-caps;
 
     margin-top: 0.25rem;
+}
+.alchIngredient {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.alchIngredient-vignette {
+    width: 48px;
+    height: 48px;
+
+    border: 2px solid transparent;
+    border-image: url(img/window1-smaller.png) 2 stretch;
 }
 
 .alchIngredientOne {
