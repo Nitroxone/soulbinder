@@ -3546,11 +3546,15 @@ hr.leftSided {
     align-items: center;
 }
 .alchIngredient-vignette {
-    width: 48px;
-    height: 48px;
+    width: 64px;
+    height: 64px;
 
     border: 2px solid transparent;
     border-image: url(img/window1-smaller.png) 2 stretch;
+}
+.alchIngredient-name {
+    font-family: RobotoBold;
+    height: 16px;
 }
 
 .alchIngredientOne {

@@ -3,13 +3,15 @@
  */
 class Alchemy {
     constructor() {
-        this.ingredients = [];
+        this.ingredients = [null, null, null];
         this.toxicity = 0;
-        this.effects = [];
+        this.effects = [null, null, null];
     }
 
-    addIngredient() {
-
+    addIngredient(event, index) {
+        const ingredient = game.player.inventory.getItemFromId(Data.ItemType.RESOURCE, event.dataTransfer.getData('ingredient'));
+        this.ingredients[index] = ingredient;
+        document.querySelectorAll('.alchIngredient')[index].innerHTML = getAlchemyIngredient(this.ingredients[index]);
     }
     removeIngredient() {
 

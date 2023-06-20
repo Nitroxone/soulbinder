@@ -574,7 +574,7 @@ function drawResourceInventory(resources) {
     for(let i = 0; i < resources.length; i++) {
         if(resources[i].amount > 0) {
             let me = resources[i];
-            str += '<div id="res-' + me.id + '" class="inventoryItem" style="' + getIcon(me) + '; border: 2px solid ' + getRarityColorCode(me.rarity) +'">';
+            str += '<div id="res-' + me.id + '" class="inventoryItem" style="' + getIcon(me) + '; border: 2px solid ' + getRarityColorCode(me.rarity) +'"' + (me instanceof AlchemicalIngredient ? 'draggable="true"' : '') + '>';
             str += '<div id="res-amount-' + me.id + '" class="inventoryItemAmount">' + (me.amount > 99 ? '99+' : me.amount) + '</div>';
             str += '</div>';
         }
@@ -599,11 +599,15 @@ function drawResourceInventory(resources) {
                 audio.playbackRate = 2;
                 audio.play();
             });
+            document.querySelector('#res-' + me.id).addEventListener('dragstart', e => {
+                e.dataTransfer.setData('ingredient', me.id);
+            })
         }
     }
     document.querySelector('#res-resources').addEventListener('click', (e) => {
         document.querySelector('#res-cat-resources').classList.toggle('hide');
     })
+
 }
 
 function drawArmorInventory(armors) {
@@ -1342,24 +1346,24 @@ function drawAlchemyScreen() {
     str += '<div class="alchPotionPreview-infos">';
     str += '<div class="alchPotionPreview-name" contenteditable>' + getRandomPotionName() + '</div>';
     str += '<div class="alchPotionPreview-effects">';
-    if(game.alchemy.effects.length === 0) str += '<div class="alchNoEffects">No effect</div>';
+    if(game.alchemy.effects = [null, null, null]) str += '<div class="alchNoEffects">No effect</div>';
     else game.alchemy.effects.forEach(eff => {
-        str += '<div class="alchPreviewEffect">' + eff.effect + '</div>';
+        if(eff) str += '<div class="alchPreviewEffect">' + eff.effect + '</div>';
     })
     str += '</div>';
     str += getAlchemyPreviewToxicity();
     str += '</div>';
     str += '</div></div>';
 
-    str += '<div class="alchIngredient alchIngredientOne">';
+    str += '<div class="alchIngredient alchIngredientOne" ondragover="allowDrop(event);" ondrop="game.alchemy.addIngredient(event, 0);">';
     str += getAlchemyIngredient(game.alchemy.ingredients[0]);
     str += '</div>';
 
-    str += '<div class="alchIngredient alchIngredientTwo">';
+    str += '<div class="alchIngredient alchIngredientTwo" ondragover="allowDrop(event);" ondrop="game.alchemy.addIngredient(event, 1);">';
     str += getAlchemyIngredient(game.alchemy.ingredients[1]);
     str += '</div>';
 
-    str += '<div class="alchIngredient alchIngredientThree">';
+    str += '<div class="alchIngredient alchIngredientThree" ondragover="allowDrop(event);" ondrop="game.alchemy.addIngredient(event, 2);">';
     str += getAlchemyIngredient(game.alchemy.ingredients[2]);
     str += '</div>';
 
@@ -1372,8 +1376,8 @@ function drawAlchemyScreen() {
 function getAlchemyIngredient(ingr) {
     let str = '';
 
-    str += '<div class="alchIngredient-name" style="display: ' + (ingr ? 'block' : 'none') + '"></div>';
     str += '<div class="alchIngredient-vignette"></div>';
+    str += '<div class="alchIngredient-name" style="display: ' + (ingr ? 'block' : 'none') + '">' + (ingr ? ingr.name : '') + '</div>';
     str += '<div class="alchIngredient-effects" style="display: ' + (ingr ? 'block' : 'none') + '"></div>';
 
     return str;
