@@ -1277,7 +1277,7 @@ function drawWorkshopScreen() {
     document.querySelector('#workshopDiv').innerHTML = '<div class="workshopContainer"></div>';
 
     let str = '';
-    str += '<div class="workshopMenu coolBorder">';
+    str += '<div class="workshopMenu">';
 
     str += '<div class="workshopTab workshopTab-crafting">';
     str += '<div class="workshopTab-backgrounds crafting-background"></div>';
@@ -1294,7 +1294,7 @@ function drawWorkshopScreen() {
     str += '<p class="workshopTab-titles">SOULWRITING</p>';
     str += '</div>';
 
-    str += '<div class="workshopTab workshopTab-soulbiding">';
+    str += '<div class="workshopTab workshopTab-soulbinding">';
     str += '<div class="workshopTab-backgrounds soulbinding-background"></div>';
     str += '<p class="workshopTab-titles">SOULBINDING</p>';
     str += '</div>';
@@ -1320,7 +1320,7 @@ function drawAstralForgeScreen(forgeItem, refresh = false) {
     let popupWindow;
     if(!refresh) {
         popupWindow = document.createElement('div');
-        popupWindow.classList.add('astralForgePopup', 'bgDark', 'tooltipSpawn');
+        popupWindow.classList.add('astralForgePopup', 'bgDark');
         document.querySelector('#workshopDiv').appendChild(popupWindow);
     } else {
         popupWindow = document.querySelector('.astralForgePopup');

@@ -975,8 +975,9 @@ a:active, .tooltiped:active {
 }
 @keyframes tooltipSpawn {
     0% {
-        translate: 0px 10px;
-        transform: scale(0.95);
+        opacity: 0;
+        translate: 0px 20px;
+        transform: scale(0.9);
     }
 }
 .widget, .tooltip {white-space: normal;}
@@ -3294,8 +3295,8 @@ hr.leftSided {
 }
 
 .workshopMenu {
-    height: 800px;
-    width: 1000px;
+    height: 600px;
+    width: 800px;
     position: relative;
 
     display: grid;
@@ -3303,6 +3304,9 @@ hr.leftSided {
     grid-template-rows: repeat(2, 1fr);
     grid-column-gap: 0px;
     grid-row-gap: 0px;
+
+    border: 7px solid transparent;
+    border-image: url(img/window1.png) 7 stretch;
 }
 
 .workshopTab {
@@ -3429,7 +3433,7 @@ hr.leftSided {
 
     box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.5),0px 2px 2px rgba(0,0,0,0.25),0px 0px 2px 2px #000 inset,0px 1px 1px 5px rgba(255,255,255,0.5) inset;
 
-    transition: all .35s cubic-bezier(.68,-0.55,.27,1.55)
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 .astralForgeReceptacle:hover {
     box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.5),0px 2px 2px rgba(0,0,0,0.25),0px 0px 2px 2px #000 inset,0px 1px 10px 15px rgba(255,255,255,0.35) inset;
@@ -3438,22 +3442,33 @@ hr.leftSided {
 }
 
 .astralForgePopup {
-    width: 975px;
+    width: 900px;
     height: 500px;
 
     position: absolute;
-    top: 100px;
+    top: 50%;
     left: 0;
     right: 0;
     margin: 0 auto;
+    transform: translateY(-50%);
 
     padding: 6px;
 
     border: 7px solid transparent;
-    border-image: url(img/window1-tiny.png) 7 stretch;
+    border-image: url(img/window1.png) 7 stretch;
     border-radius: 5px;
     color: #dddddd;
     box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.5);
+
+    animation-name: astralForgeSpawn;
+    animation-duration: .5s;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+@keyframes astralForgeSpawn {
+    from {
+        opacity: 0;
+        transform: translateY(-65%) scale(1.1);
+    }
 }
 
 /* ASTRAL FORGE */
