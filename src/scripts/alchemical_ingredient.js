@@ -27,7 +27,7 @@ class AlchemicalIngredient extends Resource {
             return false;
         }
         else {
-            game.alchemy.effects.push(this.selected);
+            game.alchemy.addEffect(this.selected);
             return true;
         }
     }
@@ -37,7 +37,7 @@ class AlchemicalIngredient extends Resource {
     }
 
     removeSelectedFromAlchemy() {
-        removeFromArray(game.alchemy.effects, this.selected);
+        game.alchemy.removeEffect(this.selected);
     }
     
     unlink() {
