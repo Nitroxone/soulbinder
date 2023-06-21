@@ -41,21 +41,36 @@ class Alchemy {
         getAlchemyPotionPreviewEffects(true);
     }
 
+    /**
+     * Adds the provided alchemical effect object to the effects list.
+     * @param {object} eff the alchemical effect object to add
+     */
     addEffect(eff) {
         this.effects.push(eff);
         if(eff) this.increaseToxicity(eff.toxicity);
     }
+
+    /**
+     * Removes the provided alchemical effect object from the effects list.
+     * @param {object} eff the alchemical effect to remove
+     */
     removeEffect(eff) {
         if(eff) this.decreaseToxicity(eff.toxicity);
         removeFromArray(this.effects, eff);
     }
-    clearEffects() {
-        this.effects = [];
-    }
 
+    /**
+     * Adds the provided number to the toxicity level (capped at 100).
+     * @param {number} amount the amount of toxicity to add
+     */
     increaseToxicity(amount) {
         this.toxicity = Math.min(this.toxicity + amount, 100);
     }
+
+    /**
+     * Removes the provided number from the toxicity level (capped at 100).
+     * @param {number} amount the amount of toxicity to remove
+     */
     decreaseToxicity(amount) {
         this.toxicity = Math.max(this.toxicity - amount, 0);
     }
