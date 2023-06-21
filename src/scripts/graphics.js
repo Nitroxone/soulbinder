@@ -1643,7 +1643,7 @@ function generateAlchemyInterfaceEvents() {
                     document.querySelector('.selectedTitle').textContent = icon.name;
 
                     game.alchemy.selectIcon(icon);
-                    vignette.style.backgroundImage = 'url(\'css/img/potions/' + game.alchemy.icon.icon + '.png\')';
+                    document.querySelector('.alchPotionPreview-vignette').style.backgroundImage = 'url(\'css/img/potions/' + game.alchemy.icon.icon + '.png\')';
                 }
             });
         });

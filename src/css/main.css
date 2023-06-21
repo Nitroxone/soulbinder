@@ -3902,6 +3902,11 @@ hr.leftSided {
     font-variant: small-caps;
     color: #ccc;
     text-shadow: 0px 1px 0px #733726,0px 2px 0px #875626,0px 2px 1px #000,0px 2px 2px #000;
+    background: transparent;
+    border: none;
+}
+.alchPotionPreview-name:focus {
+    outline: none;
 }
 .alchPotionPreview-effects {
     padding: 1rem 0;
