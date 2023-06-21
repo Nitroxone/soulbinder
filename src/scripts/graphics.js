@@ -1404,7 +1404,7 @@ function drawAlchemyScreen() {
     str += '<div class="alchPotionPreview-vignette"></div>';
 
     str += '<div class="alchPotionPreview-infos">';
-    str += '<div class="alchPotionPreview-name" contenteditable>' + getRandomPotionName() + '</div>';
+    str += '<input type="text" value="' + getRandomPotionName() + '" minlength="3" maxlength="24" class="alchPotionPreview-name">';
 
     str += '<div class="alchPotionPreview-effects">';
     str += getAlchemyPotionPreviewEffects();
@@ -1467,7 +1467,7 @@ function generateAlchemyInterfaceEvents() {
                 game.alchemy.removeIngredient(i);
                 getAlchemyPotionPreviewEffects(true);
             }
-        })
+        });
     }
 }
 

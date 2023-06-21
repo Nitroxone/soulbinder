@@ -3657,6 +3657,19 @@ hr.leftSided {
 
     background: url('img/bg4.png') repeat;
 }
+.alchPotionPreview-name {
+    background: transparent;
+    border: none;
+    
+    font-family: RobotoSlab;
+    font-size: 23px;
+    font-variant: small-caps;
+    color: #ccc;
+    text-shadow: 0px 1px 0px #733726,0px 2px 0px #875626,0px 2px 1px #000,0px 2px 2px #000;
+}
+.alchPotionPreview-name:focus {
+    outline: none;
+}
 .alchPotionPreview-vignette {
     width: 96px;
     height: 96px;
@@ -3674,13 +3687,6 @@ hr.leftSided {
     justify-content: start;
     width: 80%;
     min-height: 96px;
-}
-.alchPotionPreview-name {
-    font-family: RobotoSlab;
-    font-size: 23px;
-    font-variant: small-caps;
-    color: #ccc;
-    text-shadow: 0px 1px 0px #733726,0px 2px 0px #875626,0px 2px 1px #000,0px 2px 2px #000;
 }
 .alchPotionPreview-effects {
     padding: 1rem 0;
