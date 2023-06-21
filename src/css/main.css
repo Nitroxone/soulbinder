@@ -3628,10 +3628,6 @@ hr.leftSided {
     }
 }
 
-.alchAction {
-    border: 1px dashed grey;
-}
-
 .alchPotionPreview {
     grid-area: alchPotionPreview;
 
@@ -3767,6 +3763,24 @@ hr.leftSided {
     background-position-y: 50%;
 }
 
+.closeWindowButton {
+    width: 20px;
+    height: 20px;
+    background-image: url('img/close_off.png');
+    background-size: cover;
+    background-position: center;
+    transition: all .1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.closeWindowButton:hover {
+    background-image: url('img/close_on.png');
+    filter: brightness(110%);
+}
+.closeWindowButton.selectorClose {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
 .alchPotionPreview-infos {
     margin-left: 0.55rem;
 
@@ -3817,6 +3831,7 @@ hr.leftSided {
 
     position: relative;
 }
+
 .alchIngredient-vignette {
     width: 64px;
     height: 64px;
@@ -3855,15 +3870,47 @@ hr.leftSided {
 
 .alchIngredientOne {
     grid-area: alchIngredientOne;
+    transform: translateX(100px);
 }
 .alchIngredientTwo {
     grid-area: alchIngredientTwo;
 }
 .alchIngredientThree {
     grid-area: alchIngredientThree;
+    transform: translateX(-100px);
 }
 .alchAction {
     grid-area: alchAction;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: start;
+}
+.alchAction-brewButton {
+    width: 307px;
+    height: 43px;
+
+    background-image: url('img/button_place.png');
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: RobotoSlab;
+    font-weight: bold;
+    font-variant: small-caps;
+    font-size: 1.2rem;
+
+    /*color: #564137;*/
+    color: #a27a67;
+    transition: all .1s ease-in-out;
+}
+.alchAction-brewButton:hover {
+    filter: brightness(125%);
+    cursor: pointer;
 }
 
 .astralForgeReceptacle {
