@@ -6,6 +6,7 @@ class Alchemy {
         this.ingredients = [null, null, null];
         this.toxicity = 0;
         this.effects = [];
+        this.icon = null;
     }
 
     /**
