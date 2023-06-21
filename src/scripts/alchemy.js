@@ -12,6 +12,7 @@ class Alchemy {
         const ingredient = game.player.inventory.getItemFromId(Data.ItemType.RESOURCE, event.dataTransfer.getData('ingredient'));
         this.ingredients[index] = ingredient;
         document.querySelectorAll('.alchIngredient')[index].innerHTML = getAlchemyIngredient(this.ingredients[index]);
+        generateAlchemyIngredientEvents(this.ingredients[index]);
     }
     removeIngredient() {
 

@@ -2913,12 +2913,55 @@ hr.leftSided {
     border-color: rgb(133, 207, 236);
 }
 
+.toggleButton {
+    width: auto;
+    height: 22px;
+    
+    border: 1px solid #e2dd48;
+    border-color: #3f517c #757574 #616160 #25304e;
+    border-radius: 3px;
+
+    background-image: url('img/bg2.png');
+
+    color: #ddd;
+    padding: 4px;
+    box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.5),0px 2px 4px rgba(0,0,0,0.25),0px 0px 2px 2px #000 inset,0px 1px 0px 1px rgba(255,255,255,0.5) inset;
+    text-align: left;
+    position: relative;
+
+    font-family: "RobotoSlab";
+}
+.toggleButton.off {
+    color: rgba(221, 221, 221, 0.5);
+}
+.toggleButton.off:hover {
+    color: rgba(221, 221, 221, 0.75);
+}
+.toggleButton::after {
+    content: '';
+    background: #fff;
+    pointer-events: none;
+    width: 3px;
+    height: 3px;
+    display: inline-block;
+    border-radius: 4px;
+    box-shadow: 0px 0px 2px 0px #3cf,0px 0px 6px 1px #33f;
+    position: absolute;
+    right: 3px;
+    top: 50%;
+    margin-top: -1px;
+}
+.toggleButton.off::after {
+    background-color: rgba(255,255,255,0.15);
+    box-shadow: 1px 1px 0px rgba(255,255,255,0.3);
+}
+
 .coolBorder {
     border: 1px solid #e2dd48;
     border-color: #3f517c #757574 #616160 #25304e;
     box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.5),0px 2px 2px rgba(0,0,0,0.25),0px 0px 2px 2px #000 inset,0px 1px 0px 1px rgba(255,255,255,0.5) inset;
 }
-.simpleButton:hover {
+.simpleButton:hover, .toggleButton:hover {
     border-color: rgb(185, 185, 185);
     cursor: pointer;
 }
@@ -3456,7 +3499,7 @@ hr.leftSided {
     }
 }
 
-.alchIngredientOne, .alchIngredientTwo, .alchIngredientThree, .alchAction {
+.alchAction {
     border: 1px dashed grey;
 }
 
@@ -3548,6 +3591,8 @@ hr.leftSided {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    position: relative;
 }
 .alchIngredient-vignette {
     width: 64px;
@@ -3555,10 +3600,34 @@ hr.leftSided {
 
     border: 3px solid transparent;
     border-image: url(img/window1-smaller.png) 3 stretch;
+
+    background-size: 65%;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: drop-shadow(0px 0px 15px rgba(0,0,0,1));
+}
+.alchIngredient-vignette.alchVignetteActive {
+    border: none;
 }
 .alchIngredient-name {
-    font-family: RobotoBold;
+    font-family: RobotoSlab;
+    font-size: 0.8rem;
     height: 16px;
+    min-width: 80px;
+    text-align: center;
+    margin-bottom: 0.75rem;
+}
+.alchIngredient-effects {
+    max-width: 80px;
+    width: 80px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.alchIngredient-effects > div:not(:first-child) {
+    margin-top: 0.25rem;
 }
 
 .alchIngredientOne {

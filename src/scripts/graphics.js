@@ -1371,15 +1371,50 @@ function drawAlchemyScreen() {
     str += '</div>';
 
     document.querySelector('.alchInterface').innerHTML = str;
+
+    generateAlchemyInterfaceEvents();
 }
 
-function getAlchemyIngredient(ingr) {
+function generateAlchemyInterfaceEvents() {
+
+}
+
+function generateAlchemyIngredientEvents(ingr) {
+    const dom = document.querySelectorAll('.alchIngredient')[game.alchemy.ingredients.indexOf(ingr)];
+
+    dom.querySelectorAll('.toggleButton').forEach(but => {
+        but.addEventListener('click', e => {
+            unselectAllAlchemyIngredientSelectors(dom);
+            if(ingr.select(but.textContent.toLowerCase())) but.classList.toggle('off');
+        })
+    })
+}
+
+function unselectAllAlchemyIngredientSelectors(ingr) {
+    ingr.querySelectorAll('.toggleButton').forEach(but => {
+        but.classList.add('off');
+    })
+}
+
+function getAlchemyIngredient(ingr, refresh = false) {
     let str = '';
 
-    str += '<div class="alchIngredient-vignette"></div>';
-    str += '<div class="alchIngredient-name" style="display: ' + (ingr ? 'block' : 'none') + '">' + (ingr ? ingr.name : '') + '</div>';
-    str += '<div class="alchIngredient-effects" style="display: ' + (ingr ? 'block' : 'none') + '"></div>';
+    str += '<div class="alchIngredient-vignette' + (ingr ? ' alchVignetteActive' : '') + '" ' + (ingr ? 'style="background-image: url(\'css/img/resources/' + ingr.icon + '.png\');"' : '') + '></div>';
+    str += '<div class="alchIngredient-name barred" style="display: ' + (ingr ? 'block' : 'none') + '">' + (ingr ? ingr.name : '') + '</div>';
+    str += '<div class="alchIngredient-effects" style="display: ' + (ingr ? 'block' : 'none') + '">';
+    if(ingr) {
+        str += '<div class="toggleButton off">Passive</div>';
+        str += '<div class="toggleButton off">Recovery</div>';
+        str += '<div class="toggleButton off">Special</div>';
+    }
+    str += '</div>';
 
+    if(refresh) {
+        const index = game.alchemy.ingredients.indexOf(ingr);
+        document.querySelectorAll('.alchIngredient')[index].innerHTML = str;
+        generateAlchemyIngredientEvents(ingr);
+        return;
+    }
     return str;
 }
 
