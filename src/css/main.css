@@ -3205,6 +3205,15 @@ hr.leftSided {
 }
 
 .hubContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 100%;
+    width: 100%;
+}
+
+.hub {
     display: grid; 
     grid-template-columns: 0.5fr 1fr; 
     grid-template-rows: 1.5fr 1fr; 
@@ -3212,8 +3221,9 @@ hr.leftSided {
     grid-template-areas: 
       "quests merchants"
       "others dialogue"; 
-    height: 100%;
-    width: 100%;
+
+    height: 800px;
+    width: 1000px;
 }
 
 .quests {
@@ -3229,6 +3239,73 @@ hr.leftSided {
 .others {
     grid-area: others;
     border: 1px dashed grey;
+}
+
+.commanderSheet {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.commanderDesc {
+    display: flex;
+    justify-content: space-between;
+}
+
+.commanderDesc-titles {
+    height: 30px;
+}
+
+.commanderDesc-titles p:first-child {
+    font-family: RobotoSlabBold;
+    font-size: 1.5em;
+}
+
+.commanderDesc-titles p:nth-child(2) {
+    font-family: RobotoSlabMed;
+    font-size: 1.2em;
+}
+
+.commanderDesc-level {
+    height: 100%;
+    width: 30px;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #00ddff;
+}
+
+.commanderDesc-level > p {
+    font-size: 2em;
+    font-family: RobotoSlabBold;
+}
+
+.soulsAmount {
+    display: flex;
+    width: 100%;
+}
+
+.goldAmount {
+    display: flex;
+    width: 100%;
+}
+
+.commanderXpBar, .commanderXpBar-fill {
+    width: 100%;
+    height: 20px;
+} 
+
+.commanderXpBar {
+    background-color: grey;
+    overflow: hidden;
+}
+
+.commanderXpBar-fill {
+    background-color: var(--base-blue);
+    transform: translateX(-50%);
 }
 
 .lordContainer { 
