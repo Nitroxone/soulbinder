@@ -1551,6 +1551,7 @@ function drawAlchemyScreen() {
     str += '</div>';
 
     str += '<div class="alchAction">';
+    str += '<div class="alchAction-brewButton">Brew</button>';
     str += '</div>';
 
     document.querySelector('.alchInterface').innerHTML = str;
@@ -1627,6 +1628,8 @@ function generateAlchemyInterfaceEvents() {
 
         str += '</div>';
 
+        str += '<div class="closeWindowButton selectorClose"></div>';
+
         div.innerHTML = str;
 
         div.querySelectorAll('.selectorItem').forEach(item => {
@@ -1640,12 +1643,13 @@ function generateAlchemyInterfaceEvents() {
                     document.querySelector('.selectedTitle').textContent = icon.name;
 
                     game.alchemy.selectIcon(icon);
-                    document.querySelector('.alchPotionPreview-vignette').style.backgroundImage = 'url(\'css/img/potions/' + game.alchemy.icon.icon + '.png\')';
+                    vignette.style.backgroundImage = 'url(\'css/img/potions/' + game.alchemy.icon.icon + '.png\')';
                 }
-            })
-        })
-
+            });
+        });
+        
         document.querySelector('.alchPotionPreview').appendChild(div);
+        document.querySelector('.closeWindowButton').addEventListener('click', e => { div.remove() });
     })
 }
 
