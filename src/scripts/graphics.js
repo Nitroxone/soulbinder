@@ -735,12 +735,54 @@ function drawConsumablesInventory(consumables) {
 }
 
 function drawInventory() {
+    drawCommandersProfile();
     drawWeaponInventory(game.inventory.weapons);
     drawArmorInventory(game.inventory.armors);
     drawSigilInventory(game.inventory.sigils);
     drawResourceInventory(game.inventory.resources);
     drawTrinketInventory(game.inventory.trinkets);
     drawConsumablesInventory(game.inventory.consumables);
+}
+
+function drawCommandersProfile() {
+    let str = ''
+
+    str += '<div class="commanderDesc">';
+
+    str += '<div class="commanderDesc-titles">'
+    str += '<p>COMMANDER\'S OVERVIEW</p>';
+    str += '<p>Time-lost champion</p>';
+    str += '</div>';
+
+    str += '<div class="commanderDesc-level">';
+    str += '<p>5</p>';
+    str += '</div>';
+    
+    str += '</div>';
+
+    str += '<div class="commanderXpBar">';
+    str += '<div class="commanderXpBar-fill"></div>'
+    str += '</div>';
+
+    str += '<div class="commanderCurrencies">'
+    str += '<div class="soulsAmount">';
+    str += '<div class="soulIcon">';
+    str += '</div>';
+    str += '<p>';
+    str += getPlayerSoulsAmount();
+    str += '</p>';
+    str += '</div>';
+
+    str += '<div class="goldAmount">';
+    str += '<div class="goldIcon">';
+    str += '</div>';
+    str += '<p>';
+    str += getPlayerGoldAmount();
+    str += '</p>';
+    str += '</div>';
+    str += '</div>';
+
+    document.querySelector('.commanderSheet').innerHTML = str;
 }
 
 function drawStridersScreen() {
@@ -1247,49 +1289,17 @@ function drawHubScreen() {
 
     str += '<div class="merchants">';
     str += '</div>'
-
-    str += '<div class="others">';
-
-    // Commander's profile. We may be moving it elsewhere, later.
-    str += '<div class="commanderSheet">';
-
-    str += '<div class="commanderDesc">';
-
-    str += '<div class="commanderDesc-titles">'
-    str += '<p>COMMANDER\'S OVERVIEW</p>';
-    str += '<p>Time-lost champion</p>';
-    str += '</div>';
-
-    str += '<div class="commanderDesc-level">';
-    str += '<p>5</p>';
-    str += '</div>';
-    
-    str += '</div>';
-
-    str += '<div class="commanderXpBar">';
-    str += '<div class="commanderXpBar-fill"></div>'
-    str += '</div>';
-
-    str += '<div class="soulsAmount">';
-    str += '<p>Souls amount:</p>'
-    str += getPlayerSoulsAmount();
-    str += '</div>';
-
-    str += '<div class="soulsAmount">';
-    str += '<p>Gold amount:</p>'
-    str += getPlayerGoldAmount();
-    str += '</div>';
-
-    str += '</div>';
-
-
-    str += '</div>';
     
     str += '<div class="lordContainer">';
 
-    str += '<div class="lordDialogueContent coolBorder">'
+    str += '<div class="lordDialogueContent coolBorderBis">'
 
     str += '<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem voluptate in, optio a laboriosam iure error impedit inventore accusantium quo incidunt cumque consequatur dolorem libero quod necessitatibus aliquam rerum eaque iusto alias iste maiores voluptas quia consectetur. Nesciunt consequatur minima quos, vel exercitationem, ducimus non maiores eligendi repellendus quod rerum minus quis voluptatibus. Natus mollitia itaque aperiam dolor debitis officiis facilis tempora id? Dolore recusandae rerum voluptas, aut adipisci alias inventore non aliquam asperiores iste pariatur perspiciatis harum velit magni explicabo, fuga aliquid expedita earum neque modi. Dolorum illum, id tempore perferendis eum delectus, mollitia repudiandae, architecto deserunt quam dolor?</p>';
+
+    str += '<div class="lordDialogueContent-buttons">'
+    str += '<button>Previous</button>'
+    str += '<button>Next</button>'
+    str += '</div>';
 
     str += '</div>';
 
