@@ -1288,6 +1288,11 @@ function drawHubScreen() {
     str += '</div>'
 
     str += '<div class="merchants">';
+    str += '<div class="auctionHouse coolBorderBis">';
+    str += '</div>'
+
+    str += '<div class="blackMarket coolBorderBis">';
+    str += '</div>'
     str += '</div>'
     
     str += '<div class="lordContainer">';
