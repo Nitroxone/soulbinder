@@ -18,6 +18,9 @@ class Player {
 
         this.quests = [];
 
+        this.souls = 0;
+        this.gold = 0;
+
         // ASTRAL FORGE CONFIG
         this.af_criticalFailure = 15;
         this.af_failure = 40;
@@ -67,5 +70,13 @@ class Player {
 
     addQuest(quest) {
         this.quests.push(quest);
+    }
+
+    addSoulsToPlayer(amount) {
+        this.souls += amount;
+    }
+
+    addGoldToPlayer(amount) {
+        this.gold += amount;
     }
 }

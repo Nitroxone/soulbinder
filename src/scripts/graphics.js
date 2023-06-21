@@ -1,4 +1,4 @@
-/**
+div/**
  * Spawns a floating tooltip on screen based on the provided Item's data.
  * @param {Item} item the Item data to fill the tooltip with
  */
@@ -1240,20 +1240,56 @@ function drawHubScreen() {
     document.querySelector('#hubDiv').innerHTML = '<div class="hubContainer"></div>';
     let str = '';
 
+    str += '<div class="hub">';
+
     str += '<div class="quests">';
     str += '</div>'
 
     str += '<div class="merchants">';
     str += '</div>'
 
-    str += '<div class="others">'
+    str += '<div class="others">';
+
+    // Commander's profile. We may be moving it elsewhere, later.
+    str += '<div class="commanderSheet">';
+
+    str += '<div class="commanderDesc">';
+
+    str += '<div class="commanderDesc-titles">'
+    str += '<p>COMMANDER\'S OVERVIEW</p>';
+    str += '<p>Time-lost champion</p>';
+    str += '</div>';
+
+    str += '<div class="commanderDesc-level">';
+    str += '<p>5</p>';
+    str += '</div>';
+    
+    str += '</div>';
+
+    str += '<div class="commanderXpBar">';
+    str += '<div class="commanderXpBar-fill"></div>'
+    str += '</div>';
+
+    str += '<div class="soulsAmount">';
+    str += '<p>Souls amount:</p>'
+    str += getPlayerSoulsAmount();
+    str += '</div>';
+
+    str += '<div class="soulsAmount">';
+    str += '<p>Gold amount:</p>'
+    str += getPlayerGoldAmount();
+    str += '</div>';
+
+    str += '</div>';
+
+
     str += '</div>';
     
     str += '<div class="lordContainer">';
 
     str += '<div class="lordDialogueContent coolBorder">'
 
-    str += '<p>Bon ecoute moi alors oui, tu es homosexuel et tu dois redevenir hetero en faite. C est très important tu as compris espece de gros pd de mort ? tu es GAY alors stop!!sa suffit ok les gays cest dehors il y a pas de sa en algerie la terre de luffy. Oui je suis fan de one piece et d’ailleurs savais tu que ce manga etait inspiré de l’arrivee en algérie par les premiers pirates qui ont colonisé le pays ? plus tard mon fils je l’appellerai par le nom d’un perso de one piece, et puis si c’est une fille je la vendrai à un mec pour deux chameaux au moins eux ils pourront porter des choses lourdes haha, bref qu’est-ce qu’on disait ? ah oui gros pd tu dois arreter o k? si tu y arrives je te donne 1000xp</p>';
+    str += '<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem voluptate in, optio a laboriosam iure error impedit inventore accusantium quo incidunt cumque consequatur dolorem libero quod necessitatibus aliquam rerum eaque iusto alias iste maiores voluptas quia consectetur. Nesciunt consequatur minima quos, vel exercitationem, ducimus non maiores eligendi repellendus quod rerum minus quis voluptatibus. Natus mollitia itaque aperiam dolor debitis officiis facilis tempora id? Dolore recusandae rerum voluptas, aut adipisci alias inventore non aliquam asperiores iste pariatur perspiciatis harum velit magni explicabo, fuga aliquid expedita earum neque modi. Dolorum illum, id tempore perferendis eum delectus, mollitia repudiandae, architecto deserunt quam dolor?</p>';
 
     str += '</div>';
 
@@ -1262,7 +1298,21 @@ function drawHubScreen() {
 
     str += '</div>';
 
+    str += '</div>';
+
     document.querySelector('.hubContainer').innerHTML = str;
+}
+
+function getPlayerSoulsAmount() {
+    return game.player.souls;
+}
+
+function getPlayerGoldAmount() {
+    return game.player.gold;
+}
+
+function getPlayerCurrentLevel() {
+    return game.player.level.currentLevel;
 }
 
 function openAstralForge(event) {
