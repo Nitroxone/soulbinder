@@ -1292,8 +1292,121 @@ function drawHubScreen() {
     str += '</div>'
 
     str += '<div class="blackMarket coolBorderBis">';
-    str += '</div>'
-    str += '</div>'
+
+    str += '<p>BLACK MARKET</p>';
+    str += '<div class="blackMarket-menu">';
+
+    str += '<div class="blackMarket-menu--firstCol">';
+
+    str += '<div class="blackMarket-menu--tabs">';
+    str += '<button>Weapons</button>';
+    str += '<button>Armors</button>';
+    str += '<button>Trinkets</button>';
+    str += '<button>Sigils</button>';
+    str += '<button>Resources</button>';
+    str += '</div>';
+
+    str += '<div class="blackMarket-menu--trade">';
+    str += '<div class="tradeItems">'
+
+
+    str += '<div class="tradeItems-item">'
+    str += '<div class="tradeItems-item--icon"></div>';
+
+    str += '<p class="tradeItems-item--name">Silver Birjin of Drancor</p>';
+
+    str += '<div class="tradeItems-item--price">';
+    str += '<div class="tradeItems-goldIcon"></div>';
+    str += '<p>15000</p>';
+    str += '</div>';
+
+    str += '</div>';
+
+
+    str += '<div class="tradeItems-item">'
+    str += '<div class="tradeItems-item--icon"></div>';
+
+    str += '<p class="tradeItems-item--name">Silver Birjin of Drancor</p>';
+
+    str += '<div class="tradeItems-item--price">';
+    str += '<div class="tradeItems-goldIcon"></div>';
+    str += '<p>15000</p>';
+    str += '</div>';
+    
+    str += '</div>';
+
+
+    str += '<div class="tradeItems-item">'
+    str += '<div class="tradeItems-item--icon"></div>';
+
+    str += '<p class="tradeItems-item--name">Silver Birjin of Drancor</p>';
+
+    str += '<div class="tradeItems-item--price">';
+    str += '<div class="tradeItems-goldIcon"></div>';
+    str += '<p>15000</p>';
+    str += '</div>';
+    
+    str += '</div>';
+
+
+    str += '<div class="tradeItems-item">'
+    str += '<div class="tradeItems-item--icon"></div>';
+
+    str += '<p class="tradeItems-item--name">Silver Birjin of Drancor</p>';
+
+    str += '<div class="tradeItems-item--price">';
+    str += '<div class="tradeItems-goldIcon"></div>';
+    str += '<p>15000</p>';
+    str += '</div>';
+    
+    str += '</div>';
+
+
+    str += '<div class="tradeItems-item">'
+    str += '<div class="tradeItems-item--icon"></div>';
+
+    str += '<p class="tradeItems-item--name">Silver Birjin of Drancor</p>';
+
+    str += '<div class="tradeItems-item--price">';
+    str += '<div class="tradeItems-goldIcon"></div>';
+    str += '<p>15000</p>';
+    str += '</div>';
+    
+    str += '</div>';
+
+
+    str += '<div class="tradeItems-item">'
+    str += '<div class="tradeItems-item--icon"></div>';
+
+    str += '<p class="tradeItems-item--name">Silver Birjin of Drancor</p>';
+
+    str += '<div class="tradeItems-item--price">';
+    str += '<div class="tradeItems-goldIcon"></div>';
+    str += '<p>15000</p>';
+    str += '</div>';
+    
+    str += '</div>';
+
+
+    
+
+
+    str += '</div>';
+    str += '</div>';
+
+    str += '</div>';
+
+    str += '<div class="blackMarket-menu--secondCol">';
+    str += '<div class="blackMarket-menu--ultraRareItem">';
+    str += '</div>';
+    str += '<button>BUY</button>';
+    str += '</div>';
+    
+
+    str += '</div>';
+    str += '</div>';
+    
+    str += '</div>';
     
     str += '<div class="lordContainer">';
 

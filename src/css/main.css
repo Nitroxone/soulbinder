@@ -3297,9 +3297,139 @@ hr.leftSided {
     height: 50%;
     width: 100%;
     background-image: url(img/bg1.png);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
+.blackMarket > p {
+    font-family: RobotoSlabBold;
+    font-size: 1.3em;
+    margin-top: 10px;
+}
 
+.blackMarket-menu {
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 70% 30%;
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    padding: 1em;
+}
+
+.blackMarket-menu--firstCol, .blackMarket-menu--secondCol {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.blackMarket-menu--firstCol { 
+    grid-area: 1 / 1 / 2 / 2; 
+}
+
+.blackMarket-menu--secondCol { 
+    grid-area: 1 / 2 / 2 / 3; 
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.blackMarket-menu--tabs {
+    height: 10%;
+    width: 98%;
+    background-image: url(img/bg1.png);
+    display: flex;
+    justify-content: space-between;
+}
+
+.blackMarket-menu--tabs > button {
+    border: none;
+    width: 90px;
+    background-image: url(img/bg1.png);
+    border-top: 1px solid rgb(100, 100, 100);
+    border-left: 1px solid rgb(100, 100, 100);
+    border-right: 1px solid rgb(100, 100, 100);
+    font-family: RobotoSlab;
+    text-align: center;
+    font-variant: small-caps; 
+    color: white;
+    border-radius: 3px 3px 0 0;
+}
+
+.blackMarket-menu--tabs > button:hover {
+    background-image: none;
+    cursor: pointer;
+    background-color: white;
+    color: black;
+}
+
+.blackMarket-menu--trade {
+    height: 90%;
+    width: 98%;
+    background-image: url(img/bg3.png);
+    border: 1px solid rgb(100, 100, 100);
+    border-radius: 0 0 3px 3px;
+}
+
+.blackMarket-menu--ultraRareItem {
+    height: 80%;
+    width: 98%;
+    border: 1px solid rgb(100, 100, 100);
+    border-radius: 3px;
+}
+
+.blackMarket-menu--secondCol > button {
+    height: 20%;
+    width: 98%;
+    background-color: #111111;
+    border: 1px solid rgb(100, 100, 100);
+    border-radius: 3px;
+    color: white;
+    font-family: RobotoSlab;
+
+}
+
+.tradeItems {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    max-height: 200px;
+    width: 100%;
+    padding: 0.5em;
+    gap: 0.5em;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.tradeItems-item {
+    background-color: #0000004d;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 1em;
+}
+
+.tradeItems-item:hover {
+    background-color: rgba(255, 255, 255, 0.214);
+    cursor: pointer;
+}
+
+.tradeItems-goldIcon {
+    background-image: url(img/goldicon-small.png);
+    height: 15px;
+    width: 15px;
+}
+
+.tradeItems-item--price {
+    margin-left: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
 
 .commanderSheet {
     margin: 20px 0 50px 0;
@@ -3656,8 +3786,6 @@ hr.leftSided {
     background-repeat: no-repeat;
 
     border-bottom: 2px dashed grey;
-
-    position: relative;
 }
 .alchPotionPreview-wrapper {
     display: flex;
@@ -3669,21 +3797,7 @@ hr.leftSided {
 
     background: url('img/bg4.png') repeat;
 }
-.alchPotionPreview-name {
-    background: transparent;
-    border: none;
-    
-    font-family: RobotoSlab;
-    font-size: 23px;
-    font-variant: small-caps;
-    color: #ccc;
-    text-shadow: 0px 1px 0px #733726,0px 2px 0px #875626,0px 2px 1px #000,0px 2px 2px #000;
-}
-.alchPotionPreview-name:focus {
-    outline: none;
-}
-
-.alchPotionPreview-vignetteContainer {
+.alchPotionPreview-vignette {
     width: 96px;
     height: 96px;
 
@@ -3692,91 +3806,6 @@ hr.leftSided {
 
     background: url('img/bg1.png');
 }
-.alchPotionPreview-vignette {
-    width: 88px;
-    height: 88px;
-
-    filter: drop-shadow(0px 0px 8px rgb(255, 0, 0));
-    background-size: 65%;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-.alchPotionPreview-vignetteSelector {
-    
-}
-
-.vignetteSelector {
-    padding: 0.35rem;
-    position: absolute;
-    left: -10px;
-
-    width: 200px;
-    height: 230px;
-
-    overflow-y: scroll;
-
-    border: 4px solid transparent;
-    border-image: url(img/window1.png) 3 stretch;
-    background: url('img/bg4.png');
-
-    animation-name: vignetteSelectorSlideIn;
-    animation-duration: .5s;
-    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
-}
-@keyframes vignetteSelectorSlideIn {
-    from {
-        opacity: 0;
-        transform: translateX(20px);
-    }
-}
-.selectorTitle {
-    font-family: RobotoSlab;
-    color: rgb(155, 155, 155);
-    font-variant: small-caps;
-    font-size: 14px;
-    width: 100%;
-    margin: 0.5rem 0;
-    text-align: center;
-}
-.selectedTitle {
-    font-family: RobotoSlabBold;
-    color: #ddd;
-    font-size: 13px;
-    text-align: center;
-}
-.selectorItems {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-
-    width: 170px;
-}
-.selectorItem {
-    width: 50px;
-    height: 50px;
-
-    cursor: pointer;
-
-    background-size: 50%;
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
-
-    transition: all .2s cubic-bezier(0.075, 0.82, 0.165, 1);
-}
-.selectorItem:hover {
-    background-position-y: 40%;
-}
-.selectorItem.vignetteSelected {
-    /*box-shadow: 0px 0px 0px 1px rgba(255,255,255,1) inset, 0px 1px 4px 2px rgba(128,255,255,0.6) inset,0px 4px 2px 2px rgba(0,0,0,1);*/
-    border-radius: 3px;
-    box-shadow: 0px 0px 12px -4px rgba(255,255,255,1) inset,0px 0px 0px 1px rgba(255,255,255,0.65);
-}
-.selectorItem.vignetteSelected:hover {
-    background-position-y: 50%;
-}
-
 .alchPotionPreview-infos {
     margin-left: 0.55rem;
 
@@ -3785,6 +3814,13 @@ hr.leftSided {
     justify-content: start;
     width: 80%;
     min-height: 96px;
+}
+.alchPotionPreview-name {
+    font-family: RobotoSlab;
+    font-size: 23px;
+    font-variant: small-caps;
+    color: #ccc;
+    text-shadow: 0px 1px 0px #733726,0px 2px 0px #875626,0px 2px 1px #000,0px 2px 2px #000;
 }
 .alchPotionPreview-effects {
     padding: 1rem 0;
