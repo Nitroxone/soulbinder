@@ -574,7 +574,7 @@ function drawResourceInventory(resources) {
     for(let i = 0; i < resources.length; i++) {
         if(resources[i].amount > 0) {
             let me = resources[i];
-            str += '<div id="res-' + me.id + '" class="inventoryItem" style="' + getIcon(me) + '; border: 2px solid ' + getRarityColorCode(me.rarity) +'">';
+            str += '<div id="res-' + me.id + '" class="inventoryItem" style="' + getIcon(me) + '; border: 2px solid ' + getRarityColorCode(me.rarity) +'"' + (me instanceof AlchemicalIngredient ? 'draggable="true"' : '') + '>';
             str += '<div id="res-amount-' + me.id + '" class="inventoryItemAmount">' + (me.amount > 99 ? '99+' : me.amount) + '</div>';
             str += '</div>';
         }
@@ -599,11 +599,15 @@ function drawResourceInventory(resources) {
                 audio.playbackRate = 2;
                 audio.play();
             });
+            document.querySelector('#res-' + me.id).addEventListener('dragstart', e => {
+                e.dataTransfer.setData('ingredient', me.id);
+            })
         }
     }
     document.querySelector('#res-resources').addEventListener('click', (e) => {
         document.querySelector('#res-cat-resources').classList.toggle('hide');
     })
+
 }
 
 function drawArmorInventory(armors) {
@@ -1327,7 +1331,7 @@ function drawWorkshopScreen() {
     document.querySelector('#workshopDiv').innerHTML = '<div class="workshopContainer"></div>';
 
     let str = '';
-    str += '<div class="workshopMenu coolBorder">';
+    str += '<div class="workshopMenu">';
 
     str += '<div class="workshopTab workshopTab-crafting">';
     str += '<div class="workshopTab-backgrounds crafting-background"></div>';
@@ -1344,7 +1348,7 @@ function drawWorkshopScreen() {
     str += '<p class="workshopTab-titles">SOULWRITING</p>';
     str += '</div>';
 
-    str += '<div class="workshopTab workshopTab-soulbiding">';
+    str += '<div class="workshopTab workshopTab-soulbinding">';
     str += '<div class="workshopTab-backgrounds soulbinding-background"></div>';
     str += '<p class="workshopTab-titles">SOULBINDING</p>';
     str += '</div>';
@@ -1361,7 +1365,119 @@ function drawWorkshopScreen() {
 
     document.querySelector('.workshopContainer').innerHTML = str;
 
-    //document.querySelector('.astralForgeReceptacle').
+    generateWorkshopTabsEvents();
+}
+
+function generateWorkshopTabsEvents() {
+    const container = document.querySelector('.workshopMenu');
+    const alch = document.querySelector('.workshopTab-alchemy');
+
+    alch.addEventListener('click', e => {
+        alchInterface = document.createElement('div');
+        console.log(alchInterface);
+    
+        alchInterface.style.width = alch.offsetWidth*2 + 'px';
+        alchInterface.style.height = alch.offsetHeight*2 + 'px';
+        alchInterface.classList.add('alchInterface', 'coolBorderBis');
+
+        container.appendChild(alchInterface);
+
+        drawAlchemyScreen();
+    });
+}
+
+function drawAlchemyScreen() {
+    let str = '';
+
+    str += '<div class="alchPotionPreview">';
+    str += '<div class="alchPotionPreview-wrapper coolBorderBis">';
+    str += '<div class="alchPotionPreview-vignette"></div>';
+
+    str += '<div class="alchPotionPreview-infos">';
+    str += '<div class="alchPotionPreview-name" contenteditable>' + getRandomPotionName() + '</div>';
+    str += '<div class="alchPotionPreview-effects">';
+    if(game.alchemy.effects = [null, null, null]) str += '<div class="alchNoEffects">No effect</div>';
+    else game.alchemy.effects.forEach(eff => {
+        if(eff) str += '<div class="alchPreviewEffect">' + eff.effect + '</div>';
+    })
+    str += '</div>';
+    str += getAlchemyPreviewToxicity();
+    str += '</div>';
+    str += '</div></div>';
+
+    str += '<div class="alchIngredient alchIngredientOne" ondragover="allowDrop(event);" ondrop="game.alchemy.addIngredient(event, 0);">';
+    str += getAlchemyIngredient(game.alchemy.ingredients[0]);
+    str += '</div>';
+
+    str += '<div class="alchIngredient alchIngredientTwo" ondragover="allowDrop(event);" ondrop="game.alchemy.addIngredient(event, 1);">';
+    str += getAlchemyIngredient(game.alchemy.ingredients[1]);
+    str += '</div>';
+
+    str += '<div class="alchIngredient alchIngredientThree" ondragover="allowDrop(event);" ondrop="game.alchemy.addIngredient(event, 2);">';
+    str += getAlchemyIngredient(game.alchemy.ingredients[2]);
+    str += '</div>';
+
+    str += '<div class="alchAction">';
+    str += '</div>';
+
+    document.querySelector('.alchInterface').innerHTML = str;
+
+    generateAlchemyInterfaceEvents();
+}
+
+function generateAlchemyInterfaceEvents() {
+
+}
+
+function generateAlchemyIngredientEvents(ingr) {
+    const dom = document.querySelectorAll('.alchIngredient')[game.alchemy.ingredients.indexOf(ingr)];
+
+    dom.querySelectorAll('.toggleButton').forEach(but => {
+        but.addEventListener('click', e => {
+            unselectAllAlchemyIngredientSelectors(dom);
+            if(ingr.select(but.textContent.toLowerCase())) but.classList.toggle('off');
+        })
+    })
+}
+
+function unselectAllAlchemyIngredientSelectors(ingr) {
+    ingr.querySelectorAll('.toggleButton').forEach(but => {
+        but.classList.add('off');
+    })
+}
+
+function getAlchemyIngredient(ingr, refresh = false) {
+    let str = '';
+
+    str += '<div class="alchIngredient-vignette' + (ingr ? ' alchVignetteActive' : '') + '" ' + (ingr ? 'style="background-image: url(\'css/img/resources/' + ingr.icon + '.png\');"' : '') + '></div>';
+    str += '<div class="alchIngredient-name barred" style="display: ' + (ingr ? 'block' : 'none') + '">' + (ingr ? ingr.name : '') + '</div>';
+    str += '<div class="alchIngredient-effects" style="display: ' + (ingr ? 'block' : 'none') + '">';
+    if(ingr) {
+        str += '<div class="toggleButton off">Passive</div>';
+        str += '<div class="toggleButton off">Recovery</div>';
+        str += '<div class="toggleButton off">Special</div>';
+    }
+    str += '</div>';
+
+    if(refresh) {
+        const index = game.alchemy.ingredients.indexOf(ingr);
+        document.querySelectorAll('.alchIngredient')[index].innerHTML = str;
+        generateAlchemyIngredientEvents(ingr);
+        return;
+    }
+    return str;
+}
+
+function getAlchemyPreviewToxicity(refresh = false) {
+    let str = '';
+
+    str += '<div class="gaugeProgress"><div class="statGauge toxicitySmaller" style="width:'+ Math.round((game.alchemy.toxicity*100)/100) +'%"></div></div>';
+    str += '<div class="alchToxicity">';
+    str += '<div>Toxicity</div>';
+    str += '<div>' + game.alchemy.toxicity + '/100</div>';
+    str += '</div>'
+
+    return str;
 }
 
 function drawAstralForgeScreen(forgeItem, refresh = false) {
@@ -1370,7 +1486,7 @@ function drawAstralForgeScreen(forgeItem, refresh = false) {
     let popupWindow;
     if(!refresh) {
         popupWindow = document.createElement('div');
-        popupWindow.classList.add('astralForgePopup', 'bgDark', 'tooltipSpawn');
+        popupWindow.classList.add('astralForgePopup', 'bgDark');
         document.querySelector('#workshopDiv').appendChild(popupWindow);
     } else {
         popupWindow = document.querySelector('.astralForgePopup');

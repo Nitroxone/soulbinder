@@ -159,6 +159,10 @@ table {
     scrollbar-color: rgba(139,0,0,0.25) rgba(0,0,0,0.1);
 }
 
+[contenteditable]:focus {
+    outline: 0px solid transparent;
+}
+
 html, body {
     width:100%;
     height:100%;
@@ -975,8 +979,9 @@ a:active, .tooltiped:active {
 }
 @keyframes tooltipSpawn {
     0% {
-        translate: 0px 10px;
-        transform: scale(0.95);
+        opacity: 0;
+        translate: 0px 20px;
+        transform: scale(0.9);
     }
 }
 .widget, .tooltip {white-space: normal;}
@@ -2200,6 +2205,9 @@ table.statsTable tbody td:nth-child(3) {
     background-color: grey;
     line-height: 12px;
 }
+.statGauge.toxicitySmaller {
+    height: 10px;
+}
 .statGauge > .gaugeIndicator {
     position: absolute;
     left:0;
@@ -2215,7 +2223,7 @@ table.statsTable tbody td:nth-child(3) {
 .stamina {
     background: linear-gradient(0deg, rgba(41,136,76,1) 23%, rgba(0,205,82,1) 100%);
 }
-.toxicity {
+.toxicity, .toxicitySmaller {
     background: linear-gradient(0deg, rgb(20, 92, 47) 23%, rgb(0, 136, 54) 100%);
 }
 .gaugeIndicator {
@@ -2905,12 +2913,55 @@ hr.leftSided {
     border-color: rgb(133, 207, 236);
 }
 
+.toggleButton {
+    width: auto;
+    height: 22px;
+    
+    border: 1px solid #e2dd48;
+    border-color: #3f517c #757574 #616160 #25304e;
+    border-radius: 3px;
+
+    background-image: url('img/bg2.png');
+
+    color: #ddd;
+    padding: 4px;
+    box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.5),0px 2px 4px rgba(0,0,0,0.25),0px 0px 2px 2px #000 inset,0px 1px 0px 1px rgba(255,255,255,0.5) inset;
+    text-align: left;
+    position: relative;
+
+    font-family: "RobotoSlab";
+}
+.toggleButton.off {
+    color: rgba(221, 221, 221, 0.5);
+}
+.toggleButton.off:hover {
+    color: rgba(221, 221, 221, 0.75);
+}
+.toggleButton::after {
+    content: '';
+    background: #fff;
+    pointer-events: none;
+    width: 3px;
+    height: 3px;
+    display: inline-block;
+    border-radius: 4px;
+    box-shadow: 0px 0px 2px 0px #3cf,0px 0px 6px 1px #33f;
+    position: absolute;
+    right: 3px;
+    top: 50%;
+    margin-top: -1px;
+}
+.toggleButton.off::after {
+    background-color: rgba(255,255,255,0.15);
+    box-shadow: 1px 1px 0px rgba(255,255,255,0.3);
+}
+
 .coolBorder {
     border: 1px solid #e2dd48;
     border-color: #3f517c #757574 #616160 #25304e;
     box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.5),0px 2px 2px rgba(0,0,0,0.25),0px 0px 2px 2px #000 inset,0px 1px 0px 1px rgba(255,255,255,0.5) inset;
 }
-.simpleButton:hover {
+.simpleButton:hover, .toggleButton:hover {
     border-color: rgb(185, 185, 185);
     cursor: pointer;
 }
@@ -3371,8 +3422,8 @@ hr.leftSided {
 }
 
 .workshopMenu {
-    height: 800px;
-    width: 1000px;
+    height: 650px;
+    width: 850px;
     position: relative;
 
     display: grid;
@@ -3380,6 +3431,11 @@ hr.leftSided {
     grid-template-rows: repeat(2, 1fr);
     grid-column-gap: 0px;
     grid-row-gap: 0px;
+
+    border: 7px solid transparent;
+    border-image: url(img/window1.png) 7 stretch;
+
+    overflow: hidden;
 }
 
 .workshopTab {
@@ -3394,7 +3450,6 @@ hr.leftSided {
 }
 
 .workshopTab-titles, .workshopTab-subtitles {
-    z-index: 999;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -3486,6 +3541,185 @@ hr.leftSided {
     border: none;
 }
 
+.alchInterface {
+    position: absolute;
+
+
+    background: url(img/darkBorders.png), url('img/bg3.png');
+    background-size: 100% 100%, 60%;
+
+    animation-name: alchInterfaceSlideIn;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation-fill-mode: forwards;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 0.5fr;
+    gap: 0 0;
+    grid-template-areas: 
+        "alchPotionPreview alchPotionPreview alchPotionPreview"
+        "alchIngredientOne alchIngredientTwo alchIngredientThree"
+        "alchAction alchAction alchAction";
+
+    transition: all .1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+@keyframes alchInterfaceSlideIn {
+    0% {
+        border-radius: 100%;
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        top: 0%;
+        right: 0%;
+    }
+}
+
+.alchAction {
+    border: 1px dashed grey;
+}
+
+.alchPotionPreview {
+    grid-area: alchPotionPreview;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    background: url('img/bg/bg-alchemy_extended.png');
+    background-size: cover;
+    background-position: center 20%;
+    background-repeat: no-repeat;
+
+    border-bottom: 2px dashed grey;
+}
+.alchPotionPreview-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 60%;
+
+    padding: 1rem !important;
+
+    background: url('img/bg4.png') repeat;
+}
+.alchPotionPreview-vignette {
+    width: 96px;
+    height: 96px;
+
+    border: 4px solid transparent;
+    border-image: url(img/window1.png) 4 stretch;
+
+    background: url('img/bg1.png');
+}
+.alchPotionPreview-infos {
+    margin-left: 0.55rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    width: 80%;
+    min-height: 96px;
+}
+.alchPotionPreview-name {
+    font-family: RobotoSlab;
+    font-size: 23px;
+    font-variant: small-caps;
+    color: #ccc;
+    text-shadow: 0px 1px 0px #733726,0px 2px 0px #875626,0px 2px 1px #000,0px 2px 2px #000;
+}
+.alchPotionPreview-effects {
+    padding: 1rem 0;
+    display: flex;
+    flex-direction: column;
+}
+.alchPotionPreview-effects > div:not(:first-child) {
+    margin-top: 0.25rem;
+}
+.alchNoEffects {
+    font-family: RobotoItalic;
+    color: grey;
+}
+.alchPreviewEffect, .alchNoEffects {
+    padding-left: 1rem;
+
+    font-size: 0.75rem;
+}
+.alchPreviewEffect::before, .alchNoEffects::before {
+    content: '\2022';
+    padding-right: 8px;
+}
+
+.alchToxicity {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    font-family: RobotoSlab;
+    color: #ccc;
+    font-variant: small-caps;
+
+    margin-top: 0.25rem;
+}
+.alchIngredient {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    position: relative;
+}
+.alchIngredient-vignette {
+    width: 64px;
+    height: 64px;
+
+    border: 3px solid transparent;
+    border-image: url(img/window1-smaller.png) 3 stretch;
+
+    background-size: 65%;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: drop-shadow(0px 0px 15px rgba(0,0,0,1));
+}
+.alchIngredient-vignette.alchVignetteActive {
+    border: none;
+}
+.alchIngredient-name {
+    font-family: RobotoSlab;
+    font-size: 0.8rem;
+    height: 16px;
+    min-width: 80px;
+    text-align: center;
+    margin-bottom: 0.75rem;
+}
+.alchIngredient-effects {
+    max-width: 80px;
+    width: 80px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.alchIngredient-effects > div:not(:first-child) {
+    margin-top: 0.25rem;
+}
+
+.alchIngredientOne {
+    grid-area: alchIngredientOne;
+}
+.alchIngredientTwo {
+    grid-area: alchIngredientTwo;
+}
+.alchIngredientThree {
+    grid-area: alchIngredientThree;
+}
+.alchAction {
+    grid-area: alchAction;
+}
+
 .astralForgeReceptacle {
     width: 300px;
     height: 300px;
@@ -3506,7 +3740,7 @@ hr.leftSided {
 
     box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.5),0px 2px 2px rgba(0,0,0,0.25),0px 0px 2px 2px #000 inset,0px 1px 1px 5px rgba(255,255,255,0.5) inset;
 
-    transition: all .35s cubic-bezier(.68,-0.55,.27,1.55)
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 .astralForgeReceptacle:hover {
     box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.5),0px 2px 2px rgba(0,0,0,0.25),0px 0px 2px 2px #000 inset,0px 1px 10px 15px rgba(255,255,255,0.35) inset;
@@ -3515,22 +3749,33 @@ hr.leftSided {
 }
 
 .astralForgePopup {
-    width: 975px;
+    width: 900px;
     height: 500px;
 
     position: absolute;
-    top: 100px;
+    top: 50%;
     left: 0;
     right: 0;
     margin: 0 auto;
+    transform: translateY(-50%);
 
     padding: 6px;
 
     border: 7px solid transparent;
-    border-image: url(img/window1-tiny.png) 7 stretch;
+    border-image: url(img/window1.png) 7 stretch;
     border-radius: 5px;
     color: #dddddd;
     box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.5);
+
+    animation-name: astralForgeSpawn;
+    animation-duration: .5s;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+@keyframes astralForgeSpawn {
+    from {
+        opacity: 0;
+        transform: translateY(-65%) scale(1.1);
+    }
 }
 
 /* ASTRAL FORGE */
