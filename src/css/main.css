@@ -3752,16 +3752,20 @@ hr.leftSided {
     background-size: 50%;
     background-position: 50% 50%;
     background-repeat: no-repeat;
+
+    transition: all .2s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 .selectorItem:hover {
-    background-position-y: 45%;
+    background-position-y: 40%;
 }
 .selectorItem.vignetteSelected {
     /*box-shadow: 0px 0px 0px 1px rgba(255,255,255,1) inset, 0px 1px 4px 2px rgba(128,255,255,0.6) inset,0px 4px 2px 2px rgba(0,0,0,1);*/
     border-radius: 3px;
     box-shadow: 0px 0px 12px -4px rgba(255,255,255,1) inset,0px 0px 0px 1px rgba(255,255,255,0.65);
 }
-
+.selectorItem.vignetteSelected:hover {
+    background-position-y: 50%;
+}
 
 .alchPotionPreview-infos {
     margin-left: 0.55rem;
