@@ -5,7 +5,7 @@ class Alchemy {
     constructor() {
         this.ingredients = [null, null, null];
         this.toxicity = 0;
-        this.effects = [null, null, null];
+        this.effects = [];
     }
 
     addIngredient(event, index) {
@@ -14,18 +14,21 @@ class Alchemy {
         document.querySelectorAll('.alchIngredient')[index].innerHTML = getAlchemyIngredient(this.ingredients[index]);
         generateAlchemyIngredientEvents(this.ingredients[index]);
     }
-    removeIngredient() {
-
+    removeIngredient(index) {
+        this.ingredients[index].unlink();
+        this.ingredients[index] = null;
+        document.querySelectorAll('.alchIngredient')[index].innerHTML = getAlchemyIngredient(this.ingredients[index]);
     }
     clearIngredients() {
         this.ingredients = [];
+        document.querySelectorAll('.alchIngredient')[index].innerHTML = getAlchemyIngredient(this.ingredients[index]);
     }
 
-    addEffect() {
-
+    addEffect(eff) {
+        this.effects.push(eff);
     }
-    removeEffect() {
-
+    removeEffect(eff) {
+        removeFromArray(this.effects, eff);
     }
     clearEffects() {
         this.effects = [];

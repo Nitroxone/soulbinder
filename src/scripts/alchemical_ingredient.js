@@ -10,6 +10,7 @@ class AlchemicalIngredient extends Resource {
     }
 
     select(type) {
+        this.removeSelectedFromAlchemy();
         switch(type) {
             case "passive":
                 this.selected = this.selected === this.passive ? null : this.passive;
@@ -21,7 +22,26 @@ class AlchemicalIngredient extends Resource {
                 this.selected = this.selected === this.special ? null : this.special;
                 break;
         }
-        if(!this.selected) return false;
-        else return true;
+        if(!this.selected) {
+
+            return false;
+        }
+        else {
+            game.alchemy.effects.push(this.selected);
+            return true;
+        }
+    }
+
+    unselect() {
+        this.selected = null;
+    }
+
+    removeSelectedFromAlchemy() {
+        removeFromArray(game.alchemy.effects, this.selected);
+    }
+    
+    unlink() {
+        this.removeSelectedFromAlchemy();
+        this.unselect();
     }
 }

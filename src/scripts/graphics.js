@@ -1345,13 +1345,13 @@ function drawAlchemyScreen() {
 
     str += '<div class="alchPotionPreview-infos">';
     str += '<div class="alchPotionPreview-name" contenteditable>' + getRandomPotionName() + '</div>';
+
     str += '<div class="alchPotionPreview-effects">';
-    if(game.alchemy.effects = [null, null, null]) str += '<div class="alchNoEffects">No effect</div>';
-    else game.alchemy.effects.forEach(eff => {
-        if(eff) str += '<div class="alchPreviewEffect">' + eff.effect + '</div>';
-    })
+    str += getAlchemyPotionPreviewEffects();
     str += '</div>';
+
     str += getAlchemyPreviewToxicity();
+
     str += '</div>';
     str += '</div></div>';
 
@@ -1375,8 +1375,34 @@ function drawAlchemyScreen() {
     generateAlchemyInterfaceEvents();
 }
 
-function generateAlchemyInterfaceEvents() {
+function getAlchemyPotionPreviewEffects(refresh = false) {
+    let str = '';
 
+    if(game.alchemy.effects.length === 0) str += '<div class="alchNoEffects">No effect</div>';
+    else game.alchemy.effects.forEach(eff => {
+        console.log(eff);
+        str += eff.effect.getFormatted({cssClass: 'alchPreviewEffect', noTheorical: true});
+    });
+
+    if(refresh) {
+        document.querySelector('.alchPotionPreview-effects').innerHTML = str;
+        return;
+    }
+    return str;
+}
+
+function generateAlchemyInterfaceEvents() {
+    const ingredients = document.querySelectorAll('.alchIngredient');
+    for(let i = 0; i < ingredients.length; i++) {
+        const ingr = ingredients[i];
+        ingr.addEventListener('contextmenu', e => {
+            e.preventDefault();
+            if(game.alchemy.ingredients[i]) {
+                game.alchemy.removeIngredient(i);
+                getAlchemyPotionPreviewEffects(true);
+            }
+        })
+    }
 }
 
 function generateAlchemyIngredientEvents(ingr) {
@@ -1385,7 +1411,10 @@ function generateAlchemyIngredientEvents(ingr) {
     dom.querySelectorAll('.toggleButton').forEach(but => {
         but.addEventListener('click', e => {
             unselectAllAlchemyIngredientSelectors(dom);
-            if(ingr.select(but.textContent.toLowerCase())) but.classList.toggle('off');
+            if(ingr.select(but.textContent.toLowerCase())) {
+                but.classList.toggle('off');
+            }
+            getAlchemyPotionPreviewEffects(true);
         })
     })
 }
