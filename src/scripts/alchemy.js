@@ -6,6 +6,7 @@ class Alchemy {
         this.ingredients = [null, null, null];
         this.toxicity = 0;
         this.effects = [];
+        this.icon = this.selectRandomIcon();
     }
 
     /**
@@ -73,5 +74,13 @@ class Alchemy {
      */
     decreaseToxicity(amount) {
         this.toxicity = Math.max(this.toxicity - amount, 0);
+    }
+
+    selectRandomIcon() {
+        this.icon = Icons.Methods.findRandom('potions');
+    }
+
+    selectIcon(icon) {
+        this.icon = icon;
     }
 }

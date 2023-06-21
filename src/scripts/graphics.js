@@ -1402,14 +1402,19 @@ function generateWorkshopTabsEvents() {
 }
 
 function drawAlchemyScreen() {
+    game.alchemy.selectRandomIcon();
+
     let str = '';
 
     str += '<div class="alchPotionPreview">';
     str += '<div class="alchPotionPreview-wrapper coolBorderBis">';
-    str += '<div class="alchPotionPreview-vignette"></div>';
+
+    str += '<div class="alchPotionPreview-vignetteContainer">';
+    str += getAlchemyPotionPreviewVignette();
+    str += '</div>';
 
     str += '<div class="alchPotionPreview-infos">';
-    str += '<div class="alchPotionPreview-name" contenteditable>' + getRandomPotionName() + '</div>';
+    str += '<input type="text" value="' + getRandomPotionName() + '" minlength="3" maxlength="24" class="alchPotionPreview-name">';
 
     str += '<div class="alchPotionPreview-effects">';
     str += getAlchemyPotionPreviewEffects();
@@ -1440,13 +1445,25 @@ function drawAlchemyScreen() {
     generateAlchemyInterfaceEvents();
 }
 
+function getAlchemyPotionPreviewVignette(refresh = false) {
+    let str = '';
+
+    str += '<div class="alchPotionPreview-vignette" style="background-image: url(\'css/img/potions/' + game.alchemy.icon.icon + '.png\')"></div>';
+
+    if(refresh) {
+        document.querySelector('.alchPotionPreview-vignetteContainer').innerHTML = str;
+        return;
+    }
+    return str;
+}
+
 function getAlchemyPotionPreviewEffects(refresh = false) {
     let str = '';
 
     if(game.alchemy.effects.length === 0) str += '<div class="alchNoEffects">No effect</div>';
     else game.alchemy.effects.forEach(eff => {
         console.log(eff);
-        str += eff.effect.getFormatted({cssClass: 'alchPreviewEffect', noTheorical: true});
+        str += eff.effect.getFormatted({cssClass: 'alchPreviewEffect', noTheorical: true, defaultColor: true});
     });
 
     const toxGauge = document.querySelector('#alchPrevToxGauge');
@@ -1472,8 +1489,51 @@ function generateAlchemyInterfaceEvents() {
                 game.alchemy.removeIngredient(i);
                 getAlchemyPotionPreviewEffects(true);
             }
-        })
+        });
     }
+
+    const vignette = document.querySelector('.alchPotionPreview-vignette').addEventListener('click', e => {
+        if(document.querySelector('.vignetteSelector')) {
+            document.querySelector('.vignetteSelector').remove();
+            return;
+        }
+        
+        const div = document.createElement('div');
+        div.classList.add('vignetteSelector');
+
+        let str = '';
+
+        str += '<h2 class="selectorTitle">Bottle selector</h3>';
+        str += '<h3 class="selectedTitle">' + game.alchemy.icon.name + '</h4>';
+        str += '<div class="divider"></div>';
+        str += '<div class="selectorItems">'
+
+        Icons.Methods.getAllUnlocked('potions').forEach(pot => {
+            str += '<div id="vignettePotion-' + pot.icon + '" class="selectorItem' + (pot === game.alchemy.icon ? ' vignetteSelected' : '') + '" style="background-image: url(\'css/img/potions/' + pot.icon + '.png\')"></div>';
+        });
+
+        str += '</div>';
+
+        div.innerHTML = str;
+
+        div.querySelectorAll('.selectorItem').forEach(item => {
+            item.addEventListener('click', e => {
+                if(!(item.id === 'vignettePotion-' + game.alchemy.icon.icon)) {
+                    const id = parseInt(item.id.slice(15));
+                    const icon = Icons.Methods.findByIcon("potions", id);
+
+                    document.querySelector('#vignettePotion-' + game.alchemy.icon.icon).classList.remove('vignetteSelected');
+                    item.classList.add('vignetteSelected');
+                    document.querySelector('.selectedTitle').textContent = icon.name;
+
+                    game.alchemy.selectIcon(icon);
+                    document.querySelector('.alchPotionPreview-vignette').style.backgroundImage = 'url(\'css/img/potions/' + game.alchemy.icon.icon + '.png\')';
+                }
+            })
+        })
+
+        document.querySelector('.alchPotionPreview').appendChild(div);
+    })
 }
 
 function generateAlchemyIngredientEvents(ingr) {
