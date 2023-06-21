@@ -1444,6 +1444,12 @@ function getAlchemyPotionPreviewEffects(refresh = false) {
         str += eff.effect.getFormatted({cssClass: 'alchPreviewEffect', noTheorical: true});
     });
 
+    const toxGauge = document.querySelector('#alchPrevToxGauge');
+    const toxNumbers = document.querySelector('#alchPrevToxNumbers');
+    const tox = game.alchemy.effects.reduce((partSum, a) => partSum + a.toxicity, 0);
+    if(toxGauge) toxGauge.style.width = tox + '%';
+    if(toxNumbers) toxNumbers.textContent = tox + '/100';
+
     if(refresh) {
         document.querySelector('.alchPotionPreview-effects').innerHTML = str;
         return;
@@ -1510,10 +1516,10 @@ function getAlchemyIngredient(ingr, refresh = false) {
 function getAlchemyPreviewToxicity(refresh = false) {
     let str = '';
 
-    str += '<div class="gaugeProgress"><div class="statGauge toxicitySmaller" style="width:'+ Math.round((game.alchemy.toxicity*100)/100) +'%"></div></div>';
+    str += '<div class="gaugeProgress"><div id="alchPrevToxGauge" class="statGauge toxicitySmaller" style="width:'+ Math.round((game.alchemy.toxicity*100)/100) +'%"></div></div>';
     str += '<div class="alchToxicity">';
     str += '<div>Toxicity</div>';
-    str += '<div>' + game.alchemy.toxicity + '/100</div>';
+    str += '<div id="alchPrevToxNumbers">' + game.alchemy.toxicity + '/100</div>';
     str += '</div>'
 
     return str;

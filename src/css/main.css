@@ -2207,6 +2207,7 @@ table.statsTable tbody td:nth-child(3) {
 }
 .statGauge.toxicitySmaller {
     height: 10px;
+    transition: all .5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 .statGauge > .gaugeIndicator {
     position: absolute;
