@@ -3646,6 +3646,8 @@ hr.leftSided {
     background-repeat: no-repeat;
 
     border-bottom: 2px dashed grey;
+
+    position: relative;
 }
 .alchPotionPreview-wrapper {
     display: flex;
@@ -3670,7 +3672,8 @@ hr.leftSided {
 .alchPotionPreview-name:focus {
     outline: none;
 }
-.alchPotionPreview-vignette {
+
+.alchPotionPreview-vignetteContainer {
     width: 96px;
     height: 96px;
 
@@ -3679,6 +3682,87 @@ hr.leftSided {
 
     background: url('img/bg1.png');
 }
+.alchPotionPreview-vignette {
+    width: 88px;
+    height: 88px;
+
+    filter: drop-shadow(0px 0px 8px rgb(255, 0, 0));
+    background-size: 65%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.alchPotionPreview-vignetteSelector {
+    
+}
+
+.vignetteSelector {
+    padding: 0.35rem;
+    position: absolute;
+    left: -10px;
+
+    width: 200px;
+    height: 230px;
+
+    overflow-y: scroll;
+
+    border: 4px solid transparent;
+    border-image: url(img/window1.png) 3 stretch;
+    background: url('img/bg4.png');
+
+    animation-name: vignetteSelectorSlideIn;
+    animation-duration: .5s;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+@keyframes vignetteSelectorSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+}
+.selectorTitle {
+    font-family: RobotoSlab;
+    color: rgb(155, 155, 155);
+    font-variant: small-caps;
+    font-size: 14px;
+    width: 100%;
+    margin: 0.5rem 0;
+    text-align: center;
+}
+.selectedTitle {
+    font-family: RobotoSlabBold;
+    color: #ddd;
+    font-size: 13px;
+    text-align: center;
+}
+.selectorItems {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    width: 170px;
+}
+.selectorItem {
+    width: 50px;
+    height: 50px;
+
+    cursor: pointer;
+
+    background-size: 50%;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+}
+.selectorItem:hover {
+    background-position-y: 45%;
+}
+.selectorItem.vignetteSelected {
+    /*box-shadow: 0px 0px 0px 1px rgba(255,255,255,1) inset, 0px 1px 4px 2px rgba(128,255,255,0.6) inset,0px 4px 2px 2px rgba(0,0,0,1);*/
+    border-radius: 3px;
+    box-shadow: 0px 0px 12px -4px rgba(255,255,255,1) inset,0px 0px 0px 1px rgba(255,255,255,0.65);
+}
+
+
 .alchPotionPreview-infos {
     margin-left: 0.55rem;
 
