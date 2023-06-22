@@ -1552,8 +1552,8 @@ function getAlchemyPotionPreviewEffects(refresh = false) {
 
     const toxGauge = document.querySelector('#alchPrevToxGauge');
     const toxNumbers = document.querySelector('#alchPrevToxNumbers');
-    const tox = game.alchemy.effects.reduce((partSum, a) => partSum + a.toxicity, 0);
-    if(toxGauge) toxGauge.style.width = tox + '%';
+    const tox = game.alchemy.toxicity;
+    if(toxGauge) toxGauge.style.width = Math.min(tox, 100) + '%';
     if(toxNumbers) toxNumbers.textContent = tox + '/100';
 
     if(refresh) {
@@ -1620,7 +1620,11 @@ function generateAlchemyInterfaceEvents() {
         
         document.querySelector('.alchPotionPreview').appendChild(div);
         document.querySelector('.closeWindowButton').addEventListener('click', e => { div.remove() });
-    })
+    });
+
+    document.querySelector('.alchBrew').addEventListener('click', e => {
+        
+    });
 }
 
 function generateAlchemyIngredientEvents(ingr) {

@@ -67,7 +67,7 @@ class Alchemy {
      * @param {number} amount the amount of toxicity to add
      */
     increaseToxicity(amount) {
-        this.toxicity = Math.min(this.toxicity + amount, 100);
+        this.toxicity += amount;
     }
 
     /**
@@ -75,7 +75,7 @@ class Alchemy {
      * @param {number} amount the amount of toxicity to remove
      */
     decreaseToxicity(amount) {
-        this.toxicity = Math.max(this.toxicity - amount, 0);
+        this.toxicity -= amount;
     }
 
     selectRandomIcon() {
@@ -84,5 +84,9 @@ class Alchemy {
 
     selectIcon(icon) {
         this.icon = icon;
+    }
+
+    brew() {
+
     }
 }

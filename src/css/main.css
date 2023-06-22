@@ -3954,7 +3954,7 @@ hr.leftSided {
     font-variant: small-caps;
 
     animation-name: brewButtonPopIn;
-    animation-duration: 1s;
+    animation-duration: 0.75s;
     animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
 
     transition: all .1s ease-in-out;
@@ -3962,7 +3962,7 @@ hr.leftSided {
 @keyframes brewButtonPopIn {
     from {
         opacity: 0;
-        transform: translateX(-50%) translateY(-50%);
+        transform: translateX(-50%) translateY(-25%);
     }
 }
 .alchBrew:hover {
