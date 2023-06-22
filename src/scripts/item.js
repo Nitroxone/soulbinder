@@ -12,13 +12,17 @@ class Item extends Entity {
      * @param {number} price The Item's price
      * @param {string} rarity The Item's rarity
      */
-    constructor(name, desc, icon, price, rarity) {
+    constructor(name, desc, icon, price, rarity, props = {}) {
         super(name, desc, icon);
         this.price = price;
         this.rarity = rarity;
 
-        this.lootModifiers = {
+        this.lootModifiers = getValueFromObject(props, "lootModifiers", {
             amount: 1
-        }
+        });
+        this.tradeParams = getValueFromObject(props, "tradeParams", {
+            blackMarketAvailable: true,
+            auctionAvailable: true,
+        });
     }
 }
