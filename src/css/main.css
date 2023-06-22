@@ -3699,15 +3699,15 @@ hr.leftSided {
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: 80%;
+    width: 70%;
 
     padding: 1rem !important;
 
     background: url('img/bg4.png') repeat;
 }
 .alchPotionPreview-vignette {
-    width: 96px;
-    height: 96px;
+    width: 84px;
+    height: 84px;
 
     border: 4px solid transparent;
     border-image: url(img/window1.png) 4 stretch;
@@ -3715,8 +3715,8 @@ hr.leftSided {
     background: url('img/bg1.png');
 }
 .alchPotionPreview-vignette {
-    width: 88px;
-    height: 88px;
+    width: 72px;
+    height: 72px;
 
     filter: drop-shadow(0px 0px 8px rgb(255, 0, 0));
     background-size: 65%;
@@ -3749,7 +3749,7 @@ hr.leftSided {
 @keyframes vignetteSelectorSlideIn {
     from {
         opacity: 0;
-        transform: translateX(20px);
+        transform: translateX(-20px);
     }
 }
 .selectorTitle {
@@ -3827,7 +3827,7 @@ hr.leftSided {
 }
 .alchPotionPreview-name {
     font-family: RobotoSlab;
-    font-size: 23px;
+    font-size: 19px;
     font-variant: small-caps;
     color: #ccc;
     text-shadow: 0px 1px 0px #733726,0px 2px 0px #875626,0px 2px 1px #000,0px 2px 2px #000;
@@ -3838,7 +3838,7 @@ hr.leftSided {
     outline: none;
 }
 .alchPotionPreview-effects {
-    padding: 1rem 0;
+    padding: 0.5rem 0;
     display: flex;
     flex-direction: column;
 }
@@ -3852,7 +3852,7 @@ hr.leftSided {
 .alchPreviewEffect, .alchNoEffects {
     padding-left: 1rem;
 
-    font-size: 0.75rem;
+    font-size: 0.7rem;
 }
 .alchPreviewEffect::before, .alchNoEffects::before {
     content: '\2022';
