@@ -215,15 +215,10 @@ function getConsumableTooltip(consumable) {
     str += '<div class="par"></div>';
     str += '<div class="par"></div>';
     consumable.effects.forEach(eff => {
-        str += eff.getFormatted({cssClass: "itemEffect", noTheorical: true});
+        str += eff.getFormatted({cssClass: "itemEffect", noTheorical: true, defaultColor: true});
     })
     str += '<div class="divider"></div>';
-    if(consumable.toxicity > 0) {
-        str += '<div class="toxicityIndicator itemEffect">+ ' + consumable.toxicity + ' Toxicity</div>';
-        str += '<div class="divider"></div>';
-    }
-    str += '<div class="par"></div>';
-    str += '<div class="par tooltipDesc">' + consumable.desc + '</div>';
+    str += '<div class="toxicityIndicator itemEffect">+ ' + consumable.toxicity + ' Toxicity</div>';
     str += '</div></div>';
 
     game.particlesTooltipCanvasItem = consumable;
