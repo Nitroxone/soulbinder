@@ -86,15 +86,27 @@ class Alchemy {
         this.icon = icon;
     }
 
+    determineRarity() {
+        let highest = Data.Rarity.COMMON;
+        this.ingredients.forEach(ingr => {
+            if(ingr) {
+                highest = compareHighestRarities(highest, ingr.rarity);
+            }
+        });
+
+        return highest;
+    }
+
     brew() {
         const name = document.querySelector('.alchPotionPreview-name').value;
         const effects = this.effects.map(x => x.effect);
+        const rarity = this.determineRarity();
         const result = new Consumable(
             name,
             '',
             this.icon.icon,
             0,
-            Data.Rarity.COMMON,
+            rarity,
             {
                 effects: effects,
                 toxicity: this.toxicity,

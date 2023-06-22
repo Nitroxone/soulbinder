@@ -1497,3 +1497,17 @@ function getRandomPotionName() {
 
     return adj + ' ' + type;
 }
+
+function compareHighestRarities(a, b) {
+    const rarities = {
+        "common": 1,
+        "uncommon": 2,
+        "rare": 3,
+        "epic": 4,
+        "legendary": 5,
+        "elder": 6
+    }
+
+    if(rarities[a.toLowerCase()] > rarities[b.toLowerCase()]) return a;
+    return b;
+}
