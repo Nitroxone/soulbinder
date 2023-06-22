@@ -154,15 +154,15 @@ const Loader = {
                 Data.Rarity.COMMON,
                 {
                     passive: {
-                        effect: new Stat({effect: Data.Effect.PROTECTION, theorical: 2, isPercentage: true}),
+                        effect: new Stat({effect: Data.Effect.PROTECTION, theorical: 2, isPercentage: true, alchemicalType: Data.AlchemicalEffectType.PASSIVE}),
                         toxicity: 5,
                     },
                     recovery: {
-                        effect: new Stat({effect: Data.Effect.MANA, theorical: 4, isPercentage: true}),
+                        effect: new Stat({effect: Data.Effect.MANA, theorical: 4, isPercentage: true, alchemicalType: Data.AlchemicalEffectType.RECOVERY}),
                         toxicity: 20
                     },
                     special: {
-                        effect: new Stat({effect: Data.Effect.REMOVES_PROTECTION_DEBUFFS}),
+                        effect: new Stat({effect: Data.Effect.REMOVES_PROTECTION_DEBUFFS, alchemicalType: Data.AlchemicalEffectType.SPECIAL}),
                         toxicity: 50
                     }
                 }
@@ -175,15 +175,15 @@ const Loader = {
                 Data.Rarity.COMMON,
                 {
                     passive: {
-                        effect: new Stat({effect: Data.Effect.MIGHT, theorical: 2,}),
+                        effect: new Stat({effect: Data.Effect.MIGHT, theorical: 2, alchemicalType: Data.AlchemicalEffectType.PASSIVE}),
                         toxicity: 5,
                     },
                     recovery: {
-                        effect: new Stat({effect: Data.Effect.STAMINA, theorical: 4, isPercentage: true}),
+                        effect: new Stat({effect: Data.Effect.STAMINA, theorical: 4, isPercentage: true, alchemicalType: Data.AlchemicalEffectType.RECOVERY}),
                         toxicity: 20
                     },
                     special: {
-                        effect: new Stat({effect: Data.Effect.REMOVES_WARDING_DEBUFFS}),
+                        effect: new Stat({effect: Data.Effect.REMOVES_WARDING_DEBUFFS, alchemicalType: Data.AlchemicalEffectType.SPECIAL}),
                         toxicity: 50
                     }
                 }
@@ -196,15 +196,15 @@ const Loader = {
                 Data.Rarity.UNCOMMON,
                 {
                     passive: {
-                        effect: new Stat({effect: Data.Effect.WARDING, theorical: 2}),
+                        effect: new Stat({effect: Data.Effect.WARDING, theorical: 2, alchemicalType: Data.AlchemicalEffectType.PASSIVE}),
                         toxicity: 5,
                     },
                     recovery: {
-                        effect: new Stat({effect: Data.Effect.HEALTH, theorical: 4, isPercentage: true}),
+                        effect: new Stat({effect: Data.Effect.HEALTH, theorical: 4, isPercentage: true, alchemicalType: Data.AlchemicalEffectType.RECOVERY}),
                         toxicity: 20
                     },
                     special: {
-                        effect: new Stat({effect: Data.Effect.REMOVES_RESILIENCE_DEBUFFS}),
+                        effect: new Stat({effect: Data.Effect.REMOVES_RESILIENCE_DEBUFFS, alchemicalType: Data.AlchemicalEffectType.SPECIAL}),
                         toxicity: 50
                     }
                 }
@@ -2640,7 +2640,6 @@ const Loader = {
                 10,
                 Data.Rarity.COMMON,
                 {
-                    type: Data.ConsumableType.POTION,
                     effects: [new Stat({effect: Data.Effect.HEALTH, theorical: 5, isPercentage: true})],
                     toxicity: 10
                 }
@@ -2652,7 +2651,6 @@ const Loader = {
                 10,
                 Data.Rarity.EPIC,
                 {
-                    type: Data.ConsumableType.TEAR,
                     effects: [new Stat({effect: Data.Effect.MODIF_DMG_TOTAL, theorical: 10, isPercentage: true})],
                     toxicity: 70
                 }
@@ -2664,7 +2662,6 @@ const Loader = {
                 10,
                 Data.Rarity.UNCOMMON,
                 {
-                    type: Data.ConsumableType.EDIBLE,
                     effects: [new Stat({effect: Data.Effect.ACCURACY, theorical: 5, isPercentage: true})],
                     toxicity: 5,
                 }
@@ -2676,7 +2673,6 @@ const Loader = {
                 10,
                 Data.Rarity.EPIC,
                 {
-                    type: Data.ConsumableType.ELIXIR,
                     effects: [new Stat({effect: Data.Effect.REMOVES_PROTECTION_DEBUFFS}), new Stat({effect: Data.Effect.REMOVES_WARDING_DEBUFFS}), new Stat({effect: Data.Effect.REMOVES_RESILIENCE_DEBUFFS})],
                 }
             )
@@ -2684,7 +2680,6 @@ const Loader = {
 
         for(const consumable of consumables) {
             game.all_consumables.push(consumable);
-            game.inventory.consumables.push(consumable);
         }
     }
 }
