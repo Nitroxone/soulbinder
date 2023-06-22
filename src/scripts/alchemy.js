@@ -103,5 +103,16 @@ class Alchemy {
 
         game.inventory.addItem(result, 1, true);
         drawConsumablesInventory();
+
+        this.ingredients.forEach(ingr => {
+            if(ingr) {
+                game.player.inventory.removeResource(ingr);
+                if(ingr.amount <= 0) {
+                    this.removeIngredient(this.ingredients.indexOf(ingr));
+                    getAlchemyPotionPreviewEffects(true);
+                }
+            }
+        });
+        drawResourceInventory();
     }
 }

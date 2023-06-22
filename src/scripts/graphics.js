@@ -569,7 +569,7 @@ function drawSigilInventory(sigils) {
     })
 }
 
-function drawResourceInventory(resources) {
+function drawResourceInventory(resources = game.inventory.resources) {
     let str = '';
     for(let i = 0; i < resources.length; i++) {
         if(resources[i].amount > 0) {
