@@ -155,7 +155,8 @@ table {
 }
 
 * {
-    scrollbar-width:thin;
+    /*scrollbar-width:thin;*/
+    scrollbar-width:none;
     scrollbar-color: rgba(139,0,0,0.25) rgba(0,0,0,0.1);
 }
 
