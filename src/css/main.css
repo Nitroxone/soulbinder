@@ -3886,6 +3886,22 @@ hr.leftSided {
 .selectorItem.vignetteSelected:hover {
     background-position-y: 50%;
 }
+.closeWindowButton {
+    color: #bbb;
+    font-size: 11px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-family: RobotoSlab;
+    font-weight: bold;
+}
+.closeWindowButton:hover {
+    color: white;
+    cursor: pointer;
+}
+.selectorClose.closeWindowButton {
+    top: 5px;
+}
 
 .alchPotionPreview-infos {
     margin-left: 0.55rem;

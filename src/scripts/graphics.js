@@ -1628,7 +1628,7 @@ function generateAlchemyInterfaceEvents() {
 
         str += '</div>';
 
-        str += '<div class="closeWindowButton selectorClose"></div>';
+        str += '<div class="closeWindowButton selectorClose">X</div>';
 
         div.innerHTML = str;
 
