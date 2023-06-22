@@ -1507,8 +1507,6 @@ function drawAlchemyScreen(refresh = false) {
     str += getAlchemyIngredient(game.alchemy.ingredients[2]);
     str += '</div>';
 
-    str += '</div>';
-
     return str;
 }
 

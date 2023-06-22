@@ -3602,8 +3602,8 @@ hr.leftSided {
 }
 
 .workshopContainer {
-    width: 100%;
-    height: 100%;
+    width: 1152px;
+    height: 984px;
 
     margin: 0 auto;
 
@@ -3628,9 +3628,6 @@ hr.leftSided {
         "craftInterface soulbInterface"
         "craftInterface paragInterface";
 
-    border: 7px solid transparent;
-    border-image: url(img/window1.png) 7 stretch;
-
     overflow: hidden;
 }
 .craftInterface {
@@ -3644,6 +3641,11 @@ hr.leftSided {
 }
 .soulbInterface {
     grid-area: soulbInterface;
+}
+
+.alchInterface, .soulwInterface, .craftInterface, .soulbInterface, .paragInterface {
+    border: 7px solid transparent;
+    border-image: url(img/window1.png) 7 stretch;
 }
 
 .alchInterface {
@@ -3667,6 +3669,7 @@ hr.leftSided {
         "alchIngredientOne alchIngredientTwo alchIngredientThree";
 
     transition: all .1s cubic-bezier(0.075, 0.82, 0.165, 1);
+
 }
 @keyframes alchInterfaceSlideIn {
     0% {
@@ -3805,8 +3808,8 @@ hr.leftSided {
     color: #bbb;
     font-size: 11px;
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 5px;
+    right: 5px;
     font-family: RobotoSlab;
     font-weight: bold;
 }
@@ -3815,7 +3818,7 @@ hr.leftSided {
     cursor: pointer;
 }
 .selectorClose.closeWindowButton {
-    top: 5px;
+    
 }
 
 .alchPotionPreview-infos {
