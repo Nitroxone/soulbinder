@@ -49,6 +49,7 @@ class Alchemy {
     addEffect(eff) {
         this.effects.push(eff);
         if(eff) this.increaseToxicity(eff.toxicity);
+        displayAlchemyBrewButton();
     }
 
     /**
@@ -58,6 +59,7 @@ class Alchemy {
     removeEffect(eff) {
         if(eff) this.decreaseToxicity(eff.toxicity);
         removeFromArray(this.effects, eff);
+        displayAlchemyBrewButton();
     }
 
     /**

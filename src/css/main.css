@@ -3704,6 +3704,8 @@ hr.leftSided {
     padding: 1rem !important;
 
     background: url('img/bg4.png') repeat;
+
+    position: relative;
 }
 .alchPotionPreview-vignette {
     width: 84px;
@@ -3880,8 +3882,8 @@ hr.leftSided {
 }
 
 .alchIngredient-vignette {
-    width: 64px;
-    height: 64px;
+    width: 52px;
+    height: 52px;
 
     border: 3px solid transparent;
     border-image: url(img/window1-smaller.png) 3 stretch;
@@ -3926,20 +3928,21 @@ hr.leftSided {
     grid-area: alchIngredientThree;
     transform: translateX(-30px);
 }
-.alchAction {
-    grid-area: alchAction;
+.alchBrew {
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
 
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: start;
-}
-.alchAction-brewButton {
-    width: 307px;
-    height: 43px;
-
+    width: 204.5px;
+    height: 28.5px;
+    
+    border: 3px solid transparent;
+    border-image: url('img/window1.png') 3 stretch;
+    
     background-image: url('img/button_place.png');
     background-size: cover;
+    background-repeat: no-repeat;
     background-position: center;
 
     display: flex;
@@ -3947,16 +3950,23 @@ hr.leftSided {
     align-items: center;
 
     font-family: RobotoSlab;
-    font-weight: bold;
+    font-size: .85rem;
     font-variant: small-caps;
-    font-size: 1.2rem;
 
-    /*color: #564137;*/
-    color: #a27a67;
+    animation-name: brewButtonPopIn;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+
     transition: all .1s ease-in-out;
 }
-.alchAction-brewButton:hover {
-    filter: brightness(125%);
+@keyframes brewButtonPopIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-50%);
+    }
+}
+.alchBrew:hover {
+    filter: brightness(115%);
     cursor: pointer;
 }
 

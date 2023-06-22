@@ -1502,6 +1502,7 @@ function drawAlchemyScreen(refresh = false) {
     str += getAlchemyPreviewToxicity();
 
     str += '</div>';
+    str += '<div class="alchBrew" style="display: none">Brew</div>';
     str += '</div></div>';
 
     str += '<div class="alchIngredient alchIngredientOne" ondragover="allowDrop(event);" ondrop="game.alchemy.addIngredient(event, 0);">';
@@ -1519,6 +1520,13 @@ function drawAlchemyScreen(refresh = false) {
     str += '</div>';
 
     return str;
+}
+
+function displayAlchemyBrewButton() {
+    const alch = game.alchemy;
+
+    if(alch.effects.length > 0) document.querySelector('.alchBrew').style.display = 'flex';
+    else document.querySelector('.alchBrew').style.display = 'none';
 }
 
 function getAlchemyPotionPreviewVignette(refresh = false) {
