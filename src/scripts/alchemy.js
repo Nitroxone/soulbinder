@@ -87,6 +87,21 @@ class Alchemy {
     }
 
     brew() {
+        const name = document.querySelector('.alchPotionPreview-name').value;
+        const effects = this.effects.map(x => x.effect);
+        const result = new Consumable(
+            name,
+            '',
+            this.icon.icon,
+            0,
+            Data.Rarity.COMMON,
+            {
+                effects: effects,
+                toxicity: this.toxicity,
+            }
+        );
 
+        game.inventory.addItem(result, 1, true);
+        drawConsumablesInventory();
     }
 }
