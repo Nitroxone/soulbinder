@@ -1461,60 +1461,26 @@ function drawWorkshopScreen() {
     let str = '';
     str += '<div class="workshopMenu">';
 
-    str += '<div class="workshopTab workshopTab-crafting">';
-    str += '<div class="workshopTab-backgrounds crafting-background"></div>';
-    str += '<p class="workshopTab-titles">CRAFTING</p>';
+    str += '<div class="alchInterface">';
+    str += drawAlchemyScreen();
     str += '</div>';
 
-    str += '<div class="workshopTab workshopTab-alchemy">';
-    str += '<div class="workshopTab-backgrounds alchemy-background"></div>';
-    str += '<p class="workshopTab-titles">ALCHEMY</p>';
-    str += '</div>';
+    str += '<div class="craftInterface"></div>';
 
-    str += '<div class="workshopTab workshopTab-soulwriting">';
-    str += '<div class="workshopTab-backgrounds soulwriting-background"></div>';
-    str += '<p class="workshopTab-titles">SOULWRITING</p>';
-    str += '</div>';
+    str += '<div class="soulwInterface"></div>';
 
-    str += '<div class="workshopTab workshopTab-soulbinding">';
-    str += '<div class="workshopTab-backgrounds soulbinding-background"></div>';
-    str += '<p class="workshopTab-titles">SOULBINDING</p>';
-    str += '</div>';
+    str += '<div class="soulbInterface"></div>';
 
-    str += '<div class="workshopTab workshopTab-astralForge">';
-    str += '<div class="astralForgeReceptacle" ondrop="openAstralForge(event)" ondragover="allowDrop(event)">';
-    str += '<div class="workshopTab-backgrounds astralForge-background"></div>';
-    str += '<p class="workshopTab-titles" id="workshop-title-astralForge">ASTRAL FORGE</p>';
-    str += '<p class="workshopTab-subtitles">Drag and drop any weapon or armor into the circle to alter its capabilities</p>';
-    str += '</div>';
-    str += '</div>';
+    str += '<div class="paragInterface"></div>';
 
     str += '</div>';
 
     document.querySelector('.workshopContainer').innerHTML = str;
 
-    generateWorkshopTabsEvents();
+    generateAlchemyInterfaceEvents();
 }
 
-function generateWorkshopTabsEvents() {
-    const container = document.querySelector('.workshopMenu');
-    const alch = document.querySelector('.workshopTab-alchemy');
-
-    alch.addEventListener('click', e => {
-        alchInterface = document.createElement('div');
-        console.log(alchInterface);
-    
-        alchInterface.style.width = alch.offsetWidth*2 + 'px';
-        alchInterface.style.height = alch.offsetHeight*2 + 'px';
-        alchInterface.classList.add('alchInterface', 'coolBorderBis');
-
-        container.appendChild(alchInterface);
-
-        drawAlchemyScreen();
-    });
-}
-
-function drawAlchemyScreen() {
+function drawAlchemyScreen(refresh = false) {
     game.alchemy.selectRandomIcon();
 
     let str = '';
@@ -1550,13 +1516,9 @@ function drawAlchemyScreen() {
     str += getAlchemyIngredient(game.alchemy.ingredients[2]);
     str += '</div>';
 
-    str += '<div class="alchAction">';
-    str += '<div class="alchAction-brewButton">Brew</button>';
     str += '</div>';
 
-    document.querySelector('.alchInterface').innerHTML = str;
-
-    generateAlchemyInterfaceEvents();
+    return str;
 }
 
 function getAlchemyPotionPreviewVignette(refresh = false) {
@@ -1606,7 +1568,7 @@ function generateAlchemyInterfaceEvents() {
         });
     }
 
-    const vignette = document.querySelector('.alchPotionPreview-vignette').addEventListener('click', e => {
+    document.querySelector('.alchPotionPreview-vignette').addEventListener('click', e => {
         if(document.querySelector('.vignetteSelector')) {
             document.querySelector('.vignetteSelector').remove();
             return;
