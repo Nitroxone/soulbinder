@@ -3748,8 +3748,8 @@ hr.leftSided {
     left: 0px;
     top: 0px;
 
-    width: 200px;
-    height: 230px;
+    width: 175px;
+    height: 200px;
 
     overflow-y: scroll;
 
@@ -3788,8 +3788,6 @@ hr.leftSided {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-
-    width: 170px;
 }
 .selectorItem {
     width: 50px;
@@ -4070,6 +4068,8 @@ hr.leftSided {
 }
 .soulwContent {
     grid-area: soulwContent;
+
+    display: none;
 }
 
 .astralForgeReceptacle {

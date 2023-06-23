@@ -1702,14 +1702,17 @@ function drawSoulwritingScreen() {
     str += '<div id="soulwtab-bend" class="soulwTab' + (game.soulwriting.currentTab === 'bend' ? ' activeTab' : '') + '">Bend</div>';
     str += '</div>';
 
-    str += '<div class="soulwContent">';
-    str += '</div>';
+    str += '<div id="soulwcontent-read" class="soulwContent"></div>';
+    str += '<div id="soulwcontent-write" class="soulwContent" style="display: block"></div>';
+    str += '<div id="soulwcontent-bend" class="soulwContent"></div>';
 
     return str;
 }
 
 function generateSoulwritingInterfaceEvents() {
     const tabs = document.querySelectorAll('.soulwTab');
+    const contents = document.querySelectorAll('.soulwContent')
+
     for(let i = 0; i < tabs.length; i++) {
         let tab = tabs[i];
         tab.addEventListener('click', e => {
