@@ -1,4 +1,4 @@
-- Add consumables (potions) -- ONGOING
+
 - Add books
 
 - Create hub & lordships
@@ -9,6 +9,11 @@
 - Implement an arbitrary "Power" unit to weapons, armors, and trinkets
 
 - Actually implement set bonuses
+
+ALCHEMY:
+- Implement sound effects and animations
+- Prevent the use of the same ingredient multiple times 
+- Add a notification system similar to Astral Forge's
 
 BATTLES:
 DONE - Implement and improve skill launch conditions

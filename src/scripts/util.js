@@ -123,6 +123,7 @@ function getIcon(entity, forceModif = 0, border = false) {
         type = "sigils";
         bgModif = 60;
     }
+    else if(entity instanceof Consumable) type = 'potions';
     if(forceModif != 0) bgModif = forceModif;
 
     return 'background-image: url(css/img/' + type + '/' + entity.icon + '.png); background-size: '+ bgModif + '%;' + (border ? 'border: 1px solid ' + getRarityColorCode(entity.rarity) + ' !important;' : '');
@@ -1495,4 +1496,18 @@ function getRandomPotionName() {
     ]);
 
     return adj + ' ' + type;
+}
+
+function compareHighestRarities(a, b) {
+    const rarities = {
+        "common": 1,
+        "uncommon": 2,
+        "rare": 3,
+        "epic": 4,
+        "legendary": 5,
+        "elder": 6
+    }
+
+    if(rarities[a.toLowerCase()] > rarities[b.toLowerCase()]) return a;
+    return b;
 }

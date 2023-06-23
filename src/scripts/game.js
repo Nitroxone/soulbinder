@@ -333,7 +333,7 @@ class Game {
             this.inventory.addItem(item);
         });
         this.all_consumables.forEach(item => {
-            this.inventory.addItem(item, 10);
+            this.inventory.addItem(item);
         })
         this.all_striders.forEach(item => {
             this.player.addToRoster(item);

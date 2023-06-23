@@ -215,15 +215,10 @@ function getConsumableTooltip(consumable) {
     str += '<div class="par"></div>';
     str += '<div class="par"></div>';
     consumable.effects.forEach(eff => {
-        str += eff.getFormatted({cssClass: "itemEffect", noTheorical: true});
+        str += eff.getFormatted({cssClass: "itemEffect", noTheorical: true, defaultColor: true});
     })
     str += '<div class="divider"></div>';
-    if(consumable.toxicity > 0) {
-        str += '<div class="toxicityIndicator itemEffect">+ ' + consumable.toxicity + ' Toxicity</div>';
-        str += '<div class="divider"></div>';
-    }
-    str += '<div class="par"></div>';
-    str += '<div class="par tooltipDesc">' + consumable.desc + '</div>';
+    str += '<div class="toxicityIndicator itemEffect">+ ' + consumable.toxicity + ' Toxicity</div>';
     str += '</div></div>';
 
     game.particlesTooltipCanvasItem = consumable;
@@ -569,7 +564,7 @@ function drawSigilInventory(sigils) {
     })
 }
 
-function drawResourceInventory(resources) {
+function drawResourceInventory(resources = game.inventory.resources) {
     let str = '';
     for(let i = 0; i < resources.length; i++) {
         if(resources[i].amount > 0) {
@@ -698,36 +693,31 @@ function drawTrinketInventory(trinkets) {
     })
 }
 
-function drawConsumablesInventory(consumables) {
+function drawConsumablesInventory(consumables = game.inventory.consumables) {
     let str = '';
     for(let i = 0; i < consumables.length; i++) {
-        if(consumables[i].amount > 0) {
-            let me = consumables[i];
-            str += '<div id="res-' + me.id + '" class="inventoryItem" style="' + getIcon(me) + '; border: 2px solid ' + getRarityColorCode(me.rarity) +'">';
-            str += '<div id="res-amount-' + me.id + '" class="inventoryItemAmount">' + (me.amount > 99 ? '99+' : me.amount) + '</div>';
-            str += '</div>';
-        }
+        let me = consumables[i];
+        str += '<div id="res-' + me.id + '" class="inventoryItem" style="' + getIcon(me) + '; border: 2px solid ' + getRarityColorCode(me.rarity) +'">';
+        str += '</div>';
     }
     domWhat('res-cat-consumables').innerHTML = str;
     for(let i = 0; i < consumables.length; i++) {
         let me = consumables[i];
-        if(me.amount > 0) {
-            addTooltip(domWhat('res-' + me.id), function(){
-                return getConsumableTooltip(game.inventory.getItemFromId(Data.ItemType.CONSUMABLE, me.id));
-            }, {offY: -8});
-            // Spawn tooltip and play sound on click
-            domWhat('res-' + me.id).addEventListener('click', function(){
-                playSound('sounds/ui/aa-ui6.wav', 0.3, 1);
-                spawnTooltip(me);
-            });
-            // Play sound on hover
-            domWhat('res-' + me.id).addEventListener('mouseover', function(){
-                let audio = new Audio('sounds/ui/hovertooltip.wav');
-                audio.volume = 0.5;
-                audio.playbackRate = 2;
-                audio.play();
-            });
-        }
+        addTooltip(domWhat('res-' + me.id), function(){
+            return getConsumableTooltip(game.inventory.getItemFromId(Data.ItemType.CONSUMABLE, me.id));
+        }, {offY: -8});
+        // Spawn tooltip and play sound on click
+        domWhat('res-' + me.id).addEventListener('click', function(){
+            playSound('sounds/ui/aa-ui6.wav', 0.3, 1);
+            spawnTooltip(me);
+        });
+        // Play sound on hover
+        domWhat('res-' + me.id).addEventListener('mouseover', function(){
+            let audio = new Audio('sounds/ui/hovertooltip.wav');
+            audio.volume = 0.5;
+            audio.playbackRate = 2;
+            audio.play();
+        });
     }
     document.querySelector('#res-consumables').addEventListener('click', (e) => {
         document.querySelector('#res-cat-consumables').classList.toggle('hide');
@@ -1470,60 +1460,26 @@ function drawWorkshopScreen() {
     let str = '';
     str += '<div class="workshopMenu">';
 
-    str += '<div class="workshopTab workshopTab-crafting">';
-    str += '<div class="workshopTab-backgrounds crafting-background"></div>';
-    str += '<p class="workshopTab-titles">CRAFTING</p>';
+    str += '<div class="alchInterface">';
+    str += drawAlchemyScreen();
     str += '</div>';
 
-    str += '<div class="workshopTab workshopTab-alchemy">';
-    str += '<div class="workshopTab-backgrounds alchemy-background"></div>';
-    str += '<p class="workshopTab-titles">ALCHEMY</p>';
-    str += '</div>';
+    str += '<div class="craftInterface"></div>';
 
-    str += '<div class="workshopTab workshopTab-soulwriting">';
-    str += '<div class="workshopTab-backgrounds soulwriting-background"></div>';
-    str += '<p class="workshopTab-titles">SOULWRITING</p>';
-    str += '</div>';
+    str += '<div class="soulwInterface"></div>';
 
-    str += '<div class="workshopTab workshopTab-soulbinding">';
-    str += '<div class="workshopTab-backgrounds soulbinding-background"></div>';
-    str += '<p class="workshopTab-titles">SOULBINDING</p>';
-    str += '</div>';
+    str += '<div class="soulbInterface"></div>';
 
-    str += '<div class="workshopTab workshopTab-astralForge">';
-    str += '<div class="astralForgeReceptacle" ondrop="openAstralForge(event)" ondragover="allowDrop(event)">';
-    str += '<div class="workshopTab-backgrounds astralForge-background"></div>';
-    str += '<p class="workshopTab-titles" id="workshop-title-astralForge">ASTRAL FORGE</p>';
-    str += '<p class="workshopTab-subtitles">Drag and drop any weapon or armor into the circle to alter its capabilities</p>';
-    str += '</div>';
-    str += '</div>';
+    str += '<div class="paragInterface"></div>';
 
     str += '</div>';
 
     document.querySelector('.workshopContainer').innerHTML = str;
 
-    generateWorkshopTabsEvents();
+    generateAlchemyInterfaceEvents();
 }
 
-function generateWorkshopTabsEvents() {
-    const container = document.querySelector('.workshopMenu');
-    const alch = document.querySelector('.workshopTab-alchemy');
-
-    alch.addEventListener('click', e => {
-        alchInterface = document.createElement('div');
-        console.log(alchInterface);
-    
-        alchInterface.style.width = alch.offsetWidth*2 + 'px';
-        alchInterface.style.height = alch.offsetHeight*2 + 'px';
-        alchInterface.classList.add('alchInterface', 'coolBorderBis');
-
-        container.appendChild(alchInterface);
-
-        drawAlchemyScreen();
-    });
-}
-
-function drawAlchemyScreen() {
+function drawAlchemyScreen(refresh = false) {
     game.alchemy.selectRandomIcon();
 
     let str = '';
@@ -1545,6 +1501,7 @@ function drawAlchemyScreen() {
     str += getAlchemyPreviewToxicity();
 
     str += '</div>';
+    str += '<div class="alchBrew" style="display: none">Brew</div>';
     str += '</div></div>';
 
     str += '<div class="alchIngredient alchIngredientOne" ondragover="allowDrop(event);" ondrop="game.alchemy.addIngredient(event, 0);">';
@@ -1559,13 +1516,16 @@ function drawAlchemyScreen() {
     str += getAlchemyIngredient(game.alchemy.ingredients[2]);
     str += '</div>';
 
-    str += '<div class="alchAction">';
-    str += '<div class="alchAction-brewButton">Brew</button>';
-    str += '</div>';
+    str += '<div class="alchNotifications"></div>';
 
-    document.querySelector('.alchInterface').innerHTML = str;
+    return str;
+}
 
-    generateAlchemyInterfaceEvents();
+function displayAlchemyBrewButton() {
+    const alch = game.alchemy;
+
+    if(alch.effects.length > 0) document.querySelector('.alchBrew').style.display = 'flex';
+    else document.querySelector('.alchBrew').style.display = 'none';
 }
 
 function getAlchemyPotionPreviewVignette(refresh = false) {
@@ -1591,8 +1551,8 @@ function getAlchemyPotionPreviewEffects(refresh = false) {
 
     const toxGauge = document.querySelector('#alchPrevToxGauge');
     const toxNumbers = document.querySelector('#alchPrevToxNumbers');
-    const tox = game.alchemy.effects.reduce((partSum, a) => partSum + a.toxicity, 0);
-    if(toxGauge) toxGauge.style.width = tox + '%';
+    const tox = game.alchemy.toxicity;
+    if(toxGauge) toxGauge.style.width = Math.min(tox, 100) + '%';
     if(toxNumbers) toxNumbers.textContent = tox + '/100';
 
     if(refresh) {
@@ -1600,6 +1560,16 @@ function getAlchemyPotionPreviewEffects(refresh = false) {
         return;
     }
     return str;
+}
+
+function addAlchemyNotification(message) {
+    let str = '';
+
+    str += '<div class="alchNotification">';
+    str += message;
+    str += '</div>';
+
+    document.querySelector('.alchNotifications').innerHTML = str;
 }
 
 function generateAlchemyInterfaceEvents() {
@@ -1615,7 +1585,7 @@ function generateAlchemyInterfaceEvents() {
         });
     }
 
-    const vignette = document.querySelector('.alchPotionPreview-vignette').addEventListener('click', e => {
+    document.querySelector('.alchPotionPreview-vignette').addEventListener('click', e => {
         if(document.querySelector('.vignetteSelector')) {
             document.querySelector('.vignetteSelector').remove();
             return;
@@ -1637,7 +1607,7 @@ function generateAlchemyInterfaceEvents() {
 
         str += '</div>';
 
-        str += '<div class="closeWindowButton selectorClose"></div>';
+        str += '<div class="closeWindowButton selectorClose">X</div>';
 
         div.innerHTML = str;
 
@@ -1652,14 +1622,18 @@ function generateAlchemyInterfaceEvents() {
                     document.querySelector('.selectedTitle').textContent = icon.name;
 
                     game.alchemy.selectIcon(icon);
-                    vignette.style.backgroundImage = 'url(\'css/img/potions/' + game.alchemy.icon.icon + '.png\')';
+                    document.querySelector('.alchPotionPreview-vignette').style.backgroundImage = 'url(\'css/img/potions/' + game.alchemy.icon.icon + '.png\')';
                 }
             });
         });
         
         document.querySelector('.alchPotionPreview').appendChild(div);
         document.querySelector('.closeWindowButton').addEventListener('click', e => { div.remove() });
-    })
+    });
+
+    document.querySelector('.alchBrew').addEventListener('click', e => {
+        game.alchemy.brew();
+    });
 }
 
 function generateAlchemyIngredientEvents(ingr) {

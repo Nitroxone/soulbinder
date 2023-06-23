@@ -35,6 +35,7 @@ class Stat {
         this.type = getValueFromObject(props, "type", Data.StatType.PASSIVE);
         this.chance = getValueFromObject(props, "chance", 100);
         this.ignoreShield = getValueFromObject(props, "ignoreShield", false);
+        this.alchemicalType = getValueFromObject(props, "alchemicalType", null);
 
         this.value = null;
 

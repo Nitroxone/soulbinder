@@ -326,12 +326,6 @@ const Data = Object.freeze({
         ARMOR: 'ARMOR',
         TRINKET: 'TRINKET'
     },
-    ConsumableType: {
-        POTION: 'potion',
-        ELIXIR: 'elixir',
-        EDIBLE: 'edible',
-        TEAR: 'tear'
-    },
     IconType: {
         WEAPON: 'weapons',
         ARMOR: 'armors',
@@ -492,5 +486,10 @@ const Data = Object.freeze({
     BattleOutcome: {
         VICTORY: "victory",
         FAILURE: "failure",
+    },
+    AlchemicalEffectType: {
+        PASSIVE: "passive",
+        RECOVERY: "recovery",
+        SPECIAL: "special"
     }
-});
+}); 

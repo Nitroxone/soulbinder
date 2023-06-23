@@ -17,6 +17,10 @@ class Alchemy {
      */
     addIngredient(event, index) {
         const ingredient = game.player.inventory.getItemFromId(Data.ItemType.RESOURCE, event.dataTransfer.getData('ingredient'));
+        if(this.ingredients.includes(ingredient)) {
+            addAlchemyNotification('This ingredient is already selected.');
+            return;
+        }
         this.ingredients[index] = ingredient;
         document.querySelectorAll('.alchIngredient')[index].innerHTML = getAlchemyIngredient(this.ingredients[index]);
         generateAlchemyIngredientEvents(this.ingredients[index]);
@@ -49,6 +53,7 @@ class Alchemy {
     addEffect(eff) {
         this.effects.push(eff);
         if(eff) this.increaseToxicity(eff.toxicity);
+        displayAlchemyBrewButton();
     }
 
     /**
@@ -58,6 +63,7 @@ class Alchemy {
     removeEffect(eff) {
         if(eff) this.decreaseToxicity(eff.toxicity);
         removeFromArray(this.effects, eff);
+        displayAlchemyBrewButton();
     }
 
     /**
@@ -65,7 +71,7 @@ class Alchemy {
      * @param {number} amount the amount of toxicity to add
      */
     increaseToxicity(amount) {
-        this.toxicity = Math.min(this.toxicity + amount, 100);
+        this.toxicity += amount;
     }
 
     /**
@@ -73,14 +79,70 @@ class Alchemy {
      * @param {number} amount the amount of toxicity to remove
      */
     decreaseToxicity(amount) {
-        this.toxicity = Math.max(this.toxicity - amount, 0);
+        this.toxicity -= amount;
     }
 
+    /**
+     * Sets the current icon as a random icon picked among the ones unlocked by the player.
+     */
     selectRandomIcon() {
         this.icon = Icons.Methods.findRandom('potions');
     }
 
+    /**
+     * Sets the current icon as the one provided.
+     * @param {object} icon the icon to set
+     */
     selectIcon(icon) {
         this.icon = icon;
+    }
+
+    /**
+     * Returns the highest rarity among the select ingredients.
+     * @returns {Data.Rarity} the highest rarity
+     */
+    determineRarity() {
+        let highest = Data.Rarity.COMMON;
+        this.ingredients.forEach(ingr => {
+            if(ingr) {
+                highest = compareHighestRarities(highest, ingr.rarity);
+            }
+        });
+
+        return highest;
+    }
+
+    /**
+     * Creates a Consumable object based on the selected ingredients and effects, then adds it to the inventory.
+     */
+    brew() {
+        const name = document.querySelector('.alchPotionPreview-name').value;
+        const effects = this.effects.map(x => x.effect);
+        const rarity = this.determineRarity();
+        const result = new Consumable(
+            name,
+            '',
+            this.icon.icon,
+            0,
+            rarity,
+            {
+                effects: effects,
+                toxicity: this.toxicity,
+            }
+        );
+
+        game.inventory.addItem(result, 1, true);
+        drawConsumablesInventory();
+
+        this.ingredients.forEach(ingr => {
+            if(ingr) {
+                game.player.inventory.removeResource(ingr);
+                if(ingr.amount <= 0) {
+                    this.removeIngredient(this.ingredients.indexOf(ingr));
+                    getAlchemyPotionPreviewEffects(true);
+                }
+            }
+        });
+        drawResourceInventory();
     }
 }
