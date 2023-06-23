@@ -3375,11 +3375,28 @@ hr.leftSided {
     border-radius: 0 0 3px 3px;
 }
 
-.blackMarket-menu--ultraRareItem {
+.blackMarket-menu--abandonedCache {
     height: 80%;
     width: 98%;
     border: 1px solid rgb(100, 100, 100);
     border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.abandonedCache-desc {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 1em;
+}
+
+.abandonedCache-desc--price {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .blackMarket-menu--secondCol > button {

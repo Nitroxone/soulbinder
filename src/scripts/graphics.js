@@ -1,4 +1,4 @@
-div/**
+pdiv/**
  * Spawns a floating tooltip on screen based on the provided Item's data.
  * @param {Item} item the Item data to fill the tooltip with
  */
@@ -1387,7 +1387,16 @@ function drawHubScreen() {
     str += '</div>';
 
     str += '<div class="blackMarket-menu--secondCol">';
-    str += '<div class="blackMarket-menu--ultraRareItem">';
+    str += '<div class="blackMarket-menu--abandonedCache">';
+    str += '<div class="abandonedCacheIcon"></div>';
+    str += '<div class="abandonedCache-desc">';
+    str += '<p class="abandonedCache-name">Abandoned cache</p>';
+
+    str += '<div class="abandonedCache-desc--price">'
+    str += '<div class="tradeItems-goldIcon"></div>';
+    str += '<p class="abandonedCache-price--amount">900</p>';
+    str += '</div>';
+    str += '</div>';
     str += '</div>';
     str += '<button>BUY</button>';
     str += '</div>';
