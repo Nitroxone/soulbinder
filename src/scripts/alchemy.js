@@ -17,6 +17,10 @@ class Alchemy {
      */
     addIngredient(event, index) {
         const ingredient = game.player.inventory.getItemFromId(Data.ItemType.RESOURCE, event.dataTransfer.getData('ingredient'));
+        if(this.ingredients.includes(ingredient)) {
+            console.log('this ingredient already exists!');
+            return;
+        }
         this.ingredients[index] = ingredient;
         document.querySelectorAll('.alchIngredient')[index].innerHTML = getAlchemyIngredient(this.ingredients[index]);
         generateAlchemyIngredientEvents(this.ingredients[index]);
@@ -78,14 +82,25 @@ class Alchemy {
         this.toxicity -= amount;
     }
 
+    /**
+     * Sets the current icon as a random icon picked among the ones unlocked by the player.
+     */
     selectRandomIcon() {
         this.icon = Icons.Methods.findRandom('potions');
     }
 
+    /**
+     * Sets the current icon as the one provided.
+     * @param {object} icon the icon to set
+     */
     selectIcon(icon) {
         this.icon = icon;
     }
 
+    /**
+     * Returns the highest rarity among the select ingredients.
+     * @returns {Data.Rarity} the highest rarity
+     */
     determineRarity() {
         let highest = Data.Rarity.COMMON;
         this.ingredients.forEach(ingr => {
@@ -97,6 +112,9 @@ class Alchemy {
         return highest;
     }
 
+    /**
+     * Creates a Consumable object based on the selected ingredients and effects, then adds it to the inventory.
+     */
     brew() {
         const name = document.querySelector('.alchPotionPreview-name').value;
         const effects = this.effects.map(x => x.effect);
