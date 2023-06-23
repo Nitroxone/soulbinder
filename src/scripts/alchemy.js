@@ -16,6 +16,11 @@ class Alchemy {
      * @param {number} index where to add the ingredient
      */
     addIngredient(event, index) {
+        if(this.ingredients[index]) {
+            this.removeIngredient(index);
+            getAlchemyPotionPreviewEffects(true);
+        }
+
         const ingredient = game.player.inventory.getItemFromId(Data.ItemType.RESOURCE, event.dataTransfer.getData('ingredient'));
         if(this.ingredients.includes(ingredient)) {
             addAlchemyNotification('This ingredient is already selected.');
