@@ -1507,6 +1507,8 @@ function drawAlchemyScreen(refresh = false) {
     str += getAlchemyIngredient(game.alchemy.ingredients[2]);
     str += '</div>';
 
+    str += '<div class="alchNotifications"></div>';
+
     return str;
 }
 
@@ -1549,6 +1551,16 @@ function getAlchemyPotionPreviewEffects(refresh = false) {
         return;
     }
     return str;
+}
+
+function addAlchemyNotification(message) {
+    let str = '';
+
+    str += '<div class="alchNotification">';
+    str += message;
+    str += '</div>';
+
+    document.querySelector('.alchNotifications').innerHTML = str;
 }
 
 function generateAlchemyInterfaceEvents() {

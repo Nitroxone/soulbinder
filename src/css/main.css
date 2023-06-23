@@ -3973,6 +3973,28 @@ hr.leftSided {
     cursor: pointer;
 }
 
+.alchNotifications {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    max-width: 175px;
+}
+.alchNotification {
+    font-size: 11px;
+    border: 1px solid rgba(232, 65, 24, 0.7);
+    background: rgba(232, 65, 24, 0.2);
+    color: #ddd;
+    padding: 6px;
+    border-radius: 3px;
+
+    animation-timing-function: ease-in-out;
+    animation-name: astralForgeNotificationSpawn;
+    animation-fill-mode: forwards;
+    animation-duration: 3s;
+    animation-delay: 0;
+    z-index: 2;
+}
+
 .astralForgeReceptacle {
     width: 300px;
     height: 300px;
