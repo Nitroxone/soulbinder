@@ -18,7 +18,7 @@ class Alchemy {
     addIngredient(event, index) {
         const ingredient = game.player.inventory.getItemFromId(Data.ItemType.RESOURCE, event.dataTransfer.getData('ingredient'));
         if(this.ingredients.includes(ingredient)) {
-            console.log('this ingredient already exists!');
+            addAlchemyNotification('This ingredient is already selected.');
             return;
         }
         this.ingredients[index] = ingredient;
