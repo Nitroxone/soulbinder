@@ -3674,7 +3674,6 @@ hr.leftSided {
 }
 @keyframes alchInterfaceSlideIn {
     0% {
-        border-radius: 100%;
         opacity: 0;
         transform: translateY(-20px);
     }
