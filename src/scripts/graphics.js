@@ -1466,7 +1466,9 @@ function drawWorkshopScreen() {
 
     str += '<div class="craftInterface"></div>';
 
-    str += '<div class="soulwInterface"></div>';
+    str += '<div class="soulwInterface">'
+    str += drawSoulwritingScreen();
+    str += '</div>';
 
     str += '<div class="soulbInterface"></div>';
 
@@ -1477,6 +1479,7 @@ function drawWorkshopScreen() {
     document.querySelector('.workshopContainer').innerHTML = str;
 
     generateAlchemyInterfaceEvents();
+    generateSoulwritingInterfaceEvents();
 }
 
 function drawAlchemyScreen(refresh = false) {
@@ -1688,6 +1691,33 @@ function getAlchemyPreviewToxicity(refresh = false) {
     str += '</div>'
 
     return str;
+}
+
+function drawSoulwritingScreen() {
+    let str = '';
+
+    str += '<div class="soulwTabs">';
+    str += '<div id="soulwtab-read" class="soulwTab' + (game.soulwriting.currentTab === 'read' ? ' activeTab' : '') + '">Read</div>';
+    str += '<div id="soulwtab-write" class="soulwTab' + (game.soulwriting.currentTab === 'write' ? ' activeTab' : '') + '">Write</div>';
+    str += '<div id="soulwtab-bend" class="soulwTab' + (game.soulwriting.currentTab === 'bend' ? ' activeTab' : '') + '">Bend</div>';
+    str += '</div>';
+
+    str += '<div class="soulwContent">';
+    str += '</div>';
+
+    return str;
+}
+
+function generateSoulwritingInterfaceEvents() {
+    const tabs = document.querySelectorAll('.soulwTab');
+    for(let i = 0; i < tabs.length; i++) {
+        let tab = tabs[i];
+        tab.addEventListener('click', e => {
+            tabs[game.soulwriting.getCurrentTabIndex()].classList.remove('activeTab');
+            game.soulwriting.switchTab(i);
+            tab.classList.add('activeTab');
+        });
+    }
 }
 
 function drawAstralForgeScreen(forgeItem, refresh = false) {

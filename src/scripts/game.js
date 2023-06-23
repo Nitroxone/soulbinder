@@ -305,6 +305,7 @@ class Game {
         this.inventory = new Inventory();
         this.player = new Player("root", this.inventory);
         this.alchemy = new Alchemy();
+        this.soulwriting = new Soulwriting();
 
         this.initMessages();
 
