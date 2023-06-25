@@ -505,5 +505,6 @@ const Data = Object.freeze({
         EQUIP: "equip",
         EQUIP_WEAPON: "equip_weapon",
         UNEQUIP: "unequip",
+        CRAFT_BUTTON: "craft_button",
     }
 }); 

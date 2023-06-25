@@ -1672,6 +1672,7 @@ function generateAlchemyInterfaceEvents() {
     });
 
     document.querySelector('.alchBrew').addEventListener('click', e => {
+        Sounds.Methods.playSound(Data.SoundType.CRAFT_BUTTON);
         game.alchemy.brew();
     });
 }

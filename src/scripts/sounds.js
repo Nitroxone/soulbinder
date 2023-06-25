@@ -35,6 +35,10 @@ let Sounds = {
         SELECTOR: [
             {name: "selector1.mp3", volume: 0.3},
             {name: "selector2.mp3", volume: 0.3},
+        ],
+        CRAFT_BUTTON: [
+            {name: "craft_button1.mp3", volume: 0.4},
+            {name: "craft_button2.wav", volume: 0.4}
         ]
     },
     Methods: {
