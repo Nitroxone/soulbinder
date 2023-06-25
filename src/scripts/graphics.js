@@ -1281,10 +1281,11 @@ function drawHubScreen() {
     str += '<div class="blackMarket-menu--trade">';
     str += '<div class="tradeItems">'
 
+    // item structure
 
     str += '<div class="tradeItems-item">'
-    str += '<div class="tradeItems-item--icon"></div>';
 
+    str += '<div class="tradeItems-item--icon"></div>';
     str += '<p class="tradeItems-item--name">Silver Birjin of Drancor</p>';
 
     str += '<div class="tradeItems-item--price">';
@@ -1294,74 +1295,7 @@ function drawHubScreen() {
 
     str += '</div>';
 
-
-    str += '<div class="tradeItems-item">'
-    str += '<div class="tradeItems-item--icon"></div>';
-
-    str += '<p class="tradeItems-item--name">Silver Birjin of Drancor</p>';
-
-    str += '<div class="tradeItems-item--price">';
-    str += '<div class="tradeItems-goldIcon"></div>';
-    str += '<p>15000</p>';
-    str += '</div>';
-    
-    str += '</div>';
-
-
-    str += '<div class="tradeItems-item">'
-    str += '<div class="tradeItems-item--icon"></div>';
-
-    str += '<p class="tradeItems-item--name">Silver Birjin of Drancor</p>';
-
-    str += '<div class="tradeItems-item--price">';
-    str += '<div class="tradeItems-goldIcon"></div>';
-    str += '<p>15000</p>';
-    str += '</div>';
-    
-    str += '</div>';
-
-
-    str += '<div class="tradeItems-item">'
-    str += '<div class="tradeItems-item--icon"></div>';
-
-    str += '<p class="tradeItems-item--name">Silver Birjin of Drancor</p>';
-
-    str += '<div class="tradeItems-item--price">';
-    str += '<div class="tradeItems-goldIcon"></div>';
-    str += '<p>15000</p>';
-    str += '</div>';
-    
-    str += '</div>';
-
-
-    str += '<div class="tradeItems-item">'
-    str += '<div class="tradeItems-item--icon"></div>';
-
-    str += '<p class="tradeItems-item--name">Silver Birjin of Drancor</p>';
-
-    str += '<div class="tradeItems-item--price">';
-    str += '<div class="tradeItems-goldIcon"></div>';
-    str += '<p>15000</p>';
-    str += '</div>';
-    
-    str += '</div>';
-
-
-    str += '<div class="tradeItems-item">'
-    str += '<div class="tradeItems-item--icon"></div>';
-
-    str += '<p class="tradeItems-item--name">Silver Birjin of Drancor</p>';
-
-    str += '<div class="tradeItems-item--price">';
-    str += '<div class="tradeItems-goldIcon"></div>';
-    str += '<p>15000</p>';
-    str += '</div>';
-    
-    str += '</div>';
-
-
-    
-
+    // ...
 
     str += '</div>';
     str += '</div>';
@@ -1372,13 +1306,32 @@ function drawHubScreen() {
     str += '<div class="blackMarket-menu--abandonedCache">';
     str += '<div class="abandonedCacheIcon"></div>';
     str += '<div class="abandonedCache-desc">';
-    str += '<p class="abandonedCache-name">Abandoned cache</p>';
+    str += '<p class="abandonedCache-title">Abandoned cache</p>';
 
     str += '<div class="abandonedCache-desc--price">'
     str += '<div class="tradeItems-goldIcon"></div>';
     str += '<p class="abandonedCache-price--amount">900</p>';
     str += '</div>';
     str += '</div>';
+
+    str += '<div class="divider"></div>'
+
+    str += '<div class="abandonedCache-items">';
+
+    str += '<div class="abandonedCache-items--item"></div>';
+    str += '<div class="abandonedCache-items--item"></div>';
+    str += '<div class="abandonedCache-items--item"></div>';
+
+    str += '<div class="abandonedCache-items--item"></div>';
+    str += '<div class="abandonedCache-items--item"></div>';
+    str += '<div class="abandonedCache-items--item"></div>';
+
+    str += '<div class="abandonedCache-items--item"></div>';
+    str += '<div class="abandonedCache-items--item"></div>';
+    str += '<div class="abandonedCache-items--item"></div>';
+
+    str += '</div>';
+
     str += '</div>';
     str += '<button>BUY</button>';
     str += '</div>';
@@ -1412,6 +1365,7 @@ function drawHubScreen() {
     document.querySelector('.hubContainer').innerHTML = str;
 
     generateBlackMarketTabEvents();
+    generateBlackMarketAbandonedCacheEvents();
 }
 
 function generateBlackMarketTabEvents() {
@@ -1459,6 +1413,17 @@ function generateBlackMarketTabItems(tab) {
     }
 
     document.querySelector('.tradeItems').innerHTML = str;
+}
+
+function generateBlackMarketAbandonedCacheEvents() {
+    const abandonedCaches = document.querySelectorAll('.abandonedCache-items--item');
+
+    abandonedCaches.forEach(cache => {
+        cache.addEventListener('click', () => {
+            abandonedCaches.forEach(cache => cache.classList.remove('cacheSelected'));
+            cache.classList.add('cacheSelected');
+        });
+    });
 }
 
 function getPlayerSoulsAmount() {
