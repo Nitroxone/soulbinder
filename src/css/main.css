@@ -3319,6 +3319,8 @@ hr.leftSided {
     grid-column-gap: 0px;
     grid-row-gap: 0px;
     padding: 1em;
+    gap: 0.5em;
+    justify-content: center;
 }
 
 .blackMarket-menu--firstCol, .blackMarket-menu--secondCol {
@@ -3340,7 +3342,7 @@ hr.leftSided {
 
 .blackMarket-menu--tabs {
     height: 10%;
-    width: 98%;
+    width: 100%;
     background-image: url(img/bg1.png);
     display: flex;
     justify-content: space-between;
@@ -3375,7 +3377,7 @@ hr.leftSided {
 
 .blackMarket-menu--trade {
     height: 90%;
-    width: 98%;
+    width: 100%;
     background-image: url(img/bg3.png);
     border: 1px solid rgb(100, 100, 100);
     border-radius: 0 0 3px 3px;
@@ -3383,10 +3385,12 @@ hr.leftSided {
 
 .blackMarket-menu--abandonedCache {
     height: 80%;
-    width: 98%;
+    max-height: 190px;
+    width: 100%;
     border: 1px solid rgb(100, 100, 100);
     border-radius: 3px;
     display: flex;
+    flex-direction:column;
     align-items: center;
     justify-content: center;
 }
@@ -3396,18 +3400,52 @@ hr.leftSided {
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    padding: 1em;
+    padding: 0 1em 0 1em;
+    font-family: RobotoSlab;
+    color: rgb(155, 155, 155);
+    font-variant: small-caps;
+    font-size: 12px;
+    width: 100%;
+    margin: 0.5rem 0;
+    text-align: center;
 }
 
 .abandonedCache-desc--price {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 5px;
+}
+
+.abandonedCache-items {
+    display: flex;
+    width: 100%;
+    padding: 0 0.5em 1em 0.5em;
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow-y: scroll;
+}
+
+.abandonedCache-items--item {
+    height: 58.875px;
+    width: 56.125px;
+    background-size: 70%;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-image: url(img/chests/1.png);
+}
+
+.abandonedCache-items--item:hover {
+    cursor: pointer;
+}
+
+.cacheSelected {
+    border-radius: 3px;
+    box-shadow: 0px 0px 12px -4px rgba(255,255,255,1) inset,0px 0px 0px 1px rgba(255,255,255,0.65);
 }
 
 .blackMarket-menu--secondCol > button {
     height: 20%;
-    width: 98%;
+    width: 100%;
     background-color: #111111;
     border: 1px solid rgb(100, 100, 100);
     border-radius: 3px;
@@ -3592,8 +3630,8 @@ hr.leftSided {
     background-image: url(img/blueLord-transparent.png);
     background-position: center;
     background-size: cover;
-    height: 300px;
-    width: 300px;
+    height: 250px;
+    width: 250px;
     position: absolute;
     bottom: 0;
     right: -100px;
