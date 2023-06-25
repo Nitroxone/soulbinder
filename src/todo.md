@@ -11,9 +11,9 @@
 - Actually implement set bonuses
 
 ALCHEMY:
-- Implement sound effects and animations
-- Prevent the use of the same ingredient multiple times 
-- Add a notification system similar to Astral Forge's
+ONGOING - Implement sound effects and animations
+DONE - Prevent the use of the same ingredient multiple times 
+DONE - Add a notification system similar to Astral Forge's
 
 BATTLES:
 DONE - Implement and improve skill launch conditions
