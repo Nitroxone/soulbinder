@@ -7,6 +7,8 @@ class Alchemy {
         this.toxicity = 0;
         this.effects = [];
         this.icon = this.selectRandomIcon();
+
+        this.isBrewing = false;
     }
 
     /**
@@ -153,5 +155,13 @@ class Alchemy {
             }
         });
         drawResourceInventory();
+        this.finishedBrewing();
+    }
+
+    brewing() {
+        this.isBrewing = true;
+    }
+    finishedBrewing() {
+        this.isBrewing = false;
     }
 }

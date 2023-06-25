@@ -505,5 +505,8 @@ const Data = Object.freeze({
         EQUIP: "equip",
         EQUIP_WEAPON: "equip_weapon",
         UNEQUIP: "unequip",
+        CRAFT_BUTTON_ALCHEMY: "craft_button_alchemy",
+        CRAFT_POTION_BREW: "craft_potion_brew",
+        CRAFT_POTION_RESULT: "craft_potion_result",
     }
 }); 

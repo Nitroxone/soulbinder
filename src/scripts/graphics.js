@@ -1500,7 +1500,7 @@ function drawAlchemyScreen(refresh = false) {
     str += getAlchemyPreviewToxicity();
 
     str += '</div>';
-    str += '<div class="alchBrew" style="display: none">Brew</div>';
+    str += '<div class="alchBrew" style="display: none">Brew<div class="alchBrewGauge gaugeProgress"><div class="statGauge alchemyGauge"></div></div><canvas class="alchBrewCanvas"></canvas></div>';
     str += '</div></div>';
 
     str += '<div class="alchIngredient alchIngredientOne" ondragover="allowDrop(event);" ondrop="game.alchemy.addIngredient(event, 0);">';
@@ -1637,7 +1637,34 @@ function generateAlchemyInterfaceEvents() {
     });
 
     document.querySelector('.alchBrew').addEventListener('click', e => {
-        game.alchemy.brew();
+        if(!game.alchemy.isBrewing) {
+            Sounds.Methods.playSound(Data.SoundType.CRAFT_BUTTON_ALCHEMY);
+            Sounds.Methods.playSound(Data.SoundType.CRAFT_POTION_BREW);
+            Quanta.burst({
+                canvas: document.querySelector('.alchBrewCanvas'),
+                color: Data.Color.BLUE,
+                amount: 300,
+                particleSize: 2,
+                duration: 4000,
+                fadeAwayRate: 0,
+                speed: {
+                    x: () => { return (-2 + Math.random() * 5) },
+                    y: () => { return (-4 + Math.random() * 10) }
+                },
+                delay: () => { return getRandomNumber(0, 100) }
+            });
+
+            game.alchemy.brewing();
+
+            document.querySelector('.alchBrewGauge').style.display = 'block';
+            document.querySelector('.alchemyGauge').classList.add('alchGaugeFill');
+            setTimeout(() => {
+                game.alchemy.brew();
+                Sounds.Methods.playSound(Data.SoundType.CRAFT_POTION_RESULT);
+                document.querySelector('.alchBrewGauge').style.display = '';
+                document.querySelector('.alchemyGauge').classList.remove('alchGaugeFill');
+            }, 1800);
+        }
     });
 }
 
