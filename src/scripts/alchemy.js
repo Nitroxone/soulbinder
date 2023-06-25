@@ -16,6 +16,11 @@ class Alchemy {
      * @param {number} index where to add the ingredient
      */
     addIngredient(event, index) {
+        if(this.ingredients[index]) {
+            this.removeIngredient(index);
+            getAlchemyPotionPreviewEffects(true);
+        }
+
         const ingredient = game.player.inventory.getItemFromId(Data.ItemType.RESOURCE, event.dataTransfer.getData('ingredient'));
         if(this.ingredients.includes(ingredient)) {
             addAlchemyNotification('This ingredient is already selected.');
@@ -24,6 +29,8 @@ class Alchemy {
         this.ingredients[index] = ingredient;
         document.querySelectorAll('.alchIngredient')[index].innerHTML = getAlchemyIngredient(this.ingredients[index]);
         generateAlchemyIngredientEvents(this.ingredients[index]);
+
+        Sounds.Methods.playSound(Data.SoundType.INGREDIENT_IN);
     }
 
     /**
@@ -34,6 +41,8 @@ class Alchemy {
         this.ingredients[index].unlink();
         this.ingredients[index] = null;
         document.querySelectorAll('.alchIngredient')[index].innerHTML = getAlchemyIngredient(this.ingredients[index]);
+
+        Sounds.Methods.playSound(Data.SoundType.INGREDIENT_OUT);
     }
 
     /**

@@ -491,5 +491,19 @@ const Data = Object.freeze({
         PASSIVE: "passive",
         RECOVERY: "recovery",
         SPECIAL: "special"
+    },
+    SoundType: {
+        MAJOR_TAB: "major_tab",
+        MINOR_TAB: "minor_tab",
+        TOOLTIP_SPAWN: "tooltip_spawn",
+        TOOLTIP_HOVER: "tooltip_hover",
+        TOOLTIP_CLOSE: "tooltip_close",
+        HOVER: "hover",
+        INGREDIENT_IN: "ingredient_in",
+        INGREDIENT_OUT: "ingredient_out",
+        SELECTOR: "selector",
+        EQUIP: "equip",
+        EQUIP_WEAPON: "equip_weapon",
+        UNEQUIP: "unequip",
     }
 }); 

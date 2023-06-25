@@ -21,6 +21,8 @@ class Player {
         this.souls = 0;
         this.gold = 0;
 
+        this.soulmarks = [];
+
         // ASTRAL FORGE CONFIG
         this.af_criticalFailure = 15;
         this.af_failure = 40;
@@ -78,5 +80,9 @@ class Player {
 
     addGoldToPlayer(amount) {
         this.gold += amount;
+    }
+
+    addSoulmark(soulmark) {
+        if(!this.soulmarks.includes(soulmark)) this.soulmarks.push(soulmark);
     }
 }

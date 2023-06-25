@@ -3657,9 +3657,6 @@ hr.leftSided {
 .craftInterface {
     grid-area: craftInterface;
 }
-.soulwInterface {
-    grid-area: soulwInterface;
-}
 .paragInterface {
     grid-area: paragInterface;
 }
@@ -3699,10 +3696,6 @@ hr.leftSided {
     0% {
         opacity: 0;
         transform: translateY(-20px);
-    }
-    to {
-        top: 0%;
-        right: 0%;
     }
 }
 
@@ -3761,8 +3754,8 @@ hr.leftSided {
     left: 0px;
     top: 0px;
 
-    width: 200px;
-    height: 230px;
+    width: 175px;
+    height: 200px;
 
     overflow-y: scroll;
 
@@ -3801,8 +3794,6 @@ hr.leftSided {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-
-    width: 170px;
 }
 .selectorItem {
     width: 50px;
@@ -4016,6 +4007,75 @@ hr.leftSided {
     animation-duration: 3s;
     animation-delay: 0;
     z-index: 2;
+}
+
+.soulwInterface {
+    position: relative;
+    grid-area: soulwInterface;
+
+    background: url('img/darkBorders.png'), url('img/bg3.png');
+    background-size: 100% 100%, 60%;
+
+    animation-name: soulwInterfaceSlideIn;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation-fill-mode: forwards;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 0.05fr 1fr;
+    gap: 0 0;
+    grid-template-areas:
+        "soulwTabs soulwTabs soulwTabs"
+        "soulwContent soulwContent soulwContent";
+}
+@keyframes soulwInterfaceSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+}
+
+.soulwTabs {
+    grid-area: soulwTabs;
+
+    display: flex;
+}
+.soulwTab {
+    flex-grow: 1;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    font-family: RobotoSlab;
+    font-variant: small-caps;
+    font-weight: normal;
+    font-size: 12px;
+
+    transition: all .1s ease-in-out;
+
+    border: 3px solid transparent;
+    border-image: url('img/window1.png') 3 stretch;
+    border-left: none;
+    border-top: none;
+    
+    background: url('img/bg4.png');
+    background-size: auto;
+}
+.soulwTab:hover {
+    color: #ddd;
+    cursor: pointer;
+}
+.soulwTab.activeTab {
+    background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.125) 100%), url('img/bg4.png');
+    color: white;
+}
+.soulwContent {
+    grid-area: soulwContent;
+
+    display: none;
 }
 
 .astralForgeReceptacle {
