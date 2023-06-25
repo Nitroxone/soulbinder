@@ -3346,23 +3346,29 @@ hr.leftSided {
     justify-content: space-between;
 }
 
-.blackMarket-menu--tabs > button {
-    border: none;
+.blackMarket-menu--tab {
+    display: flex;
     width: 90px;
-    background-image: url(img/bg1.png);
     border-top: 1px solid rgb(100, 100, 100);
     border-left: 1px solid rgb(100, 100, 100);
     border-right: 1px solid rgb(100, 100, 100);
-    font-family: RobotoSlab;
-    text-align: center;
+    font-family: Roboto;
+    text-shadow: none;
+    font-size: 1.3em;
+    align-items: center;
+    justify-content: center;
     font-variant: small-caps; 
     color: white;
     border-radius: 3px 3px 0 0;
 }
 
-.blackMarket-menu--tabs > button:hover {
-    background-image: none;
+.blackMarket-menu--tab:hover {
     cursor: pointer;
+    background-color: white;
+    color: black;
+}
+
+.tabActive {
     background-color: white;
     color: black;
 }

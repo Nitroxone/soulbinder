@@ -1289,11 +1289,11 @@ function drawHubScreen() {
     str += '<div class="blackMarket-menu--firstCol">';
 
     str += '<div class="blackMarket-menu--tabs">';
-    str += '<button>Weapons</button>';
-    str += '<button>Armors</button>';
-    str += '<button>Trinkets</button>';
-    str += '<button>Sigils</button>';
-    str += '<button>Resources</button>';
+    str += '<div class="blackMarket-menu--tab">weapons</div>';
+    str += '<div class="blackMarket-menu--tab">armors</div>';
+    str += '<div class="blackMarket-menu--tab">trinkets</div>';
+    str += '<div class="blackMarket-menu--tab">sigils</div>';
+    str += '<div class="blackMarket-menu--tab">resources</div>';
     str += '</div>';
 
     str += '<div class="blackMarket-menu--trade">';
@@ -1426,8 +1426,57 @@ function drawHubScreen() {
     str += '</div>';
 
     str += '</div>';
-
+  
     document.querySelector('.hubContainer').innerHTML = str;
+
+    generateBlackMarketTabEvents();
+}
+
+function generateBlackMarketTabEvents() {
+    const tabs = document.querySelectorAll('.blackMarket-menu--tab');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            unsetBlackMarketAllActiveTabs(tabs);
+            setBlackMarketActiveTab(tab);
+            generateBlackMarketTabItems(tab);
+        });
+    });
+}
+
+function setBlackMarketActiveTab(tab) {
+    tab.classList.add('tabActive');
+}
+
+function unsetBlackMarketAllActiveTabs(tabs) {
+    tabs.forEach(tab => tab.classList.remove('tabActive'));
+}
+
+function generateBlackMarketTabItems(tab) {
+    let str = '';
+
+    switch(tab.textContent) {
+        case 'weapons':
+            str += '<p>Weapons content goes here</p>';
+            break;
+        case 'armors':
+            str += '<p>Armors content goes here</p>';
+            break;
+        case 'trinkets':
+            str += '<p>Trinkets content goes here</p>';
+            break;
+        case 'sigils':
+            str += '<p>Sigils content goes here</p>';
+            break;
+        case 'resources':
+            str +='<p>Resources content goes here</p>';
+            break;
+        default:
+            str += '<p>Default content goes here</p>';
+            break;
+    }
+
+    document.querySelector('.tradeItems').innerHTML = str;
 }
 
 function getPlayerSoulsAmount() {
