@@ -4024,6 +4024,39 @@ hr.leftSided {
     filter: brightness(115%);
     cursor: pointer;
 }
+.alchBrewGauge {
+    display: none;
+
+    animation-name: alchGaugeReveal;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+
+    width: 100%;
+    position: absolute;
+    height: 8px;
+    bottom: -8px;
+}
+@keyframes alchGaugeReveal {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+}
+.alchemyGauge {
+    width: 0%;
+    height: 4px;
+    background: linear-gradient(0deg, rgb(61, 123, 255) 23%, rgba(167,116,255,1) 100%);
+}
+.alchGaugeFill {
+    animation-name: alchGaugeFill;
+    animation-duration: 1.8s;
+    animation-timing-function: linear;
+}
+@keyframes alchGaugeFill {
+    to {
+        width: 100%;
+    }
+}
 
 .alchNotifications {
     position: absolute;

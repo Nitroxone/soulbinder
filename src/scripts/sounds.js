@@ -36,9 +36,17 @@ let Sounds = {
             {name: "selector1.mp3", volume: 0.3},
             {name: "selector2.mp3", volume: 0.3},
         ],
-        CRAFT_BUTTON: [
-            {name: "craft_button1.mp3", volume: 0.4},
-            {name: "craft_button2.wav", volume: 0.4}
+        CRAFT_BUTTON_ALCHEMY: [
+            {name: "craft_button_alchemy.mp3", volume: 0.4},
+        ],
+        CRAFT_POTION_BREW: [
+            {name: "potion_brew1.mp3", volume: 0.6},
+            {name: "potion_brew2.mp3", volume: 0.6},
+            {name: "potion_brew3.mp3", volume: 0.6},
+        ],
+        CRAFT_POTION_RESULT: [
+            {name: "potion_result1.wav", volume: 0.6},
+            {name: "potion_result2.wav", volume: 0.6},
         ]
     },
     Methods: {
@@ -49,10 +57,13 @@ let Sounds = {
             const pitch = file.pitch ? file.pitch() : pit;
 
             const audio = new Audio(Sounds.FOLDER + file.name);
+            const dur = audio.duration;
             audio.volume = volume;
             if(pitch != 1) audio.preservesPitch = false;
             audio.playbackRate = pitch;
             audio.play();
+
+            return dur;
         }
     }
 }
