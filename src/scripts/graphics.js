@@ -62,7 +62,7 @@ function spawnTooltip(item, fromExisting = 0) {
     tooltip.addEventListener('contextmenu', function(e) {
         e.preventDefault();
         e.stopImmediatePropagation();
-        playSound('sounds/ui/ui5.wav', 1, 1.5);
+        Sounds.Methods.playSound(Data.SoundType.TOOLTIP_CLOSE);
         tooltip.remove();
     });
 
@@ -503,22 +503,19 @@ function drawWeaponInventory(weapons) {
         }, {offY: -8});
         // Spawn tooltip and play sound on click
         domWhat('res-' + me.id).addEventListener('click', function(){
-            playSound('sounds/ui/aa-ui6.wav', 0.3, 1);
+            Sounds.Methods.playSound(Data.SoundType.TOOLTIP_SPAWN);
             spawnTooltip(me);
             if(me.set) {
                 let tooltipDesc = domWhat('floating-' + me.id).querySelector('.tooltipSetText');
                 tooltipDesc.addEventListener('click', (e) => {
-                    playSound('sounds/ui/aa-ui6.wav', 0.3, 1);
+                    Sounds.Methods.playSound(Data.SoundType.TOOLTIP_SPAWN);
                     spawnTooltip(what(game.all_equipmentSets, me.set), me.id);
                 });
             }
         });
         // Play sound on hover
         domWhat('res-' + me.id).addEventListener('mouseover', function(){
-            let audio = new Audio('sounds/ui/hovertooltip.wav');
-            audio.volume = 0.5;
-            audio.playbackRate = 2;
-            audio.play();
+            Sounds.Methods.playSound(Data.SoundType.TOOLTIP_HOVER);
         })
 
         // Draggable events
@@ -548,15 +545,12 @@ function drawSigilInventory(sigils) {
         }, {offY: -8});
         // Spawn tooltip and play sound on click
         domWhat('res-' + me.id).addEventListener('click', function(){
-            playSound('sounds/ui/aa-ui6.wav', 0.3, 1);
+            Sounds.Methods.playSound(Data.SoundType.TOOLTIP_SPAWN);
             spawnTooltip(me);
         });
         // Play sound on hover
         domWhat('res-' + me.id).addEventListener('mouseover', function(){
-            let audio = new Audio('sounds/ui/hovertooltip.wav');
-            audio.volume = 0.5;
-            audio.playbackRate = 2;
-            audio.play();
+            Sounds.Methods.playSound(Data.SoundType.TOOLTIP_HOVER);
         })
     }
     document.querySelector('#res-sigils').addEventListener('click', (e) => {
@@ -584,15 +578,12 @@ function drawResourceInventory(resources = game.inventory.resources) {
             }, {offY: -8});
             // Spawn tooltip and play sound on click
             domWhat('res-' + me.id).addEventListener('click', function(){
-                playSound('sounds/ui/aa-ui6.wav', 0.3, 1);
+                Sounds.Methods.playSound(Data.SoundType.TOOLTIP_SPAWN);
                 spawnTooltip(me);
             });
             // Play sound on hover
             domWhat('res-' + me.id).addEventListener('mouseover', function(){
-                let audio = new Audio('sounds/ui/hovertooltip.wav');
-                audio.volume = 0.5;
-                audio.playbackRate = 2;
-                audio.play();
+                Sounds.Methods.playSound(Data.SoundType.TOOLTIP_HOVER);
             });
             document.querySelector('#res-' + me.id).addEventListener('dragstart', e => {
                 e.dataTransfer.setData('ingredient', me.id);
@@ -620,22 +611,19 @@ function drawArmorInventory(armors) {
         }, {offY: -8});
         // Spawn tooltip and play sound on click
         domWhat('res-' + me.id).addEventListener('click', function(){
-            playSound('sounds/ui/aa-ui6.wav', 0.3, 1);
+            Sounds.Methods.playSound(Data.SoundType.TOOLTIP_SPAWN);
             spawnTooltip(me);
             if(me.set) {
                 let tooltipDesc = domWhat('floating-' + me.id).querySelector('.tooltipSetText');
                 tooltipDesc.addEventListener('click', (e) => {
-                    playSound('sounds/ui/aa-ui6.wav', 0.3, 1);
+                    Sounds.Methods.playSound(Data.SoundType.TOOLTIP_SPAWN);
                     spawnTooltip(what(game.all_equipmentSets, me.set), me.id);
                 });
             }
         });
         // Play sound on hover
         domWhat('res-' + me.id).addEventListener('mouseover', function(){
-            let audio = new Audio('sounds/ui/hovertooltip.wav');
-            audio.volume = 0.5;
-            audio.playbackRate = 2;
-            audio.play();
+            Sounds.Methods.playSound(Data.SoundType.TOOLTIP_HOVER);
         });
 
         // Draggable events
@@ -664,22 +652,19 @@ function drawTrinketInventory(trinkets) {
         }, {offY: -8});
         // Spawn tooltip and play sound on click
         domWhat('res-' + me.id).addEventListener('click', function(){
-            playSound('sounds/ui/aa-ui6.wav', 0.3, 1);
+            Sounds.Methods.playSound(Data.SoundType.TOOLTIP_SPAWN);
             spawnTooltip(me);
             if(me.set) {
                 let tooltipDesc = domWhat('floating-' + me.id).querySelector('.tooltipSetText');
                 tooltipDesc.addEventListener('click', (e) => {
-                    playSound('sounds/ui/aa-ui6.wav', 0.3, 1);
+                    Sounds.Methods.playSound(Data.SoundType.TOOLTIP_SPAWN);
                     spawnTooltip(what(game.all_equipmentSets, me.set), me.id);
                 });
             }
         });
         // Play sound on hover
         domWhat('res-' + me.id).addEventListener('mouseover', function(){
-            let audio = new Audio('sounds/ui/hovertooltip.wav');
-            audio.volume = 0.5;
-            audio.playbackRate = 2;
-            audio.play();
+            Sounds.Methods.playSound(Data.SoundType.TOOLTIP_HOVER);
         });
 
         // Draggable events
@@ -708,15 +693,12 @@ function drawConsumablesInventory(consumables = game.inventory.consumables) {
         }, {offY: -8});
         // Spawn tooltip and play sound on click
         domWhat('res-' + me.id).addEventListener('click', function(){
-            playSound('sounds/ui/aa-ui6.wav', 0.3, 1);
+            Sounds.Methods.playSound(Data.SoundType.TOOLTIP_SPAWN);
             spawnTooltip(me);
         });
         // Play sound on hover
         domWhat('res-' + me.id).addEventListener('mouseover', function(){
-            let audio = new Audio('sounds/ui/hovertooltip.wav');
-            audio.volume = 0.5;
-            audio.playbackRate = 2;
-            audio.play();
+            Sounds.Methods.playSound(Data.SoundType.TOOLTIP_HOVER);
         });
     }
     document.querySelector('#res-consumables').addEventListener('click', (e) => {
@@ -799,7 +781,7 @@ function drawStridersScreen() {
     game.player.roster.forEach(strider => {
         document.querySelector('#striderContainer-' + strider.id).addEventListener('click', e => {
             spawnStriderPopup(strider);
-            playSound('sounds/ui/aa-ui6.wav', 0.3, 1);
+            Sounds.Methods.playSound(Data.SoundType.TOOLTIP_SPAWN);
         });
     });
 }
@@ -951,7 +933,7 @@ function spawnStriderPopup(strider, refresh = false) {
     if(!refresh) {
         popupWindow.addEventListener('contextmenu', e => {
             e.preventDefault();
-            playSound('sounds/ui/ui5.wav', 1, 1.5);
+            Sounds.Methods.playSound(Data.SoundType.TOOLTIP_CLOSE);
             popupWindow.remove();
         });
     }
@@ -1766,7 +1748,7 @@ function drawAstralForgeScreen(forgeItem, refresh = false) {
     if(!refresh) {
         popupWindow.addEventListener('contextmenu', e => {
             e.preventDefault();
-            playSound('sounds/ui/ui5.wav', 1, 1.5);
+            Sounds.Methods.playSound(Data.SoundType.TOOLTIP_CLOSE);
             forgeItem.clearShard();
             forgeItem.clearEffect();
             forgeItem.clearSelectedCometDust();

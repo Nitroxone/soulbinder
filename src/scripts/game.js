@@ -235,9 +235,7 @@ class Game {
                 }
             }
         }
-        let audio = new Audio('sounds/ui/tab.wav');
-        audio.volume = 0.2;
-        audio.play();
+        Sounds.Methods.playSound(Data.SoundType.MAJOR_TAB);
     }
     updateTab(tab) {
 

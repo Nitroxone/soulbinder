@@ -181,7 +181,7 @@ class Strider extends NPC {
             game.player.inventory.removeItem(trinket);
             this.removeAvailableTrinketSlot();
             console.log(trinket.name + ' was equipped to ' + this.name);
-            playSound('sounds/ui/equip' + getRandomNumber(1, 3) + '.wav', 0.3);
+            Sounds.Methods.playSound(Data.SoundType.EQUIP);
             drawInventory();
             spawnStriderPopup(this, true);
         } else {
@@ -201,7 +201,7 @@ class Strider extends NPC {
         game.player.inventory.addItem(trinket, 1, true);
         this.addAvailableTrinketSlot();
         console.log(trinket.name + ' was unequipped from ' + this.name);
-        playSound('sounds/ui/closetooltip.wav');
+        Sounds.Methods.playSound(Data.SoundType.UNEQUIP);
         drawInventory();
         spawnStriderPopup(this, true);
     }
@@ -241,7 +241,7 @@ class Strider extends NPC {
         this.applyAstralForgeExtraEffects(armor);
         game.player.inventory.removeItem(armor);
         console.log(armor.name + ' was equipped to ' + this.name);
-        playSound('sounds/ui/equip' + getRandomNumber(1, 3) + '.wav');
+        Sounds.Methods.playSound(Data.SoundType.EQUIP);
         drawInventory();
         spawnStriderPopup(this, true);
     }
@@ -276,7 +276,7 @@ class Strider extends NPC {
         this.applyAstralForgeExtraEffects(armor, true);
         game.player.inventory.addItem(armor, 1, true);
         console.log(armor.name + ' was unequipped from ' + this.name);
-        playSound('sounds/ui/closetooltip.wav');
+        Sounds.Methods.playSound(Data.SoundType.UNEQUIP);
         drawInventory();
         spawnStriderPopup(this, true);
     }
@@ -315,6 +315,7 @@ class Strider extends NPC {
         this.applyEchoes(weapon);
         this.applyAstralForgeExtraEffects(weapon);
         game.player.inventory.removeItem(weapon);
+        Sounds.Methods.playSound(Data.SoundType.EQUIP_WEAPON);
         drawInventory();
         spawnStriderPopup(this, true);
     }
@@ -347,6 +348,7 @@ class Strider extends NPC {
 
             this.eqWeaponBoth = null;
         }
+        Sounds.Methods.playSound(Data.SoundType.UNEQUIP);
         drawInventory();
         spawnStriderPopup(this, true);
     }
