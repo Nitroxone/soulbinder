@@ -4057,6 +4057,13 @@ hr.leftSided {
         width: 100%;
     }
 }
+.alchBrewCanvas {
+    position: absolute;
+    width: 204.5px;
+    height: 100px;
+    bottom: 0;
+    left: 0;
+}
 
 .alchNotifications {
     position: absolute;
