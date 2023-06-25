@@ -29,6 +29,8 @@ class Alchemy {
         this.ingredients[index] = ingredient;
         document.querySelectorAll('.alchIngredient')[index].innerHTML = getAlchemyIngredient(this.ingredients[index]);
         generateAlchemyIngredientEvents(this.ingredients[index]);
+
+        Sounds.Methods.playSound(Data.SoundType.INGREDIENT_IN);
     }
 
     /**
@@ -39,6 +41,8 @@ class Alchemy {
         this.ingredients[index].unlink();
         this.ingredients[index] = null;
         document.querySelectorAll('.alchIngredient')[index].innerHTML = getAlchemyIngredient(this.ingredients[index]);
+
+        Sounds.Methods.playSound(Data.SoundType.INGREDIENT_OUT);
     }
 
     /**

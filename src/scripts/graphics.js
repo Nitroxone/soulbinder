@@ -1571,6 +1571,8 @@ function generateAlchemyInterfaceEvents() {
     }
 
     document.querySelector('.alchPotionPreview-vignette').addEventListener('click', e => {
+        Sounds.Methods.playSound(Data.SoundType.TOOLTIP_HOVER);
+
         if(document.querySelector('.vignetteSelector')) {
             document.querySelector('.vignetteSelector').remove();
             return;
@@ -1598,6 +1600,7 @@ function generateAlchemyInterfaceEvents() {
 
         div.querySelectorAll('.selectorItem').forEach(item => {
             item.addEventListener('click', e => {
+                Sounds.Methods.playSound(Data.SoundType.SELECTOR);
                 if(!(item.id === 'vignettePotion-' + game.alchemy.icon.icon)) {
                     const id = parseInt(item.id.slice(15));
                     const icon = Icons.Methods.findByIcon("potions", id);
@@ -1613,7 +1616,10 @@ function generateAlchemyInterfaceEvents() {
         });
         
         document.querySelector('.alchPotionPreview').appendChild(div);
-        document.querySelector('.closeWindowButton').addEventListener('click', e => { div.remove() });
+        document.querySelector('.closeWindowButton').addEventListener('click', e => { 
+            Sounds.Methods.playSound(Data.SoundType.TOOLTIP_HOVER);
+            div.remove(); 
+        });
     });
 
     document.querySelector('.alchBrew').addEventListener('click', e => {
@@ -1631,6 +1637,8 @@ function generateAlchemyIngredientEvents(ingr) {
                 but.classList.toggle('off');
             }
             getAlchemyPotionPreviewEffects(true);
+
+            Sounds.Methods.playSound(Data.SoundType.SELECTOR);
         })
     })
 }

@@ -24,6 +24,17 @@ let Sounds = {
         ],
         UNEQUIP: [
             {name: "unequip.wav", volume: 0.3, pitch: () => {return getRandomNumber(0.8, 0.85)}}
+        ],
+        INGREDIENT_IN: [
+            {name: "ingredient_in1.mp3", volume: 0.4, pitch: () => {return getRandomNumber(1, 1.05)}},
+            {name: "ingredient_in2.mp3", volume: 0.4, pitch: () => {return getRandomNumber(1, 1.05)}}
+        ],
+        INGREDIENT_OUT: [
+            {name: "ingredient_out.mp3", volume: 0.4, pitch: () => {return getRandomNumber(1, 1.05)}}
+        ],
+        SELECTOR: [
+            {name: "selector1.mp3", volume: 0.3},
+            {name: "selector2.mp3", volume: 0.3},
         ]
     },
     Methods: {
