@@ -206,19 +206,21 @@ function getResourceTooltip(resource, asResult = null) {
 function getConsumableTooltip(consumable) {
     let str = '';
 
-    str += '<div class="info">';
-    str += '<div id="iconcloud-' + consumable.id + '"class="iconcloud' + capitalizeFirstLetter(consumable.rarity) + '"><div id="res-icon-' + consumable.id + '" class="tooltipIcon" style="' + getIcon(consumable) + '"></div>';
-    str += '</div>';
-    str += '<div class="fancyText barred infoTitle" style="color: ' + getRarityColorCode(consumable.rarity) + '">' + consumable.name + '</div>';
-    str += '<div class="fancyText barred">' + capitalizeFirstLetter(consumable.rarity) + '</div>';
-    str += '<div class="infoDesc">';
-    str += '<div class="par"></div>';
-    str += '<div class="par"></div>';
+    str += '<div class="consumableTooltip">';
+    str += '<div class="consumableTooltipHeader">';
+    str += '<div id="iconcloud-' + consumable.id + '"class="iconcloud' + capitalizeFirstLetter(consumable.rarity) + ' roundIconcloud' + capitalizeFirstLetter(consumable.rarity) + '"><div id="res-icon-' + consumable.id + '" class="tooltipIcon roundCloudIcon" style="' + getIcon(consumable) + '"></div></div>';
+    str += '<div class="consumableTitles">';
+    str += '<div class="consumableName">' + consumable.name + '</div>';
+    str += '<div class="treeNodeType treeNodeType-' + consumable.rarity + '">' + capitalizeFirstLetter(consumable.rarity) + '</div>';
+    str += '</div></div>';
+    //str += '<div class="divider"></div>';
+    str += '<div class="consumableEffects">';
     consumable.effects.forEach(eff => {
-        str += eff.getFormatted({cssClass: "itemEffect", noTheorical: true, defaultColor: true});
-    })
-    str += '<div class="divider"></div>';
-    str += '<div class="toxicityIndicator itemEffect">+ ' + consumable.toxicity + ' Toxicity</div>';
+        str += eff.getFormatted({cssClass: "itemEffect consumableEffect", noTheorical: true, defaultColor: true});
+    });
+    str += '</div>';
+    //str += '<div class="divider"></div>';
+    str += '<div class="consumableToxicityIndicator">' + consumable.toxicity + ' <span style="opacity: 0.8;">Toxicity</span></div>';
     str += '</div></div>';
 
     game.particlesTooltipCanvasItem = consumable;
