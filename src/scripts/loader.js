@@ -2631,13 +2631,13 @@ const Loader = {
         }
     },
 
-    loadConsumables: loadConsumables = () => {
-        const consumables = [
+    loadSoulmarks: loadSoulmarks = () => {
+        const soulmarks = [
             
         ];
 
-        for(const consumable of consumables) {
-            game.all_consumables.push(consumable);
+        for(const soulmark of soulmarks) {
+            game.all_soulmarks.push(soulmark);
         }
     }
 }
