@@ -1,3 +1,4 @@
+
 # Soulbinder
 
 Soulbinder is a story driven, highly replayable, tactical roguelite dungeon crawler. It is written in JavaScript and designed to run on web browsers.
@@ -7,6 +8,14 @@ It is developed mainly by myself, @Nitroxone, with my best buddy @wensaqt giving
 The entire project is written in vanilla JavaScript and vanilla CSS/HTML. Everything has been hand-coded, designed and crafted with love. I chose not to use any dependency or library as a personal challenge. Yeah, that means not even jQuery or Bootstrap or whatever. Maybe I kinda wanna prove to people that you can still code in vanilla today and make awesome things, so long as you're willing to use your brain a little more.
 
 The game will be entirely free and available for all to play on a website. 
+
+## Features
+Soulbinder has a ton of different features that all contribute to the three core aspects of the game : replayability, grinding, and fun.
+
+- **Alchemy**: Gather resources, combine them together and create your own potions ; but beware of their toxicity level, for it could kill your striders. Use potions to enhance your fighting abilities, recover from traumas and cure curses.
+- **Soulwriting**: The complex art of Soulwriting allows you to create your own *Sigils*, time-altered stone artifacts that can alter your arsenal. Crush sigils to acquire knowledge ; put that knowledge into new sigils ; bend sigils by maximizing, recasting, overloading their effects - but as always, beware not to corrupt them.
+- **Astral Forge**: push theorycrafting to another level through the Astral Forge, a complex way to alter your arsenal and add new capabilities that did not even exist before.
+- **Echoes**: each weapon, armor and trinket you acquire has a unique modifier. These can be modified through Soulwriting.
 
 ## Current version
 
