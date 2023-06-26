@@ -2,8 +2,6 @@ class Soulwriting {
     constructor() {
         this.tabs = ["read", "write", "bend"];
         this.currentTab = this.tabs[1];
-
-
     }
 
     switchTab(index) {

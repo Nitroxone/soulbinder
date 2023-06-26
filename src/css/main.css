@@ -1463,11 +1463,11 @@ a:active, .tooltiped:active {
 .iconcloudElder::before {background:radial-gradient(farthest-side at 50% 100%, rgba(251, 62, 141, 0.5), transparent);}
 
 .roundIconcloudCommon::before, .roundIconcloudUncommon::before, .roundIconcloudRare::before, .roundIconcloudEpic::before, .roundIconcloudLegendary::before, .roundIconcloudElder::before {
-    left: -50px;
+    left: -110px;
     top: -20px;
-    transform: rotate(90deg);
-    width: 200%;
-    height: 150%;
+    transform: rotate(135deg);
+    width: 400%;
+    height: 200%;
 }
 .roundIconcloudCommon::before {background: radial-gradient(farthest-side at 30% 100%, rgba(255, 255, 255, 0.25), transparent);}
 .roundIconcloudUncommon::before {background: radial-gradient(farthest-side at 30% 100%, rgba(0, 255, 0, 0.5), transparent);}
@@ -6515,8 +6515,8 @@ table.astralForgeShards td {
 .consumableTooltip canvas {
     width: 150px;
     height: 100px;
-    top: -50px !important;
-    left: -80px !important;
+    top: -25px !important;
+    left: -40px !important;
 }
 
 .consumableTooltipHeader {

@@ -1735,16 +1735,17 @@ function drawSoulwritingScreen() {
     str += '<div id="soulwtab-bend" class="soulwTab' + (game.soulwriting.currentTab === 'bend' ? ' activeTab' : '') + '">Bend</div>';
     str += '</div>';
 
-    str += '<div id="soulwcontent-read" class="soulwContent"></div>';
-    str += '<div id="soulwcontent-write" class="soulwContent" style="display: block"></div>';
-    str += '<div id="soulwcontent-bend" class="soulwContent"></div>';
+    str += '<div id="soulwcontent-read" class="soulwContent">READING</div>';
+    str += '<div id="soulwcontent-write" class="soulwContent" style="display: flex">WRITING</div>';
+    str += '<div id="soulwcontent-bend" class="soulwContent">BENDING</div>';
 
     return str;
 }
 
 function generateSoulwritingInterfaceEvents() {
     const tabs = document.querySelectorAll('.soulwTab');
-    const contents = document.querySelectorAll('.soulwContent')
+    const contents = document.querySelectorAll('.soulwContent');
+    
 
     for(let i = 0; i < tabs.length; i++) {
         let tab = tabs[i];
@@ -1752,6 +1753,10 @@ function generateSoulwritingInterfaceEvents() {
             tabs[game.soulwriting.getCurrentTabIndex()].classList.remove('activeTab');
             game.soulwriting.switchTab(i);
             tab.classList.add('activeTab');
+            contents.forEach(con => {
+                con.style.display = 'none';
+            });
+            document.querySelector('#soulwcontent-' + game.soulwriting.currentTab).style.display = 'flex';
         });
     }
 }
