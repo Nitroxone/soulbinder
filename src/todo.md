@@ -11,6 +11,7 @@
 - Actually implement set bonuses
 
 ALCHEMY:
+- Add possibility to craft multiple potions in one shot
 ONGOING - Implement sound effects and animations
 DONE - Prevent the use of the same ingredient multiple times 
 DONE - Add a notification system similar to Astral Forge's
