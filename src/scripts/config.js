@@ -183,15 +183,35 @@ let Config = {
             unlocked: false
         },
         ACCURACY: {
-            theorical: [2, 4],
+            theorical: [5, 7],
             critical: new Stat({effect: Data.Effect.DODGE, theorical: 1, isPercentage: true, isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.DODGE, theorical: -1, isPercentage: true, isCorrupt: true}),
             unlocked: false
         },
-        PROTECTION: [6, 3, 3],
-        MIGHT: [6, 2, 10],
-        SPIRIT: [6, 3, 10],
-        DAMAGE_REFLECTION: [8, 6, 5],
+        PROTECTION: {
+            theorical: [6, 10],
+            critical: new Stat({effect: Data.Effect.DAMAGE_REFLECTION, theorical: [1, 3], isPercentage: true, isCritical: true}),
+            corrupted: new Stat({effect: Data.Effect.MAXHEALTH, theorical: [-10, -25], isPercentage: true, isCorrupt: true}),
+            unlocked: false
+        },
+        MIGHT: {
+            theorical: [8, 10],
+            critical: new Stat({effect: Data.Effect.MODIF_DMG_WEAPON, theorical: [1, 3], isPercentage: true, isCritical: true}),
+            corrupted: new Stat({effect: Data.Effect.MODIF_DMG_WEAPON, theorical: [-1, -3], isPercentage: true, isCorrupt: true}),
+            unlocked: false
+        },
+        SPIRIT: {
+            theorical: [8, 10],
+            critical: new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [1, 3], isPercentage: true, isCritical: true}),
+            corrupted: new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [-1, -3], isPercentage: true, isCorrupt: true}),
+            unlocked: false
+        },
+        DAMAGE_REFLECTION: {
+            theorical: [2, 4],
+            critical: new Stat({effect: Data.Effect.PROTECTION, theorical: [1, 3], isPercentage: true, isCritical: true}),
+            corrupted: new Stat({effect: Data.Effect.PROTECTION, theorical: [-1, -3], isPercentage: true, isCorrupt: true}),
+            unlocked: false
+        },
         // BLEED & POISON RESISTANCE STATS
         RES_BLEED_DMG: [4, 2, 1],
         RES_BLEED_DURATION: [15, 10, 1],
