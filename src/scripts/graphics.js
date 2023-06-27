@@ -1,4 +1,4 @@
-pdiv/**
+/**
  * Spawns a floating tooltip on screen based on the provided Item's data.
  * @param {Item} item the Item data to fill the tooltip with
  */
