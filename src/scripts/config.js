@@ -391,37 +391,107 @@ let Config = {
         // BASE RESISTANCE
         RESILIENCE: {
             theorical: [8, 12],
-            critical: new Stat({effect: Data.Effect.MIGHT, theorical: [4, 7], isCritical: true}),
+            critical: new Stat({effect: Data.Effect.WARDING, theorical: [4, 7], isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.WARDING, theorical: [-2, -5], isCorrupt: true}),
             unlocked: false
         },
         WARDING: {
             theorical: [8, 12],
-            critical: new Stat({effect: Data.Effect.SPIRIT, theorical: [4, 7], isCritical: true}),
+            critical: new Stat({effect: Data.Effect.RESILIENCE, theorical: [4, 7], isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.RESILIENCE, theorical: [-2, -5], isCorrupt: true}),
             unlocked: false
         },
 
         // WEAPON EFFECTS
-        PDMG: [6, 3, 10],
-        MDMG: [6, 3, 10],
-        BLOCK: [4, 1, 5],
-        EFFORT: [4, 1, 4],
-        CRIT_LUK: [6, 2, 3],
-        CRIT_DMG: [6, 2, 4],
-        BLEED_DMG: [6, 2, 4],
-        BLEED_DURATION: [12, 6, 2],
-        BLEED_CURABLE: [20, 7, 0],
-        BLEED_INCURABLE: [20, 7, 0],
-        POISON_DMG: [6, 2, 4],
-        POISON_DURATION: [12, 6, 2],
-        POISON_CURABLE: [20, 7, 0],
-        POISON_INCURABLE: [20, 7, 0],
-        RANGE_FRONT_ON: [20, 15, 0],
-        RANGE_MIDDLE_ON: [20, 15, 0],
-        RANGE_BACK_ON: [20, 15, 0],
-        RANGE_FRONT_OFF: [20, 15, 0],
-        RANGE_MIDDLE_OFF: [20, 15, 0],
-        RANGE_BACK_OFF: [20, 15, 0],
+        PDMG: {
+            theorical: [6, 10],
+            critical: new Stat({effect: Data.Effect.CRIT_DMG, theorical: [4, 7], isCritical: true}),
+            corrupted: new Stat({effect: Data.Effect.CRIT_DMG, theorical: [-2, -5], isCorrupt: true}),
+            unlocked: false
+        },
+        MDMG: {
+            theorical: [6, 10],
+            critical: new Stat({effect: Data.Effect.CRIT_LUK, theorical: [4, 7], isPercentage: true, isCritical: true}),
+            corrupted: new Stat({effect: Data.Effect.CRIT_LUK, theorical: [-2, -5], isPercentage: true, isCorrupt: true}),
+            unlocked: false
+        },
+        BLOCK: {
+            theorical: [3, 6],
+            critical: new Stat({effect: Data.Effect.EFFORT, theorical: [-2, -3], isCritical: true}),
+            corrupted: new Stat({effect: Data.Effect.CRIT_LUK, theorical: [2, 3], isCorrupt: true}),
+            unlocked: false
+        },
+        EFFORT: {
+            theorical: [-2, -4],
+            critical: new Stat({effect: Data.Effect.CRIT_DMG, theorical: [4, 7], isCritical: true}),
+            corrupted: new Stat({effect: Data.Effect.CRIT_DMG, theorical: [-2, -5], isCorrupt: true}),
+            unlocked: false
+        },
+        CRIT_LUK: {
+            theorical: [6, 10],
+            critical: new Stat({effect: Data.Effect.CRIT_DMG, theorical: [4, 7], isCritical: true}),
+            corrupted: new Stat({effect: Data.Effect.CRIT_DMG, theorical: [-2, -5], isCorrupt: true}),
+            unlocked: false
+        },
+        CRIT_DMG: {
+            theorical: [6, 10],
+            critical: new Stat({effect: Data.Effect.CRIT_LUK, theorical: [4, 7], isPercentage: true, isCritical: true}),
+            corrupted: new Stat({effect: Data.Effect.CRIT_LUK, theorical: [-2, -5], isPercentage: true, isCorrupt: true}),
+            unlocked: false
+        },
+        BLEED_DMG: {
+            theorical: [3, 6],
+            critical: new Stat({effect: Data.Effect.BLEED_DURATION, theorical: 1, isCritical: true}),
+            corrupted: new Stat({effect: Data.Effect.PDMG, theorical: [-2, -5], isCorrupt: true}),
+            unlocked: false
+        },
+        BLEED_DURATION: {
+            theorical: [3, 6],
+            critical: new Stat({effect: Data.Effect.BLEED_DMG, theorical: [2, 3], isCritical: true}),
+            corrupted: new Stat({effect: Data.Effect.BLEED_DMG, theorical: [-2, -3], isCorrupt: true}),
+            unlocked: false
+        },
+        BLEED_INCURABLE: {
+            theorical: 0,
+            critical: new Stat({effect: Data.Effect.BLEED_DMG, theorical: [2, 3], isCritical: true}),
+            corrupted: new Stat({effect: Data.Effect.BLEED_DMG, theorical: [-2, -3], isCorrupt: true}),
+            unlocked: false
+        },
+        POISON_DMG: {
+            theorical: [3, 6],
+            critical: new Stat({effect: Data.Effect.POISON_DURATION, theorical: 1, isCritical: true}),
+            corrupted: new Stat({effect: Data.Effect.MDMG, theorical: [-2, -5], isCorrupt: true}),
+            unlocked: false
+        },
+        POISON_DURATION: {
+            theorical: [3, 6],
+            critical: new Stat({effect: Data.Effect.POISON_DMG, theorical: [2, 3], isCritical: true}),
+            corrupted: new Stat({effect: Data.Effect.POISON_DMG, theorical: [-2, -3], isCorrupt: true}),
+            unlocked: false
+        },
+        POISON_INCURABLE: {
+            theorical: 0,
+            critical: new Stat({effect: Data.Effect.POISON_DMG, theorical: [2, 3], isCritical: true}),
+            corrupted: new Stat({effect: Data.Effect.POISON_DMG, theorical: [-2, -3], isCorrupt: true}),
+            unlocked: false
+        },
+        RANGE_FRONT_ON: {
+            theorical: 0,
+            critical: new Stat({effect: Data.Effect.CRIT_LUK, theorical: [2, 3], isPercentage: true, isCritical: true}),
+            corrupted: new Stat({effect: Data.Effect.EFFORT, theorical: [4, 6], isCorrupt: true}),
+            unlocked: false
+        },
+        RANGE_MIDDLE_ON: {
+            theorical: 0,
+            critical: new Stat({effect: Data.Effect.PDMG, theorical: [4, 6], isCritical: true}),
+            corrupted: new Stat({effect: Data.Effect.ACCURACY, theorical: [-4, -6], isPercentage: true, isCorrupt: true}),
+            unlocked: false
+        },
+        RANGE_BACK_ON: {
+            theorical: 0,
+            critical: new Stat({effect: Data.Effect.MDMG, theorical: [4, 6], isCritical: true}),
+            corrupted: new Stat({effect: Data.Effect.MDMG, theorical: [-4, -6], isCorrupt: true}),
+            unlocked: false
+        },
     }
 }
