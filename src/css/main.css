@@ -4224,7 +4224,7 @@ hr.leftSided {
     width: 100%;
 
     padding: 0.25rem;
-    font-family: RobotoSlabBold;
+    font-family: RobotoSlab;
     color: #ccc;
     font-size: 11px;
 
@@ -4233,16 +4233,20 @@ hr.leftSided {
     justify-content: space-between;
     align-items: center;
     border-radius: 3px;
-    border: 1px solid transparent
+    border: 1px solid transparent;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+
+    font-variant: small-caps;
 }
 .swWriteList-single:hover {
     background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     cursor: pointer;
 }
 .swWriteList-eff {
     font-size: 11px;
     font-family: Roboto;
+    font-variant: normal;
 }
 .swWriteCrafting {
     grid-area: swWriteCrafting;

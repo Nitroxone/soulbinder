@@ -1796,7 +1796,7 @@ function getFormattedSoulmark(sm) {
 
     let str = '';
 
-    str += '<div id="sm-' + sm.name + '" class="swWriteList-single"><span>' + capitalizeFirstLetter(sm.name) + '</span>' + eff.getFormatted({cssClass: 'swWriteList-eff', noValue: true}) + '</div>';
+    str += '<div id="sm-' + sm.name + '" class="swWriteList-single"><span>' + capitalizeFirstLetter(sm.name) + '</span>' + eff.getFormatted({cssClass: 'swWriteList-eff', noValue: true, noTheorical: true}) + '</div>';
 
     return str;
 }

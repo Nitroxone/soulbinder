@@ -70,6 +70,15 @@ class Weapon extends Item {
         this.set = null;
 
         this.astralForgeItem = null;
+
+        if(this.echoes && this.echoes.length > 0) this.echoes.forEach(echo => {
+            echo.fix();
+            echo.stats.forEach(effect => {
+                console.log(effect)
+                this.addEffect(effect);
+            });
+            this.removeAvailableEcho();
+        });
     }
 
     /**
@@ -236,7 +245,7 @@ class Weapon extends Item {
             echo.stats.forEach(effect => {
                 console.log(effect)
                 this.addEffect(effect);
-            })
+            });
             this.echoes.push(echo);
             this.removeAvailableEcho();
         } else {

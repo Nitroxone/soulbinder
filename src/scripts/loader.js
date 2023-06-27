@@ -54,7 +54,50 @@ const Loader = {
                        [[0, 0], [0, 0], true],
                        [[1, 3], [1, 1], true],
                        [true, true, true],
-                       1)
+                       1),
+            new Weapon("Solana's Sword of the Sun",
+                       "Solana left this blade behind her; it knew many porters, but never a master. At least, that was until it fell into the hands of Betheros. The golden filaments of the hilt closed around his wrist, hugging it to perfection; like a distant kiss from the woman he once loved, and would never stop loving until his last breath.",
+                       12,
+                       10,
+                       Data.Rarity.LEGENDARY,
+                       Data.WeaponType.SWORD,
+                       Data.WeaponWeight.LIGHT,
+                       [13, 18],
+                       [24, 26],
+                       [11, 14],
+                       [10, 12],
+                       [15, 18],
+                       [16, 18],
+                       [[5, 8], [1, 3], true],
+                       [[0, 0], [0, 0], true],
+                       [true, true, false],
+                       2,
+                       1,
+                       [new Echo(
+                        "Solana's Tulips",
+                        "Each non-critical hit with this weapon gives a §1% Critical Luck bonus to its bearer, for one round. Each critical hit with this weapon regenerates §2% of its bearer's Max. Mana and generates §3 Shield points.",
+                        1,
+                        Data.Rarity.LEGENDARY,
+                        [
+                            new Stat({
+                                effect: Data.Effect.MODIF_HEAL_GIVEN,
+                                theorical: [8, 12],
+                                isPercentage: true
+                            }),
+                            new Stat({
+                                effect: Data.Effect.MODIF_CRIT_SKILL,
+                                theorical: [4, 6],
+                                isPercentage: true
+                            }),
+                        ],
+                        "Everything seemed to draw her back to him: the scent of tulips, the red of strawberries, the shine of gold.",
+                        {
+                            "bonus_critical_luck": [10, 15],
+                            "mana_regen": [4, 6],
+                            "shield": [20, 26]
+                        },
+                        [],
+                       )])
         ];
 
         for(const weapon of weapons) {
