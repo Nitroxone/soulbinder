@@ -150,72 +150,82 @@ let Config = {
         Data.Effect.RESILIENCE,
         Data.Effect.WARDING,
     ],
-    Soulwriting: {
+    Soulwriting: [
         // THEORICAL, CRITICAL, CORRUPTED, UNLOCKED
-        MAXHEALTH: {
+        {
+            effect: Data.Effect.MAXHEALTH,
             name: "youth",
             theorical: [20, 30],
             critical: new Stat({effect: Data.Effect.REGEN_HEALTH, theorical: 1, isPercentage: true, isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.REGEN_HEALTH, theorical: -1, isPercentage: true, isCorrupt: true}),
             unlocked: false
         },
-        MAXMANA: {
+        {
+            effect: Data.Effect.MAXMANA,
             name: "wisdom",
             theorical: [20, 30],
             critical: new Stat({effect: Data.Effect.REGEN_MANA, theorical: 1, isPercentage: true, isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.REGEN_MANA, theorical: -1, isPercentage: true, isCorrupt: true}),
             unlocked: false
         },
-        MAXSTAMINA: {
+        {
+            effect: Data.Effect.MAXSTAMINA,
             name: "endurance",
             theorical: [20, 30],
             critical: new Stat({effect: Data.Effect.REGEN_STAMINA, theorical: 1, isPercentage: true, isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.REGEN_STAMINA, theorical: -1, isPercentage: true, isCorrupt: true}),
             unlocked: false
         },
-        DODGE: {
+        {
+            effect: Data.Effect.DODGE,
             name: "zeal",
             theorical: [2, 4],
             critical: new Stat({effect: Data.Effect.ACCURACY, theorical: [1, 3], isPercentage: true, isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.ACCURACY, theorical: [-1, -3], isPercentage: true, isCorrupt: true}),
             unlocked: false
         },
-        SPEED: {
+        {
+            effect: Data.Effect.SPEED,
             name: "alacrity",
             theorical: [2, 4],
             critical: new Stat({effect: Data.Effect.RES_MOVE, theorical: [1, 3], isPercentage: true, isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.RES_MOVE, theorical: [-1, -3], isPercentage: true, isCorrupt: true}),
             unlocked: false
         },
-        ACCURACY: {
+        {
+            effect: Data.Effect.ACCURACY,
             name: "bullseye",
             theorical: [5, 7],
             critical: new Stat({effect: Data.Effect.DODGE, theorical: 1, isPercentage: true, isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.DODGE, theorical: -1, isPercentage: true, isCorrupt: true}),
             unlocked: false
         },
-        PROTECTION: {
+        {
+            effect: Data.Effect.PROTECTION,
             name: "bastion",
             theorical: [6, 10],
             critical: new Stat({effect: Data.Effect.DAMAGE_REFLECTION, theorical: [1, 3], isPercentage: true, isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.MAXHEALTH, theorical: [-10, -25], isPercentage: true, isCorrupt: true}),
             unlocked: false
         },
-        MIGHT: {
+        {
+            effect: Data.Effect.MIGHT,
             name: "valor",
             theorical: [8, 10],
             critical: new Stat({effect: Data.Effect.MODIF_DMG_WEAPON, theorical: [1, 3], isPercentage: true, isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.MODIF_DMG_WEAPON, theorical: [-1, -3], isPercentage: true, isCorrupt: true}),
             unlocked: false
         },
-        SPIRIT: {
+        {
+            effect: Data.Effect.SPIRIT,
             name: "potency",
             theorical: [8, 10],
             critical: new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [1, 3], isPercentage: true, isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [-1, -3], isPercentage: true, isCorrupt: true}),
             unlocked: false
         },
-        DAMAGE_REFLECTION: {
+        {
+            effect: Data.Effect.DAMAGE_REFLECTION,
             name: "thorns",
             theorical: [2, 4],
             critical: new Stat({effect: Data.Effect.PROTECTION, theorical: [1, 3], isPercentage: true, isCritical: true}),
@@ -223,42 +233,48 @@ let Config = {
             unlocked: false
         },
         // BLEED & POISON RESISTANCE STATS
-        RES_BLEED_DMG: {
-            name: "coagulation",
+        {
+            effect: Data.Effect.RES_BLEED_DMG,
+            name: "vigorous",
             theorical: [2, 4],
             critical: new Stat({effect: Data.Effect.RES_POISON_DMG, theorical: [1, 3], isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.RES_POISON_DMG, theorical: [-1, -3], isCorrupt: true}),
             unlocked: false
         },
-        RES_BLEED_DURATION: {
-            name: "?",
+        {
+            effect: Data.Effect.RES_BLEED_DURATION,
+            name: "coagulation",
             theorical: 1,
             critical: new Stat({effect: Data.Effect.RES_POISON_DURATION, theorical: 1, isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.RES_POISON_DURATION, theorical: -1, isCorrupt: true}),
             unlocked: false
         },
-        RES_POISON_DMG: {
+        {
+            effect: Data.Effect.RES_POISON_DMG,
             name: "purity",
             theorical: [2, 4],
             critical: new Stat({effect: Data.Effect.RES_BLEED_DMG, theorical: [1, 3], isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.RES_BLEED_DMG, theorical: [-1, -3], isCorrupt: true}),
             unlocked: false
         },
-        RES_POISON_DURATION: {
-            name: "?",
+        {
+            effect: Data.Effect.RES_POISON_DURATION,
+            name: "metabolic",
             theorical: 1,
             critical: new Stat({effect: Data.Effect.RES_BLEED_DURATION, theorical: 1, isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.RES_BLEED_DURATION, theorical: -1, isCorrupt: true}),
             unlocked: false
         },
-        RES_STUN: {
+        {
+            effect: Data.Effect.RES_STUN,
             name: "ironskull",
             theorical: [5, 10],
             critical: new Stat({effect: Data.Effect.MODIF_CHANCE_STUN, theorical: [2, 4], isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.MODIF_CHANCE_STUN, theorical: [-2, -4], isCorrupt: true}),
             unlocked: false
         },
-        RES_MOVE: {
+        {
+            effect: Data.Effect.RES_MOVE,
             name: "stability",
             theorical: [5, 10],
             critical: new Stat({effect: Data.Effect.MODIF_CHANCE_MOVE, theorical: [2, 4], isCritical: true}),
@@ -266,21 +282,24 @@ let Config = {
             unlocked: false
         },
         // REGEN
-        REGEN_HEALTH: {
+        {
+            effect: Data.Effect.REGEN_HEALTH,
             name: "miracle",
             theorical: [4, 6],
             critical: new Stat({effect: Data.Effect.MAXHEALTH, theorical: [40, 50], isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.PROTECTION, theorical: [-2, -4], isPercentage: true, isCorrupt: true}),
             unlocked: false
         },
-        REGEN_MANA: {
+        {
+            effect: Data.Effect.REGEN_MANA,
             name: "consciousness",
             theorical: [4, 6],
             critical: new Stat({effect: Data.Effect.MAXMANA, theorical: [40, 50], isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.SPIRIT, theorical: [-5, -10], isCorrupt: true}),
             unlocked: false
         },
-        REGEN_STAMINA: {
+        {
+            effect: Data.Effect.REGEN_STAMINA,
             name: "tolerance",
             theorical: [4, 6],
             critical: new Stat({effect: Data.Effect.MAXSTAMINA, theorical: [40, 50], isCritical: true}),
@@ -288,49 +307,56 @@ let Config = {
             unlocked: false
         },
         // DAMAGE MODIFIERS
-        MODIF_BLOCK: {
+        {
+            effect: Data.Effect.MODIF_BLOCK,
             name: "bulwark",
             theorical: [4, 6],
             critical: new Stat({effect: Data.Effect.DODGE, theorical: [2, 4], isPercentage: true, isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.PROTECTION, theorical: [-2, -5], isPercentage: true, isCorrupt: true}),
             unlocked: false
         },
-        MODIF_DMG_TOTAL: {
+        {
+            effect: Data.Effect.MODIF_DMG_TOTAL,
             name: "ferocity",
             theorical: [2, 4],
             critical: new Stat({effect: Data.Effect.PROTECTION, theorical: [2, 4], isPercentage: true, isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.PROTECTION, theorical: [-2, -5], isPercentage: true, isCorrupt: true}),
             unlocked: false
         },
-        MODIF_DMG_WEAPON: {
+        {
+            effect: Data.Effect.MODIF_DMG_WEAPON,
             name: "dexterity",
             theorical: [2, 4],
             critical: new Stat({effect: Data.Effect.MIGHT, theorical: [2, 4], isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.MIGHT, theorical: [-2, -5], isCorrupt: true}),
             unlocked: false
         },
-        MODIF_DMG_SKILL: {
+        {
+            effect: Data.Effect.MODIF_DMG_SKILL,
             name: "influence",
             theorical: [2, 4],
             critical: new Stat({effect: Data.Effect.SPIRIT, theorical: [2, 4], isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.SPIRIT, theorical: [-2, -5], isCorrupt: true}),
             unlocked: false
         },
-        MODIF_DMG_STUN: {
+        {
+            effect: Data.Effect.MODIF_DMG_STUN,
             name: "opportunity",
             theorical: [2, 4],
             critical: new Stat({effect: Data.Effect.MODIF_CHANCE_STUN, theorical: [2, 4], iSPercentage: true, isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.MODIF_CHANCE_STUN, theorical: [-2, -5], isPercentage: true, isCorrupt: true}),
             unlocked: false
         },
-        MODIF_DMG_BLEED: {
+        {
+            effect: Data.Effect.MODIF_DMG_BLEED,
             name: "dissolution",
             theorical: [2, 4],
             critical: new Stat({effect: Data.Effect.MODIF_ACCURACY_BLEED, theorical: [1, 2], isPercentage: true, isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.RES_BLEED_DMG, theorical: [-2, -5], isCorrupt: true}),
             unlocked: false
         },
-        MODIF_DMG_POISON: {
+        {
+            effect: Data.Effect.MODIF_DMG_POISON,
             name: "corrosion",
             theorical: [2, 4],
             critical: new Stat({effect: Data.Effect.MODIF_ACCURACY_POISON, theorical: [1, 2], isPercentage: true, isCritical: true}),
@@ -338,84 +364,96 @@ let Config = {
             unlocked: false
         },
         // ADDITIONAL MODIFIERS
-        MODIF_HEAL_RECV: {
+        {
+            effect: Data.Effect.MODIF_HEAL_RECV,
             name: "mending",
             theorical: [2, 4],
             critical: new Stat({effect: Data.Effect.REGEN_HEALTH, theorical: [1, 2], isPercentage: true, isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.MAXHEALTH, theorical: [-20, -25], isCorrupt: true}),
             unlocked: false
         },
-        MODIF_HEAL_GIVEN: {
+        {
+            effect: Data.Effect.MODIF_HEAL_GIVEN,
             name: "nursing",
             theorical: [2, 4],
             critical: new Stat({effect: Data.Effect.PROTECTION, theorical: [4, 6], isPercentage: true, isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.DODGE, theorical: [-3, -6], iSPercentage: true, isCorrupt: true}),
             unlocked: false
         },
-        MODIF_ACCURACY_SKILL: {
+        {
+            effect: Data.Effect.MODIF_ACCURACY_SKILL,
             name: "veracity",
             theorical: [2, 4],
             critical: new Stat({effect: Data.Effect.MODIF_CRIT_SKILL, theorical: [4, 6], isPercentage: true, isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.MODIF_CRIT_SKILL, theorical: [-2, -4], iSPercentage: true, isCorrupt: true}),
             unlocked: false
         },
-        MODIF_ACCURACY_STUN: {
+        {
+            effect: Data.Effect.MODIF_ACCURACY_STUN,
             name: "targeting",
             theorical: [2, 4],
             critical: new Stat({effect: Data.Effect.MODIF_CRIT_STUN, theorical: [4, 6], isPercentage: true, isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.MODIF_CRIT_STUN, theorical: [-2, -4], iSPercentage: true, isCorrupt: true}),
             unlocked: false
         },
-        MODIF_ACCURACY_BLEED: {
+        {
+            effect: Data.Effect.MODIF_ACCURACY_BLEED,
             name: "harassment",
             theorical: [2, 4],
             critical: new Stat({effect: Data.Effect.MODIF_CRIT_BLEED, theorical: [4, 6], isPercentage: true, isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.MODIF_CRIT_BLEED, theorical: [-2, -4], iSPercentage: true, isCorrupt: true}),
             unlocked: false
         },
-        MODIF_ACCURACY_POISON: {
+        {
+            effect: Data.Effect.MODIF_ACCURACY_POISON,
             name: "prey",
             theorical: [2, 4],
             critical: new Stat({effect: Data.Effect.MODIF_CRIT_POISON, theorical: [4, 6], isPercentage: true, isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.MODIF_CRIT_POISON, theorical: [-2, -4], iSPercentage: true, isCorrupt: true}),
             unlocked: false
         },
-        MODIF_CRIT_SKILL: {
+        {
+            effect: Data.Effect.MODIF_CRIT_SKILL,
             name: "concentration",
             theorical: [5, 8],
             critical: new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [3, 5], isPercentage: true, isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [-2, -4], iSPercentage: true, isCorrupt: true}),
             unlocked: false
         },
-        MODIF_CRIT_STUN: {
+        {
+            effect: Data.Effect.MODIF_CRIT_STUN,
             name: "trauma",
             theorical: [5, 8],
             critical: new Stat({effect: Data.Effect.MODIF_DMG_STUN, theorical: [3, 5], isPercentage: true, isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.MODIF_DMG_STUN, theorical: [-2, -4], iSPercentage: true, isCorrupt: true}),
             unlocked: false
         },
-        MODIF_CRIT_BLEED: {
+        {
+            effect: Data.Effect.MODIF_CRIT_BLEED,
             name: "ooze",
             theorical: [5, 8],
             critical: new Stat({effect: Data.Effect.MODIF_DMG_BLEED, theorical: [3, 5], isPercentage: true, isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.MODIF_DMG_BLEED, theorical: [-2, -4], iSPercentage: true, isCorrupt: true}),
             unlocked: false
         },
-        MODIF_CRIT_POISON: {
+        {
+            effect: Data.Effect.MODIF_CRIT_POISON,
             name: "causticity",
             theorical: [5, 8],
             critical: new Stat({effect: Data.Effect.MODIF_DMG_POISON, theorical: [3, 5], isPercentage: true, isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.MODIF_DMG_POISON, theorical: [-2, -4], iSPercentage: true, isCorrupt: true}),
             unlocked: false
         },
-        MODIF_CHANCE_STUN: {
+        {
+            effect: Data.Effect.MODIF_CHANCE_STUN,
             name: "bluntforce",
             theorical: [5, 8],
             critical: new Stat({effect: Data.Effect.MODIF_DMG_STUN, theorical: [3, 5], isPercentage: true, isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.RES_STUN, theorical: [-2, -4], iSPercentage: true, isCorrupt: true}),
             unlocked: false
         },
-        MODIF_CHANCE_MOVE: {
+        {
+            effect: Data.Effect.MODIF_CHANCE_MOVE,
             name: "tackle",
             theorical: [5, 8],
             critical: new Stat({effect: Data.Effect.DODGE, theorical: [3, 5], isPercentage: true, isCritical: true}),
@@ -427,14 +465,16 @@ let Config = {
         // ARMOR EFFECTS
         //------------------------------------------------------
         // BASE RESISTANCE
-        RESILIENCE: {
+        {
+            effect: Data.Effect.RESILIENCE,
             name: "tenacity",
             theorical: [8, 12],
             critical: new Stat({effect: Data.Effect.WARDING, theorical: [4, 7], isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.WARDING, theorical: [-2, -5], isCorrupt: true}),
             unlocked: false
         },
-        WARDING: {
+        {
+            effect: Data.Effect.WARDING,
             name: "conservation",
             theorical: [8, 12],
             critical: new Stat({effect: Data.Effect.RESILIENCE, theorical: [4, 7], isCritical: true}),
@@ -443,110 +483,125 @@ let Config = {
         },
 
         // WEAPON EFFECTS
-        PDMG: {
+        {
+            effect: Data.Effect.PDMG,
             name: "honing",
             theorical: [6, 10],
             critical: new Stat({effect: Data.Effect.CRIT_DMG, theorical: [4, 7], isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.CRIT_DMG, theorical: [-2, -5], isCorrupt: true}),
             unlocked: false
         },
-        MDMG: {
+        {
+            effect: Data.Effect.MDMG,
             name: "shrivelling",
             theorical: [6, 10],
             critical: new Stat({effect: Data.Effect.CRIT_LUK, theorical: [4, 7], isPercentage: true, isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.CRIT_LUK, theorical: [-2, -5], isPercentage: true, isCorrupt: true}),
             unlocked: false
         },
-        BLOCK: {
+        {
+            effect: Data.Effect.BLOCK,
             name: "stronghold",
             theorical: [3, 6],
             critical: new Stat({effect: Data.Effect.EFFORT, theorical: [-2, -3], isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.CRIT_LUK, theorical: [2, 3], isCorrupt: true}),
             unlocked: false
         },
-        EFFORT: {
+        {
+            effect: Data.Effect.EFFORT,
             name: "handling",
             theorical: [-2, -4],
             critical: new Stat({effect: Data.Effect.CRIT_DMG, theorical: [4, 7], isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.CRIT_DMG, theorical: [-2, -5], isCorrupt: true}),
             unlocked: false
         },
-        CRIT_LUK: {
+        {
+            effect: Data.Effect.CRIT_LUK,
             name: "piercing",
             theorical: [6, 10],
             critical: new Stat({effect: Data.Effect.CRIT_DMG, theorical: [4, 7], isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.CRIT_DMG, theorical: [-2, -5], isCorrupt: true}),
             unlocked: false
         },
-        CRIT_DMG: {
+        {
+            effect: Data.Effect.CRIT_DMG,
             name: "shrill",
             theorical: [6, 10],
             critical: new Stat({effect: Data.Effect.CRIT_LUK, theorical: [4, 7], isPercentage: true, isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.CRIT_LUK, theorical: [-2, -5], isPercentage: true, isCorrupt: true}),
             unlocked: false
         },
-        BLEED_DMG: {
+        {
+            effect: Data.Effect.BLEED_DMG,
             name: "cutting",
             theorical: [3, 6],
             critical: new Stat({effect: Data.Effect.BLEED_DURATION, theorical: 1, isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.PDMG, theorical: [-2, -5], isCorrupt: true}),
             unlocked: false
         },
-        BLEED_DURATION: {
+        {
+            effect: Data.Effect.BLEED_DURATION,
             name: "hemophilia",
             theorical: [3, 6],
             critical: new Stat({effect: Data.Effect.BLEED_DMG, theorical: [2, 3], isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.BLEED_DMG, theorical: [-2, -3], isCorrupt: true}),
             unlocked: false
         },
-        BLEED_INCURABLE: {
+        {
+            effect: Data.Effect.BLEED_INCURABLE,
             name: "haemorrhage",
             theorical: 0,
             critical: new Stat({effect: Data.Effect.BLEED_DMG, theorical: [2, 3], isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.BLEED_DMG, theorical: [-2, -3], isCorrupt: true}),
             unlocked: false
         },
-        POISON_DMG: {
+        {
+            effect: Data.Effect.POISON_DMG,
             name: "venom",
             theorical: [3, 6],
             critical: new Stat({effect: Data.Effect.POISON_DURATION, theorical: 1, isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.MDMG, theorical: [-2, -5], isCorrupt: true}),
             unlocked: false
         },
-        POISON_DURATION: {
+        {
+            effect: Data.Effect.POISON_DURATION,
             name: "dilution",
             theorical: [3, 6],
             critical: new Stat({effect: Data.Effect.POISON_DMG, theorical: [2, 3], isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.POISON_DMG, theorical: [-2, -3], isCorrupt: true}),
             unlocked: false
         },
-        POISON_INCURABLE: {
+        {
+            effect: Data.Effect.POISON_INCURABLE,
             name: "contamination",
             theorical: 0,
             critical: new Stat({effect: Data.Effect.POISON_DMG, theorical: [2, 3], isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.POISON_DMG, theorical: [-2, -3], isCorrupt: true}),
             unlocked: false
         },
-        RANGE_FRONT_ON: {
+        {
+            effect: Data.Effect.RANGE_FRONT_ON,
             name: "shortblow",
             theorical: 0,
             critical: new Stat({effect: Data.Effect.CRIT_LUK, theorical: [2, 3], isPercentage: true, isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.EFFORT, theorical: [4, 6], isCorrupt: true}),
             unlocked: false
         },
-        RANGE_MIDDLE_ON: {
+        {
+            effect: Data.Effect.RANGE_MIDDLE_ON,
             name: "midblow",
             theorical: 0,
             critical: new Stat({effect: Data.Effect.PDMG, theorical: [4, 6], isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.ACCURACY, theorical: [-4, -6], isPercentage: true, isCorrupt: true}),
             unlocked: false
         },
-        RANGE_BACK_ON: {
+        {
+            effect: Data.Effect.RANGE_BACK_ON,
             name: "longblow",
             theorical: 0,
             critical: new Stat({effect: Data.Effect.MDMG, theorical: [4, 6], isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.MDMG, theorical: [-4, -6], isCorrupt: true}),
             unlocked: false
         },
-    }
+    ]
 }

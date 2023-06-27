@@ -1736,7 +1736,11 @@ function drawSoulwritingScreen() {
     str += '</div>';
 
     str += '<div id="soulwcontent-read" class="soulwContent">READING</div>';
-    str += '<div id="soulwcontent-write" class="soulwContent" style="display: flex">WRITING</div>';
+
+    str += '<div id="soulwcontent-write" class="soulwContent" style="display: grid">'
+    str += getSwWrite();
+    str += '</div>';
+
     str += '<div id="soulwcontent-bend" class="soulwContent">BENDING</div>';
 
     return str;
@@ -1745,7 +1749,7 @@ function drawSoulwritingScreen() {
 function generateSoulwritingInterfaceEvents() {
     const tabs = document.querySelectorAll('.soulwTab');
     const contents = document.querySelectorAll('.soulwContent');
-    
+    const soulmarks = document.querySelectorAll('.swWriteList-single');
 
     for(let i = 0; i < tabs.length; i++) {
         let tab = tabs[i];
@@ -1759,6 +1763,42 @@ function generateSoulwritingInterfaceEvents() {
             document.querySelector('#soulwcontent-' + game.soulwriting.currentTab).style.display = 'flex';
         });
     }
+
+    soulmarks.forEach(sm => {
+        
+    })
+}
+
+function getSwWrite(refresh = false) {
+    let str = '';
+
+    str += '<div class="swWriteList">';
+    str += '<div class="swWriteList-header">Soulmarks</div>';
+    str += '<div class="swWriteList-list">';
+    game.player.getAllUnlockedSoulmarks().forEach(sm => {
+        str += getFormattedSoulmark(sm);
+    });
+    str += '</div>';
+    str += '</div>';
+
+    str += '<div class="swWriteCrafting">';
+    str += '</div>';
+
+    if(refresh) {
+        document.querySelector('.soulwcontent-write').innerHTML = str;
+        return;
+    }
+    return str;
+}
+
+function getFormattedSoulmark(sm) {
+    const eff = new Stat({effect: sm.effect, theorical: sm.theorical});
+
+    let str = '';
+
+    str += '<div id="sm-' + sm.name + '" class="swWriteList-single"><span>' + capitalizeFirstLetter(sm.name) + '</span>' + eff.getFormatted({cssClass: 'swWriteList-eff', noValue: true}) + '</div>';
+
+    return str;
 }
 
 function drawAstralForgeScreen(forgeItem, refresh = false) {

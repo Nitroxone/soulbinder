@@ -128,6 +128,7 @@ class Stat {
         const skillFormat = getValueFromObject(props, "skillFormat", false);
         const includeDuration = getValueFromObject(props, "includeDuration", false);
         const includeChance = getValueFromObject(props, "includeChance", true);
+        const noValue = getValueFromObject(props, "noValue", false);
 
         if(defaultColor) {
             if(this.getValue() > 0) {
@@ -177,10 +178,10 @@ class Stat {
             + (italic ? 'font-style: italic; ' : '') 
             + (color ? 'color: ' + color + ';': '') 
             + '"><span style="font-weight: normal;">' 
-            + (this.getValue() > 0 ? '+ ' : this.getValue() < 0 ? '- ' : '') 
+            + (this.getValue() > 0 && !noValue ? '+ ' : this.getValue() < 0 && !noValue ? '- ' : '') 
             + '</span>' 
-            + (this.getValue() == 0 ? '' : Math.abs(this.getValue())) 
-            + (this.isPercentage ? '%' : '') 
+            + (this.getValue() == 0 ? '' : !noValue ? Math.abs(this.getValue()) : '') 
+            + (this.isPercentage && !noValue ? '%' : '') 
             + ' ' 
             + capitalizeFirstLetter(this.effect);
             if(!noTheorical) {

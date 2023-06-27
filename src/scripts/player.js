@@ -83,6 +83,10 @@ class Player {
     }
 
     addSoulmark(name) {
-        Config.Soulwriting[name.toUpperCase()].unlocked = true;
+        Config.Soulwriting.find(sm => sm.name.toLowerCase() === name.toLowerCase()).unlocked = true;
+    }
+
+    getAllUnlockedSoulmarks() {
+        return Config.Soulwriting.filter(sm => sm.unlocked);
     }
 }
