@@ -82,7 +82,7 @@ class Player {
         this.gold += amount;
     }
 
-    addSoulmark(soulmark) {
-        if(!this.soulmarks.includes(soulmark)) this.soulmarks.push(soulmark);
+    addSoulmark(name) {
+        Config.Soulwriting[name.toUpperCase()].unlocked = true;
     }
 }
