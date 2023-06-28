@@ -4288,9 +4288,12 @@ hr.leftSided {
     font-size: 15px;
     font-family: RobotoSlabBold;
     text-transform: capitalize;
+
+    background: url('img/bg1.png') repeat;
 }
 .swWriteSlot:hover {
     background: rgba(255, 255, 255, 0.05);
+    cursor: pointer;
 }
 .swWriteSlotSelected {
     border-image: url('img/window1-smaller.png') 3 stretch;

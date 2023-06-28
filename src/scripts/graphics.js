@@ -1477,8 +1477,8 @@ function drawWorkshopScreen() {
     document.querySelector('.workshopContainer').innerHTML = str;
 
     generateAlchemyInterfaceEvents();
-    generateSoulwritingInterfaceEvents();
     drawSoulwritingLines();
+    generateSoulwritingInterfaceEvents();
 }
 
 function drawAlchemyScreen(refresh = false) {
