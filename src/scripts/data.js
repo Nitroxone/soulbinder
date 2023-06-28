@@ -65,10 +65,10 @@ const Data = Object.freeze({
         SPIRIT: "spirit",
         DAMAGE_REFLECTION: "damage reflection",
         // BLEED & POISON RESISTANCE STATS
-        RES_BLEED_DMG: "bleed damage resistance",
-        RES_BLEED_DURATION: "bleed duration resistance",
-        RES_POISON_DMG: "poison damage resistance",
-        RES_POISON_DURATION: "poison duration resistance",
+        RES_BLEED_DMG: "bleed damage res.",
+        RES_BLEED_DURATION: "bleed duration res.",
+        RES_POISON_DMG: "poison damage res.",
+        RES_POISON_DURATION: "poison duration res.",
         RES_STUN: "stun resistance",
         RES_MOVE: "move resistance",
         // REGEN
