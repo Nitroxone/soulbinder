@@ -4262,13 +4262,20 @@ hr.leftSided {
 .swWriteSlot {
     position: absolute;
 
-    width: 36px;
-    height: 36px;
+    width: 45px;
+    height: 45px;
 
     border: 3px solid transparent;
     border-image: url('img/window1.png') 3 stretch;
 
     transition: all .1s ease-in-out;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    font-family: RobotoSlabBold;
+    text-transform: capitalize;
 }
 .swWriteSlot:hover {
     background: rgba(255, 255, 255, 0.05);
@@ -4297,6 +4304,10 @@ hr.leftSided {
     transform: translate(-25%, -50%);
 }
 
+.selectedSoulmark {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+}
 .extendedSoulmarkContainer {
     display: none;
     margin: 0.25rem 0;

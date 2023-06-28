@@ -1761,7 +1761,7 @@ function generateSoulwritingInterfaceEvents() {
             contents.forEach(con => {
                 con.style.display = 'none';
             });
-            document.querySelector('#soulwcontent-' + game.soulwriting.currentTab).style.display = 'flex';
+            document.querySelector('#soulwcontent-' + game.soulwriting.currentTab).style.display = 'grid';
         });
     }
 
@@ -1770,6 +1770,28 @@ function generateSoulwritingInterfaceEvents() {
             const id = sm.id.slice(3);
             const slmrk = Config.Soulwriting.filter(s => s.name == id)[0];
             const extended = sm.querySelector('.extendedSoulmarkContainer');
+
+            if(game.soulwriting.selectedSlot !== 0) {
+                const slot = document.querySelector('#sws' + game.soulwriting.selectedSlot);
+                if(game.soulwriting.getSoulmarkFromSelected() === slmrk) {
+                    game.soulwriting.removeSoulmarkFromSelected();
+                    slot.innerHTML = '';
+                    sm.classList.toggle('selectedSoulmark');
+                    return;
+                } else {
+                    const selected = game.soulwriting.getSoulmarkFromSelected();
+                    if(selected) {
+                        document.querySelector('#sm-' + selected.name).classList.remove('selectedSoulmark');
+                    }
+
+                    game.soulwriting.addSoulmarkToSelected(slmrk);
+                    slot.innerHTML = slmrk.name.slice(0, 3);
+                    //slot.classList.toggle('swWriteSlotSelected');
+                    //game.soulwriting.unselectSlot();
+                    sm.classList.toggle('selectedSoulmark');
+                }
+                return;
+            }
             
             sm.classList.toggle('extendedSoulmark');
             if(!sm.classList.contains('extendedSoulmark')) {
@@ -1791,7 +1813,20 @@ function generateSoulwritingInterfaceEvents() {
 
     slots.forEach(slot => {
         slot.addEventListener('click', e => {
+            const id = slot.id.slice(3);
+            slots.forEach(s => {
+                if(s.id.slice(3) !== id) s.classList.remove('swWriteSlotSelected');
+            });
             slot.classList.toggle('swWriteSlotSelected');
+            game.soulwriting.selectSlot(id);
+        });
+        slot.addEventListener('contextmenu', e => {
+            e.preventDefault();
+            const id = slot.id.slice(3);
+            const slmrk = game.soulwriting.getSoulmarkAt(id);
+            document.querySelector('#sm-' + slmrk.name).classList.remove('selectedSoulmark');
+            game.soulwriting.unselectSoulmarkAt(id);
+            slot.innerHTML = '';
         })
     })
 }
