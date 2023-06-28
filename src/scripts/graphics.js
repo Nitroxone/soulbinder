@@ -1765,7 +1765,27 @@ function generateSoulwritingInterfaceEvents() {
     }
 
     soulmarks.forEach(sm => {
-        
+        sm.addEventListener('click', e => {
+            const id = sm.id.slice(3);
+            const slmrk = Config.Soulwriting.filter(s => s.name == id)[0];
+            const extended = sm.querySelector('.extendedSoulmarkContainer');
+            
+            sm.classList.toggle('extendedSoulmark');
+            if(!sm.classList.contains('extendedSoulmark')) {
+                extended.innerHTML = '';
+                extended.style.display = 'none';
+            } else {
+                extended.style.display = 'flex';
+                let str = '';
+                const regular = new Stat({effect: slmrk.effect, theorical: slmrk.theorical});
+
+                str += '<div><span style="color: #ffffff;">Base</span><span>' + regular.getFormatted({cssClass: 'swWriteList-effSub', noValue: true}) + '</span></div>';
+                str += '<div><span style="color: #ece2b6;">Stalwart</span><span>' + slmrk.critical.getFormatted({cssClass: 'swWriteList-effSub', noValue: true}) + '</span></div>';
+                str += '<div><span style="color: tomato;">Corrupt</span><span>' + slmrk.corrupted.getFormatted({cssClass: 'swWriteList-effSub', noValue: true}) + '</span></div>';
+
+                extended.innerHTML = str;
+            }
+        })
     })
 }
 
@@ -1796,7 +1816,7 @@ function getFormattedSoulmark(sm) {
 
     let str = '';
 
-    str += '<div id="sm-' + sm.name + '" class="swWriteList-single"><span>' + capitalizeFirstLetter(sm.name) + '</span>' + eff.getFormatted({cssClass: 'swWriteList-eff', noValue: true, noTheorical: true}) + '</div>';
+    str += '<div id="sm-' + sm.name + '" class="swWriteList-single"><div class="swWriteList-singleHeader"><span>' + capitalizeFirstLetter(sm.name) + '</span>' + eff.getFormatted({cssClass: 'swWriteList-eff', noValue: true, noTheorical: true}) + '</div><div class="extendedSoulmarkContainer"></div></div>';
 
     return str;
 }

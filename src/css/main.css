@@ -4229,14 +4229,20 @@ hr.leftSided {
     font-size: 11px;
 
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
+    align-items: start;
     border-radius: 3px;
     border: 1px solid transparent;
     border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
 
     font-variant: small-caps;
+}
+.swWriteList-singleHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
 }
 .swWriteList-single:hover {
     background: rgba(255, 255, 255, 0.1);
@@ -4250,6 +4256,25 @@ hr.leftSided {
 }
 .swWriteCrafting {
     grid-area: swWriteCrafting;
+}
+
+.extendedSoulmarkContainer {
+    display: none;
+    margin: 0.25rem 0;
+    font-size: 10px;
+    width: 100%;
+    flex-direction: column;
+}
+.extendedSoulmarkContainer > div {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+}
+.swWriteList-effSub {
+    font-size: 10px;
+    font-family: Roboto;
+    font-variant: normal;
 }
 
 .astralForgeReceptacle {
