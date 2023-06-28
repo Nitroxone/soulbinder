@@ -1478,6 +1478,7 @@ function drawWorkshopScreen() {
 
     generateAlchemyInterfaceEvents();
     generateSoulwritingInterfaceEvents();
+    drawSoulwritingLines();
 }
 
 function drawAlchemyScreen(refresh = false) {
@@ -1744,6 +1745,39 @@ function drawSoulwritingScreen() {
     str += '<div id="soulwcontent-bend" class="soulwContent">BENDING</div>';
 
     return str;
+}
+
+function drawSoulwritingLines() {
+    const parent = document.querySelector('.swWriteCrafting');
+    const slots = document.querySelectorAll('.swWriteSlot');
+
+    let str = '';
+
+    str += '<svg class="soulwritingOverlay" height="' + parent.scrollHeight + '" width="' + parent.offsetWidth + '">';
+
+    for(let i = 0; i < slots.length; i++) {
+        let slot = slots[i];
+        //const basePos = slot.getBoundingClientRect();
+        const basePosOriginX = (slot.offsetLeft);
+        const basePosOriginY = (slot.offsetTop);
+
+        const targetAccessor = i+1 === slots.length ? 0 : i+1;
+        const target = slots[targetAccessor];
+        //const targetPos = target.getBoundingClientRect();
+        const targetPosOriginX = (target.offsetLeft);
+        const targetPosOriginY = (target.offsetTop);
+        const id = 'swline-' + (i) + '_' + targetAccessor;
+
+        str += '<line class="swConnector" id="' + id + '" x1="' + basePosOriginX + '" y1="' + basePosOriginY + '" x2="' + targetPosOriginX + '" y2="' + targetPosOriginY + '" style="stroke-width: 1;" />'
+    }
+
+    str += '</svg>';
+
+    parent.innerHTML += str;
+
+    document.querySelectorAll('.swWriteSlot').forEach(slot => {
+        slot.style.zIndex = '1';
+    })
 }
 
 function generateSoulwritingInterfaceEvents() {
