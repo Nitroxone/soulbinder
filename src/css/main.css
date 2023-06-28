@@ -4259,6 +4259,7 @@ hr.leftSided {
 
     position: relative;
 }
+
 .swWriteSlot {
     position: absolute;
 
@@ -4314,6 +4315,9 @@ hr.leftSided {
     font-size: 10px;
     width: 100%;
     flex-direction: column;
+
+    border-top: 1px dashed rgba(255, 255, 255, 0.15);
+    padding-top: 0.25rem;
 }
 .extendedSoulmarkContainer > div {
     display: flex;
