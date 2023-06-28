@@ -1750,6 +1750,7 @@ function generateSoulwritingInterfaceEvents() {
     const tabs = document.querySelectorAll('.soulwTab');
     const contents = document.querySelectorAll('.soulwContent');
     const soulmarks = document.querySelectorAll('.swWriteList-single');
+    const slots = document.querySelectorAll('.swWriteSlot');
 
     for(let i = 0; i < tabs.length; i++) {
         let tab = tabs[i];
@@ -1785,6 +1786,12 @@ function generateSoulwritingInterfaceEvents() {
 
                 extended.innerHTML = str;
             }
+        });
+    });
+
+    slots.forEach(slot => {
+        slot.addEventListener('click', e => {
+            slot.classList.toggle('swWriteSlotSelected');
         })
     })
 }
@@ -1802,6 +1809,11 @@ function getSwWrite(refresh = false) {
     str += '</div>';
 
     str += '<div class="swWriteCrafting">';
+    str += '<div id="sws1" class="swWriteSlot"></div>';
+    str += '<div id="sws2" class="swWriteSlot"></div>';
+    str += '<div id="sws3" class="swWriteSlot"></div>';
+    str += '<div id="sws4" class="swWriteSlot"></div>';
+    str += '<div class="swWritePreview"></div>'; 
     str += '</div>';
 
     if(refresh) {

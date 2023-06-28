@@ -292,7 +292,7 @@ let Config = {
         },
         {
             effect: Data.Effect.REGEN_MANA,
-            name: "consciousness",
+            name: "sentience",
             theorical: [4, 6],
             critical: new Stat({effect: Data.Effect.MAXMANA, theorical: [40, 50], isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.SPIRIT, theorical: [-5, -10], isCorrupt: true}),
@@ -309,7 +309,7 @@ let Config = {
         // DAMAGE MODIFIERS
         {
             effect: Data.Effect.MODIF_BLOCK,
-            name: "bulwark",
+            name: "barrier",
             theorical: [4, 6],
             critical: new Stat({effect: Data.Effect.DODGE, theorical: [2, 4], isPercentage: true, isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.PROTECTION, theorical: [-2, -5], isPercentage: true, isCorrupt: true}),
@@ -414,7 +414,7 @@ let Config = {
         },
         {
             effect: Data.Effect.MODIF_CRIT_SKILL,
-            name: "concentration",
+            name: "focus",
             theorical: [5, 8],
             critical: new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [3, 5], isPercentage: true, isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [-2, -4], iSPercentage: true, isCorrupt: true}),
@@ -493,7 +493,7 @@ let Config = {
         },
         {
             effect: Data.Effect.MDMG,
-            name: "shrivelling",
+            name: "decadence",
             theorical: [6, 10],
             critical: new Stat({effect: Data.Effect.CRIT_LUK, theorical: [4, 7], isPercentage: true, isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.CRIT_LUK, theorical: [-2, -5], isPercentage: true, isCorrupt: true}),
@@ -573,7 +573,7 @@ let Config = {
         },
         {
             effect: Data.Effect.POISON_INCURABLE,
-            name: "contamination",
+            name: "plague",
             theorical: 0,
             critical: new Stat({effect: Data.Effect.POISON_DMG, theorical: [2, 3], isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.POISON_DMG, theorical: [-2, -3], isCorrupt: true}),

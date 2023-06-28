@@ -3699,7 +3699,7 @@ hr.leftSided {
     position: relative;
 
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 0.9fr 1fr;
     grid-template-rows: 1fr 0.8fr 1fr 0.8fr;
     gap: 0 0;
     grid-template-areas:
@@ -4256,6 +4256,45 @@ hr.leftSided {
 }
 .swWriteCrafting {
     grid-area: swWriteCrafting;
+
+    position: relative;
+}
+.swWriteSlot {
+    position: absolute;
+
+    width: 36px;
+    height: 36px;
+
+    border: 3px solid transparent;
+    border-image: url('img/window1.png') 3 stretch;
+
+    transition: all .1s ease-in-out;
+}
+.swWriteSlot:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+.swWriteSlotSelected {
+    border-image: url('img/window1-smaller.png') 3 stretch;
+}
+#sws1 {
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -25%);
+}
+#sws2 {
+    top: 50%;
+    left: 85%;
+    transform: translate(-75%, -50%);
+}
+#sws3 {
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, -75%);
+}
+#sws4 {
+    top: 50%;
+    left: 15%;
+    transform: translate(-25%, -50%);
 }
 
 .extendedSoulmarkContainer {
