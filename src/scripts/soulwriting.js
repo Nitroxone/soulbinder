@@ -5,7 +5,7 @@ class Soulwriting {
 
         this.soulmarks = [null, null, null, null];
         this.selectedSlot = 0;
-        this.icon = 1;
+        this.selectRandomIcon();
 
         this.isWriting = false;
     }
@@ -92,5 +92,20 @@ class Soulwriting {
      */
     getSoulmarkIndex(slmrk) {
         return this.soulmarks.indexOf(slmrk);
+    }
+
+    /**
+     * Sets the current icon as a random icon picked among the ones unlocked by the player.
+     */
+    selectRandomIcon() {
+        this.icon = Icons.Methods.findRandom('sigils');
+    }
+
+    /**
+     * Sets the current icon as the one provided.
+     * @param {object} icon the icon to set
+     */
+    selectIcon(icon) {
+        this.icon = icon;
     }
 }

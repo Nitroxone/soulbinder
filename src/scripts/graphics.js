@@ -1785,6 +1785,7 @@ function generateSoulwritingInterfaceEvents() {
     const contents = document.querySelectorAll('.soulwContent');
     const soulmarks = document.querySelectorAll('.swWriteList-single');
     const slots = document.querySelectorAll('.swWriteSlot');
+    const sigilVignetteSelector = document.querySelector('.swWrite-vignette');
 
     for(let i = 0; i < tabs.length; i++) {
         let tab = tabs[i];
@@ -1870,7 +1871,59 @@ function generateSoulwritingInterfaceEvents() {
             document.querySelector('#sm-' + slmrk.name).classList.remove('selectedSoulmark');
             game.soulwriting.unselectSoulmarkAt(id);
             removeSoulmarkAbrevFromSlot(slot)
+        });
+    });
+
+    sigilVignetteSelector.addEventListener('click', e => {
+        Sounds.Methods.playSound(Data.SoundType.TOOLTIP_HOVER);
+
+        if(document.querySelector('.sigilSelector')) {
+            document.querySelector('.sigilSelector').remove();
+            return;
+        }
+
+        const div = document.createElement('div');
+        div.classList.add('sigilSelector');
+
+        let str = '';
+
+        str += '<h2 class="selectorTitle">Stone selector</h2>';
+        str += '<h3 class="selectedTitle">' + game.soulwriting.icon.name + '</h3>';
+        str += '<div class="divider"></div>';
+        str += '<div class="selectorItems">';
+
+        Icons.Methods.getAllUnlocked('sigils').forEach(sig => {
+            str += '<div id="vignetteSigil-' + sig.icon + '" class="selectorItem' + (sig === game.soulwriting.icon ? ' vignetteSelected' : '') + '" style="background-image: url(\'css/img/sigils/' + sig.icon + '.png\')"></div>';
         })
+
+        str += '</div>';
+
+        str += '<div id="closeSigilSelector" class="closeWindowButton selectorClose">X</div>';
+
+        div.innerHTML = str;
+
+        div.querySelectorAll('.selectorItem').forEach(item => {
+            item.addEventListener('click', e => {
+                Sounds.Methods.playSound(Data.SoundType.SELECTOR);
+                if(!(item.id === 'vignetteSigil-' + game.soulwriting.icon.icon)) {
+                    const id = parseInt(item.id.slice(14));
+                    const icon = Icons.Methods.findByIcon("sigils", id);
+
+                    document.querySelector('#vignetteSigil-' + game.soulwriting.icon.icon).classList.remove('vignetteSelected');
+                    item.classList.add('vignetteSelected');
+                    document.querySelector('.selectedTitle').textContent = icon.name;
+
+                    game.soulwriting.selectIcon(icon);
+                    document.querySelector('.swWrite-vignette').style.backgroundImage = 'url(\'css/img/sigils/' + game.soulwriting.icon.icon + '.png\')';
+                }
+            });
+        });
+        
+        document.querySelector('.swWriteCrafting').appendChild(div);
+        document.querySelector('#closeSigilSelector').addEventListener('click', e => { 
+            Sounds.Methods.playSound(Data.SoundType.TOOLTIP_HOVER);
+            div.remove(); 
+        });
     })
 }
 
@@ -1898,6 +1951,8 @@ function getSwWrite(refresh = false) {
     str += '</div>';
 
     str += '<div class="swWriteCrafting">';
+    str += '<input class="swWrite-sigilName barred infoTitle" type="text" value="' + getRandomSigilName() + '" minlength="3" maxlength="24">';
+    str += '<div class="swWrite-vignetteContainer"><div class="swWrite-vignette" style="background-image: url(\'css/img/sigils/' + game.soulwriting.icon.icon + '.png\')"></div></div>';
     str += '<div id="sws1" class="swWriteSlot"></div>';
     str += '<div id="sws2" class="swWriteSlot"></div>';
     str += '<div id="sws3" class="swWriteSlot"></div>';

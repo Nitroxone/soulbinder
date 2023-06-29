@@ -1498,6 +1498,25 @@ function getRandomPotionName() {
     return adj + ' ' + type;
 }
 
+function getRandomSigilName() {
+    const adj = choose([
+        "Unknown",
+        "Strange",
+        "Bizarre",
+        "Curious",
+        "Outlandish",
+        "Erratic",
+        "Uncanny",
+        "Mysterious",
+        "Singular",
+        "Atypical",
+        "Abnormal",
+        "Perplexing"
+    ]);
+
+    return adj + ' Sigil';
+}
+
 function compareHighestRarities(a, b) {
     const rarities = {
         "common": 1,
