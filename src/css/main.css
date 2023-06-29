@@ -4298,25 +4298,42 @@ hr.leftSided {
 .swWriteSlotSelected {
     border-image: url('img/window1-smaller.png') 3 stretch;
 }
+
 #sws1 {
     top: 25%;
     left: 50%;
-    transform: translate(-50%, -25%);
+    translate: -50% -25%;
+    transform: rotate(45deg);
 }
 #sws2 {
     top: 50%;
     left: 85%;
-    transform: translate(-75%, -50%);
+    translate: -75% -50%;
+    transform: rotate(45deg);
 }
 #sws3 {
     top: 75%;
     left: 50%;
-    transform: translate(-50%, -75%);
+    translate: -50% -75%;
+    transform: rotate(45deg);
 }
 #sws4 {
     top: 50%;
     left: 15%;
-    transform: translate(-25%, -50%);
+    translate: -25% -50%;
+    transform: rotate(45deg);
+}
+
+.swWriteSlot.swFilledSlot {
+    transition: all .5s cubic-bezier(0.075, 0.82, 0.165, 1);
+    transform: rotate(135deg) !important;    
+}
+.swWriteSlot.swFilledSlot > span {
+    transform: rotate(-135deg);
+}
+
+.swWriteSlot > span {
+    transform: rotate(-45deg);
 }
 
 .selectedSoulmark {

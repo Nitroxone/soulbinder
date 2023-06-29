@@ -1809,25 +1809,27 @@ function generateSoulwritingInterfaceEvents() {
                 const slot = document.querySelector('#sws' + game.soulwriting.selectedSlot);
                 if(game.soulwriting.getSoulmarkFromSelected() === slmrk) {
                     game.soulwriting.removeSoulmarkFromSelected();
-                    slot.innerHTML = '';
+                    removeSoulmarkAbrevFromSlot(slot);
                     sm.classList.toggle('selectedSoulmark');
                     return;
                 } else if (game.soulwriting.soulmarks.includes(slmrk)) {
                     // unselect current before overloading
-                    document.querySelector('#sm-' + game.soulwriting.getSoulmarkFromSelected().name).classList.remove('selectedSoulmark');
+                    if(game.soulwriting.getSoulmarkFromSelected()) {
+                        document.querySelector('#sm-' + game.soulwriting.getSoulmarkFromSelected().name).classList.remove('selectedSoulmark');
+                    }
 
                     const index = game.soulwriting.getSoulmarkIndex(slmrk);
-                    document.querySelector('#sws' + (index+1)).innerHTML = '';
+                    removeSoulmarkAbrevFromSlot(document.querySelector('#sws' + (index+1)));
                     game.soulwriting.soulmarks[index] = null;
                     game.soulwriting.addSoulmarkToSelected(slmrk);
-                    slot.innerHTML = slmrk.name.slice(0, 3);
+                    addSoulmarkAbrevToSlot(slot, slmrk);
                 } else {
                     const selected = game.soulwriting.getSoulmarkFromSelected();
                     if(selected) {
                         document.querySelector('#sm-' + selected.name).classList.remove('selectedSoulmark');
                     }
                     game.soulwriting.addSoulmarkToSelected(slmrk);
-                    slot.innerHTML = slmrk.name.slice(0, 3);
+                    addSoulmarkAbrevToSlot(slot, slmrk);
                     sm.classList.toggle('selectedSoulmark');
                 }
                 return;
@@ -1864,11 +1866,23 @@ function generateSoulwritingInterfaceEvents() {
             e.preventDefault();
             const id = slot.id.slice(3);
             const slmrk = game.soulwriting.getSoulmarkAt(id);
+            if(!slmrk) return;
             document.querySelector('#sm-' + slmrk.name).classList.remove('selectedSoulmark');
             game.soulwriting.unselectSoulmarkAt(id);
-            slot.innerHTML = '';
+            removeSoulmarkAbrevFromSlot(slot)
         })
     })
+}
+
+function addSoulmarkAbrevToSlot(slot, slmrk) {
+    slot.innerHTML = '<span>' + slmrk.name.slice(0, 3) + '</span>';
+    slot.classList.add('swFilledSlot');
+    console.log('ADDED');
+}
+function removeSoulmarkAbrevFromSlot(slot) {
+    slot.innerHTML = '';
+    slot.classList.remove('swFilledSlot');
+    console.log('REMOVED');
 }
 
 function getSwWrite(refresh = false) {
