@@ -1911,7 +1911,7 @@ function generateSoulwritingInterfaceEvents() {
 
                     document.querySelector('#vignetteSigil-' + game.soulwriting.icon.icon).classList.remove('vignetteSelected');
                     item.classList.add('vignetteSelected');
-                    document.querySelector('.selectedTitle').textContent = icon.name;
+                    document.querySelector('.sigilSelector .selectedTitle').textContent = icon.name;
 
                     game.soulwriting.selectIcon(icon);
                     document.querySelector('.swWrite-vignette').style.backgroundImage = 'url(\'css/img/sigils/' + game.soulwriting.icon.icon + '.png\')';

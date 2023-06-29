@@ -3814,7 +3814,7 @@ hr.leftSided {
     width: 175px;
     height: 200px;
 
-    overflow-y: scroll;
+    overflow-y: hidden;
 
     border: 4px solid transparent;
     border-image: url(img/window1.png) 3 stretch;
@@ -3866,6 +3866,8 @@ hr.leftSided {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    height: 120px;
+    overflow-y: scroll;
 }
 .selectorItem {
     width: 50px;
