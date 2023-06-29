@@ -1812,16 +1812,22 @@ function generateSoulwritingInterfaceEvents() {
                     slot.innerHTML = '';
                     sm.classList.toggle('selectedSoulmark');
                     return;
+                } else if (game.soulwriting.soulmarks.includes(slmrk)) {
+                    // unselect current before overloading
+                    document.querySelector('#sm-' + game.soulwriting.getSoulmarkFromSelected().name).classList.remove('selectedSoulmark');
+
+                    const index = game.soulwriting.getSoulmarkIndex(slmrk);
+                    document.querySelector('#sws' + (index+1)).innerHTML = '';
+                    game.soulwriting.soulmarks[index] = null;
+                    game.soulwriting.addSoulmarkToSelected(slmrk);
+                    slot.innerHTML = slmrk.name.slice(0, 3);
                 } else {
                     const selected = game.soulwriting.getSoulmarkFromSelected();
                     if(selected) {
                         document.querySelector('#sm-' + selected.name).classList.remove('selectedSoulmark');
                     }
-
                     game.soulwriting.addSoulmarkToSelected(slmrk);
                     slot.innerHTML = slmrk.name.slice(0, 3);
-                    //slot.classList.toggle('swWriteSlotSelected');
-                    //game.soulwriting.unselectSlot();
                     sm.classList.toggle('selectedSoulmark');
                 }
                 return;

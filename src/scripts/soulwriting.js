@@ -47,4 +47,8 @@ class Soulwriting {
     unselectSoulmarkAt(id) {
         this.soulmarks[id - 1] = null;
     }
+
+    getSoulmarkIndex(slmrk) {
+        return this.soulmarks.indexOf(slmrk);
+    }
 }
