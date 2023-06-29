@@ -4417,6 +4417,38 @@ hr.leftSided {
     font-variant: normal;
 }
 
+.swWriteCraft {
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    
+    transform: translate(-50%, 10%);
+
+    width: 205px;
+    height: 29px;
+
+    border: 3px solid transparent;
+    border-image: url('img/window1.png') 3 stretch;
+
+    background-image: url('img/button_place.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: RobotoSlab;
+    font-size: .85rem;
+    font-variant: small-caps;
+
+    animation-name: brewButtonPopIn;
+    animation-duration: 0.75s;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+    transition: all .1s ease-in-out;
+}
+
 .astralForgeReceptacle {
     width: 300px;
     height: 300px;
