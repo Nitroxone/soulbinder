@@ -4351,7 +4351,7 @@ hr.leftSided {
 .swWrite-sigilName {
     position: absolute;
     left: 50%;
-    top: 10%;
+    top: 5%;
     transform: translateX(-50%);
     z-index: 1;
     text-align: center;
@@ -4437,34 +4437,66 @@ hr.leftSided {
 
 .swWriteCraft {
     position: absolute;
-    bottom: 10%;
+    bottom: 5%;
     left: 50%;
     
-    transform: translate(-50%, 10%);
+    transform: translate(-50%, 5%);
 
-    width: 205px;
-    height: 29px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.swWriteCraft > .swWrite-write {
+    z-index: 2;
+    width: 50px;
+    height: 50px;
+
+    background: url('img/bg1.png');
 
     border: 3px solid transparent;
     border-image: url('img/window1.png') 3 stretch;
 
-    background-image: url('img/button_place.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
+    transform: rotate(45deg);
 
     display: flex;
     justify-content: center;
     align-items: center;
 
+    color: #ddd;
+
     font-family: RobotoSlab;
     font-size: .85rem;
     font-variant: small-caps;
+}
+.swWrite-write > span {
+    transform: rotate(-45deg);
+}
+.swWrite-stalwart, .swWrite-corrupt {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    animation-name: brewButtonPopIn;
-    animation-duration: 0.75s;
-    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
-    transition: all .1s ease-in-out;
+    position: relative;
+
+    width: 30px;
+    height: 30px;
+
+    border: 1px solid rgb(155, 155, 155);
+    border-radius: 3px;
+    transform: rotate(45deg);
+
+    font-family: RobotoBold;
+    color: white;
+}
+.swWrite-stalwart > span, .swWrite-corrupt > span {
+    transform: rotate(-45deg);
+}
+.swWrite-stalwart {
+    translate: -7px 0;
+}
+.swWrite-corrupt {
+    translate: 7px 0;
 }
 
 .astralForgeReceptacle {

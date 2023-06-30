@@ -1957,7 +1957,13 @@ function getSwWrite(refresh = false) {
     str += '<div id="sws2" class="swWriteSlot"></div>';
     str += '<div id="sws3" class="swWriteSlot"></div>';
     str += '<div id="sws4" class="swWriteSlot"></div>';
-    str += '<div class="swWriteCraft">Write</div>'; 
+
+    str += '<div class="swWriteCraft">';
+    str += '<div class="swWrite-stalwart"><span>15%</span></div>';
+    str += '<div class="swWrite-write"><span>Write</span></div>';
+    str += '<div class="swWrite-corrupt"><span>15%</span></div>';
+    str += '</div>'; 
+
     str += '<div class="swWrite-backgroundCover coolBorderBis"></div>'
     str += '</div>';
 
