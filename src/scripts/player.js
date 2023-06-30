@@ -31,6 +31,10 @@ class Player {
 
         // DUNGEONS CONFIG
         this.du_identifyRoomChance = 30;
+
+        // SIGILS
+        this.sw_stalwartFactor = 15;
+        this.sw_corruptFactor = 15;
     }
 
     /**

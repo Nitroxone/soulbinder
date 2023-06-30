@@ -4287,6 +4287,11 @@ hr.leftSided {
     grid-area: swWriteCrafting;
 
     position: relative;
+
+    background-image: url('img/bg/bg-soulwriting.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 
 .swWriteSlot {
@@ -4307,7 +4312,7 @@ hr.leftSided {
     font-family: RobotoSlabBold;
     text-transform: capitalize;
 
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(0, 0, 0, 0.5);
 }
 .swWriteSlot:hover {
     background: url('img/bg1.png') repeat;
@@ -4417,6 +4422,17 @@ hr.leftSided {
     font-size: 10px;
     font-family: Roboto;
     font-variant: normal;
+}
+
+.swWrite-backgroundCover {
+    width: 210px;
+    height: 210px;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    background: url('img/bg1.png');
 }
 
 .swWriteCraft {
