@@ -4324,45 +4324,47 @@ hr.leftSided {
 }
 
 #sws1 {
-    top: 25%;
+    top: 20%;
     left: 50%;
-    translate: -50% -25%;
+    translate: -50% -20%;
     transform: rotate(45deg);
 }
 #sws2 {
-    top: 50%;
+    top: 45%;
     left: 85%;
-    translate: -75% -50%;
+    translate: -75% -45%;
     transform: rotate(45deg);
 }
 #sws3 {
-    top: 75%;
+    top: 70%;
     left: 50%;
-    translate: -50% -75%;
+    translate: -50% -70%;
     transform: rotate(45deg);
 }
 #sws4 {
-    top: 50%;
+    top: 45%;
     left: 15%;
-    translate: -25% -50%;
+    translate: -25% -45%;
     transform: rotate(45deg);
 }
 
 .swWrite-sigilName {
     position: absolute;
     left: 50%;
-    top: 5%;
+    top: 2%;
     transform: translateX(-50%);
     z-index: 1;
     text-align: center;
+
+    padding: 0.5rem 0;
 }
 
 .swWrite-vignetteContainer {
     position: absolute;
-    top: 50%;
+    top: 45%;
     left: 50%;
 
-    transform: translate(-50%, -50%) rotate(45deg);
+    transform: translate(-50%, -45%) rotate(45deg);
 
     z-index: 1;
 
@@ -4429,18 +4431,19 @@ hr.leftSided {
     height: 210px;
 
     position: absolute;
-    top: 50%;
+    top: 41.5%;
     left: 50%;
-    transform: translate(-50%, -50%) rotate(45deg);
+    transform: translate(-50%, -41.5%) rotate(45deg);
     background: url('img/bg1.png');
 }
 
 .swWriteCraft {
+    z-index: 5;
     position: absolute;
-    bottom: 5%;
+    bottom: 8%;
     left: 50%;
     
-    transform: translate(-50%, 5%);
+    transform: translate(-50%, 8%);
 
     display: flex;
     flex-direction: row;
@@ -4449,13 +4452,13 @@ hr.leftSided {
 }
 .swWriteCraft > .swWrite-write {
     z-index: 2;
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
 
     background: url('img/bg1.png');
 
-    border: 3px solid transparent;
-    border-image: url('img/window1.png') 3 stretch;
+    border: 7px solid transparent;
+    border-image: url('img/window1.png') 7 stretch;
 
     transform: rotate(45deg);
 
@@ -4468,6 +4471,14 @@ hr.leftSided {
     font-family: RobotoSlab;
     font-size: .85rem;
     font-variant: small-caps;
+
+    filter: grayscale(100%);
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.swWrite-write:hover {
+    cursor: pointer;
+    filter: saturate(120%) brightness(110%);
+    box-shadow: 0px 0px 0px 1px rgba(255,255,255,1) inset, 0px 1px 4px 2px rgba(128,255,255,0.6) inset;
 }
 .swWrite-write > span {
     transform: rotate(-45deg);
@@ -4479,24 +4490,29 @@ hr.leftSided {
 
     position: relative;
 
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
 
-    border: 1px solid rgb(155, 155, 155);
+    border: 3px solid rgba(155, 155, 155, 0.8);
+    border-image: url('img/window1.png') 3 stretch;
     border-radius: 3px;
     transform: rotate(45deg);
 
-    font-family: RobotoBold;
-    color: white;
+    font-family: RobotoSlab;
 }
 .swWrite-stalwart > span, .swWrite-corrupt > span {
     transform: rotate(-45deg);
 }
 .swWrite-stalwart {
+    color: black;
+    text-shadow: none;
     translate: -7px 0;
+    background: linear-gradient(315deg, rgba(173,154,67,1) 23%, rgba(236,226,182,1) 100%);
 }
 .swWrite-corrupt {
+    color: white;
     translate: 7px 0;
+    background: linear-gradient(315deg, rgba(80,12,0,1) 23%, rgba(176,60,39,1) 100%);
 }
 
 .astralForgeReceptacle {

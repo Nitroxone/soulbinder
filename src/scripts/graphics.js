@@ -1786,6 +1786,7 @@ function generateSoulwritingInterfaceEvents() {
     const soulmarks = document.querySelectorAll('.swWriteList-single');
     const slots = document.querySelectorAll('.swWriteSlot');
     const sigilVignetteSelector = document.querySelector('.swWrite-vignette');
+    const soulwrite = document.querySelector('.swWrite-write');
 
     for(let i = 0; i < tabs.length; i++) {
         let tab = tabs[i];
@@ -1924,6 +1925,12 @@ function generateSoulwritingInterfaceEvents() {
             Sounds.Methods.playSound(Data.SoundType.TOOLTIP_HOVER);
             div.remove(); 
         });
+    });
+
+    soulwrite.addEventListener('click', e => {
+        if(!game.soulwriting.isWriting && game.soulwriting.canWrite()) {
+            Sounds.Methods.playSound(Data.SoundType.SELECTOR);
+        }
     })
 }
 

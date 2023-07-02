@@ -1379,6 +1379,14 @@ function unlockEonFragment(id) {
     return 'Eon not found.'
 }
 
+function unlockAllEonFragments() {
+    game.all_majorEons.forEach(eon => {
+        eon.fragments.forEach(frag => {
+            frag.unlocked = true;
+        });
+    });
+}
+
 function isElementEmpty(element) {
     return element.innerHTML.trim() === '';
 }

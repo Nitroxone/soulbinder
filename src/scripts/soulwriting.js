@@ -108,4 +108,15 @@ class Soulwriting {
     selectIcon(icon) {
         this.icon = icon;
     }
+
+    writing() {
+        this.isWriting = true;
+    }
+    finishedWriting() {
+        this.isWriting = false;
+    }
+
+    canWrite() {
+        return this.soulmarks.some(el => el !== null);
+    }
 }

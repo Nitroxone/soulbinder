@@ -360,6 +360,9 @@ class Game {
         drawEonScreen();
         drawEmptyBattleScreen();
 
+        unlockAllEons();
+        unlockAllEonFragments();
+
         this.message({type: Data.LogMessageType.IMPORTANT, text:'This is an important message.'});
         this.message({type: Data.LogMessageType.REGULAR, text:'This is a regular message.'});
         this.message({type: Data.LogMessageType.GOOD, text:'This is a positive message.'});
