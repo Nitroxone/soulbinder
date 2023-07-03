@@ -137,9 +137,6 @@ class Soulwriting {
     soulwrite() {
         const stalDiamond = document.querySelector('#swWrite-stalwart');
         const corrDiamond = document.querySelector('#swWrite-corrupt');
-        stalDiamond.classList.remove('swStalwartAnim');
-        corrDiamond.classList.remove('swCorruptAnim');
-
         const name = document.querySelector('.swWrite-sigilName').value;
         const rarity = Data.Rarity.UNCOMMON;
         let effects = this.soulmarks.map(x => x && new Stat({effect: x.effect, theorical: x.theorical, isPercentage: isAstralForgeEffectPercentage(x.effect)}));

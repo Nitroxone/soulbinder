@@ -1929,6 +1929,11 @@ function generateSoulwritingInterfaceEvents() {
 
     soulwrite.addEventListener('click', e => {
         if(!game.soulwriting.isWriting && game.soulwriting.canWrite()) {
+            const stalDiamond = document.querySelector('#swWrite-stalwart');
+            const corrDiamond = document.querySelector('#swWrite-corrupt');
+            stalDiamond.classList.remove('swStalwartAnim');
+            corrDiamond.classList.remove('swCorruptAnim');
+
             game.soulwriting.writing();
             Sounds.Methods.playSound(Data.SoundType.SELECTOR);
             const slots = document.querySelectorAll('.swFilledSlot');
