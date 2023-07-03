@@ -123,7 +123,7 @@ class Soulwriting {
     soulwrite() {
         const name = document.querySelector('.swWrite-sigilName').value;
         const rarity = Data.Rarity.UNCOMMON;
-        let effects = this.soulmarks.map(x => x && new Stat({effect: x.effect, theorical: x.theorical}));
+        let effects = this.soulmarks.map(x => x && new Stat({effect: x.effect, theorical: x.theorical, isPercentage: isAstralForgeEffectPercentage(x.effect)}));
         let critEff = [];
         let corrEff = [];
         effects = effects.filter(x => x); // Remove null elements
@@ -145,5 +145,6 @@ class Soulwriting {
 
         game.player.inventory.addItem(res, 1, true);
         drawSigilInventory(game.player.inventory.sigils);
+        this.finishedWriting();
     }
 }
