@@ -1768,9 +1768,9 @@ function drawSoulwritingLines() {
         const targetPosOriginY = (target.offsetTop);
         const id = 'swline-' + (i) + '_' + targetAccessor;
 
-        str += '<line class="swConnector" id="' + id + '" x1="' + basePosOriginX + '" y1="' + basePosOriginY + '" x2="' + targetPosOriginX + '" y2="' + targetPosOriginY + '" style="stroke-width: 1;" />'
+        str += '<line class="swConnector" id="' + id + '" x1="' + basePosOriginX + '" y1="' + basePosOriginY + '" x2="' + targetPosOriginX + '" y2="' + targetPosOriginY + '" style="stroke-width: 1;" stroke-linecap="round" />'
     }
-
+    
     str += '</svg>';
 
     parent.innerHTML += str;
@@ -1932,11 +1932,18 @@ function generateSoulwritingInterfaceEvents() {
             game.soulwriting.writing();
             Sounds.Methods.playSound(Data.SoundType.SELECTOR);
             const slots = document.querySelectorAll('.swFilledSlot');
+            const connectors = document.querySelectorAll('.swConnector');
 
             let delay = 0;
             slots.forEach(slot => {
                 slot.style.animationDelay = delay + 's';
                 slot.classList.add('swSlotAnim');
+                delay += 0.25;
+            });
+            delay = 0;
+            connectors.forEach(conn => {
+                conn.style.animationDelay = delay + 's';
+                conn.classList.add('swConnectorAnim');
                 delay += 0.25;
             });
             soulwrite.classList.add('swSoulwriting');
@@ -1958,6 +1965,9 @@ function generateSoulwritingInterfaceEvents() {
             setTimeout(() => {
                 slots.forEach(slot => {
                     slot.classList.remove('swSlotAnim');
+                });
+                connectors.forEach(conn => {
+                    conn.classList.remove('swConnectorAnim');
                 });
                 soulwrite.classList.remove('swSoulwriting');
                 game.soulwriting.finishedWriting();
