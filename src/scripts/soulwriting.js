@@ -119,4 +119,31 @@ class Soulwriting {
     canWrite() {
         return this.soulmarks.some(el => el !== null);
     }
+
+    soulwrite() {
+        const name = document.querySelector('.swWrite-sigilName').value;
+        const rarity = Data.Rarity.UNCOMMON;
+        let effects = this.soulmarks.map(x => x && new Stat({effect: x.effect, theorical: x.theorical}));
+        let critEff = [];
+        let corrEff = [];
+        effects = effects.filter(x => x); // Remove null elements
+        
+        this.soulmarks.forEach(slmrk => {
+            if(!slmrk) return; // Skip null elements
+            if(computeChance(game.player.sw_stalwartFactor)) critEff.push(slmrk.critical);
+            if(computeChance(game.player.sw_corruptFactor)) corrEff.push(slmrk.corrupted);
+        });
+
+        const res = new Sigil(name, '', this.icon.icon, 10, rarity, {
+            effects: effects,
+            critical: critEff,
+            corrupt: corrEff
+        });
+        if(res.critical.length > 0) res.setCritical();
+        if(res.corrupt.length > 0) res.setCorrupt();
+        res.generateStats();
+
+        game.player.inventory.addItem(res, 1, true);
+        drawSigilInventory(game.player.inventory.sigils);
+    }
 }

@@ -1962,6 +1962,8 @@ function generateSoulwritingInterfaceEvents() {
                 delay: () => { return getRandomNumber(0, 100) },
             });
 
+            game.soulwriting.soulwrite();
+
             setTimeout(() => {
                 slots.forEach(slot => {
                     slot.classList.remove('swSlotAnim');
