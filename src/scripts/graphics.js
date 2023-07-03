@@ -1962,9 +1962,8 @@ function generateSoulwritingInterfaceEvents() {
                 delay: () => { return getRandomNumber(0, 100) },
             });
 
-            game.soulwriting.soulwrite();
-
             setTimeout(() => {
+                game.soulwriting.soulwrite();
                 slots.forEach(slot => {
                     slot.classList.remove('swSlotAnim');
                 });
@@ -1972,7 +1971,6 @@ function generateSoulwritingInterfaceEvents() {
                     conn.classList.remove('swConnectorAnim');
                 });
                 soulwrite.classList.remove('swSoulwriting');
-                game.soulwriting.finishedWriting();
             }, 3000);
         }
     })
