@@ -1973,7 +1973,30 @@ function generateSoulwritingInterfaceEvents() {
                 soulwrite.classList.remove('swSoulwriting');
             }, 3000);
         }
-    })
+    });
+
+    addTooltip(document.querySelector('#swWrite-stalwart'), function(){
+        let str = '';
+
+        str += '<div class="stcoSwTooltip">';
+        str += '<h3 class="stcoHeader" style="color: #ece2b6">Stalwart chance</h3>';
+        str += '<div class="divider"></div>';
+        str += '<p>Stalwart soulmarks unlock additional positive effects.</p>'
+        str += '</div>';
+
+        return str;
+    }, {offY: -8});
+    addTooltip(document.querySelector('#swWrite-corrupt'), function(){
+        let str = '';
+
+        str += '<div class="stcoSwTooltip">';
+        str += '<h3 class="stcoHeader" style="color: tomato">Corrupt chance</h3>';
+        str += '<div class="divider"></div>';
+        str += '<p>Corrupt soulmarks unlock additional negative effects.</p>'
+        str += '</div>';
+
+        return str;
+    }, {offY: -8});
 }
 
 function addSoulmarkAbrevToSlot(slot, slmrk) {
@@ -2006,9 +2029,9 @@ function getSwWrite(refresh = false) {
     str += '<div id="sws4" class="swWriteSlot"></div>';
 
     str += '<div class="swWriteCraft">';
-    str += '<div class="swWrite-stalwart"><span>15%</span></div>';
+    str += '<div id="swWrite-stalwart" class="swWrite-stalwart"><span>15%</span></div>';
     str += '<div class="swWrite-write"><span>Write</span><canvas id="canv-soulwrite" class="swSlotCanvas"></canvas></div>';
-    str += '<div class="swWrite-corrupt"><span>15%</span></div>';
+    str += '<div id="swWrite-corrupt"class="swWrite-corrupt"><span>15%</span></div>';
     str += '</div>'; 
 
     str += '<div class="swWrite-backgroundCover coolBorderBis"></div>'

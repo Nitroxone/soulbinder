@@ -4566,6 +4566,15 @@ hr.leftSided {
     filter: none !important;
 }
 
+.stcoSwTooltip {
+    width: 150px;
+}
+.stcoHeader {
+    font-family: RobotoSlab;
+    font-variant: small-caps;
+    font-size: 15px;
+}
+
 .astralForgeReceptacle {
     width: 300px;
     height: 300px;
