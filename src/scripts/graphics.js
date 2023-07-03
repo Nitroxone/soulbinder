@@ -1809,6 +1809,7 @@ function generateSoulwritingInterfaceEvents() {
 
             if(game.soulwriting.selectedSlot !== 0) {
                 const slot = document.querySelector('#sws' + game.soulwriting.selectedSlot);
+                Sounds.Methods.playSound(Data.SoundType.TOOLTIP_HOVER);
                 if(game.soulwriting.getSoulmarkFromSelected() === slmrk) {
                     game.soulwriting.removeSoulmarkFromSelected();
                     removeSoulmarkAbrevFromSlot(slot);
@@ -1836,7 +1837,6 @@ function generateSoulwritingInterfaceEvents() {
                 }
                 return;
             }
-            
             sm.classList.toggle('extendedSoulmark');
             if(!sm.classList.contains('extendedSoulmark')) {
                 extended.innerHTML = '';
@@ -1857,6 +1857,7 @@ function generateSoulwritingInterfaceEvents() {
 
     slots.forEach(slot => {
         slot.addEventListener('click', e => {
+            Sounds.Methods.playSound(Data.SoundType.SELECTOR_ON);
             const id = slot.id.slice(3);
             slots.forEach(s => {
                 if(s.id.slice(3) !== id) s.classList.remove('swWriteSlotSelected');
@@ -1865,6 +1866,7 @@ function generateSoulwritingInterfaceEvents() {
             game.soulwriting.selectSlot(id);
         });
         slot.addEventListener('contextmenu', e => {
+            Sounds.Methods.playSound(Data.SoundType.SELECTOR_OFF);
             e.preventDefault();
             const id = slot.id.slice(3);
             const slmrk = game.soulwriting.getSoulmarkAt(id);
@@ -1929,6 +1931,7 @@ function generateSoulwritingInterfaceEvents() {
 
     soulwrite.addEventListener('click', e => {
         if(!game.soulwriting.isWriting && game.soulwriting.canWrite()) {
+            Sounds.Methods.playSound(Data.SoundType.SOULWRITE_PROCESS)
             const stalDiamond = document.querySelector('#swWrite-stalwart');
             const corrDiamond = document.querySelector('#swWrite-corrupt');
             stalDiamond.classList.remove('swStalwartAnim');
@@ -1943,6 +1946,12 @@ function generateSoulwritingInterfaceEvents() {
             slots.forEach(slot => {
                 slot.style.animationDelay = delay + 's';
                 slot.classList.add('swSlotAnim');
+                setTimeout(() => {
+                    Sounds.Methods.playSound(Data.SoundType.SOULWRITE_SLOT);
+                }, delay*1000);
+                setTimeout(() => {
+                    Sounds.Methods.playSound(Data.SoundType.SOULWRITE_UNSLOT);
+                }, delay*1000 + 1700);
                 delay += 0.25;
             });
             delay = 0;
@@ -1969,6 +1978,7 @@ function generateSoulwritingInterfaceEvents() {
 
             setTimeout(() => {
                 game.soulwriting.soulwrite();
+                let dur = 0;
                 slots.forEach(slot => {
                     slot.classList.remove('swSlotAnim');
                 });

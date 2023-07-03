@@ -508,5 +508,14 @@ const Data = Object.freeze({
         CRAFT_BUTTON_ALCHEMY: "craft_button_alchemy",
         CRAFT_POTION_BREW: "craft_potion_brew",
         CRAFT_POTION_RESULT: "craft_potion_result",
+        SELECTOR_ON: "selector_on",
+        SELECTOR_OFF: "selector_off",
+        SOULWRITE_SLOT: "soulwrite_slot",
+        SOULWRITE_UNSLOT: "soulwrite_unslot",
+        SOULWRITE_PROCESS: "soulwrite_process",
+        SOULWRITE_REGULAR: "soulwrite_regular",
+        SOULWRITE_CORRUPT: "soulwrite_corrupt",
+        SOULWRITE_STALWART: "soulwrite_stalwart",
+        SOULWRITE_STCO: "soulwrite_stco",
     }
 }); 

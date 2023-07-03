@@ -155,6 +155,12 @@ class Soulwriting {
             critical: critEff,
             corrupt: corrEff
         });
+
+        if(res.critical.length > 0 && res.corrupt.length > 0) Sounds.Methods.playSound(Data.SoundType.SOULWRITE_STCO);
+        else if(res.critical.length > 0 && !res.corrupt.length > 0) Sounds.Methods.playSound(Data.SoundType.SOULWRITE_STALWART);
+        else if(!res.critical.length > 0 && res.corrupt.length > 0) Sounds.Methods.playSound(Data.SoundType.SOULWRITE_CORRUPT);
+        else Sounds.Methods.playSound(Data.SoundType.SOULWRITE_REGULAR);
+
         if(res.critical.length > 0) {
             res.setCritical();
             stalDiamond.classList.add('swStalwartAnim');

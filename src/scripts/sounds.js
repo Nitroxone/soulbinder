@@ -36,6 +36,12 @@ let Sounds = {
             {name: "selector1.mp3", volume: 0.3},
             {name: "selector2.mp3", volume: 0.3},
         ],
+        SELECTOR_ON: [
+            {name: "selectorOn.wav", volume: 0.3, pitch: () => {return 1.5}},
+        ],
+        SELECTOR_OFF: [
+            {name: "selectorOff.wav", volume: 0.3, pitch: () => {return 1.5}}
+        ],
         CRAFT_BUTTON_ALCHEMY: [
             {name: "craft_button_alchemy.mp3", volume: 0.4},
         ],
@@ -47,6 +53,29 @@ let Sounds = {
         CRAFT_POTION_RESULT: [
             {name: "potion_result1.wav", volume: 0.6},
             {name: "potion_result2.wav", volume: 0.6},
+        ],
+        SOULWRITE_PROCESS: [
+            {name: "soulwriteWriteProcess.wav", volume: 0.6, pitch: () => {return 0.85}}
+        ],
+        SOULWRITE_SLOT: [
+            {name: "soulwriteWriteSlot1.wav", volume: 0.6},
+            {name: "soulwriteWriteSlot2.wav", volume: 0.6},
+            {name: "soulwriteWriteSlot3.wav", volume: 0.6},
+        ],
+        SOULWRITE_UNSLOT: [
+            {name: "soulwriteWriteUnslot.wav", volume: 0.6, pitch: () => {return 1.5}}
+        ],
+        SOULWRITE_REGULAR: [
+            {name: "soulwriteWriteRegular.wav", volume: 0.6}
+        ],
+        SOULWRITE_CORRUPT: [
+            {name: "soulwriteWriteCorrupt.wav", volume: 0.6}
+        ],
+        SOULWRITE_STALWART: [
+            {name: "soulwriteWriteStalwart.wav", volume: 0.6}
+        ],
+        SOULWRITE_STCO: [
+            {name: "soulwriteWriteStco.wav", volume: 0.6}
         ]
     },
     Methods: {
