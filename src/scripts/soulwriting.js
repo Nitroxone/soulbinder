@@ -109,17 +109,31 @@ class Soulwriting {
         this.icon = icon;
     }
 
+    /**
+     * Sets the busy state of soulwriting to true.
+     */
     writing() {
         this.isWriting = true;
     }
+
+    /**
+     * Sets the busy state of soulwriting to false.
+     */
     finishedWriting() {
         this.isWriting = false;
     }
 
+    /**
+     * Returns whether at least one soulmark is currently selected.
+     * @returns {boolean} whether at least one soulmark is selected
+     */
     canWrite() {
         return this.soulmarks.some(el => el !== null);
     }
 
+    /**
+     * Creates a new Sigil based on the selected soulmarks, then adds it to inventory and draws the sigil inventory screen.
+     */
     soulwrite() {
         const name = document.querySelector('.swWrite-sigilName').value;
         const rarity = Data.Rarity.UNCOMMON;
