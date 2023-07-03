@@ -353,85 +353,88 @@ const Loader = {
                      1,
                      10,
                      Data.Rarity.RARE,
-                     Data.SigilType.ARMOR,
-                     [
-                        new Stat({
-                            effect: Data.Effect.RESILIENCE,
-                            theorical: [3, 5]
-                        })
-                     ],
-                     [
-                        new Stat({
-                            effect: Data.Effect.RESILIENCE,
-                            theorical: [1, 2],
-                            isCritical: true
-                        })
-                     ],
-                     [
-                        new Stat({
-                            effect: Data.Effect.WARDING,
-                            theorical: [-1, -3],
-                            isCorrupt: true
-                        })
-                     ],
-                     []
+                     {
+                        type: Data.SigilType.ARMOR,
+                        effects: [
+                            new Stat({
+                                effect: Data.Effect.RESILIENCE,
+                                theorical: [3, 5]
+                            })
+                        ],
+                        critical: [
+                            new Stat({
+                                effect: Data.Effect.RESILIENCE,
+                                theorical: [1, 2],
+                                isCritical: true
+                            })
+                        ],
+                        corrupt: [
+                            new Stat({
+                                effect: Data.Effect.WARDING,
+                                theorical: [-1, -3],
+                                isCorrupt: true
+                            })
+                        ]
+                     }
             ),
             new Sigil("Sharpness Sigil",
                      "From the stone emanates a singular power, that flows through the metal to your muscles, and floods your whole being with a supernatural strength.",
                      13,
                      10,
                      Data.Rarity.UNCOMMON,
-                     Data.SigilType.WEAPON,
-                     [
-                        new Stat({
-                            effect: Data.Effect.PDMG,
-                            theorical: [3, 6]
-                        })
-                     ],
-                     [
-                        new Stat({
-                            effect: Data.Effect.CRIT_LUK,
-                            theorical: [1, 3],
-                            isCritical: true,
-                            isPercentage: true
-                        })
-                     ],
-                     [
-                        new Stat({
-                            effect: Data.Effect.MDMG,
-                            theorical: [-1, -3],
-                            isCorrupt: true
-                        })
-                     ],
-                     []
+                     {
+                        type: Data.SigilType.WEAPON,
+                        effects: [
+                            new Stat({
+                                effect: Data.Effect.PDMG,
+                                theorical: [3, 6]
+                            })
+                        ],
+                        critical: [
+                            new Stat({
+                                effect: Data.Effect.CRIT_LUK,
+                                theorical: [1, 3],
+                                isCritical: true,
+                                isPercentage: true
+                            })
+                        ],
+                        corrupt: [
+                            new Stat({
+                                effect: Data.Effect.MDMG,
+                                theorical: [-1, -3],
+                                isCorrupt: true
+                            })
+                        ]
+                     }
             ),
             new Sigil("Withering Sigil",
                      "The wounds burn with a terrible heat or biting cold. Bodies crumble and die at its touch.",
                      25,
                      10,
                      Data.Rarity.RARE,
-                     Data.SigilType.WEAPON,
-                     [
-                        new Stat({
-                            effect: Data.Effect.MDMG,
-                            theorical: [3, 6]
-                        })
-                     ],
-                     [
-                        new Stat({
-                            effect: Data.Effect.BLOCK,
-                            theorical: [1, 2],
-                            isCritical: true
-                        })
-                     ],
-                     [
-                        new Stat({
-                            effect: Data.Effect.PDMG,
-                            theorical: [-1, -3],
-                            isCorrupt: true
-                        })
-                     ],
-                     []
+                     {
+                        type: Data.SigilType.WEAPON,
+                        effects: [
+                            new Stat({
+                                effect: Data.Effect.MDMG,
+                                theorical: [3, 6]
+                            })
+                        ],
+                        critical: [
+                            new Stat({
+                                effect: Data.Effect.BLOCK,
+                                theorical: [1, 2],
+                                isCritical: true
+                            })
+                        ],
+                        corrupt: [
+                            new Stat({
+                                effect: Data.Effect.PDMG,
+                                theorical: [-1, -3],
+                                isCorrupt: true
+                            })
+                        ]
+                     }
             ),
 
                      

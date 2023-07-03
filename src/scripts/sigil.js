@@ -15,19 +15,15 @@ class Sigil extends Item {
      * @param {array} echoes the Sigil's corrupt echoes
      */
     constructor(name, desc, icon, price, rarity,
-                type, 
-                effects,
-                critical,
-                corrupt,
-                echoes) {
+                props = {}) {
         super(name, desc, icon, price, rarity);
 
-        this.type = type;
-        this.effects = effects;
-        this.critical = critical;
-        this.corrupt = corrupt;
+        this.type = getValueFromObject(props, "type", Data.SigilType.ARMOR);
+        this.effects = getValueFromObject(props, "effects", []);
+        this.critical = getValueFromObject(props, "critical", []);
+        this.corrupt = getValueFromObject(props, "corrupt", []);
 
-        this.echoes = echoes;
+        this.echoes = getValueFromObject(props, "echoes", []);
 
         this.isCorrupt = false;
         this.isCritical = false;
