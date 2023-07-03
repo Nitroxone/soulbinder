@@ -1807,9 +1807,9 @@ function generateSoulwritingInterfaceEvents() {
             const slmrk = Config.Soulwriting.filter(s => s.name == id)[0];
             const extended = sm.querySelector('.extendedSoulmarkContainer');
 
+            Sounds.Methods.playSound(Data.SoundType.TOOLTIP_HOVER);
             if(game.soulwriting.selectedSlot !== 0) {
                 const slot = document.querySelector('#sws' + game.soulwriting.selectedSlot);
-                Sounds.Methods.playSound(Data.SoundType.TOOLTIP_HOVER);
                 if(game.soulwriting.getSoulmarkFromSelected() === slmrk) {
                     game.soulwriting.removeSoulmarkFromSelected();
                     removeSoulmarkAbrevFromSlot(slot);
