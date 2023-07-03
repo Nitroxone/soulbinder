@@ -135,6 +135,11 @@ class Soulwriting {
      * Creates a new Sigil based on the selected soulmarks, then adds it to inventory and draws the sigil inventory screen.
      */
     soulwrite() {
+        const stalDiamond = document.querySelector('#swWrite-stalwart');
+        const corrDiamond = document.querySelector('#swWrite-corrupt');
+        stalDiamond.classList.remove('swStalwartAnim');
+        corrDiamond.classList.remove('swCorruptAnim');
+
         const name = document.querySelector('.swWrite-sigilName').value;
         const rarity = Data.Rarity.UNCOMMON;
         let effects = this.soulmarks.map(x => x && new Stat({effect: x.effect, theorical: x.theorical, isPercentage: isAstralForgeEffectPercentage(x.effect)}));
@@ -153,8 +158,14 @@ class Soulwriting {
             critical: critEff,
             corrupt: corrEff
         });
-        if(res.critical.length > 0) res.setCritical();
-        if(res.corrupt.length > 0) res.setCorrupt();
+        if(res.critical.length > 0) {
+            res.setCritical();
+            stalDiamond.classList.add('swStalwartAnim');
+        }
+        if(res.corrupt.length > 0) {
+            res.setCorrupt();
+            corrDiamond.classList.add('swCorruptAnim');
+        }
         res.generateStats();
 
         game.player.inventory.addItem(res, 1, true);

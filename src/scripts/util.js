@@ -60,7 +60,6 @@ function AddCSSRule(sheet, selector, rules, index) {
 function triggerAnim(element, anim) {
     if(!element) return;
     element.classList.remove(anim);
-    void element.offsetWidth;
     element.classList.add(anim);
 }
 

@@ -4575,6 +4575,36 @@ hr.leftSided {
     font-size: 15px;
 }
 
+.swStalwartAnim {
+    animation-name: swStalwartAnim;
+    animation-duration: 2.5s;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+@keyframes swStalwartAnim {
+    30%, 70% {
+        background: #ece2b6;
+        transform: rotate(45deg) scale(1.1);
+    }
+    100% {
+        background: linear-gradient(315deg, rgba(173,154,67,1) 23%, rgba(236,226,182,1) 100%);
+    }
+}
+
+.swCorruptAnim {
+    animation-name: swCorruptAnim;
+    animation-duration: 2.5s;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+@keyframes swCorruptAnim {
+    30%, 70% {
+        background: #b03c27;
+        transform: rotate(45deg) scale(1.1);
+    }
+    100% {
+        background: linear-gradient(315deg, rgba(80,12,0,1) 23%, rgba(176,60,39,1) 100%);
+    }
+}
+
 .astralForgeReceptacle {
     width: 300px;
     height: 300px;
