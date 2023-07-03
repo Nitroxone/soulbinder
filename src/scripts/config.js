@@ -343,7 +343,7 @@ let Config = {
             effect: Data.Effect.MODIF_DMG_STUN,
             name: "opportunity",
             theorical: [2, 4],
-            critical: new Stat({effect: Data.Effect.MODIF_CHANCE_STUN, theorical: [2, 4], iSPercentage: true, isCritical: true}),
+            critical: new Stat({effect: Data.Effect.MODIF_CHANCE_STUN, theorical: [2, 4], isPercentage: true, isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.MODIF_CHANCE_STUN, theorical: [-2, -5], isPercentage: true, isCorrupt: true}),
             unlocked: false
         },
