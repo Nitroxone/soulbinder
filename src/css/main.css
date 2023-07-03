@@ -4474,6 +4474,8 @@ hr.leftSided {
 
     filter: grayscale(100%);
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+    overflow: hidden;
 }
 .swWrite-write:hover {
     cursor: pointer;
@@ -4513,6 +4515,32 @@ hr.leftSided {
     color: white;
     translate: 7px 0;
     background: linear-gradient(315deg, rgba(80,12,0,1) 23%, rgba(176,60,39,1) 100%);
+}
+
+.swSlotAnim {
+    animation-name: swSlotAnim;
+    animation-duration: 2s;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation-fill-mode: forwards;
+    transition: all 1s ease-in-out;
+    overflow: hidden;
+}
+@keyframes swSlotAnim {
+    90% {
+        background: white;
+        color: black;
+        text-shadow: none;
+    }
+}
+.swSlotCanvas {
+    position: absolute;
+    height: 100px;
+    width: 100px;
+    z-index: -1;
+    transform: rotate(-45deg);
+}
+.swSoulwriting {
+    filter: none !important;
 }
 
 .astralForgeReceptacle {

@@ -1929,7 +1929,39 @@ function generateSoulwritingInterfaceEvents() {
 
     soulwrite.addEventListener('click', e => {
         if(!game.soulwriting.isWriting && game.soulwriting.canWrite()) {
+            game.soulwriting.writing();
             Sounds.Methods.playSound(Data.SoundType.SELECTOR);
+            const slots = document.querySelectorAll('.swFilledSlot');
+
+            let delay = 0;
+            slots.forEach(slot => {
+                slot.style.animationDelay = delay + 's';
+                slot.classList.add('swSlotAnim');
+                delay += 0.25;
+            });
+            soulwrite.classList.add('swSoulwriting');
+
+            Quanta.burst({
+                canvas: document.querySelector('#canv-soulwrite'),
+                color: Data.Color.RARE,
+                amount: 300,
+                particleSize: 5,
+                duration: 4000,
+                fadeAwayRate: 0,
+                speed: {
+                    x: () => { return (-2 + Math.random() * 5) },
+                    y: () => { return (-4 + Math.random() * 10) }
+                },
+                delay: () => { return getRandomNumber(0, 100) },
+            });
+
+            setTimeout(() => {
+                slots.forEach(slot => {
+                    slot.classList.remove('swSlotAnim');
+                });
+                soulwrite.classList.remove('swSoulwriting');
+                game.soulwriting.finishedWriting();
+            }, 3000);
         }
     })
 }
@@ -1937,12 +1969,10 @@ function generateSoulwritingInterfaceEvents() {
 function addSoulmarkAbrevToSlot(slot, slmrk) {
     slot.innerHTML = '<span>' + slmrk.name.slice(0, 3) + '</span>';
     slot.classList.add('swFilledSlot');
-    console.log('ADDED');
 }
 function removeSoulmarkAbrevFromSlot(slot) {
     slot.innerHTML = '';
     slot.classList.remove('swFilledSlot');
-    console.log('REMOVED');
 }
 
 function getSwWrite(refresh = false) {
@@ -1967,7 +1997,7 @@ function getSwWrite(refresh = false) {
 
     str += '<div class="swWriteCraft">';
     str += '<div class="swWrite-stalwart"><span>15%</span></div>';
-    str += '<div class="swWrite-write"><span>Write</span></div>';
+    str += '<div class="swWrite-write"><span>Write</span><canvas id="canv-soulwrite" class="swSlotCanvas"></canvas></div>';
     str += '<div class="swWrite-corrupt"><span>15%</span></div>';
     str += '</div>'; 
 
