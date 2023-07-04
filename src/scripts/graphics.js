@@ -82,48 +82,6 @@ function spawnTooltip(item, fromExisting = 0) {
     document.body.appendChild(tooltip);
 }
 
-function getSigilTooltip(sigil, asResult) {
-    let str = asResult ? '<h3 class="fancyTitle">Output</h3><div class="divider"></div>' : '';
-    str += '<div class="info">';
-    str += '<div id="iconcloud-' + sigil.id + '"class="iconcloud' + capitalizeFirstLetter(sigil.rarity) + '"><div id="res-icon-' + sigil.id + '" class="tooltipIcon" style="' + getIcon(sigil) + '"></div>';
-    str += '<div class="fancyText infoAmount onLeft">' + (asResult ? asResult.result_amount : '') + '</div></div>';
-    str += '<div class="fancyText barred infoTitle" style="color: ' + getRarityColorCode(sigil.rarity) +'">' + sigil.name + '</div>';
-    str += '<div class="fancyText barred">' + capitalizeFirstLetter(sigil.rarity) + '</div>';
-    str += '<div class="fancyText barred">' + capitalizeFirstLetter(sigil.type) + ' sigil</div>';
-    str += '<div class="infoDesc">';
-
-    // effects
-    str += '<div class="par"></div>';
-    sigil.effects.forEach(effect => {
-            str += effect.getFormatted({cssClass: "itemEffect"});
-    });
-    if(sigil.isCritical) {
-        sigil.critical.forEach(effect => {
-            str += effect.getFormatted({cssClass: "itemEffect", color: Data.Color.CRITICAL_EFF, bold: true});
-        });
-    }
-    if(sigil.isCorrupt) {
-        sigil.corrupt.forEach(effect => {
-            str += effect.getFormatted({cssClass: "itemEffect", color: Data.Color.CORRUPT, bold: true});
-        });
-    }
-    sigil.echoes.forEach(echo => {
-        str += '<div class="sigilCorruption">';
-        str += '<p class="name">' + echo.name +'</p>';
-        str += '<p>' + echo.desc +'</p>'
-        str += '<br>';
-        str += '<p class="echoQuote">' + echo.quote +'</p>'
-        str += '</div>';
-    })
-
-    str += '<div class="divider"></div>';
-    str += '<div class="par tooltipDesc">' + sigil.desc + '</div>';
-    str += '</div></div>';
-
-    game.particlesTooltipCanvasItem = sigil;
-    return str;
-}
-
 function getTrinketTooltip(trinket, asResult = null, full = false) {
     let str = asResult ? '<h3 class="fancyTitle">Output</h3><div class="divider"></div>' : '';
     str += '<div class="info">';
@@ -213,17 +171,62 @@ function getConsumableTooltip(consumable) {
     str += '<div class="consumableName">' + consumable.name + '</div>';
     str += '<div class="treeNodeType treeNodeType-' + consumable.rarity + '">' + capitalizeFirstLetter(consumable.rarity) + '</div>';
     str += '</div></div>';
-    //str += '<div class="divider"></div>';
+    
     str += '<div class="consumableEffects">';
     consumable.effects.forEach(eff => {
         str += eff.getFormatted({cssClass: "itemEffect consumableEffect", noTheorical: true, defaultColor: true});
     });
     str += '</div>';
-    //str += '<div class="divider"></div>';
+    
     str += '<div class="consumableToxicityIndicator">' + consumable.toxicity + ' <span style="opacity: 0.8;">Toxicity</span></div>';
     str += '</div></div>';
 
     game.particlesTooltipCanvasItem = consumable;
+    return str;
+}
+
+function getSigilTooltip(sigil) {
+    let str = '';
+    str += '<div class="consumableTooltip">';
+    str += '<div class="consumableTooltipHeader">';
+    str += '<div id="iconcloud-' + sigil.id + '"class="iconcloud' + capitalizeFirstLetter(sigil.rarity) + ' roundIconcloud' + capitalizeFirstLetter(sigil.rarity) + '"><div id="res-icon-' + sigil.id + '" class="tooltipIcon roundCloudIcon" style="' + getIcon(sigil) + '"></div></div>';
+    str += '<div class="consumableTitles">';
+    str += '<div class="consumableName">' + sigil.name + '</div>';
+    str += '<div class="treeNodeType treeNodeType-' + sigil.rarity + '">' + capitalizeFirstLetter(sigil.rarity) + '</div>';
+    str += '</div></div>';
+    
+    str += '<div class="consumableEffects">';
+    sigil.effects.forEach(effect => {
+            str += effect.getFormatted({cssClass: "itemEffect consumableEffect"});
+    });
+    if(sigil.isCritical) {
+        sigil.critical.forEach(effect => {
+            str += effect.getFormatted({cssClass: "itemEffect consumableEffect", color: Data.Color.CRITICAL_EFF, bold: true});
+        });
+    }
+    if(sigil.isCorrupt) {
+        sigil.corrupt.forEach(effect => {
+            str += effect.getFormatted({cssClass: "itemEffect consumableEffect", color: Data.Color.CORRUPT, bold: true});
+        });
+    }
+    sigil.echoes.forEach(echo => {
+        str += '<div class="sigilCorruption">';
+        str += '<p class="name">' + echo.name +'</p>';
+        str += '<p>' + echo.desc +'</p>'
+        str += '<br>';
+        str += '<p class="echoQuote">' + echo.quote +'</p>'
+        str += '</div>';
+    });
+    str += '</div>';
+
+    str += '<div class="sigilSoulmarksIndicator">';
+    sigil.soulmarks.forEach(slmrk => {
+        if(slmrk) str += '<div class="sigilSoulmarkTooltip"><span>' + slmrk.name.slice(0, 3) + '</span></div>';
+    });
+    str += '</div>';
+    str += '</div></div>';
+
+    game.particlesTooltipCanvasItem = sigil;
     return str;
 }
 
