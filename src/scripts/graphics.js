@@ -219,11 +219,13 @@ function getSigilTooltip(sigil) {
     });
     str += '</div>';
 
-    str += '<div class="sigilSoulmarksIndicator">';
-    sigil.soulmarks.forEach(slmrk => {
-        if(slmrk) str += '<div class="sigilSoulmarkTooltip"><span>' + slmrk.name.slice(0, 3) + '</span></div>';
-    });
-    str += '</div>';
+    if(sigil.soulmarks.some(el => el !== null)) {
+        str += '<div class="sigilSoulmarksIndicator">';
+        sigil.soulmarks.forEach(slmrk => {
+            if(slmrk) str += '<div class="sigilSoulmarkTooltip"><span>' + slmrk.name.slice(0, 3) + '</span></div>';
+        });
+        str += '</div>';
+    }
     str += '</div></div>';
 
     game.particlesTooltipCanvasItem = sigil;
