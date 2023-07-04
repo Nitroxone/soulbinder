@@ -48,4 +48,6 @@ DUNGEONS:
 - Connect dungeons to combats
 
 CRAFTING:
-- Start working on Sigil crafting
+
+SOULWRITING:
+- Add soulmarks Price, Gold cost, Souls cost, Rarity
