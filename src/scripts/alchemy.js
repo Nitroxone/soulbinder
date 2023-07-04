@@ -109,7 +109,7 @@ class Alchemy {
     }
 
     /**
-     * Returns the highest rarity among the select ingredients.
+     * Returns the highest rarity among the selected ingredients.
      * @returns {Data.Rarity} the highest rarity
      */
     determineRarity() {
