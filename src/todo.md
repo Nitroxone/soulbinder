@@ -51,3 +51,5 @@ CRAFTING:
 
 SOULWRITING:
 - Add soulmarks Price, Gold cost, Souls cost, Rarity
+- Change Sigil tooltip
+- Add Sigil soulmarks
