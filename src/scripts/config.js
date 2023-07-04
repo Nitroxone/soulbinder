@@ -431,7 +431,7 @@ let Config = {
             name: "nursing",
             theorical: [2, 4],
             critical: new Stat({effect: Data.Effect.PROTECTION, theorical: [4, 6], isPercentage: true, isCritical: true}),
-            corrupted: new Stat({effect: Data.Effect.DODGE, theorical: [-3, -6], iSPercentage: true, isCorrupt: true}),
+            corrupted: new Stat({effect: Data.Effect.DODGE, theorical: [-3, -6], isPercentage: true, isCorrupt: true}),
             unlocked: false,
             price: 5,
             rarity: Data.Rarity.EPIC
@@ -441,7 +441,7 @@ let Config = {
             name: "veracity",
             theorical: [2, 4],
             critical: new Stat({effect: Data.Effect.MODIF_CRIT_SKILL, theorical: [4, 6], isPercentage: true, isCritical: true}),
-            corrupted: new Stat({effect: Data.Effect.MODIF_CRIT_SKILL, theorical: [-2, -4], iSPercentage: true, isCorrupt: true}),
+            corrupted: new Stat({effect: Data.Effect.MODIF_CRIT_SKILL, theorical: [-2, -4], isPercentage: true, isCorrupt: true}),
             unlocked: false,
             price: 5,
             rarity: Data.Rarity.RARE
@@ -451,7 +451,7 @@ let Config = {
             name: "targeting",
             theorical: [2, 4],
             critical: new Stat({effect: Data.Effect.MODIF_CRIT_STUN, theorical: [4, 6], isPercentage: true, isCritical: true}),
-            corrupted: new Stat({effect: Data.Effect.MODIF_CRIT_STUN, theorical: [-2, -4], iSPercentage: true, isCorrupt: true}),
+            corrupted: new Stat({effect: Data.Effect.MODIF_CRIT_STUN, theorical: [-2, -4], isPercentage: true, isCorrupt: true}),
             unlocked: false,
             price: 5,
             rarity: Data.Rarity.RARE
@@ -461,7 +461,7 @@ let Config = {
             name: "harassment",
             theorical: [2, 4],
             critical: new Stat({effect: Data.Effect.MODIF_CRIT_BLEED, theorical: [4, 6], isPercentage: true, isCritical: true}),
-            corrupted: new Stat({effect: Data.Effect.MODIF_CRIT_BLEED, theorical: [-2, -4], iSPercentage: true, isCorrupt: true}),
+            corrupted: new Stat({effect: Data.Effect.MODIF_CRIT_BLEED, theorical: [-2, -4], isPercentage: true, isCorrupt: true}),
             unlocked: false,
             price: 5,
             rarity: Data.Rarity.RARE
@@ -471,7 +471,7 @@ let Config = {
             name: "prey",
             theorical: [2, 4],
             critical: new Stat({effect: Data.Effect.MODIF_CRIT_POISON, theorical: [4, 6], isPercentage: true, isCritical: true}),
-            corrupted: new Stat({effect: Data.Effect.MODIF_CRIT_POISON, theorical: [-2, -4], iSPercentage: true, isCorrupt: true}),
+            corrupted: new Stat({effect: Data.Effect.MODIF_CRIT_POISON, theorical: [-2, -4], isPercentage: true, isCorrupt: true}),
             unlocked: false,
             price: 5,
             rarity: Data.Rarity.RARE
@@ -481,7 +481,7 @@ let Config = {
             name: "focus",
             theorical: [5, 8],
             critical: new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [3, 5], isPercentage: true, isCritical: true}),
-            corrupted: new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [-2, -4], iSPercentage: true, isCorrupt: true}),
+            corrupted: new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [-2, -4], isPercentage: true, isCorrupt: true}),
             unlocked: false,
             price: 5,
             rarity: Data.Rarity.RARE
@@ -491,7 +491,7 @@ let Config = {
             name: "trauma",
             theorical: [5, 8],
             critical: new Stat({effect: Data.Effect.MODIF_DMG_STUN, theorical: [3, 5], isPercentage: true, isCritical: true}),
-            corrupted: new Stat({effect: Data.Effect.MODIF_DMG_STUN, theorical: [-2, -4], iSPercentage: true, isCorrupt: true}),
+            corrupted: new Stat({effect: Data.Effect.MODIF_DMG_STUN, theorical: [-2, -4], isPercentage: true, isCorrupt: true}),
             unlocked: false,
             price: 5,
             rarity: Data.Rarity.RARE
@@ -501,7 +501,7 @@ let Config = {
             name: "ooze",
             theorical: [5, 8],
             critical: new Stat({effect: Data.Effect.MODIF_DMG_BLEED, theorical: [3, 5], isPercentage: true, isCritical: true}),
-            corrupted: new Stat({effect: Data.Effect.MODIF_DMG_BLEED, theorical: [-2, -4], iSPercentage: true, isCorrupt: true}),
+            corrupted: new Stat({effect: Data.Effect.MODIF_DMG_BLEED, theorical: [-2, -4], isPercentage: true, isCorrupt: true}),
             unlocked: false,
             price: 5,
             rarity: Data.Rarity.RARE
@@ -511,7 +511,7 @@ let Config = {
             name: "causticity",
             theorical: [5, 8],
             critical: new Stat({effect: Data.Effect.MODIF_DMG_POISON, theorical: [3, 5], isPercentage: true, isCritical: true}),
-            corrupted: new Stat({effect: Data.Effect.MODIF_DMG_POISON, theorical: [-2, -4], iSPercentage: true, isCorrupt: true}),
+            corrupted: new Stat({effect: Data.Effect.MODIF_DMG_POISON, theorical: [-2, -4], isPercentage: true, isCorrupt: true}),
             unlocked: false,
             price: 5,
             rarity: Data.Rarity.RARE
@@ -521,7 +521,7 @@ let Config = {
             name: "bluntforce",
             theorical: [5, 8],
             critical: new Stat({effect: Data.Effect.MODIF_DMG_STUN, theorical: [3, 5], isPercentage: true, isCritical: true}),
-            corrupted: new Stat({effect: Data.Effect.RES_STUN, theorical: [-2, -4], iSPercentage: true, isCorrupt: true}),
+            corrupted: new Stat({effect: Data.Effect.RES_STUN, theorical: [-2, -4], isPercentage: true, isCorrupt: true}),
             unlocked: false,
             price: 5,
             rarity: Data.Rarity.EPIC
@@ -531,7 +531,7 @@ let Config = {
             name: "tackle",
             theorical: [5, 8],
             critical: new Stat({effect: Data.Effect.DODGE, theorical: [3, 5], isPercentage: true, isCritical: true}),
-            corrupted: new Stat({effect: Data.Effect.RES_MOVE, theorical: [-2, -4], iSPercentage: true, isCorrupt: true}),
+            corrupted: new Stat({effect: Data.Effect.RES_MOVE, theorical: [-2, -4], isPercentage: true, isCorrupt: true}),
             unlocked: false,
             price: 5,
             rarity: Data.Rarity.EPIC
