@@ -132,13 +132,28 @@ class Soulwriting {
     }
 
     /**
+     * Returns the highest rarity among the selected soulmarks.
+     * @returns {Data.Rarity} the highest rarity
+     */
+    determineRarity() {
+        let highest = Data.Rarity.COMMON;
+        this.soulmarks.forEach(ingr => {
+            if(ingr) {
+                highest = compareHighestRarities(highest, ingr.rarity);
+            }
+        });
+
+        return highest;
+    }
+
+    /**
      * Creates a new Sigil based on the selected soulmarks, then adds it to inventory and draws the sigil inventory screen.
      */
     soulwrite() {
         const stalDiamond = document.querySelector('#swWrite-stalwart');
         const corrDiamond = document.querySelector('#swWrite-corrupt');
         const name = document.querySelector('.swWrite-sigilName').value;
-        const rarity = Data.Rarity.UNCOMMON;
+        const rarity = this.determineRarity();
         let effects = this.soulmarks.map(x => x && new Stat({effect: x.effect, theorical: x.theorical, isPercentage: isAstralForgeEffectPercentage(x.effect)}));
         let critEff = [];
         let corrEff = [];
