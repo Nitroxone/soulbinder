@@ -53,3 +53,5 @@ SOULWRITING:
 DONE - Add soulmarks Price, Gold cost, Souls cost, Rarity
 DONE - Change Sigil tooltip
 DONE - Add Sigil soulmarks
+- Actually display Soulwriting price
+- Display price on Sigil tooltips
