@@ -25,6 +25,8 @@ class Sigil extends Item {
 
         this.echoes = getValueFromObject(props, "echoes", []);
 
+        this.soulmarks = getValueFromObject(props, "soulmarks", []);
+
         this.isCorrupt = false;
         this.isCritical = false;
         this.isAltered = false;

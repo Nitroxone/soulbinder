@@ -166,6 +166,7 @@ class Soulwriting {
         const name = document.querySelector('.swWrite-sigilName').value;
         const rarity = this.determineRarity();
         const price = this.determinePrice();
+        const soulmarks = this.soulmarks.map(x => x && {name: x.name, unlocked: x.unlocked});
         let effects = this.soulmarks.map(x => x && new Stat({effect: x.effect, theorical: x.theorical, isPercentage: isAstralForgeEffectPercentage(x.effect)}));
         let critEff = [];
         let corrEff = [];
@@ -180,7 +181,8 @@ class Soulwriting {
         const res = new Sigil(name, '', this.icon.icon, price, rarity, {
             effects: effects,
             critical: critEff,
-            corrupt: corrEff
+            corrupt: corrEff,
+            soulmarks: soulmarks
         });
 
         if(res.critical.length > 0 && res.corrupt.length > 0) Sounds.Methods.playSound(Data.SoundType.SOULWRITE_STCO);
