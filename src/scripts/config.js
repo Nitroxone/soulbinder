@@ -588,7 +588,7 @@ let Config = {
             name: "stronghold",
             theorical: [3, 6],
             critical: new Stat({effect: Data.Effect.EFFORT, theorical: [-2, -3], isCritical: true}),
-            corrupted: new Stat({effect: Data.Effect.CRIT_LUK, theorical: [2, 3], isCorrupt: true}),
+            corrupted: new Stat({effect: Data.Effect.CRIT_LUK, theorical: [-2, -3], isCorrupt: true}),
             unlocked: false,
             price: 5,
             rarity: Data.Rarity.UNCOMMON
