@@ -3717,9 +3717,6 @@ hr.leftSided {
 .paragInterface {
     grid-area: paragInterface;
 }
-.soulbInterface {
-    grid-area: soulbInterface;
-}
 
 .alchInterface, .soulwInterface, .craftInterface, .soulbInterface, .paragInterface {
     border: 7px solid transparent;
@@ -4603,6 +4600,25 @@ hr.leftSided {
     100% {
         background: linear-gradient(315deg, rgba(80,12,0,1) 23%, rgba(176,60,39,1) 100%);
     }
+}
+
+.soulbInterface {
+    grid-area: soulbInterface;
+
+    display: grid;
+    grid-template-columns: 1.2fr 2fr 0.8fr;
+    grid-template-rows: 1fr;
+    gap: 0 0;
+    grid-template-areas: "sbItems sbObjects sbActions";
+}
+.sbItems {
+    grid-area: sbItems;
+}
+.sbObjects {
+    grid-area: sbObjects;
+}
+.sbActions {
+    grid-area: sbActions;
 }
 
 .astralForgeReceptacle {

@@ -1473,7 +1473,9 @@ function drawWorkshopScreen() {
     str += drawSoulwritingScreen();
     str += '</div>';
 
-    str += '<div class="soulbInterface"></div>';
+    str += '<div class="soulbInterface">'
+    str += drawSoulbindingScreen();
+    str += '</div>';
 
     str += '<div class="paragInterface"></div>';
 
@@ -2070,6 +2072,21 @@ function getFormattedSoulmark(sm) {
     let str = '';
 
     str += '<div id="sm-' + sm.name + '" class="swWriteList-single"><div class="swWriteList-singleHeader"><span>' + capitalizeFirstLetter(sm.name) + '</span>' + eff.getFormatted({cssClass: 'swWriteList-eff', noValue: true, noTheorical: true}) + '</div><div class="extendedSoulmarkContainer"></div></div>';
+
+    return str;
+}
+
+function drawSoulbindingScreen(refresh = false) {
+    let str = '';
+
+    str += '<div class="sbItem">';
+    str += '</div>';
+    
+    str += '<div class="sbObjects">';
+    str += '</div>';
+
+    str += '<div class="sbActions">';
+    str += '</div>';
 
     return str;
 }
