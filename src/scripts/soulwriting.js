@@ -177,7 +177,7 @@ class Soulwriting {
             if(computeChance(game.player.sw_corruptFactor)) corrEff.push(slmrk.corrupted);
         });
 
-        const res = new Sigil(name, '', this.icon.icon, 10, rarity, {
+        const res = new Sigil(name, '', this.icon.icon, price, rarity, {
             effects: effects,
             critical: critEff,
             corrupt: corrEff
