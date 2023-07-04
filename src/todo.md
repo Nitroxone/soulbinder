@@ -50,6 +50,6 @@ DUNGEONS:
 CRAFTING:
 
 SOULWRITING:
-- Add soulmarks Price, Gold cost, Souls cost, Rarity
-- Change Sigil tooltip
-- Add Sigil soulmarks
+DONE - Add soulmarks Price, Gold cost, Souls cost, Rarity
+DONE - Change Sigil tooltip
+DONE - Add Sigil soulmarks
