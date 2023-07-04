@@ -2097,6 +2097,7 @@ function getSoulbindingItem(refresh = false) {
 
     if(game.soulbinding.item) {
         str += '<div class="sbItemContainer">';
+        str += '<div class="sbItemContainerHeader"><div class="sbItemContainerIcon" style="' + getIcon(game.soulbinding.item) + '"></div></div>';    
         str += '</div>';
     } else {
         str += '<div class="sbNoItem">No Item</div>';
