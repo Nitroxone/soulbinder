@@ -115,9 +115,7 @@ class Alchemy {
     determineRarity() {
         let highest = Data.Rarity.COMMON;
         this.ingredients.forEach(ingr => {
-            if(ingr) {
-                highest = compareHighestRarities(highest, ingr.rarity);
-            }
+            if(ingr) highest = compareHighestRarities(highest, ingr.rarity);
         });
 
         return highest;

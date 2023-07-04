@@ -137,13 +137,24 @@ class Soulwriting {
      */
     determineRarity() {
         let highest = Data.Rarity.COMMON;
-        this.soulmarks.forEach(ingr => {
-            if(ingr) {
-                highest = compareHighestRarities(highest, ingr.rarity);
-            }
+        this.soulmarks.forEach(slmrk => {
+            if(slmrk) highest = compareHighestRarities(highest, slmrk.rarity);
         });
 
         return highest;
+    }
+
+    /**
+     * Returns the sum of each selected soulmark's price.
+     * @returns {number} the total soulmarks price
+     */
+    determinePrice() {
+        let total = 0;
+        this.soulmarks.forEach(slmrk => {
+            if(slmrk) total += slmrk.price;
+        });
+
+        return total;
     }
 
     /**
@@ -154,6 +165,7 @@ class Soulwriting {
         const corrDiamond = document.querySelector('#swWrite-corrupt');
         const name = document.querySelector('.swWrite-sigilName').value;
         const rarity = this.determineRarity();
+        const price = this.determinePrice();
         let effects = this.soulmarks.map(x => x && new Stat({effect: x.effect, theorical: x.theorical, isPercentage: isAstralForgeEffectPercentage(x.effect)}));
         let critEff = [];
         let corrEff = [];
