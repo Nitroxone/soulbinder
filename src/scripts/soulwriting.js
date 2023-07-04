@@ -166,7 +166,7 @@ class Soulwriting {
         const name = document.querySelector('.swWrite-sigilName').value;
         const rarity = this.determineRarity();
         const price = this.determinePrice();
-        const soulmarks = this.soulmarks.map(x => x && {name: x.name, unlocked: x.unlocked});
+        const soulmarks = this.soulmarks.map(x => x && {name: x.name, unlocked: x.unlocked, critical: false, corrupt: false});
         let effects = this.soulmarks.map(x => x && new Stat({effect: x.effect, theorical: x.theorical, isPercentage: isAstralForgeEffectPercentage(x.effect)}));
         let critEff = [];
         let corrEff = [];
@@ -174,8 +174,14 @@ class Soulwriting {
         
         this.soulmarks.forEach(slmrk => {
             if(!slmrk) return; // Skip null elements
-            if(computeChance(game.player.sw_stalwartFactor)) critEff.push(slmrk.critical);
-            if(computeChance(game.player.sw_corruptFactor)) corrEff.push(slmrk.corrupted);
+            if(computeChance(game.player.sw_stalwartFactor)) {
+                critEff.push(slmrk.critical);
+                soulmarks.find(x => x.name === slmrk.name).critical = true;
+            }
+            else if(computeChance(game.player.sw_corruptFactor)) {
+                corrEff.push(slmrk.corrupted)
+                soulmarks.find(x => x.name === slmrk.name).corrupt = true;
+            };
         });
 
         const res = new Sigil(name, '', this.icon.icon, price, rarity, {

@@ -217,7 +217,7 @@ let Config = {
             name: "bastion",
             theorical: [6, 10],
             critical: new Stat({effect: Data.Effect.DAMAGE_REFLECTION, theorical: [1, 3], isPercentage: true, isCritical: true}),
-            corrupted: new Stat({effect: Data.Effect.MAXHEALTH, theorical: [-10, -25], isPercentage: true, isCorrupt: true}),
+            corrupted: new Stat({effect: Data.Effect.MAXHEALTH, theorical: [-10, -25], isCorrupt: true}),
             unlocked: false,
             price: 8,
             rarity: Data.Rarity.UNCOMMON

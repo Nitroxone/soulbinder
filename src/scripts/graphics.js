@@ -222,7 +222,7 @@ function getSigilTooltip(sigil) {
     if(sigil.soulmarks.some(el => el !== null)) {
         str += '<div class="sigilSoulmarksIndicator">';
         sigil.soulmarks.forEach(slmrk => {
-            if(slmrk) str += '<div class="sigilSoulmarkTooltip"><span>' + slmrk.name.slice(0, 3) + '</span></div>';
+            if(slmrk) str += '<div class="sigilSoulmarkTooltip' + (slmrk.critical ? ' critSigilTooltip' : slmrk.corrupt ? ' corrSigilTooltip' : '') + '"><span>' + slmrk.name.slice(0, 3) + '</span></div>';
         });
         str += '</div>';
     }
@@ -2079,7 +2079,8 @@ function getFormattedSoulmark(sm) {
 function drawSoulbindingScreen(refresh = false) {
     let str = '';
 
-    str += '<div class="sbItem">';
+    str += '<div class="sbItem" ondragover="allowDrop(event)" ondrop="game.soulbinding.setItem(event)">';
+    str += getSoulbindingItem();
     str += '</div>';
     
     str += '<div class="sbObjects">';
@@ -2088,6 +2089,23 @@ function drawSoulbindingScreen(refresh = false) {
     str += '<div class="sbActions">';
     str += '</div>';
 
+    return str;
+}
+
+function getSoulbindingItem(refresh = false) {
+    let str = '';
+
+    if(game.soulbinding.item) {
+        str += '<div class="sbItemContainer">';
+        str += '</div>';
+    } else {
+        str += '<div class="sbNoItem">No Item</div>';
+    }
+
+    if(refresh) {
+        document.querySelector('.sbItem').innerHTML = str;
+        return;
+    }
     return str;
 }
 
