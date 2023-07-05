@@ -4668,9 +4668,9 @@ hr.leftSided {
     width: 60px;
     height: 60px;
     position: absolute;
-    top: 75%;
-    left: 75%;
-    transform: translate(-75%, -75%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     background-repeat: no-repeat;
     background-position: center;
     filter: drop-shadow(0px 0px 15px rgba(0,0,0,1));
