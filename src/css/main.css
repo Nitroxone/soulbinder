@@ -4621,6 +4621,11 @@ hr.leftSided {
     grid-template-areas: "sbItem sbObjects sbActions";
 
     overflow: hidden;
+
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%), url('img/bg/bg-soulbinding.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 .sbItem {
     grid-area: sbItem;
