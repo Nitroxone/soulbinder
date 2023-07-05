@@ -166,11 +166,12 @@ class Soulwriting {
         const name = document.querySelector('.swWrite-sigilName').value;
         const rarity = this.determineRarity();
         const price = this.determinePrice();
-        const soulmarks = this.soulmarks.map(x => x && {name: x.name, unlocked: x.unlocked, critical: false, corrupt: false});
+        let soulmarks = this.soulmarks.map(x => x && {name: x.name, unlocked: x.unlocked, critical: false, corrupt: false});
         let effects = this.soulmarks.map(x => x && new Stat({effect: x.effect, theorical: x.theorical, isPercentage: isAstralForgeEffectPercentage(x.effect)}));
         let critEff = [];
         let corrEff = [];
         effects = effects.filter(x => x); // Remove null elements
+        soulmarks = soulmarks.filter(x => x); // Remove null elements
         
         this.soulmarks.forEach(slmrk => {
             if(!slmrk) return; // Skip null elements
