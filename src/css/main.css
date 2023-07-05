@@ -4626,6 +4626,11 @@ hr.leftSided {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+
+    animation-name: soulwInterfaceSlideIn;
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation-fill-mode: forwards;
 }
 .sbItem {
     grid-area: sbItem;

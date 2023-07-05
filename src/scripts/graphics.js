@@ -2093,6 +2093,7 @@ function drawSoulbindingScreen(refresh = false) {
     str += '</div>';
     
     str += '<div class="sbObjects">';
+    str += getSoulbindingObjects();
     str += '</div>';
 
     str += '<div class="sbActions">';
@@ -2135,6 +2136,16 @@ function getSoulbindingActions(refresh = false) {
 
     if(refresh) {
         document.querySelector('.sbActions').innerHTML = str;
+        return;
+    }
+    return str;
+}
+
+function getSoulbindingObjects(refresh = false) {
+    let str = '';
+
+    if(refresh) {
+        document.querySelector('.sbObjects').innerHTML = str;
         return;
     }
     return str;
