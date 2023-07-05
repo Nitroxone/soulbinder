@@ -4733,12 +4733,12 @@ hr.leftSided {
     font-variant: small-caps;
 }
 .sbActionUnbind {
-    top: -5%;
+    top: 0%;
 }
 .sbActionBind {
     z-index: 2;
-    top: 50%;
-    translate: 0 -50%;
+    top: 55%;
+    translate: 0 -55%;
 }
 .sbActionExtract {
     bottom: -5%;
