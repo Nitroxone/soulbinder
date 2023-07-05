@@ -4610,6 +4610,8 @@ hr.leftSided {
     grid-template-rows: 1fr;
     gap: 0 0;
     grid-template-areas: "sbItem sbObjects sbActions";
+
+    overflow: hidden;
 }
 .sbItem {
     grid-area: sbItem;
@@ -4619,6 +4621,7 @@ hr.leftSided {
     border-top: none;
     border-left: none;
     border-bottom: none;
+    background: url('img/bg3.png');
 
     overflow: hidden;
 }
@@ -4636,9 +4639,14 @@ hr.leftSided {
 
     width: 100%;
     aspect-ratio: 1/1;
-
-    box-shadow: 0px 0px 0px 1px rgba(255,255,255,1) inset, 0px 1px 40px 5px rgba(0,255,0,0.6) inset;
 }
+.sbItemCommon {box-shadow: 0px 0px 0px 1px rgba(255,255,255,0.1) inset, 0px 1px 40px 5px rgba(255,255,255,0.25) inset;}
+.sbItemUncommon {box-shadow: 0px 0px 0px 1px rgba(255,255,255,0.1) inset, 0px 1px 40px 5px rgba(0,255,0,0.5) inset;}
+.sbItemRare {box-shadow: 0px 0px 0px 1px rgba(255,255,255,0.1) inset, 0px 1px 40px 5px rgba(0,221,255,0.55) inset;}
+.sbItemEpic {box-shadow: 0px 0px 0px 1px rgba(255,255,255,0.1) inset, 0px 1px 40px 5px rgba(255,0,255,0.5) inset;}
+.sbItemLegendary {box-shadow: 0px 0px 0px 1px rgba(255,255,255,0.1) inset, 0px 1px 40px 5px rgba(255,170,0,0.5) inset;}
+.sbItemElder {box-shadow: 0px 0px 0px 1px rgba(255,255,255,0.1) inset, 0px 1px 40px 5px rgba(251,62,141,0.5) inset;}
+
 .sbItemContainerIcon {
     width: 60px;
     height: 60px;
@@ -4656,6 +4664,54 @@ hr.leftSided {
 }
 .sbActions {
     grid-area: sbActions;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: end;
+
+    transform: translateY(-2%);
+
+    /*overflow: hidden;*/
+}
+.sbActions > .sbAction:not(:last-child) {
+    /*margin-bottom: 0.2rem;*/
+}
+.sbAction {
+    position: relative;
+
+    transform: rotate(45deg) translate(15%, -25%) scale(1.1);
+
+    width: 95px;
+    height: 95px;
+
+    border: 7px solid transparent;
+    border-image: url('img/window1.png') 7 stretch;
+    background: url('img/bg1.png');
+    
+    filter: grayscale(100%);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.sbAction:hover {
+    cursor: pointer;
+    filter: saturate(120%) brightness(110%);
+    box-shadow: 0px 0px 0px 1px rgba(255,255,255,1) inset, 0px 1px 4px 2px rgba(128,255,255,0.6) inset;
+}
+.sbActionContent {
+    transform: rotate(-45deg) translate(-15%, 0%);
+
+    font-family: RobotoSlab;
+    font-size: .85rem;
+    font-variant: small-caps;
+}
+.sbActionBind {
+    z-index: 2;
 }
 
 .astralForgeReceptacle {

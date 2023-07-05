@@ -2087,6 +2087,7 @@ function drawSoulbindingScreen(refresh = false) {
     str += '</div>';
 
     str += '<div class="sbActions">';
+    str += getSoulbindingActions();
     str += '</div>';
 
     return str;
@@ -2097,7 +2098,7 @@ function getSoulbindingItem(refresh = false) {
 
     if(game.soulbinding.item) {
         str += '<div class="sbItemContainer">';
-        str += '<div class="sbItemContainerHeader"><div class="sbItemContainerIcon" style="' + getIcon(game.soulbinding.item) + '"></div></div>';    
+        str += '<div class="sbItemContainerHeader sbItem' + capitalizeFirstLetter(game.soulbinding.item.rarity) + '"><div class="sbItemContainerIcon" style="' + getIcon(game.soulbinding.item) + '"></div></div>';    
         str += '</div>';
     } else {
         str += '<div class="sbNoItem">No Item</div>';
@@ -2105,6 +2106,26 @@ function getSoulbindingItem(refresh = false) {
 
     if(refresh) {
         document.querySelector('.sbItem').innerHTML = str;
+        return;
+    }
+    return str;
+}
+
+function getSoulbindingActions(refresh = false) {
+    let str = '';
+
+    str += '<div class="sbAction sbActionUnbind"><div class="sbActionContent">';
+    str += 'Unbind';
+    str += '</div></div>';
+    str += '<div class="sbAction sbActionBind"><div class="sbActionContent">';
+    str += 'Bind';
+    str += '</div></div>';
+    str += '<div class="sbAction sbActionExtract"><div class="sbActionContent">';
+    str += 'Extract'
+    str += '</div></div>';
+
+    if(refresh) {
+        document.querySelector('.sbActions').innerHTML = str;
         return;
     }
     return str;
