@@ -1,3 +1,12 @@
+/*
+
+ Copyright (c) 2023 ntrx
+
+ This software is licensed under the GNU General Public License v2.0.
+ You may obtain a copy of the license at https://www.gnu.org/licenses/gpl-2.0.en.html
+
+*/
+
 /**
  * The Stat class is used to define any kind of effect within the game : Sigil stats, Skills effects...
  * Two parameters are mandatory: the EFFECT and the THEORICAL VALUE. 

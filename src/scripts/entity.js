@@ -1,3 +1,12 @@
+/*
+
+ Copyright (c) 2023 ntrx
+
+ This software is licensed under the GNU General Public License v2.0.
+ You may obtain a copy of the license at https://www.gnu.org/licenses/gpl-2.0.en.html
+
+*/
+
 /**
  * The Entity class is the base of many things in the game such as Weapons, Armors, Sigils... any object that needs a unique ID, name, description, and icon.
  * @author ntrx

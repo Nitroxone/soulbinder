@@ -1,3 +1,12 @@
+/*
+
+ Copyright (c) 2023 ntrx
+
+ This software is licensed under the GNU General Public License v2.0.
+ You may obtain a copy of the license at https://www.gnu.org/licenses/gpl-2.0.en.html
+
+*/
+
 /**
  * This variable contains all the data that is required for the game engine to work properly.
  * It essentially contains vocabulary, but also color codes and file names.
