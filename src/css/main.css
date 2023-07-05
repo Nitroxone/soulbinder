@@ -4686,13 +4686,15 @@ hr.leftSided {
 
     transform: translateY(-2%);
 
-    /*overflow: hidden;*/
+    overflow: hidden;
+
+    position: relative;
 }
 .sbActions > .sbAction:not(:last-child) {
     /*margin-bottom: 0.2rem;*/
 }
 .sbAction {
-    position: relative;
+    position: absolute;
 
     transform: rotate(45deg) translate(15%, -25%) scale(1.1);
 
@@ -4713,6 +4715,7 @@ hr.leftSided {
     transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 .sbAction:hover {
+    z-index: 3;
     cursor: pointer;
     filter: saturate(120%) brightness(110%);
     box-shadow: 0px 0px 0px 1px rgba(255,255,255,1) inset, 0px 1px 4px 2px rgba(128,255,255,0.6) inset;
@@ -4724,8 +4727,16 @@ hr.leftSided {
     font-size: .85rem;
     font-variant: small-caps;
 }
+.sbActionUnbind {
+    top: -5%;
+}
 .sbActionBind {
     z-index: 2;
+    top: 50%;
+    translate: 0 -50%;
+}
+.sbActionExtract {
+    bottom: -5%;
 }
 
 .astralForgeReceptacle {
