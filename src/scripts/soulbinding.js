@@ -24,4 +24,8 @@ class Soulbinding {
 
         getSoulbindingItem(true);
     }
+
+    unslotItem() {
+        this.item = null;
+    }
 }
