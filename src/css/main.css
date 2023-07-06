@@ -4724,6 +4724,26 @@ hr.leftSided {
     cursor: pointer;
 }
 
+.sbItemContainerEffects {
+    width: 80%;
+    padding: 0.5rem;
+    line-height: 125%;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 3px;
+}
+.sbItemContainerEffects > .itemEffect { 
+    width: 100% !important;
+}
+.sbItemContainerEffects > h2 {
+    text-align: center;
+    font-family: RobotoSlab;
+    font-variant: small-caps;
+    font-size: 13px;
+}
+.sbItemContainerEffects > h2:not(:last-child) {
+    margin-bottom: 1rem;
+}
+
 .sbObjects {
     grid-area: sbObjects;
 }

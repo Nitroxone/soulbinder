@@ -1543,3 +1543,11 @@ function compareHighestRarities(a, b) {
     if(rarities[a.toLowerCase()] > rarities[b.toLowerCase()]) return a;
     return b;
 }
+
+function appendEffectToObject(eff, object) {
+    const { effect, value } = eff;
+    if(object.hasOwnProperty(effect)) object[effect] += value;
+    else object[effect] = value;
+
+    return object;
+}

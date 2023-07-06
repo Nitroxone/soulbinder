@@ -2126,7 +2126,6 @@ function getSoulbindingItem(refresh = false) {
         str += '</div>';
 
         str += '<div class="sbItemContainerEffects">';
-        str += '<h2>Alterations:</h2>';
         str += game.soulbinding.item.getAlterations();
         str += '</div>';
 

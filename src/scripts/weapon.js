@@ -281,4 +281,37 @@ class Weapon extends Item {
     getWithering() {
         return getRandomNumber(this.mdmg[0], this.mdmg[1]);
     }
+
+    getAlterations() {
+        let str = '';
+        let result = {};
+
+        this.sockets.forEach(sock => {
+            sock.effects.forEach(eff => {
+                result = appendEffectToObject(eff, result);
+            });
+            if(sock.isCritical) sock.critical.forEach(eff => {
+                result = appendEffectToObject(eff, result);
+            });
+            if(sock.isCorrupt) sock.corrupt.forEach(eff => {
+                result = appendEffectToObject(eff, result);
+            });
+        });
+        this.echoes.forEach(echo => {
+            echo.stats.forEach(stat => {
+                result = appendEffectToObject(stat, result);
+            });
+        });
+
+        for(const eff in result) {
+            const st = new Stat({effect: eff, theorical: result[eff], isPercentage: isAstralForgeEffectPercentage(eff)});
+            str += st.getFormatted({cssClass: 'itemEffect', noTheorical: true, defaultColor: true});
+        }
+
+        console.log(str);
+        if(str === '') str = '<h2>No alterations</h2>';
+        else str = '<h2>Alterations</h2>' + str;
+
+        return str;
+    }
 }
