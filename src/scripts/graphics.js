@@ -389,7 +389,7 @@ function getSetTooltip(set) {
 }
 
 function getSetTooltipItem(item) {
-    let str = '<div class="sigilInfo" style="' + getIcon(item, 25) + '">';
+    let str = '<div class="sigilInfo" style="' + getIcon(item, 25, true) + '">';
     str += '<div class="sigilInfo-infos">';
     str += '<div class="sigilTitle" style="text-align: left">' + getSmallThingNoIcon(item, null) + '</div>';
     str += '</div></div>';
@@ -2126,6 +2126,8 @@ function getSoulbindingItem(refresh = false) {
         str += '</div>';
 
         str += '<div class="sbItemContainerEffects">';
+        str += '<h2>Alterations:</h2>';
+        str += game.soulbinding.item.getAlterations();
         str += '</div>';
 
         str += '<div class="sbItemContainerUnslot">X</div>';
