@@ -1495,6 +1495,7 @@ function drawWorkshopScreen() {
     generateAlchemyInterfaceEvents();
     drawSoulwritingLines();
     generateSoulwritingInterfaceEvents();
+    generateSoulbindingInterfaceEvents();
 }
 
 function drawAlchemyScreen(refresh = false) {
@@ -2103,12 +2104,35 @@ function drawSoulbindingScreen(refresh = false) {
     return str;
 }
 
+function generateSoulbindingInterfaceEvents() {
+    generateSoulbindingItemEvents();
+}
+
+function generateSoulbindingItemEvents() {
+    const unslotItem = document.querySelector('.sbItemContainerUnslot');
+
+    if(unslotItem) unslotItem.addEventListener('click', e => {
+        game.soulbinding.unslotItem();
+        getSoulbindingItem(true);
+    });
+}
+
 function getSoulbindingItem(refresh = false) {
     let str = '';
 
     if(game.soulbinding.item) {
         str += '<div class="sbItemContainer">';
-        str += '<div class="sbItemContainerHeader sbItem' + capitalizeFirstLetter(game.soulbinding.item.rarity) + '"><div class="sbItemContainerIcon" style="' + getIcon(game.soulbinding.item) + '"></div></div>';    
+
+        str += '<div class="sbItemContainerHeader sbItem' + capitalizeFirstLetter(game.soulbinding.item.rarity) + '">';    
+        str += '<div class="sbItemContainerIcon" style="' + getIcon(game.soulbinding.item) + '"></div>';
+        str += '<div class="sbItemContainerName" style="color: ' + getRarityColorCode(game.soulbinding.item.rarity) + '"><span>' + game.soulbinding.item.name + '</span></div>';
+        str += '</div>';
+
+        str += '<div class="sbItemContainerEffects">';
+        str += '</div>';
+
+        str += '<div class="sbItemContainerUnslot">X</div>';
+
         str += '</div>';
     } else {
         str += '<div class="sbNoItem">No Item</div>';
@@ -2116,6 +2140,7 @@ function getSoulbindingItem(refresh = false) {
 
     if(refresh) {
         document.querySelector('.sbItem').innerHTML = str;
+        generateSoulbindingItemEvents();
         return;
     }
     return str;
