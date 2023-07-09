@@ -14,10 +14,10 @@ let Sounds = {
             {name: "tooltip_spawn.wav", volume: 0.3}
         ],
         TOOLTIP_HOVER: [
-            {name: "tooltip_hover.wav", volume: 0.5, pitch: () => {return getRandomNumber(1.95, 2)}}
+            {name: "tooltip_hover.wav", volume: 0.5, pitch: () => {return getRandomNumber(1.99, 2, true)}, alwaysDifferent: true, previousPitch: 2}
         ],
         TOOLTIP_CLOSE: [
-            {name: "tooltip_close.wav", volume: 1, pitch: () => {return getRandomNumber(1.5, 1.45)}}
+            {name: "click2.wav", volume: 0.5, pitch: () => {return getRandomNumber(1.5, 1.45)}}
         ],
         EQUIP: [
             {name: "equip1.wav", volume: 0.3},
@@ -89,7 +89,7 @@ let Sounds = {
             const file = choose(Sounds.Types[type.toUpperCase()]);
 
             const volume = file.volume || vol;
-            const pitch = file.pitch ? file.pitch() : pit;
+            const pitch = file.pitch ? Sounds.Methods.getPitch(file) : pit;
 
             const audio = new Audio(Sounds.FOLDER + file.name);
             const dur = audio.duration;
@@ -99,6 +99,20 @@ let Sounds = {
             audio.play();
 
             return dur;
+        },
+        getPitch: getPitch = (obj) => {
+            const alwaysDifferent = getValueFromObject(obj, 'alwaysDifferent', false);
+            let pitch = 0;
+
+            if(alwaysDifferent) {
+                do {
+                    pitch = obj.pitch();
+                } while(pitch === obj.previousPitch);
+            }
+            else pitch = obj.pitch();
+
+            console.log(pitch);
+            return pitch;
         }
     }
 }

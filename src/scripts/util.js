@@ -294,9 +294,10 @@ function findEffect(array, name) {
  * @param {number} max maximum number
  * @returns {number} a random number 
  */
-function getRandomNumber(min, max) {
+function getRandomNumber(min, max, allowFloat = false) {
     // swap min and max if min is greater than max
     if(min > max) [min, max] = [max, min];
+    if(allowFloat) return Math.random() * (max - min + 1) + min;
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
