@@ -17,7 +17,7 @@ let Sounds = {
             {name: "tooltip_hover.wav", volume: 0.5, pitch: () => {return getRandomNumber(1.99, 2, true)}, alwaysDifferent: true, previousPitch: 2}
         ],
         TOOLTIP_CLOSE: [
-            {name: "click2.wav", volume: 0.5, pitch: () => {return getRandomNumber(1.5, 1.45)}}
+            {name: "click2.wav", volume: 0.5, pitch: () => {return 1.5}}
         ],
         EQUIP: [
             {name: "equip1.wav", volume: 0.3},
@@ -60,6 +60,9 @@ let Sounds = {
             {name: "potion_result1.wav", volume: 0.6},
             {name: "potion_result2.wav", volume: 0.6},
         ],
+        SOULWRITE_WRITE_WRITE: [
+            {name: "soulwriteWriteWrite.wav", volume: 0.6}
+        ],
         SOULWRITE_PROCESS: [
             {name: "soulwriteWriteProcess.wav", volume: 0.6, pitch: () => {return 0.85}}
         ],
@@ -70,6 +73,9 @@ let Sounds = {
         ],
         SOULWRITE_UNSLOT: [
             {name: "soulwriteWriteUnslot.wav", volume: 0.6, pitch: () => {return 1.5}}
+        ],
+        SOULWRITE_SLOT_IN: [
+            {name: "soulwriteWriteSlotIn.wav", volume: 0.6}
         ],
         SOULWRITE_REGULAR: [
             {name: "soulwriteWriteRegular.wav", volume: 0.6}

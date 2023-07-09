@@ -1823,6 +1823,7 @@ function generateSoulwritingInterfaceEvents() {
 
             Sounds.Methods.playSound(Data.SoundType.TOOLTIP_HOVER);
             if(game.soulwriting.selectedSlot !== 0) {
+                Sounds.Methods.playSound(Data.SoundType.SOULWRITE_SLOT_IN);
                 const slot = document.querySelector('#sws' + game.soulwriting.selectedSlot);
                 if(game.soulwriting.getSoulmarkFromSelected() === slmrk) {
                     game.soulwriting.removeSoulmarkFromSelected();
@@ -1945,7 +1946,8 @@ function generateSoulwritingInterfaceEvents() {
 
     soulwrite.addEventListener('click', e => {
         if(!game.soulwriting.isWriting && game.soulwriting.canWrite()) {
-            Sounds.Methods.playSound(Data.SoundType.SOULWRITE_PROCESS)
+            Sounds.Methods.playSound(Data.SoundType.SOULWRITE_WRITE_WRITE);
+            Sounds.Methods.playSound(Data.SoundType.SOULWRITE_PROCESS);
             const stalDiamond = document.querySelector('#swWrite-stalwart');
             const corrDiamond = document.querySelector('#swWrite-corrupt');
             stalDiamond.classList.remove('swStalwartAnim');
