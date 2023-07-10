@@ -417,25 +417,25 @@ function getSigilDetails(sigil, full = false, soulbindingFormat = false) {
     let str = '<div class="sigilInfo' + (soulbindingFormat ? ' soulbindingSigilInfo' : '') + '" style="background-image: url(css/img/sigils/' + sigil.icon + '.png)">';
     str += '<div class="sigilInfo-infos">'
     str += '<div class="sigilTitle">' + getSmallThingNoIcon(sigil, null) + '</div>';
-    if(full) {
+    if(full || soulbindingFormat) {
         sigil.effects.forEach(effect => {
-            str += '<div class="sigilEffect"' + (effect.critical ? ' style="font-weight:bold; color:'+ Data.Color.CRITICAL_EFF +'; font-style:italic;"' : '') + '>' + (effect.value > 0 ? '+ ' : effect.value < 0 ? '- ' : '') + (effect.value == 0 ? '' : Math.abs(effect.value)) + (effect.isPercentage ? '%' : '') + ' ' + capitalizeFirstLetter(effect.effect) + '<span class="theoricalval">[' + effect.theorical[0] + '-' + effect.theorical[1] + ']</span>' + '</div>';
+            str += '<div class="sigilEffect" style="' + (soulbindingFormat ? 'display: none;' : '') + '">' + (effect.value > 0 ? '+ ' : effect.value < 0 ? '- ' : '') + (effect.value == 0 ? '' : Math.abs(effect.value)) + (effect.isPercentage ? '%' : '') + ' ' + capitalizeFirstLetter(effect.effect) + '<span class="theoricalval">[' + effect.theorical[0] + '-' + effect.theorical[1] + ']</span>' + '</div>';
         });
         if(sigil.isCritical) {
             sigil.critical.forEach(effect => {
-                str += '<div class="sigilEffect"' + ' style="font-family:\'RobotoBold\'; color:'+ Data.Color.CRITICAL_EFF +';"' + '><span style="font-family:Roboto">' + (effect.value > 0 ? '+ ' : effect.value < 0 ? '- ' : '') + '</span>' + (effect.value == 0 ? '' : Math.abs(effect.value)) + (effect.isPercentage ? '%' : '') + ' ' + capitalizeFirstLetter(effect.effect) + '<span class="theoricalval">[' + effect.theorical[0] + '-' + effect.theorical[1] + ']</span>' + '</div>';
+                str += '<div class="sigilEffect"' + ' style=' + (soulbindingFormat ? 'display: none; ' : '') + '"font-family:\'RobotoBold\'; color:'+ Data.Color.CRITICAL_EFF +';"' + '><span style="font-family:Roboto">' + (effect.value > 0 ? '+ ' : effect.value < 0 ? '- ' : '') + '</span>' + (effect.value == 0 ? '' : Math.abs(effect.value)) + (effect.isPercentage ? '%' : '') + ' ' + capitalizeFirstLetter(effect.effect) + '<span class="theoricalval">[' + effect.theorical[0] + '-' + effect.theorical[1] + ']</span>' + '</div>';
             });
         }
         if(sigil.isCorrupt) {
             sigil.corrupt.forEach(effect => {
-                str += '<div class="sigilEffect"' + ' style="font-weight:bold; color:'+ Data.Color.CORRUPT +';"' + '><span style="font-weight:normal">' + (effect.value > 0 ? '+ ' : effect.value < 0 ? '- ' : '') + '</span>' + (effect.value == 0 ? '' : Math.abs(effect.value)) + (effect.isPercentage ? '%' : '') + ' ' + capitalizeFirstLetter(effect.effect) + '<span class="theoricalval">[' + effect.theorical[0] + '-' + effect.theorical[1] + ']</span>' + '</div>';
+                str += '<div class="sigilEffect"' + ' style="' + (soulbindingFormat ? 'display: none; ' : '') + 'font-weight:bold; color:'+ Data.Color.CORRUPT +';"' + '><span style="font-weight:normal">' + (effect.value > 0 ? '+ ' : effect.value < 0 ? '- ' : '') + '</span>' + (effect.value == 0 ? '' : Math.abs(effect.value)) + (effect.isPercentage ? '%' : '') + ' ' + capitalizeFirstLetter(effect.effect) + '<span class="theoricalval">[' + effect.theorical[0] + '-' + effect.theorical[1] + ']</span>' + '</div>';
             });
         }
     }
     sigil.echoes.forEach(echo => {
         str += '<div class="sigilCorruption">';
         str += '<p class="name">' + echo.name +'</p>';
-        if(full) str += '<p>' + echo.desc +'</p>';
+        if(full || soulbindingFormat) str += '<p style="' + (soulbindingFormat ? 'display: none; ' : '') + '">' + echo.desc +'</p>';
         str += '</div>';
     })
     str += '</div></div>';
@@ -2131,7 +2131,11 @@ function generateSoulbindingObjectsEvents() {
     sigils.forEach(sigil => {
         if(sigil) {
             sigil.addEventListener('click', e => {
-                console.log('clike x)');
+                sigil.querySelectorAll('.sigilEffect').forEach(se => {
+                    if(se.style.display === 'none') se.style.display = 'block';
+                    else se.style.display = 'none';
+                });
+                sigil.querySelector('.sigilCorruption > p:not(.name)').style.display = 'block';
             })
         }
     })
