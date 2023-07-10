@@ -397,16 +397,24 @@ function getSetTooltipItem(item) {
     return str;
 }
 
-function getEmptySigilHTML() {
-    let str = '<div class="sigilInfo sigilInfoEmpty">'
+function getEmptySigilHTML(soulbindingFormat = false) {
+    let str = '<div class="sigilInfo sigilInfoEmpty' + (soulbindingFormat ? ' soulbindingSigilInfo' : '') + '">'
     str += '<div class="sigilInfo-infos">'
     str += '<div class="sigilTitle">Empty sigil slot</div>';
     str += '</div></div>'
     return str;
 }
 
-function getSigilDetails(sigil, full = false) {
-    let str = '<div class="sigilInfo" style="background-image: url(css/img/sigils/' + sigil.icon + '.png)">';
+function getEmptyEchoHTML(soulbindingFormat = false) {
+    let str = '<div class="sigilInfo sigilInfoEmpty' + (soulbindingFormat ? ' soulbindingSigilInfo' : '') + '">'
+    str += '<div class="sigilInfo-infos">'
+    str += '<div class="sigilTitle">Empty echo slot</div>';
+    str += '</div></div>'
+    return str;
+}
+
+function getSigilDetails(sigil, full = false, soulbindingFormat = false) {
+    let str = '<div class="sigilInfo' + (soulbindingFormat ? ' soulbindingSigilInfo' : '') + '" style="background-image: url(css/img/sigils/' + sigil.icon + '.png)">';
     str += '<div class="sigilInfo-infos">'
     str += '<div class="sigilTitle">' + getSmallThingNoIcon(sigil, null) + '</div>';
     if(full) {
@@ -438,8 +446,8 @@ function getSigilDetails(sigil, full = false) {
 /**
  * @param {Echo} echo the Echo to get the data from
  */
-function getEchoDetails(echo, full = false) {
-    let str = '<div class="echoInfo" style="border: 1px solid '+ hexToRGBA(getRarityColorCode(echo.rarity), 0.5) +'">'
+function getEchoDetails(echo, full = false, soulbindingFormat = false) {
+    let str = '<div class="echoInfo' + (soulbindingFormat ? ' soulbindingSigilInfo' : '') + '" style="border: 1px solid '+ hexToRGBA(getRarityColorCode(echo.rarity), 0.5) +'">'
     str += '<div class="echoTitle" style="color: ' + getRarityColorCode(echo.rarity) + '">' + echo.name + '</div>';
     if(full) {
         str += '<div class="echoEffects">'
@@ -2117,6 +2125,18 @@ function generateSoulbindingItemEvents() {
     });
 }
 
+function generateSoulbindingObjectsEvents() {
+    const sigils = document.querySelectorAll('.soulbindingSigilInfo');
+
+    sigils.forEach(sigil => {
+        if(sigil) {
+            sigil.addEventListener('click', e => {
+                console.log('clike x)');
+            })
+        }
+    })
+}
+
 function getSoulbindingItem(refresh = false) {
     let str = '';
 
@@ -2176,16 +2196,26 @@ function getSoulbindingObjects(refresh = false) {
         const socket = item.sockets[i];
         
         str += '<div class="sbObjectsSigil">';
-        if(socket) str += getSigilDetails(socket);
+        if(socket) str += getSigilDetails(socket, false, true);
+        else str += getEmptySigilHTML(true);
         str += '</div>';
     }
     str += '</div>';
 
     str += '<div class="sbObjectsEchoes">';
+    if(item && item.hasOwnProperty('echoes_amount')) for(let i = 0; i < item.echoes_amount; i++) {
+        const echo = item.echoes[i];
+        
+        str += '<div class="sbObjectsSigil">';
+        if(echo) str += getEchoDetails(echo, false, true);
+        else str += getEmptyEchoHTML(true);
+        str += '</div>';
+    }
     str += '</div>';
 
     if(refresh) {
         document.querySelector('.sbObjects').innerHTML = str;
+        generateSoulbindingObjectsEvents();
         return;
     }
     return str;

@@ -4783,10 +4783,40 @@ hr.leftSided {
     grid-template-areas: 
         "sbObjectsSigils"
         "sbObjectsEchoes";
+    align-items: stretch;
+
+    overflow-y: auto;
 }
 
-.sbObjectsSigils {
+.sbObjectsSigils, .sbObjectsEchoes {
     grid-area: sbObjectsSigils;
+
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    border-bottom: 1px dashed grey;
+}
+.sbObjectsSigils > .sbObjectsSigil:not(:last-child), .sbObjectsEchoes > .sbObjectsSigil:not(:last-child) {
+    margin-bottom: 0.3rem;
+}
+.sbObjectsSigil {
+    width: 75%;
+    background: url('img/bg1.png');
+}
+.soulbindingSigilInfo {
+    width: 100%;
+    border-color: rgb(155, 155, 155);
+    transition: all .1s ease-in-out;
+}
+.soulbindingSigilInfo:hover {
+    border-color: white !important;
+    cursor: pointer;
+}
+.sigilInfoEmpty.soulbindingSigilInfo {
+    border-style: dashed !important;
 }
 .sbObjectsEchoes {
     grid-area: sbObjectsEchoes;
