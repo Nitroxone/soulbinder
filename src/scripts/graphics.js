@@ -397,8 +397,8 @@ function getSetTooltipItem(item) {
     return str;
 }
 
-function getEmptySigilHTML(soulbindingFormat = false) {
-    let str = '<div class="sigilInfo sigilInfoEmpty' + (soulbindingFormat ? ' soulbindingSigilInfo' : '') + '">'
+function getEmptySigilHTML(soulbindingFormat = false, soulbindingId = null) {
+    let str = '<div ' + (soulbindingId ? 'id="sbs-' + soulbindingId + '" ' : '') + 'class="sigilInfo sigilInfoEmpty' + (soulbindingFormat ? ' soulbindingSigilInfo' : '') + '"' + (soulbindingFormat ? ' ondragover="allowDrop(event)" ondrop="game.soulbinding.preslotSigil(event, ' + (soulbindingId ? '\'sbs-' + soulbindingId + '\'' : 0) + ')"' : '') + '>';
     str += '<div class="sigilInfo-infos">'
     str += '<div class="sigilTitle">Empty sigil slot</div>';
     str += '</div></div>'
@@ -556,7 +556,7 @@ function drawSigilInventory(sigils) {
     let str = '';
     for(let i = 0; i < sigils.length; i++) {
         let me = sigils[i];
-        str += '<div id="res-' + me.id + '" class="inventoryItem" style="' + getIcon(me) + '; border: 2px solid ' + getRarityColorCode(me.rarity) +'">';
+        str += '<div id="res-' + me.id + '" class="inventoryItem" style="' + getIcon(me) + '; border: 2px solid ' + getRarityColorCode(me.rarity) +'" draggable="true">';
         str += '</div>';
     }
     domWhat('res-cat-sigils').innerHTML = str;
@@ -574,11 +574,16 @@ function drawSigilInventory(sigils) {
         // Play sound on hover
         domWhat('res-' + me.id).addEventListener('mouseover', function(){
             Sounds.Methods.playSound(Data.SoundType.TOOLTIP_HOVER);
+        });
+        // Draggable events
+        document.querySelector('#res-' + me.id).addEventListener("dragstart", e => {
+            e.dataTransfer.setData("sigil", me.id);
+            //console.log(e.dataTransfer.getData("weapon"));
         })
     }
     document.querySelector('#res-sigils').addEventListener('click', (e) => {
         document.querySelector('#res-cat-sigils').classList.toggle('hide');
-    })
+    });
 }
 
 function drawResourceInventory(resources = game.inventory.resources) {
@@ -2118,9 +2123,10 @@ function generateSoulbindingInterfaceEvents() {
 }
 
 function generateSoulbindingItemEvents() {
-    const unslotItem = document.querySelector('.sbItemContainerUnslot');
+    const unslotItem = document.querySelector('.sbItemContainer');
 
-    if(unslotItem) unslotItem.addEventListener('click', e => {
+    if(unslotItem) unslotItem.addEventListener('contextmenu', e => {
+        e.preventDefault();
         game.soulbinding.unslotItem();
         getSoulbindingItem(true);
         getSoulbindingObjects(true);
@@ -2181,11 +2187,33 @@ function getSoulbindingItem(refresh = false) {
         str += '<div class="sbItemContainerName" style="color: ' + getRarityColorCode(game.soulbinding.item.rarity) + '"><span>' + game.soulbinding.item.name + '</span></div>';
         str += '</div>';
 
+        str += '<div class="sbItemContainerIndicators">';
+
+        str += '<div class="sbItemContainerIndicator">';
+        str += '<h3>Sigils</h3>';
+        str += '<div class="sbItemContainerDots">';
+        for(let i = 0, c = game.soulbinding.item.sockets.length; i < game.soulbinding.item.sockets_amount; i++) {
+            if(c > 0) str += '<span class="sbFulldot"></span>';
+            else str += '<span class="sbEmptyDot"></span>';
+            c--;
+        }
+        str += '</div></div>';
+
+        str += '<div class="sbItemContainerIndicator">';
+        str += '<h3>Echoes</h3>';
+        str += '<div class="sbItemContainerDots">';
+        for(let i = 0, c = game.soulbinding.item.echoes.length; i < game.soulbinding.item.echoes_amount; i++) {
+            if(c > 0) str += '<span class="sbFulldot"></span>';
+            else str += '<span class="sbEmptyDot"></span>';
+            c--;
+        }
+        str += '</div></div>';
+        
+        str += '</div>';
+
         str += '<div class="sbItemContainerEffects">';
         str += game.soulbinding.item.getAlterations();
         str += '</div>';
-
-        str += '<div class="sbItemContainerUnslot">X</div>';
 
         str += '</div>';
     } else {
@@ -2231,7 +2259,7 @@ function getSoulbindingObjects(refresh = false) {
         
         str += '<div class="sbObjectsSigil" style="animation-delay: ' + animDelay + 's;">';
         if(socket) str += getSigilDetails(socket, false, true);
-        else str += getEmptySigilHTML(true);
+        else str += getEmptySigilHTML(true, i+1);
         str += '</div>';
         animDelay += 0.1;
     }

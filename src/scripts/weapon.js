@@ -282,7 +282,7 @@ class Weapon extends Item {
         return getRandomNumber(this.mdmg[0], this.mdmg[1]);
     }
 
-    getAlterations() {
+    getAlterations(additional = []) {
         let str = '';
         let result = {};
 
@@ -302,10 +302,16 @@ class Weapon extends Item {
                 result = appendEffectToObject(stat, result);
             });
         });
+        additional.forEach(add => {
+            console.log(add);
+            result = appendEffectToObject(add, result);
+        })
 
         for(const eff in result) {
+            const extra = additional.some(function(item){return item.effect === eff}) ? ' itemEffectDiff' : '';
+
             const st = new Stat({effect: eff, theorical: result[eff], isPercentage: isAstralForgeEffectPercentage(eff)});
-            str += st.getFormatted({cssClass: 'itemEffect', noTheorical: true, defaultColor: true});
+            str += st.getFormatted({cssClass: 'itemEffect' + extra, noTheorical: true, defaultColor: true});
         }
 
         console.log(str);

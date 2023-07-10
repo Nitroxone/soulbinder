@@ -4637,7 +4637,8 @@ hr.leftSided {
     border-top: none;
     border-left: none;
     border-bottom: none;
-    background: url('img/bg4.png');
+    background: url('img/darkBorders.png'), url('img/bg4.png');
+    background-size: 100% 100%, auto;
 
     overflow: hidden;
 }
@@ -4721,9 +4722,10 @@ hr.leftSided {
     font-family: RobotoSlab;
     border: 1px solid rgb(100, 100, 100);
     border-radius: 100%;
-    width: 22px;
-    height: 22px;
-    margin-bottom: 0.75rem;
+    width: 20px;
+    height: 20px;
+    margin-bottom: 0.35rem;
+    margin-right: 0.35rem;
 
     display: flex;
     justify-content: center;
@@ -4732,9 +4734,8 @@ hr.leftSided {
 
     position: absolute;
 
-    bottom: 0;
-    left: 50%;
-    transform: translate(-50%, 0);
+    top: 0;
+    right: 0;
 
     background: url('img/bg1.png');
 }
@@ -4832,12 +4833,65 @@ hr.leftSided {
     cursor: pointer;
 }
 .sigilInfoEmpty.soulbindingSigilInfo {
-    border-style: dashed !important;
+    border-style: dashed;
 }
 .sbObjectsEchoes {
     grid-area: sbObjectsEchoes;
 }
 
+.sbItemContainerIndicators {
+    width: 88%;
+    padding: 0.5rem;
+}
+.sbItemContainerIndicator {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.sbItemContainerIndicator > h3 {
+    font-family: RobotoSlab;
+    font-variant: small-caps;
+}
+.sbItemContainerDots {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.sbItemContainerDots > span:not(:last-child) {
+    margin-right: 0.15rem;
+}
+
+.sbFulldot, .sbEmptyDot {
+    width: 8px;
+    height: 8px;
+    padding: 0.05rem;
+    border-radius: 100%;
+    border: 1px solid white;
+}
+.sbFulldot {
+    border-color: rgb(200, 200, 200);
+    background-color: rgb(200, 200, 200);
+}
+.sbEmptyDot {
+    border-color: rgb(155, 155, 155);
+    background-color: transparent;
+}
+
+.preslottedSigil {
+    border-style: dashed !important;
+}
+.preslottedSigilTitle {
+    font-family: RobotoSlabBold;
+    font-size: 12px;
+    font-weight: normal;
+    color: rgba(155, 155, 155, 0.75);
+}
+
+.itemEffectDiff {
+    font-family: RobotoBoldItalic;
+    color: #ece2b6 !important;
+}
 
 .sbActions {
     grid-area: sbActions;

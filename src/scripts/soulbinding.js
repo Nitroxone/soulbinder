@@ -26,4 +26,18 @@ class Soulbinding {
     unslotItem() {
         this.item = null;
     }
+
+    preslotSigil(event, id) {
+        const sigil = game.player.inventory.getItemFromId(Data.ItemType.SIGIL, event.dataTransfer.getData('sigil'));
+        const sigilDom = document.querySelector('#' + id);
+        const sigilDomTitle = sigilDom.querySelector('.sigilTitle');
+        let extraEffects = sigil.effects;
+        if(sigil.isCritical) extraEffects = [...extraEffects, ...sigil.critical];
+        if(sigil.isCorrupt) extraEffects = [...extraEffects, ...sigil.corrupt];
+
+        document.querySelector('.sbItemContainerEffects').innerHTML = this.item.getAlterations(extraEffects);
+        sigilDom.classList.add('preslottedSigil');
+        sigilDomTitle.textContent = sigil.name;
+        sigilDomTitle.classList.add('preslottedSigilTitle');
+    }
 }
