@@ -4612,7 +4612,7 @@ hr.leftSided {
     grid-area: soulbInterface;
 
     display: grid;
-    grid-template-columns: 1.2fr 2fr 0.8fr;
+    grid-template-columns: 1.1fr 2fr 0.6fr;
     grid-template-rows: 1fr;
     gap: 0 0;
     grid-template-areas: "sbItem sbObjects sbActions";
@@ -4775,7 +4775,24 @@ hr.leftSided {
 
 .sbObjects {
     grid-area: sbObjects;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0 0;
+    grid-template-areas: 
+        "sbObjectsSigils"
+        "sbObjectsEchoes";
 }
+
+.sbObjectsSigils {
+    grid-area: sbObjectsSigils;
+}
+.sbObjectsEchoes {
+    grid-area: sbObjectsEchoes;
+}
+
+
 .sbActions {
     grid-area: sbActions;
 

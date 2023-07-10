@@ -20,6 +20,7 @@ class Soulbinding {
         else if(trinket !== '') this.item = getInventoryTrinketById(Number(trinket));
 
         getSoulbindingItem(true);
+        getSoulbindingObjects(true);
     }
 
     unslotItem() {

@@ -2113,6 +2113,7 @@ function generateSoulbindingItemEvents() {
     if(unslotItem) unslotItem.addEventListener('click', e => {
         game.soulbinding.unslotItem();
         getSoulbindingItem(true);
+        getSoulbindingObjects(true);
     });
 }
 
@@ -2167,7 +2168,21 @@ function getSoulbindingActions(refresh = false) {
 }
 
 function getSoulbindingObjects(refresh = false) {
+    const item = game.soulbinding.item;
     let str = '';
+
+    str += '<div class="sbObjectsSigils">';
+    if(item && item.hasOwnProperty('sockets_amount')) for(let i = 0; i < item.sockets_amount; i++) {
+        const socket = item.sockets[i];
+        
+        str += '<div class="sbObjectsSigil">';
+        if(socket) str += getSigilDetails(socket);
+        str += '</div>';
+    }
+    str += '</div>';
+
+    str += '<div class="sbObjectsEchoes">';
+    str += '</div>';
 
     if(refresh) {
         document.querySelector('.sbObjects').innerHTML = str;
