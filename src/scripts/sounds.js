@@ -117,7 +117,6 @@ let Sounds = {
             }
             else pitch = obj.pitch();
 
-            console.log(pitch);
             return pitch;
         }
     }
