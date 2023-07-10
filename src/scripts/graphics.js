@@ -449,16 +449,18 @@ function getSigilDetails(sigil, full = false, soulbindingFormat = false) {
 function getEchoDetails(echo, full = false, soulbindingFormat = false) {
     let str = '<div class="echoInfo' + (soulbindingFormat ? ' soulbindingSigilInfo' : '') + '" style="border: 1px solid '+ hexToRGBA(getRarityColorCode(echo.rarity), 0.5) +'">'
     str += '<div class="echoTitle" style="color: ' + getRarityColorCode(echo.rarity) + '">' + echo.name + '</div>';
-    if(full) {
-        str += '<div class="echoEffects">'
+    if(full || soulbindingFormat) {
+        str += '<div class="echoEffects" style="' + (soulbindingFormat ? 'display: none;' : '') + '">'
         echo.stats.forEach(effect => {
             str += effect.getFormatted({cssClass: "echoEffect"});
         });
         str += '</div>'
-        str += '<br>';
-        str += '<div class="echoDesc">' + echo.desc + '</div>'
-        str += '<br>';
-        str += '<div class="echoQuote">' + echo.quote + '</div>';
+        if(soulbindingFormat) str += '<div class="brContainer" style="display: none;"><br></div>';
+        else str += '<br>';
+        str += '<div class="echoDesc" style="' + (soulbindingFormat ? 'display: none;' : '') + '">' + echo.desc + '</div>'
+        if(soulbindingFormat) str += '<div class="brContainer" style="display: none;"><br></div>';
+        else str += '<br>';
+        str += '<div class="echoQuote" style="' + (soulbindingFormat ? 'display: none;' : '') + '">' + echo.quote + '</div>';
     }
     str += '</div>';
 
@@ -2131,12 +2133,39 @@ function generateSoulbindingObjectsEvents() {
     sigils.forEach(sigil => {
         if(sigil) {
             sigil.addEventListener('click', e => {
+                const echo = sigil.querySelector('.echoTitle');
+                const corruptedEcho = sigil.querySelector('.sigilCorruption > p:not(.name)');
+
                 sigil.querySelectorAll('.sigilEffect').forEach(se => {
                     if(se.style.display === 'none') se.style.display = 'block';
                     else se.style.display = 'none';
                 });
-                sigil.querySelector('.sigilCorruption > p:not(.name)').style.display = 'block';
-            })
+                if(corruptedEcho) {
+                    if(corruptedEcho.style.display === 'none') corruptedEcho.style.display = 'block';
+                    else corruptedEcho.style.display = 'none';
+                }
+
+                if(echo) {
+                    const brs = sigil.querySelectorAll('.brContainer');
+                    const eff = sigil.querySelector('.echoEffects');
+                    const desc = sigil.querySelector('.echoDesc');
+                    const quote = sigil.querySelector('.echoQuote');
+
+                    brs.forEach(br => {
+                        if(br.style.display === 'none') br.style.display = 'block';
+                        else br.style.display = 'none';
+                    });
+
+                    if(eff.style.display === 'none') eff.style.display = 'block';
+                    else eff.style.display = 'none';
+
+                    if(desc.style.display === 'none') desc.style.display = 'block';
+                    else desc.style.display = 'none';
+
+                    if(quote.style.display === 'none') quote.style.display = 'block';
+                    else quote.style.display = 'none';
+                }
+            });
         }
     })
 }
@@ -2193,16 +2222,18 @@ function getSoulbindingActions(refresh = false) {
 
 function getSoulbindingObjects(refresh = false) {
     const item = game.soulbinding.item;
+    let animDelay = 0;
     let str = '';
 
     str += '<div class="sbObjectsSigils">';
     if(item && item.hasOwnProperty('sockets_amount')) for(let i = 0; i < item.sockets_amount; i++) {
         const socket = item.sockets[i];
         
-        str += '<div class="sbObjectsSigil">';
+        str += '<div class="sbObjectsSigil" style="animation-delay: ' + animDelay + 's;">';
         if(socket) str += getSigilDetails(socket, false, true);
         else str += getEmptySigilHTML(true);
         str += '</div>';
+        animDelay += 0.1;
     }
     str += '</div>';
 
@@ -2210,7 +2241,8 @@ function getSoulbindingObjects(refresh = false) {
     if(item && item.hasOwnProperty('echoes_amount')) for(let i = 0; i < item.echoes_amount; i++) {
         const echo = item.echoes[i];
         
-        str += '<div class="sbObjectsSigil">';
+        animDelay += 0.1;
+        str += '<div class="sbObjectsSigil" style="animation-delay: ' + animDelay + 's;">';
         if(echo) str += getEchoDetails(echo, false, true);
         else str += getEmptyEchoHTML(true);
         str += '</div>';

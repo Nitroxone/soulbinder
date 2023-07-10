@@ -4619,8 +4619,8 @@ hr.leftSided {
 
     overflow: hidden;
 
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%), url('img/bg/bg-soulbinding.png');
-    background-size: cover;
+    background: url('img/darkBorders.png'), linear-gradient(0deg, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.65) 100%), url('img/bg/bg-soulbinding.png');
+    background-size: 100% 100%, cover, cover;
     background-position: center;
     background-repeat: no-repeat;
 
@@ -4787,17 +4787,23 @@ hr.leftSided {
 
     overflow-y: auto;
 }
-
-.sbObjectsSigils, .sbObjectsEchoes {
+.sbObjectsSigils {
     grid-area: sbObjectsSigils;
-
+    
+    border: 3px solid transparent;
+    border-image: url('img/window1.png') 3 stretch;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+.sbObjectsSigils, .sbObjectsEchoes {
     padding: 2rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 
-    border-bottom: 1px dashed grey;
+    line-height: 120% !important;
 }
 .sbObjectsSigils > .sbObjectsSigil:not(:last-child), .sbObjectsEchoes > .sbObjectsSigil:not(:last-child) {
     margin-bottom: 0.3rem;
@@ -4805,6 +4811,16 @@ hr.leftSided {
 .sbObjectsSigil {
     width: 75%;
     background: url('img/bg1.png');
+    opacity: 0;
+    transform: translateY(20px);
+
+    animation: sbObjectSigilPopIn .5s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
+}
+@keyframes sbObjectSigilPopIn {
+    to {
+        opacity: 1;
+        transform: translateY(0px);
+    }
 }
 .soulbindingSigilInfo {
     width: 100%;
