@@ -4880,6 +4880,7 @@ hr.leftSided {
 
 .preslottedSigil {
     border-style: dashed !important;
+    text-align: center;
 }
 .preslottedSigilTitle {
     font-family: RobotoSlabBold;
