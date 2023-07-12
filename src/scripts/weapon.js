@@ -311,15 +311,40 @@ class Weapon extends Item {
             });
         };
         
-        for(const eff in result) {
-            if(base) {
-                let effects = Object.keys(base);
-                
-            }
+        if(base) {
+            let effects = Object.keys(base);
+            let additional = Object.keys(result);
 
-            const st = new Stat({effect: eff, theorical: result[eff], isPercentage: isAstralForgeEffectPercentage(eff)});
-            str += st.getFormatted({cssClass: 'itemEffect', noTheorical: true, defaultColor: true});
+            for(let key of additional) {
+                let st = null, eff = null, val = null, color = '', italic = false, bold = false;
+                eff = key;
+                val = result[key];
+
+                if(base[key] > result[key] || (!base.hasOwnProperty(key) && result[key] < 0)) {
+                    if(eff !== Data.Effect.EFFORT) color = 'tomato';
+                    else color = '#4cd137';
+                } else if(base[key] < result[key] || (!base.hasOwnProperty(key) && result[key] > 0)) {
+                    if(eff !== Data.Effect.EFFORT) color = '#4cd137';
+                    else color = 'tomato';
+                } else {
+                    if(isEffectUnvaluable(eff)) color = Data.Color.ORANGE;
+                    else color = 'rgb(100, 100, 100);'
+                }
+
+                if(!base.hasOwnProperty(key)) bold = true;
+                
+                st = new Stat({effect: eff, theorical: val, isPercentage: isAstralForgeEffectPercentage(eff)});
+                str += st.getFormatted({cssClass: 'itemEffect', noTheorical: true, color: color, bold: bold, italic: italic});   
+            }
+        } else {
+            for(const eff in result) {
+            
+
+                const st = new Stat({effect: eff, theorical: result[eff], isPercentage: isAstralForgeEffectPercentage(eff)});
+                str += st.getFormatted({cssClass: 'itemEffect', noTheorical: true, defaultColor: true});
+            }
         }
+
         if(str === '') str = '<h2>No alterations</h2>';
         else str = '<h2>Alterations</h2>' + str;
 
