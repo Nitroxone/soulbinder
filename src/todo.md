@@ -58,3 +58,6 @@ DONE - Change Sigil tooltip
 DONE - Add Sigil soulmarks
 - Actually display Soulwriting price
 - Display price on Sigil tooltips
+
+SOULBINDING:
+- Prevent the addition of effects that do not already exist
