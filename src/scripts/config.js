@@ -114,6 +114,18 @@ let Config = {
 
         CRIT_LUK: true, 
     },
+    EffectUnvaluable: [
+        Data.Effect.BLEED_CURABLE,
+        Data.Effect.BLEED_INCURABLE,
+        Data.Effect.POISON_CURABLE,
+        Data.Effect.POISON_INCURABLE,
+        Data.Effect.RANGE_BACK_OFF,
+        Data.Effect.RANGE_BACK_ON,
+        Data.Effect.RANGE_FRONT_OFF,
+        Data.Effect.RANGE_FRONT_ON,
+        Data.Effect.RANGE_MIDDLE_OFF,
+        Data.Effect.RANGE_MIDDLE_ON
+    ],
     OverloadAvailable: [
         Data.Effect.MAXHEALTH,
         Data.Effect.MAXMANA,

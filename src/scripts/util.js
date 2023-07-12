@@ -1552,3 +1552,7 @@ function appendEffectToObject(eff, object) {
 
     return object;
 }
+
+function isEffectUnvaluable(eff) {
+    return Config.EffectUnvaluable.includes(eff);
+}
