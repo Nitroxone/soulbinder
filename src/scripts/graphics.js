@@ -203,16 +203,16 @@ function getSigilTooltip(sigil) {
     
     str += '<div class="consumableEffects">';
     sigil.effects.forEach(effect => {
-            str += effect.getFormatted({cssClass: "itemEffect consumableEffect"});
+            str += effect.getFormatted({cssClass: "itemEffect consumableEffect", noTheorical: isEffectUnvaluable(effect.effect)});
     });
     if(sigil.isCritical) {
         sigil.critical.forEach(effect => {
-            str += effect.getFormatted({cssClass: "itemEffect consumableEffect", color: Data.Color.CRITICAL_EFF, bold: true});
+            str += effect.getFormatted({cssClass: "itemEffect consumableEffect", noTheorical: isEffectUnvaluable(effect.effect), color: Data.Color.CRITICAL_EFF, bold: true});
         });
     }
     if(sigil.isCorrupt) {
         sigil.corrupt.forEach(effect => {
-            str += effect.getFormatted({cssClass: "itemEffect consumableEffect", color: Data.Color.CORRUPT, bold: true});
+            str += effect.getFormatted({cssClass: "itemEffect consumableEffect", noTheorical: isEffectUnvaluable(effect.effect), color: Data.Color.CORRUPT, bold: true});
         });
     }
     sigil.echoes.forEach(echo => {

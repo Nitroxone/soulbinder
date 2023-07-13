@@ -7,6 +7,7 @@
 class Soulbinding {
     constructor() {
         this.item = null;
+        this.preslottedSigil = null;
     }
 
     setItem(event) {
@@ -29,15 +30,21 @@ class Soulbinding {
 
     preslotSigil(event, id) {
         const sigil = game.player.inventory.getItemFromId(Data.ItemType.SIGIL, event.dataTransfer.getData('sigil'));
+        this.preslottedSigil = sigil;
         const sigilDom = document.querySelector('#' + id);
         const sigilDomTitle = sigilDom.querySelector('.sigilTitle');
-        let extraEffects = sigil.effects;
-        if(sigil.isCritical) extraEffects = [...extraEffects, ...sigil.critical];
-        if(sigil.isCorrupt) extraEffects = [...extraEffects, ...sigil.corrupt];
+        let extraEffects = this.preslottedSigil.effects;
+        if(this.preslottedSigil.isCritical) extraEffects = [...extraEffects, ...this.preslottedSigil.critical];
+        if(this.preslottedSigil.isCorrupt) extraEffects = [...extraEffects, ...this.preslottedSigil.corrupt];
+
+        document.querySelectorAll('.preslottedSigil').forEach(pre => {
+            pre.innerHTML = '<div class="sigilInfo-infos"><div class="sigilTitle">Empty sigil slot</div></div>';
+            pre.classList.remove('preslottedSigil');
+        })
 
         document.querySelector('.sbItemContainerEffects').innerHTML = this.item.getAlterations(extraEffects);
         sigilDom.classList.add('preslottedSigil');
-        sigilDomTitle.textContent = sigil.name;
+        sigilDomTitle.textContent = this.preslottedSigil.name;
         sigilDomTitle.classList.add('preslottedSigilTitle');
     }
 }
