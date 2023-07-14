@@ -4923,7 +4923,7 @@ hr.leftSided {
 
     border: 7px solid transparent;
     border-image: url('img/window1.png') 7 stretch;
-    background: url('img/bg1.png');
+    background: url('img/bg4.png');
     
     filter: grayscale(100%);
 
