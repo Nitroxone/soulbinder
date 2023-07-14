@@ -38,7 +38,7 @@ class Soulbinding {
         if(this.preslottedSigil.isCorrupt) extraEffects = [...extraEffects, ...this.preslottedSigil.corrupt];
 
         document.querySelectorAll('.preslottedSigil').forEach(pre => {
-            pre.innerHTML = '<div class="sigilInfo-infos"><div class="sigilTitle">Empty sigil slot</div></div>';
+            sigilDomTitle.textContent = 'Empty sigil slot';
             pre.classList.remove('preslottedSigil');
         })
 
