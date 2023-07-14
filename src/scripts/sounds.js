@@ -88,6 +88,11 @@ let Sounds = {
         ],
         SOULWRITE_STCO: [
             {name: "soulwriteWriteStco.wav", volume: 0.6}
+        ],
+        SOULBIND_PRESLOT: [
+            {name: "soulbindPreslot1.mp3", volume: 0.6},
+            {name: "soulbindPreslot2.mp3", volume: 0.6},
+            {name: "soulbindPreslot3.mp3", volume: 0.6},
         ]
     },
     Methods: {

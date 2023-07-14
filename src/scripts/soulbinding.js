@@ -46,5 +46,6 @@ class Soulbinding {
         sigilDom.classList.add('preslottedSigil');
         sigilDomTitle.textContent = this.preslottedSigil.name;
         sigilDomTitle.classList.add('preslottedSigilTitle');
+        Sounds.Methods.playSound(Data.SoundType.SOULBIND_PRESLOT);
     }
 }
