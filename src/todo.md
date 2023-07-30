@@ -49,6 +49,7 @@ ASTRAL FORGE:
 DUNGEONS:
 - Create floor transitions
 - Connect dungeons to combats
+- Create dungeon hub and exploration start buttons
 
 CRAFTING:
 
@@ -61,3 +62,9 @@ DONE - Add Sigil soulmarks
 
 SOULBINDING:
 - Prevent the addition of effects that do not already exist
+
+EONS:
+- Graphically redesign the whole thing.
+
+CARDS:
+- Start implementing.
