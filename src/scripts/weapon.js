@@ -316,7 +316,7 @@ class Weapon extends Item {
             let additional = Object.keys(result);
 
             for(let key of additional) {
-                let st = null, eff = null, val = null, color = '', italic = false, bold = false;
+                let st = null, eff = null, val = null, color = '', italic = false, bold = false, barred = false;
                 eff = key;
                 val = result[key];
 
@@ -331,10 +331,14 @@ class Weapon extends Item {
                     else color = 'rgb(100, 100, 100);'
                 }
 
-                if(!base.hasOwnProperty(key)) bold = true;
+                // BOLD if allowed effect but not altered. BARRED if unallowed.
+                if(!base.hasOwnProperty(key)) {
+                    if(isEffectAllowedOnObject(key, this)) bold = true;
+                    else barred = true;
+                }
                 
                 st = new Stat({effect: eff, theorical: val, isPercentage: isAstralForgeEffectPercentage(eff)});
-                str += st.getFormatted({cssClass: 'itemEffect', noTheorical: true, color: color, bold: bold, italic: italic});   
+                str += st.getFormatted({cssClass: 'itemEffect', noTheorical: true, color: color, bold: bold, italic: italic, barred: barred});   
             }
         } else {
             for(const eff in result) {

@@ -4754,6 +4754,10 @@ hr.leftSided {
     border-radius: 3px;
     overflow-y: scroll;
     animation: sbItemContainerEffectsFadeIn .5s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+    background: url('img/darkBorders.png'), url('img/bg1.png');
+    background-size: 100% 100%, auto;
+    box-shadow: none !important;
 }
 @keyframes sbItemContainerEffectsFadeIn {
     from {

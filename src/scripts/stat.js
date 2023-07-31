@@ -127,6 +127,7 @@ class Stat {
         const cssClass = getValueFromObject(props, "cssClass", "");
         let color = getValueFromObject(props, "color", "");
         let bold = getValueFromObject(props, "bold", false);
+        const barred = getValueFromObject(props, "barred", false);
         const italic = getValueFromObject(props, "italic", false);
         const noTheorical = getValueFromObject(props, "noTheorical", false);
         const defaultColor = getValueFromObject(props, "defaultColor", false);
@@ -161,6 +162,7 @@ class Stat {
             + '" style="' 
             + (bold ? 'font-family: RobotoBold; ' : '') 
             + (italic ? 'font-style: italic; ' : '') 
+            + (barred ? 'text-decoration: line-through; ' : '')
             + (color ? 'color: ' + color + ';': '') 
             + '">'
             + '<span style="font-weight: normal;">';
@@ -182,6 +184,7 @@ class Stat {
             + '" style="' 
             + (bold ? 'font-family: RobotoBold; ' : '') 
             + (italic ? 'font-style: italic; ' : '') 
+            + (barred ? 'text-decoration: line-through; ' : '')
             + (color ? 'color: ' + color + ';': '') 
             + '"><span style="font-weight: normal;">' 
             + (this.getValue() > 0 && !noValue ? '+ ' : this.getValue() < 0 && !noValue ? '- ' : '') 

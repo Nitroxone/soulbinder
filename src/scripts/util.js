@@ -1556,3 +1556,8 @@ function appendEffectToObject(eff, object) {
 function isEffectUnvaluable(eff) {
     return Config.EffectUnvaluable.includes(eff);
 }
+
+function isEffectAllowedOnObject(effect, object) {
+    console.log(effect);
+    return true;
+}
