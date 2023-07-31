@@ -1558,6 +1558,8 @@ function isEffectUnvaluable(eff) {
 }
 
 function isEffectAllowedOnObject(effect, object) {
-    console.log(effect);
+    if(object instanceof Weapon) {
+        
+    }
     return true;
 }
