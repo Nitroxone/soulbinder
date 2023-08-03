@@ -128,6 +128,7 @@ class Stat {
         let color = getValueFromObject(props, "color", "");
         let bold = getValueFromObject(props, "bold", false);
         const barred = getValueFromObject(props, "barred", false);
+        const opacity = getValueFromObject(props, "opacity", 1);
         const italic = getValueFromObject(props, "italic", false);
         const noTheorical = getValueFromObject(props, "noTheorical", false);
         const defaultColor = getValueFromObject(props, "defaultColor", false);
@@ -164,6 +165,7 @@ class Stat {
             + (italic ? 'font-style: italic; ' : '') 
             + (barred ? 'text-decoration: line-through; ' : '')
             + (color ? 'color: ' + color + ';': '') 
+            + (opacity ? 'opacity: ' + opacity + ';': '') 
             + '">'
             + '<span style="font-weight: normal;">';
             if(this.theorical[0] === this.theorical[1]) str += (this.getValue() > 0 ? '' : this.getValue() < 0 ? '- ' : '') + '</span>' + (this.getValue() === 0 ? '' : Math.abs(this.getValue())) + (this.isPercentage ? '%' : '');
@@ -186,6 +188,7 @@ class Stat {
             + (italic ? 'font-style: italic; ' : '') 
             + (barred ? 'text-decoration: line-through; ' : '')
             + (color ? 'color: ' + color + ';': '') 
+            + (opacity ? 'opacity: ' + opacity + ';': '') 
             + '"><span style="font-weight: normal;">' 
             + (this.getValue() > 0 && !noValue ? '+ ' : this.getValue() < 0 && !noValue ? '- ' : '') 
             + '</span>' 
