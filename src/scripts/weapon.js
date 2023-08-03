@@ -316,14 +316,15 @@ class Weapon extends Item {
             let additional = Object.keys(result);
 
             for(let key of additional) {
-                let st = null, eff = null, val = null, color = '', italic = false, bold = false, barred = false;
+                let st = null, eff = null, val = null, critCorr = null, color = '', italic = false, bold = false, barred = false;
                 eff = key;
-                val = result[key];
+                val = result[key][0];
+                critCorr = result[key][1]
 
-                if(base[key] > result[key] || (!base.hasOwnProperty(key) && result[key] < 0)) {
+                if(base[key] > val || (!base.hasOwnProperty(key) && val < 0)) {
                     if(eff !== Data.Effect.EFFORT) color = 'tomato';
                     else color = '#4cd137';
-                } else if(base[key] < result[key] || (!base.hasOwnProperty(key) && result[key] > 0)) {
+                } else if(base[key] < val || (!base.hasOwnProperty(key) && val > 0)) {
                     if(eff !== Data.Effect.EFFORT) color = '#4cd137';
                     else color = 'tomato';
                 } else {
@@ -333,7 +334,7 @@ class Weapon extends Item {
 
                 // BOLD if allowed effect but not altered. BARRED if unallowed.
                 if(!base.hasOwnProperty(key)) {
-                    if(isEffectAllowedOnObject(key, this)) bold = true;
+                    if(isEffectAllowedOnObject(key, this) || critCorr) bold = true;
                     else barred = true;
                 }
                 
@@ -342,9 +343,7 @@ class Weapon extends Item {
             }
         } else {
             for(const eff in result) {
-            
-
-                const st = new Stat({effect: eff, theorical: result[eff], isPercentage: isAstralForgeEffectPercentage(eff)});
+                const st = new Stat({effect: eff, theorical: result[eff][0], isPercentage: isAstralForgeEffectPercentage(eff)});
                 str += st.getFormatted({cssClass: 'itemEffect', noTheorical: true, defaultColor: true});
             }
         }

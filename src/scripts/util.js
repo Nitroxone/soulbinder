@@ -1221,6 +1221,12 @@ function getFighterFromPosition(pos) {
     }
 }
 
+/**
+ * Returns the NPC whose type and position are specified as parameters.
+ * @param {Data.BattleFighterType} type the NPC type
+ * @param {Data.FormationPosition} position the NPC position
+ * @returns {NPC} the matching NPC
+ */
 function getFighterFromPositionAndType(type, position) {
     if(type === Data.BattleFighterType.ENEMY) {
         switch(position) {
@@ -1297,6 +1303,11 @@ function getFontFamilyFromAeStyling(props) {
     return 'Roboto';
 }
 
+/**
+ * Returns whether the provided effect is a movement type.
+ * @param {Data.Effect} eff the effect to check
+ * @returns {boolean} whether it's a movement effect
+ */
 function isMovementEffect(eff) {
     return eff === Data.Effect.PULL_ONE
         || eff === Data.Effect.PULL_TWO
@@ -1308,6 +1319,11 @@ function isMovementEffect(eff) {
         || eff === Data.Effect.BACK_TWO;
 }
 
+/**
+ * Returns whether the provided effect is a base stat ([max]health, [max]mana, [max]stamina) effect.
+ * @param {Data.Effect} eff the effect to check
+ * @returns {boolean} whether it's a base stat effect
+ */
 function isBaseStatChange(eff) {
     return eff.effect === Data.Effect.HEALTH
             || eff.effect === Data.Effect.MAXHEALTH
@@ -1317,15 +1333,30 @@ function isBaseStatChange(eff) {
             || eff.effect === Data.Effect.MAXSTAMINA;
 }
 
+/**
+ * Returns whether the provided effect is a bleeding effect or poisoning effect.
+ * @param {Data.Effect} eff the effect to check
+ * @returns {boolean} whether it's a bleeding/poisoning effect
+ */
 function isBleedingOrPoisoning(eff) {
     return isBleedingEffect(eff) || isPoisoningEffect(eff);
 }
 
+/**
+ * Returns whether the provided effect is a bleeding effect.
+ * @param {Data.Effect} eff the effect to check
+ * @returns {boolean} whether it's a bleeding effect
+ */
 function isBleedingEffect(eff) {
     return eff.effect === Data.Effect.BLEEDING_CURABLE
             || eff.effect === Data.Effect.BLEEDING_INCURABLE
 }
 
+/**
+ * Returns whether the provided effect is a poisoning effect.
+ * @param {Data.Effect} eff the effect to check
+ * @returns {boolean} whether it's a poisoning effect
+ */
 function isPoisoningEffect(eff) {
     return eff.effect === Data.Effect.BLIGHT_CURABLE
             || eff.effect === Data.Effect.BLIGHT_INCURABLE
@@ -1345,6 +1376,12 @@ function getRandomEnemyFormationFromDungeon(dungeon = game.currentDungeon) {
     return choose(available);
 }
 
+/**
+ * Returns whether the provided array of DungeonRoom objects has at least one room which coordinates match the ones provided.
+ * @param {DungeonRoom[]} rooms the rooms to check
+ * @param {number[]} coords the coords to compare
+ * @returns {boolean} whether a room was found
+ */
 function hasRoomWithCoordinates(rooms, coords) {
     for(let i = 0; i < rooms.length; i++) {
         if(rooms[i].coordinates[0] === coords[0] && rooms[i].coordinates[1] === coords[1]) return rooms[i];
@@ -1362,6 +1399,9 @@ function unlockEon(id) {
     drawEonTitles(true);
 }
 
+/**
+ * Unlocks all eons.
+ */
 function unlockAllEons() {
     game.all_majorEons.forEach(eon => {
         eon.unlocked = true;
@@ -1385,6 +1425,9 @@ function unlockEonFragment(id) {
     return 'Eon not found.'
 }
 
+/**
+ * Unlocks all eon fragments.
+ */
 function unlockAllEonFragments() {
     game.all_majorEons.forEach(eon => {
         eon.fragments.forEach(frag => {
@@ -1393,19 +1436,39 @@ function unlockAllEonFragments() {
     });
 }
 
+/**
+ * Returns whether the provided HTLMElement is empty.
+ * @param {HTMLElement} element the element to check
+ * @returns {boolean} whether the element is empty
+ */
 function isElementEmpty(element) {
     return element.innerHTML.trim() === '';
 }
 
+/**
+ * Returns either "cleared" or "uncleared" based on the provided "status" variable.
+ * @param {*} status the room status
+ * @returns {string} either "clear" or "uncleared"
+ */
 function translateRoomStatus(status) {
     if(status) return "cleared";
     else return "uncleared";
 }
 
+/**
+ * Returns a dungeon room action based on the provided type.
+ * @param {Data.DungeonRoomType} type the type 
+ * @returns {Data.DungeonRoomAction} a corresponding action
+ */
 function getActionFromRoomType(type) {
     if(type === Data.DungeonRoomType.EMPTY || type === Data.DungeonRoomType.ENTRANCE) return Data.DungeonRoomAction.SEARCH;
 }
 
+/**
+ * Returns an object of Quanta Burst settings based on the provided rarity.
+ * @param {Data.Rarity} rarity the rarity to look for
+ * @returns {object} a Quanta Burst settings object
+ */
 function getQuantaBurstParamsFromRarity(rarity) {
     switch(rarity) {
         case Data.Rarity.GOLD:
@@ -1453,14 +1516,27 @@ function getQuantaBurstParamsFromRarity(rarity) {
     }
 }
 
+/**
+ * Returns a random math sign.
+ * @returns {number} either 1 or -1
+ */
 function getRandomSign() {
     return Math.random() < 0.5 ? -1 : 1;
 }
 
+/**
+ * Returns an HTML content string that contains a dungeon search button.
+ * @param {boolean} min whether the button should be minimized
+ * @returns {string} an HTML content string
+ */
 function getDungeonSearchButton(min = false) {
     return '<div class="roomActions-action search' + (min ? ' minEnter' : '') + '"><h4>Search</h4></div>';
 }
 
+/**
+ * Returns an HTML content string that contains a dungeon scout button.
+ * @returns {string} an HTML content string
+ */
 function getDungeonScoutButton() {
     return '<div class="roomActions-action scout">'
     + '<h4>Scout</h4><h6>' + what(game.inventory.resources, 'solar firefly').amount + '/1 <span class="solarFirefly">Solar Firefly</span></h6>'
@@ -1468,16 +1544,30 @@ function getDungeonScoutButton() {
     + '</div>';
 }
 
+/**
+ * Returns an HTML content string that contains a dungeon enter button.
+ * @param {boolean} min whether the button should be minimized
+ * @returns {string} an HTML content string
+ */
 function getDungeonEnterButton(min = false) {
     return '<div class="roomActions-action enter' + (min ? ' minEnter' : '') + '"><h4>Enter</h4></div>';
 }
 
+/**
+ * Returns the enemy whose ID matches the one provided.
+ * @param {number} id the ID to look for
+ * @returns {Enemy} an enemy
+ */
 function getEnemyById(id) {
     for(let i = 0; i < game.currentBattle.enemies.length; i++) {
         if(game.currentBattle.enemies[i].id === id) return game.currentBattle.enemies[i];
     }
 }
 
+/**
+ * Returns a randomly generated potion name.
+ * @returns {string} a random potion name
+ */
 function getRandomPotionName() {
     const adj = choose([
         "Unknown",
@@ -1512,6 +1602,10 @@ function getRandomPotionName() {
     return adj + ' ' + type;
 }
 
+/**
+ * Returns a randomly picked Sigil name.
+ * @returns {string} a random sigil name.
+ */
 function getRandomSigilName() {
     const adj = choose([
         "Unknown",
@@ -1531,6 +1625,12 @@ function getRandomSigilName() {
     return adj + ' Sigil';
 }
 
+/**
+ * Compares the two provided rarities and returns the highest one.
+ * @param {Data.Rarity} a the first rarity to compare
+ * @param {Data.Rarity} b the second rarity to compare
+ * @returns {Data.Rarity} the highest rarity
+ */
 function compareHighestRarities(a, b) {
     const rarities = {
         "common": 1,
@@ -1545,21 +1645,94 @@ function compareHighestRarities(a, b) {
     return b;
 }
 
+/**
+ * Appends the provided stat's value and critical/corrupt status to the provided object's effect key, and returns it.
+ * @param {Stat} eff the Stat to append
+ * @param {object} object the object that it will be appended to
+ * @returns {object} the same object
+ */
 function appendEffectToObject(eff, object) {
-    const { effect, value } = eff;
-    if(object.hasOwnProperty(effect)) object[effect] += value;
-    else object[effect] = value;
+    const { effect, value, isCritical, isCorrupt } = eff;
+    if(object.hasOwnProperty(effect)) object[effect][0] += value;
+    else object[effect] = [value, false];
+
+    if(isCritical || isCorrupt) object[effect][1] = true;
 
     return object;
 }
 
+/**
+ * Returns whether the provided effect is unvaluable.
+ * @param {Data.Effect} eff the effect to check
+ * @returns {boolean} whether the effect is unvaluable.
+ */
 function isEffectUnvaluable(eff) {
     return Config.EffectUnvaluable.includes(eff);
 }
 
-function isEffectAllowedOnObject(effect, object) {
-    if(object instanceof Weapon) {
-        
+/**
+ * Returns whether the provided effect is allowed to be added on the provided item.
+ * If the effect is NOT included in the item's base effects, it won't be allowed.
+ * @param {Data.Effect} effect the effect to check
+ * @param {Weapon|Armor|Trinket} obj the item to check
+ * @returns {boolean} whether the effect can be added
+ */
+function isEffectAllowedOnObject(effect, obj) {
+    let result = [];
+
+    obj.sockets.forEach(sock => {
+        sock.effects.forEach(eff => {
+            result.push(eff.effect);
+        });
+        if(sock.isCritical) sock.critical.forEach(eff => {
+            result.push(eff.effect);
+        });
+        if(sock.isCorrupt) sock.corrupt.forEach(eff => {
+            result.push(eff.effect);
+        });
+    });
+    obj.echoes.forEach(echo => {
+        echo.stats.forEach(stat => {
+            result.push(stat.effect);
+        });
+    });
+
+    if(obj instanceof Weapon) {
+        result.push(
+            Data.Effect.PDMG,
+            Data.Effect.MDMG,
+            Data.Effect.BLOCK,
+            Data.Effect.EFFORT,
+            Data.Effect.CRIT_LUK,
+            Data.Effect.CRIT_DMG,
+            Data.Effect.BLEED_DMG,
+            Data.Effect.BLEED_DURATION,
+            Data.Effect.BLEED_INCURABLE,
+            Data.Effect.BLEED_CURABLE,
+            Data.Effect.POISON_DMG,
+            Data.Effect.POISON_DURATION,
+            Data.Effect.POISON_INCURABLE,
+            Data.Effect.POISON_CURABLE,
+            Data.Effect.RANGE_BACK_OFF,
+            Data.Effect.RANGE_BACK_ON,
+            Data.Effect.RANGE_MIDDLE_OFF,
+            Data.Effect.RANGE_MIDDLE_ON,
+            Data.Effect.RANGE_FRONT_OFF,
+            Data.Effect.RANGE_FRONT_ON
+        );
+    } else if(obj instanceof Armor) {
+        result.push(
+            Data.Effect.RESILIENCE,
+            Data.Effect.WARDING
+        );
+    } else if(obj instanceof Trinket) {
+        obj.effects.forEach(eff => {
+            result.push(eff.effect);
+        });
     }
-    return true;
+
+    result = [...new Set(result)]; // Removing duplicates
+    console.log(result);
+    
+    return result.includes(effect);
 }
