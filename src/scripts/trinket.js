@@ -6,7 +6,8 @@
 
 class Trinket extends Item {
     constructor(name, desc, icon, price, rarity, 
-                effects, 
+                effects,
+                sockets_amount = 1, 
                 echoes_amount = 1, 
                 echoes = []) {
         super(name, desc, icon, price, rarity);
@@ -16,6 +17,8 @@ class Trinket extends Item {
         this.echoes_free = echoes_amount;
         this.echoes = echoes;
 
+        this.sockets_amount = sockets_amount;
+        this.sockets_free = sockets_amount;
         this.sockets = [];
         
         this.set = null;
