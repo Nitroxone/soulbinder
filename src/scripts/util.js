@@ -1699,7 +1699,7 @@ function getAlterations(item, diff = []) {
     
     let base = null;
     if(diff.length > 0) {
-        base = {...result};
+        base = structuredClone(result);
         diff.forEach(add => {
             result = appendEffectToObject(add, result);
         });
@@ -1713,12 +1713,13 @@ function getAlterations(item, diff = []) {
             let st = null, eff = null, val = null, critCorr = null, color = '', italic = false, bold = false, barred = false, opacity = 1;
             eff = key;
             val = result[key][0];
-            critCorr = result[key][1]
+            critCorr = result[key][1];
+            console.log(base[key]);
 
-            if(base[key] > val || (!base.hasOwnProperty(key) && val < 0)) {
+            if((base[key] && base[key][0] > val) || (!base.hasOwnProperty(key) && val < 0)) {
                 if(eff !== Data.Effect.EFFORT) color = 'tomato';
                 else color = '#4cd137';
-            } else if(base[key] < val || (!base.hasOwnProperty(key) && val > 0)) {
+            } else if((base[key] && base[key][0] < val) || (!base.hasOwnProperty(key) && val > 0)) {
                 if(eff !== Data.Effect.EFFORT) color = '#4cd137';
                 else color = 'tomato';
             } else {
