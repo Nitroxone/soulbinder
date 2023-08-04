@@ -4612,10 +4612,10 @@ hr.leftSided {
     grid-area: soulbInterface;
 
     display: grid;
-    grid-template-columns: 1.1fr 2fr 0.6fr;
+    grid-template-columns: 1.1fr 2fr;
     grid-template-rows: 1fr;
     gap: 0 0;
-    grid-template-areas: "sbItem sbObjects sbActions";
+    grid-template-areas: "sbItem sbObjects";
 
     overflow: hidden;
 
@@ -4814,7 +4814,7 @@ hr.leftSided {
     margin-bottom: 0.3rem;
 }
 .sbObjectsSigil {
-    width: 75%;
+    width: 60%;
     background: url('img/bg1.png');
     opacity: 0;
     transform: translateY(20px);

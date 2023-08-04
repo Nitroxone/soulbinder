@@ -2114,10 +2114,6 @@ function drawSoulbindingScreen(refresh = false) {
     str += getSoulbindingObjects();
     str += '</div>';
 
-    str += '<div class="sbActions">';
-    str += getSoulbindingActions();
-    str += '</div>';
-
     return str;
 }
 
