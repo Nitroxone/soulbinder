@@ -1716,14 +1716,23 @@ function getAlterations(item, diff = []) {
             critCorr = result[key][1];
             console.log(base[key]);
 
+            st = new Stat({effect: eff, theorical: val, isPercentage: isAstralForgeEffectPercentage(eff), fixed: true});
+
             if((base[key] && base[key][0] > val) || (!base.hasOwnProperty(key) && val < 0)) {
                 if(eff !== Data.Effect.EFFORT) color = 'tomato';
                 else color = '#4cd137';
+
+                if(isEffectAllowedOnObject(key, item) || critCorr) game.soulbinding.addPreslottedEffect(st);
             } else if((base[key] && base[key][0] < val) || (!base.hasOwnProperty(key) && val > 0)) {
                 if(eff !== Data.Effect.EFFORT) color = '#4cd137';
                 else color = 'tomato';
+
+                if(isEffectAllowedOnObject(key, item) || critCorr) game.soulbinding.addPreslottedEffect(st);
             } else {
-                if(isEffectUnvaluable(eff)) color = Data.Color.ORANGE;
+                if(isEffectUnvaluable(eff)) {
+                    color = Data.Color.ORANGE;
+                    if(isEffectAllowedOnObject(key, item) || critCorr) game.soulbinding.addPreslottedEffect(st);
+                }
                 else color = 'rgb(100, 100, 100);'
             }
 
@@ -1736,7 +1745,6 @@ function getAlterations(item, diff = []) {
                 }
             }
             
-            st = new Stat({effect: eff, theorical: val, isPercentage: isAstralForgeEffectPercentage(eff)});
             str += st.getFormatted({cssClass: 'itemEffect', noTheorical: true, color: color, bold: bold, italic: italic, barred: barred, opacity: opacity});   
         }
     } else {

@@ -8,6 +8,7 @@ class Soulbinding {
     constructor() {
         this.item = null;
         this.preslottedSigil = null;
+        this.preslottedEffects = [];
     }
 
     setItem(event) {
@@ -26,9 +27,12 @@ class Soulbinding {
 
     unslotItem() {
         this.item = null;
+        this.emptyPreslottedEffects();
     }
 
     preslotSigil(event, id) {
+        this.emptyPreslottedEffects();
+
         document.querySelectorAll('.preslottedSigil').forEach(pre => {
             pre.innerHTML = '<div class="sigilInfo-infos"><div class="sigilTitle">Empty sigil slot</div></div>';
             pre.classList.remove('preslottedSigil');
@@ -47,5 +51,13 @@ class Soulbinding {
         sigilDomTitle.textContent = this.preslottedSigil.name;
         sigilDomTitle.classList.add('preslottedSigilTitle');
         Sounds.Methods.playSound(Data.SoundType.SOULBIND_PRESLOT);
+    }
+
+    emptyPreslottedEffects() {
+        this.preslottedEffects = [];
+    }
+
+    addPreslottedEffect(stat) {
+        this.preslottedEffects.push(stat);
     }
 }
