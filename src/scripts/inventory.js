@@ -176,27 +176,24 @@ class Inventory {
      * @param {Sigil} sigil the Sigil that will be bound to the Weapon or Armor
      */
     enchant(item, sigil) {
-        if(this.allowEnchant(item, sigil)) {
-            sigil.effects.forEach(effect => {
+        sigil.effects.forEach(effect => {
+            if(isEffectAllowedOnObject(effect.effect, item)) item.addEffect(effect);
+            else effect.disable();
+        });
+        if(sigil.isCritical) {
+            sigil.critical.forEach(effect => {
                 item.addEffect(effect);
             });
-            if(sigil.isCritical) {
-                sigil.critical.forEach(effect => {
-                    item.addEffect(effect);
-                });
-            }
-            if(sigil.isCorrupt) {
-                sigil.corrupt.forEach(effect => {
-                    item.addEffect(effect);
-                });
-            }
-            this.removeItem(sigil);
-            item.sockets.push(sigil);
-            item.removeAvailableSocket();
-            console.log(sigil.name + ' was bound to ' + item.name + '.');
-        } else {
-            console.log(sigil.name + ' cannot be bound to ' + item.name + ' because their type is incompatible.');
         }
+        if(sigil.isCorrupt) {
+            sigil.corrupt.forEach(effect => {
+                item.addEffect(effect);
+            });
+        }
+        this.removeItem(sigil);
+        item.sockets.push(sigil);
+        item.removeAvailableSocket();
+        console.log(sigil.name + ' was bound to ' + item.name + '.');
     }
 
     /**
