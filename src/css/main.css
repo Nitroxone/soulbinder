@@ -4810,27 +4810,48 @@ hr.leftSided {
 
     line-height: 120% !important;
 }
-.sbObjectsSigils > .sbObjectsSigil:not(:last-child), .sbObjectsEchoes > .sbObjectsSigil:not(:last-child) {
+.sbObjectsSigils > .sbObjectsSigilWrapper:not(:last-child), .sbObjectsEchoes > .sbObjectsSigilWrapper:not(:last-child) {
     margin-bottom: 0.3rem;
 }
-.sbObjectsSigil {
-    width: 60%;
-    background: url('img/bg1.png');
+.sbObjectsSigilWrapper {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+
     opacity: 0;
     transform: translateY(20px);
 
     animation: sbObjectSigilPopIn .5s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
+}
+.sbObjectsSigil {
+    width: 100%;
+    background: url('img/bg1.png');
 
     box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.5),0px 2px 2px rgba(0,0,0,0.25),0px 0px 2px 2px #000 inset,0px 1px 0px 1px rgba(255,255,255,0.5) inset;
-
-    display: flex;
-    flex-direction: row;
 }
 @keyframes sbObjectSigilPopIn {
     to {
         opacity: 1;
         transform: translateY(0px);
     }
+}
+.sbManipulationCommand {
+    margin-left: 0.25rem;
+    border: 1px dashed rgb(100, 100, 100);
+    color: rgb(155, 155, 155);
+    padding: 0.5rem;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    transition: all .1s ease-in-out;
+}
+.sbManipulationCommand:hover {
+    border-style: solid;
+    border-color: rgb(155, 155, 155);
+    color: rgb(200, 200, 200);
+    cursor: pointer;
 }
 .soulbindingSigilInfo {
     width: 100%;

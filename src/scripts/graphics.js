@@ -2256,13 +2256,17 @@ function getSoulbindingObjects(refresh = false) {
     if(item && item.hasOwnProperty('sockets_amount')) for(let i = 0; i < item.sockets_amount; i++) {
         const socket = item.sockets[i];
         
-        str += '<div class="sbObjectsSigil" style="animation-delay: ' + animDelay + 's;">';
+        str += '<div class="sbObjectsSigilWrapper" style="animation-delay: ' + animDelay + 's;">';
         if(socket) {
+            str += '<div class="sbObjectsSigil">';
             str += getSigilDetails(socket, false, true);
+            str += '</div>';
             str += getSigilUnbindingCommand();
         }
         else {
+            str += '<div class="sbObjectsSigil">';
             str += getEmptySigilHTML(true, i+1);
+            str += '</div>';
             str += getSigilBindingCommand();
         }
         str += '</div>';
@@ -2275,9 +2279,12 @@ function getSoulbindingObjects(refresh = false) {
         const echo = item.echoes[i];
         
         animDelay += 0.1;
-        str += '<div class="sbObjectsSigil" style="animation-delay: ' + animDelay + 's;">';
+        str += '<div class="sbObjectsSigilWrapper" style="animation-delay: ' + animDelay + 's;">';
+        str += '<div class="sbObjectsSigil">';
         if(echo) str += getEchoDetails(echo, false, true);
         else str += getEmptyEchoHTML(true);
+        str += '</div>';
+        str += getEchoExtractCommand();
         str += '</div>';
     }
     str += '</div>';
@@ -2305,6 +2312,15 @@ function getSigilBindingCommand() {
 
     return str;
 }
+
+function getEchoExtractCommand() {
+    let str = '';
+
+    str += '<div class="sbManipulationCommand">Extract</div>';
+
+    return str;
+}
+
 
 function drawAstralForgeScreen(forgeItem, refresh = false) {
     console.log('Astral Forge screen opened with ' + forgeItem.item.name);
