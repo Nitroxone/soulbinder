@@ -196,7 +196,7 @@ class Stat {
             + (italic ? 'font-style: italic; ' : '') 
             + (barred || this.disabled ? 'text-decoration: line-through; ' : '')
             + (color ? 'color: ' + color + ';': '') 
-            + (opacity ? 'opacity: ' + opacity + ';': '') 
+            + (opacity || this.disabled ? 'opacity: ' + (this.disabled ? '0.65' : opacity) + ';': '') 
             + (hidden ? 'display: none;': '') 
             + '"><span style="font-weight: normal;">' 
             + (this.getValue() > 0 && !noValue ? '+ ' : this.getValue() < 0 && !noValue ? '- ' : '') 
