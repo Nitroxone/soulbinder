@@ -168,6 +168,32 @@ let Config = {
         Data.Effect.RESILIENCE,
         Data.Effect.WARDING,
     ],
+    BaseWeaponEffects: [
+        Data.Effect.PDMG,
+        Data.Effect.MDMG,
+        Data.Effect.BLOCK,
+        Data.Effect.EFFORT,
+        Data.Effect.CRIT_LUK,
+        Data.Effect.CRIT_DMG,
+        Data.Effect.BLEED_DMG,
+        Data.Effect.BLEED_DURATION,
+        Data.Effect.BLEED_CURABLE,
+        Data.Effect.BLEED_INCURABLE,
+        Data.Effect.POISON_DMG,
+        Data.Effect.POISON_DURATION,
+        Data.Effect.POISON_CURABLE,
+        Data.Effect.POISON_INCURABLE,
+        Data.Effect.RANGE_FRONT_ON,
+        Data.Effect.RANGE_MIDDLE_ON,
+        Data.Effect.RANGE_BACK_ON,
+        Data.Effect.RANGE_FRONT_OFF,
+        Data.Effect.RANGE_MIDDLE_OFF,
+        Data.Effect.RANGE_BACK_OFF,
+    ],
+    BaseArmorEffects: [
+        Data.Effect.WARDING,
+        Data.Effect.RESILIENCE
+    ],
     Soulwriting: [
         // THEORICAL, CRITICAL, CORRUPTED, UNLOCKED
         {
