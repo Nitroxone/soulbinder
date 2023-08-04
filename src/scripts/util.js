@@ -1671,6 +1671,87 @@ function isEffectUnvaluable(eff) {
 }
 
 /**
+ * Generates an HTML content string that contains the provided Item's active alterations, optionally compared to the ones provided in the diff variable, then returns it.
+ * @param {Weapon|Armor|Trinket} item the item to retrieve alterations from
+ * @param {Stat[]} diff the optional stats array to compare 
+ * @returns {string} an HTML content string
+ */
+function getAlterations(item, diff = []) {
+    let str = '';
+    let result = {};
+
+    item.sockets.forEach(sock => {
+        sock.effects.forEach(eff => {
+            result = appendEffectToObject(eff, result);
+        });
+        if(sock.isCritical) sock.critical.forEach(eff => {
+            result = appendEffectToObject(eff, result);
+        });
+        if(sock.isCorrupt) sock.corrupt.forEach(eff => {
+            result = appendEffectToObject(eff, result);
+        });
+    });
+    item.echoes.forEach(echo => {
+        echo.stats.forEach(stat => {
+            result = appendEffectToObject(stat, result);
+        });
+    });
+    
+    let base = null;
+    if(diff.length > 0) {
+        base = {...result};
+        diff.forEach(add => {
+            result = appendEffectToObject(add, result);
+        });
+    };
+    
+    if(base) {
+        let effects = Object.keys(base);
+        let additional = Object.keys(result);
+
+        for(let key of additional) {
+            let st = null, eff = null, val = null, critCorr = null, color = '', italic = false, bold = false, barred = false, opacity = 1;
+            eff = key;
+            val = result[key][0];
+            critCorr = result[key][1]
+
+            if(base[key] > val || (!base.hasOwnProperty(key) && val < 0)) {
+                if(eff !== Data.Effect.EFFORT) color = 'tomato';
+                else color = '#4cd137';
+            } else if(base[key] < val || (!base.hasOwnProperty(key) && val > 0)) {
+                if(eff !== Data.Effect.EFFORT) color = '#4cd137';
+                else color = 'tomato';
+            } else {
+                if(isEffectUnvaluable(eff)) color = Data.Color.ORANGE;
+                else color = 'rgb(100, 100, 100);'
+            }
+
+            // BOLD if allowed effect but not altered. BARRED if unallowed.
+            if(!base.hasOwnProperty(key)) {
+                if(isEffectAllowedOnObject(key, item) || critCorr) bold = true;
+                else {
+                    barred = true;
+                    opacity = 0.65;
+                }
+            }
+            
+            st = new Stat({effect: eff, theorical: val, isPercentage: isAstralForgeEffectPercentage(eff)});
+            str += st.getFormatted({cssClass: 'itemEffect', noTheorical: true, color: color, bold: bold, italic: italic, barred: barred, opacity: opacity});   
+        }
+    } else {
+        for(const eff in result) {
+            const st = new Stat({effect: eff, theorical: result[eff][0], isPercentage: isAstralForgeEffectPercentage(eff)});
+            str += st.getFormatted({cssClass: 'itemEffect', noTheorical: true, defaultColor: true});
+        }
+    }
+
+    if(str === '') str = '<h2>No alterations</h2>';
+    else str = '<h2>Alterations</h2>' + str;
+
+    return str;
+}
+
+/**
  * Returns whether the provided effect is allowed to be added on the provided item.
  * If the effect is NOT included in the item's base effects, it won't be allowed.
  * @param {Data.Effect} effect the effect to check

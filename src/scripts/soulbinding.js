@@ -42,7 +42,7 @@ class Soulbinding {
         if(this.preslottedSigil.isCritical) extraEffects = [...extraEffects, ...this.preslottedSigil.critical];
         if(this.preslottedSigil.isCorrupt) extraEffects = [...extraEffects, ...this.preslottedSigil.corrupt];
 
-        document.querySelector('.sbItemContainerEffects').innerHTML = this.item.getAlterations(extraEffects);
+        document.querySelector('.sbItemContainerEffects').innerHTML = getAlterations(this.item, extraEffects);
         sigilDom.classList.add('preslottedSigil');
         sigilDomTitle.textContent = this.preslottedSigil.name;
         sigilDomTitle.classList.add('preslottedSigilTitle');
