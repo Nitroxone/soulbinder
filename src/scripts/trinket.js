@@ -37,6 +37,29 @@ class Trinket extends Item {
     }
 
     /**
+     * Adds an available socket. Cannot exceed the sockets_amount variable.
+     * @param {number} amount the amount of sockets to add
+     */
+    addAvailableSocket(amount = 1) {
+        this.sockets_free = Math.min(this.sockets_amount, this.sockets_free + amount);
+    }
+    /**
+     * Removes an available socket. Cannot go below zero.
+     * @param {number} amount the amount of sockets to remove
+     */
+    removeAvailableSocket(amount = 1) {
+        this.sockets_free = Math.max(0, this.sockets_free - amount);
+    }
+
+    /**
+     * Returns whether the sockets_free property of the Weapon is superior to 0.
+     * @returns {boolean} whether the Weapon has free sockets
+     */
+    hasFreeSockets() {
+        return this.sockets_free > 0;
+    }
+
+    /**
      * Adds an available echo slot. Cannot exceed the echoes_amount variable.
      * @param {number} amount the amount of ecohes to add
      */
