@@ -4846,6 +4846,8 @@ hr.leftSided {
     justify-content: center;
     align-items: center;
     transition: all .1s ease-in-out;
+    font-family: RobotoSlabMed;
+    background: rgba(0, 0, 0, 0.4)
 }
 .sbManipulationCommand:hover {
     border-style: solid;

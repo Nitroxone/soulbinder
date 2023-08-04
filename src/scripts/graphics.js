@@ -2119,6 +2119,7 @@ function drawSoulbindingScreen(refresh = false) {
 
 function generateSoulbindingInterfaceEvents() {
     generateSoulbindingItemEvents();
+    generateSoulbindingObjectsEvents();
 }
 
 function generateSoulbindingItemEvents() {
@@ -2134,9 +2135,16 @@ function generateSoulbindingItemEvents() {
 
 function generateSoulbindingObjectsEvents() {
     const sigils = document.querySelectorAll('.soulbindingSigilInfo');
+    const binds = document.querySelectorAll('.sbBind');
 
     sigils.forEach(sigil => {
         if(sigil) {
+            const sigilId = sigil.parentNode.id.slice(6);
+            const sigilObj = game.soulbinding.item.sockets.find(x => x.id == sigilId);
+            console.log(sigilId);
+            console.log(sigilObj);
+            let unbind = document.querySelector('#unbind-' + sigilId);
+
             sigil.addEventListener('click', e => {
                 const echo = sigil.querySelector('.echoTitle');
                 const corruptedEcho = sigil.querySelector('.sigilCorruption > p:not(.name)');
@@ -2171,7 +2179,21 @@ function generateSoulbindingObjectsEvents() {
                     else quote.style.display = 'none';
                 }
             });
+
+            if(unbind) unbind.addEventListener('click', e => {
+                game.soulbinding.unslotSigil(sigilObj);
+                Sounds.Methods.playSound(Data.SoundType.SELECTOR_ON);
+                Sounds.Methods.playSound(Data.SoundType.SOULBIND_UNSLOT);
+            })
         }
+    });
+
+    binds.forEach(bind => {
+        bind.addEventListener('click', e => {
+            game.soulbinding.slotSigil();
+            Sounds.Methods.playSound(Data.SoundType.SELECTOR_ON);
+            Sounds.Methods.playSound(Data.SoundType.SOULBIND_SLOT);
+        });
     })
 }
 
@@ -2258,10 +2280,10 @@ function getSoulbindingObjects(refresh = false) {
         
         str += '<div class="sbObjectsSigilWrapper" style="animation-delay: ' + animDelay + 's;">';
         if(socket) {
-            str += '<div class="sbObjectsSigil">';
+            str += '<div id="sbSig-' + socket.id + '" class="sbObjectsSigil">';
             str += getSigilDetails(socket, false, true);
             str += '</div>';
-            str += getSigilUnbindingCommand();
+            str += getSigilUnbindingCommand(socket.id);
         }
         else {
             str += '<div class="sbObjectsSigil">';
@@ -2284,7 +2306,7 @@ function getSoulbindingObjects(refresh = false) {
         if(echo) str += getEchoDetails(echo, false, true);
         else str += getEmptyEchoHTML(true);
         str += '</div>';
-        str += getEchoExtractCommand();
+        str += getEchoExtractCommand(echo.id);
         str += '</div>';
     }
     str += '</div>';
@@ -2297,10 +2319,10 @@ function getSoulbindingObjects(refresh = false) {
     return str;
 }
 
-function getSigilUnbindingCommand() {
+function getSigilUnbindingCommand(id = 0) {
     let str = '';
 
-    str += '<div class="sbManipulationCommand">Unbind</div>';
+    str += '<div id="unbind-' + id + '" class="sbManipulationCommand">Unbind</div>';
 
     return str;
 }
@@ -2308,15 +2330,15 @@ function getSigilUnbindingCommand() {
 function getSigilBindingCommand() {
     let str = '';
 
-    str += '<div class="sbManipulationCommand">Bind</div>';
+    str += '<div class="sbManipulationCommand sbBind">Bind</div>';
 
     return str;
 }
 
-function getEchoExtractCommand() {
+function getEchoExtractCommand(id = 0) {
     let str = '';
 
-    str += '<div class="sbManipulationCommand">Extract</div>';
+    str += '<div id="extract-' + id + '" class="sbManipulationCommand">Extract</div>';
 
     return str;
 }

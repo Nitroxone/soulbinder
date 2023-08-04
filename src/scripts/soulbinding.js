@@ -30,6 +30,11 @@ class Soulbinding {
         this.emptyPreslottedEffects();
     }
 
+    unslotPreslottedSigil() {
+        this.emptyPreslottedEffects();
+        this.preslottedSigil = null;
+    }
+
     preslotSigil(event, id) {
         this.emptyPreslottedEffects();
 
@@ -63,9 +68,16 @@ class Soulbinding {
 
     slotSigil() {
         game.player.inventory.enchant(this.item, this.preslottedSigil);
+        this.unslotPreslottedSigil();
 
         getSoulbindingItem(true);
         getSoulbindingObjects(true);
         drawSigilInventory(game.player.inventory.sigils);
+    }
+
+    unslotSigil(sigil) {
+        game.player.inventory.disenchant(this.item, sigil);
+        getSoulbindingItem(true);
+        getSoulbindingObjects(true);
     }
 }

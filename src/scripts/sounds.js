@@ -93,6 +93,14 @@ let Sounds = {
             {name: "soulbindPreslot1.mp3", volume: 0.6},
             {name: "soulbindPreslot2.mp3", volume: 0.6},
             {name: "soulbindPreslot3.mp3", volume: 0.6},
+        ],
+        SOULBIND_SLOT: [
+            {name: "soulbindBind1.wav", volume: 0.6},
+            {name: "soulbindBind2.wav", volume: 0.6},
+            {name: "soulbindBind3.wav", volume: 0.6},
+        ],
+        SOULBIND_UNSLOT: [
+            {name: "soulbindUnbind1.wav", volume: 0.6, alwaysDifferent: true, previousPitch: 1, pitch: () => {return getRandomNumber(0.98, 1.05)}}
         ]
     },
     Methods: {

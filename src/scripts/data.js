@@ -525,6 +525,8 @@ const Data = Object.freeze({
         SOULWRITE_CORRUPT: "soulwrite_corrupt",
         SOULWRITE_STALWART: "soulwrite_stalwart",
         SOULWRITE_STCO: "soulwrite_stco",
-        SOULBIND_PRESLOT: "soulbind_preslot"
+        SOULBIND_PRESLOT: "soulbind_preslot",
+        SOULBIND_SLOT: "soulbind_slot",
+        SOULBIND_UNSLOT: "soulbind_unslot",
     }
 }); 

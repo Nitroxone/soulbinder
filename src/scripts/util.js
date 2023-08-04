@@ -1818,12 +1818,11 @@ function isEffectAllowedOnObject(effect, obj) {
         );
     } else if(obj instanceof Trinket) {
         obj.effects.forEach(eff => {
-            result.push(eff.effect);
+            if(isBaseWeaponEffect(eff.effect)) result.push(eff.effect);
         });
     }
 
     result = [...new Set(result)]; // Removing duplicates
-    console.log(result);
     
     return result.includes(effect);
 }
