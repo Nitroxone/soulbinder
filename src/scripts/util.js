@@ -1652,7 +1652,8 @@ function compareHighestRarities(a, b) {
  * @returns {object} the same object
  */
 function appendEffectToObject(eff, object) {
-    const { effect, value, isCritical, isCorrupt } = eff;
+    const { effect, value, isCritical, isCorrupt, disabled } = eff;
+    if(disabled) return object;
     if(object.hasOwnProperty(effect)) object[effect][0] += value;
     else object[effect] = [value, false];
 
@@ -1825,4 +1826,22 @@ function isEffectAllowedOnObject(effect, obj) {
     console.log(result);
     
     return result.includes(effect);
+}
+
+/**
+ * Returns whether the provided effect is a base weapon effect.
+ * @param {Data.Effect} eff the effect to check
+ * @returns {boolean}
+ */
+function isBaseWeaponEffect(eff) {
+    return Config.BaseWeaponEffects.includes(eff);
+}
+
+/**
+ * Returns whether the provided effect is a base armor effect.
+ * @param {Data.Effect} eff the effect to check
+ * @returns {boolean}
+ */
+function isBaseArmorEffect(eff) {
+    return Config.BaseArmorEffects.includes(eff);
 }
