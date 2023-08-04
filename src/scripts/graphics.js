@@ -2257,8 +2257,14 @@ function getSoulbindingObjects(refresh = false) {
         const socket = item.sockets[i];
         
         str += '<div class="sbObjectsSigil" style="animation-delay: ' + animDelay + 's;">';
-        if(socket) str += getSigilDetails(socket, false, true);
-        else str += getEmptySigilHTML(true, i+1);
+        if(socket) {
+            str += getSigilDetails(socket, false, true);
+            str += getSigilUnbindingCommand();
+        }
+        else {
+            str += getEmptySigilHTML(true, i+1);
+            str += getSigilBindingCommand();
+        }
         str += '</div>';
         animDelay += 0.1;
     }
@@ -2281,6 +2287,22 @@ function getSoulbindingObjects(refresh = false) {
         generateSoulbindingObjectsEvents();
         return;
     }
+    return str;
+}
+
+function getSigilUnbindingCommand() {
+    let str = '';
+
+    str += '<div class="sbManipulationCommand">Unbind</div>';
+
+    return str;
+}
+
+function getSigilBindingCommand() {
+    let str = '';
+
+    str += '<div class="sbManipulationCommand">Bind</div>';
+
     return str;
 }
 
