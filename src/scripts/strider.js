@@ -245,6 +245,7 @@ class Strider extends NPC {
         this.addEffect(new Stat({effect: Data.Effect.WARDING, theorical: armor.warding}));
         this.applyEchoes(armor);
         this.applyAstralForgeExtraEffects(armor);
+        this.applySigils(Data.ItemType.ARMOR, armor.sockets);
         game.player.inventory.removeItem(armor);
         console.log(armor.name + ' was equipped to ' + this.name);
         Sounds.Methods.playSound(Data.SoundType.EQUIP);
@@ -280,6 +281,7 @@ class Strider extends NPC {
         this.addEffect(new Stat({effect: Data.Effect.WARDING, theorical: armor.warding}), true);
         this.applyEchoes(armor, true);
         this.applyAstralForgeExtraEffects(armor, true);
+        this.applySigils(Data.ItemType.ARMOR, armor.sockets, true);
         game.player.inventory.addItem(armor, 1, true);
         console.log(armor.name + ' was unequipped from ' + this.name);
         Sounds.Methods.playSound(Data.SoundType.UNEQUIP);
@@ -320,6 +322,7 @@ class Strider extends NPC {
         }
         this.applyEchoes(weapon);
         this.applyAstralForgeExtraEffects(weapon);
+        this.applySigils(Data.ItemType.WEAPON, weapon.sockets);
         game.player.inventory.removeItem(weapon);
         Sounds.Methods.playSound(Data.SoundType.EQUIP_WEAPON);
         drawInventory();
@@ -333,6 +336,7 @@ class Strider extends NPC {
 
             this.applyEchoes(this.eqWeaponRight, true);
             this.applyAstralForgeExtraEffects(this.eqWeaponRight, true);
+            this.applySigils(Data.ItemType.WEAPON, this.eqWeaponRight.sockets, true);
 
             this.eqWeaponRight = null;
         } else if(hand === Data.WeaponHand.LEFT && this.eqWeaponLeft) {
@@ -342,6 +346,7 @@ class Strider extends NPC {
             
             this.applyEchoes(this.eqWeaponLeft, true);
             this.applyAstralForgeExtraEffects(this.eqWeaponLeft, true);
+            this.applySigils(Data.ItemType.WEAPON, this.eqWeaponLeft.sockets, true);
 
             this.eqWeaponLeft = null;
         } else if(hand === Data.WeaponHand.BOTH) {
@@ -351,6 +356,7 @@ class Strider extends NPC {
                         
             this.applyEchoes(this.eqWeaponBoth, true);
             this.applyAstralForgeExtraEffects(this.eqWeaponBoth, true);
+            this.applySigils(Data.ItemType.WEAPON, this.eqWeaponBoth.sockets, true);
 
             this.eqWeaponBoth = null;
         }
@@ -368,6 +374,23 @@ class Strider extends NPC {
         item.echoes.forEach(echo => {
             echo.stats.forEach(effect => {
                 this.addEffect(effect, remove);
+            });
+        });
+    }
+
+    applySigils(type, sigils, remove = false) {
+        sigils.forEach(sig => {
+            sig.effects.forEach(eff => {
+                if(type === Data.ItemType.ARMOR && !isBaseArmorEffect(eff.effect)) this.addEffect(eff, remove);
+                else if(type === Data.ItemType.WEAPON && !isBaseWeaponEffect(eff.effect)) this.addEffect(eff, remove);
+            });
+            if(sig.isCritical) sig.critical.forEach(eff => {
+                if(type === Data.ItemType.ARMOR && !isBaseArmorEffect(eff.effect)) this.addEffect(eff, remove);
+                else if(type === Data.ItemType.WEAPON && !isBaseWeaponEffect(eff.effect)) this.addEffect(eff, remove);
+            });
+            if(sig.isCorrupt) sig.corrupt.forEach(eff => {
+                if(type === Data.ItemType.ARMOR && !isBaseArmorEffect(eff.effect)) this.addEffect(eff, remove);
+                else if(type === Data.ItemType.WEAPON && !isBaseWeaponEffect(eff.effect)) this.addEffect(eff, remove);
             });
         });
     }
