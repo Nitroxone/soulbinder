@@ -60,4 +60,12 @@ class Soulbinding {
     addPreslottedEffect(stat) {
         this.preslottedEffects.push(stat);
     }
+
+    slotSigil() {
+        game.player.inventory.enchant(this.item, this.preslottedSigil);
+
+        getSoulbindingItem(true);
+        getSoulbindingObjects(true);
+        drawSigilInventory(game.player.inventory.sigils);
+    }
 }
