@@ -27,6 +27,7 @@ class Stat {
      * @param {string} type is it a PASSIVE or ACTIVE Stat?
      * @param {number} chance base chance of the effect being applied. This is only used for Stun/Move effects in Skills.
      * @param {boolean} ignoreShield this is used to bypass shield protection while removing health from Blight and Bleeding effects.
+     * @param {boolean} disabled this is used to disable an effect (won't be active, and will appear striked)
      */
     constructor(props) {
 
@@ -42,6 +43,7 @@ class Stat {
         this.chance = getValueFromObject(props, "chance", 100);
         this.ignoreShield = getValueFromObject(props, "ignoreShield", false);
         this.alchemicalType = getValueFromObject(props, "alchemicalType", null);
+        this.disabled = getValueFromObject(props, "disabled", false);
 
         this.value = null;
 
@@ -93,6 +95,10 @@ class Stat {
         if(this.isMaximized()) this.value += getRandomNumberFromArray(this.theorical);
     }
 
+    disable() {
+        this.disabled = true;
+    }
+
     /**
      * Returns whether the Stat's current value is superior to the highest bound of the theorical value.
      * @returns {boolean} whether the Stat is amplified
@@ -129,6 +135,7 @@ class Stat {
         let bold = getValueFromObject(props, "bold", false);
         const barred = getValueFromObject(props, "barred", false);
         const opacity = getValueFromObject(props, "opacity", 1);
+        const hidden = getValueFromObject(props, "hidden", false);
         const italic = getValueFromObject(props, "italic", false);
         const noTheorical = getValueFromObject(props, "noTheorical", false);
         const defaultColor = getValueFromObject(props, "defaultColor", false);
@@ -163,9 +170,10 @@ class Stat {
             + '" style="' 
             + (bold ? 'font-family: RobotoBold; ' : '') 
             + (italic ? 'font-style: italic; ' : '') 
-            + (barred ? 'text-decoration: line-through; ' : '')
+            + (barred || this.disabled ? 'text-decoration: line-through; ' : '')
             + (color ? 'color: ' + color + ';': '') 
             + (opacity ? 'opacity: ' + opacity + ';': '') 
+            + (hidden ? 'display: none;': '') 
             + '">'
             + '<span style="font-weight: normal;">';
             if(this.theorical[0] === this.theorical[1]) str += (this.getValue() > 0 ? '' : this.getValue() < 0 ? '- ' : '') + '</span>' + (this.getValue() === 0 ? '' : Math.abs(this.getValue())) + (this.isPercentage ? '%' : '');
@@ -186,9 +194,10 @@ class Stat {
             + '" style="' 
             + (bold ? 'font-family: RobotoBold; ' : '') 
             + (italic ? 'font-style: italic; ' : '') 
-            + (barred ? 'text-decoration: line-through; ' : '')
+            + (barred || this.disabled ? 'text-decoration: line-through; ' : '')
             + (color ? 'color: ' + color + ';': '') 
             + (opacity ? 'opacity: ' + opacity + ';': '') 
+            + (hidden ? 'display: none;': '') 
             + '"><span style="font-weight: normal;">' 
             + (this.getValue() > 0 && !noValue ? '+ ' : this.getValue() < 0 && !noValue ? '- ' : '') 
             + '</span>' 
