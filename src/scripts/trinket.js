@@ -100,7 +100,7 @@ class Trinket extends Item {
         let changed = false;
         this.effects.forEach(eff => {
             if(eff.effect === effect.effect) {
-                eff.value = Math.max(0, eff.getValue() + effect.getValue() * factor);
+                eff.value += effect.getValue() * factor
                 console.log('Updated ' + this.name + "'s [" + effect.effect + "] property to " + eff.value);
                 changed = true;
             }
