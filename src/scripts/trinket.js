@@ -37,6 +37,14 @@ class Trinket extends Item {
     }
 
     /**
+     * Unbinds the provided Sigil from the Trinket.
+     * @param {Sigil} sigil the sigil to unbind from the Trinket
+     */
+    unbindSigil(sigil) {
+        removeFromArray(this.sockets, sigil);
+    }
+
+    /**
      * Adds an available socket. Cannot exceed the sockets_amount variable.
      * @param {number} amount the amount of sockets to add
      */
