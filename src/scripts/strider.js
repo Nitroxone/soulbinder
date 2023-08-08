@@ -183,6 +183,7 @@ class Strider extends NPC {
             });
             this.applyEchoes(trinket);
             this.applyAstralForgeExtraEffects(trinket);
+            this.applySigils(Data.ItemType.TRINKET, trinket.sockets, false, trinket);
             this.trinkets.push(trinket);
             game.player.inventory.removeItem(trinket);
             this.removeAvailableTrinketSlot();
@@ -203,6 +204,7 @@ class Strider extends NPC {
         });
         this.applyEchoes(trinket, true);
         this.applyAstralForgeExtraEffects(trinket, true);
+        this.applySigils(Data.ItemType.TRINKET, trinket.sockets, true, trinket);
         removeFromArray(this.trinkets, trinket);
         game.player.inventory.addItem(trinket, 1, true);
         this.addAvailableTrinketSlot();
@@ -378,19 +380,28 @@ class Strider extends NPC {
         });
     }
 
-    applySigils(type, sigils, remove = false) {
+    applySigils(type, sigils, remove = false, source = null) {
         sigils.forEach(sig => {
             sig.effects.forEach(eff => {
-                if(type === Data.ItemType.ARMOR && !isBaseArmorEffect(eff.effect)) this.addEffect(eff, remove);
-                else if(type === Data.ItemType.WEAPON && !isBaseWeaponEffect(eff.effect)) this.addEffect(eff, remove);
+                if(type === Data.ItemType.ARMOR && !isBaseArmorEffect(eff.effect) && !eff.disabled) this.addEffect(eff, remove);
+                else if(type === Data.ItemType.WEAPON && !isBaseWeaponEffect(eff.effect) && !eff.disabled) this.addEffect(eff, remove);
+                else if(type === Data.ItemType.TRINKET) {
+                    if(!source.effects.find(x => x.effect === eff.effect) && !eff.disabled) this.addEffect(eff, remove);
+                }
             });
             if(sig.isCritical) sig.critical.forEach(eff => {
                 if(type === Data.ItemType.ARMOR && !isBaseArmorEffect(eff.effect)) this.addEffect(eff, remove);
                 else if(type === Data.ItemType.WEAPON && !isBaseWeaponEffect(eff.effect)) this.addEffect(eff, remove);
+                else if(type === Data.ItemType.TRINKET) {
+                    if(!source.effects.find(x => x.effect === eff.effect) && !eff.disabled) this.addEffect(eff, remove);
+                }
             });
             if(sig.isCorrupt) sig.corrupt.forEach(eff => {
                 if(type === Data.ItemType.ARMOR && !isBaseArmorEffect(eff.effect)) this.addEffect(eff, remove);
                 else if(type === Data.ItemType.WEAPON && !isBaseWeaponEffect(eff.effect)) this.addEffect(eff, remove);
+                else if(type === Data.ItemType.TRINKET) {
+                    if(!source.effects.find(x => x.effect === eff.effect) && !eff.disabled) this.addEffect(eff, remove);
+                }
             });
         });
     }
