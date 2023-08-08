@@ -150,16 +150,16 @@ class Inventory {
     disenchant(item, sigil) {
         if(containsByName(item.sockets, sigil.name)) {
             sigil.effects.forEach(effect => {
-                item.addEffect(effect, true);
+                if(!effect.disabled) item.addEffect(effect, true);
             });
             if(sigil.isCritical) {
                 sigil.critical.forEach(effect => {
-                    item.addEffect(effect, true);
+                    if(!effect.disabled) item.addEffect(effect, true);
                 });
             }
             if(sigil.isCorrupt) {
                 sigil.corrupt.forEach(effect => {
-                    item.addEffect(effect, true);
+                    if(!effect.disabled) item.addEffect(effect, true);
                 });
             }
             item.unbindSigil(sigil);
@@ -182,12 +182,14 @@ class Inventory {
         });
         if(sigil.isCritical) {
             sigil.critical.forEach(effect => {
-                item.addEffect(effect);
+                if(filterCritCorr(item, effect.effect, true)) item.addEffect(effect);
+                else effect.disable();
             });
         }
         if(sigil.isCorrupt) {
             sigil.corrupt.forEach(effect => {
-                item.addEffect(effect);
+                if(filterCritCorr(item, effect.effect, true)) item.addEffect(effect);
+                else effect.disable();
             });
         }
         this.removeItem(sigil);
