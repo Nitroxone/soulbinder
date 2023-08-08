@@ -105,7 +105,7 @@ class Trinket extends Item {
                 changed = true;
             }
         });
-        if(!changed) throw new Error('Tried to change an unexisting effect [' + effect.effect + ' on ' + this.name);
+        //if(!changed) throw new Error('Tried to change an unexisting effect [' + effect.effect + ' on ' + this.name);
     }
 
     /**
