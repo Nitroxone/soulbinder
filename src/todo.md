@@ -62,7 +62,7 @@ DONE - Add Sigil soulmarks
 - Nerf all effects
 
 SOULBINDING:
-- Prevent the addition of effects that do not already exist
+DONE - Prevent the addition of effects that do not already exist
 - Revamp the bonus system to make it a little more limited
 
 EONS:
