@@ -1723,23 +1723,23 @@ function getAlterations(item, diff = []) {
                 if(eff !== Data.Effect.EFFORT) color = 'tomato';
                 else color = '#4cd137';
 
-                if(isEffectAllowedOnObject(key, item) || critCorr) game.soulbinding.addPreslottedEffect(st);
+                if(isEffectAllowedOnObject(key, item) && filterCritCorr(item, key, critCorr)) game.soulbinding.addPreslottedEffect(st);
             } else if((base[key] && base[key][0] < val) || (!base.hasOwnProperty(key) && val > 0)) {
                 if(eff !== Data.Effect.EFFORT) color = '#4cd137';
                 else color = 'tomato';
 
-                if(isEffectAllowedOnObject(key, item) || critCorr) game.soulbinding.addPreslottedEffect(st);
+                if(isEffectAllowedOnObject(key, item) && filterCritCorr(item, key, critCorr)) game.soulbinding.addPreslottedEffect(st);
             } else {
                 if(isEffectUnvaluable(eff)) {
                     color = Data.Color.ORANGE;
-                    if(isEffectAllowedOnObject(key, item) || critCorr) game.soulbinding.addPreslottedEffect(st);
+                    if(isEffectAllowedOnObject(key, item) && filterCritCorr(item, key, critCorr)) game.soulbinding.addPreslottedEffect(st);
                 }
                 else color = 'rgb(100, 100, 100);'
             }
 
             // BOLD if allowed effect but not altered. BARRED if unallowed.
             if(!base.hasOwnProperty(key)) {
-                if(isEffectAllowedOnObject(key, item) || critCorr) bold = true;
+                if(isEffectAllowedOnObject(key, item) && filterCritCorr(item, key, critCorr)) bold = true;
                 else {
                     barred = true;
                     opacity = 0.65;
@@ -1759,6 +1759,16 @@ function getAlterations(item, diff = []) {
     else str = '<h2>Alterations</h2>' + str;
 
     return str;
+}
+
+function filterCritCorr(item, effect, state) {
+    if(!state) return false;
+
+    if(item instanceof Trinket || item instanceof Armor) {
+        if(!isBaseWeaponEffect(effect)) return true;
+        else return false;
+    }
+    return true;
 }
 
 /**
@@ -1818,7 +1828,7 @@ function isEffectAllowedOnObject(effect, obj) {
         );
     } else if(obj instanceof Trinket) {
         obj.effects.forEach(eff => {
-            if(isBaseWeaponEffect(eff.effect)) result.push(eff.effect);
+            if(!isBaseWeaponEffect(eff.effect)) result.push(eff.effect);
         });
     }
 
