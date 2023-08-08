@@ -59,9 +59,11 @@ DONE - Change Sigil tooltip
 DONE - Add Sigil soulmarks
 - Actually display Soulwriting price
 - Display price on Sigil tooltips
+- Nerf all effects
 
 SOULBINDING:
 - Prevent the addition of effects that do not already exist
+- Revamp the bonus system to make it a little more limited
 
 EONS:
 - Graphically redesign the whole thing.
