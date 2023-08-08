@@ -106,6 +106,19 @@ function getTrinketTooltip(trinket, asResult = null, full = false) {
         str += effect.getFormatted({cssClass: "itemEffect", allowOverloadedStyling: true});
     })
 
+    if(trinket.sockets.length > 0) {
+        str += '<div class="divider"></div>';
+        trinket.sockets.forEach(sigil => {
+            str += getSigilDetails(sigil, full);
+        });
+    }
+    if(trinket.sockets_free > 0) {
+        str += '<div class="divider"></div>';
+        for(let i = 0; i < trinket.sockets_free; i++) {
+            str += getEmptySigilHTML();
+        }
+    }
+
     // echoes
     if(trinket.echoes.length > 0) {
         str += '<div class="divider"></div>';
