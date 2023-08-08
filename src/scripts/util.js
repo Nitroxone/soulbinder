@@ -1739,7 +1739,7 @@ function getAlterations(item, diff = []) {
 
             // BOLD if allowed effect but not altered. BARRED if unallowed.
             if(!base.hasOwnProperty(key)) {
-                if(isEffectAllowedOnObject(key, item) && filterCritCorr(item, key, critCorr)) bold = true;
+                if(isEffectAllowedOnObject(key, item) || filterCritCorr(item, key, critCorr)) bold = true;
                 else {
                     barred = true;
                     opacity = 0.65;
