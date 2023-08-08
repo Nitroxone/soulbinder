@@ -1773,7 +1773,7 @@ function isEffectAllowedOnObject(effect, obj) {
 
     obj.sockets.forEach(sock => {
         sock.effects.forEach(eff => {
-            result.push(eff.effect);
+            if(!eff.disabled) result.push(eff.effect);
         });
         if(sock.isCritical) sock.critical.forEach(eff => {
             result.push(eff.effect);
