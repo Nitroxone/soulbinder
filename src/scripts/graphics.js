@@ -2076,9 +2076,14 @@ function getSwWrite(refresh = false) {
     str += '<div class="swWriteList">';
     str += '<div class="swWriteList-header">Soulmarks</div>';
     str += '<div class="swWriteList-list">';
-    game.player.getAllUnlockedSoulmarks().forEach(sm => {
-        str += getFormattedSoulmark(sm);
-    });
+    if(game.player.getAllUnlockedSoulmarks().length == 0) {
+        str += '<div class="swWriteList-list-empty">No soulmarks learnt</div>'; 
+    }
+    else {
+        game.player.getAllUnlockedSoulmarks().forEach(sm => {
+            str += getFormattedSoulmark(sm);
+        });
+    }
     str += '</div>';
     str += '</div>';
 
