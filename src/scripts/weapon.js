@@ -65,6 +65,7 @@ class Weapon extends Item {
         this.range = range;
 
         this.allowedAlterations = allowedAlterations;
+        this.alterations = 0;
         this.sigil = null;
         this.echo = echo;
 

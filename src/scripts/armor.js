@@ -37,6 +37,7 @@ class Armor extends Item {
         this.warding = null;
 
         this.allowedAlterations = allowedAlterations;
+        this.alterations = 0;
         this.echo = null;
         this.sigil = null;
 

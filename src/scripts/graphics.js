@@ -2066,9 +2066,9 @@ function getSwWrite(refresh = false) {
     str += '<div id="sws4" class="swWriteSlot"></div>';
 
     str += '<div class="swWriteCraft">';
-    str += '<div id="swWrite-stalwart" class="swWrite-stalwart"><span>15%</span></div>';
+    str += '<div id="swWrite-stalwart" class="swWrite-stalwart"><span>' + game.player.sw_stalwartFactor + '%</span></div>';
     str += '<div class="swWrite-write"><span>Write</span><canvas id="canv-soulwrite" class="swSlotCanvas"></canvas></div>';
-    str += '<div id="swWrite-corrupt"class="swWrite-corrupt"><span>15%</span></div>';
+    str += '<div id="swWrite-corrupt"class="swWrite-corrupt"><span>' + game.player.sw_corruptFactor + '%</span></div>';
     str += '</div>'; 
 
     str += '<div class="swWrite-backgroundCover coolBorderBis"></div>'
@@ -2203,6 +2203,16 @@ function getSoulbindingItem(refresh = false) {
         if(game.soulbinding.item.hasEcho()) str += '<span class="sbFulldot"></span>';
         else str += '<span class="sbEmptyDot"></span>';
         str += '</div></div>';
+
+        str += '<div class="sbItemContainerIndicator">';
+        str += '<h3>Alterations</h3>';
+        str += '<div class="sbItemContainerDots">';
+        for(let i = 0, c = game.soulbinding.item.alterations; i < game.soulbinding.item.allowedAlterations; i++) {
+            if(c > 0) str += '<span class="sbFulldot"></span>';
+            else str += '<span class="sbEmptyDot"></span>';
+            c--;
+        }
+        str += '</div></div>'
         
         str += '</div>';
 

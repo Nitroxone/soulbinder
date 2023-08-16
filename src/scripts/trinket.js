@@ -13,6 +13,7 @@ class Trinket extends Item {
         this.effects = effects;
 
         this.allowedAlterations = allowedAlterations;
+        this.alterations = 0;
         this.echo = echo;
         this.sigil = null;
         
