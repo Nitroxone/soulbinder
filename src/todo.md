@@ -2,8 +2,6 @@
 
  -------------------------------------------------------
 
-- Add books
-
 - Create hub & lordships
 
 - Add effect coloring (bold + green) if it's overloaded -- ONGOING
@@ -39,7 +37,7 @@ DONE - Implement shield in combats
 - Freeze events on action (prevent action spamming)
 - Implement consumables & using them in combat
 - Thoroughly comment complex battle functions
-ABANDONED - Implement skill stackability
+ABANDONED? - Implement skill stackability
 
 ASTRAL FORGE:
 - Create GUI -- ONGOING
@@ -65,7 +63,7 @@ DONE - Add Sigil soulmarks
 
 SOULBINDING:
 DONE - Prevent the addition of effects that do not already exist
-- Revamp the bonus system to make it a little more limited
+ONGOING - Revamp the bonus system to make it a little more limited
 
 EONS:
 - Graphically redesign the whole thing. (using Crimson Pro + different background)
