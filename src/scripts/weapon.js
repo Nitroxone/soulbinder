@@ -40,8 +40,6 @@ class Weapon extends Item {
                 t_bleed, 
                 t_poison, 
                 range, 
-                sockets_amount = 1,
-                echoes_amount = 1,
                 echoes = []) {
         super(name, desc, icon, price, rarity);
         this.type = type;
@@ -65,12 +63,12 @@ class Weapon extends Item {
 
         this.range = range;
 
-        this.echoes_amount = echoes_amount;
-        this.echoes_free = echoes_amount;
+        this.echoes_amount = 1;
+        this.echoes_free = 1;
         this.echoes = echoes;
 
-        this.sockets_amount = sockets_amount;
-        this.sockets_free = sockets_amount;
+        this.sockets_amount = 1;
+        this.sockets_free = 1;
         this.sockets = [];
         
         this.set = null;

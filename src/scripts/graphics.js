@@ -2229,7 +2229,7 @@ function getSoulbindingItem(refresh = false) {
         str += '<div class="sbItemContainerIndicators">';
 
         str += '<div class="sbItemContainerIndicator">';
-        str += '<h3>Sigils</h3>';
+        str += '<h3>Sigil</h3>';
         str += '<div class="sbItemContainerDots">';
         for(let i = 0, c = game.soulbinding.item.sockets.length; i < game.soulbinding.item.sockets_amount; i++) {
             if(c > 0) str += '<span class="sbFulldot"></span>';
@@ -2239,7 +2239,7 @@ function getSoulbindingItem(refresh = false) {
         str += '</div></div>';
 
         str += '<div class="sbItemContainerIndicator">';
-        str += '<h3>Echoes</h3>';
+        str += '<h3>Echo</h3>';
         str += '<div class="sbItemContainerDots">';
         for(let i = 0, c = game.soulbinding.item.echoes.length; i < game.soulbinding.item.echoes_amount; i++) {
             if(c > 0) str += '<span class="sbFulldot"></span>';
