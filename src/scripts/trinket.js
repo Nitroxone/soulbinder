@@ -7,17 +7,14 @@
 class Trinket extends Item {
     constructor(name, desc, icon, price, rarity, 
                 effects,
-                echoes = []) {
+                allowedAlterations = 2,
+                echo = null) {
         super(name, desc, icon, price, rarity);
         this.effects = effects;
-        
-        this.echoes_amount = 1;
-        this.echoes_free = 1;
-        this.echoes = echoes;
 
-        this.sockets_amount = 1;
-        this.sockets_free = 1;
-        this.sockets = [];
+        this.allowedAlterations = allowedAlterations;
+        this.echo = echo;
+        this.sigil = null;
         
         this.set = null;
 
@@ -38,54 +35,24 @@ class Trinket extends Item {
      * Unbinds the provided Sigil from the Trinket.
      * @param {Sigil} sigil the sigil to unbind from the Trinket
      */
-    unbindSigil(sigil) {
-        removeFromArray(this.sockets, sigil);
+    unbindSigil() {
+        this.sigil = null;
     }
 
     /**
-     * Adds an available socket. Cannot exceed the sockets_amount variable.
-     * @param {number} amount the amount of sockets to add
+     * Returns whether this Trinket has a bound Sigil.
+     * @returns {boolean} whether the Trinket has a sigil
      */
-    addAvailableSocket(amount = 1) {
-        this.sockets_free = Math.min(this.sockets_amount, this.sockets_free + amount);
-    }
-    /**
-     * Removes an available socket. Cannot go below zero.
-     * @param {number} amount the amount of sockets to remove
-     */
-    removeAvailableSocket(amount = 1) {
-        this.sockets_free = Math.max(0, this.sockets_free - amount);
+    hasSigil() {
+        return this.sigil != null;
     }
 
     /**
-     * Returns whether the sockets_free property of the Weapon is superior to 0.
-     * @returns {boolean} whether the Weapon has free sockets
+     * Returns whether this Trinket has a bound Echo.
+     * @returns {boolean} whether the Trinket has an echo
      */
-    hasFreeSockets() {
-        return this.sockets_free > 0;
-    }
-
-    /**
-     * Adds an available echo slot. Cannot exceed the echoes_amount variable.
-     * @param {number} amount the amount of ecohes to add
-     */
-    addAvailableEcho(amount = 1) {
-        this.echoes_free = Math.min(this.echoes_amount, this.echoes_free + amount);
-    }
-    /**
-     * Removes an available echo slot. Cannot go below zero.
-     * @param {number} amount the amount of echoes to remove
-     */
-    removeAvailableEcho(amount = 1) {
-        this.echoes_free = Math.max(0, this.echoes_free - amount);
-    }
-
-    /**
-     * Returns whether the echoes_free property of the Trinket is superior to 0.
-     * @returns {boolean} whether the Trinket has free echoes
-     */
-    hasFreeEchoes() {
-        return this.echoes_free > 0;
+    hasEcho() {
+        return this.echo != null;
     }
 
     /**
@@ -124,7 +91,7 @@ class Trinket extends Item {
      * @param {Echo} echo the Echo to add. if no Echo is provided, it will be picked randomly.
      */
     addEcho(echo = null) {
-        if(this.hasFreeEchoes()) {
+        if(!this.hasEcho()) {
             if(!echo) {
                 let pool = game.all_echoes.filter(echo => {
                     return echo.type === Data.EchoType.TRINKET || echo.type === Data.EchoType.ANY
@@ -133,8 +100,7 @@ class Trinket extends Item {
             }
             echo = Entity.clone(echo);
             echo.fix();
-            this.echoes.push(echo);
-            this.removeAvailableEcho();
+            this.echo = echo;
         } else {
             ERROR('No available echo slots left on ' + this.name);
         }

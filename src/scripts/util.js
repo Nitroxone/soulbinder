@@ -1681,22 +1681,23 @@ function getAlterations(item, diff = []) {
     let str = '';
     let result = {};
 
-    item.sockets.forEach(sock => {
-        sock.effects.forEach(eff => {
+    if(item.hasSigil()) {
+        item.sigil.effects.forEach(eff => {
             result = appendEffectToObject(eff, result);
         });
-        if(sock.isCritical) sock.critical.forEach(eff => {
+        if(item.sigil.isCritical) item.sigil.critical.forEach(eff => {
             result = appendEffectToObject(eff, result);
         });
-        if(sock.isCorrupt) sock.corrupt.forEach(eff => {
+        if(item.sigil.isCorrupt) item.sigil.corrupt.forEach(eff => {
             result = appendEffectToObject(eff, result);
         });
-    });
-    item.echoes.forEach(echo => {
-        echo.stats.forEach(stat => {
+    }
+    
+    if(item.hasEcho()) {
+        item.echo.stats.forEach(stat => {
             result = appendEffectToObject(stat, result);
         });
-    });
+    }
     
     let base = null;
     if(diff.length > 0) {
@@ -1781,22 +1782,22 @@ function filterCritCorr(item, effect, state) {
 function isEffectAllowedOnObject(effect, obj) {
     let result = [];
 
-    obj.sockets.forEach(sock => {
-        sock.effects.forEach(eff => {
+    if(obj.hasSigil()) {
+        obj.sigil.effects.forEach(eff => {
             if(!eff.disabled) result.push(eff.effect);
         });
-        if(sock.isCritical) sock.critical.forEach(eff => {
+        if(obj.sigil.isCritical) obj.sigil.critical.forEach(eff => {
             result.push(eff.effect);
         });
-        if(sock.isCorrupt) sock.corrupt.forEach(eff => {
+        if(obj.sigil.isCorrupt) obj.sigil.corrupt.forEach(eff => {
             result.push(eff.effect);
         });
-    });
-    obj.echoes.forEach(echo => {
-        echo.stats.forEach(stat => {
+    }
+    if(obj.hasEcho()) {
+        obj.echo.stats.forEach(stat => {
             result.push(stat.effect);
         });
-    });
+    }
 
     if(obj instanceof Weapon) {
         result.push(

@@ -77,7 +77,8 @@ const Loader = {
                        [[5, 8], [1, 3], true],
                        [[0, 0], [0, 0], true],
                        [true, true, false],
-                       [new Echo(
+                       3,
+                       new Echo(
                         "Solana's Tulips",
                         "Each non-critical hit with this weapon gives a §1% Critical Luck bonus to its bearer, for one round. Each critical hit with this weapon regenerates §2% of its bearer's Max. Mana and generates §3 Shield points.",
                         1,
@@ -101,7 +102,7 @@ const Loader = {
                             "shield": [20, 26]
                         },
                         [],
-                       )])
+                       ))
         ];
 
         for(const weapon of weapons) {
