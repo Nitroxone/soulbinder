@@ -63,10 +63,12 @@ DONE - Add Sigil soulmarks
 - Nerf all effects
 - Implement Soulreading
 - Implement Soulbending
+- Add searchbar for soulmarks
 
 SOULBINDING:
 DONE - Prevent the addition of effects that do not already exist
 ONGOING - Revamp the bonus system to make it a little more limited
+- Properly design an empty soulbinding screen
 
 EONS:
 - Graphically redesign the whole thing. (using Crimson Pro + different background)
