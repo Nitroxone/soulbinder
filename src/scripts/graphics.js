@@ -2097,6 +2097,7 @@ function getSwRead(refresh = false) {
     let str = '';
 
     str += '<div class="swRead-banner">';
+    str += getSoulreadingBanner();
     str += '</div>';
 
     str += '<div class="swRead-sigil">';
@@ -2107,6 +2108,18 @@ function getSwRead(refresh = false) {
 
     if(refresh) {
         document.querySelector('#soulwcontent-read').innerHTML = str;
+        return;
+    }
+    return str;
+}
+
+function getSoulreadingBanner(refresh = false) {
+    let str = '';
+
+    
+
+    if(refresh) {
+        document.querySelector('.swRead-banner').innerHTML = str;
         return;
     }
     return str;

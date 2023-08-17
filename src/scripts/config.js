@@ -680,12 +680,16 @@ let Config = {
         {
             effect: Data.Effect.BLEED_DURATION,
             name: "hemophilia",
-            theorical: [3, 6],
+            theorical: 1,
             critical: new Stat({effect: Data.Effect.BLEED_DMG, theorical: [2, 3], isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.BLEED_DMG, theorical: [-2, -3], isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.EPIC
+            rarity: Data.Rarity.EPIC,
+            researchTotal: 1,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: []
         },
         {
             effect: Data.Effect.BLEED_INCURABLE,
@@ -695,7 +699,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.BLEED_DMG, theorical: [-2, -3], isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.LEGENDARY
+            rarity: Data.Rarity.LEGENDARY,
+            researchTotal: 1,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: []
         },
         {
             effect: Data.Effect.POISON_DMG,
@@ -705,17 +713,25 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.MDMG, theorical: [-2, -5], isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.EPIC
+            rarity: Data.Rarity.EPIC,
+            researchTotal: 3,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: [[1, 2], [2, 4], [3, 6]]
         },
         {
             effect: Data.Effect.POISON_DURATION,
             name: "dilution",
-            theorical: [3, 6],
+            theorical: 1,
             critical: new Stat({effect: Data.Effect.POISON_DMG, theorical: [2, 3], isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.POISON_DMG, theorical: [-2, -3], isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.EPIC
+            rarity: Data.Rarity.EPIC,
+            researchTotal: 1,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: []
         },
         {
             effect: Data.Effect.POISON_INCURABLE,
@@ -725,7 +741,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.POISON_DMG, theorical: [-2, -3], isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.LEGENDARY
+            rarity: Data.Rarity.LEGENDARY,
+            researchTotal: 1,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: []
         },
         {
             effect: Data.Effect.RANGE_FRONT_ON,
@@ -735,7 +755,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.EFFORT, theorical: [4, 6], isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.LEGENDARY
+            rarity: Data.Rarity.LEGENDARY,
+            researchTotal: 1,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: []
         },
         {
             effect: Data.Effect.RANGE_MIDDLE_ON,
@@ -745,7 +769,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.ACCURACY, theorical: [-4, -6], isPercentage: true, isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.LEGENDARY
+            rarity: Data.Rarity.LEGENDARY,
+            researchTotal: 1,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: []
         },
         {
             effect: Data.Effect.RANGE_BACK_ON,
@@ -755,7 +783,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.MDMG, theorical: [-4, -6], isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.LEGENDARY
+            rarity: Data.Rarity.LEGENDARY,
+            researchTotal: 1,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: []
         },
     ]
 }

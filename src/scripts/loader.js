@@ -640,6 +640,28 @@ const Loader = {
                 Data.EchoType.WEAPON
             ),
             new Echo(
+                "Obliterate",
+                "Any critical hit with this weapon on a stunned enemy will instantly destroy their entire shield.",
+                1,
+                Data.Rarity.LEGENDARY,
+                [
+                    new Stat({
+                        effect: Data.Effect.MODIF_ACCURACY_STUN,
+                        theorical: [3, 6],
+                        isPercentage: true
+                    }),
+                    new Stat({
+                        effect: Data.Effect.CRIT_LUK,
+                        theorical: [5, 8],
+                        isPercentage: true
+                    })
+                ],
+                "Quote",
+                {},
+                [],
+                Data.EchoType.WEAPON
+            ),
+            new Echo(
                 "Relentless",
                 "Each critical hit generates a shield whose value equals §1% of your total health (stackable).",
                 1,
