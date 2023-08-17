@@ -13,7 +13,7 @@ class Trinket extends Item {
         this.effects = effects;
 
         this.allowedAlterations = allowedAlterations;
-        this.alterations = 0;
+        this.alterations = [];
         this.echo = echo;
         this.sigil = null;
         
@@ -54,6 +54,38 @@ class Trinket extends Item {
      */
     hasEcho() {
         return this.echo != null;
+    }
+
+    /**
+     * Adds the provided Stat to this Trinket's list of alterations.
+     * @param {Stat} effect the alteration to add
+     */
+    addAlteration(effect) {
+        if(this.canAddAlteration()) this.alterations.push(effect);
+    }
+
+    /**
+     * Removes the provided Stat from this Trinket's list of alterations.
+     * @param {Stat} effect the alteration to remove
+     */
+    removeAlteration(effect) {
+        removeFromArray(this.alterations, effect);
+    }
+
+    /**
+     * Returns whether this Trinket can host another alteration.
+     * @returns {boolean} whether an alteration can be added
+     */
+    canAddAlteration() {
+        return this.alterations.length < this.allowedAlterations;
+    }
+
+    /**
+     * Returns the amount of available alterations on this Trinket.
+     * @returns {number} the number of current alterations
+     */
+    getAvailableAlterations() {
+        return Math.max(0, this.allowedAlterations - this.alterations.length);
     }
 
     /**

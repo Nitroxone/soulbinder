@@ -126,18 +126,34 @@ class Weapon extends Item {
         return this.echo != null;
     }
 
+    /**
+     * Adds the provided Stat to this Weapon's list of alterations.
+     * @param {Stat} effect the alteration to add
+     */
     addAlteration(effect) {
         if(this.canAddAlteration()) this.alterations.push(effect);
     }
 
+    /**
+     * Removes the provided Stat from this Weapon's list of alterations.
+     * @param {Stat} effect the alteration to remove
+     */
     removeAlteration(effect) {
         removeFromArray(this.alterations, effect);
     }
 
+    /**
+     * Returns whether this Weapon can host another alteration.
+     * @returns {boolean} whether an alteration can be added
+     */
     canAddAlteration() {
         return this.alterations.length < this.allowedAlterations;
     }
 
+    /**
+     * Returns the amount of available alterations on this Weapon.
+     * @returns {number} the number of current alterations
+     */
     getAvailableAlterations() {
         return Math.max(0, this.allowedAlterations - this.alterations.length);
     }
