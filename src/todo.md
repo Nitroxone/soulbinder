@@ -65,6 +65,9 @@ DONE - Nerf all effects
 - Implement Soulbending
 - Add searchbar for soulmarks
 
+SOULREADING:
+- Extract a soulmark multiple times to unlock its full potential?
+
 SOULBINDING:
 DONE - Prevent the addition of effects that do not already exist
 ONGOING - Revamp the bonus system to make it a little more limited
