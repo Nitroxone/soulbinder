@@ -74,9 +74,9 @@ function spawnTooltip(item, fromExisting = 0) {
 
     // IF ASTRAL FORGE COMPATIBLE, ADD ASTRAL FORGE MODIFICATIONS TOOLTIP EVENT
     if(item instanceof Weapon || item instanceof Armor || item instanceof Trinket) {
-        if(item.astralForgeItem.isModified()) {
+        if(item.astralForgeItem.isModified() || item.hasSigil()) {
             addTooltip(tooltip.querySelector('.editedIcon'), function(){
-                return item.astralForgeItem.getFormattedModifications();
+                return getItemAlterationsTooltip(item)
             }, {offY: -8});
             tooltip.querySelector('.editedIcon').addEventListener('contextmenu', e => {
                 e.preventDefault();
@@ -288,7 +288,7 @@ function getWeaponTooltip(weapon, asResult = null, full = false) {
     if(weapon.set) str += '<div class="tooltipSetText">' + weapon.set + '</div>';
     str += '</div>';
 
-    if(weapon.astralForgeItem.isModified()) str += '<div class="editedIcon" id="editedIcon-' + weapon.id + '"></div>';
+    if(weapon.astralForgeItem.isModified() || weapon.alterations.length > 0) str += '<div class="editedIcon" id="editedIcon-' + weapon.id + '"></div>';
 
     game.particlesTooltipCanvasItem = weapon;
     return str;

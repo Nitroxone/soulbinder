@@ -1677,7 +1677,7 @@ function isEffectUnvaluable(eff) {
  * @param {Stat[]} diff the optional stats array to compare 
  * @returns {string} an HTML content string
  */
-function getAlterations(item, diff = []) {
+function getAlterations(item, diff = [], titleReplace = '') {
     let str = '';
     let result = {};
 
@@ -1756,8 +1756,11 @@ function getAlterations(item, diff = []) {
         }
     }
 
-    if(str === '') str = '<h2>No alterations</h2>';
-    else str = '<h2>Alterations</h2>' + str;
+    if(titleReplace !== '') str += '<h2>' + titleReplace + '</h2>';
+    else {
+        if(str === '') str = '<h2>No alterations</h2>';
+        else str = '<h2>Alterations</h2>' + str;
+    }
 
     return str;
 }
@@ -1856,4 +1859,35 @@ function isBaseWeaponEffect(eff) {
  */
 function isBaseArmorEffect(eff) {
     return Config.BaseArmorEffects.includes(eff);
+}
+
+function getSigilEffectsFromItem(item) {
+    let str = '';
+
+    item.sigil.effects.forEach(alt => {
+        str += alt.getFormatted({noTheorical: true, defaultColor: true});
+    });
+    if(item.sigil.isCritical) item.sigil.critical.forEach(alt => {
+        str += alt.getFormatted({noTheorical: true, defaultColor: true});
+    });
+    if(item.sigil.isCorrupt) item.sigil.corrupt.forEach(alt => {
+        str += alt.getFormatted({noTheorical: true, defaultColor: true});
+    });
+
+    if(str === '') str = '<h2>No alterations</h2>';
+    else str = '<h2>Alterations</h2>' + str;
+
+    return str;
+}
+
+function getItemAlterationsTooltip(item) {
+    let str = '';
+
+    if(item.astralForgeItem.isModified()) {
+        str += item.astralForgeItem.getFormattedModifications();
+        str += '<div class="divider"></div>';
+    }
+    if(item.hasSigil()) str += '<div class="editedIconStats">' + getSigilEffectsFromItem(item) + '</div>';
+
+    return str;
 }
