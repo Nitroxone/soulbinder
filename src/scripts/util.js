@@ -1868,10 +1868,10 @@ function getSigilEffectsFromItem(item) {
         str += alt.getFormatted({noTheorical: true, defaultColor: true});
     });
     if(item.sigil.isCritical) item.sigil.critical.forEach(alt => {
-        str += alt.getFormatted({noTheorical: true, defaultColor: true});
+        str += alt.getFormatted({noTheorical: true, defaultColor: true, bold: true});
     });
     if(item.sigil.isCorrupt) item.sigil.corrupt.forEach(alt => {
-        str += alt.getFormatted({noTheorical: true, defaultColor: true});
+        str += alt.getFormatted({noTheorical: true, defaultColor: true, bold: true});
     });
 
     if(str === '') str = '<h2>No alterations</h2>';

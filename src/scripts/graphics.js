@@ -120,7 +120,7 @@ function getTrinketTooltip(trinket, asResult = null, full = false) {
     if(trinket.set) str += '<div class="tooltipSetText">' + trinket.set + '</div>';
     str += '</div></div>';
 
-    if(trinket.astralForgeItem.isModified()) str += '<div class="editedIcon" id="editedIcon-' + trinket.id + '"></div>';
+    if(trinket.astralForgeItem.isModified() || trinket.alterations.length > 0) str += '<div class="editedIcon" id="editedIcon-' + trinket.id + '"></div>';
 
     game.particlesTooltipCanvasItem = trinket;
     return str;
@@ -329,7 +329,7 @@ function getArmorTooltip(armor, asResult = null, full = false) {
     if(armor.set) str += '<div class="tooltipSetText">' + armor.set + '</div>';
     str += '</div>';
 
-    if(armor.astralForgeItem.isModified()) str += '<div class="editedIcon" id="editedIcon-' + armor.id + '"></div>';
+    if(armor.astralForgeItem.isModified() || armor.alterations.length > 0) str += '<div class="editedIcon" id="editedIcon-' + armor.id + '"></div>';
 
     game.particlesTooltipCanvasItem = armor;
     return str;
