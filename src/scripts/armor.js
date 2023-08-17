@@ -25,8 +25,8 @@ class Armor extends Item {
                 type, 
                 t_resilience, 
                 t_warding, 
-                allowedAlterations = 2,
-                echoes = []) {
+                allowedAlterations = 1,
+                echo = null) {
         super(name, desc, icon, price, rarity);
         this.type = type;
 
@@ -38,7 +38,7 @@ class Armor extends Item {
 
         this.allowedAlterations = allowedAlterations;
         this.alterations = [];
-        this.echo = null;
+        this.echo = echo;
         this.sigil = null;
 
         this.set = null;
@@ -109,6 +109,20 @@ class Armor extends Item {
      */
     getAvailableAlterations() {
         return Math.max(0, this.allowedAlterations - this.alterations.length);
+    }
+
+    /**
+     * Adds a slot of allowed alterations on this item.
+     */
+    addAllowedAlteration() {
+        this.allowedAlterations += 1;
+    }
+
+    /**
+     * Removes a slot of allowed alterations on this item.
+     */
+    removeAllowedAlteration() {
+        this.allowedAlterations = Math.max(1, this.allowedAlterations - 1);
     }
     
     /**

@@ -7,7 +7,7 @@
 class Trinket extends Item {
     constructor(name, desc, icon, price, rarity, 
                 effects,
-                allowedAlterations = 2,
+                allowedAlterations = 1,
                 echo = null) {
         super(name, desc, icon, price, rarity);
         this.effects = effects;
@@ -86,6 +86,20 @@ class Trinket extends Item {
      */
     getAvailableAlterations() {
         return Math.max(0, this.allowedAlterations - this.alterations.length);
+    }
+
+    /**
+     * Adds a slot of allowed alterations on this item.
+     */
+    addAllowedAlteration() {
+        this.allowedAlterations += 1;
+    }
+
+    /**
+     * Removes a slot of allowed alterations on this item.
+     */
+    removeAllowedAlteration() {
+        this.allowedAlterations = Math.max(1, this.allowedAlterations - 1);
     }
 
     /**

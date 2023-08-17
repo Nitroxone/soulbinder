@@ -166,6 +166,7 @@ class Inventory {
                 });
             }
             item.unbindSigil(sigil);
+            item.removeAllowedAlteration();
             console.log(sigil.name + ' was unbound from ' + item.name);
         } else {
             ERROR('No such sigil is bound to ' + item.name);

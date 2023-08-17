@@ -6121,6 +6121,12 @@ table.astralForgeShards td {
     justify-content: start;
     align-items: flex-start;
 }
+.editedIconStats > h2 {
+    font-size: 13px;
+    font-variant: small-caps;
+    font-family: RobotoSlab;
+    margin-bottom: 0.5rem;
+}
 
 .astralForge-notifications {
     position: absolute;

@@ -159,6 +159,20 @@ class Weapon extends Item {
     }
 
     /**
+     * Adds a slot of allowed alterations on this item.
+     */
+    addAllowedAlteration() {
+        this.allowedAlterations += 1;
+    }
+
+    /**
+     * Removes a slot of allowed alterations on this item.
+     */
+    removeAllowedAlteration() {
+        this.allowedAlterations = Math.max(1, this.allowedAlterations - 1);
+    }
+
+    /**
      * Adds the Stat's data to the Weapon's data.
      * @param {Stat} effect the Stat to add
      * @param {boolean} remove whether the Stat should removed instead of being added
