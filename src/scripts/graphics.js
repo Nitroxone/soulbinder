@@ -1751,9 +1751,11 @@ function drawSoulwritingScreen() {
     str += '<div id="soulwtab-bend" class="soulwTab' + (game.soulwriting.currentTab === 'bend' ? ' activeTab' : '') + '">Bend</div>';
     str += '</div>';
 
-    str += '<div id="soulwcontent-read" class="soulwContent">READING</div>';
+    str += '<div id="soulwcontent-read" class="soulwContent" style="display: grid">'
+    str += getSwRead();
+    str += '</div>';
 
-    str += '<div id="soulwcontent-write" class="soulwContent" style="display: grid">'
+    str += '<div id="soulwcontent-write" class="soulwContent" style="display: none">'
     str += getSwWrite();
     str += '</div>';
 
@@ -2075,7 +2077,7 @@ function getSwWrite(refresh = false) {
     str += '</div>';
 
     if(refresh) {
-        document.querySelector('.soulwcontent-write').innerHTML = str;
+        document.querySelector('#soulwcontent-write').innerHTML = str;
         return;
     }
     return str;
@@ -2088,6 +2090,25 @@ function getFormattedSoulmark(sm) {
 
     str += '<div id="sm-' + sm.name + '" class="swWriteList-single"><div class="swWriteList-singleHeader"><span>' + capitalizeFirstLetter(sm.name) + '</span>' + eff.getFormatted({cssClass: 'swWriteList-eff', noValue: true, noTheorical: true}) + '</div><div class="extendedSoulmarkContainer"></div></div>';
 
+    return str;
+}
+
+function getSwRead(refresh = false) {
+    let str = '';
+
+    str += '<div class="swRead-banner">';
+    str += '</div>';
+
+    str += '<div class="swRead-sigil">';
+    str += '</div>';
+
+    str += '<div class="swRead-soulmarks">';
+    str += '</div>';
+
+    if(refresh) {
+        document.querySelector('#soulwcontent-read').innerHTML = str;
+        return;
+    }
     return str;
 }
 

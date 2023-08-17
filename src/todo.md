@@ -72,6 +72,7 @@ SOULBINDING:
 DONE - Prevent the addition of effects that do not already exist
 ONGOING - Revamp the bonus system to make it a little more limited
 - Properly design an empty soulbinding screen
+- Handle the Echo extraction/replacement
 
 EONS:
 - Graphically redesign the whole thing. (using Crimson Pro + different background)

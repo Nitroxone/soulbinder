@@ -4608,6 +4608,34 @@ hr.leftSided {
     }
 }
 
+#soulwcontent-read {
+    overflow: hidden;
+
+    width: 100%;
+    height: 100%;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 0 0;
+    grid-template-areas: 
+        "swRead-banner"
+        "swRead-sigil"
+        "swRead-soulmarks";
+}
+.swRead-banner, .swRead-sigil, .swRead-soulmarks {
+    border: 1px dashed grey;
+}
+.swRead-banner {
+    grid-area: swRead-banner;
+}
+.swRead-sigil {
+    grid-area: swRead-sigil;
+}
+.swRead-soulmarks {
+    grid-area: swRead-soulmarks;
+}
+
 .soulbInterface {
     grid-area: soulbInterface;
 

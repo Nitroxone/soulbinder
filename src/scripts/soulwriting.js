@@ -7,7 +7,7 @@
 class Soulwriting {
     constructor() {
         this.tabs = ["read", "write", "bend"];
-        this.currentTab = this.tabs[1];
+        this.currentTab = this.tabs[0];
 
         this.soulmarks = [null, null, null, null];
         this.selectedSlot = 0;
