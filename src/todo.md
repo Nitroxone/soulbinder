@@ -58,9 +58,9 @@ SOULWRITING:
 DONE - Add soulmarks Price, Gold cost, Souls cost, Rarity
 DONE - Change Sigil tooltip
 DONE - Add Sigil soulmarks
+DONE - Nerf all effects
 - Actually display Soulwriting price
 - Display price on Sigil tooltips
-- Nerf all effects
 - Implement Soulreading
 - Implement Soulbending
 - Add searchbar for soulmarks
