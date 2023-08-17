@@ -9,6 +9,9 @@
 - Implement item pricing
 - Implement an arbitrary "Power" unit to weapons, armors, and trinkets
 
+- Add item stats scaling (with souls)
+- Revamp the bonus/malus system : instead of directly altering stats, rather store these alterations into an array to better keep track of them.
+
 - Actually implement set bonuses
 
 ALCHEMY:

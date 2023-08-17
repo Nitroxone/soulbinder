@@ -65,7 +65,7 @@ class Weapon extends Item {
         this.range = range;
 
         this.allowedAlterations = allowedAlterations;
-        this.alterations = 0;
+        this.alterations = [];
         this.sigil = null;
         this.echo = echo;
 
@@ -124,6 +124,22 @@ class Weapon extends Item {
      */
     hasEcho() {
         return this.echo != null;
+    }
+
+    addAlteration(effect) {
+        if(this.canAddAlteration()) this.alterations.push(effect);
+    }
+
+    removeAlteration(effect) {
+        removeFromArray(this.alterations, effect);
+    }
+
+    canAddAlteration() {
+        return this.alterations.length < this.allowedAlterations;
+    }
+
+    getAvailableAlterations() {
+        return Math.max(0, this.allowedAlterations - this.alterations.length);
     }
 
     /**

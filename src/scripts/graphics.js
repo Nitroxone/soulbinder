@@ -2207,7 +2207,7 @@ function getSoulbindingItem(refresh = false) {
         str += '<div class="sbItemContainerIndicator">';
         str += '<h3>Alterations</h3>';
         str += '<div class="sbItemContainerDots">';
-        for(let i = 0, c = game.soulbinding.item.alterations; i < game.soulbinding.item.allowedAlterations; i++) {
+        for(let i = 0, c = game.soulbinding.item.alterations.length; i < game.soulbinding.item.allowedAlterations; i++) {
             if(c > 0) str += '<span class="sbFulldot"></span>';
             else str += '<span class="sbEmptyDot"></span>';
             c--;

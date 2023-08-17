@@ -1780,6 +1780,8 @@ function filterCritCorr(item, effect, state) {
  * @returns {boolean} whether the effect can be added
  */
 function isEffectAllowedOnObject(effect, obj) {
+    if(!obj.canAddAlteration()) return false;
+
     let result = [];
 
     if(obj.hasSigil()) {

@@ -150,7 +150,10 @@ class Inventory {
     disenchant(item, sigil) {
         if(item.sigil.name === sigil.name) {
             sigil.effects.forEach(effect => {
-                if(!effect.disabled) item.addEffect(effect, true);
+                if(!effect.disabled) {
+                    item.addEffect(effect, true);
+                    item.removeAlteration(effect);
+                }
             });
             if(sigil.isCritical) {
                 sigil.critical.forEach(effect => {
@@ -176,7 +179,10 @@ class Inventory {
      */
     enchant(item, sigil) {
         sigil.effects.forEach(effect => {
-            if(isEffectAllowedOnObject(effect.effect, item)) item.addEffect(effect);
+            if(isEffectAllowedOnObject(effect.effect, item)) {
+                item.addEffect(effect);
+                item.addAlteration(effect);
+            }
             else effect.disable();
         });
         if(sigil.isCritical) {

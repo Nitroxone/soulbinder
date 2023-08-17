@@ -55,6 +55,7 @@ class Soulbinding {
         sigilDom.classList.add('preslottedSigil');
         sigilDomTitle.textContent = this.preslottedSigil.name;
         sigilDomTitle.classList.add('preslottedSigilTitle');
+        if(this.item.getAvailableAlterations() < sigil.effects.length) sigilDomTitle.parentNode.outerHTML += '<div class="preslottedSigilOverflowWarning">This Sigil contains more soulmarks than this item can host. Only the first available ones will be added.</div>';
         Sounds.Methods.playSound(Data.SoundType.SOULBIND_PRESLOT);
     }
 
