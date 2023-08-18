@@ -969,6 +969,19 @@ function getInventoryResourceById(id) {
 }
 
 /**
+ * Retrieves the Sigil from the Player's Inventory, which ID matches the one that is provided.
+ * @param {number} id the Sigil's ID
+ * @returns {Sigil|null} the Sigil that was found, or null if it was not found
+ */
+function getInventorySigilById(id) {
+    let sigil = null;
+    game.player.inventory.sigils.forEach(item => {
+        if(item.id === id) sigil = item;
+    });
+    return sigil;
+}
+
+/**
  * Retrieves a Weapon, Armor, or Trinket, based on its unique ID.
  * @param {number} id the item's ID
  * @returns {Weapon|Armor|Trinket} the item

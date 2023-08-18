@@ -2105,6 +2105,7 @@ function getSwRead(refresh = false) {
     str += '</div>';
 
     str += '<div class="swRead-soulmarks">';
+    str += getSoulreadingSoulmarks();
     str += '</div>';
 
     if(refresh) {
@@ -2129,10 +2130,27 @@ function getSoulreadingBanner(refresh = false) {
 function getSoulreadingSigil(refresh = false) {
     let str = '';
 
-    str += '<div class="swReadSigilSlot"></div>';
+    str += '<div class="swReadSigilSlot" ondragover="allowDrop(event)" ondrop="game.soulwriting.selectSigil(event)">'
+    if(game.soulwriting.sigil) {
+        str += '<div class="swReadSigilSlotIcon" style="' + getIcon(game.soulwriting.sigil, 45) + '"></div>';
+    }
+    str += '</div>';
 
     if(refresh) {
-        document.querySelector('.swRead-sigil');
+        document.querySelector('.swRead-sigil').innerHTML = str;
+        return;
+    }
+    return str;
+}
+
+function getSoulreadingSoulmarks(refresh = false) {
+    let str = '';
+
+    str += '<div class="swReadSoulmarksContainer">';
+    str += '</div>';
+
+    if(refresh) {
+        document.querySelector('.swRead-soulmarks');
         return;
     }
     return str;

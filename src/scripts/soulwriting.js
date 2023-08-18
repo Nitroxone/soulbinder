@@ -14,6 +14,8 @@ class Soulwriting {
         this.selectRandomIcon();
 
         this.isWriting = false;
+
+        this.sigil = null;
     }
 
     /**
@@ -216,5 +218,14 @@ class Soulwriting {
         game.player.inventory.addItem(res, 1, true);
         drawSigilInventory(game.player.inventory.sigils);
         this.finishedWriting();
+    }
+
+    selectSigil(event) {
+        const sigil = getInventorySigilById(Number(event.dataTransfer.getData("sigil")));
+
+        this.sigil = sigil;
+
+        getSoulreadingSigil(true);
+        getSoulreadingSoulmarks(true);
     }
 }
