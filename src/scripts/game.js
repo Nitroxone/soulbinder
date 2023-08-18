@@ -250,10 +250,8 @@ class Game {
     updateLogPopup() {
         let str = '';
         str += '<div class="par"><b>Soulbinder</b> is a JavaScript game made by ntrx and wensa. It is currently in early alpha state and may be prone to numerous bugs - though we got a lot of update plans on the way. The project first started as a way to practice my JavaScript skills. Now we\'re here.</div>' +
-            '<div class="par"><b>Soulbinder</b>\'s goal is to take you on a lore-rich, story-driven dungeon crawling adventure with enough features to never make you bored of it. A heavy emphasis was put on the game\'s accessibility : hence the fact that is it a web browser game. It is also free and open source, so you can <a href="https://github.com/Nitroxone/soulbinderjs" target="_blank">download the game</a> anytime you want in case you go offline but still want to play. But most importantly : it was made to kill time!</div>' +
-            '<br><div class="fancyText">The long term</div>' +
-            '<div class="par">Once the game has a stable gameplay base, the idea would be to release updates from time to time that would add new dungeons, enemies, items, and so on.</div>';
-        str += '<div class="divider"></div><div class="fancyText">Update log:</div>';
+            '<div class="par"><b>Soulbinder</b>\'s goal is to take you on a lore-rich, story-driven dungeon crawling adventure with enough features to never make you bored of it. A heavy emphasis was put on the game\'s accessibility : hence the fact that is it a web browser game. It is also free and open source, so you can <a href="https://github.com/Nitroxone/soulbinderjs" target="_blank">download the game</a> anytime you want in case you go offline but still want to play. But most importantly : it was made to kill time!</div>';
+        str += '<div class="divider"></div>';
         for(let i = 0; i < UPDATE_LOG.length; i++) {
             let me = UPDATE_LOG[i];
             str += '<br><div class="fancyText"><span style="color:#999;">' + me.date + ' :</span> ' + me.title + '</div>';
