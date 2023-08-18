@@ -41,6 +41,8 @@ class Player {
         // SIGILS
         this.sw_stalwartFactor = 5;
         this.sw_corruptFactor = 5;
+
+        this.sr_sigilsCrushed = 0;
     }
 
     /**

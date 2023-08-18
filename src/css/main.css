@@ -4622,18 +4622,48 @@ hr.leftSided {
         "swRead-banner"
         "swRead-sigil"
         "swRead-soulmarks";
+
+    background: url('img/darkBorders.png'), linear-gradient(0deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.25) 100%), url('img/bg/bg-soulreading.png');
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: 100% 100%, cover, cover;
 }
-.swRead-banner, .swRead-sigil, .swRead-soulmarks {
+.swRead-sigil, .swRead-soulmarks {
     border: 1px dashed grey;
 }
 .swRead-banner {
     grid-area: swRead-banner;
+
+    border: 3px solid transparent;
+    border-image: url('img/window1.png') 3 stretch;
+    border-top: none;
+    border-left: none;
+    border-right: none;
 }
 .swRead-sigil {
     grid-area: swRead-sigil;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .swRead-soulmarks {
     grid-area: swRead-soulmarks;
+}
+.swReadSigilSlot {
+    width: 100px;
+    height: 100px;
+    background: rgba(0, 0, 0, 0.4);
+    box-shadow: 0px 0px 0px 1px rgba(255,255,255,1) inset, 0px 1px 4px 2px rgba(128,255,255,0.6) inset;
+    border: 7px solid transparent;
+    border-image: url('img/window1.png') 7 stretch;
+    transform: rotate(45deg);
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+    overflow: hidden;
+}
+.swReadSigilSlot:hover {
+    background: rgba(155, 155, 155, 0.2);
+    cursor: pointer;
 }
 
 .soulbInterface {
@@ -4647,7 +4677,7 @@ hr.leftSided {
 
     overflow: hidden;
 
-    background: url('img/darkBorders.png'), linear-gradient(0deg, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.65) 100%), url('img/bg/bg-soulbinding.png');
+    background: url('img/darkBorders.png'), linear-gradient(0deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.45) 100%), url('img/bg/bg-soulbinding.png');
     background-size: 100% 100%, cover, cover;
     background-position: center;
     background-repeat: no-repeat;

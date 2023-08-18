@@ -2101,6 +2101,7 @@ function getSwRead(refresh = false) {
     str += '</div>';
 
     str += '<div class="swRead-sigil">';
+    str += getSoulreadingSigil();
     str += '</div>';
 
     str += '<div class="swRead-soulmarks">';
@@ -2120,6 +2121,18 @@ function getSoulreadingBanner(refresh = false) {
 
     if(refresh) {
         document.querySelector('.swRead-banner').innerHTML = str;
+        return;
+    }
+    return str;
+}
+
+function getSoulreadingSigil(refresh = false) {
+    let str = '';
+
+    str += '<div class="swReadSigilSlot"></div>';
+
+    if(refresh) {
+        document.querySelector('.swRead-sigil');
         return;
     }
     return str;

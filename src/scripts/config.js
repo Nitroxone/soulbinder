@@ -204,7 +204,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.REGEN_HEALTH, theorical: -1, isPercentage: true, isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.COMMON
+            rarity: Data.Rarity.COMMON,
+            researchTotal: 5,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: [[5, 8], [8, 10], [10, 20], [15, 25], [20, 30]]
         },
         {
             effect: Data.Effect.MAXMANA,
@@ -214,7 +218,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.REGEN_MANA, theorical: -1, isPercentage: true, isCorrupt: true}),
             unlocked: false,
             price: 6,
-            rarity: Data.Rarity.COMMON
+            rarity: Data.Rarity.COMMON,
+            researchTotal: 5,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: [[5, 8], [8, 10], [10, 20], [15, 25], [20, 30]]
         },
         {
             effect: Data.Effect.MAXSTAMINA,
@@ -224,7 +232,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.REGEN_STAMINA, theorical: -1, isPercentage: true, isCorrupt: true}),
             unlocked: false,
             price: 6,
-            rarity: Data.Rarity.COMMON
+            rarity: Data.Rarity.COMMON,
+            researchTotal: 5,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: [[5, 8], [8, 10], [10, 20], [15, 25], [20, 30]]
         },
         {
             effect: Data.Effect.DODGE,
@@ -234,7 +246,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.ACCURACY, theorical: [-1, -3], isPercentage: true, isCorrupt: true}),
             unlocked: false,
             price: 8,
-            rarity: Data.Rarity.UNCOMMON
+            rarity: Data.Rarity.UNCOMMON,
+            researchTotal: 1,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: []
         },
         {
             effect: Data.Effect.SPEED,
@@ -244,7 +260,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.RES_MOVE, theorical: [-1, -3], isPercentage: true, isCorrupt: true}),
             unlocked: false,
             price: 8,
-            rarity: Data.Rarity.UNCOMMON
+            rarity: Data.Rarity.UNCOMMON,
+            researchTotal: 1,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: []
         },
         {
             effect: Data.Effect.ACCURACY,
@@ -254,7 +274,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.DODGE, theorical: -1, isPercentage: true, isCorrupt: true}),
             unlocked: false,
             price: 8,
-            rarity: Data.Rarity.COMMON
+            rarity: Data.Rarity.COMMON,
+            researchTotal: 4,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: [[1, 2], [2, 3], [2, 4], [3, 5]]
         },
         {
             effect: Data.Effect.PROTECTION,
@@ -264,7 +288,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.MAXHEALTH, theorical: [-10, -25], isCorrupt: true}),
             unlocked: false,
             price: 8,
-            rarity: Data.Rarity.UNCOMMON
+            rarity: Data.Rarity.UNCOMMON,
+            researchTotal: 4,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: [[1, 2], [2, 3], [2, 4], [3, 5]]
         },
         {
             effect: Data.Effect.MIGHT,
@@ -274,7 +302,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.MODIF_DMG_WEAPON, theorical: [-1, -3], isPercentage: true, isCorrupt: true}),
             unlocked: false,
             price: 8,
-            rarity: Data.Rarity.UNCOMMON
+            rarity: Data.Rarity.UNCOMMON,
+            researchTotal: 4,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: [[1, 2], [2, 3], [4, 5], [5, 8]]
         },
         {
             effect: Data.Effect.SPIRIT,
@@ -284,7 +316,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [-1, -3], isPercentage: true, isCorrupt: true}),
             unlocked: false,
             price: 8,
-            rarity: Data.Rarity.UNCOMMON
+            rarity: Data.Rarity.UNCOMMON,
+            researchTotal: 4,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: [[1, 2], [2, 3], [4, 5], [5, 8]]
         },
         {
             effect: Data.Effect.DAMAGE_REFLECTION,
@@ -294,7 +330,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.PROTECTION, theorical: [-1, -3], isPercentage: true, isCorrupt: true}),
             unlocked: false,
             price: 15,
-            rarity: Data.Rarity.LEGENDARY
+            rarity: Data.Rarity.LEGENDARY,
+            researchTotal: 2,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: [[1, 2], [2, 4]]
         },
         // BLEED & POISON RESISTANCE STATS
         {
@@ -305,7 +345,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.RES_POISON_DMG, theorical: [-1, -3], isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.RARE
+            rarity: Data.Rarity.RARE,
+            researchTotal: 2,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: [[1, 2], [2, 4]]
         },
         {
             effect: Data.Effect.RES_BLEED_DURATION,
@@ -315,7 +359,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.RES_POISON_DURATION, theorical: -1, isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.EPIC
+            rarity: Data.Rarity.EPIC,
+            researchTotal: 1,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: []
         },
         {
             effect: Data.Effect.RES_POISON_DMG,
@@ -325,7 +373,10 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.RES_BLEED_DMG, theorical: [-1, -3], isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.RARE
+            rarity: Data.Rarity.RARE,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: [[1, 2], [2, 4]]
         },
         {
             effect: Data.Effect.RES_POISON_DURATION,
@@ -335,7 +386,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.RES_BLEED_DURATION, theorical: -1, isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.EPIC
+            rarity: Data.Rarity.EPIC,
+            researchTotal: 1,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: []
         },
         {
             effect: Data.Effect.RES_STUN,
@@ -345,7 +400,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.MODIF_CHANCE_STUN, theorical: [-2, -4], isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.RARE
+            rarity: Data.Rarity.RARE,
+            researchTotal: 3,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: [[1, 2], [2, 4], [3, 6]]
         },
         {
             effect: Data.Effect.RES_MOVE,
@@ -355,7 +414,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.MODIF_CHANCE_MOVE, theorical: [-2, -4], isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.RARE
+            rarity: Data.Rarity.RARE,
+            researchTotal: 3,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: [[1, 2], [2, 4], [3, 6]]
         },
         // REGEN
         {
@@ -366,7 +429,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.PROTECTION, theorical: [-2, -4], isPercentage: true, isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.EPIC
+            rarity: Data.Rarity.EPIC,
+            researchTotal: 2,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: [[1, 2], [2, 4]]
         },
         {
             effect: Data.Effect.REGEN_MANA,
@@ -376,7 +443,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.SPIRIT, theorical: [-5, -10], isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.EPIC
+            rarity: Data.Rarity.EPIC,
+            researchTotal: 2,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: [[1, 2], [2, 4]]
         },
         {
             effect: Data.Effect.REGEN_STAMINA,
@@ -386,7 +457,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.MIGHT, theorical: [-5, -10], isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.EPIC
+            rarity: Data.Rarity.EPIC,
+            researchTotal: 2,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: [[1, 2], [2, 4]]
         },
         // DAMAGE MODIFIERS
         {
@@ -397,7 +472,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.PROTECTION, theorical: [-2, -5], isPercentage: true, isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.RARE
+            rarity: Data.Rarity.RARE,
+            researchTotal: 3,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: [[1, 2], [2, 4], [3, 5]]
         },
         {
             effect: Data.Effect.MODIF_DMG_TOTAL,
@@ -407,78 +486,110 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.PROTECTION, theorical: [-2, -5], isPercentage: true, isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.LEGENDARY
+            rarity: Data.Rarity.LEGENDARY,
+            researchTotal: 2,
+            studied: 0,
+            availableBeforeMastery: false,
+            steps: [[1, 2], [2, 4]]
         },
         {
             effect: Data.Effect.MODIF_DMG_WEAPON,
             name: "dexterity",
-            theorical: [1, 3],
+            theorical: [2, 4],
             critical: new Stat({effect: Data.Effect.MIGHT, theorical: [2, 4], isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.MIGHT, theorical: [-2, -5], isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.EPIC
+            rarity: Data.Rarity.EPIC,
+            researchTotal: 2,
+            studied: 0,
+            availableBeforeMastery: false,
+            steps: [[1, 2], [2, 4]]
         },
         {
             effect: Data.Effect.MODIF_DMG_SKILL,
             name: "influence",
-            theorical: [1, 3],
+            theorical: [2, 4],
             critical: new Stat({effect: Data.Effect.SPIRIT, theorical: [2, 4], isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.SPIRIT, theorical: [-2, -5], isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.EPIC
+            rarity: Data.Rarity.EPIC,
+            researchTotal: 2,
+            studied: 0,
+            availableBeforeMastery: false,
+            steps: [[1, 2], [2, 4]]
         },
         {
             effect: Data.Effect.MODIF_DMG_STUN,
             name: "opportunity",
-            theorical: [1, 3],
+            theorical: [2, 4],
             critical: new Stat({effect: Data.Effect.MODIF_CHANCE_STUN, theorical: [2, 4], isPercentage: true, isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.MODIF_CHANCE_STUN, theorical: [-2, -5], isPercentage: true, isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.EPIC
+            rarity: Data.Rarity.EPIC,
+            researchTotal: 2,
+            studied: 0,
+            availableBeforeMastery: false,
+            steps: [[1, 2], [2, 4]]
         },
         {
             effect: Data.Effect.MODIF_DMG_BLEED,
             name: "dissolution",
-            theorical: [1, 3],
+            theorical: [2, 4],
             critical: new Stat({effect: Data.Effect.MODIF_ACCURACY_BLEED, theorical: [1, 2], isPercentage: true, isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.RES_BLEED_DMG, theorical: [-2, -5], isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.EPIC
+            rarity: Data.Rarity.EPIC,
+            researchTotal: 2,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: [[1, 2], [2, 4]]
         },
         {
             effect: Data.Effect.MODIF_DMG_POISON,
             name: "corrosion",
-            theorical: [1, 3],
+            theorical: [2, 4],
             critical: new Stat({effect: Data.Effect.MODIF_ACCURACY_POISON, theorical: [1, 2], isPercentage: true, isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.RES_POISON_DMG, theorical: [-2, -5], isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.EPIC
+            rarity: Data.Rarity.EPIC,
+            researchTotal: 2,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: [[1, 2], [2, 4]]
         },
         // ADDITIONAL MODIFIERS
         {
             effect: Data.Effect.MODIF_HEAL_RECV,
             name: "mending",
-            theorical: [2, 4],
+            theorical: [4, 6],
             critical: new Stat({effect: Data.Effect.REGEN_HEALTH, theorical: [1, 2], isPercentage: true, isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.MAXHEALTH, theorical: [-20, -25], isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.EPIC
+            rarity: Data.Rarity.EPIC,
+            researchTotal: 3,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: [[1, 2], [2, 4], [4, 6]]
         },
         {
             effect: Data.Effect.MODIF_HEAL_GIVEN,
             name: "nursing",
-            theorical: [2, 4],
+            theorical: [4, 6],
             critical: new Stat({effect: Data.Effect.PROTECTION, theorical: [4, 6], isPercentage: true, isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.DODGE, theorical: [-3, -6], isPercentage: true, isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.EPIC
+            rarity: Data.Rarity.EPIC,
+            researchTotal: 3,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: [[1, 2], [2, 4], [4, 6]]
         },
         {
             effect: Data.Effect.MODIF_ACCURACY_SKILL,
@@ -488,7 +599,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.MODIF_CRIT_SKILL, theorical: [-2, -4], isPercentage: true, isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.RARE
+            rarity: Data.Rarity.RARE,
+            researchTotal: 3,
+            studied: 0,
+            availableBeforeMastery: false,
+            steps: [[1, 2], [1, 3], [2, 4]]
         },
         {
             effect: Data.Effect.MODIF_ACCURACY_STUN,
@@ -498,7 +613,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.MODIF_CRIT_STUN, theorical: [-2, -4], isPercentage: true, isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.RARE
+            rarity: Data.Rarity.RARE,
+            researchTotal: 3,
+            studied: 0,
+            availableBeforeMastery: false,
+            steps: [[1, 2], [1, 3], [2, 4]]
         },
         {
             effect: Data.Effect.MODIF_ACCURACY_BLEED,
@@ -508,7 +627,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.MODIF_CRIT_BLEED, theorical: [-2, -4], isPercentage: true, isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.RARE
+            rarity: Data.Rarity.RARE,
+            researchTotal: 3,
+            studied: 0,
+            availableBeforeMastery: false,
+            steps: [[1, 2], [1, 3], [2, 4]]
         },
         {
             effect: Data.Effect.MODIF_ACCURACY_POISON,
@@ -518,7 +641,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.MODIF_CRIT_POISON, theorical: [-2, -4], isPercentage: true, isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.RARE
+            rarity: Data.Rarity.RARE,
+            researchTotal: 3,
+            studied: 0,
+            availableBeforeMastery: false,
+            steps: [[1, 2], [1, 3], [2, 4]]
         },
         {
             effect: Data.Effect.MODIF_CRIT_SKILL,
@@ -528,7 +655,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [-2, -4], isPercentage: true, isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.RARE
+            rarity: Data.Rarity.RARE,
+            researchTotal: 3,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: [[1, 2], [3, 5], [5, 8]]
         },
         {
             effect: Data.Effect.MODIF_CRIT_STUN,
@@ -538,7 +669,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.MODIF_DMG_STUN, theorical: [-2, -4], isPercentage: true, isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.RARE
+            rarity: Data.Rarity.RARE,
+            researchTotal: 3,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: [[1, 2], [3, 5], [5, 8]]
         },
         {
             effect: Data.Effect.MODIF_CRIT_BLEED,
@@ -548,7 +683,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.MODIF_DMG_BLEED, theorical: [-2, -4], isPercentage: true, isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.RARE
+            rarity: Data.Rarity.RARE,
+            researchTotal: 3,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: [[1, 2], [3, 5], [5, 8]]
         },
         {
             effect: Data.Effect.MODIF_CRIT_POISON,
@@ -558,7 +697,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.MODIF_DMG_POISON, theorical: [-2, -4], isPercentage: true, isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.RARE
+            rarity: Data.Rarity.RARE,
+            researchTotal: 3,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: [[1, 2], [3, 5], [5, 8]]
         },
         {
             effect: Data.Effect.MODIF_CHANCE_STUN,
@@ -568,7 +711,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.RES_STUN, theorical: [-2, -4], isPercentage: true, isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.EPIC
+            rarity: Data.Rarity.EPIC,
+            researchTotal: 4,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: [[1, 2], [2, 4], [3, 5], [5, 8]]
         },
         {
             effect: Data.Effect.MODIF_CHANCE_MOVE,
@@ -578,7 +725,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.RES_MOVE, theorical: [-2, -4], isPercentage: true, isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.EPIC
+            rarity: Data.Rarity.EPIC,
+            researchTotal: 3,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: [[1, 2], [3, 5], [5, 8]]
         },
 
         //------------------------------------------------------
@@ -593,7 +744,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.WARDING, theorical: [-2, -5], isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.RARE
+            rarity: Data.Rarity.RARE,
+            researchTotal: 5,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: [[1, 2], [3, 5], [4, 8], [6, 10], [8, 12]]
         },
         {
             effect: Data.Effect.WARDING,
@@ -603,7 +758,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.RESILIENCE, theorical: [-2, -5], isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.RARE
+            rarity: Data.Rarity.RARE,
+            researchTotal: 5,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: [[1, 2], [3, 5], [4, 8], [6, 10], [8, 12]]
         },
 
         // WEAPON EFFECTS
@@ -615,7 +774,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.CRIT_DMG, theorical: [-2, -5], isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.COMMON
+            rarity: Data.Rarity.COMMON,
+            researchTotal: 4,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: [[1, 2], [3, 5], [4, 8], [6, 10]]
         },
         {
             effect: Data.Effect.MDMG,
@@ -625,7 +788,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.CRIT_LUK, theorical: [-2, -5], isPercentage: true, isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.COMMON
+            rarity: Data.Rarity.COMMON,
+            researchTotal: 4,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: [[1, 2], [3, 5], [4, 8], [6, 10]]
         },
         {
             effect: Data.Effect.BLOCK,
@@ -635,7 +802,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.CRIT_LUK, theorical: [-2, -3], isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.UNCOMMON
+            rarity: Data.Rarity.UNCOMMON,
+            researchTotal: 3,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: [[1, 2], [2, 4], [3, 6]]
         },
         {
             effect: Data.Effect.EFFORT,
@@ -645,7 +816,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.CRIT_DMG, theorical: [-2, -5], isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.UNCOMMON
+            rarity: Data.Rarity.UNCOMMON,
+            researchTotal: 3,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: [[-1, -2], [-2, -3], [-2, -4]]
         },
         {
             effect: Data.Effect.CRIT_LUK,
@@ -655,7 +830,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.CRIT_DMG, theorical: [-2, -5], isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.RARE
+            rarity: Data.Rarity.RARE,
+            researchTotal: 3,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: [[1, 2], [4, 7], [6, 10]]
         },
         {
             effect: Data.Effect.CRIT_DMG,
@@ -665,7 +844,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.CRIT_LUK, theorical: [-2, -5], isPercentage: true, isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.RARE
+            rarity: Data.Rarity.RARE,
+            researchTotal: 4,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: [[1, 2], [3, 5], [4, 8], [6, 10]]
         },
         {
             effect: Data.Effect.BLEED_DMG,
@@ -675,7 +858,11 @@ let Config = {
             corrupted: new Stat({effect: Data.Effect.PDMG, theorical: [-2, -5], isCorrupt: true}),
             unlocked: false,
             price: 5,
-            rarity: Data.Rarity.EPIC
+            rarity: Data.Rarity.EPIC,
+            researchTotal: 3,
+            studied: 0,
+            availableBeforeMastery: true,
+            steps: [[1, 2], [2, 4], [3, 6]]
         },
         {
             effect: Data.Effect.BLEED_DURATION,
