@@ -498,6 +498,11 @@ const Data = Object.freeze({
         RECOVERY: "recovery",
         SPECIAL: "special"
     },
+    OriginType: {
+        UNKNOWN: 'unknown',
+        SCAVENGED: 'scanvenged',
+        CRAFTED: 'crafted'
+    },
     SoundType: {
         MAJOR_TAB: "major_tab",
         MINOR_TAB: "minor_tab",
