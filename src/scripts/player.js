@@ -39,8 +39,10 @@ class Player {
         this.du_identifyRoomChance = 30;
 
         // SIGILS
-        this.sw_stalwartFactor = 15;
-        this.sw_corruptFactor = 15;
+        this.sw_stalwartFactor = 5;
+        this.sw_corruptFactor = 5;
+
+        this.sr_sigilsCrushed = 0;
     }
 
     /**

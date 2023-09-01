@@ -148,9 +148,12 @@ class Inventory {
      * @param {Sigil} sigil the Sigil to remove
      */
     disenchant(item, sigil) {
-        if(containsByName(item.sockets, sigil.name)) {
+        if(item.sigil.name === sigil.name) {
             sigil.effects.forEach(effect => {
-                if(!effect.disabled) item.addEffect(effect, true);
+                if(!effect.disabled) {
+                    item.addEffect(effect, true);
+                    item.removeAlteration(effect);
+                }
             });
             if(sigil.isCritical) {
                 sigil.critical.forEach(effect => {
@@ -163,7 +166,7 @@ class Inventory {
                 });
             }
             item.unbindSigil(sigil);
-            item.addAvailableSocket();
+            item.removeAllowedAlteration();
             console.log(sigil.name + ' was unbound from ' + item.name);
         } else {
             ERROR('No such sigil is bound to ' + item.name);
@@ -177,7 +180,10 @@ class Inventory {
      */
     enchant(item, sigil) {
         sigil.effects.forEach(effect => {
-            if(isEffectAllowedOnObject(effect.effect, item)) item.addEffect(effect);
+            if(isEffectAllowedOnObject(effect.effect, item)) {
+                item.addEffect(effect);
+                item.addAlteration(effect);
+            }
             else effect.disable();
         });
         if(sigil.isCritical) {
@@ -193,8 +199,7 @@ class Inventory {
             });
         }
         this.removeItem(sigil);
-        item.sockets.push(sigil);
-        item.removeAvailableSocket();
+        item.sigil = sigil;
         console.log(sigil.name + ' was bound to ' + item.name + '.');
     }
 

@@ -40,9 +40,8 @@ class Weapon extends Item {
                 t_bleed, 
                 t_poison, 
                 range, 
-                sockets_amount = 1,
-                echoes_amount = 1,
-                echoes = []) {
+                allowedAlterations = 3,
+                echo = null) {
         super(name, desc, icon, price, rarity);
         this.type = type;
         this.weight = weight;
@@ -65,26 +64,22 @@ class Weapon extends Item {
 
         this.range = range;
 
-        this.echoes_amount = echoes_amount;
-        this.echoes_free = echoes_amount;
-        this.echoes = echoes;
+        this.allowedAlterations = allowedAlterations;
+        this.alterations = [];
+        this.sigil = null;
+        this.echo = echo;
 
-        this.sockets_amount = sockets_amount;
-        this.sockets_free = sockets_amount;
-        this.sockets = [];
-        
         this.set = null;
 
         this.astralForgeItem = null;
 
-        if(this.echoes && this.echoes.length > 0) this.echoes.forEach(echo => {
-            echo.fix();
-            echo.stats.forEach(effect => {
+        if(this.echo) {
+            this.echo.fix();
+            this.echo.stats.forEach(effect => {
                 console.log(effect)
                 this.addEffect(effect);
             });
-            this.removeAvailableEcho();
-        });
+        };
     }
 
     /**
@@ -111,54 +106,70 @@ class Weapon extends Item {
      * Unbinds the provided Sigil from the Weapon.
      * @param {Sigil} sigil the sigil to unbind from the Weapon
      */
-    unbindSigil(sigil) {
-        removeFromArray(this.sockets, sigil);
+    unbindSigil() {
+        this.sigil = null;
     }
 
     /**
-     * Adds an available socket. Cannot exceed the sockets_amount variable.
-     * @param {number} amount the amount of sockets to add
+     * Returns whether this Weapon has a bound Sigil.
+     * @returns {boolean} whether the Weapon has a sigil
      */
-    addAvailableSocket(amount = 1) {
-        this.sockets_free = Math.min(this.sockets_amount, this.sockets_free + amount);
-    }
-    /**
-     * Removes an available socket. Cannot go below zero.
-     * @param {number} amount the amount of sockets to remove
-     */
-    removeAvailableSocket(amount = 1) {
-        this.sockets_free = Math.max(0, this.sockets_free - amount);
+    hasSigil() {
+        return this.sigil != null;
     }
 
     /**
-     * Returns whether the sockets_free property of the Weapon is superior to 0.
-     * @returns {boolean} whether the Weapon has free sockets
+     * Returns whether this Weapon has a bound Echo.
+     * @returns {boolean} whether the Weapon has an echo
      */
-    hasFreeSockets() {
-        return this.sockets_free > 0;
+    hasEcho() {
+        return this.echo != null;
     }
 
     /**
-     * Adds an available echo slot. Cannot exceed the echoes_amount variable.
-     * @param {number} amount the amount of ecohes to add
+     * Adds the provided Stat to this Weapon's list of alterations.
+     * @param {Stat} effect the alteration to add
      */
-    addAvailableEcho(amount = 1) {
-        this.echoes_free = Math.min(this.echoes_amount, this.echoes_free + amount);
-    }
-    /**
-     * Removes an available echo slot. Cannot go below zero.
-     * @param {number} amount the amount of echoes to remove
-     */
-    removeAvailableEcho(amount = 1) {
-        this.echoes_free = Math.max(0, this.echoes_free - amount);
+    addAlteration(effect) {
+        if(this.canAddAlteration()) this.alterations.push(effect);
     }
 
     /**
-     * Returns whether the echoes_free property of the Weapon is superior to 0.
-     * @returns {boolean} whether the Weapon has free echoes
+     * Removes the provided Stat from this Weapon's list of alterations.
+     * @param {Stat} effect the alteration to remove
      */
-    hasFreeEchoes() {
-        return this.echoes_free > 0;
+    removeAlteration(effect) {
+        removeFromArray(this.alterations, effect);
+    }
+
+    /**
+     * Returns whether this Weapon can host another alteration.
+     * @returns {boolean} whether an alteration can be added
+     */
+    canAddAlteration() {
+        return this.alterations.length < this.allowedAlterations;
+    }
+
+    /**
+     * Returns the amount of available alterations on this Weapon.
+     * @returns {number} the number of current alterations
+     */
+    getAvailableAlterations() {
+        return Math.max(0, this.allowedAlterations - this.alterations.length);
+    }
+
+    /**
+     * Adds a slot of allowed alterations on this item.
+     */
+    addAllowedAlteration() {
+        this.allowedAlterations += 1;
+    }
+
+    /**
+     * Removes a slot of allowed alterations on this item.
+     */
+    removeAllowedAlteration() {
+        this.allowedAlterations = Math.max(1, this.allowedAlterations - 1);
     }
 
     /**
@@ -239,7 +250,7 @@ class Weapon extends Item {
      * @param {Echo} echo the Echo to add. if no Echo is provided, it will be picked randomly.
      */
     addEcho(echo = null) {
-        if(this.hasFreeEchoes()) {
+        if(!this.hasEcho()) {
             if(!echo) {
                 let pool = game.all_echoes.filter(echo => {
                     return echo.type === Data.EchoType.WEAPON || echo.type === Data.EchoType.ANY
@@ -252,8 +263,7 @@ class Weapon extends Item {
                 console.log(effect)
                 this.addEffect(effect);
             });
-            this.echoes.push(echo);
-            this.removeAvailableEcho();
+            this.echo = echo;
         } else {
             ERROR('No available echo slots left on ' + this.name);
         }

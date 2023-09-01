@@ -4608,6 +4608,73 @@ hr.leftSided {
     }
 }
 
+#soulwcontent-read {
+    overflow: hidden;
+
+    width: 100%;
+    height: 100%;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.8fr 1fr 1fr;
+    gap: 0 0;
+    grid-template-areas: 
+        "swRead-banner"
+        "swRead-sigil"
+        "swRead-soulmarks";
+
+    background: url('img/darkBorders.png'), linear-gradient(0deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.25) 100%), url('img/bg/bg-soulreading.png');
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: 100% 100%, cover, cover;
+}
+.swRead-sigil, .swRead-soulmarks {
+    border: 1px dashed grey;
+}
+.swRead-banner {
+    grid-area: swRead-banner;
+
+    border: 3px solid transparent;
+    border-image: url('img/window1.png') 3 stretch;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+.swRead-sigil {
+    grid-area: swRead-sigil;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.swRead-soulmarks {
+    grid-area: swRead-soulmarks;
+}
+.swReadSigilSlot {
+    width: 100px;
+    height: 100px;
+    background: rgba(0, 0, 0, 0.4);
+    box-shadow: 0px 0px 0px 1px rgba(255,255,255,1) inset, 0px 1px 4px 2px rgba(128,255,255,0.6) inset;
+    border: 7px solid transparent;
+    border-image: url('img/window1.png') 7 stretch;
+    transform: rotate(45deg);
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+    overflow: hidden;
+}
+.swReadSigilSlot:hover {
+    background: rgba(155, 155, 155, 0.2);
+    cursor: pointer;
+}
+.swReadSigilSlotIcon {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-45deg);
+    background-repeat: no-repeat;
+    background-size: 45%;
+    background-position: center;
+    filter: drop-shadow(0px 0px 15px rgba(0,0,0,1));
+}
+
 .soulbInterface {
     grid-area: soulbInterface;
 
@@ -4619,7 +4686,7 @@ hr.leftSided {
 
     overflow: hidden;
 
-    background: url('img/darkBorders.png'), linear-gradient(0deg, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.65) 100%), url('img/bg/bg-soulbinding.png');
+    background: url('img/darkBorders.png'), linear-gradient(0deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.45) 100%), url('img/bg/bg-soulbinding.png');
     background-size: 100% 100%, cover, cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -4749,6 +4816,7 @@ hr.leftSided {
     width: 80%;
     max-height: 50%;
     padding: 0.5rem;
+    margin-bottom: 0.5rem;
     line-height: 125%;
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 3px;
@@ -4919,6 +4987,16 @@ hr.leftSided {
     font-size: 12px;
     font-weight: normal;
     color: rgba(155, 155, 155, 0.75);
+}
+
+.preslottedSigilOverflowWarning {
+    font-size: 10.5px;
+    border: 1px solid rgba(232, 65, 24, 0.7);
+    background: rgba(232, 65, 24, 0.2);
+    color: #ccc;
+    padding: 6px;
+    border-radius: 3px;
+    margin-top: 0.3rem;
 }
 
 .itemEffectDiff {
@@ -6109,6 +6187,12 @@ table.astralForgeShards td {
     flex-direction: column;
     justify-content: start;
     align-items: flex-start;
+}
+.editedIconStats > h2 {
+    font-size: 13px;
+    font-variant: small-caps;
+    font-family: RobotoSlab;
+    margin-bottom: 0.5rem;
 }
 
 .astralForge-notifications {

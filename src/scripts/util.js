@@ -969,6 +969,19 @@ function getInventoryResourceById(id) {
 }
 
 /**
+ * Retrieves the Sigil from the Player's Inventory, which ID matches the one that is provided.
+ * @param {number} id the Sigil's ID
+ * @returns {Sigil|null} the Sigil that was found, or null if it was not found
+ */
+function getInventorySigilById(id) {
+    let sigil = null;
+    game.player.inventory.sigils.forEach(item => {
+        if(item.id === id) sigil = item;
+    });
+    return sigil;
+}
+
+/**
  * Retrieves a Weapon, Armor, or Trinket, based on its unique ID.
  * @param {number} id the item's ID
  * @returns {Weapon|Armor|Trinket} the item
@@ -1697,26 +1710,27 @@ function isEffectUnvaluable(eff) {
  * @param {Stat[]} diff the optional stats array to compare 
  * @returns {string} an HTML content string
  */
-function getAlterations(item, diff = []) {
+function getAlterations(item, diff = [], titleReplace = '') {
     let str = '';
     let result = {};
 
-    item.sockets.forEach(sock => {
-        sock.effects.forEach(eff => {
+    if(item.hasSigil()) {
+        item.sigil.effects.forEach(eff => {
             result = appendEffectToObject(eff, result);
         });
-        if(sock.isCritical) sock.critical.forEach(eff => {
+        if(item.sigil.isCritical) item.sigil.critical.forEach(eff => {
             result = appendEffectToObject(eff, result);
         });
-        if(sock.isCorrupt) sock.corrupt.forEach(eff => {
+        if(item.sigil.isCorrupt) item.sigil.corrupt.forEach(eff => {
             result = appendEffectToObject(eff, result);
         });
-    });
-    item.echoes.forEach(echo => {
-        echo.stats.forEach(stat => {
+    }
+    
+    if(item.hasEcho()) {
+        item.echo.stats.forEach(stat => {
             result = appendEffectToObject(stat, result);
         });
-    });
+    }
     
     let base = null;
     if(diff.length > 0) {
@@ -1775,8 +1789,11 @@ function getAlterations(item, diff = []) {
         }
     }
 
-    if(str === '') str = '<h2>No alterations</h2>';
-    else str = '<h2>Alterations</h2>' + str;
+    if(titleReplace !== '') str += '<h2>' + titleReplace + '</h2>';
+    else {
+        if(str === '') str = '<h2>No alterations</h2>';
+        else str = '<h2>Alterations</h2>' + str;
+    }
 
     return str;
 }
@@ -1799,24 +1816,26 @@ function filterCritCorr(item, effect, state) {
  * @returns {boolean} whether the effect can be added
  */
 function isEffectAllowedOnObject(effect, obj) {
+    if(!obj.canAddAlteration()) return false;
+
     let result = [];
 
-    obj.sockets.forEach(sock => {
-        sock.effects.forEach(eff => {
+    if(obj.hasSigil()) {
+        obj.sigil.effects.forEach(eff => {
             if(!eff.disabled) result.push(eff.effect);
         });
-        if(sock.isCritical) sock.critical.forEach(eff => {
+        if(obj.sigil.isCritical) obj.sigil.critical.forEach(eff => {
             result.push(eff.effect);
         });
-        if(sock.isCorrupt) sock.corrupt.forEach(eff => {
+        if(obj.sigil.isCorrupt) obj.sigil.corrupt.forEach(eff => {
             result.push(eff.effect);
         });
-    });
-    obj.echoes.forEach(echo => {
-        echo.stats.forEach(stat => {
+    }
+    if(obj.hasEcho()) {
+        obj.echo.stats.forEach(stat => {
             result.push(stat.effect);
         });
-    });
+    }
 
     if(obj instanceof Weapon) {
         result.push(
@@ -1873,4 +1892,35 @@ function isBaseWeaponEffect(eff) {
  */
 function isBaseArmorEffect(eff) {
     return Config.BaseArmorEffects.includes(eff);
+}
+
+function getSigilEffectsFromItem(item) {
+    let str = '';
+
+    item.sigil.effects.forEach(alt => {
+        str += alt.getFormatted({noTheorical: true, defaultColor: true});
+    });
+    if(item.sigil.isCritical) item.sigil.critical.forEach(alt => {
+        str += alt.getFormatted({noTheorical: true, defaultColor: true, bold: true});
+    });
+    if(item.sigil.isCorrupt) item.sigil.corrupt.forEach(alt => {
+        str += alt.getFormatted({noTheorical: true, defaultColor: true, bold: true});
+    });
+
+    if(str === '') str = '<h2>No alterations</h2>';
+    else str = '<h2>Alterations</h2>' + str;
+
+    return str;
+}
+
+function getItemAlterationsTooltip(item) {
+    let str = '';
+
+    if(item.astralForgeItem.isModified()) {
+        str += item.astralForgeItem.getFormattedModifications();
+        str += '<div class="divider"></div>';
+    }
+    if(item.hasSigil()) str += '<div class="editedIconStats">' + getSigilEffectsFromItem(item) + '</div>';
+
+    return str;
 }

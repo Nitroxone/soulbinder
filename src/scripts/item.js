@@ -30,5 +30,6 @@ class Item extends Entity {
             blackMarketAvailable: true,
             auctionAvailable: true,
         });
+        this.origin = Data.OriginType.UNKNOWN;
     }
 }

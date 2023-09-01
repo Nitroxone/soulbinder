@@ -2,14 +2,15 @@
 
  -------------------------------------------------------
 
-- Add books
-
 - Create hub & lordships
 
 - Add effect coloring (bold + green) if it's overloaded -- ONGOING
 - Add a notification system
 - Implement item pricing
 - Implement an arbitrary "Power" unit to weapons, armors, and trinkets
+
+- Add item stats scaling (with souls)
+- Revamp the bonus/malus system : instead of directly altering stats, rather store these alterations into an array to better keep track of them.
 
 - Actually implement set bonuses
 
@@ -39,7 +40,7 @@ DONE - Implement shield in combats
 - Freeze events on action (prevent action spamming)
 - Implement consumables & using them in combat
 - Thoroughly comment complex battle functions
-ABANDONED - Implement skill stackability
+ABANDONED? - Implement skill stackability
 
 ASTRAL FORGE:
 - Create GUI -- ONGOING
@@ -57,15 +58,21 @@ SOULWRITING:
 DONE - Add soulmarks Price, Gold cost, Souls cost, Rarity
 DONE - Change Sigil tooltip
 DONE - Add Sigil soulmarks
+DONE - Nerf all effects
 - Actually display Soulwriting price
 - Display price on Sigil tooltips
-- Nerf all effects
 - Implement Soulreading
 - Implement Soulbending
+- Add searchbar for soulmarks
+
+SOULREADING:
+- Extract a soulmark multiple times to unlock its full potential?
 
 SOULBINDING:
 DONE - Prevent the addition of effects that do not already exist
-- Revamp the bonus system to make it a little more limited
+ONGOING - Revamp the bonus system to make it a little more limited
+- Properly design an empty soulbinding screen
+- Handle the Echo extraction/replacement
 
 EONS:
 - Graphically redesign the whole thing. (using Crimson Pro + different background)

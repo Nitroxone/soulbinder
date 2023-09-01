@@ -25,9 +25,8 @@ class Armor extends Item {
                 type, 
                 t_resilience, 
                 t_warding, 
-                sockets_amount = 1,
-                echoes_amount = 1,
-                echoes = []) {
+                allowedAlterations = 1,
+                echo = null) {
         super(name, desc, icon, price, rarity);
         this.type = type;
 
@@ -37,13 +36,10 @@ class Armor extends Item {
         this.resilience = null;
         this.warding = null;
 
-        this.echoes_amount = echoes_amount;
-        this.echoes_free = echoes_amount;
-        this.echoes = echoes;
-
-        this.sockets_amount = sockets_amount;
-        this.sockets_free = sockets_amount;
-        this.sockets = [];
+        this.allowedAlterations = allowedAlterations;
+        this.alterations = [];
+        this.echo = echo;
+        this.sigil = null;
 
         this.set = null;
 
@@ -63,54 +59,70 @@ class Armor extends Item {
      * Unbinds the provided Sigil from the Armor.
      * @param {Sigil} sigil the sigil to unbind from the Armor
      */
-    unbindSigil(sigil) {
-        removeFromArray(this.sockets, sigil);
+    unbindSigil() {
+        this.sigil = null;
     }
 
     /**
-     * Adds an available socket. Cannot exceed the sockets_amount variable.
-     * @param {number} amount the amount of sockets to add
+     * Returns whether this Armor has a bound Sigil.
+     * @returns {boolean} whether the Armor has a sigil
      */
-    addAvailableSocket(amount = 1) {
-        this.sockets_free = Math.min(this.sockets_amount, this.sockets_free + amount);
-    }
-    /**
-     * Removes an available socket. Cannot go below zero.
-     * @param {number} amount the amount of sockets to remove
-     */
-    removeAvailableSocket(amount = 1) {
-        this.sockets_free = Math.max(0, this.sockets_free - amount);
+    hasSigil() {
+        return this.sigil != null;
     }
 
     /**
-     * Returns whether the sockets_free property of the Armor is superior to 0.
-     * @returns {boolean} whether the Armor has free sockets
+     * Returns whether this Armor has a bound Echo.
+     * @returns {boolean} whether the Armor has an echo
      */
-    hasFreeSockets() {
-        return this.sockets_free > 0;
+    hasEcho() {
+        return this.echo != null;
     }
 
     /**
-     * Adds an available echo slot. Cannot exceed the echoes_amount variable.
-     * @param {number} amount the amount of ecohes to add
+     * Adds the provided Stat to this Armor's list of alterations.
+     * @param {Stat} effect the alteration to add
      */
-    addAvailableEcho(amount = 1) {
-        this.echoes_free = Math.min(this.echoes_amount, this.echoes_free + amount);
-    }
-    /**
-     * Removes an available echo slot. Cannot go below zero.
-     * @param {number} amount the amount of echoes to remove
-     */
-    removeAvailableEcho(amount = 1) {
-        this.echoes_free = Math.max(0, this.echoes_free - amount);
+    addAlteration(effect) {
+        if(this.canAddAlteration()) this.alterations.push(effect);
     }
 
     /**
-     * Returns whether the echoes_free property of the Armor is superior to 0.
-     * @returns {boolean} whether the Armor has free echoes
+     * Removes the provided Stat from this Armor's list of alterations.
+     * @param {Stat} effect the alteration to remove
      */
-    hasFreeEchoes() {
-        return this.echoes_free > 0;
+    removeAlteration(effect) {
+        removeFromArray(this.alterations, effect);
+    }
+
+    /**
+     * Returns whether this Armor can host another alteration.
+     * @returns {boolean} whether an alteration can be added
+     */
+    canAddAlteration() {
+        return this.alterations.length < this.allowedAlterations;
+    }
+
+    /**
+     * Returns the amount of available alterations on this Armor.
+     * @returns {number} the number of current alterations
+     */
+    getAvailableAlterations() {
+        return Math.max(0, this.allowedAlterations - this.alterations.length);
+    }
+
+    /**
+     * Adds a slot of allowed alterations on this item.
+     */
+    addAllowedAlteration() {
+        this.allowedAlterations += 1;
+    }
+
+    /**
+     * Removes a slot of allowed alterations on this item.
+     */
+    removeAllowedAlteration() {
+        this.allowedAlterations = Math.max(1, this.allowedAlterations - 1);
     }
     
     /**
@@ -135,7 +147,7 @@ class Armor extends Item {
      * @param {Echo} echo the Echo to add. if no Echo is provided, it will be picked randomly.
      */
     addEcho(echo = null) {
-        if(this.hasFreeEchoes()) {
+        if(!this.hasEcho()) {
             if(!echo) {
                 let pool = game.all_echoes.filter(echo => {
                     return echo.type === Data.EchoType.ARMOR || echo.type === Data.EchoType.ANY
@@ -144,8 +156,7 @@ class Armor extends Item {
             }
             echo = Entity.clone(echo);
             echo.fix();
-            this.echoes.push(echo);
-            this.removeAvailableEcho();
+            this.echo = echo;
         } else {
             ERROR('No available echo slots left on ' + this.name);
         }

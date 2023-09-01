@@ -74,9 +74,9 @@ function spawnTooltip(item, fromExisting = 0) {
 
     // IF ASTRAL FORGE COMPATIBLE, ADD ASTRAL FORGE MODIFICATIONS TOOLTIP EVENT
     if(item instanceof Weapon || item instanceof Armor || item instanceof Trinket) {
-        if(item.astralForgeItem.isModified()) {
+        if(item.astralForgeItem.isModified() || item.hasSigil()) {
             addTooltip(tooltip.querySelector('.editedIcon'), function(){
-                return item.astralForgeItem.getFormattedModifications();
+                return getItemAlterationsTooltip(item)
             }, {offY: -8});
             tooltip.querySelector('.editedIcon').addEventListener('contextmenu', e => {
                 e.preventDefault();
@@ -106,25 +106,13 @@ function getTrinketTooltip(trinket, asResult = null, full = false) {
         str += effect.getFormatted({cssClass: "itemEffect", allowOverloadedStyling: true});
     })
 
-    if(trinket.sockets.length > 0) {
-        str += '<div class="divider"></div>';
-        trinket.sockets.forEach(sigil => {
-            str += getSigilDetails(sigil, full);
-        });
-    }
-    if(trinket.sockets_free > 0) {
-        str += '<div class="divider"></div>';
-        for(let i = 0; i < trinket.sockets_free; i++) {
-            str += getEmptySigilHTML();
-        }
-    }
+    str += '<div class="divider"></div>';
+    if(trinket.hasSigil()) str += getSigilDetails(trinket.sigil, full);
+    else str += getEmptySigilHTML();
 
-    // echoes
-    if(trinket.echoes.length > 0) {
+    if(trinket.hasEcho()) {
         str += '<div class="divider"></div>';
-        trinket.echoes.forEach(echo => {
-            str += getEchoDetails(echo, full);
-        });
+        str += getEchoDetails(trinket.echo, full);
     }
 
     str += '<div class="divider"></div>';
@@ -132,7 +120,7 @@ function getTrinketTooltip(trinket, asResult = null, full = false) {
     if(trinket.set) str += '<div class="tooltipSetText">' + trinket.set + '</div>';
     str += '</div></div>';
 
-    if(trinket.astralForgeItem.isModified()) str += '<div class="editedIcon" id="editedIcon-' + trinket.id + '"></div>';
+    if(trinket.astralForgeItem.isModified() || trinket.alterations.length > 0) str += '<div class="editedIcon" id="editedIcon-' + trinket.id + '"></div>';
 
     game.particlesTooltipCanvasItem = trinket;
     return str;
@@ -285,22 +273,13 @@ function getWeaponTooltip(weapon, asResult = null, full = false) {
     str += '</tbody></table>';
     str += '<div class="par"></div>';
 
-    // sockets
     str += '<div class="divider"></div>';
-    weapon.sockets.forEach(sigil => {
-        str += getSigilDetails(sigil, full);
-    })
-    // empty sigils
-    for(let i = 0; i < weapon.sockets_free; i++) {
-        str += getEmptySigilHTML();
-    }
+    if(weapon.hasSigil()) str += getSigilDetails(weapon.sigil, full);
+    else str += getEmptySigilHTML();
 
-    // echoes
-    if(weapon.echoes.length > 0) {
+    if(weapon.hasEcho()) {
         str += '<div class="divider"></div>';
-        weapon.echoes.forEach(echo => {
-            str += getEchoDetails(echo, full);
-        });
+        str += getEchoDetails(weapon.echo, full);
     }
 
     // desc
@@ -309,7 +288,7 @@ function getWeaponTooltip(weapon, asResult = null, full = false) {
     if(weapon.set) str += '<div class="tooltipSetText">' + weapon.set + '</div>';
     str += '</div>';
 
-    if(weapon.astralForgeItem.isModified()) str += '<div class="editedIcon" id="editedIcon-' + weapon.id + '"></div>';
+    if(weapon.astralForgeItem.isModified() || weapon.alterations.length > 0) str += '<div class="editedIcon" id="editedIcon-' + weapon.id + '"></div>';
 
     game.particlesTooltipCanvasItem = weapon;
     return str;
@@ -335,22 +314,13 @@ function getArmorTooltip(armor, asResult = null, full = false) {
     str += '</tbody></table>';
     str += '<div class="par"></div>';
 
-    // sockets
     str += '<div class="divider"></div>';
-    armor.sockets.forEach(sigil => {
-        str += getSigilDetails(sigil, full);
-    })
-    // empty sigils
-    for(let i = 0; i < armor.sockets_free; i++) {
-        str += getEmptySigilHTML();
-    }
+    if(armor.hasSigil()) str += getSigilDetails(armor.sigil, full);
+    else str += getEmptySigilHTML();
 
-    // echoes
-    if(armor.echoes.length > 0) {
+    if(armor.hasEcho()) {
         str += '<div class="divider"></div>';
-        armor.echoes.forEach(echo => {
-            str += getEchoDetails(echo, full);
-        });
+        str += getEchoDetails(armor.echo, full);
     }
 
     // desc
@@ -359,7 +329,7 @@ function getArmorTooltip(armor, asResult = null, full = false) {
     if(armor.set) str += '<div class="tooltipSetText">' + armor.set + '</div>';
     str += '</div>';
 
-    if(armor.astralForgeItem.isModified()) str += '<div class="editedIcon" id="editedIcon-' + armor.id + '"></div>';
+    if(armor.astralForgeItem.isModified() || armor.alterations.length > 0) str += '<div class="editedIcon" id="editedIcon-' + armor.id + '"></div>';
 
     game.particlesTooltipCanvasItem = armor;
     return str;
@@ -471,12 +441,12 @@ function getEchoDetails(echo, full = false, soulbindingFormat = false) {
             str += effect.getFormatted({cssClass: "echoEffect"});
         });
         str += '</div>'
-        if(soulbindingFormat) str += '<div class="brContainer" style="display: none;"><br></div>';
-        else str += '<br>';
-        str += '<div class="echoDesc" style="' + (soulbindingFormat ? 'display: none;' : '') + '">' + echo.desc + '</div>'
-        if(soulbindingFormat) str += '<div class="brContainer" style="display: none;"><br></div>';
-        else str += '<br>';
-        str += '<div class="echoQuote" style="' + (soulbindingFormat ? 'display: none;' : '') + '">' + echo.quote + '</div>';
+        if(!soulbindingFormat) {
+            str += '<br>';
+            str += '<div class="echoDesc">' + echo.desc + '</div>'
+            str += '<br>';
+            str += '<div class="echoQuote">' + echo.quote + '</div>';
+        }
     }
     str += '</div>';
 
@@ -1811,9 +1781,11 @@ function drawSoulwritingScreen() {
     str += '<div id="soulwtab-bend" class="soulwTab' + (game.soulwriting.currentTab === 'bend' ? ' activeTab' : '') + '">Bend</div>';
     str += '</div>';
 
-    str += '<div id="soulwcontent-read" class="soulwContent">READING</div>';
+    str += '<div id="soulwcontent-read" class="soulwContent" style="display: grid">'
+    str += getSwRead();
+    str += '</div>';
 
-    str += '<div id="soulwcontent-write" class="soulwContent" style="display: grid">'
+    str += '<div id="soulwcontent-write" class="soulwContent" style="display: none">'
     str += getSwWrite();
     str += '</div>';
 
@@ -2126,16 +2098,16 @@ function getSwWrite(refresh = false) {
     str += '<div id="sws4" class="swWriteSlot"></div>';
 
     str += '<div class="swWriteCraft">';
-    str += '<div id="swWrite-stalwart" class="swWrite-stalwart"><span>15%</span></div>';
+    str += '<div id="swWrite-stalwart" class="swWrite-stalwart"><span>' + game.player.sw_stalwartFactor + '%</span></div>';
     str += '<div class="swWrite-write"><span>Write</span><canvas id="canv-soulwrite" class="swSlotCanvas"></canvas></div>';
-    str += '<div id="swWrite-corrupt"class="swWrite-corrupt"><span>15%</span></div>';
+    str += '<div id="swWrite-corrupt"class="swWrite-corrupt"><span>' + game.player.sw_corruptFactor + '%</span></div>';
     str += '</div>'; 
 
     str += '<div class="swWrite-backgroundCover coolBorderBis"></div>'
     str += '</div>';
 
     if(refresh) {
-        document.querySelector('.soulwcontent-write').innerHTML = str;
+        document.querySelector('#soulwcontent-write').innerHTML = str;
         return;
     }
     return str;
@@ -2148,6 +2120,69 @@ function getFormattedSoulmark(sm) {
 
     str += '<div id="sm-' + sm.name + '" class="swWriteList-single"><div class="swWriteList-singleHeader"><span>' + capitalizeFirstLetter(sm.name) + '</span>' + eff.getFormatted({cssClass: 'swWriteList-eff', noValue: true, noTheorical: true}) + '</div><div class="extendedSoulmarkContainer"></div></div>';
 
+    return str;
+}
+
+function getSwRead(refresh = false) {
+    let str = '';
+
+    str += '<div class="swRead-banner">';
+    str += getSoulreadingBanner();
+    str += '</div>';
+
+    str += '<div class="swRead-sigil">';
+    str += getSoulreadingSigil();
+    str += '</div>';
+
+    str += '<div class="swRead-soulmarks">';
+    str += getSoulreadingSoulmarks();
+    str += '</div>';
+
+    if(refresh) {
+        document.querySelector('#soulwcontent-read').innerHTML = str;
+        return;
+    }
+    return str;
+}
+
+function getSoulreadingBanner(refresh = false) {
+    let str = '';
+
+    
+
+    if(refresh) {
+        document.querySelector('.swRead-banner').innerHTML = str;
+        return;
+    }
+    return str;
+}
+
+function getSoulreadingSigil(refresh = false) {
+    let str = '';
+
+    str += '<div class="swReadSigilSlot" ondragover="allowDrop(event)" ondrop="game.soulwriting.selectSigil(event)">'
+    if(game.soulwriting.sigil) {
+        str += '<div class="swReadSigilSlotIcon" style="' + getIcon(game.soulwriting.sigil, 45) + '"></div>';
+    }
+    str += '</div>';
+
+    if(refresh) {
+        document.querySelector('.swRead-sigil').innerHTML = str;
+        return;
+    }
+    return str;
+}
+
+function getSoulreadingSoulmarks(refresh = false) {
+    let str = '';
+
+    str += '<div class="swReadSoulmarksContainer">';
+    str += '</div>';
+
+    if(refresh) {
+        document.querySelector('.swRead-soulmarks');
+        return;
+    }
     return str;
 }
 
@@ -2183,20 +2218,20 @@ function generateSoulbindingItemEvents() {
 
 function generateSoulbindingObjectsEvents() {
     const sigils = document.querySelectorAll('.soulbindingSigilInfo');
-    const binds = document.querySelectorAll('.sbBind');
+    const bind = document.querySelector('.sbBind');
 
     sigils.forEach(sigil => {
         if(sigil) {
             const sigilId = sigil.parentNode.id.slice(6);
-            const sigilObj = game.soulbinding.item.sockets.find(x => x.id == sigilId);
+            const sigilObj = game.soulbinding.item.sigil;
             console.log(sigilId);
             console.log(sigilObj);
             let unbind = document.querySelector('#unbind-' + sigilId);
-
+    
             sigil.addEventListener('click', e => {
                 const echo = sigil.querySelector('.echoTitle');
                 const corruptedEcho = sigil.querySelector('.sigilCorruption > p:not(.name)');
-
+    
                 sigil.querySelectorAll('.sigilEffect').forEach(se => {
                     if(se.style.display === 'none') se.style.display = 'block';
                     else se.style.display = 'none';
@@ -2205,44 +2240,36 @@ function generateSoulbindingObjectsEvents() {
                     if(corruptedEcho.style.display === 'none') corruptedEcho.style.display = 'block';
                     else corruptedEcho.style.display = 'none';
                 }
-
+    
                 if(echo) {
                     const brs = sigil.querySelectorAll('.brContainer');
                     const eff = sigil.querySelector('.echoEffects');
-                    const desc = sigil.querySelector('.echoDesc');
-                    const quote = sigil.querySelector('.echoQuote');
-
+    
                     brs.forEach(br => {
                         if(br.style.display === 'none') br.style.display = 'block';
                         else br.style.display = 'none';
                     });
-
+    
                     if(eff.style.display === 'none') eff.style.display = 'block';
                     else eff.style.display = 'none';
-
-                    if(desc.style.display === 'none') desc.style.display = 'block';
-                    else desc.style.display = 'none';
-
-                    if(quote.style.display === 'none') quote.style.display = 'block';
-                    else quote.style.display = 'none';
                 }
             });
-
+    
             if(unbind) unbind.addEventListener('click', e => {
                 game.soulbinding.unslotSigil(sigilObj);
                 Sounds.Methods.playSound(Data.SoundType.SELECTOR_ON);
                 Sounds.Methods.playSound(Data.SoundType.SOULBIND_UNSLOT);
-            })
+            });
         }
-    });
+    })
 
-    binds.forEach(bind => {
+    if(bind) {
         bind.addEventListener('click', e => {
             game.soulbinding.slotSigil();
             Sounds.Methods.playSound(Data.SoundType.SELECTOR_ON);
             Sounds.Methods.playSound(Data.SoundType.SOULBIND_SLOT);
         });
-    })
+    }
 }
 
 function getSoulbindingItem(refresh = false) {
@@ -2259,24 +2286,28 @@ function getSoulbindingItem(refresh = false) {
         str += '<div class="sbItemContainerIndicators">';
 
         str += '<div class="sbItemContainerIndicator">';
-        str += '<h3>Sigils</h3>';
+        str += '<h3>Sigil</h3>';
         str += '<div class="sbItemContainerDots">';
-        for(let i = 0, c = game.soulbinding.item.sockets.length; i < game.soulbinding.item.sockets_amount; i++) {
-            if(c > 0) str += '<span class="sbFulldot"></span>';
-            else str += '<span class="sbEmptyDot"></span>';
-            c--;
-        }
+        if(game.soulbinding.item.hasSigil()) str += '<span class="sbFulldot"></span>';
+        else str += '<span class="sbEmptyDot"></span>';
         str += '</div></div>';
 
         str += '<div class="sbItemContainerIndicator">';
-        str += '<h3>Echoes</h3>';
+        str += '<h3>Echo</h3>';
         str += '<div class="sbItemContainerDots">';
-        for(let i = 0, c = game.soulbinding.item.echoes.length; i < game.soulbinding.item.echoes_amount; i++) {
+        if(game.soulbinding.item.hasEcho()) str += '<span class="sbFulldot"></span>';
+        else str += '<span class="sbEmptyDot"></span>';
+        str += '</div></div>';
+
+        str += '<div class="sbItemContainerIndicator">';
+        str += '<h3>Alterations</h3>';
+        str += '<div class="sbItemContainerDots">';
+        for(let i = 0, c = game.soulbinding.item.alterations.length; i < game.soulbinding.item.allowedAlterations; i++) {
             if(c > 0) str += '<span class="sbFulldot"></span>';
             else str += '<span class="sbEmptyDot"></span>';
             c--;
         }
-        str += '</div></div>';
+        str += '</div></div>'
         
         str += '</div>';
 
@@ -2323,19 +2354,16 @@ function getSoulbindingObjects(refresh = false) {
     let str = '';
 
     str += '<div class="sbObjectsSigils">';
-    if(item && item.hasOwnProperty('sockets_amount')) for(let i = 0; i < item.sockets_amount; i++) {
-        const socket = item.sockets[i];
-        
+    if(item && item.hasOwnProperty('sigil')) {
         str += '<div class="sbObjectsSigilWrapper" style="animation-delay: ' + animDelay + 's;">';
-        if(socket) {
-            str += '<div id="sbSig-' + socket.id + '" class="sbObjectsSigil">';
-            str += getSigilDetails(socket, false, true);
+        if(item.hasSigil()) {
+            str += '<div id="sbSig-' + item.sigil.id + '" class="sbObjectsSigil">';
+            str += getSigilDetails(item.sigil, false, true);
             str += '</div>';
-            str += getSigilUnbindingCommand(socket.id);
-        }
-        else {
+            str += getSigilUnbindingCommand(item.sigil.id);
+        } else {
             str += '<div class="sbObjectsSigil">';
-            str += getEmptySigilHTML(true, i+1);
+            str += getEmptySigilHTML(true, 1);
             str += '</div>';
             str += getSigilBindingCommand();
         }
@@ -2345,16 +2373,14 @@ function getSoulbindingObjects(refresh = false) {
     str += '</div>';
 
     str += '<div class="sbObjectsEchoes">';
-    if(item && item.hasOwnProperty('echoes_amount')) for(let i = 0; i < item.echoes_amount; i++) {
-        const echo = item.echoes[i];
-        
+    if(item && item.hasOwnProperty('echo')) {
         animDelay += 0.1;
         str += '<div class="sbObjectsSigilWrapper" style="animation-delay: ' + animDelay + 's;">';
         str += '<div class="sbObjectsSigil">';
-        if(echo) str += getEchoDetails(echo, false, true);
+        if(item.hasEcho()) str += getEchoDetails(item.echo, false, true);
         else str += getEmptyEchoHTML(true);
         str += '</div>';
-        str += getEchoExtractCommand(echo.id);
+        str += getEchoExtractCommand(item.echo.id);
         str += '</div>';
     }
     str += '</div>';

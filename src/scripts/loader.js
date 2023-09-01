@@ -26,7 +26,7 @@ const Loader = {
                        [[1, 3], [1, 1], true],
                        [[0, 0], [0, 0], true],
                        [true, true, false],
-                       2),
+                       ),
             new Weapon("Entarian Axe",
                        "Axe description",
                        4,
@@ -43,7 +43,7 @@ const Loader = {
                        [[2, 4], [1, 1], true],
                        [[0, 0], [0, 0], true],
                        [true, false, false],
-                       2),
+                       ),
             new Weapon("Drancoran Staff",
                        "Staff description",
                        1,
@@ -60,7 +60,7 @@ const Loader = {
                        [[0, 0], [0, 0], true],
                        [[1, 3], [1, 1], true],
                        [true, true, true],
-                       1),
+                       ),
             new Weapon("Solana's Sword of the Sun",
                        "Solana left this blade behind her; it knew many porters, but never a master. At least, that was until it fell into the hands of Betheros. The golden filaments of the hilt closed around his wrist, hugging it to perfection; like a distant kiss from the woman he once loved, and would never stop loving until his last breath.",
                        12,
@@ -77,9 +77,8 @@ const Loader = {
                        [[5, 8], [1, 3], true],
                        [[0, 0], [0, 0], true],
                        [true, true, false],
-                       2,
-                       1,
-                       [new Echo(
+                       3,
+                       new Echo(
                         "Solana's Tulips",
                         "Each non-critical hit with this weapon gives a §1% Critical Luck bonus to its bearer, for one round. Each critical hit with this weapon regenerates §2% of its bearer's Max. Mana and generates §3 Shield points.",
                         1,
@@ -103,7 +102,7 @@ const Loader = {
                             "shield": [20, 26]
                         },
                         [],
-                       )])
+                       ))
         ];
 
         for(const weapon of weapons) {
@@ -637,6 +636,28 @@ const Loader = {
                     "bonus_damage": [1, 4],
                     "max_bonus": [25, 35],
                 },
+                [],
+                Data.EchoType.WEAPON
+            ),
+            new Echo(
+                "Obliterate",
+                "Any critical hit with this weapon on a stunned enemy will instantly destroy their entire shield.",
+                1,
+                Data.Rarity.LEGENDARY,
+                [
+                    new Stat({
+                        effect: Data.Effect.MODIF_ACCURACY_STUN,
+                        theorical: [3, 6],
+                        isPercentage: true
+                    }),
+                    new Stat({
+                        effect: Data.Effect.CRIT_LUK,
+                        theorical: [5, 8],
+                        isPercentage: true
+                    })
+                ],
+                "Quote",
+                {},
                 [],
                 Data.EchoType.WEAPON
             ),
