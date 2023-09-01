@@ -62,7 +62,13 @@ class Game {
         this.all_sigilCorruptEffects = [];
         this.all_equipmentSets = [];
         this.all_consumables = [];
-
+        this.currentBlackMarketWeaponsTable;
+        this.currentBlackMarketArmorsTable;
+        this.currentBlackMarketSigilsTable;
+        this.currentBlackMarketTrinketsTable;
+        this.currentBlackMarketResourcesTable;
+        this.currentAuctionHouseTable;
+        
         this.all_skillTrees = [];
         this.all_masteryPathways = [];
 

@@ -1419,7 +1419,7 @@ function generateBlackMarketTabEvents() {
         tab.addEventListener('click', () => {
             unsetBlackMarketAllActiveTabs(tabs);
             setBlackMarketActiveTab(tab);
-            generateBlackMarketTabItems(tab);
+            generateTabContent(tab);
         });
     });
 }
@@ -1428,36 +1428,66 @@ function setBlackMarketActiveTab(tab) {
     tab.classList.add('tabActive');
 }
 
+// function generateTabContent(tab) {
+//     let tabName = tab.textContent;
+//     let str = '';
+
+//     game.all_[tabName].forEach(item => {
+//         console.log(game.all_[tabName]);
+//         if(item.tradeParams.isBlackMarketAvailable) {        
+//             str += '<div class="tradeItems-item">'
+
+//             str += '<div class="tradeItems-item--icon">';
+//             // item icon
+//             str += '</div>';
+        
+//             str += '<p class="tradeItems-item--name">';
+//             // item name
+//             str += '</p>';
+        
+//             str += '<div class="tradeItems-item--price">';
+//             str += '<div class="tradeItems-goldIcon"></div>';
+//             str += '<p>';
+//             // item price
+//             str += '</p>'
+//             str += '</div>';
+        
+//             str += '</div>';
+//         }
+        
+//     });   
+// }
+
 function unsetBlackMarketAllActiveTabs(tabs) {
     tabs.forEach(tab => tab.classList.remove('tabActive'));
 }
 
-function generateBlackMarketTabItems(tab) {
-    let str = '';
+// function generateBlackMarketTabItems(tab) {
+//     let str = '';
 
-    switch(tab.textContent) {
-        case 'weapons':
-            str += '<p>Weapons content goes here</p>';
-            break;
-        case 'armors':
-            str += '<p>Armors content goes here</p>';
-            break;
-        case 'trinkets':
-            str += '<p>Trinkets content goes here</p>';
-            break;
-        case 'sigils':
-            str += '<p>Sigils content goes here</p>';
-            break;
-        case 'resources':
-            str +='<p>Resources content goes here</p>';
-            break;
-        default:
-            str += '<p>Default content goes here</p>';
-            break;
-    }
+//     switch(tab.textContent) {
+//         case 'weapons':
+//             str += '<p>Weapons content goes here</p>';
+//             break;
+//         case 'armors':
+//             str += '<p>Armors content goes here</p>';
+//             break;
+//         case 'trinkets':
+//             str += '<p>Trinkets content goes here</p>';
+//             break;
+//         case 'sigils':
+//             str += '<p>Sigils content goes here</p>';
+//             break;
+//         case 'resources':
+//             str +='<p>Resources content goes here</p>';
+//             break;
+//         default:
+//             str += '<p>Default content goes here</p>';
+//             break;
+//     }
 
-    document.querySelector('.tradeItems').innerHTML = str;
-}
+//     document.querySelector('.tradeItems').innerHTML = str;
+// }
 
 function generateBlackMarketAbandonedCacheEvents() {
     const abandonedCaches = document.querySelectorAll('.abandonedCache-items--item');
