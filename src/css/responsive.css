@@ -2,5 +2,48 @@
     MEDIA QUERIES
 */
 @media screen and (max-width: 1921px) {
+
+    /* WORKSHOP */
+
+    .workshopContainer {
+        width: 100%;
+        height: auto;
+    }
+    .workshopMenu {
+        place-content: center;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+        grid-template-areas: 
+            "alchInterface"
+            "craftInterface"
+            "soulwInterface"
+            "soulbInterface"
+            "paragInterface";
+    }
+    .alchInterface,
+    .craftInterface,
+    .soulwInterface,
+    .soulbInterface,
+    .paragInterface {
+        margin: 0 auto;
+    }
+    .alchInterface,
+    .craftInterface {
+        width: 545px;
+        height: 492px;
+    }
+    .soulwInterface {
+        width: 606px;
+        height: 492px;
+    }
+    .soulbInterface {
+        width: 606px;
+        height: 273px;
+    }
+    .paragInterface {
+        width: 606px;
+        height: 218px;
+    }
+
     
 }
