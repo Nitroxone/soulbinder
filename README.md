@@ -31,6 +31,8 @@ No planned release date. We want to take our time to make things right.
 
 So far, Soulbinder is designed to be played in Chrome-based browsers (Google Chrome, Edge, Brave, etc), though it should also work fine in Firefox.
 
+You cannot play Soulbinder on your phone, sorry. 
+
 Once it is released and stable, we will definitely try to export it to Electron so that you can play it as a desktop app.
 
 Oh and, keep in mind we're lazy when it comes to responsive design. Soulbinder was made for large screens. The minimum required screen dimensions are 1680 * 1050 (16:10). For lower resolutions, either unzoom the game or buy to a bigger screen, lol.
