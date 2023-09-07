@@ -3,6 +3,26 @@
 */
 @media screen and (max-width: 1921px) {
 
+    /* GLOBAL */
+
+    #resources {
+        width: 310px;
+    }
+    #messages {
+        width: 310px;
+    }
+    #sections {
+        left: 310px;
+        right: 310px;
+    }
+    .tab {
+        font-size: 11px;
+    }
+    .inventoryItem {
+        width: 36px;
+        height: 50px;
+    }
+
     /* WORKSHOP */
 
     .workshopContainer {
