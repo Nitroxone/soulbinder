@@ -14,6 +14,8 @@
 
 - Actually implement set bonuses
 
+- Make the interfaces more responsive
+
 ALCHEMY:
 - Add possibility to craft multiple potions in one shot
 ONGOING - Implement sound effects and animations
