@@ -4628,9 +4628,6 @@ hr.leftSided {
     background-repeat: no-repeat;
     background-size: 100% 100%, cover, cover;
 }
-.swRead-sigil, .swRead-soulmarks {
-    border: 1px dashed grey;
-}
 .swRead-banner {
     grid-area: swRead-banner;
 
@@ -4650,10 +4647,29 @@ hr.leftSided {
 .swRead-soulmarks {
     grid-area: swRead-soulmarks;
 
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+.swReadSoulmarksContainer {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
+
+    width: 275px;
+    margin: 0 auto;
+
+    padding-top: 0.5rem;
+    padding-bottom: 1rem;
+}
+.swReadSoulmarksContainer > .swWriteList-single {
+    border: 3px solid transparent;
+    border-image: url('img/window1.png') 3 stretch;
+    background-color: rgba(0, 0, 0, 0.75);
+    padding: 1rem;
+}
+.swReadSoulmarksContainer > .swWriteList-single:hover {
+    background-color: rgba(20, 20, 20, 0.75);
 }
 .swReadSigilSlot {
     width: 100px;
