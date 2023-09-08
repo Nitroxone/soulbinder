@@ -2111,7 +2111,7 @@ function getFormattedSoulmark(sm, soulreadingFormat = false) {
     return str;
 }
 
-function getSoulmarkProgressionGauge(sm) {
+function getSoulmarkProgressGauge(sm) {
     let str = '';
 
     return str;
