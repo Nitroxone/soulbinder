@@ -2098,9 +2098,21 @@ function getFormattedSoulmark(sm, soulreadingFormat = false) {
     let str = '';
 
     str += '<div id="sm-' + sm.name + (soulreadingFormat ? '-sr' : '') + '" class="swWriteList-single"><div class="swWriteList-singleHeader"><span>' + capitalizeFirstLetter(sm.name) + '</span>' + eff.getFormatted({cssClass: 'swWriteList-eff', noValue: true, noTheorical: true}) + '</div>';
-    if(!soulreadingFormat) str += '<div class="extendedSoulmarkContainer"></div>';
-    else str += '<div class="extendedSoulmarkContainer" style="display: flex;"></div>';
+    if(!soulreadingFormat) {
+        str += '<div class="extendedSoulmarkContainer"></div>';
+    }
+    else {
+        str += '<div class="soulreadingSoulmarkContainer">'
+        str += getSoulmarkProgressGauge(sm);
+        str += '</div>';
+    }
     str += '</div>';
+
+    return str;
+}
+
+function getSoulmarkProgressionGauge(sm) {
+    let str = '';
 
     return str;
 }
