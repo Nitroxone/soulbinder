@@ -1894,6 +1894,11 @@ function isBaseArmorEffect(eff) {
     return Config.BaseArmorEffects.includes(eff);
 }
 
+/**
+ * Returns an HTML format string that contains all of the provided item's Sigil effects.
+ * @param {Weapon|Armor|Trinket} item the Item to retrieve the Sigil effects from
+ * @returns {string} an HTML format string
+ */
 function getSigilEffectsFromItem(item) {
     let str = '';
 
@@ -1913,6 +1918,11 @@ function getSigilEffectsFromItem(item) {
     return str;
 }
 
+/**
+ * Returns the alterations tooltip for the provided item.
+ * @param {Weapon|Armor|Trinket} item the Item to get the alterations tooltip from
+ * @returns {string} an HTML format string that contains the tooltip
+ */
 function getItemAlterationsTooltip(item) {
     let str = '';
 
@@ -1923,4 +1933,15 @@ function getItemAlterationsTooltip(item) {
     if(item.hasSigil()) str += '<div class="editedIconStats">' + getSigilEffectsFromItem(item) + '</div>';
 
     return str;
+}
+
+/**
+ * Returns the Soulmark object that matches the provided effect.
+ * @param {Data.Effect} effect the effect to search for
+ * @returns {object|null} a Soulmark object or null if none matched
+ */
+function getSoulmarkFromEffect(effect) {
+    for(let i = 0; i < Config.Soulwriting.length; i++) {
+        if(Config.Soulwriting[i].effect === effect) return Config.Soulwriting[i];
+    }
 }
