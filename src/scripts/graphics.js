@@ -1794,7 +1794,7 @@ function drawSoulwritingScreen() {
     return str;
 }
 
-function drawSoulwritingLines() {
+function drawSoulwritingLines(refresh = false) {
     const parent = document.querySelector('.swWriteCrafting');
     const slots = document.querySelectorAll('.swWriteSlot');
 
@@ -1820,7 +1820,8 @@ function drawSoulwritingLines() {
     
     str += '</svg>';
 
-    parent.innerHTML += str;
+    if(!refresh) parent.innerHTML += str;
+    else document.querySelector('.soulwritingOverlay').outerHTML = str;
 
     document.querySelectorAll('.swWriteSlot').forEach(slot => {
         slot.style.zIndex = '1';
@@ -1845,6 +1846,7 @@ function generateSoulwritingInterfaceEvents() {
                 con.style.display = 'none';
             });
             document.querySelector('#soulwcontent-' + game.soulwriting.currentTab).style.display = 'grid';
+            if(tab.id === 'soulwtab-write') drawSoulwritingLines(true);
         });
     }
 
