@@ -1285,7 +1285,7 @@ function drawHubScreen() {
     str += '<div class="blackMarket-menu--firstCol">';
 
     str += '<div class="blackMarket-menu--tabs">';
-    str += '<div class="blackMarket-menu--tab">weapons</div>';
+    str += '<div class="blackMarket-menu--tab tabActive">weapons</div>';
     str += '<div class="blackMarket-menu--tab">armors</div>';
     str += '<div class="blackMarket-menu--tab">trinkets</div>';
     str += '<div class="blackMarket-menu--tab">sigils</div>';
@@ -1297,17 +1297,17 @@ function drawHubScreen() {
 
     // item structure
 
-    str += '<div class="tradeItems-item">'
+    // str += '<div class="tradeItems-item">'
 
-    str += '<div class="tradeItems-item--icon"></div>';
-    str += '<p class="tradeItems-item--name">Silver Birjin of Drancor</p>';
+    // str += '<div class="tradeItems-item--icon"></div>';
+    // str += '<p class="tradeItems-item--name">Silver Birjin of Drancor</p>';
 
-    str += '<div class="tradeItems-item--price">';
-    str += '<div class="tradeItems-goldIcon"></div>';
-    str += '<p>15000</p>';
-    str += '</div>';
+    // str += '<div class="tradeItems-item--price">';
+    // str += '<div class="tradeItems-goldIcon"></div>';
+    // str += '<p>15000</p>';
+    // str += '</div>';
 
-    str += '</div>';
+    // str += '</div>';
 
     // ...
 
@@ -1380,6 +1380,9 @@ function drawHubScreen() {
 
     generateBlackMarketTabEvents();
     generateBlackMarketAbandonedCacheEvents();
+    generateBlackMarketTable("weapons");
+    generateBlackMarketTable("armors");
+    generateBlackMarketTable("sigils");
 }
 
 function generateBlackMarketTabEvents() {
@@ -1398,66 +1401,40 @@ function setBlackMarketActiveTab(tab) {
     tab.classList.add('tabActive');
 }
 
-// function generateTabContent(tab) {
-//     let tabName = tab.textContent;
-//     let str = '';
+function generateTabContent(tab) {
+    let tabName = capitalizeFirstLetter(tab.textContent);
+    console.log(tabName);
+    console.log(game[`currentBlackMarket${tabName}Table`]);
+    let str = '';
 
-//     game.all_[tabName].forEach(item => {
-//         console.log(game.all_[tabName]);
-//         if(item.tradeParams.isBlackMarketAvailable) {        
-//             str += '<div class="tradeItems-item">'
+    game[`currentBlackMarket${tabName}Table`].forEach(item => {      
+        str += '<div class="tradeItems-item">'
 
-//             str += '<div class="tradeItems-item--icon">';
-//             // item icon
-//             str += '</div>';
-        
-//             str += '<p class="tradeItems-item--name">';
-//             // item name
-//             str += '</p>';
-        
-//             str += '<div class="tradeItems-item--price">';
-//             str += '<div class="tradeItems-goldIcon"></div>';
-//             str += '<p>';
-//             // item price
-//             str += '</p>'
-//             str += '</div>';
-        
-//             str += '</div>';
-//         }
-        
-//     });   
-// }
+        str += '<div class="tradeItems-item--icon">';
+        str += item.icon;
+        str += '</div>';
+    
+        str += '<p class="tradeItems-item--name">';
+        str += item.name;
+        str += '</p>';
+    
+        str += '<div class="tradeItems-item--price">';
+        str += '<div class="tradeItems-goldIcon"></div>';
+        str += '<p>';
+        str += item.price;
+        str += '</p>'
+        str += '</div>';
+    
+        str += '</div>';
+
+        document.querySelector('.tradeItems').innerHTML = str;
+    }); 
+}
 
 function unsetBlackMarketAllActiveTabs(tabs) {
     tabs.forEach(tab => tab.classList.remove('tabActive'));
 }
 
-// function generateBlackMarketTabItems(tab) {
-//     let str = '';
-
-//     switch(tab.textContent) {
-//         case 'weapons':
-//             str += '<p>Weapons content goes here</p>';
-//             break;
-//         case 'armors':
-//             str += '<p>Armors content goes here</p>';
-//             break;
-//         case 'trinkets':
-//             str += '<p>Trinkets content goes here</p>';
-//             break;
-//         case 'sigils':
-//             str += '<p>Sigils content goes here</p>';
-//             break;
-//         case 'resources':
-//             str +='<p>Resources content goes here</p>';
-//             break;
-//         default:
-//             str += '<p>Default content goes here</p>';
-//             break;
-//     }
-
-//     document.querySelector('.tradeItems').innerHTML = str;
-// }
 
 function generateBlackMarketAbandonedCacheEvents() {
     const abandonedCaches = document.querySelectorAll('.abandonedCache-items--item');
