@@ -2179,10 +2179,13 @@ function getSoulreadingSoulmarks(refresh = false) {
     let str = '';
 
     str += '<div class="swReadSoulmarksContainer">';
+    if(game.soulwriting.sigil) game.soulwriting.sigil.effects.forEach(eff => {
+        str += eff.getFormatted({cssClass: 'swReadSoulmark', noTheorical: true, noValue: true});
+    })
     str += '</div>';
 
     if(refresh) {
-        document.querySelector('.swRead-soulmarks');
+        document.querySelector('.swRead-soulmarks').innerHTML = str;
         return;
     }
     return str;
