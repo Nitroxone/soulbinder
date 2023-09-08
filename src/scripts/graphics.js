@@ -2092,12 +2092,15 @@ function getSwWrite(refresh = false) {
     return str;
 }
 
-function getFormattedSoulmark(sm) {
+function getFormattedSoulmark(sm, soulreadingFormat = false) {
     const eff = new Stat({effect: sm.effect, theorical: sm.theorical});
 
     let str = '';
 
-    str += '<div id="sm-' + sm.name + '" class="swWriteList-single"><div class="swWriteList-singleHeader"><span>' + capitalizeFirstLetter(sm.name) + '</span>' + eff.getFormatted({cssClass: 'swWriteList-eff', noValue: true, noTheorical: true}) + '</div><div class="extendedSoulmarkContainer"></div></div>';
+    str += '<div id="sm-' + sm.name + (soulreadingFormat ? '-sr' : '') + '" class="swWriteList-single"><div class="swWriteList-singleHeader"><span>' + capitalizeFirstLetter(sm.name) + '</span>' + eff.getFormatted({cssClass: 'swWriteList-eff', noValue: true, noTheorical: true}) + '</div>';
+    if(!soulreadingFormat) str += '<div class="extendedSoulmarkContainer"></div>';
+    else str += '<div class="extendedSoulmarkContainer" style="display: flex;"></div>';
+    str += '</div>';
 
     return str;
 }
@@ -2156,8 +2159,8 @@ function getSoulreadingSoulmarks(refresh = false) {
     let str = '';
 
     str += '<div class="swReadSoulmarksContainer">';
-    if(game.soulwriting.sigil) game.soulwriting.sigil.effects.forEach(eff => {
-        str += eff.getFormatted({cssClass: 'swReadSoulmark', noTheorical: true, noValue: true});
+    game.soulwriting.sigil?.effects.forEach(eff => {
+        str += getFormattedSoulmark(getSoulmarkFromEffect(eff.effect), true);
     })
     str += '</div>';
 
