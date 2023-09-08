@@ -4197,7 +4197,7 @@ function generateMapRoomsEvents() {
     })
 }
 
-function drawMapConnectors() {
+function drawMapConnectors(refresh = false) {
     const parent = document.querySelector('.exploration-map');
 
     let str = '';
@@ -4241,7 +4241,8 @@ function drawMapConnectors() {
 
     str += '</svg>';
 
-    parent.innerHTML += str;
+    if(!refresh) parent.innerHTML += str;
+    else document.querySelector('.mapConnectorsOverlay').outerHTML = str;
 }
 
 function bringRoomsForward() {
