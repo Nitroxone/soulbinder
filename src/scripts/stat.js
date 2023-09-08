@@ -127,6 +127,7 @@ class Stat {
      * @param {boolean} skillFormat applies a different format for a Skill tooltip display.
      * @param {boolean} includeDuration include the duration of the Stat? (for Skills)
      * @param {boolean} includeChance include the chance of the Stat? (for Stun/Move effects) -> automatically TRUE for all Stun/Movement effects
+     * @param {boolean} noValue removes the value display
      * @return {string} an HTML string
      */
     getFormatted(props) {

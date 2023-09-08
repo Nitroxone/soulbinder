@@ -4649,6 +4649,11 @@ hr.leftSided {
 }
 .swRead-soulmarks {
     grid-area: swRead-soulmarks;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .swReadSigilSlot {
     width: 100px;
@@ -7527,4 +7532,3 @@ table.astralForgeShards td {
     border-color: rgba(176,60,39,1) !important;
     color: rgba(176,60,39,1) !important;
 }
-

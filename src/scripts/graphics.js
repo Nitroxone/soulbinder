@@ -1771,7 +1771,7 @@ function drawSoulwritingScreen() {
     return str;
 }
 
-function drawSoulwritingLines() {
+function drawSoulwritingLines(refresh = false) {
     const parent = document.querySelector('.swWriteCrafting');
     const slots = document.querySelectorAll('.swWriteSlot');
 
@@ -1797,7 +1797,8 @@ function drawSoulwritingLines() {
     
     str += '</svg>';
 
-    parent.innerHTML += str;
+    if(!refresh) parent.innerHTML += str;
+    else document.querySelector('.soulwritingOverlay').outerHTML = str;
 
     document.querySelectorAll('.swWriteSlot').forEach(slot => {
         slot.style.zIndex = '1';
@@ -1822,6 +1823,7 @@ function generateSoulwritingInterfaceEvents() {
                 con.style.display = 'none';
             });
             document.querySelector('#soulwcontent-' + game.soulwriting.currentTab).style.display = 'grid';
+            if(tab.id === 'soulwtab-write') drawSoulwritingLines(true);
         });
     }
 
@@ -2154,10 +2156,13 @@ function getSoulreadingSoulmarks(refresh = false) {
     let str = '';
 
     str += '<div class="swReadSoulmarksContainer">';
+    if(game.soulwriting.sigil) game.soulwriting.sigil.effects.forEach(eff => {
+        str += eff.getFormatted({cssClass: 'swReadSoulmark', noTheorical: true, noValue: true});
+    })
     str += '</div>';
 
     if(refresh) {
-        document.querySelector('.swRead-soulmarks');
+        document.querySelector('.swRead-soulmarks').innerHTML = str;
         return;
     }
     return str;
@@ -4172,7 +4177,7 @@ function generateMapRoomsEvents() {
     })
 }
 
-function drawMapConnectors() {
+function drawMapConnectors(refresh = false) {
     const parent = document.querySelector('.exploration-map');
 
     let str = '';
@@ -4216,7 +4221,8 @@ function drawMapConnectors() {
 
     str += '</svg>';
 
-    parent.innerHTML += str;
+    if(!refresh) parent.innerHTML += str;
+    else document.querySelector('.mapConnectorsOverlay').outerHTML = str;
 }
 
 function bringRoomsForward() {
