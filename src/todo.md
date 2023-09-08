@@ -69,6 +69,7 @@ DONE - Nerf all effects
 
 SOULREADING:
 - Extract a soulmark multiple times to unlock its full potential?
+- Tag player crafted Sigils so they can't be used for soulreading
 
 SOULBINDING:
 DONE - Prevent the addition of effects that do not already exist
