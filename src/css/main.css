@@ -4669,7 +4669,7 @@ hr.leftSided {
     padding: 1rem;
 }
 .swReadSoulmarksContainer > .swWriteList-single:hover {
-    background-color: rgba(20, 20, 20, 0.95);
+    background-color: rgba(15, 15, 15, 0.75);
 }
 .soulreadingSoulmarkContainer {
     display: flex;
