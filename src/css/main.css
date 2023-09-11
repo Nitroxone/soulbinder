@@ -2224,6 +2224,12 @@ table.statsTable tbody td:nth-child(3) {
     padding:1px;
     position: relative;
 }
+.gaugeProgress.slmrkGauge {
+    height: 13px;
+}
+.gaugeProgress .gaugeIndicator {
+    font-size: 9px;
+}
 
 .statGauge {
     /*width:70%;*/
