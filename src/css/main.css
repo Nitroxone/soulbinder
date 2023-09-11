@@ -2253,6 +2253,9 @@ table.statsTable tbody td:nth-child(3) {
 .toxicity, .toxicitySmaller {
     background: linear-gradient(0deg, rgb(20, 92, 47) 23%, rgb(0, 136, 54) 100%);
 }
+.soulmark {
+    background: linear-gradient(0deg, rgb(99, 82, 129) 23%, rgb(130, 154, 206) 100%);
+}
 .gaugeIndicator {
     font-size: 11px;
     text-shadow: 1px 1px 1px #000;
