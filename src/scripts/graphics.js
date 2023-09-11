@@ -2116,7 +2116,7 @@ function getSoulmarkProgressGauge(sm) {
 
     str += '<div class="gaugeProgress"><div class="statGauge soulmark" style="width: ' + Math.round((sm.studied*100)/sm.researchTotal) + '%"><span class="gaugeIndicator">' + sm.studied + '/' + sm.researchTotal + '</span></div></div>';
     str += '<div class="alchToxicity">';
-    str += '<div class="slmrkStatus locked"><div class="slmrkStatusIcon"></div>Locked</div>';
+    str += '<div class="slmrkStatus ' + (sm.unlocked ? 'un' : '') + 'locked"><div class="slmrkStatusIcon"></div>' + (sm.unlocked ? 'Unl' : 'L') + 'ocked</div>';
     str += '<div id="slmrkNum-' + sm.name + '" class="slmrkNum"></div>';
     str += '</div>';
 

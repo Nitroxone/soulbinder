@@ -4691,6 +4691,35 @@ hr.leftSided {
     justify-content: space-between;
 }
 
+.slmrkStatus {
+    display: flex;
+    flex-direction: row;
+    line-height: 1.1;
+}
+.slmrkStatus.locked {
+    color: var(--base-red);
+}
+.slmrkStatus.unlocked {
+    color: var(--base-green);
+}
+.slmrkStatusIcon {
+    width: 12px;
+    height: 12px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    margin-right: 0.2rem;
+}
+.locked > .slmrkStatusIcon {
+    background: url('img/locked_icon.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+.unlocked > .slmrkStatusIcon {
+    background: url('img/unlocked_icon.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
 .swReadSigilSlot {
     width: 100px;
     height: 100px;
