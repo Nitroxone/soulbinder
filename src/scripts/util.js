@@ -1938,7 +1938,7 @@ function getItemAlterationsTooltip(item) {
 /**
  * Returns the Soulmark object that matches the provided effect.
  * @param {Data.Effect} effect the effect to search for
- * @returns {object|null} a Soulmark object or null if none matched
+ * @returns {Soulmark|null} a Soulmark object or null if none matched
  */
 function getSoulmarkFromEffect(effect) {
     for(let i = 0; i < Config.Soulwriting.length; i++) {
@@ -1948,7 +1948,7 @@ function getSoulmarkFromEffect(effect) {
 
 /**
  * Returns a string that contains the displayed status of a soulmark that can be extracted.
- * @param {object} sm the soulmark
+ * @param {Soulmark} sm the soulmark
  * @returns {string} a comparison string
  */
 function getSoulreadingSoulmarkValue(sm) {
