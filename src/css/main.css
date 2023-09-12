@@ -4730,6 +4730,10 @@ hr.leftSided {
 .slmrkNum {
     width: 12px;
     height: 12px;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.slmrkNum:hover {
+    transform: scale(1.1);
 }
 .slmrkNum.none {
     background: url('img/upgrading_icon.png');

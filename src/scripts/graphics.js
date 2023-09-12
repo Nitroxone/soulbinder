@@ -2163,7 +2163,6 @@ function getSoulreadingSoulmarkTooltip(sm) {
     let str = '';
 
     str += sm.name;
-    console.log(sm);
 
     return str;
 }
