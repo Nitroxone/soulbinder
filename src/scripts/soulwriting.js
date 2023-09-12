@@ -50,7 +50,7 @@ class Soulwriting {
      * Unselects the currently selected writing slot.
      */
     unselectSlot() {
-        this.selectedSlot = 0; 
+        this.selectedSlot = 0;
     }
 
     /**
@@ -87,7 +87,7 @@ class Soulwriting {
 
     /**
      * Removes the soulmark at the provided ID (n+1) index.
-     * @param {number} id 
+     * @param {number} id
      */
     unselectSoulmarkAt(id) {
         this.soulmarks[id - 1] = null;
@@ -180,7 +180,7 @@ class Soulwriting {
         let corrEff = [];
         effects = effects.filter(x => x); // Remove null elements
         soulmarks = soulmarks.filter(x => x); // Remove null elements
-        
+
         this.soulmarks.forEach(slmrk => {
             if(!slmrk) return; // Skip null elements
             if(computeChance(game.player.sw_stalwartFactor)) {
@@ -227,5 +227,10 @@ class Soulwriting {
 
         getSoulreadingSigil(true);
         getSoulreadingSoulmarks(true);
+    }
+
+    extractSoulmark(sm) {
+        sm.studied += 1;
+        if(sm.studied === sm.researchTotal || sm.availableBeforeMastery) sm.unlocked = true;
     }
 }

@@ -2158,7 +2158,8 @@ function generateSoulreadingSoulmarkEvents() {
 
         dom.addEventListener('mousedown', () => {
             if(sm.canBeExtracted()) extractTimeout = setTimeout(() => {
-                console.log('extracted ' + sm.name + '!');
+                game.soulwriting.extractSoulmark(sm);
+                console.log('extracted ' + sm.name + '!'); 
             }, 1000);
         });
 

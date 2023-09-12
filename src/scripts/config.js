@@ -112,7 +112,7 @@ let Config = {
         MODIF_CHANCE_STUN: true,
         MODIF_CHANCE_MOVE: true,
 
-        CRIT_LUK: true, 
+        CRIT_LUK: true,
     },
     EffectUnvaluable: [
         Data.Effect.BLEED_CURABLE,
