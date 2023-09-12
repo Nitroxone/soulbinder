@@ -1946,6 +1946,11 @@ function getSoulmarkFromEffect(effect) {
     }
 }
 
+/**
+ * Returns a string that contains the displayed status of a soulmark that can be extracted.
+ * @param {object} sm the soulmark
+ * @returns {string} a comparison string
+ */
 function getSoulreadingSoulmarkValue(sm) {
     if(sm.studied === 0) {
         if(isEffectUnvaluable(sm.effect)) return "None";
@@ -1959,10 +1964,20 @@ function getSoulreadingSoulmarkValue(sm) {
     }
 }
 
+/**
+ * Returns the current value of the provided soulmark.
+ * @param {object} sm the soulmark
+ * @returns {array|boolean} the current soulmark's value
+ */
 function getCurrentSoulmarkAdvancement(sm) {
     return sm.steps[sm.studied-1];
 }
 
+/**
+ * Returns the next value of the provided soulmark.
+ * @param {object} sm the soulmark
+ * @returns {array|boolean} the next soulmark's value
+ */
 function getNextSoulmarkAdvancement(sm) {
     return sm.steps[sm.studied];
 }
