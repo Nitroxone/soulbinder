@@ -196,7 +196,7 @@ let Config = {
     ],
     Soulwriting: [
         // THEORICAL, CRITICAL, CORRUPTED, UNLOCKED
-        {
+        new Soulmark({
             effect: Data.Effect.MAXHEALTH,
             name: "youth",
             theorical: [20, 30],
@@ -209,8 +209,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: [[5, 8], [8, 10], [10, 20], [15, 25], [20, 30]]
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.MAXMANA,
             name: "wisdom",
             theorical: [20, 30],
@@ -223,8 +223,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: [[5, 8], [8, 10], [10, 20], [15, 25], [20, 30]]
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.MAXSTAMINA,
             name: "endurance",
             theorical: [20, 30],
@@ -237,8 +237,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: [[5, 8], [8, 10], [10, 20], [15, 25], [20, 30]]
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.DODGE,
             name: "zeal",
             theorical: [1, 2],
@@ -251,8 +251,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: []
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.SPEED,
             name: "alacrity",
             theorical: [1, 2],
@@ -265,8 +265,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: []
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.ACCURACY,
             name: "bullseye",
             theorical: [3, 5],
@@ -279,8 +279,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: [[1, 2], [2, 3], [2, 4], [3, 5]]
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.PROTECTION,
             name: "bastion",
             theorical: [3, 5],
@@ -293,8 +293,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: [[1, 2], [2, 3], [2, 4], [3, 5]]
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.MIGHT,
             name: "valor",
             theorical: [5, 8],
@@ -307,8 +307,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: [[1, 2], [2, 3], [4, 5], [5, 8]]
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.SPIRIT,
             name: "potency",
             theorical: [5, 8],
@@ -321,8 +321,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: [[1, 2], [2, 3], [4, 5], [5, 8]]
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.DAMAGE_REFLECTION,
             name: "thorns",
             theorical: [2, 4],
@@ -335,9 +335,9 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: [[1, 2], [2, 4]]
-        },
+        }),
         // BLEED & POISON RESISTANCE STATS
-        {
+        new Soulmark({
             effect: Data.Effect.RES_BLEED_DMG,
             name: "vigorous",
             theorical: [2, 4],
@@ -350,8 +350,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: [[1, 2], [2, 4]]
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.RES_BLEED_DURATION,
             name: "coagulation",
             theorical: 1,
@@ -364,8 +364,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: []
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.RES_POISON_DMG,
             name: "purity",
             theorical: [2, 4],
@@ -377,8 +377,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: [[1, 2], [2, 4]]
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.RES_POISON_DURATION,
             name: "metabolic",
             theorical: 1,
@@ -391,8 +391,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: []
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.RES_STUN,
             name: "ironskull",
             theorical: [3, 6],
@@ -405,8 +405,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: [[1, 2], [2, 4], [3, 6]]
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.RES_MOVE,
             name: "stability",
             theorical: [3, 6],
@@ -419,9 +419,9 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: [[1, 2], [2, 4], [3, 6]]
-        },
+        }),
         // REGEN
-        {
+        new Soulmark({
             effect: Data.Effect.REGEN_HEALTH,
             name: "miracle",
             theorical: [2, 4],
@@ -434,8 +434,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: [[1, 2], [2, 4]]
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.REGEN_MANA,
             name: "sentience",
             theorical: [2, 4],
@@ -448,8 +448,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: [[1, 2], [2, 4]]
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.REGEN_STAMINA,
             name: "tolerance",
             theorical: [2, 4],
@@ -462,9 +462,9 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: [[1, 2], [2, 4]]
-        },
+        }),
         // DAMAGE MODIFIERS
-        {
+        new Soulmark({
             effect: Data.Effect.MODIF_BLOCK,
             name: "barrier",
             theorical: [3, 5],
@@ -477,8 +477,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: [[1, 2], [2, 4], [3, 5]]
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.MODIF_DMG_TOTAL,
             name: "ferocity",
             theorical: [1, 3],
@@ -491,8 +491,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: false,
             steps: [[1, 2], [2, 4]]
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.MODIF_DMG_WEAPON,
             name: "dexterity",
             theorical: [2, 4],
@@ -505,8 +505,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: false,
             steps: [[1, 2], [2, 4]]
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.MODIF_DMG_SKILL,
             name: "influence",
             theorical: [2, 4],
@@ -519,8 +519,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: false,
             steps: [[1, 2], [2, 4]]
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.MODIF_DMG_STUN,
             name: "opportunity",
             theorical: [2, 4],
@@ -533,8 +533,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: false,
             steps: [[1, 2], [2, 4]]
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.MODIF_DMG_BLEED,
             name: "dissolution",
             theorical: [2, 4],
@@ -547,8 +547,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: [[1, 2], [2, 4]]
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.MODIF_DMG_POISON,
             name: "corrosion",
             theorical: [2, 4],
@@ -561,9 +561,9 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: [[1, 2], [2, 4]]
-        },
+        }),
         // ADDITIONAL MODIFIERS
-        {
+        new Soulmark({
             effect: Data.Effect.MODIF_HEAL_RECV,
             name: "mending",
             theorical: [4, 6],
@@ -576,8 +576,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: [[1, 2], [2, 4], [4, 6]]
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.MODIF_HEAL_GIVEN,
             name: "nursing",
             theorical: [4, 6],
@@ -590,8 +590,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: [[1, 2], [2, 4], [4, 6]]
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.MODIF_ACCURACY_SKILL,
             name: "veracity",
             theorical: [2, 4],
@@ -604,8 +604,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: false,
             steps: [[1, 2], [1, 3], [2, 4]]
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.MODIF_ACCURACY_STUN,
             name: "targeting",
             theorical: [2, 4],
@@ -618,8 +618,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: false,
             steps: [[1, 2], [1, 3], [2, 4]]
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.MODIF_ACCURACY_BLEED,
             name: "harassment",
             theorical: [2, 4],
@@ -632,8 +632,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: false,
             steps: [[1, 2], [1, 3], [2, 4]]
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.MODIF_ACCURACY_POISON,
             name: "prey",
             theorical: [2, 4],
@@ -646,8 +646,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: false,
             steps: [[1, 2], [1, 3], [2, 4]]
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.MODIF_CRIT_SKILL,
             name: "focus",
             theorical: [5, 8],
@@ -660,8 +660,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: [[1, 2], [3, 5], [5, 8]]
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.MODIF_CRIT_STUN,
             name: "trauma",
             theorical: [5, 8],
@@ -674,8 +674,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: [[1, 2], [3, 5], [5, 8]]
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.MODIF_CRIT_BLEED,
             name: "ooze",
             theorical: [5, 8],
@@ -688,8 +688,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: [[1, 2], [3, 5], [5, 8]]
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.MODIF_CRIT_POISON,
             name: "causticity",
             theorical: [5, 8],
@@ -702,8 +702,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: [[1, 2], [3, 5], [5, 8]]
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.MODIF_CHANCE_STUN,
             name: "bluntforce",
             theorical: [5, 8],
@@ -716,8 +716,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: [[1, 2], [2, 4], [3, 5], [5, 8]]
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.MODIF_CHANCE_MOVE,
             name: "tackle",
             theorical: [5, 8],
@@ -730,13 +730,13 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: [[1, 2], [3, 5], [5, 8]]
-        },
+        }),
 
         //------------------------------------------------------
         // ARMOR EFFECTS
         //------------------------------------------------------
         // BASE RESISTANCE
-        {
+        new Soulmark({
             effect: Data.Effect.RESILIENCE,
             name: "tenacity",
             theorical: [8, 12],
@@ -749,8 +749,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: [[1, 2], [3, 5], [4, 8], [6, 10], [8, 12]]
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.WARDING,
             name: "conservation",
             theorical: [8, 12],
@@ -763,10 +763,10 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: [[1, 2], [3, 5], [4, 8], [6, 10], [8, 12]]
-        },
+        }),
 
         // WEAPON EFFECTS
-        {
+        new Soulmark({
             effect: Data.Effect.PDMG,
             name: "honing",
             theorical: [6, 10],
@@ -779,8 +779,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: [[1, 2], [3, 5], [4, 8], [6, 10]]
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.MDMG,
             name: "decadence",
             theorical: [6, 10],
@@ -793,8 +793,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: [[1, 2], [3, 5], [4, 8], [6, 10]]
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.BLOCK,
             name: "stronghold",
             theorical: [3, 6],
@@ -807,8 +807,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: [[1, 2], [2, 4], [3, 6]]
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.EFFORT,
             name: "handling",
             theorical: [-2, -4],
@@ -821,8 +821,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: [[-1, -2], [-2, -3], [-2, -4]]
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.CRIT_LUK,
             name: "piercing",
             theorical: [6, 10],
@@ -835,8 +835,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: [[1, 2], [4, 7], [6, 10]]
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.CRIT_DMG,
             name: "shrill",
             theorical: [6, 10],
@@ -849,8 +849,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: [[1, 2], [3, 5], [4, 8], [6, 10]]
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.BLEED_DMG,
             name: "cutting",
             theorical: [3, 6],
@@ -863,8 +863,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: [[1, 2], [2, 4], [3, 6]]
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.BLEED_DURATION,
             name: "hemophilia",
             theorical: 1,
@@ -877,8 +877,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: []
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.BLEED_INCURABLE,
             name: "haemorrhage",
             theorical: 0,
@@ -891,8 +891,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: []
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.POISON_DMG,
             name: "venom",
             theorical: [3, 6],
@@ -905,8 +905,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: [[1, 2], [2, 4], [3, 6]]
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.POISON_DURATION,
             name: "dilution",
             theorical: 1,
@@ -919,8 +919,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: []
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.POISON_INCURABLE,
             name: "plague",
             theorical: 0,
@@ -933,8 +933,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: []
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.RANGE_FRONT_ON,
             name: "shortblow",
             theorical: 0,
@@ -947,8 +947,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: []
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.RANGE_MIDDLE_ON,
             name: "midblow",
             theorical: 0,
@@ -961,8 +961,8 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: []
-        },
-        {
+        }),
+        new Soulmark({
             effect: Data.Effect.RANGE_BACK_ON,
             name: "longblow",
             theorical: 0,
@@ -975,6 +975,6 @@ let Config = {
             studied: 0,
             availableBeforeMastery: true,
             steps: []
-        },
+        }),
     ]
 }

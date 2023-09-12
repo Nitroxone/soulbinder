@@ -1954,30 +1954,12 @@ function getSoulmarkFromEffect(effect) {
 function getSoulreadingSoulmarkValue(sm) {
     if(sm.studied === 0) {
         if(isEffectUnvaluable(sm.effect)) return "None";
-        else return ("0 ---> " + getNextSoulmarkAdvancement(sm));
+        else return ("0 ---> " + sm.getNext());
     } else if(sm.studied === sm.researchTotal-1) {
         if(isEffectUnvaluable(sm.effect)) return "None -> Active";
-        else return (getCurrentSoulmarkAdvancement(sm) + ' ---> ' + sm.theorical);
+        else return (sm.getCurrent() + ' ---> ' + sm.theorical);
     } else if(sm.studied > 0 && sm.studied < sm.researchTotal) {
         if(isEffectUnvaluable(sm.effect)) return "None";
-        else return (getCurrentSoulmarkAdvancement(sm) + ' ---> ' + getNextSoulmarkAdvancement(sm));
+        else return (sm.getCurrent() + ' ---> ' + sm.getNext());
     }
-}
-
-/**
- * Returns the current value of the provided soulmark.
- * @param {object} sm the soulmark
- * @returns {array|boolean} the current soulmark's value
- */
-function getCurrentSoulmarkAdvancement(sm) {
-    return sm.steps[sm.studied-1];
-}
-
-/**
- * Returns the next value of the provided soulmark.
- * @param {object} sm the soulmark
- * @returns {array|boolean} the next soulmark's value
- */
-function getNextSoulmarkAdvancement(sm) {
-    return sm.steps[sm.studied];
 }
