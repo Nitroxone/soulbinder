@@ -1501,6 +1501,7 @@ function drawWorkshopScreen() {
     drawSoulwritingLines();
     generateSoulwritingInterfaceEvents();
     generateSoulbindingInterfaceEvents();
+    generateSoulreadingInterfaceEvents();
 }
 
 function drawAlchemyScreen(refresh = false) {
@@ -2117,7 +2118,7 @@ function getSoulmarkProgressGauge(sm) {
     str += '<div class="gaugeProgress slmrkGauge"><div class="statGauge soulmark" style="width: ' + Math.round((sm.studied*100)/sm.researchTotal) + '%"><span class="gaugeIndicator">' + sm.studied + '/' + sm.researchTotal + '</span></div></div>';
     str += '<div class="alchToxicity">';
     str += '<div class="slmrkStatus ' + (sm.unlocked ? 'un' : '') + 'locked"><div class="slmrkStatusIcon"></div>' + (sm.unlocked ? 'Unl' : 'L') + 'ocked</div>';
-    str += '<div id="slmrkNum-' + sm.name + '" class="slmrkNum"></div>';
+    str += '<div id="slmrkNum-' + sm.name + '" class="slmrkNum ' + getSoulmarkNumIcon(sm) + '"></div>';
     str += '</div>';
 
     return str;
@@ -2142,6 +2143,28 @@ function getSwRead(refresh = false) {
         document.querySelector('#soulwcontent-read').innerHTML = str;
         return;
     }
+    return str;
+}
+
+function generateSoulreadingIntefaceEvents() {
+    generateSoulreadingSoulmarkEvents();
+}
+
+function generateSoulreadingSoulmarkEvents() {
+    game.soulwriting.sigil?.effects.forEach(eff => {
+        const sm = getSoulmarkFromEffect(eff.effect);
+        addTooltip(document.querySelector('#slmrkNum-' + sm.name), function(){
+            return getSoulreadingSoulmarkTooltip(sm);
+        }, {offY: -8});
+    })
+}
+
+function getSoulreadingSoulmarkTooltip(sm) {
+    let str = '';
+
+    str += sm.name;
+    console.log(sm);
+
     return str;
 }
 
@@ -2184,6 +2207,7 @@ function getSoulreadingSoulmarks(refresh = false) {
 
     if(refresh) {
         document.querySelector('.swRead-soulmarks').innerHTML = str;
+        generateSoulreadingSoulmarkEvents();
         return;
     }
     return str;

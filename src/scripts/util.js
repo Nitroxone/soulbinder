@@ -1945,3 +1945,9 @@ function getSoulmarkFromEffect(effect) {
         if(Config.Soulwriting[i].effect === effect) return Config.Soulwriting[i];
     }
 }
+
+function getSoulmarkNumIcon(sm) {
+    if(sm.studied === 0) return "none";
+    if(sm.studied > 0 && sm.studied < sm.researchTotal) return "ongoing";
+    if(sm.studied >= sm.researchTotal) return "complete";
+}

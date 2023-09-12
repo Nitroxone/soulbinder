@@ -2227,6 +2227,9 @@ table.statsTable tbody td:nth-child(3) {
 .gaugeProgress.slmrkGauge {
     height: 13px;
 }
+.slmrkGauge .statGauge {
+    height: 9px;
+}
 .gaugeProgress .gaugeIndicator {
     font-size: 9px;
 }
@@ -4711,8 +4714,6 @@ hr.leftSided {
 .slmrkStatusIcon {
     width: 12px;
     height: 12px;
-    background-size: 100%;
-    background-repeat: no-repeat;
     margin-right: 0.2rem;
 }
 .locked > .slmrkStatusIcon {
@@ -4722,6 +4723,27 @@ hr.leftSided {
 }
 .unlocked > .slmrkStatusIcon {
     background: url('img/unlocked_icon.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+.slmrkNum {
+    width: 12px;
+    height: 12px;
+}
+.slmrkNum.none {
+    background: url('img/upgrading_icon.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    filter: grayscale(100%);
+}
+.slmrkNum.ongoing {
+    background: url('img/upgrading_icon.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+.slmrkNum.complete {
+    background: url('img/check_icon.png');
     background-size: 100%;
     background-repeat: no-repeat;
 }
