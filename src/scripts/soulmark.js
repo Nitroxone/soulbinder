@@ -21,11 +21,26 @@ class Soulmark {
         this.studied = 0;
     }
 
+    /**
+     * Returns this Soulmark's current value.
+     * @returns {array|boolean} the current value
+     */
     getCurrent() {
         return this.steps[this.studied - 1];
     }
 
+    /**
+     * Returns this Soulmark's next value.
+     * @returns {array|boolean} the next value
+     */
     getNext() {
         return this.steps[this.studied];
+    }
+
+    /**
+     * Returns whether this Soulmark can be extracted in a Soulreading context.
+     */
+    canBeExtracted() {
+        return this.studied < this.researchTotal;
     }
 }

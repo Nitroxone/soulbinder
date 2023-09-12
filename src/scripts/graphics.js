@@ -2155,20 +2155,24 @@ function generateSoulreadingSoulmarkEvents() {
         const sm = getSoulmarkFromEffect(eff.effect);
         const dom = document.querySelector('#sm-' + sm.name + '-sr');
         var extractTimeout;
+
         dom.addEventListener('mousedown', () => {
-            extractTimeout = setTimeout(() => {
+            if(sm.canBeExtracted()) extractTimeout = setTimeout(() => {
                 console.log('extracted ' + sm.name + '!');
             }, 1000);
         });
+
         dom.addEventListener('mouseup', () => {
             clearTimeout(extractTimeout);
         });
+
         dom.addEventListener('mouseenter', () => {
             clearTimeout(extractTimeout);
-        })
+        });
+
         dom.addEventListener('mouseleave', () => {
             clearTimeout(extractTimeout);
-        })
+        });
     });
 }
 
