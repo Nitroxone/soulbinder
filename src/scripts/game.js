@@ -360,7 +360,7 @@ class Game {
         this.currentDungeon = new Dungeon({name: 'Putrescent ossuary', biome: Data.DungeonBiome.UZIEL_JUNGLES});
 
         for(const sm in Config.Soulwriting) {
-            Config.Soulwriting[sm].unlocked = true;
+            Config.Soulwriting[sm].unlocked = false;
         }
 
         drawInventory();

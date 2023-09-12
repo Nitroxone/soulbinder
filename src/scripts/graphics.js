@@ -2118,7 +2118,7 @@ function getSoulmarkProgressGauge(sm) {
     str += '<div class="gaugeProgress slmrkGauge"><div class="statGauge soulmark" style="width: ' + Math.round((sm.studied*100)/sm.researchTotal) + '%"><span class="gaugeIndicator">' + sm.studied + '/' + sm.researchTotal + '</span></div></div>';
     str += '<div class="alchToxicity">';
     str += '<div class="slmrkStatus ' + (sm.unlocked ? 'un' : '') + 'locked"><div class="slmrkStatusIcon"></div>' + (sm.unlocked ? 'Unl' : 'L') + 'ocked</div>';
-    str += '<div id="slmrkNum-' + sm.name + '" class="slmrkNum ' + getSoulmarkNumIcon(sm) + '"></div>';
+    str += '<div class="slmrkNum">' + getSoulreadingSoulmarkValue(sm) + '</div>';
     str += '</div>';
 
     return str;
@@ -2153,18 +2153,23 @@ function generateSoulreadingIntefaceEvents() {
 function generateSoulreadingSoulmarkEvents() {
     game.soulwriting.sigil?.effects.forEach(eff => {
         const sm = getSoulmarkFromEffect(eff.effect);
-        addTooltip(document.querySelector('#slmrkNum-' + sm.name), function(){
-            return getSoulreadingSoulmarkTooltip(sm);
-        }, {offY: -8});
-    })
-}
-
-function getSoulreadingSoulmarkTooltip(sm) {
-    let str = '';
-
-    str += sm.name;
-
-    return str;
+        const dom = document.querySelector('#sm-' + sm.name + '-sr');
+        var extractTimeout;
+        dom.addEventListener('mousedown', () => {
+            extractTimeout = setTimeout(() => {
+                console.log('extracted ' + sm.name + '!');
+            }, 1000);
+        });
+        dom.addEventListener('mouseup', () => {
+            clearTimeout(extractTimeout);
+        });
+        dom.addEventListener('mouseenter', () => {
+            clearTimeout(extractTimeout);
+        })
+        dom.addEventListener('mouseleave', () => {
+            clearTimeout(extractTimeout);
+        })
+    });
 }
 
 function getSoulreadingBanner(refresh = false) {

@@ -1946,8 +1946,23 @@ function getSoulmarkFromEffect(effect) {
     }
 }
 
-function getSoulmarkNumIcon(sm) {
-    if(sm.studied === 0) return "none";
-    if(sm.studied > 0 && sm.studied < sm.researchTotal) return "ongoing";
-    if(sm.studied >= sm.researchTotal) return "complete";
+function getSoulreadingSoulmarkValue(sm) {
+    if(sm.studied === 0) {
+        if(isEffectUnvaluable(sm.effect)) return "None";
+        else return ("0 ---> " + getNextSoulmarkAdvancement(sm));
+    } else if(sm.studied === sm.researchTotal-1) {
+        if(isEffectUnvaluable(sm.effect)) return "None -> Active";
+        else return (getCurrentSoulmarkAdvancement(sm) + ' ---> ' + sm.theorical);
+    } else if(sm.studied > 0 && sm.studied < sm.researchTotal) {
+        if(isEffectUnvaluable(sm.effect)) return "None";
+        else return (getCurrentSoulmarkAdvancement(sm) + ' ---> ' + getNextSoulmarkAdvancement(sm));
+    }
+}
+
+function getCurrentSoulmarkAdvancement(sm) {
+    return sm.steps[sm.studied-1];
+}
+
+function getNextSoulmarkAdvancement(sm) {
+    return sm.steps[sm.studied];
 }

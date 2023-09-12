@@ -2263,7 +2263,7 @@ table.statsTable tbody td:nth-child(3) {
     background: linear-gradient(0deg, rgb(20, 92, 47) 23%, rgb(0, 136, 54) 100%);
 }
 .soulmark {
-    background: linear-gradient(0deg, rgb(99, 82, 129) 23%, rgb(130, 154, 206) 100%);
+    background: linear-gradient(0deg, rgba(114,16,166,1) 35%, rgba(175,24,255,1) 100%);
 }
 .gaugeIndicator {
     font-size: 11px;
@@ -4728,12 +4728,8 @@ hr.leftSided {
 }
 
 .slmrkNum {
-    width: 12px;
     height: 12px;
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
-}
-.slmrkNum:hover {
-    transform: scale(1.1);
 }
 .slmrkNum.none {
     background: url('img/upgrading_icon.png');
