@@ -7,7 +7,7 @@
 class Game {
     constructor() {
         this.callbacks = [];
-        
+
         this.ww = window.innerWidth;
         this.wh = window.innerHeight;
 
@@ -68,7 +68,7 @@ class Game {
         this.currentBlackMarketTrinketsTable;
         this.currentBlackMarketResourcesTable;
         this.currentAuctionHouseTable;
-        
+
         this.all_skillTrees = [];
         this.all_masteryPathways = [];
 
@@ -360,7 +360,7 @@ class Game {
         this.currentDungeon = new Dungeon({name: 'Putrescent ossuary', biome: Data.DungeonBiome.UZIEL_JUNGLES});
 
         for(const sm in Config.Soulwriting) {
-            Config.Soulwriting[sm].unlocked = false;
+            Config.Soulwriting[sm].unlocked = true;
         }
 
         drawInventory();

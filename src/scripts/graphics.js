@@ -2093,12 +2093,12 @@ function getSwWrite(refresh = false) {
     return str;
 }
 
-function getFormattedSoulmark(sm, soulreadingFormat = false) {
+function getFormattedSoulmark(sm, soulreadingFormat = false, delay = 0) {
     const eff = new Stat({effect: sm.effect, theorical: sm.theorical});
 
     let str = '';
 
-    str += '<div id="sm-' + sm.name + (soulreadingFormat ? '-sr' : '') + '" class="swWriteList-single"><div class="swWriteList-singleHeader"><span>' + capitalizeFirstLetter(sm.name) + '</span>' + eff.getFormatted({cssClass: 'swWriteList-eff', noValue: true, noTheorical: true}) + '</div>';
+    str += '<div id="sm-' + sm.name + (soulreadingFormat ? '-sr' : '') + '" class="swWriteList-single' + (soulreadingFormat ? ' srSlmrkAnim" style="animation-delay: ' + delay + 's"' : '"') + '><div class="swWriteList-singleHeader"><span>' + capitalizeFirstLetter(sm.name) + '</span>' + eff.getFormatted({cssClass: 'swWriteList-eff', noValue: true, noTheorical: true}) + '</div>';
     if(!soulreadingFormat) {
         str += '<div class="extendedSoulmarkContainer"></div>';
     }
@@ -2159,7 +2159,7 @@ function generateSoulreadingSoulmarkEvents() {
         dom.addEventListener('mousedown', () => {
             if(sm.canBeExtracted()) extractTimeout = setTimeout(() => {
                 game.soulwriting.extractSoulmark(sm);
-                console.log('extracted ' + sm.name + '!'); 
+                console.log('extracted ' + sm.name + '!');
             }, 1000);
         });
 
@@ -2192,7 +2192,7 @@ function getSoulreadingBanner(refresh = false) {
 function getSoulreadingSigil(refresh = false) {
     let str = '';
 
-    str += '<div class="swReadSigilSlot" ondragover="allowDrop(event)" ondrop="game.soulwriting.selectSigil(event)">'
+    str += '<div class="swReadSigilSlot' + (game.soulwriting.sigil ? ' srSigilSlotAnim' : '') + '" ondragover="allowDrop(event)" ondrop="game.soulwriting.selectSigil(event)">'
     if(game.soulwriting.sigil) {
         str += '<div class="swReadSigilSlotIcon" style="' + getIcon(game.soulwriting.sigil, 45) + '"></div>';
     }
@@ -2207,10 +2207,12 @@ function getSoulreadingSigil(refresh = false) {
 
 function getSoulreadingSoulmarks(refresh = false) {
     let str = '';
+    let delay = 0.1;
 
     str += '<div class="swReadSoulmarksContainer">';
     game.soulwriting.sigil?.effects.forEach(eff => {
-        str += getFormattedSoulmark(getSoulmarkFromEffect(eff.effect), true);
+        str += getFormattedSoulmark(getSoulmarkFromEffect(eff.effect), true, delay);
+        delay += 0.1;
     })
     str += '</div>';
 
