@@ -3523,10 +3523,11 @@ hr.leftSided {
     flex-direction: row;
     align-items: center;
     padding: 1em;
+    border-radius: 3px;
 }
 
-.itemSelected {
-    border: 2px solid white;
+.tradeItems-item.itemSelected {
+    border: 1px solid white;
 }
 
 .tradeItems-item--icon {
