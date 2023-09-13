@@ -1406,7 +1406,7 @@ function generateTabContent(tab) {
     let tabName = capitalizeFirstLetter(tab.textContent);
     let str = '';
 
-    game.black_market[`currentBlackMarket${tabName}Table`].forEach(item => {   
+    game.black_market[`currentBlackMarket${tabName}Table`].forEach(item => {
 
         str += '<div id="blckmrkt-' + item.id + '" class="tradeItems-item">';
 
@@ -1427,9 +1427,9 @@ function generateTabContent(tab) {
         str += '</div>';
 
         document.querySelector('.tradeItems').innerHTML = str;
-        
+
         generateBlackMarketItemsEvents();
-    }); 
+    });
 }
 
 function unsetBlackMarketAllActiveTabs(tabs) {
@@ -1443,7 +1443,7 @@ function generateBlackMarketItemsEvents() {
         item.addEventListener('click', () => {
             items.forEach(item => item.classList.remove('itemSelected'));
             item.classList.add('itemSelected');
-            game.black_market.selectedItemId = Number(item.id.split('-')[1]);
+            game.black_market.selectedItemId = item.id.split('-')[1];
         })
     })
 }
