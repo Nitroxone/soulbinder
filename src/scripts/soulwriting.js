@@ -175,7 +175,7 @@ class Soulwriting {
         const rarity = this.determineRarity();
         const price = this.determinePrice();
         let soulmarks = this.soulmarks.map(x => x && {name: x.name, unlocked: x.unlocked, critical: false, corrupt: false});
-        let effects = this.soulmarks.map(x => x && new Stat({effect: x.effect, theorical: x.theorical, isPercentage: isAstralForgeEffectPercentage(x.effect)}));
+        let effects = this.soulmarks.map(x => x && new Stat({effect: x.effect, theorical: x.getCurrent(), isPercentage: isAstralForgeEffectPercentage(x.effect)}));
         let critEff = [];
         let corrEff = [];
         effects = effects.filter(x => x); // Remove null elements
@@ -183,11 +183,11 @@ class Soulwriting {
 
         this.soulmarks.forEach(slmrk => {
             if(!slmrk) return; // Skip null elements
-            if(computeChance(game.player.sw_stalwartFactor)) {
+            if(slmrk.isMastered() && computeChance(game.player.sw_stalwartFactor)) {
                 critEff.push(slmrk.critical);
                 soulmarks.find(x => x.name === slmrk.name).critical = true;
             }
-            else if(computeChance(game.player.sw_corruptFactor)) {
+            else if(slmrk.isMastered() && computeChance(game.player.sw_corruptFactor)) {
                 corrEff.push(slmrk.corrupted)
                 soulmarks.find(x => x.name === slmrk.name).corrupt = true;
             };

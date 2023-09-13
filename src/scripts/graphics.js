@@ -1812,7 +1812,7 @@ function generateSwSoulmarksEvents() {
     soulmarks.forEach(sm => {
         sm.addEventListener('click', e => {
             const id = sm.id.slice(3);
-            const slmrk = Config.Soulwriting.filter(s => s.name == id)[0];
+            const slmrk = Config.Soulwriting.find(s => s.name == id);
             const extended = sm.querySelector('.extendedSoulmarkContainer');
 
             Sounds.Methods.playSound(Data.SoundType.TOOLTIP_HOVER);
@@ -1853,11 +1853,11 @@ function generateSwSoulmarksEvents() {
             } else {
                 extended.style.display = 'flex';
                 let str = '';
-                const regular = new Stat({effect: slmrk.effect, theorical: slmrk.theorical});
+                const regular = new Stat({effect: slmrk.effect, theorical: slmrk.getCurrent()});
 
                 str += '<div><span style="color: #ffffff;">Base</span><span>' + regular.getFormatted({cssClass: 'swWriteList-effSub', noValue: true}) + '</span></div>';
-                str += '<div><span style="color: #ece2b6;">Stalwart</span><span>' + slmrk.critical.getFormatted({cssClass: 'swWriteList-effSub', noValue: true}) + '</span></div>';
-                str += '<div><span style="color: tomato;">Corrupt</span><span>' + slmrk.corrupted.getFormatted({cssClass: 'swWriteList-effSub', noValue: true}) + '</span></div>';
+                if(slmrk.isMastered()) str += '<div><span style="color: #ece2b6;">Stalwart</span><span>' + slmrk.critical.getFormatted({cssClass: 'swWriteList-effSub', noValue: true}) + '</span></div>';
+                if(slmrk.isMastered()) str += '<div><span style="color: tomato;">Corrupt</span><span>' + slmrk.corrupted.getFormatted({cssClass: 'swWriteList-effSub', noValue: true}) + '</span></div>';
 
                 extended.innerHTML = str;
             }
@@ -2174,8 +2174,8 @@ function generateSoulreadingSoulmarkEvents() {
         const dom = document.querySelector('#sm-' + sm.name + '-sr');
         var extractTimeout;
 
-        dom.addEventListener('mousedown', () => {
-            if(sm.canBeExtracted()) extractTimeout = setTimeout(() => {
+        dom.addEventListener('mousedown', (e) => {
+            if(sm.canBeExtracted() && e.button === 0) extractTimeout = setTimeout(() => { // e.button === 0 checks that only a LEFT CLICK can trigger the timeout.
                 game.soulwriting.extractSoulmark(sm);
                 console.log('extracted ' + sm.name + '!');
             }, 1000);

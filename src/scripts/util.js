@@ -1959,5 +1959,7 @@ function getSoulreadingSoulmarkValue(sm) {
     } else if(sm.studied > 0 && sm.studied < sm.researchTotal) {
         if(isEffectUnvaluable(sm.effect)) return "None";
         else return (sm.getCurrent() + ' ---> ' + sm.getNext());
+    } else if(sm.isMastered()) {
+        return "Mastered";
     }
 }

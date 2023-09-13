@@ -2263,7 +2263,7 @@ table.statsTable tbody td:nth-child(3) {
     background: linear-gradient(0deg, rgb(20, 92, 47) 23%, rgb(0, 136, 54) 100%);
 }
 .soulmark {
-    background: linear-gradient(0deg, rgba(114,16,166,1) 35%, rgba(175,24,255,1) 100%);
+    background: linear-gradient(0deg, rgba(65,9,94,1) 35%, rgba(80,43,99,1) 100%);
 }
 .gaugeIndicator {
     font-size: 11px;

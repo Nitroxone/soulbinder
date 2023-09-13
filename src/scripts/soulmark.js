@@ -39,6 +39,7 @@ class Soulmark {
      */
     getNext() {
         if(this.steps.length === 0) return this.theorical;
+        else if(this.isMastered()) return this.getCurrent();
         return this.steps[this.studied];
     }
 
@@ -47,5 +48,13 @@ class Soulmark {
      */
     canBeExtracted() {
         return this.studied < this.researchTotal;
+    }
+
+    /**
+     * Returns whether a soulmark is fully mastered.
+     * @returns {boolean}
+     */
+    isMastered() {
+        return this.studied === this.researchTotal;
     }
 }
