@@ -229,8 +229,18 @@ class Soulwriting {
         getSoulreadingSoulmarks(true);
     }
 
+    /**
+     * Extracts the provided Soulmark from this Soulwriting's selected sigil, then destroys that Sigil.
+     * @param {Soulmark} sm the Soulmark to extract
+     */
     extractSoulmark(sm) {
-        sm.studied += 1;
-        if(sm.studied === sm.researchTotal || sm.availableBeforeMastery) sm.unlocked = true;
+        sm.studied += 1; // Adding a research point
+        if(sm.studied === sm.researchTotal || sm.availableBeforeMastery) sm.unlocked = true; // Unlocking if possible
+        game.player.inventory.removeItem(this.sigil);
+        this.sigil = null;
+
+        // UI update
+        getSwRead(true);
+        drawSigilInventory(game.player.inventory.sigils);
     }
 }
