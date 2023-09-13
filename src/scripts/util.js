@@ -922,11 +922,7 @@ function isAstralForgeEffectPercentage(effect) {
  * @returns {Weapon|null} the Weapon that was found, or null if it was not found
  */
 function getInventoryWeaponById(id) {
-    let weapon = null;
-    game.player.inventory.weapons.forEach(item => {
-        if(item.id === id) weapon = item;
-    });
-    return weapon;
+    return game.player.inventory.weapons.find(x => x.id === id);
 }
 
 /**
@@ -935,11 +931,7 @@ function getInventoryWeaponById(id) {
  * @returns {Armor|null} the Armor that was found, or null if it was not found
  */
 function getInventoryArmorById(id) {
-    let armor = null;
-    game.player.inventory.armors.forEach(item => {
-        if(item.id === id) armor = item;
-    });
-    return armor;
+    return game.player.inventory.armors.find(x => x.id === id);
 }
 
 /**
@@ -948,11 +940,7 @@ function getInventoryArmorById(id) {
  * @returns {Trinket|null} the Trinket that was found, or null if it was not found
  */
 function getInventoryTrinketById(id) {
-    let trinket = null;
-    game.player.inventory.trinkets.forEach(item => {
-        if(item.id === id) trinket = item;
-    });
-    return trinket;
+    return game.player.inventory.trinkets.find(x => x.id === id);
 }
 
 /**
@@ -961,11 +949,7 @@ function getInventoryTrinketById(id) {
  * @returns {Trinket|null} the Resource that was found, or null if it was not found
  */
 function getInventoryResourceById(id) {
-    let resource = null;
-    game.player.inventory.resources.forEach(item => {
-        if(item.id === id) resource = item;
-    });
-    return resource;
+    return game.player.inventory.resources.find(x => x.id === id);
 }
 
 /**
@@ -974,11 +958,7 @@ function getInventoryResourceById(id) {
  * @returns {Sigil|null} the Sigil that was found, or null if it was not found
  */
 function getInventorySigilById(id) {
-    let sigil = null;
-    game.player.inventory.sigils.forEach(item => {
-        if(item.id === id) sigil = item;
-    });
-    return sigil;
+    return game.player.inventory.sigils.find(x => x.id === id);
 }
 
 /**
