@@ -1265,7 +1265,6 @@ function getNodeTooltip(strider, node) {
 }
 
 function drawHubScreen() {
-    game.black_market.generateBlackMarketAllTables();
 
     document.querySelector('#hubDiv').innerHTML = '<div class="hubContainer"></div>';
     let str = '';
@@ -1443,7 +1442,7 @@ function generateBlackMarketItemsEvents() {
         item.addEventListener('click', () => {
             items.forEach(item => item.classList.remove('itemSelected'));
             item.classList.add('itemSelected');
-            game.black_market.selectedItemId = item.id.split('-')[1];
+            game.black_market.selectedItemId = Number(item.id.split('-')[1]);
         })
     })
 }

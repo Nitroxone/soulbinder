@@ -30,6 +30,7 @@ class BlackMarket {
     }
 
     buyItemFromBlackMarket() {
+        console.log("caca buy fonction");
         const tabName = capitalizeFirstLetter(this.currentTab.textContent);
         const table = this[`currentBlackMarket${tabName}Table`];
         const itemIndex = this.findItemIndex(table, this.selectedItemId);
@@ -49,6 +50,7 @@ class BlackMarket {
     }
     
     hasEnoughGold(cost) {
+        console.log("caca condition argent fonction");
         return game.player.inventory.gold >= cost;
     }
 
@@ -61,6 +63,7 @@ class BlackMarket {
     }
 
     removeItemFromTable(table, itemIndex) {
+        console.log("caca enlever objet de table fonction");
         table.splice(itemIndex, 1);
     }
 
