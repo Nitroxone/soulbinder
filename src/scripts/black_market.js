@@ -31,7 +31,8 @@ class BlackMarket {
 
     buyItemFromBlackMarket() {
         const item = this[`currentBlackMarket${this.currentTab}Table`].find(wantedItem => wantedItem.id === this.selectedItemId);
-        console.log(item);
-        return item;
+
+        game.player.inventory.addItem(item, 1, false);
+        this[`currentBlackMarket${this.currentTab}Table`].splice(item.id, 1);
     }
 }
