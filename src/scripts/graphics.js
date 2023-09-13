@@ -2207,12 +2207,12 @@ function getSoulreadingSigil(refresh = false) {
 
 function getSoulreadingSoulmarks(refresh = false) {
     let str = '';
-    let delay = 0.1;
+    let delay = 0;
 
     str += '<div class="swReadSoulmarksContainer">';
     game.soulwriting.sigil?.effects.forEach(eff => {
         str += getFormattedSoulmark(getSoulmarkFromEffect(eff.effect), true, delay);
-        delay += 0.1;
+        delay += 0.2;
     })
     str += '</div>';
 

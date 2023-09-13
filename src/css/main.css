@@ -4786,15 +4786,12 @@ hr.leftSided {
     opacity: 0;
     animation-fill-mode: forwards;
     animation-name: srSlmrkPopup;
-    animation-duration: .2s;
+    animation-duration: .5s;
     animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 @keyframes srSlmrkPopup {
     0% {
         transform: translateY(30px);
-    }
-    80% {
-        transform: translateY(-5px);
     }
     100% {
         opacity: 1;
