@@ -28,7 +28,7 @@ class Battle {
 
     /**
      * Initializes enemy AI behaviors.
-     * >*Why is this necessary?* 
+     * >*Why is this necessary?*
      * - Each enemy actions needs a link to their parent (in order to access skills, stats and so on).
      * - The "owner" variable of an action is determined by searching for an enemy name inside the battle's enemies.
      * - A problem is raised here: what if there are the same enemy multiple times? It will always return the first occurrence in the enemies array.
@@ -180,7 +180,7 @@ class Battle {
     }
 
     /**
-     * Adds an end turn counter to this battle. 
+     * Adds an end turn counter to this battle.
      */
     addEndTurnCounter() {
         this.endturnCounter += 1;
@@ -294,7 +294,7 @@ class Battle {
     }
 
     /**
-     * Adds the damage from Stun/Bleed/Poison modifiers of the currently playing NPC to this skill's current attack params. 
+     * Adds the damage from Stun/Bleed/Poison modifiers of the currently playing NPC to this skill's current attack params.
      * It is possible to skip crit damage (for Skills).
      * @param {NPC} target the target to retrieve info from
      * @param {boolean} skipCrit skip crit damage addition?
@@ -371,7 +371,7 @@ class Battle {
     }
 
     /**
-     * Computes the attack params based on the selected skill and the provided target. 
+     * Computes the attack params based on the selected skill and the provided target.
      * @param {NPC} target the target
      * @param {boolean} forceCrit forces a critical strike (default: false)
      */
@@ -422,7 +422,7 @@ class Battle {
 
                 this.params.phys_damage += (Math.round(this.params.phys_damage * current.modifDmgSkill/100) + Math.round(this.params.phys_damage * current.modifDmgTotal/100));
                 this.params.magi_damage += (Math.round(this.params.magi_damage * current.modifDmgSkill/100) + Math.round(this.params.magi_damage * current.modifDmgTotal/100));
-                
+
                 this.addStunPoisonBleedModifiers(target, true);
             } else {
                 // Dodged
@@ -466,9 +466,9 @@ class Battle {
 
                 if(weapon.bleed[0] > 0 && (weapon.bleed[0] - tar.resBleed[0]) > 0) {
                     tar.addActiveEffect(new ActiveEffect({
-                        name: "Bleeding", 
-                        originUser: this.currentPlay, 
-                        originObject: weapon, 
+                        name: "Bleeding",
+                        originUser: this.currentPlay,
+                        originObject: weapon,
                         effects: [
                             new Stat({
                                 effect: weapon.bleed[2] ? Data.Effect.BLEEDING_CURABLE : Data.Effect.BLEEDING_INCURABLE,
@@ -486,9 +486,9 @@ class Battle {
                 }
                 if(weapon.poison[0] > 0 && (weapon.poison[0] - tar.resPoison[0]) > 0) {
                     tar.addActiveEffect(new ActiveEffect({
-                        name: "Poisoning", 
-                        originUser: this.currentPlay, 
-                        originObject: weapon, 
+                        name: "Poisoning",
+                        originUser: this.currentPlay,
+                        originObject: weapon,
                         effects: [
                             new Stat({
                                 effect: weapon.poison[2] ? Data.Effect.BLIGHT_CURABLE : Data.Effect.BLIGHT_INCURABLE,
@@ -520,7 +520,7 @@ class Battle {
         });
 
         this.currentPlay.useWeapon(this.selectedWeapon);
-        
+
         this.runPopups();
     }
 
@@ -610,9 +610,9 @@ class Battle {
                                 if(Math.random() * 100 < current.modifChanceMove + eff.chance - tar.resMove) this.applyEnemyMovement(eff, tar);
                                 else tar.addBattlePopup(new BattlePopup(0, '<p>Resisted!</p>'));
                             }
-                        });                         
+                        });
                     }
-                    tar.addBattlePopup(new BattlePopup(0, '<div class="popupIcon" style="background-image: url(\'css/img/skills/' + current.name.toLowerCase() + skill.icon + '.png\');"></div>'));
+                    tar.addBattlePopup(new BattlePopup(0, '<div class="popupIcon" style="background-image: url(\'css/img/skills/' + current.name + skill.icon + '.png\');"></div>'));
                 }
 
                 tar.applyEffects(skill, current, effects, params.critical);
@@ -652,7 +652,7 @@ class Battle {
                 // Moving
                 this.applyCasterMovement(eff);
             });
-            current.addBattlePopup(new BattlePopup(0, '<div class="popupIcon" style="background-image: url(\'css/img/skills/' + current.name.toLowerCase() + skill.icon + '.png\');"></div>'));
+            current.addBattlePopup(new BattlePopup(0, '<div class="popupIcon" style="background-image: url(\'css/img/skills/' + current.name + skill.icon + '.png\');"></div>'));
         }
 
         if(effects) current.applyEffects(skill, current, effects, isCrit);
@@ -711,7 +711,7 @@ class Battle {
             case Data.Effect.FRONT_TWO:
                 this.movementQueue.push(new BattleMove(current, Data.FormationPosition.FRONT, 'a'));
                 break;
-        } 
+        }
     }
 
     /**
@@ -731,14 +731,14 @@ class Battle {
      * Executes all of the popups on every fighter in order.
      */
     runPopups() {
-        
+
         this.order.forEach(el => {
             el.executePopups();
         });
     }
 
     /**
-     * Applies a movement on the provided NPC to the provided target position. 
+     * Applies a movement on the provided NPC to the provided target position.
      * @param {NPC} npc the NPC to move
      * @param {Data.FormationPosition} target the position to move to
      * @param {string} type "a" for ally, "e" for enemy
@@ -754,7 +754,7 @@ class Battle {
         if(type) {
             const origIndex = type.charAt(0) === "a" ? this.allies.indexOf(npc) : this.enemies.indexOf(npc);
             let targetIndex;
-            
+
             switch(target) {
                 case Data.FormationPosition.BACK:
                     targetIndex = 0;
@@ -842,7 +842,7 @@ class Battle {
      * Applies a movement animation on the provided NPC, to the provided position.
      * @param {NPC} npc the NPC to move
      * @param {Data.FormationPosition} origin the position to move to
-     * @param {Data.AnimMoveType} type the movement type 
+     * @param {Data.AnimMoveType} type the movement type
      */
     moveAnimation(npc, origin, type) {
         // how does the move animation work ?

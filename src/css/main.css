@@ -2230,7 +2230,7 @@ table.statsTable tbody td:nth-child(3) {
 .slmrkGauge .statGauge {
     height: 9px;
 }
-.gaugeProgress .gaugeIndicator {
+.gaugeProgress.slmrkGauge .gaugeIndicator {
     font-size: 9px;
 }
 
