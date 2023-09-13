@@ -1450,26 +1450,6 @@ function unlockAllEonFragments() {
 }
 
 /**
- * Generates a black market table containing between 3 and 7 randomly selected items of a specified type.
- * Items are selected based on their availability in the black market.
- *
- * @param {string} type - The type of items to filter from the game (e.g. 'weapons', 'armors', etc.).
- * @returns {Array} An array containing between 3 and 7 randomly selected items of the specified type and stores it in the corresponding game property.
- * @throws {Error} If the the specified type is not defined.
- * @example
- * const weapons = generateBlackMarketTable('weapons');
- */
-function generateBlackMarketTable(type) {
-    const items = game[`all_${type}`].filter(item => item.tradeParams.blackMarketAvailable);
-    const n = getRandomNumber(3, 7);
-    const shuffledItems = shuffle(items);
-
-    capitalizedType = capitalizeFirstLetter(type);
-  
-    return game[`currentBlackMarket${capitalizedType}Table`] = shuffledItems.slice(0, n);
-}
-
-/**
  * Returns whether the provided HTMLElement is empty.
  * @param {HTMLElement} element the element to check
  * @returns {boolean} whether the element is empty
