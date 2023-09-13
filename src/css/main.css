@@ -3491,6 +3491,14 @@ hr.leftSided {
 
 }
 
+.blackMarket-button--buy {
+    cursor: pointer;  
+}
+
+.blackMarket-button--buy:hover {
+    filter: brightness(115%);
+}
+
 .tradeItems {
     display: flex;
     flex-direction: column;
@@ -3509,6 +3517,18 @@ hr.leftSided {
     flex-direction: row;
     align-items: center;
     padding: 1em;
+}
+
+.itemSelected {
+    border: 2px solid white;
+}
+
+.tradeItems-item--icon {
+    height: 20px;
+    width: 20px;
+    background-size: cover;
+    background-position: center;
+    margin-right: 10px;
 }
 
 .tradeItems-item:hover {

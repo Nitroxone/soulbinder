@@ -1347,7 +1347,7 @@ function drawHubScreen() {
     str += '</div>';
 
     str += '</div>';
-    str += '<button>BUY</button>';
+    str += '<button class="blackMarket-button--buy">BUY</button>';
     str += '</div>';
 
 
@@ -1380,9 +1380,9 @@ function drawHubScreen() {
 
     generateBlackMarketTabEvents();
     generateBlackMarketAbandonedCacheEvents();
-    generateBlackMarketTable("weapons");
-    generateBlackMarketTable("armors");
-    generateBlackMarketTable("sigils");
+    // generateBlackMarketTable("weapons");
+    // generateBlackMarketTable("armors");
+    // generateBlackMarketTable("sigils");
 }
 
 function generateBlackMarketTabEvents() {
@@ -1399,19 +1399,18 @@ function generateBlackMarketTabEvents() {
 
 function setBlackMarketActiveTab(tab) {
     tab.classList.add('tabActive');
+    game.black_market.currentTab = capitalizeFirstLetter(tab.textContent);
 }
 
 function generateTabContent(tab) {
     let tabName = capitalizeFirstLetter(tab.textContent);
-    console.log(tabName);
-    console.log(game[`currentBlackMarket${tabName}Table`]);
     let str = '';
 
-    game[`currentBlackMarket${tabName}Table`].forEach(item => {
-        str += '<div class="tradeItems-item">'
+    game.black_market[`currentBlackMarket${tabName}Table`].forEach(item => {   
 
-        str += '<div class="tradeItems-item--icon">';
-        str += item.icon;
+        str += '<div id="blckmrkt-' + item.id + '" class="tradeItems-item">';
+
+        str += `<div class="tradeItems-item--icon" style="${getIcon(item, 100, false)}">`;
         str += '</div>';
 
         str += '<p class="tradeItems-item--name">';
@@ -1422,19 +1421,32 @@ function generateTabContent(tab) {
         str += '<div class="tradeItems-goldIcon"></div>';
         str += '<p>';
         str += item.price;
-        str += '</p>'
+        str += '</p>';
         str += '</div>';
 
         str += '</div>';
 
         document.querySelector('.tradeItems').innerHTML = str;
-    });
+        
+        generateBlackMarketItemsEvents();
+    }); 
 }
 
 function unsetBlackMarketAllActiveTabs(tabs) {
     tabs.forEach(tab => tab.classList.remove('tabActive'));
 }
 
+function generateBlackMarketItemsEvents() {
+    const items = document.querySelectorAll('.tradeItems-item');
+
+    items.forEach(item => {
+        item.addEventListener('click', () => {
+            items.forEach(item => item.classList.remove('itemSelected'));
+            item.classList.add('itemSelected');
+            game.black_market.selectedItemId = item.id.split('-')[1];
+        })
+    })
+}
 
 function generateBlackMarketAbandonedCacheEvents() {
     const abandonedCaches = document.querySelectorAll('.abandonedCache-items--item');
@@ -1445,6 +1457,12 @@ function generateBlackMarketAbandonedCacheEvents() {
             cache.classList.add('cacheSelected');
         });
     });
+}
+
+function generateBlackMarketBuyButtonEvent() {
+    document.querySelector('.blackMarket-button--buy').addEventListener('click', () => {
+
+    })
 }
 
 function getPlayerSoulsAmount() {

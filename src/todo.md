@@ -82,3 +82,7 @@ EONS:
 
 CARDS:
 - Start implementing.
+
+BLACK MARKET:
+- Add a trade system
+- Improve the logic to implement an amount of items the player might want to buy (for resources)

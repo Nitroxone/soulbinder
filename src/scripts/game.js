@@ -315,6 +315,7 @@ class Game {
         this.alchemy = new Alchemy();
         this.soulwriting = new Soulwriting();
         this.soulbinding = new Soulbinding();
+        this.black_market = new BlackMarket();
 
         this.initMessages();
 
