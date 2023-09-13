@@ -241,6 +241,7 @@ class Soulwriting {
 
         // UI update
         getSwRead(true);
+        getSwWriteList(true);
         drawSigilInventory(game.player.inventory.sigils);
     }
 }

@@ -1806,27 +1806,8 @@ function drawSoulwritingLines(refresh = false) {
     })
 }
 
-function generateSoulwritingInterfaceEvents() {
-    const tabs = document.querySelectorAll('.soulwTab');
-    const contents = document.querySelectorAll('.soulwContent');
+function generateSwSoulmarksEvents() {
     const soulmarks = document.querySelectorAll('.swWriteList-single');
-    const slots = document.querySelectorAll('.swWriteSlot');
-    const sigilVignetteSelector = document.querySelector('.swWrite-vignette');
-    const soulwrite = document.querySelector('.swWrite-write');
-
-    for(let i = 0; i < tabs.length; i++) {
-        let tab = tabs[i];
-        tab.addEventListener('click', e => {
-            tabs[game.soulwriting.getCurrentTabIndex()].classList.remove('activeTab');
-            game.soulwriting.switchTab(i);
-            tab.classList.add('activeTab');
-            contents.forEach(con => {
-                con.style.display = 'none';
-            });
-            document.querySelector('#soulwcontent-' + game.soulwriting.currentTab).style.display = 'grid';
-            if(tab.id === 'soulwtab-write') drawSoulwritingLines(true);
-        });
-    }
 
     soulmarks.forEach(sm => {
         sm.addEventListener('click', e => {
@@ -1882,6 +1863,30 @@ function generateSoulwritingInterfaceEvents() {
             }
         });
     });
+}
+
+function generateSoulwritingInterfaceEvents() {
+    const tabs = document.querySelectorAll('.soulwTab');
+    const contents = document.querySelectorAll('.soulwContent');
+    const slots = document.querySelectorAll('.swWriteSlot');
+    const sigilVignetteSelector = document.querySelector('.swWrite-vignette');
+    const soulwrite = document.querySelector('.swWrite-write');
+
+    for(let i = 0; i < tabs.length; i++) {
+        let tab = tabs[i];
+        tab.addEventListener('click', e => {
+            tabs[game.soulwriting.getCurrentTabIndex()].classList.remove('activeTab');
+            game.soulwriting.switchTab(i);
+            tab.classList.add('activeTab');
+            contents.forEach(con => {
+                con.style.display = 'none';
+            });
+            document.querySelector('#soulwcontent-' + game.soulwriting.currentTab).style.display = 'grid';
+            if(tab.id === 'soulwtab-write') drawSoulwritingLines(true);
+        });
+    }
+
+    generateSwSoulmarksEvents();
 
     slots.forEach(slot => {
         slot.addEventListener('click', e => {
@@ -2056,17 +2061,7 @@ function getSwWrite(refresh = false) {
     let str = '';
 
     str += '<div class="swWriteList">';
-    str += '<div class="swWriteList-header">Soulmarks</div>';
-    str += '<div class="swWriteList-list">';
-    if(game.player.getAllUnlockedSoulmarks().length == 0) {
-        str += '<div class="swWriteList-list-empty">No soulmarks learnt</div>';
-    }
-    else {
-        game.player.getAllUnlockedSoulmarks().forEach(sm => {
-            str += getFormattedSoulmark(sm);
-        });
-    }
-    str += '</div>';
+    str += getSwWriteList();
     str += '</div>';
 
     str += '<div class="swWriteCrafting">';
@@ -2088,6 +2083,29 @@ function getSwWrite(refresh = false) {
 
     if(refresh) {
         document.querySelector('#soulwcontent-write').innerHTML = str;
+        return;
+    }
+    return str;
+}
+
+function getSwWriteList(refresh = false) {
+    let str = '';
+
+    str += '<div class="swWriteList-header">Soulmarks</div>';
+    str += '<div class="swWriteList-list">';
+    if(game.player.getAllUnlockedSoulmarks().length == 0) {
+        str += '<div class="swWriteList-list-empty">No soulmarks learnt</div>';
+    }
+    else {
+        game.player.getAllUnlockedSoulmarks().forEach(sm => {
+            str += getFormattedSoulmark(sm);
+        });
+    }
+    str += '</div>';
+
+    if(refresh) {
+        document.querySelector('.swWriteList').innerHTML = str;
+        generateSwSoulmarksEvents();
         return;
     }
     return str;
