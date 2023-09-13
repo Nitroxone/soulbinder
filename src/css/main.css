@@ -3386,30 +3386,36 @@ hr.leftSided {
 }
 
 .blackMarket-menu--tab {
+    flex-grow: 1;
+
     display: flex;
-    width: 90px;
-    border-top: 1px solid rgb(100, 100, 100);
-    border-left: 1px solid rgb(100, 100, 100);
-    border-right: 1px solid rgb(100, 100, 100);
-    font-family: Roboto;
-    text-shadow: none;
-    font-size: 1.3em;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+
+    font-family: RobotoSlab;
     font-variant: small-caps;
-    color: white;
-    border-radius: 3px 3px 0 0;
+    font-weight: normal;
+    font-size: 12px;
+
+    transition: all .1s ease-in-out;
+
+    border: 3px solid transparent;
+    border-image: url('img/window1.png') 3 stretch;
+
+    border-bottom: none;
+
+    background: url('img/bg4.png');
+    background-size: auto;
 }
 
 .blackMarket-menu--tab:hover {
+    color: #ddd;
     cursor: pointer;
-    background-color: white;
-    color: black;
 }
 
-.tabActive {
-    background-color: white;
-    color: black;
+.blackMarket-menu--tab.tabActive {
+    background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.125) 100%), url('img/bg4.png');
+    color: white;
 }
 
 .blackMarket-menu--trade {
@@ -3492,7 +3498,7 @@ hr.leftSided {
 }
 
 .blackMarket-button--buy {
-    cursor: pointer;  
+    cursor: pointer;
 }
 
 .blackMarket-button--buy:hover {
@@ -3517,10 +3523,11 @@ hr.leftSided {
     flex-direction: row;
     align-items: center;
     padding: 1em;
+    border-radius: 3px;
 }
 
-.itemSelected {
-    border: 2px solid white;
+.tradeItems-item.itemSelected {
+    border: 1px solid white;
 }
 
 .tradeItems-item--icon {

@@ -29,17 +29,17 @@ class Weapon extends Item {
      * @param {number} echoes_amount the amount of Echo the Weapon can host
      * @param {array} echoes the Weapon's optional echoes
      */
-    constructor(name, desc, icon, price, rarity, type, 
-                weight, 
-                pdmg, 
-                mdmg, 
-                t_block, 
-                t_effort, 
-                t_crit_luk, 
-                t_crit_dmg, 
-                t_bleed, 
-                t_poison, 
-                range, 
+    constructor(name, desc, icon, price, rarity, type,
+                weight,
+                pdmg,
+                mdmg,
+                t_block,
+                t_effort,
+                t_crit_luk,
+                t_crit_dmg,
+                t_bleed,
+                t_poison,
+                range,
                 allowedAlterations = 3,
                 echo = null) {
         super(name, desc, icon, price, rarity);
@@ -76,7 +76,6 @@ class Weapon extends Item {
         if(this.echo) {
             this.echo.fix();
             this.echo.stats.forEach(effect => {
-                console.log(effect)
                 this.addEffect(effect);
             });
         };
@@ -209,7 +208,7 @@ class Weapon extends Item {
             case Data.Effect.BLEED_CURABLE:
                 this.bleed[2] = remove ? !this.bleed[2] : this.bleed[2];
                 break;
-            case Data.Effect.BLEED_INCURABLE: 
+            case Data.Effect.BLEED_INCURABLE:
                 this.bleed[2] = remove ? !this.bleed[2] : this.bleed[2];
                 break;
             case Data.Effect.POISON_DMG:
@@ -221,7 +220,7 @@ class Weapon extends Item {
             case Data.Effect.POISON_CURABLE:
                 this.poison[2] = remove ? !this.poison[2] : this.poison[2];
                 break;
-            case Data.Effect.POISON_INCURABLE: 
+            case Data.Effect.POISON_INCURABLE:
                 this.poison[2] = remove ? !this.poison[2] : this.poison[2];
                 break;
             case Data.Effect.RANGE_BACK_OFF:
@@ -260,7 +259,6 @@ class Weapon extends Item {
             echo = Entity.clone(echo);
             echo.fix();
             echo.stats.forEach(effect => {
-                console.log(effect)
                 this.addEffect(effect);
             });
             this.echo = echo;
@@ -283,7 +281,7 @@ class Weapon extends Item {
     getSharpness() {
         return getRandomNumber(this.pdmg[0], this.pdmg[1]);
     }
-    
+
     /**
      * Gets a random Withering number for this Weapon.
      * @returns {number} a Withering value
