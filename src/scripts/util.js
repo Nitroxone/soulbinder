@@ -1950,12 +1950,12 @@ function getSoulmarkFromEffect(effect) {
  * @returns {string} a comparison string
  */
 function getSoulreadingSoulmarkValue(sm) {
-    if(sm.studied === 0) {
-        if(isEffectUnvaluable(sm.effect)) return "None";
-        else return ("0 ---> " + sm.getNext());
-    } else if(sm.studied === sm.researchTotal-1) {
+    if(sm.studied === sm.researchTotal-1) {
         if(isEffectUnvaluable(sm.effect)) return "None -> Active";
         else return (sm.getCurrent() + ' ---> ' + sm.theorical);
+    } else if(sm.studied === 0) {
+        if(isEffectUnvaluable(sm.effect)) return "None";
+        else return ("0 ---> " + sm.getNext());
     } else if(sm.studied > 0 && sm.studied < sm.researchTotal) {
         if(isEffectUnvaluable(sm.effect)) return "None";
         else return (sm.getCurrent() + ' ---> ' + sm.getNext());

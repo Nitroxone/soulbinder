@@ -26,6 +26,10 @@ class Soulmark {
      * @returns {array|boolean} the current value
      */
     getCurrent() {
+        if(this.steps.length === 0) {
+            if(this.studied === 0) return 0;
+            else return this.theorical;
+        }
         return this.steps[this.studied - 1];
     }
 
@@ -34,6 +38,7 @@ class Soulmark {
      * @returns {array|boolean} the next value
      */
     getNext() {
+        if(this.steps.length === 0) return this.theorical;
         return this.steps[this.studied];
     }
 
