@@ -14,12 +14,12 @@
 
 - Actually implement set bonuses
 
-ONGOING - Make the interfaces more responsive 
+DONE - Make the interface more responsive
 
 ALCHEMY:
 - Add possibility to craft multiple potions in one shot
 ONGOING - Implement sound effects and animations
-DONE - Prevent the use of the same ingredient multiple times 
+DONE - Prevent the use of the same ingredient multiple times
 DONE - Add a notification system similar to Astral Forge's
 
 BATTLES:
@@ -63,17 +63,18 @@ DONE - Add Sigil soulmarks
 DONE - Nerf all effects
 - Actually display Soulwriting price
 - Display price on Sigil tooltips
-- Implement Soulreading
+ONGOING - Implement Soulreading
 - Implement Soulbending
 - Add searchbar for soulmarks
 
 SOULREADING:
-- Extract a soulmark multiple times to unlock its full potential?
+DONE - Extract a soulmark multiple times to unlock its full potential
+- Populate top part of the interface
 - Tag player crafted Sigils so they can't be used for soulreading
 
 SOULBINDING:
 DONE - Prevent the addition of effects that do not already exist
-ONGOING - Revamp the bonus system to make it a little more limited
+DONE - Revamp the bonus system to make it a little more limited
 - Properly design an empty soulbinding screen
 - Handle the Echo extraction/replacement
 
