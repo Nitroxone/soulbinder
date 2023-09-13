@@ -24,9 +24,6 @@ class Player {
 
         this.quests = [];
 
-        this.souls = 0;
-        this.gold = 0;
-
         this.soulmarks = [];
 
         // ASTRAL FORGE CONFIG

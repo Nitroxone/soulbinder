@@ -30,9 +30,45 @@ class BlackMarket {
     }
 
     buyItemFromBlackMarket() {
-        const item = this[`currentBlackMarket${this.currentTab}Table`].find(wantedItem => wantedItem.id === this.selectedItemId);
+        const tabName = capitalizeFirstLetter(this.currentTab.textContent);
+        const table = this[`currentBlackMarket${tabName}Table`];
+        const itemIndex = this.findItemIndex(table, this.selectedItemId);
+    
+        if (itemIndex !== -1) {
+            const item = table[itemIndex];
+    
+            if (!this.hasEnoughGold(item.price)) {
+                console.error("Not enough gold to buy this item.");
+                return;
+            }
+    
+            game.player.inventory.addItem(item, 1, false);
+            this.removeItemFromTable(table, itemIndex);
+            this.blackMarketTradeOperation(item.price);
+        }
+    }
+    
+    hasEnoughGold(cost) {
+        return game.player.inventory.gold >= cost;
+    }
 
-        game.player.inventory.addItem(item, 1, false);
-        this[`currentBlackMarket${this.currentTab}Table`].splice(item.id, 1);
+    findItemIndex(table, itemId) {
+        return table.findIndex(wantedItem => wantedItem.id === itemId);
+    }
+
+    blackMarketTradeOperation(cost) {
+        return game.player.inventory.gold -= cost;
+    }
+
+    removeItemFromTable(table, itemIndex) {
+        table.splice(itemIndex, 1);
+    }
+
+    generateBlackMarketAllTables() {
+        this.generateBlackMarketTable('weapons');
+        this.generateBlackMarketTable('armors');
+        this.generateBlackMarketTable('sigils');
+        this.generateBlackMarketTable('trinkets');
+        this.generateBlackMarketTable('resources');
     }
 }

@@ -8,7 +8,7 @@
  * The Inventory class manages the objects owned by the player.
  */
 class Inventory {
-    constructor(gold = 1000) {
+    constructor(gold = 1000, souls = 1000) {
         this.weapons = [];
         this.armors = [];
         this.sigils = [];
@@ -18,6 +18,7 @@ class Inventory {
         this.shards = [];
         this.consumables = [];
         this.gold = gold;
+        this.souls = souls;
     }
 
     /**

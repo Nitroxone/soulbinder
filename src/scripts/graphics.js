@@ -1265,6 +1265,8 @@ function getNodeTooltip(strider, node) {
 }
 
 function drawHubScreen() {
+    game.black_market.generateBlackMarketAllTables();
+
     document.querySelector('#hubDiv').innerHTML = '<div class="hubContainer"></div>';
     let str = '';
 
@@ -1285,7 +1287,7 @@ function drawHubScreen() {
     str += '<div class="blackMarket-menu--firstCol">';
 
     str += '<div class="blackMarket-menu--tabs">';
-    str += '<div class="blackMarket-menu--tab tabActive">weapons</div>';
+    str += '<div class="blackMarket-menu--tab">weapons</div>';
     str += '<div class="blackMarket-menu--tab">armors</div>';
     str += '<div class="blackMarket-menu--tab">trinkets</div>';
     str += '<div class="blackMarket-menu--tab">sigils</div>';
@@ -1380,9 +1382,7 @@ function drawHubScreen() {
 
     generateBlackMarketTabEvents();
     generateBlackMarketAbandonedCacheEvents();
-    // generateBlackMarketTable("weapons");
-    // generateBlackMarketTable("armors");
-    // generateBlackMarketTable("sigils");
+    generateBlackMarketBuyButtonEvent();
 }
 
 function generateBlackMarketTabEvents() {
@@ -1399,7 +1399,7 @@ function generateBlackMarketTabEvents() {
 
 function setBlackMarketActiveTab(tab) {
     tab.classList.add('tabActive');
-    game.black_market.currentTab = capitalizeFirstLetter(tab.textContent);
+    game.black_market.currentTab = tab;
 }
 
 function generateTabContent(tab) {
@@ -1461,16 +1461,19 @@ function generateBlackMarketAbandonedCacheEvents() {
 
 function generateBlackMarketBuyButtonEvent() {
     document.querySelector('.blackMarket-button--buy').addEventListener('click', () => {
+        game.black_market.buyItemFromBlackMarket();
 
+        generateTabContent(game.black_market.currentTab);
+        drawInventory();
     })
 }
 
 function getPlayerSoulsAmount() {
-    return game.player.souls;
+    return game.player.inventory.souls;
 }
 
 function getPlayerGoldAmount() {
-    return game.player.gold;
+    return game.player.inventory.gold;
 }
 
 function getPlayerCurrentLevel() {
