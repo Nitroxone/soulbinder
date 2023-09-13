@@ -244,4 +244,8 @@ class Soulwriting {
         getSwWriteList(true);
         drawSigilInventory(game.player.inventory.sigils);
     }
+
+    cancelExtraction() {
+
+    }
 }
