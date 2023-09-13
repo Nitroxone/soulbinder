@@ -11,6 +11,10 @@ class Soulbinding {
         this.preslottedEffects = [];
     }
 
+    /**
+     * Sets the Soulbinding item to the one that is stocked in the provided event.
+     * @param {Event} event the event that contains the item's data
+     */
     setItem(event) {
         // retrieving data
         const weapon = event.dataTransfer.getData("weapon");
@@ -25,16 +29,27 @@ class Soulbinding {
         getSoulbindingObjects(true);
     }
 
+    /**
+     * Unslots the item.
+     */
     unslotItem() {
         this.item = null;
         this.emptyPreslottedEffects();
     }
 
+    /**
+     * Unslots the preslotted Sigil.
+     */
     unslotPreslottedSigil() {
         this.emptyPreslottedEffects();
         this.preslottedSigil = null;
     }
 
+    /**
+     * Slots the provided Sigil and updates DOM accordingly.
+     * @param {Event} event
+     * @param {number} id
+     */
     preslotSigil(event, id) {
         this.emptyPreslottedEffects();
 
@@ -59,14 +74,24 @@ class Soulbinding {
         Sounds.Methods.playSound(Data.SoundType.SOULBIND_PRESLOT);
     }
 
+    /**
+     * Resets the preslotted effects array.
+     */
     emptyPreslottedEffects() {
         this.preslottedEffects = [];
     }
 
+    /**
+     * Adds a preslotted effect to the preslotted effects array.
+     * @param {Stat} stat the effect to add
+     */
     addPreslottedEffect(stat) {
         this.preslottedEffects.push(stat);
     }
 
+    /**
+     * Slots (binds) the preslotted sigil into the selected item, and updates DOM accordingly.
+     */
     slotSigil() {
         game.player.inventory.enchant(this.item, this.preslottedSigil);
         this.unslotPreslottedSigil();
@@ -76,6 +101,10 @@ class Soulbinding {
         drawSigilInventory(game.player.inventory.sigils);
     }
 
+    /**
+     * Unslots (unbinds) the provided Sigil from the selected item, and updated DOM accordingly.
+     * @param {Sigil} sigil
+     */
     unslotSigil(sigil) {
         game.player.inventory.disenchant(this.item, sigil);
         getSoulbindingItem(true);

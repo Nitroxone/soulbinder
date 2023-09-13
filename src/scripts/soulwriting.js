@@ -50,7 +50,7 @@ class Soulwriting {
      * Unselects the currently selected writing slot.
      */
     unselectSlot() {
-        this.selectedSlot = 0; 
+        this.selectedSlot = 0;
     }
 
     /**
@@ -87,7 +87,7 @@ class Soulwriting {
 
     /**
      * Removes the soulmark at the provided ID (n+1) index.
-     * @param {number} id 
+     * @param {number} id
      */
     unselectSoulmarkAt(id) {
         this.soulmarks[id - 1] = null;
@@ -175,19 +175,19 @@ class Soulwriting {
         const rarity = this.determineRarity();
         const price = this.determinePrice();
         let soulmarks = this.soulmarks.map(x => x && {name: x.name, unlocked: x.unlocked, critical: false, corrupt: false});
-        let effects = this.soulmarks.map(x => x && new Stat({effect: x.effect, theorical: x.theorical, isPercentage: isAstralForgeEffectPercentage(x.effect)}));
+        let effects = this.soulmarks.map(x => x && new Stat({effect: x.effect, theorical: x.getCurrent(), isPercentage: isAstralForgeEffectPercentage(x.effect)}));
         let critEff = [];
         let corrEff = [];
         effects = effects.filter(x => x); // Remove null elements
         soulmarks = soulmarks.filter(x => x); // Remove null elements
-        
+
         this.soulmarks.forEach(slmrk => {
             if(!slmrk) return; // Skip null elements
-            if(computeChance(game.player.sw_stalwartFactor)) {
+            if(slmrk.isMastered() && computeChance(game.player.sw_stalwartFactor)) {
                 critEff.push(slmrk.critical);
                 soulmarks.find(x => x.name === slmrk.name).critical = true;
             }
-            else if(computeChance(game.player.sw_corruptFactor)) {
+            else if(slmrk.isMastered() && computeChance(game.player.sw_corruptFactor)) {
                 corrEff.push(slmrk.corrupted)
                 soulmarks.find(x => x.name === slmrk.name).corrupt = true;
             };
@@ -227,5 +227,21 @@ class Soulwriting {
 
         getSoulreadingSigil(true);
         getSoulreadingSoulmarks(true);
+    }
+
+    /**
+     * Extracts the provided Soulmark from this Soulwriting's selected sigil, then destroys that Sigil.
+     * @param {Soulmark} sm the Soulmark to extract
+     */
+    extractSoulmark(sm) {
+        sm.studied += 1; // Adding a research point
+        if(sm.studied === sm.researchTotal || sm.availableBeforeMastery) sm.unlocked = true; // Unlocking if possible
+        game.player.inventory.removeItem(this.sigil);
+        this.sigil = null;
+
+        // UI update
+        getSwRead(true);
+        getSwWriteList(true);
+        drawSigilInventory(game.player.inventory.sigils);
     }
 }

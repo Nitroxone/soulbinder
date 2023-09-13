@@ -48,10 +48,10 @@ function AddHover(html_element, class_name) {
 
 /**
  * Adds the CSS rule
- * @param {string} sheet 
- * @param {string} selector 
- * @param {string} rules 
- * @param {string} index 
+ * @param {string} sheet
+ * @param {string} selector
+ * @param {string} rules
+ * @param {string} index
  */
 function AddCSSRule(sheet, selector, rules, index) {
     sheet.insertRule(selector + "{" + rules + "}", index);
@@ -59,9 +59,9 @@ function AddCSSRule(sheet, selector, rules, index) {
 
 /**
  * Triggers an animation on the given HTMLElement.
- * @param {HTMLElement} element 
- * @param {string} anim 
- * @returns 
+ * @param {HTMLElement} element
+ * @param {string} anim
+ * @returns
  */
 function triggerAnim(element, anim) {
     if(!element) return;
@@ -90,7 +90,7 @@ function transitionEndEventName() {
 
 /**
  * Gets the offset of the given HTMLElement.
- * @param {HTMLElement} element 
+ * @param {HTMLElement} element
  * @returns {object} an object that contains X and Y offset coordinates
  */
 function getOffset(element) {
@@ -136,9 +136,9 @@ function getIcon(entity, forceModif = 0, border = false) {
 
 /**
  * Generates an HTML div string that contains a standalone icon.
- * @param {number} icon 
- * @param {boolean} clipped 
- * @param {string|number} id 
+ * @param {number} icon
+ * @param {boolean} clipped
+ * @param {string|number} id
  * @returns {string} an HTML div string that contains the icon
  */
 function getArbitraryIcon(icon, clipped, id) {
@@ -167,7 +167,7 @@ function getIconStr(object, id, classes) {
 /**
  * Generates a span HTML element that contains an Entity's name and color, without its icon.
  * @param {Entity} what the Entity object to retrieve the data from
- * @param {*} text 
+ * @param {*} text
  * @returns {string} a span HTML element
  */
 function getSmallThing(what, text) {
@@ -177,7 +177,7 @@ function getSmallThing(what, text) {
 /**
  * Generates a span HTML element that contains an Entity's name and color, without its icon.
  * @param {Entity} what the Entity object to retrieve the data from
- * @param {string} text 
+ * @param {string} text
  * @returns {string} a span HTML element
  */
 function getSmallThingNoIcon(what, text) {
@@ -211,7 +211,7 @@ function what(array, name) {
  * Looks for the Entity object whose name matches the given name. Returns TRUE if found, FALSE if not.
  * @param {array} array the array of Entity objects to search in
  * @param {string} name the name of the Entity object to look for
- * @returns {bool} whether the Entity was found 
+ * @returns {bool} whether the Entity was found
  */
 function containsByName(array, name) {
     if(array.length === 0) return false;
@@ -223,9 +223,9 @@ function containsByName(array, name) {
 
 /**
  * Looks for a value inside an array. Returns TRUE if found, FALSE if not.
- * @param {array} array 
- * @param {any} value 
- * @returns 
+ * @param {array} array
+ * @param {any} value
+ * @returns
  */
 function arrayContains(array, value) {
     if(!array || !value) return false;
@@ -269,7 +269,7 @@ function getResourceAmount(array, name) {
  * Tells whether the provided resource's amount is superior to 0 in the provided resources array.
  * @param {array} array the Resources array
  * @param {string} name the name of the Resource
- * @returns whether the resource is possessed 
+ * @returns whether the resource is possessed
  */
 function hasResource(array, name) {
     return what(array, name).amount > 0;
@@ -292,7 +292,7 @@ function findEffect(array, name) {
  * Generates a random number for particle generation.
  * @param {number} min minimum number
  * @param {number} max maximum number
- * @returns {number} a random number 
+ * @returns {number} a random number
  */
 function getRandomNumber(min, max, allowFloat = false) {
     // swap min and max if min is greater than max
@@ -361,7 +361,7 @@ function getTargetString(range) {
 /**
  * Outputs the elements of the string array into a single string, separated with commas.
  * @param {array} value an array of string
- * @returns {string} 
+ * @returns {string}
  */
 function getStringArrayElements(value) {
     let str = '';
@@ -420,11 +420,11 @@ function getEmptySigilStats(type, bleedIncurable, poisonIncurable) {
 }
 
 /**
- * 
+ *
  * @param {Sigil} sigil the Sigil to retrieve the stats from
  * @param {boolean} bleedIncurable should the bleeding be incurable?
  * @param {boolean} poisonIncurable should the poison be incurable?
- * @returns 
+ * @returns
  */
 function getSigilStats(sigil, bleedIncurable, poisonIncurable) {
     if(sigil.type == "weapon") {
@@ -584,8 +584,8 @@ function getSigilStats(sigil, bleedIncurable, poisonIncurable) {
 
 /**
  * Retrieves all of the Armors which type matches the one that is provided.
- * @param {array} armors 
- * @param {string} type 
+ * @param {array} armors
+ * @param {string} type
  * @returns {array} a sorted array of armors
  */
 function getArmorTypeArray(armors, type) {
@@ -596,9 +596,9 @@ function getArmorTypeArray(armors, type) {
 
 /**
  * Converts the hex string to an rgba format.
- * @param {string} hex 
- * @param {number} alpha 
- * @returns {string} an rgba string 
+ * @param {string} hex
+ * @param {number} alpha
+ * @returns {string} an rgba string
  */
 function hexToRGBA(hex, alpha = 1) {
     const [r, g, b] = hex.match(/\w\w/g).map(x => parseInt(x, 16));
@@ -607,7 +607,7 @@ function hexToRGBA(hex, alpha = 1) {
 
 /**
  * Returns the color code that matches the provided rarity.
- * @param {string} rarity 
+ * @param {string} rarity
  * @returns {string} a color code
  */
 function getRarityColorCode(rarity) {
@@ -721,7 +721,7 @@ function getParticleVelocityX(rarity) {
 
 /**
  * Returns a particle lifetime value based on the provided rarity.
- * @param {string} rarity 
+ * @param {string} rarity
  * @returns {number} the particle lifetime
  */
 function getParticleLifetime(rarity) {
@@ -743,11 +743,11 @@ function getParticleLifetime(rarity) {
 
 /**
  * Returns whether the provided NPC is an enemy.
- * @param {NPC} npc 
+ * @param {NPC} npc
  * @returns {bool} whether the NPC is an enemy
  */
 function isEnemy(npc) {
-    if(npc.type === Data.NPCType.ANIMA 
+    if(npc.type === Data.NPCType.ANIMA
         || npc.type === Data.NPCType.BEAST
         || npc.type === Data.NPCType.DEVIL
         || npc.type === Data.NPCType.UNDEAD
@@ -757,8 +757,8 @@ function isEnemy(npc) {
 
 /**
  * Removes the provided item from the provided array.
- * @param {array} array 
- * @param {any} item 
+ * @param {array} array
+ * @param {any} item
  * @returns {boolean} true if removal was successful, false if removal has failed
  */
 function removeFromArray(array, item) {
@@ -803,7 +803,7 @@ function isArmorEffect(effect) {
 }
 
 /**
- * Tells whether the provided Effect (supposedly an Echo effect) is already on the provided Trinket. 
+ * Tells whether the provided Effect (supposedly an Echo effect) is already on the provided Trinket.
  * @param {Trinket} trinket the Trinket on which to perform the check
  * @param {Stat} effect the Effect to check for
  * @returns {boolean} whether the provided effect is already present
@@ -833,12 +833,12 @@ function trimWhitespacesInsideString(string) {
  * Returns an RGB color code based on the node's status.
  * @param {SkillTreeNode} child the Child Node to check for
  * @param {SkillTreeNode} node the Parent Node, required for additional checks
- * @returns {string} an RGB code 
+ * @returns {string} an RGB code
  */
 function getLineColorFromNodeState(child, node) {
     if(!child) return 'rgb(50, 50, 50)';
     if(node.currentLevel == 0) return 'rgb(100, 100, 100)';
-    
+
     if(child.currentLevel == child.levels) return 'rgb(76, 187, 23)';
     else if(child.currentLevel > 0) return 'rgb(255, 191, 0)';
     else if(child.currentLevel == 0 && node.isUnlocked()) return 'rgba(175, 175, 175)';
@@ -868,7 +868,7 @@ function getEffectNameFromKey(effect, full = false) {
 
 /**
  * Returns the provided Effect's persistance value from the Astral Forge Config.
- * @param {Data.Effect} effect the Effect 
+ * @param {Data.Effect} effect the Effect
  * @returns {number} the Effect's persistance
  */
 function getPersistanceFromConfig(effect) {
@@ -877,7 +877,7 @@ function getPersistanceFromConfig(effect) {
 
 /**
  * Returns the provided Effect's substrate value from the Astral Forge Config.
- * @param {Data.Effect} effect the Effect 
+ * @param {Data.Effect} effect the Effect
  * @returns {number} the Effect's substrate
  */
 function getSubstrateFromConfig(effect) {
@@ -886,7 +886,7 @@ function getSubstrateFromConfig(effect) {
 
 /**
  * Returns the provided Effect's over value from the Astral Forge Config.
- * @param {Data.Effect} effect the Effect 
+ * @param {Data.Effect} effect the Effect
  * @returns {number} the Effect's over value
  */
 function getOverValueFromConfig(effect) {
@@ -896,8 +896,8 @@ function getOverValueFromConfig(effect) {
 /**
  * Compares the two Effects if the excluded parameter is not null, and returns false if they match.
  * Returns if the excluded parameter is null.
- * @param {Data.Effect} effect 
- * @param {Data.Effect} excluded 
+ * @param {Data.Effect} effect
+ * @param {Data.Effect} excluded
  * @returns {boolean}
  */
 function compareWithExcluded(effect, excluded) {
@@ -922,11 +922,7 @@ function isAstralForgeEffectPercentage(effect) {
  * @returns {Weapon|null} the Weapon that was found, or null if it was not found
  */
 function getInventoryWeaponById(id) {
-    let weapon = null;
-    game.player.inventory.weapons.forEach(item => {
-        if(item.id === id) weapon = item;
-    });
-    return weapon;
+    return game.player.inventory.weapons.find(x => x.id === id);
 }
 
 /**
@@ -935,11 +931,7 @@ function getInventoryWeaponById(id) {
  * @returns {Armor|null} the Armor that was found, or null if it was not found
  */
 function getInventoryArmorById(id) {
-    let armor = null;
-    game.player.inventory.armors.forEach(item => {
-        if(item.id === id) armor = item;
-    });
-    return armor;
+    return game.player.inventory.armors.find(x => x.id === id);
 }
 
 /**
@@ -948,11 +940,7 @@ function getInventoryArmorById(id) {
  * @returns {Trinket|null} the Trinket that was found, or null if it was not found
  */
 function getInventoryTrinketById(id) {
-    let trinket = null;
-    game.player.inventory.trinkets.forEach(item => {
-        if(item.id === id) trinket = item;
-    });
-    return trinket;
+    return game.player.inventory.trinkets.find(x => x.id === id);
 }
 
 /**
@@ -961,11 +949,7 @@ function getInventoryTrinketById(id) {
  * @returns {Trinket|null} the Resource that was found, or null if it was not found
  */
 function getInventoryResourceById(id) {
-    let resource = null;
-    game.player.inventory.resources.forEach(item => {
-        if(item.id === id) resource = item;
-    });
-    return resource;
+    return game.player.inventory.resources.find(x => x.id === id);
 }
 
 /**
@@ -974,11 +958,7 @@ function getInventoryResourceById(id) {
  * @returns {Sigil|null} the Sigil that was found, or null if it was not found
  */
 function getInventorySigilById(id) {
-    let sigil = null;
-    game.player.inventory.sigils.forEach(item => {
-        if(item.id === id) sigil = item;
-    });
-    return sigil;
+    return game.player.inventory.sigils.find(x => x.id === id);
 }
 
 /**
@@ -1098,8 +1078,8 @@ function findAstralForgeBookmarkByID(item, id) {
 
 /**
  * Returns the rounded up average of the two provided numbers.
- * @param {number} a 
- * @param {number} b 
+ * @param {number} a
+ * @param {number} b
  * @returns {number} the rounded up average of a and b
  */
 function getAverage(a, b) {
@@ -1291,9 +1271,9 @@ function getDungeonClosingSet(dungeon) {
 
 /**
  * Returns the Weapon which ID is provided, on the provided Strider.
- * @param {Strider} strider 
- * @param {number} id 
- * @returns {Weapon|null} 
+ * @param {Strider} strider
+ * @param {number} id
+ * @returns {Weapon|null}
  */
 function getEquippedWeaponById(strider, id) {
     if(strider.eqWeaponBoth && strider.eqWeaponBoth.id === id) return strider.eqWeaponBoth;
@@ -1470,7 +1450,7 @@ function translateRoomStatus(status) {
 
 /**
  * Returns a dungeon room action based on the provided type.
- * @param {Data.DungeonRoomType} type the type 
+ * @param {Data.DungeonRoomType} type the type
  * @returns {Data.DungeonRoomAction} a corresponding action
  */
 function getActionFromRoomType(type) {
@@ -1687,7 +1667,7 @@ function isEffectUnvaluable(eff) {
 /**
  * Generates an HTML content string that contains the provided Item's active alterations, optionally compared to the ones provided in the diff variable, then returns it.
  * @param {Weapon|Armor|Trinket} item the item to retrieve alterations from
- * @param {Stat[]} diff the optional stats array to compare 
+ * @param {Stat[]} diff the optional stats array to compare
  * @returns {string} an HTML content string
  */
 function getAlterations(item, diff = [], titleReplace = '') {
@@ -1705,13 +1685,13 @@ function getAlterations(item, diff = [], titleReplace = '') {
             result = appendEffectToObject(eff, result);
         });
     }
-    
+
     if(item.hasEcho()) {
         item.echo.stats.forEach(stat => {
             result = appendEffectToObject(stat, result);
         });
     }
-    
+
     let base = null;
     if(diff.length > 0) {
         base = structuredClone(result);
@@ -1719,7 +1699,7 @@ function getAlterations(item, diff = [], titleReplace = '') {
             result = appendEffectToObject(add, result);
         });
     };
-    
+
     if(base) {
         let effects = Object.keys(base);
         let additional = Object.keys(result);
@@ -1759,8 +1739,8 @@ function getAlterations(item, diff = [], titleReplace = '') {
                     opacity = 0.65;
                 }
             }
-            
-            str += st.getFormatted({cssClass: 'itemEffect', noTheorical: true, color: color, bold: bold, italic: italic, barred: barred, opacity: opacity});   
+
+            str += st.getFormatted({cssClass: 'itemEffect', noTheorical: true, color: color, bold: bold, italic: italic, barred: barred, opacity: opacity});
         }
     } else {
         for(const eff in result) {
@@ -1852,7 +1832,7 @@ function isEffectAllowedOnObject(effect, obj) {
     }
 
     result = [...new Set(result)]; // Removing duplicates
-    
+
     return result.includes(effect);
 }
 
@@ -1874,6 +1854,11 @@ function isBaseArmorEffect(eff) {
     return Config.BaseArmorEffects.includes(eff);
 }
 
+/**
+ * Returns an HTML format string that contains all of the provided item's Sigil effects.
+ * @param {Weapon|Armor|Trinket} item the Item to retrieve the Sigil effects from
+ * @returns {string} an HTML format string
+ */
 function getSigilEffectsFromItem(item) {
     let str = '';
 
@@ -1893,6 +1878,11 @@ function getSigilEffectsFromItem(item) {
     return str;
 }
 
+/**
+ * Returns the alterations tooltip for the provided item.
+ * @param {Weapon|Armor|Trinket} item the Item to get the alterations tooltip from
+ * @returns {string} an HTML format string that contains the tooltip
+ */
 function getItemAlterationsTooltip(item) {
     let str = '';
 
@@ -1903,4 +1893,33 @@ function getItemAlterationsTooltip(item) {
     if(item.hasSigil()) str += '<div class="editedIconStats">' + getSigilEffectsFromItem(item) + '</div>';
 
     return str;
+}
+
+/**
+ * Returns the Soulmark object that matches the provided effect.
+ * @param {Data.Effect} effect the effect to search for
+ * @returns {Soulmark|null} a Soulmark object or null if none matched
+ */
+function getSoulmarkFromEffect(effect) {
+    return Config.Soulwriting.find(x => x.effect === effect);
+}
+
+/**
+ * Returns a string that contains the displayed status of a soulmark that can be extracted.
+ * @param {Soulmark} sm the soulmark
+ * @returns {string} a comparison string
+ */
+function getSoulreadingSoulmarkValue(sm) {
+    if(sm.studied === sm.researchTotal-1) {
+        if(isEffectUnvaluable(sm.effect)) return "None -> Active";
+        else return (sm.getCurrent() + ' ---> ' + sm.theorical);
+    } else if(sm.studied === 0) {
+        if(isEffectUnvaluable(sm.effect)) return "None";
+        else return ("0 ---> " + sm.getNext());
+    } else if(sm.studied > 0 && sm.studied < sm.researchTotal) {
+        if(isEffectUnvaluable(sm.effect)) return "None";
+        else return (sm.getCurrent() + ' ---> ' + sm.getNext());
+    } else if(sm.isMastered()) {
+        return "Mastered";
+    }
 }

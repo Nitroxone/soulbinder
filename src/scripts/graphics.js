@@ -21,7 +21,7 @@ function spawnTooltip(item, fromExisting = 0) {
     else if(item instanceof Consumable) tooltip.innerHTML = base + getConsumableTooltip(item) + '</div>';
     // Same position as hovered tooltip, but positioned in such way that it will cut the mouse off the hover event
 
-    
+
     let tooltipPos = {
         top: domWhat('tooltipAnchor').offsetTop - 75 + 'px',
         left: domWhat('tooltipAnchor').offsetLeft + domWhat('tooltip').offsetLeft + 'px'
@@ -60,7 +60,7 @@ function spawnTooltip(item, fromExisting = 0) {
             tooltip.style.left = currentElemX + 'px';
             tooltip.style.top = currentElemY + 'px';
         });
-        
+
         document.addEventListener('mouseup', function(e) {
             moving = false;
         })
@@ -151,7 +151,7 @@ function getResourceTooltip(resource, asResult = null) {
         str += '<div class="alchemicalPropsType"><span class="alchtype">Recovery</span><span class="alchtoxi">' + resource.recovery.toxicity + ' Toxicity</span></div>';
         str += resource.recovery.effect.getFormatted({cssClass: 'alchemicalPropsEff', noTheorical: true});
         str += '</div>';
-        
+
         str += '<div class="alchemicalPropsItem">';
         str += '<div class="alchemicalPropsType"><span class="alchtype">Special</span><span class="alchtoxi">' + resource.special.toxicity + ' Toxicity</span></div>';
         str += resource.special.effect.getFormatted({cssClass: 'alchemicalPropsEff', noTheorical: true});
@@ -178,13 +178,13 @@ function getConsumableTooltip(consumable) {
     str += '<div class="consumableName">' + consumable.name + '</div>';
     str += '<div class="treeNodeType treeNodeType-' + consumable.rarity + '">' + capitalizeFirstLetter(consumable.rarity) + '</div>';
     str += '</div></div>';
-    
+
     str += '<div class="consumableEffects">';
     consumable.effects.forEach(eff => {
         str += eff.getFormatted({cssClass: "itemEffect consumableEffect", noTheorical: true, defaultColor: true});
     });
     str += '</div>';
-    
+
     str += '<div class="consumableToxicityIndicator">' + consumable.toxicity + ' <span style="opacity: 0.8;">Toxicity</span></div>';
     str += '</div></div>';
 
@@ -201,7 +201,7 @@ function getSigilTooltip(sigil) {
     str += '<div class="consumableName">' + sigil.name + '</div>';
     str += '<div class="treeNodeType treeNodeType-' + sigil.rarity + '">' + capitalizeFirstLetter(sigil.rarity) + '</div>';
     str += '</div></div>';
-    
+
     str += '<div class="consumableEffects">';
     sigil.effects.forEach(effect => {
             str += effect.getFormatted({cssClass: "itemEffect consumableEffect", noTheorical: isEffectUnvaluable(effect.effect)});
@@ -367,7 +367,7 @@ function getSetTooltip(set) {
 
     str += '</div>';
     str += '</div>';
-    
+
     return str;
 }
 
@@ -462,7 +462,7 @@ function addTooltip(element, func, object) {
             tooltip.func = func;
             tooltip.parent = element;
             tooltip.popup(object);
-            
+
             tooltip.update();
             tooltip.update();
             tooltip.update();
@@ -472,7 +472,7 @@ function addTooltip(element, func, object) {
     AddEvent(element, 'mouseout', function(element, func, tooltip) {
         return function(e) {
             tooltip.close();
-            
+
             tooltip.update();
             tooltip.update();
             tooltip.update();
@@ -743,7 +743,7 @@ function drawCommandersProfile() {
     str += '<div class="commanderDesc-level">';
     str += '<p>5</p>';
     str += '</div>';
-    
+
     str += '</div>';
 
     str += '<div class="commanderXpBar">';
@@ -816,7 +816,7 @@ function spawnStriderPopup(strider, refresh = false) {
         popupWindow = document.querySelector('.striderPopup');
     }
     //console.log(popupWindow);
-    
+
     let str = '';
     str += '<div class="striderPopup-wrapper">';
 
@@ -837,7 +837,7 @@ function spawnStriderPopup(strider, refresh = false) {
     str += '</div>';
     str += '</div>';
 
-    str += '<div class="striderStats">'; 
+    str += '<div class="striderStats">';
     str += '<div class="striderStats-title">Stats</div>';
     str += '<div class="striderStats-stats">';
     str += '<div class="striderStats-stat">' + '<span class="statTitle">Health</span><span class="statValue">' + strider.health + '/' + strider.maxHealth + '</span>' + '</div>'
@@ -990,12 +990,12 @@ function allowDrop(e) {
  */
 function drawSkillTree(strider) {
     let str = '';
-    
+
     //draw power node
     str += '<div class="treeFraction">';
     str += '<div id="' + trimWhitespacesInsideString(strider.name) + '-0" class="treeNode coolBorder powerNode" style="background-image: url(\'css/img/skills/' + strider.name + strider.uniqueIcon + '.png\')"></div>';
     str += '</div>';
-    
+
     // find tree roots
     let roots = [];
     strider.skillTree.nodes.forEach(node => {
@@ -1031,12 +1031,12 @@ function drawSkillTree(strider) {
  */
 function drawSkillTreeLines(strider) {
     const parent = document.querySelector('.striderSkillTree')
-    
+
     let str = '';
-    
+
     str += '<svg class="skillTreeLinesOverlay" height="' + parent.scrollHeight + '" width="' + parent.offsetWidth + '">';
     strider.skillTree.nodes.forEach(node => {
-        
+
         const elem = document.querySelector('#' + trimWhitespacesInsideString(node.name));
         const basePos = elem.getBoundingClientRect();
         const basePosOriginX = elem.offsetLeft + basePos.width/2;
@@ -1067,8 +1067,8 @@ function drawSkillTreeLines(strider) {
 }
 
 /**
- * Builds a SkillTree recursively. Returns an object that contains every node that descends from the provided start node, ranked by 
- * depth (no duplicates allowed). Ideally, this function should be called on every root of a SkillTree in order to build a 
+ * Builds a SkillTree recursively. Returns an object that contains every node that descends from the provided start node, ranked by
+ * depth (no duplicates allowed). Ideally, this function should be called on every root of a SkillTree in order to build a
  * fully exploitable tree model.
  * @param {SkillTreeNode} node the node to build
  * @param {number} depth the current depth of the tree
@@ -1349,13 +1349,13 @@ function drawHubScreen() {
     str += '</div>';
     str += '<button class="blackMarket-button--buy">BUY</button>';
     str += '</div>';
-    
+
 
     str += '</div>';
     str += '</div>';
-    
+
     str += '</div>';
-    
+
     str += '<div class="lordContainer">';
 
     str += '<div class="lordDialogueContent coolBorderBis">'
@@ -1375,7 +1375,7 @@ function drawHubScreen() {
     str += '</div>';
 
     str += '</div>';
-  
+
     document.querySelector('.hubContainer').innerHTML = str;
 
     generateBlackMarketTabEvents();
@@ -1412,18 +1412,18 @@ function generateTabContent(tab) {
 
         str += `<div class="tradeItems-item--icon" style="${getIcon(item, 100, false)}">`;
         str += '</div>';
-    
+
         str += '<p class="tradeItems-item--name">';
         str += item.name;
         str += '</p>';
-    
+
         str += '<div class="tradeItems-item--price">';
         str += '<div class="tradeItems-goldIcon"></div>';
         str += '<p>';
         str += item.price;
         str += '</p>';
         str += '</div>';
-    
+
         str += '</div>';
 
         document.querySelector('.tradeItems').innerHTML = str;
@@ -1487,7 +1487,7 @@ function openAstralForge(event) {
     else if(armor !== '') drawAstralForgeScreen(getInventoryArmorById(Number(armor)).astralForgeItem);
     else if(trinket !== '') drawAstralForgeScreen(getInventoryTrinketById(Number(trinket)).astralForgeItem);
     else throw new Error('Tried to open the Astral Forge screen with an uncompatible object.')
-}    
+}
 
 function drawWorkshopScreen() {
     document.querySelector('#workshopDiv').innerHTML = '<div class="workshopContainer"></div>';
@@ -1519,6 +1519,7 @@ function drawWorkshopScreen() {
     drawSoulwritingLines();
     generateSoulwritingInterfaceEvents();
     generateSoulbindingInterfaceEvents();
+    generateSoulreadingInterfaceEvents();
 }
 
 function drawAlchemyScreen(refresh = false) {
@@ -1634,7 +1635,7 @@ function generateAlchemyInterfaceEvents() {
             document.querySelector('.vignetteSelector').remove();
             return;
         }
-        
+
         const div = document.createElement('div');
         div.classList.add('vignetteSelector');
 
@@ -1671,11 +1672,11 @@ function generateAlchemyInterfaceEvents() {
                 }
             });
         });
-        
+
         document.querySelector('.alchPotionPreview').appendChild(div);
-        document.querySelector('.closeWindowButton').addEventListener('click', e => { 
+        document.querySelector('.closeWindowButton').addEventListener('click', e => {
             Sounds.Methods.playSound(Data.SoundType.TOOLTIP_HOVER);
-            div.remove(); 
+            div.remove();
         });
     });
 
@@ -1812,7 +1813,7 @@ function drawSoulwritingLines(refresh = false) {
 
         str += '<line class="swConnector" id="' + id + '" x1="' + basePosOriginX + '" y1="' + basePosOriginY + '" x2="' + targetPosOriginX + '" y2="' + targetPosOriginY + '" style="stroke-width: 1;" stroke-linecap="round" />'
     }
-    
+
     str += '</svg>';
 
     if(!refresh) parent.innerHTML += str;
@@ -1823,32 +1824,13 @@ function drawSoulwritingLines(refresh = false) {
     })
 }
 
-function generateSoulwritingInterfaceEvents() {
-    const tabs = document.querySelectorAll('.soulwTab');
-    const contents = document.querySelectorAll('.soulwContent');
+function generateSwSoulmarksEvents() {
     const soulmarks = document.querySelectorAll('.swWriteList-single');
-    const slots = document.querySelectorAll('.swWriteSlot');
-    const sigilVignetteSelector = document.querySelector('.swWrite-vignette');
-    const soulwrite = document.querySelector('.swWrite-write');
-
-    for(let i = 0; i < tabs.length; i++) {
-        let tab = tabs[i];
-        tab.addEventListener('click', e => {
-            tabs[game.soulwriting.getCurrentTabIndex()].classList.remove('activeTab');
-            game.soulwriting.switchTab(i);
-            tab.classList.add('activeTab');
-            contents.forEach(con => {
-                con.style.display = 'none';
-            });
-            document.querySelector('#soulwcontent-' + game.soulwriting.currentTab).style.display = 'grid';
-            if(tab.id === 'soulwtab-write') drawSoulwritingLines(true);
-        });
-    }
 
     soulmarks.forEach(sm => {
         sm.addEventListener('click', e => {
             const id = sm.id.slice(3);
-            const slmrk = Config.Soulwriting.filter(s => s.name == id)[0];
+            const slmrk = Config.Soulwriting.find(s => s.name == id);
             const extended = sm.querySelector('.extendedSoulmarkContainer');
 
             Sounds.Methods.playSound(Data.SoundType.TOOLTIP_HOVER);
@@ -1889,16 +1871,40 @@ function generateSoulwritingInterfaceEvents() {
             } else {
                 extended.style.display = 'flex';
                 let str = '';
-                const regular = new Stat({effect: slmrk.effect, theorical: slmrk.theorical});
+                const regular = new Stat({effect: slmrk.effect, theorical: slmrk.getCurrent()});
 
                 str += '<div><span style="color: #ffffff;">Base</span><span>' + regular.getFormatted({cssClass: 'swWriteList-effSub', noValue: true}) + '</span></div>';
-                str += '<div><span style="color: #ece2b6;">Stalwart</span><span>' + slmrk.critical.getFormatted({cssClass: 'swWriteList-effSub', noValue: true}) + '</span></div>';
-                str += '<div><span style="color: tomato;">Corrupt</span><span>' + slmrk.corrupted.getFormatted({cssClass: 'swWriteList-effSub', noValue: true}) + '</span></div>';
+                if(slmrk.isMastered()) str += '<div><span style="color: #ece2b6;">Stalwart</span><span>' + slmrk.critical.getFormatted({cssClass: 'swWriteList-effSub', noValue: true}) + '</span></div>';
+                if(slmrk.isMastered()) str += '<div><span style="color: tomato;">Corrupt</span><span>' + slmrk.corrupted.getFormatted({cssClass: 'swWriteList-effSub', noValue: true}) + '</span></div>';
 
                 extended.innerHTML = str;
             }
         });
     });
+}
+
+function generateSoulwritingInterfaceEvents() {
+    const tabs = document.querySelectorAll('.soulwTab');
+    const contents = document.querySelectorAll('.soulwContent');
+    const slots = document.querySelectorAll('.swWriteSlot');
+    const sigilVignetteSelector = document.querySelector('.swWrite-vignette');
+    const soulwrite = document.querySelector('.swWrite-write');
+
+    for(let i = 0; i < tabs.length; i++) {
+        let tab = tabs[i];
+        tab.addEventListener('click', e => {
+            tabs[game.soulwriting.getCurrentTabIndex()].classList.remove('activeTab');
+            game.soulwriting.switchTab(i);
+            tab.classList.add('activeTab');
+            contents.forEach(con => {
+                con.style.display = 'none';
+            });
+            document.querySelector('#soulwcontent-' + game.soulwriting.currentTab).style.display = 'grid';
+            if(tab.id === 'soulwtab-write') drawSoulwritingLines(true);
+        });
+    }
+
+    generateSwSoulmarksEvents();
 
     slots.forEach(slot => {
         slot.addEventListener('click', e => {
@@ -1966,11 +1972,11 @@ function generateSoulwritingInterfaceEvents() {
                 }
             });
         });
-        
+
         document.querySelector('.swWriteCrafting').appendChild(div);
-        document.querySelector('#closeSigilSelector').addEventListener('click', e => { 
+        document.querySelector('#closeSigilSelector').addEventListener('click', e => {
             Sounds.Methods.playSound(Data.SoundType.TOOLTIP_HOVER);
-            div.remove(); 
+            div.remove();
         });
     });
 
@@ -2073,17 +2079,7 @@ function getSwWrite(refresh = false) {
     let str = '';
 
     str += '<div class="swWriteList">';
-    str += '<div class="swWriteList-header">Soulmarks</div>';
-    str += '<div class="swWriteList-list">';
-    if(game.player.getAllUnlockedSoulmarks().length == 0) {
-        str += '<div class="swWriteList-list-empty">No soulmarks learnt</div>'; 
-    }
-    else {
-        game.player.getAllUnlockedSoulmarks().forEach(sm => {
-            str += getFormattedSoulmark(sm);
-        });
-    }
-    str += '</div>';
+    str += getSwWriteList();
     str += '</div>';
 
     str += '<div class="swWriteCrafting">';
@@ -2098,7 +2094,7 @@ function getSwWrite(refresh = false) {
     str += '<div id="swWrite-stalwart" class="swWrite-stalwart"><span>' + game.player.sw_stalwartFactor + '%</span></div>';
     str += '<div class="swWrite-write"><span>Write</span><canvas id="canv-soulwrite" class="swSlotCanvas"></canvas></div>';
     str += '<div id="swWrite-corrupt"class="swWrite-corrupt"><span>' + game.player.sw_corruptFactor + '%</span></div>';
-    str += '</div>'; 
+    str += '</div>';
 
     str += '<div class="swWrite-backgroundCover coolBorderBis"></div>'
     str += '</div>';
@@ -2110,12 +2106,56 @@ function getSwWrite(refresh = false) {
     return str;
 }
 
-function getFormattedSoulmark(sm) {
+function getSwWriteList(refresh = false) {
+    let str = '';
+
+    str += '<div class="swWriteList-header">Soulmarks</div>';
+    str += '<div class="swWriteList-list">';
+    if(game.player.getAllUnlockedSoulmarks().length == 0) {
+        str += '<div class="swWriteList-list-empty">No soulmarks learnt</div>';
+    }
+    else {
+        game.player.getAllUnlockedSoulmarks().forEach(sm => {
+            str += getFormattedSoulmark(sm);
+        });
+    }
+    str += '</div>';
+
+    if(refresh) {
+        document.querySelector('.swWriteList').innerHTML = str;
+        generateSwSoulmarksEvents();
+        return;
+    }
+    return str;
+}
+
+function getFormattedSoulmark(sm, soulreadingFormat = false, delay = 0) {
     const eff = new Stat({effect: sm.effect, theorical: sm.theorical});
 
     let str = '';
 
-    str += '<div id="sm-' + sm.name + '" class="swWriteList-single"><div class="swWriteList-singleHeader"><span>' + capitalizeFirstLetter(sm.name) + '</span>' + eff.getFormatted({cssClass: 'swWriteList-eff', noValue: true, noTheorical: true}) + '</div><div class="extendedSoulmarkContainer"></div></div>';
+    str += '<div id="sm-' + sm.name + (soulreadingFormat ? '-sr' : '') + '" class="swWriteList-single' + (soulreadingFormat ? ' srSlmrkAnim" style="animation-delay: ' + delay + 's"' : '"') + '><div class="swWriteList-singleHeader"><span>' + capitalizeFirstLetter(sm.name) + '</span>' + eff.getFormatted({cssClass: 'swWriteList-eff', noValue: true, noTheorical: true}) + '</div>';
+    if(!soulreadingFormat) {
+        str += '<div class="extendedSoulmarkContainer"></div>';
+    }
+    else {
+        str += '<div class="soulreadingSoulmarkContainer">'
+        str += getSoulmarkProgressGauge(sm);
+        str += '</div>';
+    }
+    str += '</div>';
+
+    return str;
+}
+
+function getSoulmarkProgressGauge(sm) {
+    let str = '';
+
+    str += '<div class="gaugeProgress slmrkGauge"><div class="statGauge soulmark" style="width: ' + Math.round((sm.studied*100)/sm.researchTotal) + '%"><span class="gaugeIndicator">' + sm.studied + '/' + sm.researchTotal + '</span></div></div>';
+    str += '<div class="alchToxicity">';
+    str += '<div class="slmrkStatus ' + (sm.unlocked ? 'un' : '') + 'locked"><div class="slmrkStatusIcon"></div>' + (sm.unlocked ? 'Unl' : 'L') + 'ocked</div>';
+    str += '<div class="slmrkNum">' + getSoulreadingSoulmarkValue(sm) + '</div>';
+    str += '</div>';
 
     return str;
 }
@@ -2142,10 +2182,41 @@ function getSwRead(refresh = false) {
     return str;
 }
 
+function generateSoulreadingInterfaceEvents() {
+    generateSoulreadingSoulmarkEvents();
+}
+
+function generateSoulreadingSoulmarkEvents() {
+    game.soulwriting.sigil?.effects.forEach(eff => {
+        const sm = getSoulmarkFromEffect(eff.effect);
+        const dom = document.querySelector('#sm-' + sm.name + '-sr');
+        var extractTimeout;
+
+        dom.addEventListener('mousedown', (e) => {
+            if(sm.canBeExtracted() && e.button === 0) extractTimeout = setTimeout(() => { // e.button === 0 checks that only a LEFT CLICK can trigger the timeout.
+                game.soulwriting.extractSoulmark(sm);
+                console.log('extracted ' + sm.name + '!');
+            }, 1000);
+        });
+
+        dom.addEventListener('mouseup', () => {
+            clearTimeout(extractTimeout);
+        });
+
+        dom.addEventListener('mouseenter', () => {
+            clearTimeout(extractTimeout);
+        });
+
+        dom.addEventListener('mouseleave', () => {
+            clearTimeout(extractTimeout);
+        });
+    });
+}
+
 function getSoulreadingBanner(refresh = false) {
     let str = '';
 
-    
+
 
     if(refresh) {
         document.querySelector('.swRead-banner').innerHTML = str;
@@ -2157,7 +2228,7 @@ function getSoulreadingBanner(refresh = false) {
 function getSoulreadingSigil(refresh = false) {
     let str = '';
 
-    str += '<div class="swReadSigilSlot" ondragover="allowDrop(event)" ondrop="game.soulwriting.selectSigil(event)">'
+    str += '<div class="swReadSigilSlot' + (game.soulwriting.sigil ? ' srSigilSlotAnim' : '') + '" ondragover="allowDrop(event)" ondrop="game.soulwriting.selectSigil(event)">'
     if(game.soulwriting.sigil) {
         str += '<div class="swReadSigilSlotIcon" style="' + getIcon(game.soulwriting.sigil, 45) + '"></div>';
     }
@@ -2172,15 +2243,18 @@ function getSoulreadingSigil(refresh = false) {
 
 function getSoulreadingSoulmarks(refresh = false) {
     let str = '';
+    let delay = 0;
 
     str += '<div class="swReadSoulmarksContainer">';
-    if(game.soulwriting.sigil) game.soulwriting.sigil.effects.forEach(eff => {
-        str += eff.getFormatted({cssClass: 'swReadSoulmark', noTheorical: true, noValue: true});
+    game.soulwriting.sigil?.effects.forEach(eff => {
+        str += getFormattedSoulmark(getSoulmarkFromEffect(eff.effect), true, delay);
+        delay += 0.2;
     })
     str += '</div>';
 
     if(refresh) {
         document.querySelector('.swRead-soulmarks').innerHTML = str;
+        generateSoulreadingSoulmarkEvents();
         return;
     }
     return str;
@@ -2192,7 +2266,7 @@ function drawSoulbindingScreen(refresh = false) {
     str += '<div class="sbItem" ondragover="allowDrop(event)" ondrop="game.soulbinding.setItem(event)">';
     str += getSoulbindingItem();
     str += '</div>';
-    
+
     str += '<div class="sbObjects">';
     str += getSoulbindingObjects();
     str += '</div>';
@@ -2227,11 +2301,11 @@ function generateSoulbindingObjectsEvents() {
             console.log(sigilId);
             console.log(sigilObj);
             let unbind = document.querySelector('#unbind-' + sigilId);
-    
+
             sigil.addEventListener('click', e => {
                 const echo = sigil.querySelector('.echoTitle');
                 const corruptedEcho = sigil.querySelector('.sigilCorruption > p:not(.name)');
-    
+
                 sigil.querySelectorAll('.sigilEffect').forEach(se => {
                     if(se.style.display === 'none') se.style.display = 'block';
                     else se.style.display = 'none';
@@ -2240,21 +2314,21 @@ function generateSoulbindingObjectsEvents() {
                     if(corruptedEcho.style.display === 'none') corruptedEcho.style.display = 'block';
                     else corruptedEcho.style.display = 'none';
                 }
-    
+
                 if(echo) {
                     const brs = sigil.querySelectorAll('.brContainer');
                     const eff = sigil.querySelector('.echoEffects');
-    
+
                     brs.forEach(br => {
                         if(br.style.display === 'none') br.style.display = 'block';
                         else br.style.display = 'none';
                     });
-    
+
                     if(eff.style.display === 'none') eff.style.display = 'block';
                     else eff.style.display = 'none';
                 }
             });
-    
+
             if(unbind) unbind.addEventListener('click', e => {
                 game.soulbinding.unslotSigil(sigilObj);
                 Sounds.Methods.playSound(Data.SoundType.SELECTOR_ON);
@@ -2278,7 +2352,7 @@ function getSoulbindingItem(refresh = false) {
     if(game.soulbinding.item) {
         str += '<div class="sbItemContainer">';
 
-        str += '<div class="sbItemContainerHeader sbItem' + capitalizeFirstLetter(game.soulbinding.item.rarity) + '">';    
+        str += '<div class="sbItemContainerHeader sbItem' + capitalizeFirstLetter(game.soulbinding.item.rarity) + '">';
         str += '<div class="sbItemContainerIcon" style="' + getIcon(game.soulbinding.item) + '"></div>';
         str += '<div class="sbItemContainerName" style="color: ' + getRarityColorCode(game.soulbinding.item.rarity) + '"><span>' + game.soulbinding.item.name + '</span></div>';
         str += '</div>';
@@ -2308,7 +2382,7 @@ function getSoulbindingItem(refresh = false) {
             c--;
         }
         str += '</div></div>'
-        
+
         str += '</div>';
 
         str += '<div class="sbItemContainerEffects coolBorder">';
@@ -2502,7 +2576,7 @@ function generateAstralForgeScreenEvents(forgeItem, skipShards = false, skipEffe
         document.querySelectorAll('.shardSelectable').forEach(sha => {
             sha.addEventListener('click', e => {
                 const shard = getInventoryResourceById(Number(sha.id));
-    
+
                 if(forgeItem.selectedShard && forgeItem.selectedShard.name === shard.name) {
                     forgeItem.clearShard();
                 } else if(forgeItem.selectedShard) {
@@ -2512,7 +2586,7 @@ function generateAstralForgeScreenEvents(forgeItem, skipShards = false, skipEffe
                 } else {
                     forgeItem.selectShard(shard);
                 }
-    
+
                 const overloadWindow = document.querySelector('.astralForge-overloadWindow');
                 if(overloadWindow) overloadWindow.remove();
 
@@ -2598,7 +2672,7 @@ function generateAstralForgeScreenEvents(forgeItem, skipShards = false, skipEffe
     if(!skipCometDusts) document.querySelectorAll('.dustSelectable').forEach(comdus => {
         comdus.addEventListener('click', e => {
             const dust = getInventoryResourceById(Number(comdus.id));
-            
+
             if(forgeItem.selectedCometDust && forgeItem.selectedCometDust === dust) {
                 forgeItem.clearSelectedCometDust();
             } else if(forgeItem.selectedCometDust) {
@@ -2623,15 +2697,15 @@ function launchAlteration(forgeItem) {
         const alterationOutcome = forgeItem.alterEffect(forgeItem.selectedShard, forgeItem.selectedEffect);
 
         getAstralForgeEffects(forgeItem, true);
-        
+
         updateAstralForgeShardCounter(forgeItem.selectedShard);
         if(forgeItem.selectedCometDust) updateAstralForgeCometDustCounter(forgeItem.selectedCometDust);
-        
+
         if(forgeItem.selectedShard.amount === 0) {
             unselectCurrentShard(forgeItem);
             forgeItem.clearShard();
         }
-        
+
         getAstralForgeHistory(forgeItem, true)
         if(forgeItem.selectedEffect) unselectCurrentEffect(forgeItem);
 
@@ -2639,7 +2713,7 @@ function launchAlteration(forgeItem) {
         unselectCurrentBookmark(forgeItem);
 
         getAstralForgeItemBox(forgeItem, true);
-        
+
         astralForgeEffectAnimate(forgeItem);
         forgeItem.clearAnimationQueue();
     } else {
@@ -2744,7 +2818,7 @@ function getAstralForgeShards(overload, refresh = false) {
         str += '<tr id="' + shard.id + '" class="shard shardSelectable">';
         str += '<td style="width: 20%; text-align: center;">' + shard.amount + '</td>';
         str += '<td style="color: ' + getRarityColorCode(shard.rarity) + '">' + shard.name;
-        if(shard.name.toLowerCase() === 'prismatic time shard' && overload) str += '<br><span class="selectedOverloadIndicator">' + capitalizeFirstLetter(overload) + '</span>'; 
+        if(shard.name.toLowerCase() === 'prismatic time shard' && overload) str += '<br><span class="selectedOverloadIndicator">' + capitalizeFirstLetter(overload) + '</span>';
         str += '</td>';
         str += '</tr>';
     });
@@ -2812,7 +2886,7 @@ function getAstralForgeHistory(forgeItem, refresh = false) {
             let color;
             if(effect.effect === Data.Effect.EFFORT) color = effect.getValue() > 0 ? Data.Color.RED : Data.Color.GREEN;
             else color = effect.getValue() > 0 ? Data.Color.GREEN : Data.Color.RED;
-            
+
             if(asBoolean) str += capitalizeFirstLetter(effect.effect);
             else str += effect.getFormatted({cssClass: "astralForgeHistory-effect", color: color, noTheorical: true});
         })
@@ -2860,7 +2934,7 @@ function generateAstralForgeEffectLine(forgeItem, effect, cssClass, range = fals
     str += '<td>' + (noDetails ? '/' : getSubstrateFromConfig(effect.effect)) + '</td>';
     str += '<td>' + ((noDetails || reference.max === 0) ? '/' : (reference.effect === Data.Effect.EFFORT ? '-' : '') + reference.max) + '</td>';
     str += '<td style="color: ' + addedColor + '; font-family: ' + (reference.added !== 0 ? 'RobotoBold' : 'inherit') + '">' + (noDetails ? '/' : (reference.added > 0 ? '+' : '') + reference.added) + '</td>';
-    
+
     str += '</tr>';
 
     return str;
@@ -3121,10 +3195,10 @@ function getBattleShieldAmount(fighter) {
 function getSpecialEffects(fighter) {
     let str = '';
 
-    if(fighter.isStunned) str += '<div class="specialEffect stun"></div>'; 
-    if(fighter.isBlocking) str += '<div class="specialEffect block"></div>'; 
-    if(fighter.isGuarded) str += '<div class="specialEffect guarded"></div>'; 
-    if(fighter.isGuarding) str += '<div class="specialEffect guarding"></div>'; 
+    if(fighter.isStunned) str += '<div class="specialEffect stun"></div>';
+    if(fighter.isBlocking) str += '<div class="specialEffect block"></div>';
+    if(fighter.isGuarded) str += '<div class="specialEffect guarded"></div>';
+    if(fighter.isGuarding) str += '<div class="specialEffect guarding"></div>';
 
     return str;
 }
@@ -3330,7 +3404,7 @@ function generateBattleCommandsEvents() {
     })
 
     atk.addEventListener('click', e => {
-        
+
     });
     def.addEventListener('click', e => {
         console.log('blocking');
@@ -3344,7 +3418,7 @@ function generateBattleCommandsEvents() {
             mov.classList.add('battle-actionSelected');
             console.log('Moving...');
             battleMovePickTarget();
-        } 
+        }
         else battleCommandsCancelCurrent();
     });
     ski.addEventListener('click', e => {
@@ -3358,7 +3432,7 @@ function battleAttackPickTarget() {
     const front = document.querySelector('#b-enemy-front');
     const middle = document.querySelector('#b-enemy-middle');
     const back = document.querySelector('#b-enemy-back');
-    
+
     if(!battle.selectedWeapon) return;
 
     // HIGHLIGHTING TARGETS
@@ -3509,14 +3583,14 @@ function battleMovePickTarget() {
         middle.classList.add('battle-target');
         middle.addEventListener('click', e => {
             battle.move(battle.currentPlay, Data.FormationPosition.MIDDLE, "a");
-            setTimeout(() => {battle.endTurn();}, 300); 
+            setTimeout(() => {battle.endTurn();}, 300);
         });
     }
     if(battle.allies.indexOf(battle.currentPlay) !== 2) {
         front.classList.add('battle-target');
         front.addEventListener('click', e => {
             battle.move(battle.currentPlay, Data.FormationPosition.FRONT, "a");
-            setTimeout(() => {battle.endTurn();}, 300); 
+            setTimeout(() => {battle.endTurn();}, 300);
         });
     }
 }
@@ -3557,7 +3631,7 @@ function generateBattleSkillsEvents() {
                     sk.classList.add('battle-skillSelected');
                     console.log('Preparing skill with ' + battle.selectedSkill.name);
                     battleSkillPickTarget();
-                } 
+                }
                 else battleCommandsCancelCurrent();
             }
         });
@@ -3690,7 +3764,7 @@ function getBattleSkillTooltip(strider, skill) {
     }
 
     str += '<div class="divider"></div>';
-    
+
     str += '<div class="skillRangeDisplay">';
 
     str += '<div class="skillRangeDisplay-launch">';
@@ -3712,7 +3786,7 @@ function getBattleSkillTooltip(strider, skill) {
     str += '<div class="nodeDesc skillDesc"><div class="par" style="color: #ccc">' + processSkillDescription(skill.desc) + '</div></div>';
     str += '</div>';
     str += '<div class="divider"></div>';
-    
+
     str += '<div class="skillBottom" style="margin-top: 0.7rem">';
     str += '<div class="skillLevel"><span style="font-family: RobotoBold">' + skill.cooldown + '</span> <span style="color: grey">Cooldown</span></div>';
     str += '<div class="skillStackable"><span style="font-family: RobotoBold">' + skill.stackable + '</span> <span style="color: grey">Stackable</span></div>';
@@ -3862,7 +3936,7 @@ function drawExplorationScreen() {
         str += '<div id="cl-' + cl.id + '" class="map-clusterContainer" style="top: ' + cl.coordinates[0] * 50 + 'px; left: ' + cl.coordinates[1] * 50 + 'px;"></div>';
         cl.childrenRooms.forEach(ch => {
             str += '<div id="ch-' + ch.id + '" class="' + cluster + ' map-roomContainer coolBorder' + (ch === floor.currentRoom ? ' visitedRoom currentRoom' : ' hiddenRoom') + '" style="top: ' + ch.coordinates[0] * 50 + 'px; left: ' + ch.coordinates[1] * 50 + 'px;"></div>';
-        });        
+        });
     })
     str += '</div>';
     str += '</div>';
@@ -3917,7 +3991,7 @@ function dungeonScoutEvent() {
     const currentRoom = game.currentDungeon.currentFloor.currentRoom;
     if(currentRoom.scout()) {
         const sfCv = document.querySelector('#solarFireflyCanvas');
-        
+
         Quanta.burst({
             canvas: sfCv,
             color: Data.Color.ORANGE,
@@ -4173,7 +4247,7 @@ function generateMapRoomsEvents() {
                         if(nextRoomDom) {
                             if(nextRoomDom.classList[0] !== roomDom.classList[0]) revealCluster(nextRoom.parentCluster);
                         }
-                    }   
+                    }
                 }
 
                 // Moving backward
@@ -4217,7 +4291,7 @@ function drawMapConnectors(refresh = false) {
     game.currentDungeon.currentFloor.rooms.forEach(room => {
         if(!room.nextRoom) return;
         const elem = document.querySelector('#ch-' + room.id);
-        
+
         const basePos = elem.getBoundingClientRect();
         const basePosOriginX = (elem.offsetLeft + basePos.width / 2) + 4.5;
         const basePosOriginY = (elem.offsetTop + basePos.height / 2) + 4.5;
@@ -4387,11 +4461,11 @@ function generateEonEvents() {
     eonTitles.forEach((title, index) => {
         title.addEventListener('click', () => {
             drawEonFragments(game.all_majorEons[index], true);
-    
+
             eonTitles.forEach(otherTitle => {
                 otherTitle.classList.remove('eonTitleActive');
             });
-      
+
             title.classList.add('eonTitleActive');
         });
     });
