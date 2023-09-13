@@ -4301,6 +4301,9 @@ hr.leftSided {
     border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
 
     font-variant: small-caps;
+
+    position: relative;
+    overflow: hidden;
 }
 .swWriteList-singleHeader {
     display: flex;
@@ -4699,9 +4702,10 @@ hr.leftSided {
     border-image: url('img/window1.png') 3 stretch;
     background-color: rgba(0, 0, 0, 0.75);
     padding: .5rem;
+    transition: all .1s ease-in-out;
 }
 .swReadSoulmarksContainer > .swWriteList-single:hover {
-    background-color: rgba(15, 15, 15, 0.75);
+    border: 1.5px solid rgb(185, 185, 185);
 }
 .soulreadingSoulmarkContainer {
     display: flex;
@@ -4766,6 +4770,15 @@ hr.leftSided {
     background: url('img/check_icon.png');
     background-size: 100%;
     background-repeat: no-repeat;
+}
+
+.srAnimatorProgress {
+    background: rgba(0, 128, 128, 0.2);
+    position: absolute;
+    height: 100px;
+    left: 0;
+    top: 0;
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .swReadSigilSlot {

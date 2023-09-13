@@ -2134,7 +2134,7 @@ function getFormattedSoulmark(sm, soulreadingFormat = false, delay = 0) {
 
     let str = '';
 
-    str += '<div id="sm-' + sm.name + (soulreadingFormat ? '-sr' : '') + '" class="swWriteList-single' + (soulreadingFormat ? ' srSlmrkAnim" style="animation-delay: ' + delay + 's"' : '"') + '><div class="swWriteList-singleHeader"><span>' + capitalizeFirstLetter(sm.name) + '</span>' + eff.getFormatted({cssClass: 'swWriteList-eff', noValue: true, noTheorical: true}) + '</div>';
+    str += '<div id="sm-' + sm.name + (soulreadingFormat ? '-sr' : '') + '" class="swWriteList-single' + (soulreadingFormat ? ' srSlmrkAnim" style="animation-delay: ' + delay + 's;"' : '"') + '><div class="swWriteList-singleHeader"><span>' + capitalizeFirstLetter(sm.name) + '</span>' + eff.getFormatted({cssClass: 'swWriteList-eff', noValue: true, noTheorical: true}) + '</div>';
     if(!soulreadingFormat) {
         str += '<div class="extendedSoulmarkContainer"></div>';
     }
@@ -2142,6 +2142,7 @@ function getFormattedSoulmark(sm, soulreadingFormat = false, delay = 0) {
         str += '<div class="soulreadingSoulmarkContainer">'
         str += getSoulmarkProgressGauge(sm);
         str += '</div>';
+        str += '<div class="srAnimatorProgress"></div>';
     }
     str += '</div>';
 
@@ -2193,22 +2194,31 @@ function generateSoulreadingSoulmarkEvents() {
         var extractTimeout;
 
         dom.addEventListener('mousedown', (e) => {
-            if(sm.canBeExtracted() && e.button === 0) extractTimeout = setTimeout(() => { // e.button === 0 checks that only a LEFT CLICK can trigger the timeout.
-                game.soulwriting.extractSoulmark(sm);
-                console.log('extracted ' + sm.name + '!');
-            }, 1000);
+            if(sm.canBeExtracted() && e.button === 0) {
+                dom.querySelector('.srAnimatorProgress').style.width = '100%';
+                extractTimeout = setTimeout(() => { // e.button === 0 checks that only a LEFT CLICK can trigger the timeout.
+                    game.soulwriting.extractSoulmark(sm);
+                    console.log('extracted ' + sm.name + '!');
+                }, 1000);
+            }
         });
 
         dom.addEventListener('mouseup', () => {
             clearTimeout(extractTimeout);
+            game.soulwriting.cancelExtraction();
+            dom.querySelector('.srAnimatorProgress').style.width = '0%';
         });
 
         dom.addEventListener('mouseenter', () => {
             clearTimeout(extractTimeout);
+            game.soulwriting.cancelExtraction();
+            dom.querySelector('.srAnimatorProgress').style.width = '0%';
         });
 
         dom.addEventListener('mouseleave', () => {
             clearTimeout(extractTimeout);
+            game.soulwriting.cancelExtraction();
+            dom.querySelector('.srAnimatorProgress').style.width = '0%';
         });
     });
 }
