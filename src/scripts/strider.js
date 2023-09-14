@@ -388,7 +388,7 @@ class Strider extends NPC {
         if(item.hasEcho()) {
             item.echo.stats.forEach(effect => {
                 //this.addEffect(effect, remove);
-                this.alter({effect: effect, origin: item.echo, action: action, uid: effect.uid});
+                if(!isBaseWeaponEffect(effect.effect)) this.alter({effect: effect, origin: item.echo, action: action, uid: effect.uid});
             });
         }
     }
