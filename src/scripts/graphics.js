@@ -496,7 +496,7 @@ function addTooltip(element, func, object) {
 
 }
 
-function drawWeaponInventory(weapons) {
+function drawWeaponInventory(weapons = game.inventory.weapons) {
     let str = '';
     for(let i = 0; i < weapons.length; i++) {
         let me = weapons[i];
@@ -538,7 +538,7 @@ function drawWeaponInventory(weapons) {
     })
 }
 
-function drawSigilInventory(sigils) {
+function drawSigilInventory(sigils = game.inventory.sigils) {
     let str = '';
     for(let i = 0; i < sigils.length; i++) {
         let me = sigils[i];
@@ -610,7 +610,7 @@ function drawResourceInventory(resources = game.inventory.resources) {
 
 }
 
-function drawArmorInventory(armors) {
+function drawArmorInventory(armors = game.inventory.armors) {
     let str = '';
     for(let i = 0; i < armors.length; i++) {
         let me = armors[i];
@@ -651,7 +651,7 @@ function drawArmorInventory(armors) {
     })
 }
 
-function drawTrinketInventory(trinkets) {
+function drawTrinketInventory(trinkets = game.inventory.trinkets) {
     let str = '';
     for(let i = 0; i < trinkets.length; i++) {
         let me = trinkets[i];
@@ -722,12 +722,12 @@ function drawConsumablesInventory(consumables = game.inventory.consumables) {
 
 function drawInventory() {
     drawCommandersProfile();
-    drawWeaponInventory(game.inventory.weapons);
-    drawArmorInventory(game.inventory.armors);
-    drawSigilInventory(game.inventory.sigils);
-    drawResourceInventory(game.inventory.resources);
-    drawTrinketInventory(game.inventory.trinkets);
-    drawConsumablesInventory(game.inventory.consumables);
+    drawWeaponInventory();
+    drawArmorInventory();
+    drawSigilInventory();
+    drawResourceInventory();
+    drawTrinketInventory();
+    drawConsumablesInventory();
 }
 
 function drawCommandersProfile() {
