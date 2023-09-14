@@ -3361,7 +3361,7 @@ function getBattleConsumables(refresh = false) {
 
     str += '<div class="battle-consumables">';
     game.inventory.consumables.forEach(cons => {
-        if(cons.amount > 0) str += '<div id="btl-' + cons.id + '" class="inventoryItem" style="' + getIcon(cons) + '; border: 2px solid ' + getRarityColorCode(cons.rarity) +'"></div>'
+        str += '<div id="btl-' + cons.id + '" class="inventoryItem" style="' + getIcon(cons) + '; border: 2px solid ' + getRarityColorCode(cons.rarity) +'"></div>'
     });
     str += '</div>';
 
@@ -3645,7 +3645,12 @@ function generateBattleSkillsEvents() {
 }
 
 function generateBattleConsumablesEvents() {
-
+    game.inventory.consumables.forEach(cons => {
+        const dom = document.querySelector('#btl-' + cons.id);
+        addTooltip(dom, function(){
+            return getConsumableTooltip(cons);
+        }, { offY: -8} )
+    })
 }
 
 function battleCommandsCancelCurrent() {
