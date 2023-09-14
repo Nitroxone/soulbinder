@@ -1365,7 +1365,16 @@ function drawBlackMarket() {
     str += '</div>';
 
     str += '</div>';
-    str += '<button class="blackMarket-button--buy">BUY</button>';
+    str += '<div class="blackMarket-button--buy">';
+
+    str += '<p id="buy">BUY<p>';
+
+    str += '<div class="blackMarket-button-stackItems">';
+    str += '<div>+</div>';
+    str += '<div>-</div>';
+    str += '</div>';
+    
+    str += '</div>';
     str += '</div>';
 
 

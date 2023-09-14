@@ -3486,7 +3486,7 @@ hr.leftSided {
     box-shadow: 0px 0px 12px -4px rgba(255,255,255,1) inset,0px 0px 0px 1px rgba(255,255,255,0.65);
 }
 
-.blackMarket-menu--secondCol > button {
+.blackMarket-button--buy {
     height: 20%;
     width: 100%;
     background-color: #111111;
@@ -3495,10 +3495,29 @@ hr.leftSided {
     color: white;
     font-family: RobotoSlab;
 
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    /* position: absolute; */
+    cursor: pointer;
+
 }
 
-.blackMarket-button--buy {
-    cursor: pointer;
+#buy {
+    /* position: relative; */
+}
+
+.blackMarket-button-stackItems {
+    display: flex;
+    flex-direction: column;
+}
+
+.blackMarket-button-stackItems > div {
+    height: 15px;
+    width: 15px;
+
+    background-color: none;
 }
 
 .blackMarket-button--buy:hover {
