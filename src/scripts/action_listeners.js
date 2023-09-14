@@ -12,7 +12,7 @@
  */
 class ActionListener {
     constructor(action, maximum, onIncrement, onMaximum) {
-        this.id = Date.now().toString(36) + Math.random().toString(36).substring(2, 8);
+        this.uid = uidGen();
 
         this.action = action;
 
