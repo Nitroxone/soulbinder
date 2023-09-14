@@ -30,6 +30,7 @@ class Stat {
      * @param {boolean} disabled this is used to disable an effect (won't be active, and will appear striked)
      */
     constructor(props) {
+        this.uid = uidGen();
 
         // Set attributes from props, or default values if not in props
         this.effect = getValueFromObject(props, "effect", "none");
