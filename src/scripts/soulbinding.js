@@ -98,7 +98,7 @@ class Soulbinding {
 
         getSoulbindingItem(true);
         getSoulbindingObjects(true);
-        drawSigilInventory(game.player.inventory.sigils);
+        drawSigilInventory();
     }
 
     /**

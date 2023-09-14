@@ -216,7 +216,7 @@ class Soulwriting {
         res.generateStats();
 
         game.player.inventory.addItem(res, 1, true);
-        drawSigilInventory(game.player.inventory.sigils);
+        drawSigilInventory();
         this.finishedWriting();
     }
 
@@ -242,7 +242,7 @@ class Soulwriting {
         // UI update
         getSwRead(true);
         getSwWriteList(true);
-        drawSigilInventory(game.player.inventory.sigils);
+        drawSigilInventory();
     }
 
     cancelExtraction() {
