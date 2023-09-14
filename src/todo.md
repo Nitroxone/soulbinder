@@ -88,3 +88,8 @@ CARDS:
 BLACK MARKET:
 - Add a trade system
 - Improve the logic to implement an amount of items the player might want to buy (for resources)
+
+STRIDERS SCREEN:
+- Implement formation interface
+- Change the Striders screen (popup -> full section)
+- Add a "bonuses" tooltip to view all bonuses of a Strider
