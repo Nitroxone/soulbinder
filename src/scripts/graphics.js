@@ -261,8 +261,8 @@ function getWeaponTooltip(weapon, asResult = null, full = false) {
         str += eff.getFormatted({cssClass: "itemEffect", color: Data.Color.BLUE, bold: true, noTheorical: true});
     });
     str += '<table class="statsTable"><tbody>';
-    str += '<tr><td>Sharpness</td><td>' + weapon.pdmg[0] + '-' + weapon.pdmg[1] + '</td></tr>';
-    str += '<tr><td>Withering</td><td>' + weapon.mdmg[0] + '-' + weapon.mdmg[1] + '</td></tr>';
+    str += '<tr><td>Sharpness</td><td>' + weapon.sharpness[0] + '-' + weapon.sharpness[1] + '</td></tr>';
+    str += '<tr><td>Withering</td><td>' + weapon.withering[0] + '-' + weapon.withering[1] + '</td></tr>';
     str += '<tr><td>Block</td><td>' + weapon.block + '<span class="theoricalval">[' + weapon.t_block[0] + '-' + weapon.t_block[1] +']</span>' + '</td></tr>';
     str += '<tr><td>Effort</td><td>' + weapon.effort + '<span class="theoricalval">[' + weapon.t_effort[0] + '-' + weapon.t_effort[1] +']</span>' + '</td></tr>';
     str += '<tr><td>Crit. chance</td><td>' + weapon.crit_luk + '%' + '<span class="theoricalval">[' + weapon.t_crit_luk[0] + '-' + weapon.t_crit_luk[1] +']</span>' + '</td></tr>';
@@ -309,8 +309,8 @@ function getArmorTooltip(armor, asResult = null, full = false) {
         str += eff.getFormatted({cssClass: "itemEffect", color: Data.Color.BLUE, bold: true, noTheorical: true});
     });
     str += '<table class="statsTable"><tbody>';
-    str += '<tr><td>Resilience</td><td>' + armor.resilience + '<span class="theoricalval">[' + armor.t_resilience[0] + '-' + armor.t_resilience[1] +']</span>' + '</td></tr>';
-    str += '<tr><td>Warding</td><td>' + armor.warding + '<span class="theoricalval">[' + armor.t_warding[0] + '-' + armor.t_warding[1] +']</span>' + '</td></tr>';
+    if(armor.resilience.getValue() !== 0) str += '<tr><td>Resilience</td><td>' + armor.resilience.getFormatted({noName: true}) + '</td></tr>';
+    if(armor.warding.getValue() !== 0) str += '<tr><td>Warding</td><td>' + armor.warding.getFormatted({noName: true}) + '</td></tr>';
     str += '</tbody></table>';
     str += '<div class="par"></div>';
 
@@ -838,7 +838,10 @@ function spawnStriderPopup(strider, refresh = false) {
     str += '</div>';
 
     str += '<div class="striderStats">';
-    str += '<div class="striderStats-title">Stats</div>';
+    str += '<div class="striderStats-title">';
+    str += 'Stats';
+    str += '<div id="bonusesIcon-' + strider.id + '" class="striderStats-bonusesIcon"></div>';
+    str += '</div>';
     str += '<div class="striderStats-stats">';
     str += '<div class="striderStats-stat">' + '<span class="statTitle">Health</span><span class="statValue">' + strider.health + '/' + strider.maxHealth + '</span>' + '</div>'
     str += '<div class="striderStats-stat">' + '<span class="statTitle">Mana</span><span class="statValue">' + strider.mana + '/' + strider.maxMana + '</span>' + '</div>'
@@ -967,6 +970,10 @@ function spawnStriderPopup(strider, refresh = false) {
         document.querySelector('#strider-weaponBoth').addEventListener('contextmenu', e => {e.stopImmediatePropagation(); e.preventDefault(); strider.unequipWeapon(Data.WeaponHand.BOTH)});
     }
 
+    addTooltip(document.querySelector('#bonusesIcon-' + strider.id), function(){
+        return getStriderBonusesTooltip(strider);
+    }, {offY: -8})
+
     drawSkillTreeLines(strider);
     bringNodesForward();
     addSkillTreeTooltips(strider);
@@ -981,6 +988,14 @@ function disableHighlightDrag(e) {
 
 function allowDrop(e) {
     e.preventDefault();
+}
+
+function getStriderBonusesTooltip(strider) {
+    let str = '';
+
+    str += '<div class="bonusesTooltip-title">Click to view bonuses</div>';
+
+    return str;
 }
 
 /**
@@ -2976,8 +2991,8 @@ function getAstralForgeEffects(forgeItem, refresh = false) {
     });
     if(forgeItem.itemType === Data.ItemType.WEAPON) {
 
-        str += generateAstralForgeEffectLine(forgeItem, new Stat({effect: Data.Effect.PDMG, theorical: [item.pdmg[0], item.pdmg[1]]}), "effectSelectable", true);
-        str += generateAstralForgeEffectLine(forgeItem, new Stat({effect: Data.Effect.MDMG, theorical: [item.mdmg[0], item.mdmg[1]]}), "effectSelectable", true);
+        str += generateAstralForgeEffectLine(forgeItem, new Stat({effect: Data.Effect.SHARPNESS, theorical: [item.sharpness[0], item.sharpness[1]]}), "effectSelectable", true);
+        str += generateAstralForgeEffectLine(forgeItem, new Stat({effect: Data.Effect.WITHERING, theorical: [item.withering[0], item.withering[1]]}), "effectSelectable", true);
         str += generateAstralForgeEffectLine(forgeItem, new Stat({effect: Data.Effect.BLOCK, theorical: item.block}), "effectSelectable");
         str += generateAstralForgeEffectLine(forgeItem, new Stat({effect: Data.Effect.EFFORT, theorical: item.effort}), "effectSelectable");
         str += generateAstralForgeEffectLine(forgeItem, new Stat({effect: Data.Effect.CRIT_LUK, theorical: item.crit_luk, isPercentage: true}), "effectSelectable");
@@ -3369,8 +3384,8 @@ function getBattleConsumables(refresh = false) {
     let str = '';
 
     str += '<div class="battle-consumables">';
-    game.inventory.consumables.forEach(cons => {
-        if(cons.amount > 0) str += '<div id="btl-' + cons.id + '" class="inventoryItem" style="' + getIcon(cons) + '; border: 2px solid ' + getRarityColorCode(cons.rarity) +'"></div>'
+    if(!game.currentBattle.isEnemyPlaying()) game.inventory.consumables.forEach(cons => {
+        str += '<div id="btl-' + cons.id + '" class="inventoryItem" style="' + getIcon(cons) + '; border: 2px solid ' + getRarityColorCode(cons.rarity) +'"></div>'
     });
     str += '</div>';
 
@@ -3654,7 +3669,12 @@ function generateBattleSkillsEvents() {
 }
 
 function generateBattleConsumablesEvents() {
-
+    game.inventory.consumables.forEach(cons => {
+        const dom = document.querySelector('#btl-' + cons.id);
+        addTooltip(dom, function(){
+            return getConsumableTooltip(cons);
+        }, { offY: -8} )
+    })
 }
 
 function battleCommandsCancelCurrent() {

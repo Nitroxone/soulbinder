@@ -396,8 +396,8 @@ function getEmptySigilStats(type, bleedIncurable, poisonIncurable) {
         const bcur = (bleedIncurable !== null) ? bleedIncurable : true;
         const pcur = (poisonIncurable !== null) ? poisonIncurable : true;
         return {
-            pdmg: 0,
-            mdmg: 0,
+            sharpness: 0,
+            withering: 0,
             block: 0,
             effort: 0,
             crit_luk: 0,
@@ -429,8 +429,8 @@ function getEmptySigilStats(type, bleedIncurable, poisonIncurable) {
 function getSigilStats(sigil, bleedIncurable, poisonIncurable) {
     if(sigil.type == "weapon") {
         let stats = {
-            pdmg: 0,
-            mdmg: 0,
+            sharpness: 0,
+            withering: 0,
             block: 0,
             effort: 0,
             crit_luk: 0,
@@ -447,11 +447,11 @@ function getSigilStats(sigil, bleedIncurable, poisonIncurable) {
         if(poisonIncurable !== null) stats.poisn_cur = poisonIncurable;
         sigil.stats.forEach( (element) => {
            switch(element.effect) {
-                case Data.Effect.PDMG:
-                    stats.pdmg = element.value;
+                case Data.Effect.SHARPNESS:
+                    stats.sharpness = element.value;
                     break;
-                case Data.Effect.MDMG:
-                    stats.mdmg = element.value;
+                case Data.Effect.WITHERING:
+                    stats.withering = element.value;
                     break;
                 case Data.Effect.BLOCK:
                     stats.block = element.value;
@@ -1314,21 +1314,28 @@ function isMovementEffect(eff) {
 
 /**
  * Returns whether the provided effect is a base stat ([max]health, [max]mana, [max]stamina) effect.
- * @param {Data.Effect} eff the effect to check
+ * @param {Stat} eff the effect to check
  * @returns {boolean} whether it's a base stat effect
  */
-function isBaseStatChange(eff) {
-    return eff.effect === Data.Effect.HEALTH
-            || eff.effect === Data.Effect.MAXHEALTH
-            || eff.effect === Data.Effect.MANA
-            || eff.effect === Data.Effect.MAXMANA
-            || eff.effect === Data.Effect.STAMINA
-            || eff.effect === Data.Effect.MAXSTAMINA;
+function isBaseStatChange(eff, noMax = false) {
+    let compare = [Data.Effect.HEALTH, Data.Effect.MANA, Data.Effect.STAMINA];
+    if(!noMax) compare.push(Data.Effect.MAXHEALTH, Data.Effect.MAXSTAMINA, Data.Effect.MAXMANA);
+
+    return compare.includes(eff.effect);
+}
+
+/**
+ * Returns whether the provided Stat has a MAXSTAT effect (MAXHEALTH, MAXMANA, MAXSTAMINA)
+ * @param {Stat} eff the Stat to check
+ * @returns whether it's a max stat effect
+ */
+function isBaseMaxStat(eff) {
+    return [Data.Effect.MAXHEALTH, Data.Effect.MAXSTAMINA, Data.Effect.MAXMANA].includes(eff.effect);
 }
 
 /**
  * Returns whether the provided effect is a bleeding effect or poisoning effect.
- * @param {Data.Effect} eff the effect to check
+ * @param {Stat} eff the effect to check
  * @returns {boolean} whether it's a bleeding/poisoning effect
  */
 function isBleedingOrPoisoning(eff) {
@@ -1337,7 +1344,7 @@ function isBleedingOrPoisoning(eff) {
 
 /**
  * Returns whether the provided effect is a bleeding effect.
- * @param {Data.Effect} eff the effect to check
+ * @param {Stat} eff the effect to check
  * @returns {boolean} whether it's a bleeding effect
  */
 function isBleedingEffect(eff) {
@@ -1347,7 +1354,7 @@ function isBleedingEffect(eff) {
 
 /**
  * Returns whether the provided effect is a poisoning effect.
- * @param {Data.Effect} eff the effect to check
+ * @param {Stat} eff the effect to check
  * @returns {boolean} whether it's a poisoning effect
  */
 function isPoisoningEffect(eff) {
@@ -1799,8 +1806,8 @@ function isEffectAllowedOnObject(effect, obj) {
 
     if(obj instanceof Weapon) {
         result.push(
-            Data.Effect.PDMG,
-            Data.Effect.MDMG,
+            Data.Effect.SHARPNESS,
+            Data.Effect.WITHERING,
             Data.Effect.BLOCK,
             Data.Effect.EFFORT,
             Data.Effect.CRIT_LUK,
@@ -1922,4 +1929,13 @@ function getSoulreadingSoulmarkValue(sm) {
     } else if(sm.isMastered()) {
         return "Mastered";
     }
+}
+
+/**
+ * Generates a unique ID and returns it. 
+ * Not duplicate-free guaranteed, but has been tested on generating 10k ids and no duplicates were found. So that should be enough.
+ * @returns {string} a unique ID
+ */
+function uidGen() {
+    return Date.now().toString(36) + Math.random().toString(36).substring(2, 8);
 }

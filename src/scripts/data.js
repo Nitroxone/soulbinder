@@ -113,8 +113,8 @@ const Data = Object.freeze({
         //------------------------------------------------------
         // WEAPON EFFECTS
         //------------------------------------------------------
-        PDMG: "sharpness",
-        MDMG: "withering",
+        SHARPNESS: "sharpness",
+        WITHERING: "withering",
         BLOCK: "block",
         EFFORT: "effort",
         CRIT_LUK: "crit. chance",
@@ -134,8 +134,8 @@ const Data = Object.freeze({
         RANGE_MIDDLE_OFF: "forbids middle range hits",
         RANGE_BACK_OFF: "forbids back range hits",
 
-        SWORD_PDMG: "swords sharpness",
-        SWORD_MDMG: "swords withering",
+        SWORD_SHARPNESS: "swords sharpness",
+        SWORD_WITHERING: "swords withering",
 
         // CRAFTING EFFECTS
         CRAFTING_TRINKET_CORRUPTION: "trinket corruption chance",
@@ -533,5 +533,9 @@ const Data = Object.freeze({
         SOULBIND_PRESLOT: "soulbind_preslot",
         SOULBIND_SLOT: "soulbind_slot",
         SOULBIND_UNSLOT: "soulbind_unslot",
+    },
+    AlterAction: {
+        ADD: "add",
+        REMOVE: "remove"
     }
 }); 

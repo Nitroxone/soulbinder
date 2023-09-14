@@ -101,6 +101,55 @@ class NPC extends Entity {
         skills.forEach(skill => {
             this.addSkill(skill);
         });
+
+        // Initializing empty bonuses
+        this.bonuses = [];
+    }
+
+    /**
+     * 
+     * @param {Stat} effect the alteration's effect
+     * @param {Item|Skill} origin the alteration's origin
+     * @param {Data.AlterAction} action the alteration type
+     * @param {string} uid the Stat UID to remove (in case of a removal)
+     */
+    alter(props = {}) {
+        const effect = getValueFromObject(props, "effect", null);
+        const origin = getValueFromObject(props, "origin", null);
+        const action = getValueFromObject(props, "action", null);
+        const variables = getValueFromObject(props, "variables", {});
+        const noApply = getValueFromObject(props, "noApply", false);
+        const uid = getValueFromObject(props, "uid", null);
+
+        if(!action) ERROR('Undefined alteration action.');
+
+        if(action === Data.AlterAction.ADD) {
+            const bonus = new Bonus(effect, origin, variables);
+
+            this.addBonus(bonus);
+            if(isBaseMaxStat(effect)) bonus.variables['value'] = this.increaseBaseStat(effect);
+            else if(!noApply) this.applyEffect(effect);
+
+            console.log('Adding bonus:');
+            console.log(bonus);
+        } else if(action === Data.AlterAction.REMOVE) {
+            const bonus = this.bonuses.find(x => x.stat.uid === uid);
+            this.removeBonus(bonus);
+
+            console.log('Removing bonus:');
+            console.log(bonus);
+
+            if(isBaseMaxStat(bonus.stat)) this.decreaseBaseStat(new Stat({effect: bonus.stat.effect, theorical: bonus.variables.value}));
+            else if(!noApply) this.applyEffect(bonus.stat, true);
+        }
+    }
+
+    addBonus(bonus) {
+        this.bonuses.push(bonus);
+    }
+
+    removeBonus(bonus) {
+        removeFromArray(this.bonuses, bonus);
     }
 
     /**
@@ -108,7 +157,7 @@ class NPC extends Entity {
      * @param {Stat} effect the Stat to add
      * @param {boolean} remove whether the Stat should removed instead of being added
      */
-    addEffect(effect, remove = false) {
+    applyEffect(effect, remove = false) {
         const factor = remove ? -1 : 1;
         switch(effect.effect) {
             case Data.Effect.HEALTH:
@@ -378,12 +427,63 @@ class NPC extends Entity {
         console.log('ADDING ' + Math.round(amount) + ' ' + eff.effect + ' TO ' + this.name);
     }
 
-    // TODO: code these.
+    /**
+     * Increases the base effect specified in the provided Stat. (MAXHEALTH, MAXMANA, MAXSTAMINA)
+     * @param {Stat} eff 
+     */
     increaseBaseStat(eff) {
+        let amount = 0;
+        
+        if(eff.effect === Data.Effect.MAXHEALTH) {
+            if(eff.isPercentage) amount = Math.round(this.maxHealth * eff.getValue() / 100);
+            else amount = eff.getValue();
 
+            this.maxHealth += amount;
+            this.health += amount;
+        } else if(eff.effect === Data.Effect.MAXSTAMINA) {
+            if(eff.isPercentage) amount = Math.round(this.maxStamina * eff.getValue() / 100);
+            else amount = eff.getValue();
+
+            this.maxStamina += amount;
+            this.stamina += amount;
+        } else if(eff.effect === Data.Effect.MAXMANA) {
+            if(eff.isPercentage) amount = Math.round(this.maxMana * eff.getValue() / 100);
+            else amount = eff.getValue();
+
+            this.maxMana += amount;
+            this.mana += amount;
+        }
+        console.log('INCREASED ' + eff.effect + ' OF ' + this.name + ' by ' + eff.getValue() + '% (' + amount + ' points)');
+        return amount;
     }
-    decreaseBaseStat(eff) {
 
+    /**
+     * Decreases the base stat effect specified in the provided Stat. (MAXHEALTH, MAXMANA, MAXSTAMINA)
+     * @param {Stat} eff 
+     */
+    decreaseBaseStat(eff) {
+        let amount = 0;
+        
+        if(eff.effect === Data.Effect.MAXHEALTH) {
+            if(eff.isPercentage) amount = Math.round(this.maxHealth * eff.getValue() / 100);
+            else amount = eff.getValue();
+
+            this.maxHealth -= amount;
+            this.health -= amount;
+        } else if(eff.effect === Data.Effect.MAXSTAMINA) {
+            if(eff.isPercentage) amount = Math.round(this.maxStamina * eff.getValue() / 100);
+            else amount = eff.getValue();
+
+            this.maxStamina -= amount;
+            this.stamina -= amount;
+        } else if(eff.effect === Data.Effect.MAXMANA) {
+            if(eff.isPercentage) amount = Math.round(this.maxMana * eff.getValue() / 100);
+            else amount = eff.getValue();
+
+            this.maxMana -= amount;
+            this.mana -= amount;
+        }
+        console.log('DECREASED ' + eff.effect + ' OF ' + this.name + ' by ' + eff.getValue() + '% (' + amount + ' points)');
     }
 
     applyStun() {
@@ -565,8 +665,6 @@ class NPC extends Entity {
      * @param {boolean} critical 
      */
     applyEffects(skill, originUser, effects, critical = false) {
-        console.log(this.name);
-        console.log(effects);
         effects.forEach(eff => {
             if(eff.delay === 0) {
                 if(isBaseStatChange(eff)) this.alterBaseStat(eff, originUser);
@@ -574,7 +672,12 @@ class NPC extends Entity {
                 else if(eff.effect === Data.Effect.STUN) this.applyStun()
                 else if(eff.effect === Data.Effect.GUARDED) this.applyGuarded(originUser);
                 else if(eff.effect === Data.Effect.GUARDING) this.applyGuarding(skill.variables.guarded);
-                else this.addEffect(eff);
+                else if(!isBleedingOrPoisoning(eff)) this.alter({
+                    effect: eff,
+                    action: Data.AlterAction.ADD,
+                    origin: skill
+                });
+                else this.applyEffect(eff);
             }
         });
         for(let i = effects.length - 1; i >= 0; i--) {
@@ -637,7 +740,7 @@ class NPC extends Entity {
                     else if(isBleedingOrPoisoning(eff)) {
                         this.receiveBleedOrPoison(eff);
                     }
-                    else this.addEffect(eff)
+                    else this.applyEffect(eff);
                 }
             });
 
@@ -650,7 +753,14 @@ class NPC extends Entity {
                     if(eff.effect === Data.Effect.STUN) this.removeStun();
                     if(eff.effect === Data.Effect.GUARDED) this.removeGuarded();
                     if(eff.effect === Data.Effect.GUARDING) this.removeGuarding();
-                    if(eff.type === Data.StatType.PASSIVE && eff.effect !== Data.Effect.STUN && eff.effect !== Data.Effect.GUARDED && eff.effect !== Data.Effect.GUARDING) this.addEffect(eff, true);
+                    /*if(eff.type === Data.StatType.PASSIVE && eff.effect !== Data.Effect.STUN && eff.effect !== Data.Effect.GUARDED && eff.effect !== Data.Effect.GUARDING) this.alter({action: Data.AlterAction.REMOVE, uid: eff.uid});
+                    else if(eff.effect !== Data.Effect.STUN && eff.effect !== Data.Effect.GUARDED && eff.effect !== Data.Effect.GUARDING && !isBaseStatChange(eff, true))  this.alter({action: Data.AlterAction.REMOVE, uid: eff.uid});*/
+
+                    if(eff.effect !== Data.Effect.STUN && eff.effect !== Data.Effect.GUARDED && eff.effect !== Data.Effect.GUARDING) {
+                        if(eff.type === Data.StatType.PASSIVE || (!isBaseStatChange(eff, true) && !isBleedingOrPoisoning(eff))) {
+                            this.alter({action: Data.AlterAction.REMOVE, uid: eff.uid});
+                        }
+                    }
                     console.log('Removed: ' + eff.effect);
                 } else {
                     if(eff.delay === 0) eff.duration -= 1;

@@ -189,7 +189,6 @@ class Battle {
             this.executeMovements();
             this.resetEndTurnCounter();
             if(!this.beginTurnPopups) {
-                console.log('----------BEGIN TURN POPUPS HAVE BEEN EXECUTED!');
                 this.beginTurnPopups = true;
                 return;
             }

@@ -162,9 +162,16 @@ class Alchemy {
         this.finishedBrewing();
     }
 
+    /**
+     * Sets the Alchemy singleton as busy.
+     */
     brewing() {
         this.isBrewing = true;
     }
+
+    /**
+     * Removes the busy state of the Alchemy singleton.
+     */
     finishedBrewing() {
         this.isBrewing = false;
     }

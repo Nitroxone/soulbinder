@@ -391,7 +391,7 @@ const Loader = {
                         type: Data.SigilType.WEAPON,
                         effects: [
                             new Stat({
-                                effect: Data.Effect.PDMG,
+                                effect: Data.Effect.SHARPNESS,
                                 theorical: [3, 6]
                             })
                         ],
@@ -405,7 +405,7 @@ const Loader = {
                         ],
                         corrupt: [
                             new Stat({
-                                effect: Data.Effect.MDMG,
+                                effect: Data.Effect.WITHERING,
                                 theorical: [-1, -3],
                                 isCorrupt: true
                             })
@@ -421,7 +421,7 @@ const Loader = {
                         type: Data.SigilType.WEAPON,
                         effects: [
                             new Stat({
-                                effect: Data.Effect.MDMG,
+                                effect: Data.Effect.WITHERING,
                                 theorical: [3, 6]
                             })
                         ],
@@ -434,7 +434,7 @@ const Loader = {
                         ],
                         corrupt: [
                             new Stat({
-                                effect: Data.Effect.PDMG,
+                                effect: Data.Effect.SHARPNESS,
                                 theorical: [-1, -3],
                                 isCorrupt: true
                             })

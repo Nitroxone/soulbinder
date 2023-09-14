@@ -30,6 +30,7 @@ class Stat {
      * @param {boolean} disabled this is used to disable an effect (won't be active, and will appear striked)
      */
     constructor(props) {
+        this.uid = uidGen();
 
         // Set attributes from props, or default values if not in props
         this.effect = getValueFromObject(props, "effect", "none");
@@ -128,6 +129,7 @@ class Stat {
      * @param {boolean} includeDuration include the duration of the Stat? (for Skills)
      * @param {boolean} includeChance include the chance of the Stat? (for Stun/Move effects) -> automatically TRUE for all Stun/Movement effects
      * @param {boolean} noValue removes the value display
+     * @param {boolean} noName removes the name display
      * @return {string} an HTML string
      */
     getFormatted(props) {
@@ -145,6 +147,7 @@ class Stat {
         const includeDuration = getValueFromObject(props, "includeDuration", false);
         const includeChance = getValueFromObject(props, "includeChance", true);
         const noValue = getValueFromObject(props, "noValue", false);
+        const noName = getValueFromObject(props, "noName", false);
 
         if(defaultColor) {
             if(this.getValue() > 0) {
@@ -184,7 +187,7 @@ class Stat {
                 str += (this.theorical[1] > 0 ? '' : this.theorical[1] < 0 ? '- ' : '') + '</span>' + (this.theorical[1] === 0 ? this.theorical[0] : Math.abs(this.theorical[1])) + (this.isPercentage ? '%' : '');
             }
             str += ' ' 
-            + capitalizeFirstLetter(this.effect)
+            + (noName ? '' : capitalizeFirstLetter(this.effect))
             + (includeChance && this.effect === Data.Effect.STUN || isMovementEffect(this.effect) ? '<span style="color: grey"> (' + this.chance + '% base)' : '')
             + (this.duration > 0 ? '<span style="color: #ddd"> (' + this.duration + ' round' + (this.duration > 1 ? 's' : '') + ')</span>' : '')
             + (this.delay > 0 ? '<span style="color: #ddd"> [in ' + this.delay + ' round' + (this.delay > 1 ? 's' : '') + ']</span>' : '');
@@ -205,7 +208,7 @@ class Stat {
             + (this.getValue() == 0 ? '' : !noValue ? Math.abs(this.getValue()) : '') 
             + (this.isPercentage && !noValue ? '%' : '') 
             + ' ' 
-            + capitalizeFirstLetter(this.effect);
+            + (noName ? '' : capitalizeFirstLetter(this.effect))
             if(!noTheorical) {
                 str += '<span class="theoricalval">[' 
                 + this.theorical[0] 

@@ -2881,7 +2881,37 @@ hr.leftSided {
 
     font-family: "RobotoSlabBold";
     font-size: 14px;
+
+    position: relative;
 }
+.striderStats-bonusesIcon {
+    position: absolute;
+
+    width: 22px;
+    height: 22px;
+
+    top: 50%;
+    right: 5%;
+    transform: translate(-5%, -50%);
+
+    background: url('img/bonuses_icon.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    border-radius: 50%;
+    padding: 0.5rem;
+}
+.striderStats-bonusesIcon:hover {
+    filter: brightness(130%);
+    cursor: pointer;
+}
+
+.bonusesTooltip-title {
+    font-family: RobotoSlab;
+    color: grey;
+    font-variant: small-caps;
+}
+
 .striderStats-stats {
     display: flex;
     flex-direction: column;

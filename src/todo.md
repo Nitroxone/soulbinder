@@ -43,6 +43,7 @@ DONE - Implement shield in combats
 - Implement consumables & using them in combat
 - Thoroughly comment complex battle functions
 ABANDONED? - Implement skill stackability
+- Change active effect display -> regroup everything to prevent clones, and only display the latest caster & skill
 
 ASTRAL FORGE:
 - Create GUI -- ONGOING
@@ -87,3 +88,8 @@ CARDS:
 BLACK MARKET:
 - Add a trade system
 - Improve the logic to implement an amount of items the player might want to buy (for resources)
+
+STRIDERS SCREEN:
+- Implement formation interface
+- Change the Striders screen (popup -> full section)
+- Add a "bonuses" tooltip to view all bonuses of a Strider
