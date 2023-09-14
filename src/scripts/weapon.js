@@ -16,8 +16,8 @@ class Weapon extends Item {
      * @param {string} rarity the Weapon's rarity
      * @param {string} type the Weapon's type (Data.WeaponType)
      * @param {string} weight the Weapon's weight (Data.WeaponWeight)
-     * @param {array} pdmg the Weapon's sharpness (2D array: min and max)
-     * @param {array} mdmg the Weapon's withering (2D array: min and max)
+     * @param {array} sharpness the Weapon's sharpness (2D array: min and max)
+     * @param {array} withering the Weapon's withering (2D array: min and max)
      * @param {array} t_block the Weapon's theorical block
      * @param {array} t_effort the Weapon's theorical effort
      * @param {array} t_crit_luk the Weapon's theorical critical chance
@@ -31,8 +31,8 @@ class Weapon extends Item {
      */
     constructor(name, desc, icon, price, rarity, type,
                 weight,
-                pdmg,
-                mdmg,
+                sharpness,
+                withering,
                 t_block,
                 t_effort,
                 t_crit_luk,
@@ -45,8 +45,8 @@ class Weapon extends Item {
         super(name, desc, icon, price, rarity);
         this.type = type;
         this.weight = weight;
-        this.pdmg = pdmg;
-        this.mdmg = mdmg;
+        this.sharpness = sharpness;
+        this.withering = withering;
 
         this.t_block = t_block;
         this.t_effort = t_effort;
@@ -179,13 +179,13 @@ class Weapon extends Item {
     addEffect(effect, remove = false) {
         const factor = remove ? -1 : 1;
         switch(effect.effect) {
-            case Data.Effect.PDMG:
-                this.pdmg[0] = Math.max(0, this.pdmg[0] + effect.getValue() * factor);
-                this.pdmg[1] = Math.max(0, this.pdmg[1] + effect.getValue() * factor);
+            case Data.Effect.SHARPNESS:
+                this.sharpness[0] = Math.max(0, this.sharpness[0] + effect.getValue() * factor);
+                this.sharpness[1] = Math.max(0, this.sharpness[1] + effect.getValue() * factor);
                 break;
-            case Data.Effect.MDMG:
-                this.mdmg[0] = Math.max(0, this.mdmg[0] + effect.getValue() * factor);
-                this.mdmg[1] = Math.max(0, this.mdmg[1] + effect.getValue() * factor);
+            case Data.Effect.WITHERING:
+                this.withering[0] = Math.max(0, this.withering[0] + effect.getValue() * factor);
+                this.withering[1] = Math.max(0, this.withering[1] + effect.getValue() * factor);
                 break;
             case Data.Effect.BLOCK:
                 this.block = Math.max(0, this.block + effect.getValue() * factor);
@@ -279,7 +279,7 @@ class Weapon extends Item {
      * @returns {number} a Sharpness value
      */
     getSharpness() {
-        return getRandomNumber(this.pdmg[0], this.pdmg[1]);
+        return getRandomNumber(this.sharpness[0], this.sharpness[1]);
     }
 
     /**
@@ -287,6 +287,6 @@ class Weapon extends Item {
      * @returns {number} a Withering value
      */
     getWithering() {
-        return getRandomNumber(this.mdmg[0], this.mdmg[1]);
+        return getRandomNumber(this.withering[0], this.withering[1]);
     }
 }

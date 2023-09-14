@@ -396,8 +396,8 @@ function getEmptySigilStats(type, bleedIncurable, poisonIncurable) {
         const bcur = (bleedIncurable !== null) ? bleedIncurable : true;
         const pcur = (poisonIncurable !== null) ? poisonIncurable : true;
         return {
-            pdmg: 0,
-            mdmg: 0,
+            sharpness: 0,
+            withering: 0,
             block: 0,
             effort: 0,
             crit_luk: 0,
@@ -429,8 +429,8 @@ function getEmptySigilStats(type, bleedIncurable, poisonIncurable) {
 function getSigilStats(sigil, bleedIncurable, poisonIncurable) {
     if(sigil.type == "weapon") {
         let stats = {
-            pdmg: 0,
-            mdmg: 0,
+            sharpness: 0,
+            withering: 0,
             block: 0,
             effort: 0,
             crit_luk: 0,
@@ -447,11 +447,11 @@ function getSigilStats(sigil, bleedIncurable, poisonIncurable) {
         if(poisonIncurable !== null) stats.poisn_cur = poisonIncurable;
         sigil.stats.forEach( (element) => {
            switch(element.effect) {
-                case Data.Effect.PDMG:
-                    stats.pdmg = element.value;
+                case Data.Effect.SHARPNESS:
+                    stats.sharpness = element.value;
                     break;
-                case Data.Effect.MDMG:
-                    stats.mdmg = element.value;
+                case Data.Effect.WITHERING:
+                    stats.withering = element.value;
                     break;
                 case Data.Effect.BLOCK:
                     stats.block = element.value;
@@ -1806,8 +1806,8 @@ function isEffectAllowedOnObject(effect, obj) {
 
     if(obj instanceof Weapon) {
         result.push(
-            Data.Effect.PDMG,
-            Data.Effect.MDMG,
+            Data.Effect.SHARPNESS,
+            Data.Effect.WITHERING,
             Data.Effect.BLOCK,
             Data.Effect.EFFORT,
             Data.Effect.CRIT_LUK,

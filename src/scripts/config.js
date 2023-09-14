@@ -58,8 +58,8 @@ let Config = {
         WARDING: [6, 3, 10],
 
         // WEAPON EFFECTS
-        PDMG: [6, 3, 10],
-        MDMG: [6, 3, 10],
+        SHARPNESS: [6, 3, 10],
+        WITHERING: [6, 3, 10],
         BLOCK: [4, 1, 5],
         EFFORT: [4, 1, 4],
         CRIT_LUK: [6, 2, 3],
@@ -169,8 +169,8 @@ let Config = {
         Data.Effect.WARDING,
     ],
     BaseWeaponEffects: [
-        Data.Effect.PDMG,
-        Data.Effect.MDMG,
+        Data.Effect.SHARPNESS,
+        Data.Effect.WITHERING,
         Data.Effect.BLOCK,
         Data.Effect.EFFORT,
         Data.Effect.CRIT_LUK,
@@ -767,7 +767,7 @@ let Config = {
 
         // WEAPON EFFECTS
         new Soulmark({
-            effect: Data.Effect.PDMG,
+            effect: Data.Effect.SHARPNESS,
             name: "honing",
             theorical: [6, 10],
             critical: new Stat({effect: Data.Effect.CRIT_DMG, theorical: [4, 7], isCritical: true}),
@@ -781,7 +781,7 @@ let Config = {
             steps: [[1, 2], [3, 5], [4, 8], [6, 10]]
         }),
         new Soulmark({
-            effect: Data.Effect.MDMG,
+            effect: Data.Effect.WITHERING,
             name: "decadence",
             theorical: [6, 10],
             critical: new Stat({effect: Data.Effect.CRIT_LUK, theorical: [4, 7], isPercentage: true, isCritical: true}),
@@ -855,7 +855,7 @@ let Config = {
             name: "cutting",
             theorical: [3, 6],
             critical: new Stat({effect: Data.Effect.BLEED_DURATION, theorical: 1, isCritical: true}),
-            corrupted: new Stat({effect: Data.Effect.PDMG, theorical: [-2, -5], isCorrupt: true}),
+            corrupted: new Stat({effect: Data.Effect.SHARPNESS, theorical: [-2, -5], isCorrupt: true}),
             unlocked: false,
             price: 5,
             rarity: Data.Rarity.EPIC,
@@ -897,7 +897,7 @@ let Config = {
             name: "venom",
             theorical: [3, 6],
             critical: new Stat({effect: Data.Effect.POISON_DURATION, theorical: 1, isCritical: true}),
-            corrupted: new Stat({effect: Data.Effect.MDMG, theorical: [-2, -5], isCorrupt: true}),
+            corrupted: new Stat({effect: Data.Effect.WITHERING, theorical: [-2, -5], isCorrupt: true}),
             unlocked: false,
             price: 5,
             rarity: Data.Rarity.EPIC,
@@ -952,7 +952,7 @@ let Config = {
             effect: Data.Effect.RANGE_MIDDLE_ON,
             name: "midblow",
             theorical: 0,
-            critical: new Stat({effect: Data.Effect.PDMG, theorical: [4, 6], isCritical: true}),
+            critical: new Stat({effect: Data.Effect.SHARPNESS, theorical: [4, 6], isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.ACCURACY, theorical: [-4, -6], isPercentage: true, isCorrupt: true}),
             unlocked: false,
             price: 5,
@@ -966,8 +966,8 @@ let Config = {
             effect: Data.Effect.RANGE_BACK_ON,
             name: "longblow",
             theorical: 0,
-            critical: new Stat({effect: Data.Effect.MDMG, theorical: [4, 6], isCritical: true}),
-            corrupted: new Stat({effect: Data.Effect.MDMG, theorical: [-4, -6], isCorrupt: true}),
+            critical: new Stat({effect: Data.Effect.WITHERING, theorical: [4, 6], isCritical: true}),
+            corrupted: new Stat({effect: Data.Effect.WITHERING, theorical: [-4, -6], isCorrupt: true}),
             unlocked: false,
             price: 5,
             rarity: Data.Rarity.LEGENDARY,

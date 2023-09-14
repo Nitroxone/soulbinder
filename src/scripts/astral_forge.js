@@ -321,10 +321,10 @@ class AstralForge {
     getEffectValue(effect) {
         if(this.itemType === Data.ItemType.WEAPON) {
             switch(effect) {
-                case Data.Effect.PDMG:
-                    return (this.item.pdmg[0] + this.item.pdmg[1])/2;
-                case Data.Effect.MDMG:
-                    return (this.item.mdmg[0] + this.item.mdmg[1])/2;
+                case Data.Effect.SHARPNESS:
+                    return (this.item.sharpness[0] + this.item.sharpness[1])/2;
+                case Data.Effect.WITHERING:
+                    return (this.item.withering[0] + this.item.withering[1])/2;
                 case Data.Effect.BLOCK:
                     return this.item.block;
                 case Data.Effect.EFFORT:
@@ -404,8 +404,8 @@ class AstralForge {
         switch(this.itemType) {
             case Data.ItemType.WEAPON:
                 allEffects = allEffects.concat([
-                    Data.Effect.PDMG, 
-                    Data.Effect.MDMG, 
+                    Data.Effect.SHARPNESS, 
+                    Data.Effect.WITHERING, 
                     Data.Effect.BLOCK, 
                     Data.Effect.EFFORT,
                     Data.Effect.CRIT_LUK,

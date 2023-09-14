@@ -261,8 +261,8 @@ function getWeaponTooltip(weapon, asResult = null, full = false) {
         str += eff.getFormatted({cssClass: "itemEffect", color: Data.Color.BLUE, bold: true, noTheorical: true});
     });
     str += '<table class="statsTable"><tbody>';
-    str += '<tr><td>Sharpness</td><td>' + weapon.pdmg[0] + '-' + weapon.pdmg[1] + '</td></tr>';
-    str += '<tr><td>Withering</td><td>' + weapon.mdmg[0] + '-' + weapon.mdmg[1] + '</td></tr>';
+    str += '<tr><td>Sharpness</td><td>' + weapon.sharpness[0] + '-' + weapon.sharpness[1] + '</td></tr>';
+    str += '<tr><td>Withering</td><td>' + weapon.withering[0] + '-' + weapon.withering[1] + '</td></tr>';
     str += '<tr><td>Block</td><td>' + weapon.block + '<span class="theoricalval">[' + weapon.t_block[0] + '-' + weapon.t_block[1] +']</span>' + '</td></tr>';
     str += '<tr><td>Effort</td><td>' + weapon.effort + '<span class="theoricalval">[' + weapon.t_effort[0] + '-' + weapon.t_effort[1] +']</span>' + '</td></tr>';
     str += '<tr><td>Crit. chance</td><td>' + weapon.crit_luk + '%' + '<span class="theoricalval">[' + weapon.t_crit_luk[0] + '-' + weapon.t_crit_luk[1] +']</span>' + '</td></tr>';
@@ -2967,8 +2967,8 @@ function getAstralForgeEffects(forgeItem, refresh = false) {
     });
     if(forgeItem.itemType === Data.ItemType.WEAPON) {
 
-        str += generateAstralForgeEffectLine(forgeItem, new Stat({effect: Data.Effect.PDMG, theorical: [item.pdmg[0], item.pdmg[1]]}), "effectSelectable", true);
-        str += generateAstralForgeEffectLine(forgeItem, new Stat({effect: Data.Effect.MDMG, theorical: [item.mdmg[0], item.mdmg[1]]}), "effectSelectable", true);
+        str += generateAstralForgeEffectLine(forgeItem, new Stat({effect: Data.Effect.SHARPNESS, theorical: [item.sharpness[0], item.sharpness[1]]}), "effectSelectable", true);
+        str += generateAstralForgeEffectLine(forgeItem, new Stat({effect: Data.Effect.WITHERING, theorical: [item.withering[0], item.withering[1]]}), "effectSelectable", true);
         str += generateAstralForgeEffectLine(forgeItem, new Stat({effect: Data.Effect.BLOCK, theorical: item.block}), "effectSelectable");
         str += generateAstralForgeEffectLine(forgeItem, new Stat({effect: Data.Effect.EFFORT, theorical: item.effort}), "effectSelectable");
         str += generateAstralForgeEffectLine(forgeItem, new Stat({effect: Data.Effect.CRIT_LUK, theorical: item.crit_luk, isPercentage: true}), "effectSelectable");
