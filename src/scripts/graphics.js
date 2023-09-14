@@ -1279,6 +1279,37 @@ function drawHubScreen() {
     str += '</div>'
 
     str += '<div class="blackMarket coolBorderBis">';
+    str += '</div>';
+
+    str += '</div>';
+
+    str += '<div class="lordContainer">';
+
+    str += '<div class="lordDialogueContent coolBorderBis">'
+
+    str += '<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem voluptate in, optio a laboriosam iure error impedit inventore accusantium quo incidunt cumque consequatur dolorem libero quod necessitatibus aliquam rerum eaque iusto alias iste maiores voluptas quia consectetur. Nesciunt consequatur minima quos, vel exercitationem, ducimus non maiores eligendi repellendus quod rerum minus quis voluptatibus. Natus mollitia itaque aperiam dolor debitis officiis facilis tempora id? Dolore recusandae rerum voluptas, aut adipisci alias inventore non aliquam asperiores iste pariatur perspiciatis harum velit magni explicabo, fuga aliquid expedita earum neque modi. Dolorum illum, id tempore perferendis eum delectus, mollitia repudiandae, architecto deserunt quam dolor?</p>';
+
+    str += '<div class="lordDialogueContent-buttons">'
+    str += '<button>Previous</button>'
+    str += '<button>Next</button>'
+    str += '</div>';
+
+    str += '</div>';
+
+    str += '<div class="lordVignette">'
+    str += '</div>';
+
+    str += '</div>';
+
+    str += '</div>';
+
+    document.querySelector('.hubContainer').innerHTML = str;
+
+    drawBlackMarket();
+}
+
+function drawBlackMarket() {
+    let str = '';
 
     str += '<p>BLACK MARKET</p>';
     str += '<div class="blackMarket-menu">';
@@ -1296,21 +1327,7 @@ function drawHubScreen() {
     str += '<div class="blackMarket-menu--trade">';
     str += '<div class="tradeItems">'
 
-    // item structure
-
-    // str += '<div class="tradeItems-item">'
-
-    // str += '<div class="tradeItems-item--icon"></div>';
-    // str += '<p class="tradeItems-item--name">Silver Birjin of Drancor</p>';
-
-    // str += '<div class="tradeItems-item--price">';
-    // str += '<div class="tradeItems-goldIcon"></div>';
-    // str += '<p>15000</p>';
-    // str += '</div>';
-
-    // str += '</div>';
-
-    // ...
+    // BLACK MARKET ITEMS
 
     str += '</div>';
     str += '</div>';
@@ -1353,31 +1370,8 @@ function drawHubScreen() {
 
 
     str += '</div>';
-    str += '</div>';
 
-    str += '</div>';
-
-    str += '<div class="lordContainer">';
-
-    str += '<div class="lordDialogueContent coolBorderBis">'
-
-    str += '<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem voluptate in, optio a laboriosam iure error impedit inventore accusantium quo incidunt cumque consequatur dolorem libero quod necessitatibus aliquam rerum eaque iusto alias iste maiores voluptas quia consectetur. Nesciunt consequatur minima quos, vel exercitationem, ducimus non maiores eligendi repellendus quod rerum minus quis voluptatibus. Natus mollitia itaque aperiam dolor debitis officiis facilis tempora id? Dolore recusandae rerum voluptas, aut adipisci alias inventore non aliquam asperiores iste pariatur perspiciatis harum velit magni explicabo, fuga aliquid expedita earum neque modi. Dolorum illum, id tempore perferendis eum delectus, mollitia repudiandae, architecto deserunt quam dolor?</p>';
-
-    str += '<div class="lordDialogueContent-buttons">'
-    str += '<button>Previous</button>'
-    str += '<button>Next</button>'
-    str += '</div>';
-
-    str += '</div>';
-
-    str += '<div class="lordVignette">'
-    str += '</div>';
-
-    str += '</div>';
-
-    str += '</div>';
-
-    document.querySelector('.hubContainer').innerHTML = str;
+    document.querySelector('.blackMarket').innerHTML = str;
 
     generateBlackMarketTabEvents();
     generateBlackMarketAbandonedCacheEvents();
