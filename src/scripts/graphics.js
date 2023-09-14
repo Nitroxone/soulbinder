@@ -838,7 +838,10 @@ function spawnStriderPopup(strider, refresh = false) {
     str += '</div>';
 
     str += '<div class="striderStats">';
-    str += '<div class="striderStats-title">Stats</div>';
+    str += '<div class="striderStats-title">';
+    str += 'Stats';
+    str += '<div id="bonusesIcon-' + strider.id + '" class="striderStats-bonusesIcon"></div>';
+    str += '</div>';
     str += '<div class="striderStats-stats">';
     str += '<div class="striderStats-stat">' + '<span class="statTitle">Health</span><span class="statValue">' + strider.health + '/' + strider.maxHealth + '</span>' + '</div>'
     str += '<div class="striderStats-stat">' + '<span class="statTitle">Mana</span><span class="statValue">' + strider.mana + '/' + strider.maxMana + '</span>' + '</div>'
@@ -967,6 +970,10 @@ function spawnStriderPopup(strider, refresh = false) {
         document.querySelector('#strider-weaponBoth').addEventListener('contextmenu', e => {e.stopImmediatePropagation(); e.preventDefault(); strider.unequipWeapon(Data.WeaponHand.BOTH)});
     }
 
+    addTooltip(document.querySelector('#bonusesIcon-' + strider.id), function(){
+        return getStriderBonusesTooltip(strider);
+    }, {offY: -8})
+
     drawSkillTreeLines(strider);
     bringNodesForward();
     addSkillTreeTooltips(strider);
@@ -981,6 +988,14 @@ function disableHighlightDrag(e) {
 
 function allowDrop(e) {
     e.preventDefault();
+}
+
+function getStriderBonusesTooltip(strider) {
+    let str = '';
+
+    str += '<div class="bonusesTooltip-title">Click to view bonuses</div>';
+
+    return str;
 }
 
 /**
