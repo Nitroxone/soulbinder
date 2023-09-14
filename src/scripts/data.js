@@ -533,5 +533,9 @@ const Data = Object.freeze({
         SOULBIND_PRESLOT: "soulbind_preslot",
         SOULBIND_SLOT: "soulbind_slot",
         SOULBIND_UNSLOT: "soulbind_unslot",
+    },
+    AlterAction: {
+        ADD: "add",
+        REMOVE: "remove"
     }
 }); 
