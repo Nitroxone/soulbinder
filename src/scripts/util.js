@@ -1325,6 +1325,15 @@ function isBaseStatChange(eff, noMax = false) {
 }
 
 /**
+ * Returns whether the provided Stat has a MAXSTAT effect (MAXHEALTH, MAXMANA, MAXSTAMINA)
+ * @param {Stat} eff the Stat to check
+ * @returns whether it's a max stat effect
+ */
+function isBaseMaxStat(eff) {
+    return [Data.Effect.MAXHEALTH, Data.Effect.MAXSTAMINA, Data.Effect.MAXMANA].includes(eff.effect);
+}
+
+/**
  * Returns whether the provided effect is a bleeding effect or poisoning effect.
  * @param {Stat} eff the effect to check
  * @returns {boolean} whether it's a bleeding/poisoning effect
