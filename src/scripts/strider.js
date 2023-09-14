@@ -109,7 +109,8 @@ class Strider extends NPC {
                     switch(reward.type) {
                         case Data.SkillTreeNodeRewardType.STAT:
                             reward.content.forEach(stat => {
-                                this.addEffect(stat, true);
+                                //this.addEffect(stat, true);
+                                this.alter({uid: stat.uid, action: Data.AlterAction.REMOVE});
                             });
                             break;
                     }
@@ -121,7 +122,8 @@ class Strider extends NPC {
                 switch(reward.type) {
                     case Data.SkillTreeNodeRewardType.STAT:
                         reward.content.forEach(stat => {
-                            this.addEffect(stat);
+                            //this.addEffect(stat);
+                            this.alter({effect: stat, action: Data.AlterAction.ADD, origin: node});
                         });
                         break;
                 }
@@ -179,7 +181,8 @@ class Strider extends NPC {
         const trinket = game.player.inventory.getItemFromId(Data.ItemType.TRINKET, event.dataTransfer.getData("trinket"));
         if(this.hasFreeTrinketSlots()) {
             trinket.effects.forEach(effect => {
-                this.addEffect(effect);
+                //this.addEffect(effect);
+                this.alter({effect: effect, origin: trinket, action: Data.AlterAction.ADD});
             });
             this.applyEcho(trinket);
             this.applyAstralForgeExtraEffects(trinket);
@@ -189,7 +192,7 @@ class Strider extends NPC {
             this.removeAvailableTrinketSlot();
             console.log(trinket.name + ' was equipped to ' + this.name);
             Sounds.Methods.playSound(Data.SoundType.EQUIP);
-            drawInventory();
+            drawTrinketInventory();
             spawnStriderPopup(this, true);
         } else {
             ERROR(this.name + ' cannot equip more trinkets.');
@@ -200,7 +203,8 @@ class Strider extends NPC {
         if(!trinket) return;
         if(!arrayContains(this.trinkets, trinket)) throw new Error('Tried to unequip a trinket that is not equipped.');
         trinket.effects.forEach(effect => {
-            this.addEffect(effect, true);
+            //this.addEffect(effect, true);
+            this.alter({uid: effect.uid, action: Data.AlterAction.REMOVE});
         });
         this.applyEcho(trinket, true);
         this.applyAstralForgeExtraEffects(trinket, true);
@@ -243,11 +247,14 @@ class Strider extends NPC {
                 this.eqShield = armor;
                 break;
         }
-        this.addEffect(new Stat({effect: Data.Effect.RESILIENCE, theorical: armor.resilience}));
-        this.addEffect(new Stat({effect: Data.Effect.WARDING, theorical: armor.warding}));
+        //this.addEffect(new Stat({effect: Data.Effect.RESILIENCE, theorical: armor.resilience}));
+        //this.addEffect(new Stat({effect: Data.Effect.WARDING, theorical: armor.warding}));
+        this.alter({effect: armor.resilience, origin: armor, action: Data.AlterAction.ADD});
+        this.alter({effect: armor.warding, origin: armor, action: Data.AlterAction.ADD});
         this.applyEcho(armor);
         this.applyAstralForgeExtraEffects(armor);
         this.applySigil(Data.ItemType.ARMOR, armor.sigil);
+
         game.player.inventory.removeItem(armor);
         console.log(armor.name + ' was equipped to ' + this.name);
         Sounds.Methods.playSound(Data.SoundType.EQUIP);
@@ -279,11 +286,15 @@ class Strider extends NPC {
                 this.eqShield = null;
                 break;
         }
-        this.addEffect(new Stat({effect: Data.Effect.RESILIENCE, theorical: armor.resilience}), true);
-        this.addEffect(new Stat({effect: Data.Effect.WARDING, theorical: armor.warding}), true);
+        //this.addEffect(new Stat({effect: Data.Effect.RESILIENCE, theorical: armor.resilience}), true);
+        //this.addEffect(new Stat({effect: Data.Effect.WARDING, theorical: armor.warding}), true);
+        this.alter({uid: armor.resilience.uid, action: Data.AlterAction.REMOVE});
+        this.alter({uid: armor.warding.uid, action: Data.AlterAction.REMOVE});
+
         this.applyEcho(armor, true);
         this.applyAstralForgeExtraEffects(armor, true);
         this.applySigil(Data.ItemType.ARMOR, armor.sigil, true);
+
         game.player.inventory.addItem(armor, 1, true);
         console.log(armor.name + ' was unequipped from ' + this.name);
         Sounds.Methods.playSound(Data.SoundType.UNEQUIP);
@@ -373,34 +384,37 @@ class Strider extends NPC {
      * @param {boolean} remove whether the echoes should be removed or not (default = false)
      */
     applyEcho(item, remove = false) {
+        const action = remove ? Data.AlterAction.REMOVE : Data.AlterAction.ADD;
         if(item.hasEcho()) {
             item.echo.stats.forEach(effect => {
-                this.addEffect(effect, remove);
+                //this.addEffect(effect, remove);
+                this.alter({effect: effect, origin: item.echo, action: action, uid: effect.uid});
             });
         }
     }
 
     applySigil(type, sigil, remove = false, source = null) {
+        const action = remove ? Data.AlterAction.REMOVE : Data.AlterAction.ADD;
         if(sigil) {
             sigil.effects.forEach(eff => {
-                if(type === Data.ItemType.ARMOR && !isBaseArmorEffect(eff.effect) && !eff.disabled) this.addEffect(eff, remove);
-                else if(type === Data.ItemType.WEAPON && !isBaseWeaponEffect(eff.effect) && !eff.disabled) this.addEffect(eff, remove);
+                if(type === Data.ItemType.ARMOR && !isBaseArmorEffect(eff.effect) && !eff.disabled) this.alter({effect: eff, action: action, origin: sigil, uid: eff.uid});
+                else if(type === Data.ItemType.WEAPON && !isBaseWeaponEffect(eff.effect) && !eff.disabled) this.alter({effect: eff, action: action, origin: sigil, uid: eff.uid});
                 else if(type === Data.ItemType.TRINKET) {
-                    if(!source.effects.find(x => x.effect === eff.effect) && !eff.disabled) this.addEffect(eff, remove);
+                    if(!source.effects.find(x => x.effect === eff.effect) && !eff.disabled) this.alter({effect: eff, action: action, origin: sigil, uid: eff.uid});
                 }
             });
             if(sigil.isCritical) sigil.critical.forEach(eff => {
-                if(type === Data.ItemType.ARMOR && !isBaseArmorEffect(eff.effect)) this.addEffect(eff, remove);
-                else if(type === Data.ItemType.WEAPON && !isBaseWeaponEffect(eff.effect)) this.addEffect(eff, remove);
+                if(type === Data.ItemType.ARMOR && !isBaseArmorEffect(eff.effect)) this.alter({effect: eff, action: action, origin: sigil, uid: eff.uid});
+                else if(type === Data.ItemType.WEAPON && !isBaseWeaponEffect(eff.effect)) this.alter({effect: eff, action: action, origin: sigil, uid: eff.uid});
                 else if(type === Data.ItemType.TRINKET) {
-                    if(!source.effects.find(x => x.effect === eff.effect) && !eff.disabled) this.addEffect(eff, remove);
+                    if(!source.effects.find(x => x.effect === eff.effect) && !eff.disabled) this.alter({effect: eff, action: action, origin: sigil, uid: eff.uid});
                 }
             });
             if(sigil.isCorrupt) sigil.corrupt.forEach(eff => {
-                if(type === Data.ItemType.ARMOR && !isBaseArmorEffect(eff.effect)) this.addEffect(eff, remove);
-                else if(type === Data.ItemType.WEAPON && !isBaseWeaponEffect(eff.effect)) this.addEffect(eff, remove);
+                if(type === Data.ItemType.ARMOR && !isBaseArmorEffect(eff.effect)) this.alter({effect: eff, action: action, origin: sigil, uid: eff.uid});
+                else if(type === Data.ItemType.WEAPON && !isBaseWeaponEffect(eff.effect)) this.alter({effect: eff, action: action, origin: sigil, uid: eff.uid});
                 else if(type === Data.ItemType.TRINKET) {
-                    if(!source.effects.find(x => x.effect === eff.effect) && !eff.disabled) this.addEffect(eff, remove);
+                    if(!source.effects.find(x => x.effect === eff.effect) && !eff.disabled) this.alter({effect: eff, action: action, origin: sigil, uid: eff.uid});
                 }
             });
         }
@@ -412,8 +426,10 @@ class Strider extends NPC {
      * @param {boolean} remove whether the effects should be removed or not (default = false)
      */
     applyAstralForgeExtraEffects(item, remove = false) {
+        const action = remove ? Data.AlterAction.REMOVE : Data.AlterAction.ADD;
         item.astralForgeItem.extraEffects.forEach(extra => {
-            this.addEffect(extra, remove);
+            //this.addEffect(extra, remove);
+            this.alter({effect: extra, action: action, origin: item.astralForgeItem, uid: extra.uid});
         });
     }
 

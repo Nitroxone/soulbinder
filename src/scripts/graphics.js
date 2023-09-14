@@ -309,8 +309,8 @@ function getArmorTooltip(armor, asResult = null, full = false) {
         str += eff.getFormatted({cssClass: "itemEffect", color: Data.Color.BLUE, bold: true, noTheorical: true});
     });
     str += '<table class="statsTable"><tbody>';
-    str += '<tr><td>Resilience</td><td>' + armor.resilience + '<span class="theoricalval">[' + armor.t_resilience[0] + '-' + armor.t_resilience[1] +']</span>' + '</td></tr>';
-    str += '<tr><td>Warding</td><td>' + armor.warding + '<span class="theoricalval">[' + armor.t_warding[0] + '-' + armor.t_warding[1] +']</span>' + '</td></tr>';
+    if(armor.resilience.getValue() !== 0) str += '<tr><td>Resilience</td><td>' + armor.resilience.getFormatted({noName: true}) + '</td></tr>';
+    if(armor.warding.getValue() !== 0) str += '<tr><td>Warding</td><td>' + armor.warding.getFormatted({noName: true}) + '</td></tr>';
     str += '</tbody></table>';
     str += '<div class="par"></div>';
 

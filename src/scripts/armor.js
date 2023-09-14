@@ -51,8 +51,8 @@ class Armor extends Item {
      * Generates stats for an armor, based on its theorical values.
      */
     generateStats() {
-        this.resilience = getRandomNumberFromArray(this.t_resilience); 
-        this.warding = getRandomNumberFromArray(this.t_warding);
+        this.resilience = new Stat({effect: Data.Effect.RESILIENCE, theorical: this.t_resilience, fixed: true}); 
+        this.warding = new Stat({effect: Data.Effect.WARDING, theorical: this.t_warding, fixed: true});
     }
 
     /**

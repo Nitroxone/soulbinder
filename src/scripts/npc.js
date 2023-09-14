@@ -127,7 +127,8 @@ class NPC extends Entity {
             const bonus = new Bonus(effect, origin, variables);
 
             this.addBonus(bonus);
-            if(!noApply) this.applyEffect(effect);
+            if(isBaseMaxStat(effect)) bonus.variables['value'] = this.increaseBaseStat(effect);
+            else if(!noApply) this.applyEffect(effect);
 
             console.log('Adding bonus:');
             console.log(bonus);
@@ -138,9 +139,7 @@ class NPC extends Entity {
             console.log('Removing bonus:');
             console.log(bonus);
 
-            if(bonus.stat.effect === Data.Effect.MAXHEALTH || bonus.stat.effect === Data.Effect.MAXSTAMINA || bonus.stat.effect === Data.Effect.MAXMANA) {
-                this.decreaseBaseStat(new Stat({effect: bonus.stat.effect, theorical: bonus.variables.value}));
-            }
+            if(isBaseMaxStat(bonus.stat)) this.decreaseBaseStat(new Stat({effect: bonus.stat.effect, theorical: bonus.variables.value}));
             else if(!noApply) this.applyEffect(bonus.stat, true);
         }
     }
@@ -439,31 +438,23 @@ class NPC extends Entity {
             if(eff.isPercentage) amount = Math.round(this.maxHealth * eff.getValue() / 100);
             else amount = eff.getValue();
 
-            this.alter({effect: eff, action: Data.AlterAction.ADD, noApply: true, variables: {
-                value: amount
-            }});
             this.maxHealth += amount;
             this.health += amount;
         } else if(eff.effect === Data.Effect.MAXSTAMINA) {
             if(eff.isPercentage) amount = Math.round(this.maxStamina * eff.getValue() / 100);
             else amount = eff.getValue();
 
-            this.alter({effect: eff, action: Data.AlterAction.ADD, noApply: true, variables: {
-                value: amount
-            }});
             this.maxStamina += amount;
             this.stamina += amount;
         } else if(eff.effect === Data.Effect.MAXMANA) {
             if(eff.isPercentage) amount = Math.round(this.maxMana * eff.getValue() / 100);
             else amount = eff.getValue();
 
-            this.alter({effect: eff, action: Data.AlterAction.ADD, noApply: true, variables: {
-                value: amount
-            }});
             this.maxMana += amount;
             this.mana += amount;
         }
         console.log('INCREASED ' + eff.effect + ' OF ' + this.name + ' by ' + eff.getValue() + '% (' + amount + ' points)');
+        return amount;
     }
 
     /**
