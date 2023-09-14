@@ -306,6 +306,10 @@ class Game {
         }
     }
 
+    initBlackMarket() {
+        this.black_market.generateBlackMarketAllTables();
+    }
+
     /**
      * Launches the game.
      */
@@ -388,5 +392,7 @@ class Game {
 
         this.startBattle(what(game.all_enemyFormations, "threeTicks").formation);
         //this.currentBattle.end();
+
+        this.initBlackMarket();
     }
 }
