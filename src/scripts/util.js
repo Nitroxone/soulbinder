@@ -1940,7 +1940,12 @@ function uidGen() {
     return Date.now().toString(36) + Math.random().toString(36).substring(2, 8);
 }
 
-function generateBonusesTable(bonuses) {
+function generateBonusesTable(props = {}) {
+    const bonuses = getValueFromObject(props, "bonuses", []);
+    const noExtra = getValueFromObject(props, "noExtra", false);
+    const noEchoes = getValueFromObject(props, "noEchoes", false);
+    const noEquipment = getValueFromObject(props, "noEquipment", false);
+
     const results = [];
     const effectTotals = {};
 
@@ -1950,6 +1955,9 @@ function generateBonusesTable(bonuses) {
         const bOri = bonus.origin;
 
         if(bVal === 0 && !isEffectUnvaluable(bEff)) return; // Skip null effects if they're not unvaluable
+        if(noEquipment && (bOri instanceof Weapon || bOri instanceof Armor || bOri instanceof Trinket)) return;
+        if(noExtra && (bOri instanceof Skill || bOri instanceof SkillTreeNode)) return;
+        if(noEchoes && bOri instanceof Echo) return;
 
         if(!effectTotals[bEff]) {
             effectTotals[bEff] = {
@@ -1968,4 +1976,21 @@ function generateBonusesTable(bonuses) {
     }
 
     return results;
+}
+
+function getBonusCssClassName(ori) {
+    const it = ori.item;
+
+    if(it instanceof Weapon || it instanceof Armor || it instanceof Trinket) return "bonus-item";
+    if(it instanceof Echo) return "bonus-echo";
+    if(it instanceof Skill) return "bonus-skill";
+    if(it instanceof SkillTreeNode) return "bonus-skilltree";
+}
+
+function getBonusCssClassRarity(ori) {
+    const it = ori.item;
+
+    if(it instanceof Weapon || it instanceof Armor || it instanceof Trinket || it instanceof Echo) return getRarityColorCode(it.rarity);
+    if(it instanceof SkillTreeNode) return "#bf40bf";
+    if(it instanceof Skill) return "rgb(80, 80, 80)";
 }

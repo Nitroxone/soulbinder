@@ -3012,7 +3012,7 @@ hr.leftSided {
     display: inline-block;
 }
 
-.bonusesTooltip-togglers {
+.bonusesTooltip-togglers, .bonusesTooltip-list, .bonusesTooltip-bonuses {
     width: 100%;
 }
 .bonusesTooltip-togglers .toggleButton, .toggleButton.toggleButtonThin {
@@ -3021,7 +3021,7 @@ hr.leftSided {
     font-size: 10px;
 }
 .bonusesTooltip-togglers > .toggleButton:not(:first-child) {
-    margin-top: 0.1rem;
+    margin-top: 0.2rem;
 }
 
 .barredLeft {

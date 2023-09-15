@@ -74,19 +74,52 @@ function spawnTooltip(item, fromExisting = 0) {
     });
 
     if(item[0] === 'bonuses') {
+        const strider = item[1];
         const detailsToggler = tooltip.querySelector('.btToggler-details');
+        const extraToggler = tooltip.querySelector('.btToggler-extra');
+        const echoesToggler = tooltip.querySelector('.btToggler-echoes');
+        const equipmentToggler = tooltip.querySelector('.btToggler-equipment');
 
-        tooltip.querySelectorAll('.bonusesTooltip-single').forEach(bo => {
-            bo.addEventListener('click', () => {
-                bo.classList.toggle('extended');
-            });
-        });
-        if(detailsToggler) {
+        generateBonusesTooltipListEvents(tooltip);
+        if(detailsToggler && extraToggler && echoesToggler) {
+            var extra = false;
+            var echoes = false;
+            var details = false;
+            var equipment = false;
+
             detailsToggler.addEventListener('click', e => {
                 tooltip.querySelectorAll('.btNumber').forEach(bt => {
                     bt.classList.toggle('show-ib');
                 });
                 detailsToggler.classList.toggle('off');
+                details = !details;
+            });
+            extraToggler.addEventListener('click', e => {
+                if(details) detailsToggler.dispatchEvent(new Event('click'));
+
+                extra = !extra;
+                tooltip.querySelector('.bonusesTooltip-bonuses').innerHTML = getStriderBonusesList(generateBonusesTable({bonuses: strider.bonuses, noExtra: extra, noEchoes: echoes, noEquipment: equipment}));
+
+                generateBonusesTooltipListEvents(tooltip);
+                extraToggler.classList.toggle('off');
+            });
+            echoesToggler.addEventListener('click', e => {
+                if(details) detailsToggler.dispatchEvent(new Event('click'));
+
+                echoes = !echoes;
+                tooltip.querySelector('.bonusesTooltip-bonuses').innerHTML = getStriderBonusesList(generateBonusesTable({bonuses: strider.bonuses, noExtra: extra, noEchoes: echoes, noEquipment: equipment}));
+                
+                generateBonusesTooltipListEvents(tooltip);
+                echoesToggler.classList.toggle('off');
+            });
+            equipmentToggler.addEventListener('click', e => {
+                if(details) detailsToggler.dispatchEvent(new Event('click'));
+
+                equipment = !equipment;
+                tooltip.querySelector('.bonusesTooltip-bonuses').innerHTML = getStriderBonusesList(generateBonusesTable({bonuses: strider.bonuses, noExtra: extra, noEchoes: echoes, noEquipment: equipment}));
+                
+                generateBonusesTooltipListEvents(tooltip);
+                equipmentToggler.classList.toggle('off');
             });
         }
     }
@@ -105,6 +138,14 @@ function spawnTooltip(item, fromExisting = 0) {
     }
 
     document.body.appendChild(tooltip);
+}
+
+function generateBonusesTooltipListEvents(tooltip) {
+    tooltip.querySelectorAll('.bonusesTooltip-single').forEach(bo => {
+        bo.addEventListener('click', () => {
+            bo.classList.toggle('extended');
+        });
+    });
 }
 
 function getTrinketTooltip(trinket, asResult = null, full = false) {
@@ -1018,7 +1059,7 @@ function getStriderBonusesTooltip(strider, static = false) {
 
     if(static) str += '<div class="bonusesTooltip-title">Click to view bonuses</div>';
     else {
-        const bonuses = generateBonusesTable(strider.bonuses);
+        const bonuses = generateBonusesTable({bonuses: strider.bonuses});
 
         str += '<div class="bonusesTooltip">';
         str += '<div class="bonusesTooltip-title">Bonuses</div>';
@@ -1029,27 +1070,39 @@ function getStriderBonusesTooltip(strider, static = false) {
         else {
             str += '<div class="bonusesTooltip-togglers">';
             str += '<div class="toggleButton off btToggler-details">Show details</div>';
-            str += '<div class="toggleButton off btToggler-extra">Hide extra</div>';
+            str += '<div class="toggleButton off btToggler-equipment">Hide gear</div>';
+            str += '<div class="toggleButton off btToggler-extra">Hide skills & passive</div>';
+            str += '<div class="toggleButton off btToggler-echoes">Hide echoes</div>';
             str += '</div>';
 
             str += '<div class="divider"></div>';
 
-            bonuses.forEach(bonus => {
-                const stat = new Stat({effect: bonus.effect, theorical: bonus.total, fixed: true, isPercentage: isAstralForgeEffectPercentage(bonus.effect)});
-    
-                str += '<div class="bonusesTooltip-single">';
-                str += '<h3>' + stat.getFormatted({noTheorical: true, defaultColor: true}) + '</h3>';
-                str += '<div class="bonusesTooltip-single-details">';
-                str += '<h4>From:</h4>';
-                bonus.origins.forEach(ori => {
-                    str += '<h5 style="color: ' + getRarityColorCode(ori.item.rarity) + '"><span class="btNumber">[' + ori.value + ']</span>' + ori.item.name + '</h5>';
-                })
-                str += '</div>';
-                str += '</div>';
-            });
+            str += '<div id="bt-' + strider.id + '" class="bonusesTooltip-bonuses">';
+            str += getStriderBonusesList(bonuses);
+            str += '</div>';
         }
         str += '</div></div>';
     }
+
+    return str;
+}
+
+function getStriderBonusesList(bonuses) {
+    let str = '';
+
+    bonuses.forEach(bonus => {
+        const stat = new Stat({effect: bonus.effect, theorical: bonus.total, fixed: true, isPercentage: isAstralForgeEffectPercentage(bonus.effect)});
+
+        str += '<div class="bonusesTooltip-single">';
+        str += '<h3>' + stat.getFormatted({noTheorical: true, defaultColor: true}) + '</h3>';
+        str += '<div class="bonusesTooltip-single-details">';
+        str += '<h4>From:</h4>';
+        bonus.origins.forEach(ori => {
+            str += '<h5 class="' + getBonusCssClassName(ori) + '" style="color: ' + getBonusCssClassRarity(ori) + '"><span class="btNumber">[' + ori.value + ']</span>' + ori.item.name + '</h5>';
+        })
+        str += '</div>';
+        str += '</div>';
+    });
 
     return str;
 }
