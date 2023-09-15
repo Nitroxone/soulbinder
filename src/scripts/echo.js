@@ -23,6 +23,9 @@ class Echo extends Entity {
      */
     constructor(name, desc, icon, rarity, stats, quote, variables, triggers, type = Data.EchoType.ANY) {
         super(name, desc, icon);
+
+        this.uid = uidGen();
+
         this.rarity = rarity;
         this.stats = stats;
         this.quote = quote;
