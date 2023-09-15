@@ -3547,7 +3547,11 @@ hr.leftSided {
     height: 15px;
     width: 15px;
 
+    display: flex;
     background-color: none;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid white;
 }
 
 .blackMarket-button--buy:hover {
