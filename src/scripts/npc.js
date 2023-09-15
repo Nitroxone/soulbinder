@@ -835,4 +835,8 @@ class NPC extends Entity {
     emptyPopupsQueue() {
         this.popupsQueue = [];
     }
+
+    findBonusWithUid(uid) {
+        return this.bonuses.find(x => x.stat.uid === uid);
+    }
 }
