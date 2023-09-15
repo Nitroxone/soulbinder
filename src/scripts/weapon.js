@@ -262,8 +262,9 @@ class Weapon extends Item {
                 this.addEffect(effect);
             });
             this.echo = echo;
+            this.echo.parent = this;
         } else {
-            ERROR('No available echo slots left on ' + this.name);
+            this.echo.parent = this;
         }
     }
 

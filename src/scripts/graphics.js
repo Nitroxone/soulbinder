@@ -1115,6 +1115,7 @@ function getStriderBonusesList(bonuses, echoes = []) {
         str += '<div class="bonusesTooltip-single bonusesTooltipEcho">';
         str += '<h3 style="color: ' + getRarityColorCode(echo.rarity) + '">' + echo.name + '</h3>';
         str += '<div class="bonusesTooltip-single-details">';
+        str += '<h4>From: <span class="bonusesTooltipEcho-orig" style="color: ' + getRarityColorCode(echo.parent.rarity) + '">' + echo.parent.name + '</span></h4>'
         str += echo.desc;
         str += '</div>';
         str += '</div>';

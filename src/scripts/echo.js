@@ -29,6 +29,7 @@ class Echo extends Entity {
         this.variables = variables;
         this.triggers = triggers;
         this.type = type;
+        this.parent = null;
     }
 
     /**

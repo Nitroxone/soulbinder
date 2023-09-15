@@ -96,4 +96,5 @@ STRIDERS SCREEN:
 DONE - Add a "bonuses" tooltip to view all bonuses of a Strider
 DONE - Improve the bonuses tooltip with more details (need to add origin of Echoes, and Combat Skills, and hiding these)
 DONE - Prevent the display of null stats (armors with no Withering, mainly)
-- Display echoes' mechanics in the bonuses tooltip
+DONE - Display echoes' mechanics in the bonuses tooltip
+DONE - Display the echo's origin object in the bonuses tooltip

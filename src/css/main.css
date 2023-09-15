@@ -2999,6 +2999,10 @@ hr.leftSided {
     font-family: Roboto;
     line-height: 1.2;
 }
+.bonusesTooltipEcho-orig {
+    font-family: Roboto !important;
+    font-variant: normal;
+}
 
 .emptyTag {
     font-size: 0.7rem;

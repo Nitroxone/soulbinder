@@ -148,8 +148,9 @@ class Trinket extends Item {
             echo = Entity.clone(echo);
             echo.fix();
             this.echo = echo;
+            this.echo.parent = this;
         } else {
-            ERROR('No available echo slots left on ' + this.name);
+            this.echo.parent = this;
         }
     }
 
