@@ -2995,6 +2995,10 @@ hr.leftSided {
     content: '\2022';
     padding-right: 8px;
 }
+.bonusesTooltipEcho .bonusesTooltip-single-details {
+    font-family: Roboto;
+    line-height: 1.2;
+}
 
 .emptyTag {
     font-size: 0.7rem;

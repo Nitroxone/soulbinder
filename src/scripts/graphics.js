@@ -87,6 +87,8 @@ function spawnTooltip(item, fromExisting = 0) {
             var details = false;
             var equipment = false;
 
+            var echoesList = strider.echoes;
+
             detailsToggler.addEventListener('click', e => {
                 tooltip.querySelectorAll('.btNumber').forEach(bt => {
                     bt.classList.toggle('show-ib');
@@ -107,7 +109,8 @@ function spawnTooltip(item, fromExisting = 0) {
                 if(details) detailsToggler.dispatchEvent(new Event('click'));
 
                 echoes = !echoes;
-                tooltip.querySelector('.bonusesTooltip-bonuses').innerHTML = getStriderBonusesList(generateBonusesTable({bonuses: strider.bonuses, noExtra: extra, noEchoes: echoes, noEquipment: equipment}), strider.echoes);
+                echoesList = echoes ? [] : strider.echoes;
+                tooltip.querySelector('.bonusesTooltip-bonuses').innerHTML = getStriderBonusesList(generateBonusesTable({bonuses: strider.bonuses, noExtra: extra, noEchoes: echoes, noEquipment: equipment}), echoesList);
                 
                 generateBonusesTooltipListEvents(tooltip);
                 echoesToggler.classList.toggle('off');
@@ -1106,7 +1109,7 @@ function getStriderBonusesList(bonuses, echoes = []) {
     str += '<div class="divider"></div>';
     echoes.forEach(echo => {
         str += '<div class="bonusesTooltip-single bonusesTooltipEcho">';
-        str += '<h3 style="color: ' + getRarityColorCode(echo) + '">' + echo.name + '</h3>';
+        str += '<h3 style="color: ' + getRarityColorCode(echo.rarity) + '">' + echo.name + '</h3>';
         str += '<div class="bonusesTooltip-single-details">';
         str += echo.desc;
         str += '</div>';
