@@ -3024,6 +3024,10 @@ hr.leftSided {
     margin-top: 0.2rem;
 }
 
+.bonusesTooltipEcho {
+    font-family: RobotoSlabBold;
+}
+
 .barredLeft {
     text-align: left;
     line-height: 100%;

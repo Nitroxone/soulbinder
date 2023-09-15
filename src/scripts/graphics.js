@@ -1105,7 +1105,12 @@ function getStriderBonusesList(bonuses, echoes = []) {
     });
     str += '<div class="divider"></div>';
     echoes.forEach(echo => {
-        str += echo.name + '<br>';
+        str += '<div class="bonusesTooltip-single bonusesTooltipEcho">';
+        str += '<h3 style="color: ' + getRarityColorCode(echo) + '">' + echo.name + '</h3>';
+        str += '<div class="bonusesTooltip-single-details">';
+        str += echo.desc;
+        str += '</div>';
+        str += '</div>';
     })
 
     return str;
