@@ -127,7 +127,10 @@ class NPC extends Entity {
             const bonus = new Bonus(effect, origin, variables);
 
             this.addBonus(bonus);
-            if(isBaseMaxStat(effect)) bonus.variables['value'] = this.increaseBaseStat(effect);
+            if(isBaseMaxStat(effect)) {
+                if(effect.getValue() > 0) bonus.variables['value'] = this.increaseBaseStat(effect);
+                else bonus.variables['value'] = this.decreaseBaseStat(effect);
+            }
             else if(!noApply) this.applyEffect(effect);
 
             console.log('Adding bonus:');
@@ -139,7 +142,10 @@ class NPC extends Entity {
             console.log('Removing bonus:');
             console.log(bonus);
 
-            if(isBaseMaxStat(bonus.stat)) this.decreaseBaseStat(new Stat({effect: bonus.stat.effect, theorical: bonus.variables.value}));
+            if(isBaseMaxStat(bonus.stat)) {
+                if(bonus.stat.getValue() > 0) this.decreaseBaseStat(new Stat({effect: bonus.stat.effect, theorical: bonus.variables.value}));
+                else this.increaseBaseStat(new Stat({effect: bonus.stat.effect, theorical: bonus.variables.value}));
+            }
             else if(!noApply) this.applyEffect(bonus.stat, true);
         }
     }
@@ -484,6 +490,7 @@ class NPC extends Entity {
             this.mana -= amount;
         }
         console.log('DECREASED ' + eff.effect + ' OF ' + this.name + ' by ' + eff.getValue() + '% (' + amount + ' points)');
+        return amount;
     }
 
     applyStun() {
@@ -645,15 +652,17 @@ class NPC extends Entity {
 
     /**
      * Calls the adequate function that alters a base stat, based on the provided Effect.
-     * @param {Data.Effect} eff HEALTH or MANA or STAMINA or MAXHEALTH or MAXMANA or MAXSTAMINA
+     * @param {Stat} eff HEALTH or MANA or STAMINA or MAXHEALTH or MAXMANA or MAXSTAMINA
      */
-    alterBaseStat(eff, originUser = false) {
-        if(eff.effect === Data.Effect.HEALTH || eff.effect === Data.Effect.MANA || eff.effect === Data.Effect.STAMINA) {
+    alterBaseStat(eff, originUser = false, origin = null) {
+        if(isBaseStatChange(eff, true)) {
             if(eff.getValue() > 0) this.addBaseStat(eff, originUser);
             else this.removeBaseStat(eff);
-        } else if(eff.effect === Data.Effect.MAXHEALTH || eff.effect === Data.Effect.MAXMANA || eff.effect === Data.Effect.MAXSTAMINA) {
-            if(eff.getValue() > 0) this.increaseBaseStat(eff);
-            else this.decreaseBaseStat(eff);
+        } else if(isBaseMaxStat(eff)) {
+            /*if(eff.getValue() > 0) this.increaseBaseStat(eff);
+            else this.decreaseBaseStat(eff);*/
+            const action = eff.getValue() > 0 ? Data.AlterAction.ADD : Data.AlterAction.REMOVE;
+            this.alter({effect: eff, action: action, uid: eff.uid, origin: origin});
         }
     }
 
@@ -667,7 +676,7 @@ class NPC extends Entity {
     applyEffects(skill, originUser, effects, critical = false) {
         effects.forEach(eff => {
             if(eff.delay === 0) {
-                if(isBaseStatChange(eff)) this.alterBaseStat(eff, originUser);
+                if(isBaseStatChange(eff)) this.alterBaseStat(eff, originUser, skill);
                 else if(eff.effect === Data.Effect.SHIELD) this.addShield(eff.getValue());
                 else if(eff.effect === Data.Effect.STUN) this.applyStun()
                 else if(eff.effect === Data.Effect.GUARDED) this.applyGuarded(originUser);
