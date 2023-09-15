@@ -2945,6 +2945,57 @@ hr.leftSided {
     overflow-y: scroll;
 }
 
+.bonusesTooltip {
+    width: 175px;
+}
+.bonusesTooltip-list {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+}
+.bonusesTooltip-single {
+    padding: 0.35rem;
+    border-bottom: 1px dashed rgb(88, 88, 88);
+    border-radius: 3px;
+    width: 100%;
+    text-align: left;
+}
+.bonusesTooltip-single.extended {
+    border: 1px solid rgb(88, 88, 88);
+}
+.bonusesTooltip-single.extended .bonusesTooltip-single-details {
+    display: block !important;
+}
+.bonusesTooltip-single:not(:first-child) {
+    margin-top: 0.2rem;
+}
+.bonusesTooltip-single:hover {
+    border-color: rgb(155, 155, 155);
+    cursor: pointer;
+}
+.bonusesTooltip-single-details {
+    margin: 0.15rem 0 0 0.5rem;
+    font-size: 10px;
+    display: none;
+}
+.bonusesTooltip-single-details > h4 {
+    color: grey;
+    font-family: RobotoSlab;
+    font-variant: small-caps;
+    margin-bottom: 0.2rem;
+}
+.bonusesTooltip-single-details > h5 {
+    margin-left: 0.35rem;
+}
+.bonusesTooltip-single-details > h5:not(:first-child) {
+    margin-top: 0.1rem;
+}
+.bonusesTooltip-single-details > h5::before {
+    content: '\2022';
+    padding-right: 8px;
+}
+
 .barredLeft {
     text-align: left;
     line-height: 100%;
