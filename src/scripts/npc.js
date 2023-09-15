@@ -97,6 +97,8 @@ class NPC extends Entity {
         this.guardedBy = null;
         this.guarding = null;
 
+        this.echoes = []; // All NPC's echoes (inner powers, gear, skills...)
+
         this.skills = [];
         skills.forEach(skill => {
             this.addSkill(skill);
