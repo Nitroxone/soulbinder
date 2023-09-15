@@ -1958,7 +1958,7 @@ function generateBonusesTable(bonuses) {
         }
 
         effectTotals[bEff].total += bVal;
-        effectTotals[bEff].origins.push(bOri);
+        effectTotals[bEff].origins.push({item: bOri, value: bVal});
     });
 
     for(const effect in effectTotals) {

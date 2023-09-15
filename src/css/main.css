@@ -2996,6 +2996,31 @@ hr.leftSided {
     padding-right: 8px;
 }
 
+.emptyTag {
+    font-size: 0.7rem;
+    font-family: RobotoItalic;
+    color: grey;
+}
+
+.btNumber {
+    color: rgb(155, 155, 155);
+    font-family: 'RobotoBold';
+    margin-right: 3px;
+    display: none;
+}
+.btNumber.show-ib {
+    display: inline-block;
+}
+
+.bonusesTooltip-togglers {
+    width: 100%;
+}
+.bonusesTooltip-togglers .toggleButton {
+    width: 100%;
+    height: 18px;
+    font-size: 10px;
+}
+
 .barredLeft {
     text-align: left;
     line-height: 100%;

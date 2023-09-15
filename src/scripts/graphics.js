@@ -74,11 +74,21 @@ function spawnTooltip(item, fromExisting = 0) {
     });
 
     if(item[0] === 'bonuses') {
+        const detailsToggler = tooltip.querySelector('.btToggler-details');
+
         tooltip.querySelectorAll('.bonusesTooltip-single').forEach(bo => {
             bo.addEventListener('click', () => {
                 bo.classList.toggle('extended');
             });
         });
+        if(detailsToggler) {
+            detailsToggler.addEventListener('click', e => {
+                tooltip.querySelectorAll('.btNumber').forEach(bt => {
+                    bt.classList.toggle('show-ib');
+                });
+                detailsToggler.classList.toggle('off');
+            });
+        }
     }
 
     // IF ASTRAL FORGE COMPATIBLE, ADD ASTRAL FORGE MODIFICATIONS TOOLTIP EVENT
@@ -1013,20 +1023,28 @@ function getStriderBonusesTooltip(strider, static = false) {
         str += '<div class="bonusesTooltip">';
         str += '<div class="bonusesTooltip-title">Bonuses</div>';
         str += '<div class="divider"></div>';
-        str += '<div class="bonusesTooltip-list">';
-        bonuses.forEach(bonus => {
-            const stat = new Stat({effect: bonus.effect, theorical: bonus.total, fixed: true, isPercentage: isAstralForgeEffectPercentage(bonus.effect)});
 
-            str += '<div class="bonusesTooltip-single">';
-            str += '<h3>' + stat.getFormatted({noTheorical: true, defaultColor: true}) + '</h3>';
-            str += '<div class="bonusesTooltip-single-details">';
-            str += '<h4>From:</h4>';
-            bonus.origins.forEach(ori => {
-                str += '<h5 style="color: ' + getRarityColorCode(ori.rarity) + '">' + ori.name + '</h5>';
-            })
+        str += '<div class="bonusesTooltip-list">';
+        if(bonuses.length === 0) str += '<div class="emptyTag" style="width: 100%; text-align: center;">No bonuses</div>';
+        else {
+            str += '<div class="bonusesTooltip-togglers">';
+            str += '<div class="toggleButton off btToggler-details">Show details</div>';
             str += '</div>';
-            str += '</div>';
-        });
+
+            bonuses.forEach(bonus => {
+                const stat = new Stat({effect: bonus.effect, theorical: bonus.total, fixed: true, isPercentage: isAstralForgeEffectPercentage(bonus.effect)});
+    
+                str += '<div class="bonusesTooltip-single">';
+                str += '<h3>' + stat.getFormatted({noTheorical: true, defaultColor: true}) + '</h3>';
+                str += '<div class="bonusesTooltip-single-details">';
+                str += '<h4>From:</h4>';
+                bonus.origins.forEach(ori => {
+                    str += '<h5 style="color: ' + getRarityColorCode(ori.item.rarity) + '"><span class="btNumber">[' + ori.value + ']</span>' + ori.item.name + '</h5>';
+                })
+                str += '</div>';
+                str += '</div>';
+            });
+        }
         str += '</div></div>';
     }
 
