@@ -1093,7 +1093,8 @@ function getStriderBonusesTooltip(strider, static = false) {
 function getStriderBonusesList(bonuses, echoes = []) {
     let str = '';
 
-    bonuses.forEach(bonus => {
+    if(bonuses.length === 0) str += '<div class="emptyTag" style="width: 100%; text-align: center;">No bonuses</div>';
+    else bonuses.forEach(bonus => {
         const stat = new Stat({effect: bonus.effect, theorical: bonus.total, fixed: true, isPercentage: isAstralForgeEffectPercentage(bonus.effect)});
 
         str += '<div class="bonusesTooltip-single">';
@@ -1106,8 +1107,11 @@ function getStriderBonusesList(bonuses, echoes = []) {
         str += '</div>';
         str += '</div>';
     });
+
     str += '<div class="divider"></div>';
-    echoes.forEach(echo => {
+    
+    if(echoes.length === 0) str += '<div class="emptyTag" style="width: 100%; text-align: center;">No echoes</div>';
+    else echoes.forEach(echo => {
         str += '<div class="bonusesTooltip-single bonusesTooltipEcho">';
         str += '<h3 style="color: ' + getRarityColorCode(echo.rarity) + '">' + echo.name + '</h3>';
         str += '<div class="bonusesTooltip-single-details">';
