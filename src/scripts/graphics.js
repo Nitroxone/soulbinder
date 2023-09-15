@@ -1102,7 +1102,7 @@ function getStriderBonusesList(bonuses, echoes = []) {
         str += '<div class="bonusesTooltip-single-details">';
         str += '<h4>From:</h4>';
         bonus.origins.forEach(ori => {
-            str += '<h5 class="' + getBonusCssClassName(ori) + '" style="color: ' + getBonusCssClassRarity(ori) + '"><span class="btNumber">[' + ori.value + ']</span>' + ori.item.name + '</h5>';
+            str += '<h5 class="' + getBonusCssClassName(ori) + '" style="color: ' + getBonusCssClassRarity(ori) + '"><span class="btNumber">[' + ori.value + ']</span>' + (typeof ori.item === "string" ? ori.item : ori.item.name) + '</h5>';
         })
         str += '</div>';
         str += '</div>';

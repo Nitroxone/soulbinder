@@ -74,6 +74,8 @@ class Strider extends NPC {
         this.customBgPos = customBgPos;
 
         this.popupsQueue = [];
+
+        this.setsBonuses = {}; // Model: {'setName': [amount of pieces equipped]}
     }
 
     /**
@@ -220,6 +222,36 @@ class Strider extends NPC {
         spawnStriderPopup(this, true);
     }
 
+    updateSetBonuses(item, action) {
+        if(item.set) {
+            const set = what(game.all_equipmentSets, item.set); // Retrieve set
+
+            if(action === Data.AlterAction.ADD) {
+                if(!this.setsBonuses[item.set]) this.setsBonuses[item.set] = 0;
+                this.setsBonuses[item.set] += 1;
+
+                const current = this.setsBonuses[item.set];
+                const steps = Object.keys(set.bonus).map(str => parseInt(str));
+                const closest = findClosestInferiorOrEqualNumber(steps, current); // Gotta do this ugly ass int conversion for the function to work (it's a friday evening and I'm lazy)
+                const closestBonus = set.bonus[closest];
+                
+                if(closestBonus) {
+                    closestBonus.forEach(bo => {
+                        if(bo instanceof Stat) {
+                            console.log('STAT DETECTED');
+                            if(!this.findBonusWithUid(bo.uid)) this.alter({effect: bo, origin: item.set, action: Data.AlterAction.ADD});
+                        } else if(bo instanceof Echo) {
+                            console.log('ECHO DETECTED');
+                            if(!arrayContains(this.echoes, bo)) this.addEcho(bo);
+                        }
+                    })
+                }
+            } else {
+                this.setsBonuses[item.set] = Math.max(0, this.setsBonuses[item.set]+1);
+            }
+        }
+    }
+
     /**
      * Equips the armor whose ID is provided in the DragEvent object.
      * @param {DragEvent} event the Event from which the armor will be retrieved
@@ -249,14 +281,15 @@ class Strider extends NPC {
                 this.eqShield = armor;
                 break;
         }
-        //this.addEffect(new Stat({effect: Data.Effect.RESILIENCE, theorical: armor.resilience}));
-        //this.addEffect(new Stat({effect: Data.Effect.WARDING, theorical: armor.warding}));
         this.alter({effect: armor.resilience, origin: armor, action: Data.AlterAction.ADD});
         this.alter({effect: armor.warding, origin: armor, action: Data.AlterAction.ADD});
         this.applyEcho(armor);
         this.addEcho(armor.echo);
         this.applyAstralForgeExtraEffects(armor);
         this.applySigil(Data.ItemType.ARMOR, armor.sigil);
+
+        // Updating sets
+        this.updateSetBonuses(armor, Data.AlterAction.ADD);
 
         game.player.inventory.removeItem(armor);
         console.log(armor.name + ' was equipped to ' + this.name);
@@ -298,6 +331,9 @@ class Strider extends NPC {
         this.removeEcho(armor.echo);
         this.applyAstralForgeExtraEffects(armor, true);
         this.applySigil(Data.ItemType.ARMOR, armor.sigil, true);
+
+        // Updating sets
+        this.updateSetBonuses(armor, Data.AlterAction.REMOVE);
 
         game.player.inventory.addItem(armor, 1, true);
         console.log(armor.name + ' was unequipped from ' + this.name);
