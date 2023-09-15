@@ -1069,7 +1069,7 @@ function getStriderBonusesTooltip(strider, static = false) {
         str += '<div class="divider"></div>';
 
         str += '<div class="bonusesTooltip-list">';
-        if(bonuses.length === 0) str += '<div class="emptyTag" style="width: 100%; text-align: center;">No bonuses</div>';
+        if(bonuses.length === 0 && strider.echoes.length === 0) str += '<div class="emptyTag" style="width: 100%; text-align: center;">No bonuses</div>';
         else {
             str += '<div class="bonusesTooltip-togglers">';
             str += '<div class="toggleButton off btToggler-details">Show details</div>';
