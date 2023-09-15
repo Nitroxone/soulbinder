@@ -1949,6 +1949,8 @@ function generateBonusesTable(bonuses) {
         const bVal = isBaseMaxStat(bEff) ? bonus.variables.value : bonus.stat.getValue();
         const bOri = bonus.origin;
 
+        if(bVal === 0 && !isEffectUnvaluable(bEff)) return; // Skip null effects if they're not unvaluable
+
         if(!effectTotals[bEff]) {
             effectTotals[bEff] = {
                 effect: bEff,
