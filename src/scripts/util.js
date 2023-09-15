@@ -1939,3 +1939,31 @@ function getSoulreadingSoulmarkValue(sm) {
 function uidGen() {
     return Date.now().toString(36) + Math.random().toString(36).substring(2, 8);
 }
+
+function generateBonusesTable(bonuses) {
+    const results = [];
+    const effectTotals = {};
+
+    bonuses.forEach(bonus => {
+        const bEff = bonus.stat.effect;
+        const bVal = isBaseMaxStat(bEff) ? bonus.variables.value : bonus.stat.getValue();
+        const bOri = bonus.origin;
+
+        if(!effectTotals[bEff]) {
+            effectTotals[bEff] = {
+                effect: bEff,
+                total: 0,
+                origins: []
+            }
+        }
+
+        effectTotals[bEff].total += bVal;
+        effectTotals[bEff].origins.push(bOri);
+    });
+
+    for(const effect in effectTotals) {
+        results.push(effectTotals[effect]);
+    }
+
+    return results;
+}

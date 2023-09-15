@@ -6,7 +6,7 @@
 
 /**
  * Spawns a floating tooltip on screen based on the provided Item's data.
- * @param {Item} item the Item data to fill the tooltip with
+ * @param {Item|array} item the Item data to fill the tooltip with
  */
 function spawnTooltip(item, fromExisting = 0) {
     //console.log(item);
@@ -19,6 +19,7 @@ function spawnTooltip(item, fromExisting = 0) {
     else if(item instanceof Trinket) tooltip.innerHTML = base + getTrinketTooltip(item, null, true) + '</div>';
     else if(item instanceof EquipmentSet) tooltip.innerHTML = base + getSetTooltip(item) + '</div>';
     else if(item instanceof Consumable) tooltip.innerHTML = base + getConsumableTooltip(item) + '</div>';
+    else if(item[0] === 'bonuses') tooltip.innerHTML = base + getStriderBonusesTooltip(item[1]) + '</div>';
     // Same position as hovered tooltip, but positioned in such way that it will cut the mouse off the hover event
 
 
@@ -71,6 +72,14 @@ function spawnTooltip(item, fromExisting = 0) {
         Sounds.Methods.playSound(Data.SoundType.TOOLTIP_CLOSE);
         tooltip.remove();
     });
+
+    if(item[0] === 'bonuses') {
+        tooltip.querySelectorAll('.bonusesTooltip-single').forEach(bo => {
+            bo.addEventListener('click', () => {
+                bo.classList.toggle('extended');
+            });
+        });
+    }
 
     // IF ASTRAL FORGE COMPATIBLE, ADD ASTRAL FORGE MODIFICATIONS TOOLTIP EVENT
     if(item instanceof Weapon || item instanceof Armor || item instanceof Trinket) {
@@ -970,9 +979,13 @@ function spawnStriderPopup(strider, refresh = false) {
         document.querySelector('#strider-weaponBoth').addEventListener('contextmenu', e => {e.stopImmediatePropagation(); e.preventDefault(); strider.unequipWeapon(Data.WeaponHand.BOTH)});
     }
 
-    addTooltip(document.querySelector('#bonusesIcon-' + strider.id), function(){
-        return getStriderBonusesTooltip(strider);
-    }, {offY: -8})
+    const striderBonuses = document.querySelector('#bonusesIcon-' + strider.id);
+    addTooltip(striderBonuses, function(){
+        return getStriderBonusesTooltip(strider, true);
+    }, {offY: -8});
+    striderBonuses.addEventListener('click', e => {
+        spawnTooltip(['bonuses', strider]);
+    })
 
     drawSkillTreeLines(strider);
     bringNodesForward();
@@ -990,10 +1003,32 @@ function allowDrop(e) {
     e.preventDefault();
 }
 
-function getStriderBonusesTooltip(strider) {
+function getStriderBonusesTooltip(strider, static = false) {
     let str = '';
 
-    str += '<div class="bonusesTooltip-title">Click to view bonuses</div>';
+    if(static) str += '<div class="bonusesTooltip-title">Click to view bonuses</div>';
+    else {
+        const bonuses = generateBonusesTable(strider.bonuses);
+
+        str += '<div class="bonusesTooltip">';
+        str += '<div class="bonusesTooltip-title">Bonuses</div>';
+        str += '<div class="divider"></div>';
+        str += '<div class="bonusesTooltip-list">';
+        bonuses.forEach(bonus => {
+            const stat = new Stat({effect: bonus.effect, theorical: bonus.total, fixed: true, isPercentage: isAstralForgeEffectPercentage(bonus.effect)});
+
+            str += '<div class="bonusesTooltip-single">';
+            str += '<h3>' + stat.getFormatted({noTheorical: true, defaultColor: true}) + '</h3>';
+            str += '<div class="bonusesTooltip-single-details">';
+            str += '<h4>From:</h4>';
+            bonus.origins.forEach(ori => {
+                str += '<h5 style="color: ' + getRarityColorCode(ori.rarity) + '">' + ori.name + '</h5>';
+            })
+            str += '</div>';
+            str += '</div>';
+        });
+        str += '</div></div>';
+    }
 
     return str;
 }
