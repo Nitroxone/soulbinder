@@ -1994,3 +1994,21 @@ function getBonusCssClassRarity(ori) {
     if(it instanceof SkillTreeNode) return "#bf40bf";
     if(it instanceof Skill) return "rgb(80, 80, 80)";
 }
+
+/**
+ * Finds the closest number, among the array, that is inferior or equal to x, and returns it.
+ * @param {number[]} arr 
+ * @param {number} x 
+ * @returns {number} the closest inferior number
+ */
+function findClosestInferiorOrEqualNumber(arr, x) {
+    let closest = null;
+
+    for(let num of arr) {
+        if(num <= x && (closest === null || x - num < x - closest)) {
+            closest = num;
+        }
+    }
+
+    return closest;
+}
