@@ -1029,7 +1029,10 @@ function getStriderBonusesTooltip(strider, static = false) {
         else {
             str += '<div class="bonusesTooltip-togglers">';
             str += '<div class="toggleButton off btToggler-details">Show details</div>';
+            str += '<div class="toggleButton off btToggler-extra">Hide extra</div>';
             str += '</div>';
+
+            str += '<div class="divider"></div>';
 
             bonuses.forEach(bonus => {
                 const stat = new Stat({effect: bonus.effect, theorical: bonus.total, fixed: true, isPercentage: isAstralForgeEffectPercentage(bonus.effect)});
