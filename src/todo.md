@@ -93,5 +93,6 @@ STRIDERS SCREEN:
 - Implement formation interface
 - Change the Striders screen (popup -> full section)
 DONE - Add a "bonuses" tooltip to view all bonuses of a Strider
-ONGOING - Improve the bonuses tooltip with more details (need to add origin of Echoes, and Combat Skills, and hiding these)
-- Prevent the display of null stats (armors with no Withering, mainly)
+DONE - Improve the bonuses tooltip with more details (need to add origin of Echoes, and Combat Skills, and hiding these)
+DONE - Prevent the display of null stats (armors with no Withering, mainly)
+- Display echoes' mechanics in the bonuses tooltip
