@@ -98,7 +98,7 @@ function spawnTooltip(item, fromExisting = 0) {
                 if(details) detailsToggler.dispatchEvent(new Event('click'));
 
                 extra = !extra;
-                tooltip.querySelector('.bonusesTooltip-bonuses').innerHTML = getStriderBonusesList(generateBonusesTable({bonuses: strider.bonuses, noExtra: extra, noEchoes: echoes, noEquipment: equipment}));
+                tooltip.querySelector('.bonusesTooltip-bonuses').innerHTML = getStriderBonusesList(generateBonusesTable({bonuses: strider.bonuses, noExtra: extra, noEchoes: echoes, noEquipment: equipment}), strider.echoes);
 
                 generateBonusesTooltipListEvents(tooltip);
                 extraToggler.classList.toggle('off');
@@ -107,7 +107,7 @@ function spawnTooltip(item, fromExisting = 0) {
                 if(details) detailsToggler.dispatchEvent(new Event('click'));
 
                 echoes = !echoes;
-                tooltip.querySelector('.bonusesTooltip-bonuses').innerHTML = getStriderBonusesList(generateBonusesTable({bonuses: strider.bonuses, noExtra: extra, noEchoes: echoes, noEquipment: equipment}));
+                tooltip.querySelector('.bonusesTooltip-bonuses').innerHTML = getStriderBonusesList(generateBonusesTable({bonuses: strider.bonuses, noExtra: extra, noEchoes: echoes, noEquipment: equipment}), strider.echoes);
                 
                 generateBonusesTooltipListEvents(tooltip);
                 echoesToggler.classList.toggle('off');
@@ -116,7 +116,7 @@ function spawnTooltip(item, fromExisting = 0) {
                 if(details) detailsToggler.dispatchEvent(new Event('click'));
 
                 equipment = !equipment;
-                tooltip.querySelector('.bonusesTooltip-bonuses').innerHTML = getStriderBonusesList(generateBonusesTable({bonuses: strider.bonuses, noExtra: extra, noEchoes: echoes, noEquipment: equipment}));
+                tooltip.querySelector('.bonusesTooltip-bonuses').innerHTML = getStriderBonusesList(generateBonusesTable({bonuses: strider.bonuses, noExtra: extra, noEchoes: echoes, noEquipment: equipment}), strider.echoes);
                 
                 generateBonusesTooltipListEvents(tooltip);
                 equipmentToggler.classList.toggle('off');
@@ -1078,7 +1078,7 @@ function getStriderBonusesTooltip(strider, static = false) {
             str += '<div class="divider"></div>';
 
             str += '<div id="bt-' + strider.id + '" class="bonusesTooltip-bonuses">';
-            str += getStriderBonusesList(bonuses);
+            str += getStriderBonusesList(bonuses, strider.echoes);
             str += '</div>';
         }
         str += '</div></div>';
@@ -1087,7 +1087,7 @@ function getStriderBonusesTooltip(strider, static = false) {
     return str;
 }
 
-function getStriderBonusesList(bonuses) {
+function getStriderBonusesList(bonuses, echoes = []) {
     let str = '';
 
     bonuses.forEach(bonus => {
@@ -1103,6 +1103,10 @@ function getStriderBonusesList(bonuses) {
         str += '</div>';
         str += '</div>';
     });
+    str += '<div class="divider"></div>';
+    echoes.forEach(echo => {
+        str += echo.name + '<br>';
+    })
 
     return str;
 }

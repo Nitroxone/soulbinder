@@ -152,10 +152,18 @@ class NPC extends Entity {
         }
     }
 
+    /**
+     * Adds the provided bonus to this NPC.
+     * @param {Bonus} bonus the bonus to add
+     */
     addBonus(bonus) {
         this.bonuses.push(bonus);
     }
 
+    /**
+     * Removes the provided bonus from this NPC.
+     * @param {Bonus} bonus the bonus to remove
+     */
     removeBonus(bonus) {
         removeFromArray(this.bonuses, bonus);
     }
@@ -722,6 +730,22 @@ class NPC extends Entity {
      */
     removeSkill(skill) {
         removeFromArray(this.skills, skill);
+    }
+
+    /**
+     * Adds the provided Echo to this NPC.
+     * @param {Skill} skill the Echo to add
+     */
+    addEcho(echo) {
+        this.echoes.push(echo);
+    }
+
+    /**
+     * Removes the provided Echo from this NPC.
+     * @param {Skill} skill the Echo to remove
+     */
+    removeEcho(echo) {
+        removeFromArray(this.echoes, echo);
     }
 
     reduceSkillsCooldown() {
