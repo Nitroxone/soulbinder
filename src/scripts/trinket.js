@@ -138,7 +138,7 @@ class Trinket extends Item {
      * @param {Echo} echo the Echo to add. if no Echo is provided, it will be picked randomly.
      */
     addEcho(echo = null) {
-        if(!this.hasEcho()) {
+        if(!this.hasEcho() && false) { // NEGATED FOR NOW
             if(!echo) {
                 let pool = game.all_echoes.filter(echo => {
                     return echo.type === Data.EchoType.TRINKET || echo.type === Data.EchoType.ANY
@@ -150,7 +150,7 @@ class Trinket extends Item {
             this.echo = echo;
             this.echo.parent = this;
         } else {
-            this.echo.parent = this;
+            if(this.echo) this.echo.parent = this;
         }
     }
 

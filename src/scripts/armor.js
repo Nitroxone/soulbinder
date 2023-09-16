@@ -134,10 +134,10 @@ class Armor extends Item {
         const factor = remove ? -1 : 1;
         switch(effect.effect) {
             case Data.Effect.RESILIENCE:
-                this.resilience += effect.getValue() * factor;
+                this.resilience.value += effect.getValue() * factor;
                 break;
             case Data.Effect.WARDING:
-                this.warding += effect.getValue() * factor;
+                this.warding.value += effect.getValue() * factor;
                 break;
         }
     }
@@ -147,7 +147,7 @@ class Armor extends Item {
      * @param {Echo} echo the Echo to add. if no Echo is provided, it will be picked randomly.
      */
     addEcho(echo = null) {
-        if(!this.hasEcho()) {
+        if(!this.hasEcho() && (this.type === Data.ArmorType.SHIELD || this.type === Data.ArmorType.CHESTPLATE)) {
             if(!echo) {
                 let pool = game.all_echoes.filter(echo => {
                     return echo.type === Data.EchoType.ARMOR || echo.type === Data.EchoType.ANY
@@ -159,7 +159,7 @@ class Armor extends Item {
             this.echo = echo;
             this.echo.parent = this;
         } else {
-            this.echo.parent = this;
+            if(this.echo) this.echo.parent = this;
         }
     }
 
