@@ -2612,11 +2612,19 @@ function getSoulbindingObjects(refresh = false) {
     if(item && item.hasOwnProperty('echo')) {
         animDelay += 0.1;
         str += '<div class="sbObjectsSigilWrapper" style="animation-delay: ' + animDelay + 's;">';
-        str += '<div class="sbObjectsSigil">';
-        if(item.hasEcho()) str += getEchoDetails(item.echo, false, true);
-        else str += getEmptyEchoHTML(true);
-        str += '</div>';
-        str += getEchoExtractCommand(item.echo.id);
+
+        if(canReceiveEcho(item)) {
+            str += '<div class="sbObjectsSigil">';
+            if(item.hasEcho()) str += getEchoDetails(item.echo, false, true);
+            else {
+                str += getEmptyEchoHTML(true);
+            }
+            str += '</div>';
+            str += getEchoExtractCommand(item.echo.id);
+        }
+        else {
+            str += '<div class="sbCannotHostEcho">No echo allowed on this item</div>';
+        }
         str += '</div>';
     }
     str += '</div>';
