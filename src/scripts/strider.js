@@ -206,6 +206,10 @@ class Strider extends NPC {
         }
     }
 
+    /**
+     * Unequips the provided Trinket.
+     * @param {Trinket} trinket the Trinket to unequip
+     */
     unequipTrinket(trinket) {
         if(!trinket) return;
         if(!arrayContains(this.trinkets, trinket)) throw new Error('Tried to unequip a trinket that is not equipped.');
@@ -337,6 +341,10 @@ class Strider extends NPC {
         spawnStriderPopup(this, true);
     }
 
+    /**
+     * Unequips the provided armor.
+     * @param {Armor} armor the armor to unequip
+     */
     unequipArmor(armor) {
         if(!armor) return;
         switch(armor.type) {
@@ -381,6 +389,11 @@ class Strider extends NPC {
         spawnStriderPopup(this, true);
     }
 
+    /**
+     * Equips the Weapon from the data in the provided DragEvent to the targeted hand.
+     * @param {DragEvent} event 
+     * @param {Data.WeaponHand} hand the hand to equip the weapon to
+     */
     equipWeapon(event, hand = '') {
         const weapon = game.player.inventory.getItemFromId(Data.ItemType.WEAPON, event.dataTransfer.getData('weapon'));
         if(weapon.weight === Data.WeaponWeight.HEAVY) {
@@ -425,6 +438,11 @@ class Strider extends NPC {
         drawInventory();
         spawnStriderPopup(this, true);
     }
+
+    /**
+     * Unequips the weapon from the provided hand.
+     * @param {Data.WeaponHand} hand the hand to unequip the weapon from
+     */
     unequipWeapon(hand) {
         if(hand === Data.WeaponHand.RIGHT && this.eqWeaponRight) {
             if(!this.eqWeaponRight) return;
@@ -486,6 +504,13 @@ class Strider extends NPC {
         }
     }
 
+    /**
+     * Applies the provided Sigil's effects to this Strider.
+     * @param {Data.ItemType} type the type of item the Sigil is bound to
+     * @param {Sigil} sigil the Sigil
+     * @param {boolean} remove whether to remove or add the bonuses
+     * @param {boolean} source 
+     */
     applySigil(type, sigil, remove = false, source = null) {
         const action = remove ? Data.AlterAction.REMOVE : Data.AlterAction.ADD;
         if(sigil) {
@@ -535,6 +560,10 @@ class Strider extends NPC {
         this.runTriggers(Data.TriggerType.ON_USE_WEAPON);
     }
 
+    /**
+     * Returns the total block value of this Strider based on his equipped weapons.
+     * @returns {number} the total block value
+     */
     getTotalBlockValue() {
         let val = 0;
 
