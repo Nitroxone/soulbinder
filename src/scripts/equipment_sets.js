@@ -12,8 +12,9 @@ class EquipmentSet extends Entity {
      * @param {array} items
      * @param {array} bonus 
      */
-    constructor(name, type, desc, items, bonus) {
+    constructor(name, rarity, type, desc, items, bonus) {
         super(name, desc, 0);
+        this.rarity = rarity;
         this.type = type;
         this.items = items;
         this.bonus = bonus;

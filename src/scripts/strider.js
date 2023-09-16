@@ -190,6 +190,10 @@ class Strider extends NPC {
             this.addEcho(trinket.echo);
             this.applyAstralForgeExtraEffects(trinket);
             this.applySigil(Data.ItemType.TRINKET, trinket.sigil, false, trinket);
+
+            // Updating sets
+            this.updateSetBonuses(trinket, Data.AlterAction.ADD); 
+
             this.trinkets.push(trinket);
             game.player.inventory.removeItem(trinket);
             this.removeAvailableTrinketSlot();
@@ -213,6 +217,10 @@ class Strider extends NPC {
         this.removeEcho(trinket.echo);
         this.applyAstralForgeExtraEffects(trinket, true);
         this.applySigil(Data.ItemType.TRINKET, trinket.sigil, true, trinket);
+
+        // Updating sets
+        this.updateSetBonuses(trinket, Data.AlterAction.REMOVE);
+
         removeFromArray(this.trinkets, trinket);
         game.player.inventory.addItem(trinket, 1, true);
         this.addAvailableTrinketSlot();
@@ -222,33 +230,64 @@ class Strider extends NPC {
         spawnStriderPopup(this, true);
     }
 
+    /**
+     * Updates the bonuses from the provided item's set.
+     * @param {Weapon|Armor|Trinket} item the set's item
+     * @param {Data.AlterAction} action the action to do
+     */
     updateSetBonuses(item, action) {
-        if(item.set) {
-            const set = what(game.all_equipmentSets, item.set); // Retrieve set
+        if(!item.set) return;
 
-            if(action === Data.AlterAction.ADD) {
-                if(!this.setsBonuses[item.set]) this.setsBonuses[item.set] = 0;
-                this.setsBonuses[item.set] += 1;
+        const set = what(game.all_equipmentSets, item.set);
 
-                const current = this.setsBonuses[item.set];
-                const steps = Object.keys(set.bonus).map(str => parseInt(str));
-                const closest = findClosestInferiorOrEqualNumber(steps, current); // Gotta do this ugly ass int conversion for the function to work (it's a friday evening and I'm lazy)
-                const closestBonus = set.bonus[closest];
-                
-                if(closestBonus) {
-                    closestBonus.forEach(bo => {
-                        if(bo instanceof Stat) {
-                            console.log('STAT DETECTED');
-                            if(!this.findBonusWithUid(bo.uid)) this.alter({effect: bo, origin: item.set, action: Data.AlterAction.ADD});
-                        } else if(bo instanceof Echo) {
-                            console.log('ECHO DETECTED');
-                            if(!arrayContains(this.echoes, bo)) this.addEcho(bo);
-                        }
-                    })
-                }
-            } else {
-                this.setsBonuses[item.set] = Math.max(0, this.setsBonuses[item.set]+1);
-            }
+        action === Data.AlterAction.ADD ? this.addSetBonus(item, set) : this.removeSetBonus(item, set);
+    }
+
+    /**
+     * Increases the bonuses tracker for the provided set and adds bonuses accordingly, if needed.
+     * @param {Weapon|Armor|Trinket} item the set's item
+     * @param {EquipmentSet} set the set
+     */
+    addSetBonus(item, set) {
+        this.setsBonuses[item.set] = (this.setsBonuses[item.set] || 0) + 1; // Increase +1 to set bonus tracker, or initialize it if nonexisting
+
+        const current = this.setsBonuses[item.set];
+        const steps = Object.keys(set.bonus).map(Number);
+        const closest = findClosestInferiorOrEqualNumber(steps, current);
+        const closestBonus = set.bonus[closest];
+
+        if(closestBonus) closestBonus.forEach(bonus => this.processSetBonus(item, bonus, Data.AlterAction.ADD));
+    }
+
+    /**
+     * Decreases the bonuses tracker for the provided set and removes bonuses accordingly, if needed.
+     * @param {Weapon|Armor|Trinket} item the set's item
+     * @param {EquipmentSet} set the set
+     */
+    removeSetBonus(item, set) {
+        const current = this.setsBonuses[item.set];
+        const steps = Object.keys(set.bonus).map(Number);
+        const closest = findClosestInferiorOrEqualNumber(steps, current);
+        const closestBonus = set.bonus[closest];
+
+        if(closestBonus) closestBonus.forEach(bonus => this.processSetBonus(item, bonus, Data.AlterAction.REMOVE));
+
+        this.setsBonuses[item.set] = Math.max(0, current - 1);
+    }
+
+    /**
+     * Adds or removes the provided bonus from an item sett to the Strider.
+     * @param {Weapon|Armor|Trinket} item the set's item
+     * @param {Bonus} bonus the bonus
+     * @param {Data.AlterAction} action the action to do
+     */
+    processSetBonus(item, bonus, action) {
+        if(action === Data.AlterAction.ADD) {
+            if(bonus instanceof Stat && !this.findBonusWithUid(bonus.uid)) this.alter({effect: bonus, origin: item.set, action: action});
+            else if(bonus instanceof Echo && !arrayContains(this.echoes, bonus)) this.addEcho(bonus);
+        } else {
+            if(bonus instanceof Stat && this.findBonusWithUid(bonus.uid)) this.alter({uid: bonus.uid, action: action});
+            else if(bonus instanceof Echo && arrayContains(this.echoes, bonus)) this.removeEcho(bonus);
         }
     }
 
@@ -377,6 +416,10 @@ class Strider extends NPC {
         this.addEcho(weapon.echo);
         this.applyAstralForgeExtraEffects(weapon);
         this.applySigil(Data.ItemType.WEAPON, weapon.sigil);
+
+        // Updating sets
+        this.updateSetBonuses(weapon, Data.AlterAction.ADD); 
+
         game.player.inventory.removeItem(weapon);
         Sounds.Methods.playSound(Data.SoundType.EQUIP_WEAPON);
         drawInventory();
@@ -392,6 +435,8 @@ class Strider extends NPC {
             this.removeEcho(this.eqWeaponRight.echo);
             this.applyAstralForgeExtraEffects(this.eqWeaponRight, true);
             this.applySigil(Data.ItemType.WEAPON, this.eqWeaponRight.sigil, true);
+            // Updating sets
+            this.updateSetBonuses(this.eqWeaponRight, Data.AlterAction.REMOVE); 
 
             this.eqWeaponRight = null;
         } else if(hand === Data.WeaponHand.LEFT && this.eqWeaponLeft) {
@@ -403,6 +448,8 @@ class Strider extends NPC {
             this.removeEcho(this.eqWeaponLeft.echo);
             this.applyAstralForgeExtraEffects(this.eqWeaponLeft, true);
             this.applySigil(Data.ItemType.WEAPON, this.eqWeaponLeft.sigil, true);
+            // Updating sets
+            this.updateSetBonuses(this.eqWeaponLeft, Data.AlterAction.REMOVE); 
 
             this.eqWeaponLeft = null;
         } else if(hand === Data.WeaponHand.BOTH) {
@@ -414,6 +461,8 @@ class Strider extends NPC {
             this.removeEcho(this.eqWeaponBoth.echo);
             this.applyAstralForgeExtraEffects(this.eqWeaponBoth, true);
             this.applySigil(Data.ItemType.WEAPON, this.eqWeaponBoth.sigil, true);
+            // Updating sets
+            this.updateSetBonuses(this.eqWeaponBoth, Data.AlterAction.REMOVE); 
 
             this.eqWeaponBoth = null;
         }

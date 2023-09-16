@@ -1111,6 +1111,7 @@ const Loader = {
         const equipmentSets = [
             new EquipmentSet(
                 "Highsteel Set",
+                Data.Rarity.COMMON,
                 {
                     weight: Data.WeaponWeight.LIGHT,
                     base: Data.Effect.HEALTH,
@@ -1166,6 +1167,7 @@ const Loader = {
             for(let key in equipmentSet.bonus) {
                 equipmentSet.bonus[key].forEach(bonus => {
                     bonus.fix();
+                    if(bonus instanceof Echo) bonus.parent = {name: equipmentSet.name, rarity: equipmentSet.rarity};
                 })
             }
             game.all_equipmentSets.push(equipmentSet);
