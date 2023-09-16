@@ -187,7 +187,7 @@ class Strider extends NPC {
                 this.alter({effect: effect, origin: trinket, action: Data.AlterAction.ADD});
             });
             this.applyEcho(trinket);
-            this.addEcho(trinket.echo);
+            if(trinket.echo) this.addEcho(trinket.echo);
             this.applyAstralForgeExtraEffects(trinket);
             this.applySigil(Data.ItemType.TRINKET, trinket.sigil, false, trinket);
 
@@ -218,7 +218,7 @@ class Strider extends NPC {
             this.alter({uid: effect.uid, action: Data.AlterAction.REMOVE});
         });
         this.applyEcho(trinket, true);
-        this.removeEcho(trinket.echo);
+        if(trinket.echo) this.removeEcho(trinket.echo);
         this.applyAstralForgeExtraEffects(trinket, true);
         this.applySigil(Data.ItemType.TRINKET, trinket.sigil, true, trinket);
 
@@ -327,7 +327,7 @@ class Strider extends NPC {
         this.alter({effect: armor.resilience, origin: armor, action: Data.AlterAction.ADD});
         this.alter({effect: armor.warding, origin: armor, action: Data.AlterAction.ADD});
         this.applyEcho(armor);
-        this.addEcho(armor.echo);
+        if(armor.echo) this.addEcho(armor.echo);
         this.applyAstralForgeExtraEffects(armor);
         this.applySigil(Data.ItemType.ARMOR, armor.sigil);
 
@@ -375,7 +375,7 @@ class Strider extends NPC {
         this.alter({uid: armor.warding.uid, action: Data.AlterAction.REMOVE});
 
         this.applyEcho(armor, true);
-        this.removeEcho(armor.echo);
+        if(armor.echo) this.removeEcho(armor.echo);
         this.applyAstralForgeExtraEffects(armor, true);
         this.applySigil(Data.ItemType.ARMOR, armor.sigil, true);
 
@@ -426,7 +426,7 @@ class Strider extends NPC {
             }
         }
         this.applyEcho(weapon);
-        this.addEcho(weapon.echo);
+        if(weapon.echo) this.addEcho(weapon.echo);
         this.applyAstralForgeExtraEffects(weapon);
         this.applySigil(Data.ItemType.WEAPON, weapon.sigil);
 
@@ -450,7 +450,7 @@ class Strider extends NPC {
             console.log(this.eqWeaponRight.name + ' was unequipped from ' + this.name + '\'s right hand.');
 
             this.applyEcho(this.eqWeaponRight, true);
-            this.removeEcho(this.eqWeaponRight.echo);
+            if(this.eqWeaponRight.echo) this.removeEcho(this.eqWeaponRight.echo);
             this.applyAstralForgeExtraEffects(this.eqWeaponRight, true);
             this.applySigil(Data.ItemType.WEAPON, this.eqWeaponRight.sigil, true);
             // Updating sets
@@ -463,7 +463,7 @@ class Strider extends NPC {
             console.log(this.eqWeaponLeft.name + ' was unequipped from ' + this.name + '\'s left hand.');
             
             this.applyEcho(this.eqWeaponLeft, true);
-            this.removeEcho(this.eqWeaponLeft.echo);
+            if(this.eqWeaponLeft.echo) this.removeEcho(this.eqWeaponLeft.echo);
             this.applyAstralForgeExtraEffects(this.eqWeaponLeft, true);
             this.applySigil(Data.ItemType.WEAPON, this.eqWeaponLeft.sigil, true);
             // Updating sets
@@ -476,7 +476,7 @@ class Strider extends NPC {
             console.log(this.eqWeaponBoth.name + ' was unequipped from ' + this.name + '\'s both hands.');
                         
             this.applyEcho(this.eqWeaponBoth, true);
-            this.removeEcho(this.eqWeaponBoth.echo);
+            if(this.eqWeaponBoth.echo) this.removeEcho(this.eqWeaponBoth.echo);
             this.applyAstralForgeExtraEffects(this.eqWeaponBoth, true);
             this.applySigil(Data.ItemType.WEAPON, this.eqWeaponBoth.sigil, true);
             // Updating sets
