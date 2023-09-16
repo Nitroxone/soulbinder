@@ -150,7 +150,10 @@ class Trinket extends Item {
             this.echo = echo;
             this.echo.parent = this;
         } else {
-            if(this.echo) this.echo.parent = this;
+            if(this.echo) {
+                this.echo.parent = this;
+                this.echo.fix();
+            }
         }
     }
 

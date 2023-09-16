@@ -157,6 +157,42 @@ const Loader = {
                       [8, 12],
                       [0, 0],
                       ),
+            new Armor("Besieged King",
+                      "Lorem ipsum",
+                      45,
+                      100000,
+                      Data.Rarity.ELDER,
+                      Data.ArmorType.HELMET,
+                      [120, 130],
+                      [55, 60],
+                      2,
+                      new Echo(
+                        "Wartime Efforts",
+                        "Guarding an ally boosts them with a §1% Total damage for 1 round, and yourself with §2% Protection for one round. While guarding, any friendly skill will boost the targets with §3% Stamina regeneration for one round, and any offensive skill will apply a §4% Dodge debuff to the targets for two rounds.",
+                        1,
+                        Data.Rarity.ELDER,
+                        [
+                            new Stat({
+                                effect: Data.Effect.PROTECTION,
+                                theorical: [4, 8],
+                                isPercentage: true
+                            }),
+                            new Stat({
+                                effect: Data.Effect.MODIF_BLOCK,
+                                theorical: [25, 30],
+                                isPercentage: true
+                            })
+                        ],
+                        "Lorem ipsum",
+                        {
+                            "bonus_total_damage": [50, 55],
+                            "bonus_protection": [25, 30],
+                            "bonus_stamina_regen": [5, 10],
+                            "debuff_dodge": [6, 10]
+                        },
+                        [],
+                      )
+                      ),
         ];
 
         for(const armor of armors) {
@@ -1107,6 +1143,66 @@ const Loader = {
                         theorical: [-2, -4],
                     })
                 ]
+            ),
+            new Trinket(
+                "Shattered Mask of Jara",
+                "Lorem ipsum",
+                37,
+                10000,
+                Data.Rarity.ELDER,
+                [
+                    new Stat({
+                        effect: Data.Effect.MAXMANA,
+                        theorical: [150, 170],
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MAXSTAMINA,
+                        theorical: [150, 170],
+                    }),
+                    new Stat({
+                        effect: Data.Effect.ACCURACY,
+                        theorical: [15, 18],
+                        isPercentage: true,
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MODIF_ACCURACY_SKILL,
+                        theorical: [15, 18],
+                        isPercentage: true,
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MODIF_CRIT_SKILL,
+                        theorical: [15, 18],
+                        isPercentage: true,
+                    }),
+
+                ],
+                2,
+                new Echo(
+                    "Jara's Cycle",
+                    "Hitting an enemy with a weapon applies a §1% Skill damage boost to yourself. Hitting an enemy or an ally with a skill applies a §2% Weapon damage boost to yourself. Completing a cycle grants you a §3% Total damage and §4% Given heal, stackable, forever.",
+                    1,
+                    Data.Rarity.ELDER,
+                    [
+                        new Stat({
+                            effect: Data.Effect.MODIF_CRIT_BLEED,
+                            theorical: [8, 10],
+                            isPercentage: true
+                        }),
+                        new Stat({
+                            effect: Data.Effect.MODIF_CRIT_POISON,
+                            theorical: [8, 10],
+                            isPercentage: true
+                        }),
+                    ],
+                    "Lorem ipsum",
+                    {
+                        "bonus_skill_damage": [18, 20],
+                        "bonus_weapon_damage": [18, 20],
+                        "bonus_total_damage": [2, 2],
+                        "bonus_given_heal": [3, 3]
+                    },
+                    []
+                )
             )
         ];
 
