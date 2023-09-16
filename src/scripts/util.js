@@ -2012,3 +2012,19 @@ function findClosestInferiorOrEqualNumber(arr, x) {
 
     return closest;
 }
+
+/**
+ * Returns whether the provided item is able to receive an echo.
+ * CANNOT RECEIVE AN ECHO IF:
+ * - Is a non-Elder trinket
+ * - Is a non-Elder Helmet, Gauntlets or Chestplate.
+ * @param {Weapon|Armor|Trinket} item 
+ * @returns 
+ */
+function canReceiveEcho(item) {
+    if(item instanceof Weapon) return true;
+    else if(item instanceof Armor) {
+        if(item.rarity !== Data.Rarity.ELDER) return (item.type === Data.ArmorType.SHIELD || item.type === Data.ArmorType.CHESTPLATE);
+        else return true;
+    } else if(item instanceof Trinket) return item.rarity === Data.Rarity.ELDER;
+}
