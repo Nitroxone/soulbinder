@@ -79,7 +79,7 @@ SOULBINDING:
 DONE - Prevent the addition of effects that do not already exist
 DONE - Revamp the bonus system to make it a little more limited
 - Properly design an empty soulbinding screen
-- Handle the Echo extraction/replacement
+- Handle the Echo extraction/replacement (and a dedicated class for Seeds of Remembrance)
 
 EONS:
 - Graphically redesign the whole thing. (using Crimson Pro + different background)
@@ -99,3 +99,9 @@ DONE - Improve the bonuses tooltip with more details (need to add origin of Echo
 DONE - Prevent the display of null stats (armors with no Withering, mainly)
 DONE - Display echoes' mechanics in the bonuses tooltip
 DONE - Display the echo's origin object in the bonuses tooltip
+
+GAMEPLAY CHANGES:
+ONGOING - By default, only allow echoes on Weapons, Shields and Armors. Only elder Helmets/Gauntlets/Boots/Trinkets can receive echoes.
+- Prevent equipping the same echo twice (from two different items).
+
+HOTFIXES: #Store your live fixes during dev sessions here and clear them once you're done
