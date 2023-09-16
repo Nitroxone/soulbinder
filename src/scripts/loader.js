@@ -194,6 +194,13 @@ const Loader = {
                 10,
                 Data.Rarity.RARE
             ),
+            new Resource(
+                "Seed of Remembrance",
+                "Can be used to store an echo, and reapply it later.",
+                22,
+                10,
+                Data.Rarity.LEGENDARY
+            ),
             new AlchemicalIngredient(
                 "Dark Stone",
                 "The Dark Stone is a foreboding artifact of ancient origin, radiating an unsettling aura of malevolence. Hewn from the depths of the abyss, its surface is smooth and obsidian-like, yet marred with jagged cracks that seem to pulse with a faint, eerie glow. Legends speak of its connection to the darkest forces of the world, making it both a coveted and feared object.",
