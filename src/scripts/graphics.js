@@ -95,6 +95,7 @@ function spawnTooltip(item, fromExisting = 0) {
                 });
                 detailsToggler.classList.toggle('off');
                 details = !details;
+                Sounds.Methods.playSound(Data.SoundType.SELECTOR);
             });
             extraToggler.addEventListener('click', e => {
                 if(details) detailsToggler.dispatchEvent(new Event('click'));
@@ -104,6 +105,7 @@ function spawnTooltip(item, fromExisting = 0) {
 
                 generateBonusesTooltipListEvents(tooltip);
                 extraToggler.classList.toggle('off');
+                Sounds.Methods.playSound(Data.SoundType.SELECTOR);
             });
             echoesToggler.addEventListener('click', e => {
                 if(details) detailsToggler.dispatchEvent(new Event('click'));
@@ -114,6 +116,7 @@ function spawnTooltip(item, fromExisting = 0) {
                 
                 generateBonusesTooltipListEvents(tooltip);
                 echoesToggler.classList.toggle('off');
+                Sounds.Methods.playSound(Data.SoundType.SELECTOR);
             });
             equipmentToggler.addEventListener('click', e => {
                 if(details) detailsToggler.dispatchEvent(new Event('click'));
@@ -123,6 +126,7 @@ function spawnTooltip(item, fromExisting = 0) {
                 
                 generateBonusesTooltipListEvents(tooltip);
                 equipmentToggler.classList.toggle('off');
+                Sounds.Methods.playSound(Data.SoundType.SELECTOR);
             });
         }
     }
@@ -147,6 +151,7 @@ function generateBonusesTooltipListEvents(tooltip) {
     tooltip.querySelectorAll('.bonusesTooltip-single').forEach(bo => {
         bo.addEventListener('click', () => {
             bo.classList.toggle('extended');
+            Sounds.Methods.playSound(Data.SoundType.TOOLTIP_HOVER);
         });
     });
 }
@@ -1039,6 +1044,7 @@ function spawnStriderPopup(strider, refresh = false) {
     }, {offY: -8});
     striderBonuses.addEventListener('click', e => {
         spawnTooltip(['bonuses', strider]);
+        Sounds.Methods.playSound(Data.SoundType.TOOLTIP_SPAWN);
     })
 
     drawSkillTreeLines(strider);
