@@ -2018,8 +2018,8 @@ function findClosestInferiorOrEqualNumber(arr, x) {
  * CANNOT RECEIVE AN ECHO IF:
  * - Is a non-Elder trinket
  * - Is a non-Elder Helmet, Gauntlets or Chestplate.
- * @param {Weapon|Armor|Trinket} item 
- * @returns 
+ * @param {Weapon|Armor|Trinket} item the item to check
+ * @returns {boolean} whether an echo can be hosted
  */
 function canReceiveEcho(item) {
     if(item instanceof Weapon) return true;
