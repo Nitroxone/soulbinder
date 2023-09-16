@@ -12,7 +12,7 @@
 - Add item stats scaling (with souls)
 DONE - Revamp the bonus/malus system : instead of directly altering stats, rather store these alterations into an array to better keep track of them.
 
-- Actually implement set bonuses
+DONE - Actually implement set bonuses
 
 DONE - Make the interface more responsive
 
@@ -57,6 +57,7 @@ DUNGEONS:
 - Create dungeon hub and exploration start buttons
 
 CRAFTING:
+- Start implementing
 
 SOULWRITING:
 DONE - Add soulmarks Price, Gold cost, Souls cost, Rarity
