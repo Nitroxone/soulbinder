@@ -287,7 +287,7 @@ function getSigilTooltip(sigil) {
     sigil.echoes.forEach(echo => {
         str += '<div class="sigilCorruption">';
         str += '<p class="name">' + echo.name +'</p>';
-        str += '<p>' + echo.desc +'</p>'
+        str += '<p>' + processEchoDesc(echo) +'</p>'
         str += '<br>';
         str += '<p class="echoQuote">' + echo.quote +'</p>'
         str += '</div>';
@@ -489,7 +489,7 @@ function getSigilDetails(sigil, full = false, soulbindingFormat = false) {
     sigil.echoes.forEach(echo => {
         str += '<div class="sigilCorruption">';
         str += '<p class="name">' + echo.name +'</p>';
-        if(full || soulbindingFormat) str += '<p style="' + (soulbindingFormat ? 'display: none; ' : '') + '">' + echo.desc +'</p>';
+        if(full || soulbindingFormat) str += '<p style="' + (soulbindingFormat ? 'display: none; ' : '') + '">' + processEchoDesc(echo) +'</p>';
         str += '</div>';
     })
     str += '</div></div>';
@@ -511,7 +511,7 @@ function getEchoDetails(echo, full = false, soulbindingFormat = false) {
         str += '</div>'
         if(!soulbindingFormat) {
             str += '<br>';
-            str += '<div class="echoDesc">' + echo.desc + '</div>'
+            str += '<div class="echoDesc">' + processEchoDesc(echo) + '</div>'
             str += '<br>';
             str += '<div class="echoQuote">' + echo.quote + '</div>';
         }
@@ -1122,7 +1122,7 @@ function getStriderBonusesList(bonuses, echoes = []) {
         str += '<h3 style="color: ' + getRarityColorCode(echo.rarity) + '">' + echo.name + '</h3>';
         str += '<div class="bonusesTooltip-single-details">';
         str += '<h4>From: <span class="bonusesTooltipEcho-orig" style="color: ' + getRarityColorCode(echo.parent.rarity) + '">' + echo.parent.name + '</span></h4>'
-        str += echo.desc;
+        str += processEchoDesc(echo);
         str += '</div>';
         str += '</div>';
     })

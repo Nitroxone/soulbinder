@@ -99,9 +99,13 @@ DONE - Improve the bonuses tooltip with more details (need to add origin of Echo
 DONE - Prevent the display of null stats (armors with no Withering, mainly)
 DONE - Display echoes' mechanics in the bonuses tooltip
 DONE - Display the echo's origin object in the bonuses tooltip
+- Add list of skills to the bottom of the screen
 
 GAMEPLAY CHANGES:
-ONGOING - By default, only allow echoes on Weapons, Shields and Armors. Only elder Helmets/Gauntlets/Boots/Trinkets can receive echoes.
+DONE - By default, only allow echoes on Weapons, Shields and Armors. Only elder Helmets/Gauntlets/Boots/Trinkets can receive echoes.
 - Prevent equipping the same echo twice (from two different items).
+
+ECHOES: 
+DONE - Add colors to effect names for a more comfortable read
 
 HOTFIXES: #Store your live fixes during dev sessions here and clear them once you're done

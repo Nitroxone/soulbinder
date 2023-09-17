@@ -2028,3 +2028,13 @@ function canReceiveEcho(item) {
         else return true;
     } else if(item instanceof Trinket) return item.rarity === Data.Rarity.ELDER;
 }
+
+function processEchoDesc(echo) {
+    const regex = /\{([^}]+)\}/g;
+    const replaced = echo.desc.replace(regex, (match, found) => {
+        const str = '<span style="color: ' + Data.Color.PURPLE + '; font-family: RobotoBold;">' + capitalizeFirstLetter(Data.Effect[found]) + '</span>';
+        return str;
+    });
+
+    return replaced;
+}

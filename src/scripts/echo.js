@@ -58,6 +58,12 @@ class Echo extends Entity {
             // Replacing the description
             this.desc = this.desc.replace("§" + k, this.variables[i]);
             k++;
+
+            /*const regex = /\{([^}]+)\}/g;
+
+            this.desc = this.desc.replace(regex, (match, found) => {
+                return capitalizeFirstLetter(Data.Effect[found]);
+            });*/
         }
     }
 }

@@ -80,7 +80,7 @@ const Loader = {
                        3,
                        new Echo(
                         "Solana's Tulips",
-                        "Each non-critical hit with this weapon gives a §1% Critical Luck bonus to its bearer, for one round. Each critical hit with this weapon regenerates §2% of its bearer's Max. Mana and generates §3 Shield points.",
+                        "Each non-critical hit with this weapon gives a §1% {CRIT_LUK} bonus to its bearer, for one round. Each critical hit with this weapon regenerates §2% of its bearer's {MAXMANA} and generates §3 {SHIELD} points.",
                         1,
                         Data.Rarity.LEGENDARY,
                         [
@@ -168,7 +168,7 @@ const Loader = {
                       2,
                       new Echo(
                         "Wartime Efforts",
-                        "Guarding an ally boosts them with a §1% Total damage for 1 round, and yourself with §2% Protection for one round. While guarding, any friendly skill will boost the targets with §3% Stamina regeneration for one round, and any offensive skill will apply a §4% Dodge debuff to the targets for two rounds.",
+                        "Guarding an ally boosts them with a §1% {MODIF_DMG_TOTAL} for 1 round, and yourself with §2% {PROTECTION} for one round. While guarding, any friendly skill will boost the targets with §3% {REGEN_STAMINA} for one round, and any offensive skill will apply a §4% {DODGE} debuff to the targets for two rounds.",
                         1,
                         Data.Rarity.ELDER,
                         [
@@ -532,7 +532,7 @@ const Loader = {
         const echoes = [
             new Echo(
                 "Snakebite",
-                "Heal §1% of your total health when an enemy is poisoned by this weapon.",
+                "Heal §1% of your {MAXHEALTH} when an enemy is poisoned by this weapon.",
                 1,
                 Data.Rarity.UNCOMMON,
                 [
@@ -554,7 +554,7 @@ const Loader = {
             ),
             new Echo(
                 "Last Word",
-                "Each time a spell is cast during the fight, you gain §1% spirit (stackable up to §2%). This effect fades away if you are stunned, killed, or if the fight ends.",
+                "Each time a spell is cast during the fight, you gain §1% {SPIRIT} (stackable up to §2%). This effect fades away if you are stunned, killed, or if the fight ends.",
                 1,
                 Data.Rarity.RARE,
                 [],
@@ -567,7 +567,7 @@ const Loader = {
             ),
             new Echo(
                 "Octane",
-                "Replenish §1% of your total mana every time you receive damage while being stunned.",
+                "Replenish §1% of your {MAXMANA} every time you receive damage while being stunned.",
                 1,
                 Data.Rarity.UNCOMMON,
                 [
@@ -590,7 +590,7 @@ const Loader = {
             ),
             new Echo(
                 "Hold the Line",
-                "Replenish §1% of your total health every time you receive damage while blocking. Blocking now consumes §2 stamina.",
+                "Replenish §1% of your {MAXHEALTH} every time you receive damage while blocking. Blocking now consumes §2 {STAMINA}.",
                 1,
                 Data.Rarity.UNCOMMON,
                 [],
@@ -604,7 +604,7 @@ const Loader = {
             ),
             new Echo(
                 "Fencer's Mark",
-                "Replenish §1% of your total stamina every time you dodge an attack.",
+                "Replenish §1% of your {MAXSTAMINA} every time you dodge an attack.",
                 1,
                 Data.Rarity.RARE,
                 [
@@ -651,7 +651,7 @@ const Loader = {
             ),
             new Echo(
                 "Cannibal Instinct",
-                "For each bleeding tick, you gain §1% total damage (stackable up to §2%). This effect fades away if you are stunned, killed, or if the fight ends.",
+                "For each bleeding tick, you gain §1% {MODIF_DMG_TOTAL} (stackable up to §2%). This effect fades away if you are stunned, killed, or if the fight ends.",
                 1,
                 Data.Rarity.LEGENDARY,
                 [
@@ -706,7 +706,7 @@ const Loader = {
             ),
             new Echo(
                 "Relentless",
-                "Each critical hit generates a shield whose value equals §1% of your total health (stackable).",
+                "Each critical hit generates a shield whose value equals §1% of your {MAXHEALTH} (stackable).",
                 1,
                 Data.Rarity.UNCOMMON,
                 [],
@@ -719,7 +719,7 @@ const Loader = {
             ),
             new Echo(
                 "Opportunistic",
-                "Each enemy you stun grants you a §1% stun accuracy bonus on the next round, for one round.",
+                "Each enemy you stun grants you a §1% {MODIF_ACCURACY_STUN} bonus on the next round, for one round.",
                 1,
                 Data.Rarity.UNCOMMON,
                 [],
@@ -732,7 +732,7 @@ const Loader = {
             ),
             new Echo(
                 "Corrosive Blades",
-                "Hitting an enemy with this weapon reduces their protection by §1% (stackable, forever).",
+                "Hitting an enemy with this weapon reduces their {PROTECTION} by §1% (stackable, forever).",
                 1,
                 Data.Rarity.RARE,
                 [],
@@ -745,7 +745,7 @@ const Loader = {
             ),
             new Echo(
                 "Reprieve",
-                "Each stamina debuff you receive grants you with a shield that equals half that debuff amount.",
+                "Each {STAMINA} debuff you receive grants you with a {SHIELD} that equals half that debuff amount.",
                 1,
                 Data.Rarity.EPIC,
                 [],
@@ -756,7 +756,7 @@ const Loader = {
             ),
             new Echo(
                 "Anchorite",
-                "Gain a §1% total damage and a §2% given heal bonuses on rounds you don't receive any damage (stackable, forever).",
+                "Gain a §1% {MODIF_DMG_TOTAL} and a §2% {MODIF_HEAL_GIVEN} bonuses on rounds you don't receive any damage (stackable, forever).",
                 1,
                 Data.Rarity.EPIC,
                 [],
@@ -770,7 +770,7 @@ const Loader = {
             ),
             new Echo(
                 "Erode Away",
-                "Hitting an enemy with this weapon reduces their maximum health by §1% (stackable, forever).",
+                "Hitting an enemy with this weapon reduces their {MAXHEALTH} by §1% (stackable, forever).",
                 1,
                 Data.Rarity.LEGENDARY,
                 [],
@@ -1179,7 +1179,7 @@ const Loader = {
                 2,
                 new Echo(
                     "Jara's Cycle",
-                    "Hitting an enemy with a weapon applies a §1% Skill damage boost to yourself. Hitting an enemy or an ally with a skill applies a §2% Weapon damage boost to yourself. Completing a cycle grants you a §3% Total damage and §4% Given heal, stackable, forever.",
+                     "Hitting an enemy with a weapon applies a §1% {MODIF_DMG_SKILL} boost to yourself. Hitting an enemy or an ally with a skill applies a §2% {MODIF_DMG_WEAPON} boost to yourself. Completing a cycle grants you a §3% {MODIF_DMG_TOTAL} and §4% {MODIF_HEAL_GIVEN}, stackable, forever.",
                     1,
                     Data.Rarity.ELDER,
                     [
@@ -1247,7 +1247,7 @@ const Loader = {
                     5: [
                         new Echo(
                             "Swift as Steel",
-                            "Dodging an attack replenishes §1% of your total health. An enemy dodging one of your attacks grants you a §2% dodge boost for 1 round.",
+                            "Dodging an attack replenishes §1% of your {MAXHEALTH}. An enemy dodging one of your attacks grants you a §2% {DODGE} boost for 1 round.",
                             1,
                             Data.Rarity.COMMON,
                             [],
