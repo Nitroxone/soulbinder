@@ -549,10 +549,14 @@ class NPC extends Entity {
 
     /**
      * Adds the provided ActiveEffect to this NPC's active effects list.
+     * If the ActiveEffect already exists, refreshes it.
      * @param {ActiveEffect} ae 
      */
     addActiveEffect(ae) {
-        this.activeEffects.push(ae);
+        const found = this.activeEffects.find(x => x.name === ae.name);
+
+        if(found) found.refresh(ae);
+        else this.activeEffects.push(ae);
     }
 
     /**

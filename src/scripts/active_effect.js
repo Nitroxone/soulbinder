@@ -19,4 +19,18 @@ class ActiveEffect {
 
         this.countdown = 1;
     }
+
+    /**
+     * Refreshes this ActiveEffect with the data from the provided ActiveEffect.
+     * @param {ActiveEffect} ae 
+     */
+    refresh(ae) {
+        this.effects = this.effects.concat(ae.effects);
+        this.originUser = ae.originUser;
+        this.originObject = ae.originObject;
+        this.countdown = 1;
+        ae.effects.forEach(ef => {
+            this.duration.push(ef.duration);
+        }) 
+    }
 }
