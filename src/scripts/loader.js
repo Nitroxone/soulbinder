@@ -1101,18 +1101,18 @@ const Loader = {
                 Data.Rarity.RARE,
                 [
                     new Stat({
-                        effect: Data.Effect.MODIF_ACCURACY_BLEED,
-                        theorical: [10, 15],
+                        effect: Data.Effect.REGEN_MANA,
+                        theorical: [5, 8],
                         isPercentage: true
                     }),
                     new Stat({
-                        effect: Data.Effect.MODIF_CRIT_BLEED,
-                        theorical: [8, 12],
+                        effect: Data.Effect.MODIF_ACCURACY_SKILL,
+                        theorical: [6, 9],
                         isPercentage: true,
                     }),
                     new Stat({
-                        effect: Data.Effect.MODIF_DMG_BLEED,
-                        theorical: [5, 10],
+                        effect: Data.Effect.MAXMANA,
+                        theorical: [50, 60],
                         isPercentage: true,
                     })
                 ]
