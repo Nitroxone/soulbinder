@@ -1940,6 +1940,14 @@ function uidGen() {
     return Date.now().toString(36) + Math.random().toString(36).substring(2, 8);
 }
 
+/**
+ * Generates a table of formatted bonuses based on the provided parameters and returns it.
+ * @param {array} bonuses the Bonuses array (usually retrieved from an NPC)
+ * @param {noExtra} boolean whether to include the skill & skill tree effects (default = true)
+ * @param {noEchoes} boolean whether to include the echoes (default = true)
+ * @param {noEquipment} boolean whether to include the equipment (default = true)
+ * @returns {array} a formatted array of bonuses
+ */
 function generateBonusesTable(props = {}) {
     const bonuses = getValueFromObject(props, "bonuses", []);
     const noExtra = getValueFromObject(props, "noExtra", false);
@@ -1978,6 +1986,11 @@ function generateBonusesTable(props = {}) {
     return results;
 }
 
+/**
+ * Returns the CSS class name that matches the provided bonus' origin type.
+ * @param {object} ori the bonus' origin
+ * @returns {string} a CSS class name
+ */
 function getBonusCssClassName(ori) {
     const it = ori.item;
 
@@ -1987,6 +2000,11 @@ function getBonusCssClassName(ori) {
     if(it instanceof SkillTreeNode) return "bonus-skilltree";
 }
 
+/**
+ * Returns the CSS color code that matches the provided bonus' origin type.
+ * @param {object} ori the bonus' origin
+ * @returns {string} a CSS color code
+ */
 function getBonusCssClassRarity(ori) {
     const it = ori.item;
 
@@ -2029,6 +2047,11 @@ function canReceiveEcho(item) {
     } else if(item instanceof Trinket) return item.rarity === Data.Rarity.ELDER;
 }
 
+/**
+ * Replaces the effects names in the provided Echo's description with colored HTML strings and returns it.
+ * @param {Echo} echo the Echo to retrieve the description from
+ * @returns {string} a processed HTML string
+ */
 function processEchoDesc(echo) {
     const regex = /\{([^}]+)\}/g;
     const replaced = echo.desc.replace(regex, (match, found) => {
@@ -2037,4 +2060,28 @@ function processEchoDesc(echo) {
     });
 
     return replaced;
+}
+
+/**
+ * Returns the player's current souls amount.
+ * @returns {number}
+ */
+function getPlayerSoulsAmount() {
+    return game.player.inventory.souls;
+}
+
+/**
+ * Returns the player's current gold amount.
+ * @returns {number}
+ */
+function getPlayerGoldAmount() {
+    return game.player.inventory.gold;
+}
+
+/**
+ * Returns the player's current level.
+ * @returns {number}
+ */
+function getPlayerCurrentLevel() {
+    return game.player.level.currentLevel;
 }
