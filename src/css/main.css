@@ -7229,6 +7229,8 @@ table.astralForgeShards td {
     transition: all .1s ease-in-out;
 }
 
+/* ----------- EONS --------- */
+
 .eonsContainer {
     margin: 0 auto;
     height: 800px;
@@ -7241,152 +7243,7 @@ table.astralForgeShards td {
     position: relative;
 }
 
-.diary {
-    position: relative;
-    height: 563px;
-    width: 709px;
-    background-image: url(img/eons/book_bottom_pages.png);
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 1fr;
-    padding: 1em;
-}
-
-.diaryFirstCol, .diarySecondCol {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 1em;
-}
-
-.diaryFirstCol {
-    grid-area: 1 / 1 / 2 / 2;
-    position: relative;
-}
-
-.diarySecondCol {
-    grid-area: 1 / 2 / 2 / 3;
-    position: relative;
-}
-.pages {
-    position: absolute;
-    width: 85%;
-    top: 30px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.leftPage {
-    right: 0;
-}
-
-.rightPage {
-    left: 0;
-    padding: 0 1em 0 3em;
-}
-
-.pageTitle {
-    font-family: Domine;
-    font-size: 18px;
-    color: #4d4537;
-    text-shadow: 1px 1px rgba(255, 255, 255, 0.15);
-
-}
-
-.eonFragmentsContainer {
-    height: 400px;
-    display: flex;
-    flex-direction: column;
-    gap: 2em;
-    overflow: hidden;
-    padding-right: 10px;
-}
-
-.eonTitlesContainer {
-    overflow: hidden;
-    height: 366px;
-}
-
-.eonTitle {
-    padding: 5px;
-    height: 44px;
-    font-family: RobotoSlabMed;
-    font-size: 14px;
-    width: 280px;
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    gap: 0.5em;
-    transition: transform 0.3s ease-in-out;
-    text-shadow: 1px 1px rgba(255, 255, 255, 0.15);
-    font-size: 13px;
-    color: #4d4537;
-    border-radius: 5px;
-}
-
-.eonTitleBullet {
-    width: 15px;
-    height: 15px;
-    background-image: url(img/eons/eonPassive.png);
-    visibility: hidden;
-    transition: visibility 0s;
-}
-
-.eonTitle:hover {
-    cursor: pointer;
-    transform: translateX(10px);
-}
-
-.eonTitle:hover .eonTitleBullet {
-    visibility: visible;
-}
-
-.eonsBorder {
-    height: 14px;
-    width: 250px;
-    background-image: url(img/eons/border.png);
-    margin: 10px 0 10px 0;
-}
-
-.eonTitleActive {
-    background-image: url(img/eons/eon-highlight.png);
-    background-size: 100%;
-    background-repeat: no-repeat;
-    display: flex;
-    color: white;
-    background-blend-mode: color-dodge;
-}
-
-.eonFragment {
-    font-family: RobotoSlabMed;
-    text-shadow: 1px 1px rgba(255, 255, 255, 0.15);
-    font-size: 13px;
-    color: #4d4537;
-    text-align: justify;
-    line-height: 1.25;
-    text-indent: 10px;
-}
-
-
-.eonSearchBar {
-    height: 20px;
-    width: 80%;
-    background-color: transparent;
-    margin-bottom: 10px;
-
-    border: none;
-    border-bottom: 2px solid #857054;
-
-    color: #31291e;
-    font-family: RobotoSlab;
-}
-
-.eonSearchBar:focus {
-    outline: none;
-}
+/* -------- END EONS --------- */
 
 .battle-globalInfo {
     width: 100%;
