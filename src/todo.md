@@ -43,7 +43,7 @@ DONE - Implement shield in combats
 - Implement consumables & using them in combat
 - Thoroughly comment complex battle functions
 ABANDONED? - Implement skill stackability
-- Change active effect display -> regroup everything to prevent clones, and only display the latest caster & skill
+ONGOING - Change active effect display -> regroup everything to prevent clones, and only display the latest caster & skill
 - Start implementing echoes
 
 ASTRAL FORGE:
