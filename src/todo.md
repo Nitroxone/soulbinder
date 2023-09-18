@@ -12,6 +12,8 @@
 - Add item stats scaling (with souls)
 DONE - Revamp the bonus/malus system : instead of directly altering stats, rather store these alterations into an array to better keep track of them.
 
+- Reorganize gr_inventory.js structure (put some stuff into ev_inventory)
+
 DONE - Actually implement set bonuses
 
 DONE - Make the interface more responsive
