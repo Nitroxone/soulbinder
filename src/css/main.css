@@ -7235,12 +7235,30 @@ table.astralForgeShards td {
     margin: 0 auto;
     height: 800px;
     width: 1000px;
-    border: 2px dotted grey;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: 
+        "eonsSelectors eonsPage";
+
     position: relative;
+}
+
+.eonsSelectors, .eonsPage {
+    border: 1px dashed grey;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.eonsSelectors {
+    align-items: end;
+}
+
+.eonsPage {
+    align-items: start;
 }
 
 /* -------- END EONS --------- */

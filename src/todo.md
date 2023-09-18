@@ -13,6 +13,7 @@
 DONE - Revamp the bonus/malus system : instead of directly altering stats, rather store these alterations into an array to better keep track of them.
 
 - Reorganize gr_inventory.js structure (put some stuff into ev_inventory)
+- Split the strider graphics into smaller functions for better refresh efficiency
 
 DONE - Actually implement set bonuses
 
