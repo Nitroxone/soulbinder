@@ -1395,7 +1395,7 @@ function hasRoomWithCoordinates(rooms, coords) {
  * @returns {boolean} the result (true if the specified eon exists)
  */
 function unlockEon(id) {
-    game.all_majorEons.find(e => e.id === id).unlocked = true;
+    game.all_eons.find(e => e.id === id).unlocked = true;
     drawEonTitles(true);
 }
 
@@ -1403,7 +1403,7 @@ function unlockEon(id) {
  * Unlocks all eons.
  */
 function unlockAllEons() {
-    game.all_majorEons.forEach(eon => {
+    game.all_eons.forEach(eon => {
         eon.unlocked = true;
         drawEonTitles(true);
     })
@@ -1417,7 +1417,7 @@ function unlockAllEons() {
  *                            Returns 'Eon not found.' if the eon was not found
  */
 function unlockEonFragment(id) {
-    const eon = game.all_majorEons.find(e => e.id === id);
+    const eon = game.all_eons.find(e => e.id === id);
     if(eon) {
         const fragmentToUnlock = eon.fragments.find(fragment => !fragment.unlocked);
         return fragmentToUnlock ? (fragmentToUnlock.unlocked = true, true) : 'All fragments have been unlocked!';
@@ -1429,7 +1429,7 @@ function unlockEonFragment(id) {
  * Unlocks all eon fragments.
  */
 function unlockAllEonFragments() {
-    game.all_majorEons.forEach(eon => {
+    game.all_eons.forEach(eon => {
         eon.fragments.forEach(frag => {
             frag.unlocked = true;
         });
@@ -2084,4 +2084,8 @@ function getPlayerGoldAmount() {
  */
 function getPlayerCurrentLevel() {
     return game.player.level.currentLevel;
+}
+
+function getUnlockedEonsWithType(type) {
+    return game.all_eons.filter(x => x.unlocked && x.category === type);
 }

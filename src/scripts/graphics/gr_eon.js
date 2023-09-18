@@ -13,8 +13,41 @@ function drawEonScreen() {
     document.querySelector('.eonsContainer').innerHTML = str;
 }
 
-function getEonsSelectors() {
-    
+function getEonsSelectors(refresh = false) {
+    let str = '';
+
+    str += '<div class="es-box coolBorderBis">';
+
+    for(const cat in Data.EON_CATEGORIES) {
+        str += '<div class="es-category">';
+        str += '<h2>' + cat + '</h2>';
+        str += '<div class="es-categoryEons">';
+        getUnlockedEonsWithType(Data.EON_CATEGORIES[cat]).forEach(eon => {
+            str += '<h4>' + eon.title + '</h4>';
+        });
+        str += '</div>'
+        str += '</div>';
+    }
+
+    str += '</div>';
+
+    if(refresh) {
+        document.querySelector('.eonsSelectors').innerHTML = str;
+        return;
+    }
+    return str;
+}
+
+function getEonsPage(refresh = false) {
+    let str = '';
+
+    str += '';
+
+    if(refresh) {
+        document.querySelector('.eonsPage').innerHTML = str;
+        return;
+    }
+    return str;
 }
 
 function drawEonTitles(refresh = false) {

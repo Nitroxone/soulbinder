@@ -7234,7 +7234,8 @@ table.astralForgeShards td {
 .eonsContainer {
     margin: 0 auto;
     height: 800px;
-    width: 1000px;
+    width: 776px;
+    margin-top: 2rem;
 
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -7246,19 +7247,63 @@ table.astralForgeShards td {
 }
 
 .eonsSelectors, .eonsPage {
-    border: 1px dashed grey;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
+
+    width: 388px;
+    height: 599px;
 }
 
 .eonsSelectors {
     align-items: end;
 }
+.es-box {
+    width: 300px;
+    height: 298px;
+
+    overflow-x: hidden;
+    overflow-y: scroll;
+    
+    border-right: none;
+
+    background-image: url('img/darkBorders.png'), url('img/bg1.png');
+    background-size: 100% 100%, auto;
+}
+.es-category {
+    width: 100%;
+    border: 2px solid transparent;
+    border-image: url('img/window1-tiny.png') 3 stretch;
+}
+.es-category > h2 {
+    font-family: RobotoSlabBold;
+    font-size: 15px;  
+    padding: 0.65rem;
+}
+.es-categoryEons {
+    padding: 0.85rem;
+    padding-top: 0;
+}
+.es-categoryEons h4:not(:first-child) {
+    margin-top: 0.25rem;
+}
+.es-categoryEons h4 {
+    font-size: 11px;
+    padding: 0.25rem;
+    border: 1px solid transparent;
+    border-bottom: 1px dashed grey;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.es-categoryEons h4:hover {
+    border: 1px solid rgb(155, 155, 155);
+}
 
 .eonsPage {
     align-items: start;
+
+    width: 388px;
+    background: url('img/paper.png');
 }
 
 /* -------- END EONS --------- */

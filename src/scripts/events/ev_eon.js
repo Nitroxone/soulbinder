@@ -3,7 +3,7 @@ function generateEonEvents() {
 
     eonTitles.forEach((title, index) => {
         title.addEventListener('click', () => {
-            drawEonFragments(game.all_majorEons[index], true);
+            drawEonFragments(game.all_eons[index], true);
 
             eonTitles.forEach(otherTitle => {
                 otherTitle.classList.remove('eonTitleActive');
