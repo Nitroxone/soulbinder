@@ -7285,7 +7285,7 @@ table.astralForgeShards td {
 }
 .es-categoryEons {
     padding: 0.85rem;
-    padding-top: 0;
+    padding-top: 0.35rem;
     display: none;
 
     flex-direction: column;

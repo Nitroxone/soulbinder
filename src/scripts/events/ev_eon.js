@@ -1,9 +1,10 @@
 function generateEonsEvents() {
-    const eonCategories = document.querySelectorAll('.es-categoryTitle');
+    const eonCategoryTitles = document.querySelectorAll('.es-categoryTitle');
+    const eonCategories = document.querySelectorAll('.es-categoryEons');
     const eonTitles = document.querySelectorAll('.es-eonTitle');
     const searchBar = document.querySelector('.es-box-search');
 
-    eonCategories.forEach((title) => {
+    eonCategoryTitles.forEach((title) => {
         title.addEventListener('click', e => {
             title.classList.toggle('extended');
         });
@@ -18,6 +19,10 @@ function generateEonsEvents() {
         });
     });
 
+    /**
+     * Searches for an eon and hides all unmatching entries.
+     * Hides empty categories as well.
+     */
     searchBar.addEventListener('input', e => {
         const val = searchBar.value.toLowerCase().trim();
 
@@ -30,28 +35,12 @@ function generateEonsEvents() {
             if(areSiblingsHidden(title)) title.parentNode.parentNode.style.display = 'none';
             else title.parentNode.parentNode.style.display = 'block';
         });
+        if(val !== '') eonCategories.forEach(cat => {
+            const checker = cat.querySelector('.es-eonTitle');
+            if(!checker) cat.parentNode.style.display = 'none';
+        }); 
+        else eonCategories.forEach(cat => {
+            cat.parentNode.style.display = 'block';
+        })
     })
-}
-
-function searchEon(refresh = false) {
-    const eonSearchBar = document.querySelector('.eonSearchBar');
-    const eonsTitles = document.querySelectorAll('.eonTitle');
-
-    eonSearchBar.addEventListener('input', e => {
-        const value = eonSearchBar.value.toLowerCase().trim();
-
-        eonsTitles.forEach(title => {
-            const titleText = title.querySelector('.eonTitleContent').innerText.toLowerCase();
-
-            if (titleText.includes(value)) {
-                title.style.display = 'flex';
-            } else {
-                title.style.display = 'none';
-            }
-        });
-    });
-
-    if(refresh) {
-        eonSearchBar.value = '';
-    }
 }
