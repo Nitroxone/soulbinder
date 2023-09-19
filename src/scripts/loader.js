@@ -1732,12 +1732,12 @@ const Loader = {
                         name: "amarok_weak",
                         type: Data.TriggerType.ON_STAT_CHANGE,
                         checker: function() {
-                            const amarok = game.all_striders.find(x => x.name.toLowerCase() === 'amarok');
+                            const amarok = this.owner;
                             
                             return (amarok.health >= ((amarok.variables.threshold_weak * amarok.maxHealth) / 100));
                         },
                         behavior: function() {
-                            const amarok = game.all_striders.find(x => x.name.toLowerCase() === 'amarok');
+                            const amarok = this.owner;
 
                             if(amarok.variables.state !== 'weak') {
                                 amarok.variables.state = "weak";
@@ -1748,6 +1748,7 @@ const Loader = {
 
 
                                 var might_debuff = -(amarok.might - Math.round(amarok.might - (amarok.might * amarok.variables.might_debuff_rate)));
+                                amarok.variables.malus_might = might_debuff;
                                 //amarok.protection -= protection_debuff;
                                 //amarok.might = might_debuff;
 
@@ -1794,9 +1795,136 @@ const Loader = {
                                             theorical: might_debuff,
                                         })
                                     ],
-                                    style: {}
-                                }))
+                                    style: {
+                                        color: Data.Color.PURPLE,
+                                        bold: true
+                                    }
+                                }));
                             }
+                        }
+                    }),
+                    new Trigger({
+                        name: "amarok_normal",
+                        type: Data.TriggerType.ON_STAT_CHANGE,
+                        checker: function(){
+                            const amarok = this.owner;
+                            
+                            return ((amarok.health < ((amarok.variables.threshold_weak * amarok.maxHealth) / 100)) && (amarok.health >= ((amarok.variables.threshold_normal * amarok.maxHealth) / 100)));
+                        },
+                        behavior: function(){
+                            const amarok = this.owner;
+
+                            if(amarok.variables.state !== 'normal') {
+                                const bProt = amarok.bonuses.find(x => x.origin.name === 'Darkspawn [WEAK]' && x.stat.effect === Data.Effect.PROTECTION);
+                                const bMight = amarok.bonuses.find(x => x.origin.name === 'Darkspawn [WEAK]' && x.stat.effect === Data.Effect.MIGHT);
+                                amarok.alter({
+                                    uid: bProt.stat.uid,
+                                    action: Data.AlterAction.REMOVE
+                                });
+                                amarok.alter({
+                                    uid: bMight.stat.uid,
+                                    action: Data.AlterAction.REMOVE
+                                });
+                                amarok.variables.state = 'normal';
+                            }
+                            amarok.variables.state = "normal";
+
+                            const bProt = amarok.bonuses.find(x => x.origin.name === 'Darkspawn [BOOSTED]' && x.stat.effect === Data.Effect.PROTECTION);
+                            const bMight = amarok.bonuses.find(x => x.origin.name === 'Darkspawn [BOOSTED]' && x.stat.effect === Data.Effect.MIGHT);
+                            if(bProt) amarok.alter({
+                                uid: bProt.stat.uid,
+                                action: Data.AlterAction.REMOVE
+                            });
+                            if(bMight) amarok.alter({
+                                uid: bMight.stat.uid,
+                                action: Data.AlterAction.REMOVE
+                            });
+
+                            //amarok.protection -= amarok.variables.boost_protection;
+                            //amarok.might -= amarok.variables.boost_might;
+                            
+                            amarok.variables.boost_protection = 0;
+                            amarok.variables.boost_might = 0;
+
+                            const weak = amarok.getActiveEffect('Darkspawn [WEAK]');
+                            const boosted = amarok.getActiveEffect('Darkspawn [BOOSTED]');
+                            if(weak) removeFromArray(amarok.activeEffects, weak);
+                            if(boosted) removeFromArray(amarok.activeEffects, boosted);
+                        },
+                    }),
+                    new Trigger({
+                        name: "amarok_boosted",
+                        type: Data.TriggerType.ON_STAT_CHANGE,
+                        checker: function(){
+                            const amarok = this.owner;
+
+                            return (amarok.health < ((amarok.variables.threshold_normal * amarok.maxHealth) / 100));
+                        },
+                        behavior: function(){
+                            const amarok = this.owner;
+
+                            if(amarok.variables.state === 'weak') {
+                                const bProt = amarok.bonuses.find(x => x.origin.name === 'Darkspawn [WEAK]' && x.stat.effect === Data.Effect.PROTECTION);
+                                const bMight = amarok.bonuses.find(x => x.origin.name === 'Darkspawn [WEAK]' && x.stat.effect === Data.Effect.MIGHT);
+                                amarok.alter({
+                                    uid: bProt.stat.uid,
+                                    action: Data.AlterAction.REMOVE
+                                });
+                                amarok.alter({
+                                    uid: bMight.stat.uid,
+                                    action: Data.AlterAction.REMOVE
+                                });
+                                amarok.variables.state = 'boost';
+                            }
+
+                            amarok.previous_health = amarok.health;
+
+                            const bProt = amarok.bonuses.find(x => x.origin.name === 'Darkspawn [BOOSTED]' && x.stat.effect === Data.Effect.PROTECTION);
+                            const bMight = amarok.bonuses.find(x => x.origin.name === 'Darkspawn [BOOSTED]' && x.stat.effect === Data.Effect.MIGHT);
+                            if(bProt) amarok.alter({
+                                uid: bProt.stat.uid,
+                                action: Data.AlterAction.REMOVE
+                            });
+                            if(bMight) amarok.alter({
+                                uid: bMight.stat.uid,
+                                action: Data.AlterAction.REMOVE
+                            });
+
+                            const multiplier = Math.round(amarok.variables.threshold_normal - (amarok.health * 100 / amarok.maxHealth));
+                            amarok.variables.boost_protection = Math.round(2 * multiplier);
+                            amarok.variables.boost_might = Math.round(3 * (multiplier / 2));
+
+                            amarok.alter({
+                                effect: new Stat({
+                                    effect: Data.Effect.PROTECTION,
+                                    theorical: amarok.variables.boost_protection,
+                                    isPercentage: true
+                                }),
+                                action: Data.AlterAction.ADD,
+                                origin: {
+                                    type: Data.ActiveEffectType.POWER,
+                                    name: 'Darkspawn [BOOSTED]'
+                                }
+                            });
+                            amarok.alter({
+                                effect: new Stat({
+                                    effect: Data.Effect.MIGHT,
+                                    theorical: amarok.variables.boost_might,
+                                }),
+                                action: Data.AlterAction.ADD,
+                                origin: {
+                                    type: Data.ActiveEffectType.POWER,
+                                    name: 'Darkspawn [BOOSTED]'
+                                }
+                            });
+                        }
+                    }),
+                    new Trigger({
+                        name: "amarok_ae_giver",
+                        type: Data.TriggerType.ON_BATTLE_START,
+                        checker: function(){return true},
+                        behavior: function() {
+                            this.owner.runTriggers(Data.TriggerType.ON_STAT_CHANGE);
                         }
                     })
                 ],
@@ -2472,6 +2600,9 @@ const Loader = {
 
         for(const strider of striders) {
             game.all_striders.push(strider);
+            strider.triggers.forEach(tr => {
+                tr.owner = strider;
+            })
         }
     },
 

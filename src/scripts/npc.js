@@ -843,4 +843,8 @@ class NPC extends Entity {
     findBonusWithUid(uid) {
         return this.bonuses.find(x => x.stat.uid === uid);
     }
+
+    getActiveEffect(name) {
+        return this.activeEffects.find(x => x.name.toLowerCase() === name.toLowerCase());
+    }
 }

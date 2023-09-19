@@ -2010,8 +2010,8 @@ function getBonusCssClassRarity(ori) {
     const it = ori.item;
 
     if(it instanceof Weapon || it instanceof Armor || it instanceof Trinket || it instanceof Echo) return getRarityColorCode(it.rarity);
-    if(it instanceof SkillTreeNode) return "#bf40bf";
-    if(it instanceof Skill) return "rgb(80, 80, 80)";
+    if(it instanceof SkillTreeNode) return "#0096FF";
+    if(it instanceof Skill) return "#DAA06D";
     if(it.type === Data.ActiveEffectType.POWER) return "#bf40bf";
 }
 
@@ -2102,4 +2102,8 @@ function areSiblingsHidden(element) {
         const style = window.getComputedStyle(sib);
         return style.display === 'none';
     });
+}
+
+function findStriderByName(name) {
+    return game.all_striders.find(x => x.name.toLowerCase() === name.toLowerCase());
 }

@@ -110,5 +110,6 @@ DONE - By default, only allow echoes on Weapons, Shields and Armors. Only elder 
 
 ECHOES: 
 DONE - Add colors to effect names for a more comfortable read
+- Update an echo's triggers owner variable on equipping/unequipping
 
 HOTFIXES: #Store your live fixes during dev sessions here and clear them once you're done
