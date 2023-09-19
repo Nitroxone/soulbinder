@@ -30,6 +30,7 @@ function displayCurrentEon(refresh = false) {
     
     str += '<div class="eonPageContainer">';
     str += '<div class="ep-title">' + eon.title + '</div>';
+    if(eon.author) str += '<h2 class="ep-author">by ' + eon.author + '</h2>';
     eon.fragments.forEach(frag => {
         if(frag.unlocked) str += '<div class="ep-part">' + frag.text + '</div>';
     });

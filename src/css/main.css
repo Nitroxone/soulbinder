@@ -7384,11 +7384,18 @@ table.astralForgeShards td {
     padding-bottom: 0.25rem;
     margin-bottom: 0.3rem;
 }
+.ep-author {
+    font-family: CrimsonProItalic;
+    font-size: 14px;
+}
 .ep-part {
     font-family: CrimsonPro;
     font-size: 18px;
     text-indent: 1rem;
     text-align: justify;
+}
+.indent {
+    margin-right: 1rem;
 }
 .eonPageContainer .ep-part:not(:first-child) {
     margin-top: 1.5rem;
