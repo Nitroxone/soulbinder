@@ -1,6 +1,7 @@
 function generateEonsEvents() {
     const eonCategories = document.querySelectorAll('.es-categoryTitle');
-    const eonTitles = document.querySelectorAll('.es-eonTitle')
+    const eonTitles = document.querySelectorAll('.es-eonTitle');
+    const searchBar = document.querySelector('.es-box-search');
 
     eonCategories.forEach((title) => {
         title.addEventListener('click', e => {
@@ -14,7 +15,21 @@ function generateEonsEvents() {
             title.classList.toggle('active');
             game.selectedEon = getUnlockedEonFromTitle(title.textContent);
             displayCurrentEon(true);
-        })
+        });
+    });
+
+    searchBar.addEventListener('input', e => {
+        const val = searchBar.value.toLowerCase().trim();
+
+        eonTitles.forEach(title => {
+            const txt = title.textContent.toLowerCase().trim();
+
+            if(txt.includes(val)) title.style.display = 'block';
+            else title.style.display = 'none';
+
+            if(areSiblingsHidden(title)) title.parentNode.parentNode.style.display = 'none';
+            else title.parentNode.parentNode.style.display = 'block';
+        });
     })
 }
 

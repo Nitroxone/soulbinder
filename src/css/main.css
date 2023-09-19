@@ -7321,6 +7321,21 @@ table.astralForgeShards td {
     padding-top: 0.5rem;
 }
 
+.es-box-search {
+    width: 275px;
+    padding: .35rem 0 .35rem .35rem;
+
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+    font-family: Roboto;
+    color: #bbb;
+}
+.es-box-search:focus {
+    outline: none;
+}
+
 .eonsPage {
     align-items: start;
 

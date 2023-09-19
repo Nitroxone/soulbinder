@@ -2093,3 +2093,11 @@ function getUnlockedEonsWithType(type) {
 function getUnlockedEonFromTitle(title) {
     return game.all_eons.find(x => x.unlocked && x.title.toLowerCase() === title.toLowerCase());
 }
+
+function areSiblingsHidden(element) {
+    const siblings = Array.from(element.parentNode.children);
+    return siblings.every(sib => {
+        const style = window.getComputedStyle(sib);
+        return style.display === 'none';
+    });
+}

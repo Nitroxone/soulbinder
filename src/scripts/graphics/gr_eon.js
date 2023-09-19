@@ -47,6 +47,8 @@ function getEonsSelectors(refresh = false) {
 
     str += '<div class="es-box coolBorderBis">';
 
+    str += '<input type="text" class="es-box-search" placeholder="Search for an eon...">';
+
     for(const cat in Data.EON_CATEGORIES) {
         const eons = getUnlockedEonsWithType(Data.EON_CATEGORIES[cat]);
 
