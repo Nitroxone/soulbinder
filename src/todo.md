@@ -85,7 +85,7 @@ DONE - Revamp the bonus system to make it a little more limited
 - Handle the Echo extraction/replacement (and a dedicated class for Seeds of Remembrance)
 
 EONS:
-- Graphically redesign the whole thing. (using Crimson Pro + different background)
+DONE - Graphically redesign the whole thing. (using Crimson Pro + different background)
 
 CARDS:
 - Start implementing.
