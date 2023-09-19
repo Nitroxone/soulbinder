@@ -1741,16 +1741,23 @@ const Loader = {
 
                             if(amarok.variables.state !== 'weak') {
                                 amarok.variables.state = "weak";
-                                amarok.protection -= amarok.variables.boost_protection;
-                                amarok.might -= amarok.variables.boost_might;
+                                
+                                const bProt = amarok.bonuses.find(x => x.origin.name === 'Darkspawn [BOOSTED]' && x.stat.effect === Data.Effect.PROTECTION);
+                                const bMight = amarok.bonuses.find(x => x.origin.name === 'Darkspawn [BOOSTED]' && x.stat.effect === Data.Effect.MIGHT);
+                                if(bProt) amarok.alter({
+                                    uid: bProt.stat.uid,
+                                    action: Data.AlterAction.REMOVE
+                                });
+                                if(bMight) amarok.alter({
+                                    uid: bMight.stat.uid,
+                                    action: Data.AlterAction.REMOVE
+                                });
+
                                 amarok.variables.boost_protection = 0;
                                 amarok.variables.boost_might = 0;
 
 
                                 var might_debuff = -(amarok.might - Math.round(amarok.might - (amarok.might * amarok.variables.might_debuff_rate)));
-                                amarok.variables.malus_might = might_debuff;
-                                //amarok.protection -= protection_debuff;
-                                //amarok.might = might_debuff;
 
                                 amarok.alter({
                                     effect: new Stat({
