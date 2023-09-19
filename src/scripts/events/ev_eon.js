@@ -1,17 +1,21 @@
-function generateEonEvents() {
-    const eonTitles = document.querySelectorAll('.eonTitle');
+function generateEonsEvents() {
+    const eonCategories = document.querySelectorAll('.es-categoryTitle');
+    const eonTitles = document.querySelectorAll('.es-eonTitle')
 
-    eonTitles.forEach((title, index) => {
-        title.addEventListener('click', () => {
-            drawEonFragments(game.all_eons[index], true);
-
-            eonTitles.forEach(otherTitle => {
-                otherTitle.classList.remove('eonTitleActive');
-            });
-
-            title.classList.add('eonTitleActive');
+    eonCategories.forEach((title) => {
+        title.addEventListener('click', e => {
+            title.classList.toggle('extended');
         });
     });
+
+    eonTitles.forEach(title => {
+        title.addEventListener('click', e => {
+            undisplayCurrentEon();
+            title.classList.toggle('active');
+            game.selectedEon = getUnlockedEonFromTitle(title.textContent);
+            displayCurrentEon(true);
+        })
+    })
 }
 
 function searchEon(refresh = false) {

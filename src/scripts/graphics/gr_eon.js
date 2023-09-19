@@ -7,10 +7,39 @@ function drawEonScreen() {
     str += '</div>';
 
     str += '<div class="eonsPage">';
-    str += getEonsPage();
+    str += getEmptyEonsPage();
     str += '</div>';
 
     document.querySelector('.eonsContainer').innerHTML = str;
+
+    generateEonsEvents();
+}
+
+function undisplayCurrentEon() {
+    const eonTitle = document.querySelector('.es-eonTitle.active');
+
+    if(!eonTitle) return;
+
+    eonTitle.classList.remove('active');
+    getEmptyEonsPage(true);
+}
+
+function displayCurrentEon(refresh = false) {
+    let str = '';
+    const eon = game.selectedEon;
+    
+    str += '<div class="eonPageContainer">';
+    str += '<div class="ep-title">' + eon.title + '</div>';
+    eon.fragments.forEach(frag => {
+        if(frag.unlocked) str += '<div class="ep-part">' + frag.text + '</div>';
+    });
+    str += '</div>';
+
+    if(refresh) {
+        document.querySelector('.eonsPage').innerHTML = str;
+        return;
+    }
+    return str;
 }
 
 function getEonsSelectors(refresh = false) {
@@ -19,11 +48,14 @@ function getEonsSelectors(refresh = false) {
     str += '<div class="es-box coolBorderBis">';
 
     for(const cat in Data.EON_CATEGORIES) {
+        const eons = getUnlockedEonsWithType(Data.EON_CATEGORIES[cat]);
+
         str += '<div class="es-category">';
-        str += '<h2>' + cat + '</h2>';
+        str += '<h2 class="es-categoryTitle">' + cat + '</h2>';
         str += '<div class="es-categoryEons">';
-        getUnlockedEonsWithType(Data.EON_CATEGORIES[cat]).forEach(eon => {
-            str += '<h4>' + eon.title + '</h4>';
+        if(eons.length === 0) str += '<h3>No eon unlocked in this category</h3>';
+        else eons.forEach(eon => {
+            str += '<h4 class="es-eonTitle">' + eon.title + '</h4>';
         });
         str += '</div>'
         str += '</div>';
@@ -38,10 +70,13 @@ function getEonsSelectors(refresh = false) {
     return str;
 }
 
-function getEonsPage(refresh = false) {
+function getEmptyEonsPage(refresh = false) {
     let str = '';
 
-    str += '';
+    str += '<div class="emptyEonPageContainer">';
+    str += '<h1>Select an eon</h1>';
+    str += '<h3>to display it here</h3>';
+    str += '</div>';
 
     if(refresh) {
         document.querySelector('.eonsPage').innerHTML = str;

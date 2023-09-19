@@ -92,18 +92,6 @@ table {
     src: url("fonts/CrimsonPro-BoldItalic.ttf") format("truetype");
 }
 @font-face {
-    font-family: "CrimsonProBlack";
-    font-style: normal;
-    font-weight: normal;
-    src: url("fonts/CrimsonPro-Black.ttf") format("truetype");
-}
-@font-face {
-    font-family: "CrimsonProBlackItalic";
-    font-style: normal;
-    font-weight: normal;
-    src: url("fonts/CrimsonPro-BlackItalic.ttf") format("truetype");
-}
-@font-face {
     font-family: "Roboto";
     font-style: normal;
     font-weight: normal;
@@ -7270,33 +7258,67 @@ table.astralForgeShards td {
     background-image: url('img/darkBorders.png'), url('img/bg1.png');
     background-size: 100% 100%, auto;
 }
+.es-box > .es-category:not(:first-child) {
+    margin-top: 0.25rem;
+}
 .es-category {
     width: 100%;
     border: 2px solid transparent;
     border-image: url('img/window1-tiny.png') 3 stretch;
 }
-.es-category > h2 {
+.es-categoryTitle {
     font-family: RobotoSlabBold;
     font-size: 15px;  
     padding: 0.65rem;
+    margin: 0.3rem;
+    border: 1px solid transparent;
+    border-radius: 3px;
+}
+.es-categoryTitle:hover {
+    border-color: white;
+    cursor: pointer;
+}
+.es-categoryTitle.extended {
+    background: #ccc;
+    color: #2e2e2e;
+    text-shadow: none;
 }
 .es-categoryEons {
     padding: 0.85rem;
     padding-top: 0;
+    display: none;
+
+    flex-direction: column;
 }
-.es-categoryEons h4:not(:first-child) {
+.es-categoryTitle.extended + .es-categoryEons {
+    display: flex;
+}
+.es-eonTitle:not(:first-child) {
     margin-top: 0.25rem;
 }
-.es-categoryEons h4 {
+.es-eonTitle {
     font-size: 11px;
     padding: 0.25rem;
     border: 1px solid transparent;
-    border-bottom: 1px dashed grey;
+    border-bottom: 1px dashed rgba(255,255,255,0.1);
     border-radius: 3px;
     cursor: pointer;
+    color: #bbb;
 }
-.es-categoryEons h4:hover {
+.es-eonTitle:hover {
+    border-bottom: 1px dashed rgb(155, 155, 155);
+    color: #ddd;
+}
+.es-eonTitle.active {
     border: 1px solid rgb(155, 155, 155);
+    color: #ddd;
+}
+
+.es-categoryEons h3 {
+    text-align: center;
+    font-family: RobotoItalic;
+    color: grey;
+    padding-top: 0.5rem;
 }
 
 .eonsPage {
@@ -7305,6 +7327,46 @@ table.astralForgeShards td {
     width: 388px;
     background: url('img/paper.png');
 }
+.emptyEonPageContainer {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-shadow: none;
+    color: #2e2e2e;
+}
+.emptyEonPageContainer > h1 {
+    font-family: CrimsonProBold;
+    font-size: 29px;
+}
+.emptyEonPageContainer > h3 {
+    font-family: CrimsonPro;
+    font-size: 19px;
+}
+
+.eonPageContainer {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 2rem;
+    color: #2e2e2e;
+    text-shadow: none;
+}
+.ep-title {
+    font-family: CrimsonProBold;
+    font-size: 25px;
+    border-bottom: 2px solid #2e2e2e;
+    padding-bottom: 0.25rem;
+    margin-bottom: 0.3rem;
+}
+
 
 /* -------- END EONS --------- */
 

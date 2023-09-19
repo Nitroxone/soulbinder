@@ -2089,3 +2089,7 @@ function getPlayerCurrentLevel() {
 function getUnlockedEonsWithType(type) {
     return game.all_eons.filter(x => x.unlocked && x.category === type);
 }
+
+function getUnlockedEonFromTitle(title) {
+    return game.all_eons.find(x => x.unlocked && x.title.toLowerCase() === title.toLowerCase());
+}

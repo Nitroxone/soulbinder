@@ -77,6 +77,7 @@ class Game {
         this.all_enemyFormations = [];
 
         this.all_eons = [];
+        this.selectedEon = null;
 
         this.player = null;
         this.inventory = null;
