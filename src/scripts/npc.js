@@ -317,12 +317,15 @@ class NPC extends Entity {
 
     /**
      * Runs the triggers which type matches the provided TriggerType value. 
-     * @param {Data.TriggerType} type the type of trigger that must be fired
+     * @param {Data.TriggerType|Data.TriggerType[]} type the type of trigger that must be fired
      */
     runTriggers(type) {
-        this.triggers.forEach(trigger => {
-            if(trigger.type === type) trigger.checker() && trigger.behavior();
+        if(Array.isArray(type)) this.triggers.forEach(trigger => {
+            if(trigger.type === type || trigger.type.includes(type)) trigger.checker() && trigger.behavior();
         })
+        else this.triggers.forEach(trigger => {
+            if(trigger.type === type || trigger.type.includes(type)) trigger.checker() && trigger.behavior();
+        });
     }
 
     /**
@@ -368,8 +371,10 @@ class NPC extends Entity {
         this.removeBaseStat(new Stat({effect: Data.Effect.HEALTH, theorical: eff.getValue(), ignoreShield: true}));
         if(eff.effect === Data.Effect.BLIGHT_CURABLE || eff.effect === Data.Effect.BLIGHT_INCURABLE) {
             this.removeBaseStat(new Stat({effect: Data.Effect.MANA, theorical: eff.getValue()}));
+            this.runTriggers(Data.TriggerType.ON_RECV_POISON);
         } else if(eff.effect === Data.Effect.BLEEDING_CURABLE || eff.effect === Data.Effect.BLEEDING_INCURABLE) {
             this.removeBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: eff.getValue()}));
+            this.runTriggers(Data.TriggerType.ON_RECV_BLEEDING);
         }
     }
 
@@ -397,14 +402,17 @@ class NPC extends Entity {
                 if(damage > 0) this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.RED + '">- ' + Math.round(damage) + '</p>'));
                 this.health = Math.max(0, this.health - Math.round(damage));
             }
+            this.runTriggers(Data.TriggerType.ON_REMOVE_HEALTH);
         } else if(eff.effect === Data.Effect.STAMINA) {
             damage = (eff.isPercentage ? this.maxStamina * Math.abs(eff.getValue()) / 100 : Math.abs(eff.getValue()));
             if(damage > 0) this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.GREEN + '">-' + Math.round(damage) + '</p>'));
             this.stamina = Math.max(0, this.stamina - Math.round(damage));
+            this.runTriggers(Data.TriggerType.ON_REMOVE_STAMINA);
         } else if(eff.effect === Data.Effect.MANA) {
             damage = (eff.isPercentage ? this.maxMana * Math.abs(eff.getValue()) / 100 : Math.abs(eff.getValue()));
             if(damage > 0) this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.BLUE + '">-' + Math.round(damage) + '</p>'));
             this.mana = Math.max(0, this.mana - Math.round(damage));
+            this.runTriggers(Data.TriggerType.ON_REMOVE_MANA);
         }
         console.log('REMOVING ' + Math.round(damage) + ' ' + eff.effect + ' FROM ' + this.name);
     }
@@ -426,19 +434,30 @@ class NPC extends Entity {
             }
 
             this.health = Math.min(this.maxHealth, this.health + Math.round(amount));
-            if(amount > 0) this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.RED + '">+ ' + Math.round(amount) + '</p>'));
+            if(amount > 0) {
+                this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.RED + '">+ ' + Math.round(amount) + '</p>'));
+                this.runTriggers(Data.TriggerType.ON_ADD_HEALTH);
+                this.runTriggers(Data.TriggerType.ON_RECV_HEAL);
+            }
+            
         } else if(eff.effect === Data.Effect.MANA) {
             if(eff.isPercentage) amount = this.maxMana * eff.getValue() / 100;
             else amount = eff.getValue();
 
             this.mana = Math.min(this.maxMana, this.mana + Math.round(amount));
-            if(amount > 0) this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.BLUE + '">+ ' + Math.round(amount) + '</p>'));
+            if(amount > 0) {
+                this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.BLUE + '">+ ' + Math.round(amount) + '</p>'));
+                this.runTriggers(Data.TriggerType.ON_ADD_MANA);
+            }
         } else if(eff.effect === Data.Effect.STAMINA) {
             if(eff.isPercentage) amount = this.maxStamina * eff.getValue() / 100;
             else amount = eff.getValue();
 
             this.stamina = Math.min(this.maxStamina, this.stamina + Math.round(amount));
-            if(amount > 0) this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.GREEN + '">+ ' + Math.round(amount) + '</p>'));
+            if(amount > 0) {
+                this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.GREEN + '">+ ' + Math.round(amount) + '</p>'));
+                this.runTriggers(Data.TriggerType.ON_ADD_STAMINA);
+            }
         }
         console.log('ADDING ' + Math.round(amount) + ' ' + eff.effect + ' TO ' + this.name);
     }

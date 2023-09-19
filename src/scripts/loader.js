@@ -1730,7 +1730,7 @@ const Loader = {
                 [
                     new Trigger({
                         name: "amarok_weak",
-                        type: Data.TriggerType.ON_STAT_CHANGE,
+                        type: [Data.TriggerType.ON_STAT_CHANGE, Data.TriggerType.ON_ADD_HEALTH, Data.TriggerType.ON_REMOVE_HEALTH],
                         checker: function() {
                             const amarok = this.owner;
                             
@@ -1755,7 +1755,6 @@ const Loader = {
 
                                 amarok.variables.boost_protection = 0;
                                 amarok.variables.boost_might = 0;
-
 
                                 var might_debuff = -(amarok.might - Math.round(amarok.might - (amarok.might * amarok.variables.might_debuff_rate)));
 
@@ -1812,7 +1811,7 @@ const Loader = {
                     }),
                     new Trigger({
                         name: "amarok_normal",
-                        type: Data.TriggerType.ON_STAT_CHANGE,
+                        type: [Data.TriggerType.ON_STAT_CHANGE, Data.TriggerType.ON_ADD_HEALTH, Data.TriggerType.ON_REMOVE_HEALTH],
                         checker: function(){
                             const amarok = this.owner;
                             
@@ -1861,7 +1860,7 @@ const Loader = {
                     }),
                     new Trigger({
                         name: "amarok_boosted",
-                        type: Data.TriggerType.ON_STAT_CHANGE,
+                        type: [Data.TriggerType.ON_STAT_CHANGE, Data.TriggerType.ON_ADD_HEALTH, Data.TriggerType.ON_REMOVE_HEALTH],
                         checker: function(){
                             const amarok = this.owner;
 

@@ -210,6 +210,13 @@ const Data = Object.freeze({
         ON_BLOCK_END: 'ON_BLOCK_END',
         ON_GUARD_BEGIN: 'ON_GUARD_BEGIN',
         ON_GUARD_END: 'ON_GUARD_END',
+
+        ON_REMOVE_HEALTH: 'ON_REMOVE_HEALTH',
+        ON_REMOVE_STAMINA: 'ON_REMOVE_STAMINA',
+        ON_REMOVE_MANA: 'ON_REMOVE_MANA',
+        ON_ADD_HEALTH: 'ON_ADD_HEALTH',
+        ON_ADD_STAMINA: 'ON_ADD_STAMINA',
+        ON_ADD_MANA: 'ON_ADD_MANA',
     },
     StatType: {
         ACTIVE: "active",
