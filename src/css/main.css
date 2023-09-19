@@ -7403,6 +7403,9 @@ table.astralForgeShards td {
 .eonPageContainer .ep-part:last-child {
     margin-bottom: 1.5rem;
 }
+.eonItalic {
+    font-family: CrimsonProItalic !important;
+}
 
 
 /* -------- END EONS --------- */

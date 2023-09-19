@@ -2812,6 +2812,26 @@ const Loader = {
                     }
                 ]
             }),
+            new Eon({
+                id: "inTheHushedWhispersOfMoreinir",
+                title: "In the hushed whispers of Moreinir",
+                category: Data.EON_CATEGORIES.LOCATIONS,
+                author: 'Gacio Sinretta',
+                fragments: [
+                    {
+                        text: '"Nothing," they will tell you, "We know nothing, absolutely nothing!" They will tell you that the Speakers of Sintra have never revealed anything about it. That there is probably nothing beyond the clouds; so cold that there is no temperature; so vast that neither the near nor the far can be distinguished. "Nothing" is what lies yonder. That "yonder" of which we know only the name, recounted by Qal of Atalan, the Sintra Speaker in the first Sintric Book, the <span class="eonItalic">Book of Hatching</span>.<br><span class="indent"></span>It is first mentioned in the initial narrative, <span class="eonItalic">The Spark</span>, when Qal speaks of the abode of the Bearer. Then in the third narrative, <span class="eonItalic">The Game</span>, it is described where Rath drifts, and later orbits, following Lantho\'s anger.<br><span class="indent"></span>And nowhere else. Why? Do our prophets refuse to let us know the nature of this place? Do they even have knowledge of it? Is there even something to know?<br><span class="indent"></span>Thus is it named in <span class="eonItalic">The Spark</span> narrative: "Moreinir, the Grand Void."',
+                        unlocked: false
+                    },
+                    {
+                        text: '"There was neither cold nor heat there; no breeze, no sound. Was it even air that I was breathing? Near me, nothing; far from me, pale spots that I could touch with my fingertips. And above all, this dreadful sense of terror."<br><span class="indent"></span>I would have gladly consigned these words to oblivion, written as they were in the aftermath of a traumatizing nightmare... if other people had not also recounted their dreams with disconcerting similarities. Only dreams? Here\'s a common story: a man stops breathing, trapped beneath the wheels of a plow or fallen from a roof. He is believed dead. Yet, the next moment, he revives briskly. What happened? For a few seconds, it is said this individual left our world. "But where did he go, and to what place?" I wondered for a long time.<br><span class="indent"></span>Undoubtedly, into Moreinir.<br><span class="indent"></span>These intrusions from the great void beyond the sky are more common than one might think. Like those times when we rise too quickly from our beds and our vision is clouded by a dark veil.',
+                        unlocked: false
+                    },
+                    {
+                        text: '"[...] and Rath drifting in Moreinir." — <span class="eonItalic">Book of Dawn, III: The Game</span><br><span class="indent"></span>Who among us has never emerged from a lengthy slumber punctuated by dreams without attempting to find meaning in them? Sibylline premonition, the manifestation of suppressed fear or powerful remorse; sometimes coherent, often absurd, our dreams are a reflection of our soul — and they have the power to leave us bewildered upon waking.<br><span class="indent"></span>Sintric teachings have always remained elusive on this matter, until the ultimate revelation in the <span class="eonItalic">Book of Mists</span>:<br><span class="indent"></span>"Our twin soul awakens at night when its sibling slumbers; the two cannot coexist simultaneously. It enters, along with all the others, into the Chamber of Osi: the abode of the Dreamer, adorned with mirrors devoid of reflections, which come to life as they read the emotions, secrets, and experiences of our twin soul that shares our own." — <span class="eonItalic">Book of Mists, I: The Chamber</span>',
+                        unlocked: false
+                    }
+                ]
+            }),
         ];
 
         for(const eon of eons) {
