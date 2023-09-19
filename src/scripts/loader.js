@@ -1932,6 +1932,33 @@ const Loader = {
                         behavior: function() {
                             this.owner.runTriggers(Data.TriggerType.ON_STAT_CHANGE);
                         }
+                    }),
+                    new Trigger({
+                        name: "amarok_test",
+                        type: Data.TriggerType.ON_DEAL_DAMAGE,
+                        checker: function(){return true},
+                        behavior: function() {
+                            this.owner.alter({
+                                effect: new Stat({effect: Data.Effect.MODIF_DMG_TOTAL, theorical: 30, isPercentage: true}),
+                                action: Data.AlterAction.ADD,
+                                originObject: {
+                                    type: Data.ActiveEffectType.POWER,
+                                    name: 'POUVOIR DU CACA'
+                                }
+                            });
+                            this.owner.addActiveEffect(new ActiveEffect({
+                                name: 'POUVOIR DU KAKAGUE',
+                                originUser: this.owner,
+                                originObject: Data.ActiveEffectType.POWER,
+                                effects: [
+                                    new Stat({effect: Data.Effect.MODIF_DMG_TOTAL, theorical: 30, isPercentage: true}),
+                                ],
+                                style: {
+                                    color: Data.Color.PURPLE,
+                                    bold: true
+                                }
+                            }))
+                        }
                     })
                 ],
                 Data.StriderType.TANK,
