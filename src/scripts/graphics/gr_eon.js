@@ -27,10 +27,17 @@ function undisplayCurrentEon() {
 function displayCurrentEon(refresh = false) {
     let str = '';
     const eon = game.selectedEon;
+    const unlocked = eon.fragments.filter(x => x.unlocked).length;
+    const total = eon.fragments.length;
     
     str += '<div class="eonPageContainer">';
     str += '<div class="ep-title">' + eon.title + '</div>';
-    if(eon.author) str += '<h2 class="ep-author">by ' + eon.author + '</h2>';
+
+    str += '<div class="ep-subTitle">';
+    str += '<h2 class="ep-author">' + (eon.author ? 'by ' + eon.author : '') + '</h2>';
+    str += '<h2 class="ep-progress">' + unlocked + ' / ' + total + '</h2>';
+    str += '</div>';
+
     eon.fragments.forEach(frag => {
         if(frag.unlocked) str += '<div class="ep-part">' + frag.text + '</div>';
     });

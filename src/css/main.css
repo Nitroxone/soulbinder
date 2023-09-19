@@ -7394,8 +7394,17 @@ table.astralForgeShards td {
     padding-bottom: 0.25rem;
     margin-bottom: 0.3rem;
 }
+.ep-subTitle {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 .ep-author {
     font-family: CrimsonProItalic;
+    font-size: 14px;
+}
+.ep-progress {
+    font-family: CrimsonPro;
     font-size: 14px;
 }
 .ep-part {
