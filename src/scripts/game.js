@@ -76,7 +76,8 @@ class Game {
         this.all_enemies = [];
         this.all_enemyFormations = [];
 
-        this.all_majorEons = [];
+        this.all_eons = [];
+        this.selectedEon = null;
 
         this.player = null;
         this.inventory = null;
@@ -220,7 +221,7 @@ class Game {
             addTooltip(this.tabs[i].domWhat, function(tab){return function(){return tab.desc;};}(this.tabs[i]), {offY:-8});
         }
         // SETS THE STARTING TAB
-        this.setTab(this.tabs[1]);
+        this.setTab(this.tabs[5]);
     }
 
     setTab(tab) {
@@ -367,7 +368,10 @@ class Game {
         Config.Soulwriting.forEach(sw => {
             sw.unlocked = true;
             sw.studied = sw.researchTotal;
-        })
+        });
+
+        unlockAllEons();
+        unlockAllEonFragments();
 
         drawInventory();
         drawStridersScreen();
@@ -376,9 +380,6 @@ class Game {
         drawExplorationScreen();
         drawEonScreen();
         drawEmptyBattleScreen();
-
-        unlockAllEons();
-        unlockAllEonFragments();
 
         this.message({type: Data.LogMessageType.IMPORTANT, text:'This is an important message.'});
         this.message({type: Data.LogMessageType.REGULAR, text:'This is a regular message.'});

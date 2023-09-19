@@ -537,5 +537,14 @@ const Data = Object.freeze({
     AlterAction: {
         ADD: "add",
         REMOVE: "remove"
+    },
+    EON_CATEGORIES: {
+        MAJOR: "major",
+        MINOR: "minor",
+        LOCATIONS: "locations",
+        BESTIARY: "bestiary",
+        TUTORIALS: "tutorials",
+        STRIDERS: "striders",
+        ARTIFACTS: "artifacts"
     }
 }); 

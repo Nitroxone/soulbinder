@@ -2,91 +2,91 @@ function drawEonScreen() {
     document.querySelector('#eonsDiv').innerHTML = '<div class="eonsContainer"></div>';
     let str = '';
 
-    str += '<div class="diary">';
-
-    str += '<div class="diaryFirstCol">';
-    str += '<div class="leftPage pages">';
-    str += '<h2 class="leftPageTitle pageTitle">Eons</h2>';
-    str += '<div class="eonsBorder"></div>';
-    str += '<input class ="eonSearchBar" type="text" id="eonSearchInput" placeholder="Search eon..." />';
-    str += '<div class="eonTitlesContainer">';
-
-
-    str += drawEonTitles();
-
-    str += '</div>';
-    str += '</div>';
+    str += '<div class="eonsSelectors">';
+    str += getEonsSelectors();
     str += '</div>';
 
-    str += '<div class="diarySecondCol">';
-    str += '<div class="rightPage pages">';
-    str += '<h2 class="rightPageTitle pageTitle">Fragments</h2>';
-    str += '<div class="eonsBorder"></div>';
-    str += '<div class="eonFragmentsContainer">';
-
-    str += '</div>';
-    str += '</div>';
-    str += '</div>';
-
+    str += '<div class="eonsPage">';
+    str += getEmptyEonsPage();
     str += '</div>';
 
     document.querySelector('.eonsContainer').innerHTML = str;
 
-    generateEonEvents();
-    searchEon();
+    generateEonsEvents();
 }
 
-function addEonTitlesContainerOverflowYScroll() {
-    const eonTitlesContainer = document.querySelector('.eonTitlesContainer');
-    if(!isElementEmpty(eonTitlesContainer)) {
-        eonTitlesContainer.style.overflowY = "scroll";
-    }
+function undisplayCurrentEon() {
+    const eonTitle = document.querySelector('.es-eonTitle.active');
+
+    if(!eonTitle) return;
+
+    eonTitle.classList.remove('active');
+    getEmptyEonsPage(true);
 }
 
-function addEonFragmentsContainerOverflowYScroll() {
-    const eonFragmentsContainer = document.querySelector('.eonFragmentsContainer');
-    if(!isElementEmpty(eonFragmentsContainer)) {
-        eonFragmentsContainer.style.overflowY = "scroll";
-    }
-}
-
-function drawEonTitles(refresh = false) {
+function displayCurrentEon(refresh = false) {
     let str = '';
-
-    game.all_majorEons.forEach(eon => {
-        if (eon.unlocked) {
-            str += '<div class="eonTitle">';
-            str += '<div class="eonTitleBullet"></div>';
-            str += '<p class="eonTitleContent">';
-            str += eon.title;
-            str += '</p>';
-            str += '</div>';
-        }
+    const eon = game.selectedEon;
+    
+    str += '<div class="eonPageContainer">';
+    str += '<div class="ep-title">' + eon.title + '</div>';
+    eon.fragments.forEach(frag => {
+        if(frag.unlocked) str += '<div class="ep-part">' + frag.text + '</div>';
     });
+    str += '</div>';
 
     if(refresh) {
-        document.querySelector('.eonTitlesContainer').innerHTML = str;
-        generateEonEvents();
-        searchEon(true);
-        addEonTitlesContainerOverflowYScroll();
+        document.querySelector('.eonsPage').innerHTML = str;
         return;
     }
     return str;
 }
 
-function drawEonFragments(eon, refresh = false) {
+function getEonsSelectors(refresh = false) {
     let str = '';
-    eon.fragments.forEach(fragment => {
-        if (fragment.unlocked) {
-            str += '<div class="eonFragment">';
-            str += fragment.text;
-            str += '</div>';
-        }
-    });
 
-    document.querySelector('.eonFragmentsContainer').innerHTML = str;
+    str += '<div class="es-box coolBorderBis">';
 
-    if (refresh) {
-        addEonFragmentsContainerOverflowYScroll();
+    str += '<input type="text" class="es-box-search" placeholder="Search for an eon...">';
+
+    for(const cat in Data.EON_CATEGORIES) {
+        const eons = getUnlockedEonsWithType(Data.EON_CATEGORIES[cat]);
+
+        str += '<div class="es-category">';
+        str += '<h2 class="es-categoryTitle">' + cat + '</h2>';
+        str += '<div class="es-categoryEons">';
+        if(eons.length === 0) str += '<h3>No eon unlocked in this category</h3>';
+        else eons.forEach(eon => {
+            str += '<h4 class="es-eonTitle">' + eon.title + '</h4>';
+        });
+        str += '</div>'
+        str += '</div>';
     }
+
+    str += '</div>';
+
+    if(refresh) {
+        document.querySelector('.eonsSelectors').innerHTML = str;
+        return;
+    }
+    return str;
+}
+
+function getEmptyEonsPage(refresh = false) {
+    let str = '';
+
+    str += '<div class="emptyEonPageContainer">';
+    str += '<h1>Select an eon</h1>';
+    str += '<h3>to display it here</h3>';
+    str += '</div>';
+
+    if(refresh) {
+        document.querySelector('.eonsPage').innerHTML = str;
+        return;
+    }
+    return str;
+}
+
+function drawEonTitles(refresh = false) {
+
 }

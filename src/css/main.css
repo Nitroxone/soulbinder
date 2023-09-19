@@ -92,18 +92,6 @@ table {
     src: url("fonts/CrimsonPro-BoldItalic.ttf") format("truetype");
 }
 @font-face {
-    font-family: "CrimsonProBlack";
-    font-style: normal;
-    font-weight: normal;
-    src: url("fonts/CrimsonPro-Black.ttf") format("truetype");
-}
-@font-face {
-    font-family: "CrimsonProBlackItalic";
-    font-style: normal;
-    font-weight: normal;
-    src: url("fonts/CrimsonPro-BlackItalic.ttf") format("truetype");
-}
-@font-face {
     font-family: "Roboto";
     font-style: normal;
     font-weight: normal;
@@ -7229,164 +7217,188 @@ table.astralForgeShards td {
     transition: all .1s ease-in-out;
 }
 
+/* ----------- EONS --------- */
+
 .eonsContainer {
     margin: 0 auto;
     height: 800px;
-    width: 1000px;
-    border: 2px dotted grey;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    position: relative;
-}
+    width: 776px;
+    margin-top: 2rem;
 
-.diary {
-    position: relative;
-    height: 563px;
-    width: 709px;
-    background-image: url(img/eons/book_bottom_pages.png);
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
-    padding: 1em;
+    grid-template-areas: 
+        "eonsSelectors eonsPage";
+
+    position: relative;
 }
 
-.diaryFirstCol, .diarySecondCol {
-    height: 100%;
-    width: 100%;
+.eonsSelectors, .eonsPage {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 1em;
+
+    width: 388px;
+    height: 599px;
 }
 
-.diaryFirstCol {
-    grid-area: 1 / 1 / 2 / 2;
-    position: relative;
+.eonsSelectors {
+    align-items: end;
 }
+.es-box {
+    width: 300px;
+    height: 298px;
 
-.diarySecondCol {
-    grid-area: 1 / 2 / 2 / 3;
-    position: relative;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    
+    border-right: none;
+
+    background-image: url('img/darkBorders.png'), url('img/bg1.png');
+    background-size: 100% 100%, auto;
 }
-.pages {
-    position: absolute;
-    width: 85%;
-    top: 30px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.es-box > .es-category:not(:first-child) {
+    margin-top: 0.25rem;
 }
-
-.leftPage {
-    right: 0;
+.es-category {
+    width: 100%;
+    border: 2px solid transparent;
+    border-image: url('img/window1-tiny.png') 3 stretch;
 }
-
-.rightPage {
-    left: 0;
-    padding: 0 1em 0 3em;
+.es-categoryTitle {
+    font-family: RobotoSlabBold;
+    font-size: 15px;  
+    padding: 0.65rem;
+    margin: 0.3rem;
+    border: 1px solid transparent;
+    border-radius: 3px;
 }
-
-.pageTitle {
-    font-family: Domine;
-    font-size: 18px;
-    color: #4d4537;
-    text-shadow: 1px 1px rgba(255, 255, 255, 0.15);
-
-}
-
-.eonFragmentsContainer {
-    height: 400px;
-    display: flex;
-    flex-direction: column;
-    gap: 2em;
-    overflow: hidden;
-    padding-right: 10px;
-}
-
-.eonTitlesContainer {
-    overflow: hidden;
-    height: 366px;
-}
-
-.eonTitle {
-    padding: 5px;
-    height: 44px;
-    font-family: RobotoSlabMed;
-    font-size: 14px;
-    width: 280px;
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    gap: 0.5em;
-    transition: transform 0.3s ease-in-out;
-    text-shadow: 1px 1px rgba(255, 255, 255, 0.15);
-    font-size: 13px;
-    color: #4d4537;
-    border-radius: 5px;
-}
-
-.eonTitleBullet {
-    width: 15px;
-    height: 15px;
-    background-image: url(img/eons/eonPassive.png);
-    visibility: hidden;
-    transition: visibility 0s;
-}
-
-.eonTitle:hover {
+.es-categoryTitle:hover {
+    border-color: white;
     cursor: pointer;
-    transform: translateX(10px);
 }
-
-.eonTitle:hover .eonTitleBullet {
-    visibility: visible;
+.es-categoryTitle.extended {
+    background: #ccc;
+    color: #2e2e2e;
+    text-shadow: none;
 }
+.es-categoryEons {
+    padding: 0.85rem;
+    padding-top: 0.35rem;
+    display: none;
 
-.eonsBorder {
-    height: 14px;
-    width: 250px;
-    background-image: url(img/eons/border.png);
-    margin: 10px 0 10px 0;
+    flex-direction: column;
 }
-
-.eonTitleActive {
-    background-image: url(img/eons/eon-highlight.png);
-    background-size: 100%;
-    background-repeat: no-repeat;
+.es-categoryTitle.extended + .es-categoryEons {
     display: flex;
-    color: white;
-    background-blend-mode: color-dodge;
+}
+.es-eonTitle:not(:first-child) {
+    margin-top: 0.25rem;
+}
+.es-eonTitle {
+    font-size: 11px;
+    padding: 0.25rem;
+    border: 1px solid transparent;
+    border-bottom: 1px dashed rgba(255,255,255,0.1);
+    border-radius: 3px;
+    cursor: pointer;
+    color: #bbb;
+}
+.es-eonTitle:hover {
+    border-bottom: 1px dashed rgb(155, 155, 155);
+    color: #ddd;
+}
+.es-eonTitle.active {
+    border: 1px solid rgb(155, 155, 155);
+    color: #ddd;
 }
 
-.eonFragment {
-    font-family: RobotoSlabMed;
-    text-shadow: 1px 1px rgba(255, 255, 255, 0.15);
-    font-size: 13px;
-    color: #4d4537;
-    text-align: justify;
-    line-height: 1.25;
-    text-indent: 10px;
+.es-categoryEons h3 {
+    text-align: center;
+    font-family: RobotoItalic;
+    color: grey;
+    padding-top: 0.5rem;
 }
 
+.es-box-search {
+    width: 275px;
+    padding: .35rem 0 .35rem .35rem;
 
-.eonSearchBar {
-    height: 20px;
-    width: 80%;
-    background-color: transparent;
-    margin-bottom: 10px;
-
+    background: transparent;
     border: none;
-    border-bottom: 2px solid #857054;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
-    color: #31291e;
-    font-family: RobotoSlab;
+    font-family: Roboto;
+    color: #bbb;
 }
-
-.eonSearchBar:focus {
+.es-box-search:focus {
     outline: none;
 }
+
+.eonsPage {
+    align-items: start;
+
+    width: 388px;
+    background: url('img/paper.png');
+}
+.emptyEonPageContainer {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-shadow: none;
+    color: #2e2e2e;
+}
+.emptyEonPageContainer > h1 {
+    font-family: CrimsonProBold;
+    font-size: 29px;
+}
+.emptyEonPageContainer > h3 {
+    font-family: CrimsonPro;
+    font-size: 19px;
+}
+
+.eonPageContainer {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 2.5rem 2rem 0 2rem;
+    color: #2e2e2e;
+    text-shadow: none;
+
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+.ep-title {
+    font-family: CrimsonProBold;
+    font-size: 25px;
+    border-bottom: 2px solid #3e3e3e;
+    padding-bottom: 0.25rem;
+    margin-bottom: 0.3rem;
+}
+.ep-part {
+    font-family: CrimsonPro;
+    font-size: 18px;
+    text-indent: 1rem;
+    text-align: justify;
+}
+.eonPageContainer .ep-part:not(:first-child) {
+    margin-top: 1.5rem;
+}
+.eonPageContainer .ep-part:last-child {
+    margin-bottom: 1.5rem;
+}
+
+
+/* -------- END EONS --------- */
 
 .battle-globalInfo {
     width: 100%;
