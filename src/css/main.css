@@ -7326,6 +7326,9 @@ table.astralForgeShards td {
 
     width: 388px;
     background: url('img/paper.png');
+
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 .emptyEonPageContainer {
     width: 100%;
@@ -7355,16 +7358,28 @@ table.astralForgeShards td {
     display: flex;
     flex-direction: column;
 
-    padding: 2rem;
+    padding: 2.5rem 2rem;
     color: #2e2e2e;
     text-shadow: none;
 }
 .ep-title {
     font-family: CrimsonProBold;
     font-size: 25px;
-    border-bottom: 2px solid #2e2e2e;
+    border-bottom: 2px solid #3e3e3e;
     padding-bottom: 0.25rem;
     margin-bottom: 0.3rem;
+}
+.ep-part {
+    font-family: CrimsonPro;
+    font-size: 18px;
+    text-indent: 1rem;
+    text-align: justify;
+}
+.eonPageContainer .ep-part:not(:first-child) {
+    margin-top: 1.5rem;
+}
+.eonPageContainer .ep-part:last-child {
+    margin-bottom: 1.5rem;
 }
 
 
