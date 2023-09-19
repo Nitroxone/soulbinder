@@ -57,7 +57,7 @@ function getSoulbindingItem(refresh = false) {
 
         str += '</div>';
     } else {
-        str += '<div class="sbNoItem">No Item</div>';
+        str += '<div class="sbNoItem">Drop an item here to change its sigil and echo</div>';
     }
 
     if(refresh) {
@@ -109,6 +109,8 @@ function getSoulbindingObjects(refresh = false) {
         }
         str += '</div>';
         animDelay += 0.1;
+    } else {
+        str += '<div class="sbCannotHostEcho">No sigil found</div>';
     }
     str += '</div>';
 
@@ -130,6 +132,8 @@ function getSoulbindingObjects(refresh = false) {
             str += '<div class="sbCannotHostEcho">No echo allowed on this item</div>';
         }
         str += '</div>';
+    } else {
+        str += '<div class="sbCannotHostEcho">No echo found</div>';
     }
     str += '</div>';
 

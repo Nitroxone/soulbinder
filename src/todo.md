@@ -81,7 +81,7 @@ DONE - Extract a soulmark multiple times to unlock its full potential
 SOULBINDING:
 DONE - Prevent the addition of effects that do not already exist
 DONE - Revamp the bonus system to make it a little more limited
-- Properly design an empty soulbinding screen
+DONE - Properly design an empty soulbinding screen
 - Handle the Echo extraction/replacement (and a dedicated class for Seeds of Remembrance)
 
 EONS:
