@@ -1998,6 +1998,7 @@ function getBonusCssClassName(ori) {
     if(it instanceof Echo) return "bonus-echo";
     if(it instanceof Skill) return "bonus-skill";
     if(it instanceof SkillTreeNode) return "bonus-skilltree";
+    if(it.type === Data.ActiveEffectType.POWER) return "bonus-skilltree";
 }
 
 /**
@@ -2011,6 +2012,7 @@ function getBonusCssClassRarity(ori) {
     if(it instanceof Weapon || it instanceof Armor || it instanceof Trinket || it instanceof Echo) return getRarityColorCode(it.rarity);
     if(it instanceof SkillTreeNode) return "#bf40bf";
     if(it instanceof Skill) return "rgb(80, 80, 80)";
+    if(it.type === Data.ActiveEffectType.POWER) return "#bf40bf";
 }
 
 /**

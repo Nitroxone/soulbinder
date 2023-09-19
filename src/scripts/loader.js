@@ -1727,7 +1727,79 @@ const Loader = {
                     protection_debuff: 30,
                     might_debuff_rate: 0.25,
                 },
-                [],
+                [
+                    new Trigger({
+                        name: "amarok_weak",
+                        type: Data.TriggerType.ON_STAT_CHANGE,
+                        checker: function() {
+                            const amarok = game.all_striders.find(x => x.name.toLowerCase() === 'amarok');
+                            
+                            return (amarok.health >= ((amarok.variables.threshold_weak * amarok.maxHealth) / 100));
+                        },
+                        behavior: function() {
+                            const amarok = game.all_striders.find(x => x.name.toLowerCase() === 'amarok');
+
+                            if(amarok.variables.state !== 'weak') {
+                                amarok.variables.state = "weak";
+                                amarok.protection -= amarok.variables.boost_protection;
+                                amarok.might -= amarok.variables.boost_might;
+                                amarok.variables.boost_protection = 0;
+                                amarok.variables.boost_might = 0;
+
+
+                                var might_debuff = -(amarok.might - Math.round(amarok.might - (amarok.might * amarok.variables.might_debuff_rate)));
+                                //amarok.protection -= protection_debuff;
+                                //amarok.might = might_debuff;
+
+                                amarok.alter({
+                                    effect: new Stat({
+                                        effect: Data.Effect.PROTECTION, 
+                                        theorical: -30, 
+                                        isPercentage: true
+                                    }),
+                                    action: Data.AlterAction.ADD,
+                                    origin: {
+                                        type: Data.ActiveEffectType.POWER,
+                                        name: 'Darkspawn [WEAK]'
+                                    },
+                                });
+                                amarok.alter({
+                                    effect: new Stat({
+                                        effect: Data.Effect.MIGHT,
+                                        theorical: might_debuff,
+                                    }),
+                                    action: Data.AlterAction.ADD,
+                                    origin: {
+                                        type: Data.ActiveEffectType.POWER,
+                                        name: 'Darkspawn [WEAK]'
+                                    },
+                                });
+
+                                // add active effect and remove others
+                                if(amarok.activeEffects.find(x => x.name === 'Darkspawn [BOOSTED]')) {
+                                    amarok.removeActiveEffect('Darkspawn [BOOSTED]');
+                                }
+                                amarok.activeEffects.push(new ActiveEffect({
+                                    name: 'Darkspawn [WEAK]',
+                                    originUser: amarok,
+                                    originObject: Data.ActiveEffectType.POWER,
+                                    effects: [
+                                        new Stat({
+                                            effect: Data.Effect.PROTECTION, 
+                                            theorical: -30, 
+                                            isPercentage: true
+                                        }),
+                                        new Stat({
+                                            effect: Data.Effect.MIGHT,
+                                            theorical: might_debuff,
+                                        })
+                                    ],
+                                    style: {}
+                                }))
+                            }
+                        }
+                    })
+                ],
                 Data.StriderType.TANK,
                 "Darkspawn",
                 '<div class="par">The lower Amarok\'s health, the higher his protection and damage.</div><div class="par bulleted"><span class="bold blue">Health above 50%</span> : -30% Protection, -25% Might</div><div class="par bulleted"><span class="bold blue">Health between 30% and 50%</span> : regular Protection, regular Might</div><div class="par bulleted"><span class="bold blue">Health below 30%</span> : +2% Protection per 1% Health loss, +3% Might per 2% Health loss</div>',
