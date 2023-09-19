@@ -7326,9 +7326,6 @@ table.astralForgeShards td {
 
     width: 388px;
     background: url('img/paper.png');
-
-    overflow-x: hidden;
-    overflow-y: scroll;
 }
 .emptyEonPageContainer {
     width: 100%;
@@ -7358,9 +7355,12 @@ table.astralForgeShards td {
     display: flex;
     flex-direction: column;
 
-    padding: 2.5rem 2rem;
+    padding: 2.5rem 2rem 0 2rem;
     color: #2e2e2e;
     text-shadow: none;
+
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 .ep-title {
     font-family: CrimsonProBold;
