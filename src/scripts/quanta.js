@@ -91,7 +91,9 @@ class Quanta {
 
         let intrvlObj = Quanta.emitters.find(x => x.name === name);
         if(intrvlObj) clearInterval(intrvlObj.loop);
-        else intrvlObj = {name: name, loop: null};
+        else {
+            intrvlObj = {name: name, loop: null};
+        }
 
         let particles = {};
         let particleIndex = 0;
@@ -134,7 +136,8 @@ class Quanta {
                 p.draw(ctx);
                 if(p.life <= 0) delete particles[p.id];
             }
-        })
+        });
+        Quanta.emitters.push(intrvlObj);
     }
 
     static update(props) {
