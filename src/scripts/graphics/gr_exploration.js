@@ -14,14 +14,13 @@ function drawExplorationHubScreen() {
 
         str += '<div class="eh-biomeCategory" style="background-image: url(\'img/darkBorders.png\'), linear-gradient(0deg, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.15) 100%), url(\'css/img/bg/' + Data.DungeonBiomeBackground[biome] + '\')">';
         str += '<h2 class="eh-biomeName">' + Data.DungeonBiome[biome] + '</h2>';
+        str += '</div>';
 
         str += '<div class="eh-biomeContent">';
         game.all_dungeons.filter(x => x.biome === Data.DungeonBiome[biome]).forEach(du => {
             str += getExplorationHubDungeon(du);
         })
         str += '</div>'
-
-        str += '</div>';
     }
     str += '</div>';
 
@@ -29,6 +28,7 @@ function drawExplorationHubScreen() {
 
 
     document.querySelector('.explorationHub').innerHTML = str;
+    generateExplorationHubEvents();
 
     Quanta.emit({
         name: "explorationHub",
@@ -49,7 +49,11 @@ function drawExplorationHubScreen() {
 function getExplorationHubDungeon(du) {
     let str = '';
 
-    str += du.name;
+    str += '<div class="eh-dungeon">';
+    str += '<h3>' + du.name + '</h3>';
+    str += '<div class="eh-dungeonContent">';
+    str += '</div>';
+    str += '</div>';
 
     return str;
 }

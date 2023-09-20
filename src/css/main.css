@@ -7974,11 +7974,26 @@ table.astralForgeShards td {
 .eh-main > .eh-biomeCategory:not(:first-child) {
     margin-top: 1rem;
 }
+.eh-biomeContent {
+    display: none;
 
+    width: 70%;
+    border: 4px solid transparent;
+    border-image: url('img/window1-tiny.png') 7 stretch;
+}
+.eh-biomeCategory.extended + .eh-biomeContent {
+    display: flex;
+}
 .explorationHubCanvas {
     width: 100%;
 
     position: absolute;
     bottom: 0;
     z-index: -1;
+}
+
+.eh-dungeon h3 {
+    font-family: RobotoSlabBold;
+    font-size: 15px;
+    padding: 1rem;
 }
