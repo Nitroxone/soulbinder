@@ -7893,3 +7893,14 @@ table.astralForgeShards td {
     border-color: rgba(176,60,39,1) !important;
     color: rgba(176,60,39,1) !important;
 }
+
+/* EXPLORATION HUB */
+
+.eh-header {
+    width: 100%;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

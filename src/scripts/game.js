@@ -221,7 +221,7 @@ class Game {
             addTooltip(this.tabs[i].domWhat, function(tab){return function(){return tab.desc;};}(this.tabs[i]), {offY:-8});
         }
         // SETS THE STARTING TAB
-        this.setTab(this.tabs[5]);
+        this.setTab(this.tabs[4]);
     }
 
     setTab(tab) {
@@ -363,7 +363,7 @@ class Game {
         //this.inventory.enchant(this.inventory.weapons[0], this.inventory.sigils[1]);
         //this.inventory.enchant(this.inventory.armors[0], this.inventory.sigils[0]);
 
-        this.currentDungeon = new Dungeon({name: 'Putrescent ossuary', biome: Data.DungeonBiome.UZIEL_JUNGLES});
+        //this.currentDungeon = new Dungeon({name: 'Putrescent ossuary', biome: Data.DungeonBiome.UZIEL_JUNGLES});
 
         Config.Soulwriting.forEach(sw => {
             sw.unlocked = true;
@@ -377,7 +377,8 @@ class Game {
         drawStridersScreen();
         drawHubScreen();
         drawWorkshopScreen();
-        drawExplorationScreen();
+        //drawExplorationScreen();
+        drawExplorationHubScreen();
         drawEonScreen();
         drawEmptyBattleScreen();
 
@@ -392,7 +393,7 @@ class Game {
         this.player.formationSet(what(this.player.roster, "carhal"), Data.FormationPosition.BACK);
         console.clear();
 
-        this.startBattle(what(game.all_enemyFormations, "threeTicks").formation);
+        //this.startBattle(what(game.all_enemyFormations, "threeTicks").formation);
         //this.currentBattle.end();
 
         this.initBlackMarket();
