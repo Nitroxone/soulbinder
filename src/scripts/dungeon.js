@@ -29,7 +29,9 @@ class Dungeon {
         });
 
         this.floors = [];
+    }
 
+    init() {
         this.generateFloors();
         this.currentFloor = this.floors[0];
     }
@@ -44,5 +46,3 @@ class Dungeon {
         return this.floors[this.floors.indexOf(this.currentFloor) + 1];
     }
 }
-
-

@@ -472,6 +472,15 @@ const Data = Object.freeze({
         ASTRAL: "astral",
         ALL: "all",
     },
+    DungeonBiomeBackground: {
+        UZIEL_JUNGLES: "jungle_biome.png",
+        SERPENTINE_MOUNTAINS: "snow_biome.png",
+        MITHOR: "plain_biome.png",
+        CRIMSON_MARSHLANDS: "swamp_biome.png",
+        ELJINN_DESERT: "desert_biome.png",
+        SHATTERED_ISLES: "coast_biome.png",
+        ASTRAL: "astral_biome.png",
+    },
     DungeonClusterPattern: {
         CIRCLE: 'circle',
         LINE: 'line',

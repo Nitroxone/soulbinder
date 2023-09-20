@@ -57,7 +57,8 @@ ASTRAL FORGE:
 DUNGEONS:
 - Create floor transitions
 - Connect dungeons to combats
-- Create dungeon hub and exploration start buttons
+ONGOING - Create dungeon hub and exploration start buttons
+- Create "minigames"
 
 CRAFTING:
 - Start implementing

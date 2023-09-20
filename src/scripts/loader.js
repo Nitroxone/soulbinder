@@ -3072,13 +3072,29 @@ const Loader = {
         }
     },
 
-    loadSoulmarks: loadSoulmarks = () => {
-        const soulmarks = [
-            
+    loadDungeons: loadDungeons = () => {
+        const dungeons = [
+            new Dungeon({
+                name: "Putrescent Ossuary",
+                background: "putrescent_ossuary.png",
+                biome: Data.DungeonBiome.CRIMSON_MARSHLANDS,
+                maximumDepth: 3,
+                config: {
+                    floor1: {
+                        depth: 1,
+                    },
+                    floor2: {
+                        depth: 2,
+                    },
+                    floor3: {
+                        depth: 3,
+                    },
+                }
+            }),
         ];
 
-        for(const soulmark of soulmarks) {
-            game.all_soulmarks.push(soulmark);
+        for(const dungeon of dungeons) {
+            game.all_dungeons.push(dungeon);
         }
     }
 }

@@ -62,6 +62,7 @@ class Game {
         this.all_sigilCorruptEffects = [];
         this.all_equipmentSets = [];
         this.all_consumables = [];
+        this.all_dungeons = [];
         this.currentBlackMarketWeaponsTable;
         this.currentBlackMarketArmorsTable;
         this.currentBlackMarketSigilsTable;
