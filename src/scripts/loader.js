@@ -1933,33 +1933,6 @@ const Loader = {
                             this.owner.runTriggers(Data.TriggerType.ON_STAT_CHANGE);
                         }
                     }),
-                    new Trigger({
-                        name: "amarok_test",
-                        type: Data.TriggerType.ON_DEAL_DAMAGE,
-                        checker: function(){return true},
-                        behavior: function() {
-                            this.owner.alter({
-                                effect: new Stat({effect: Data.Effect.MODIF_DMG_TOTAL, theorical: 30, isPercentage: true}),
-                                action: Data.AlterAction.ADD,
-                                originObject: {
-                                    type: Data.ActiveEffectType.POWER,
-                                    name: 'POUVOIR DU CACA'
-                                }
-                            });
-                            this.owner.addActiveEffect(new ActiveEffect({
-                                name: 'POUVOIR DU KAKAGUE',
-                                originUser: this.owner,
-                                originObject: Data.ActiveEffectType.POWER,
-                                effects: [
-                                    new Stat({effect: Data.Effect.MODIF_DMG_TOTAL, theorical: 30, isPercentage: true}),
-                                ],
-                                style: {
-                                    color: Data.Color.PURPLE,
-                                    bold: true
-                                }
-                            }))
-                        }
-                    })
                 ],
                 Data.StriderType.TANK,
                 "Darkspawn",
@@ -2312,8 +2285,32 @@ const Loader = {
                 30, 45,
                 0, 0,
                 [new Stat({effect: Data.Effect.MODIF_HEAL_GIVEN, theorical: [3, 7], isPercentage: true})],
-                {},
-                [],
+                {
+                    life_channel_rate: 0.10,
+                },
+                [
+                    new Trigger({
+                        name: 'betheros_lifechannel',
+                        type: [Data.TriggerType.ON_RECV_DAMAGE, Data.TriggerType.ON_DEAL_DAMAGE],
+                        checker: function(){return true;},
+                        behavior: function(){
+                            console.info('BETHEROS LIFE CHANNEL TRIGGERED!');
+                            console.info(game.currentBattle.params);
+                            const params = game.currentBattle.params;
+
+                            const healAmount = Math.ceil((params.phys_damage + params.magi_damage + params.crit_damage) * this.owner.variables.life_channel_rate);
+                            console.log('Healing to all others: ' + healAmount);
+
+                            if(healAmount > 0) {
+                                game.currentBattle.allies
+                                .filter(x => x.name.toLowerCase() !== "betheros")
+                                .forEach(al => {
+                                    al.addBaseStat(new Stat({effect: Data.Effect.HEALTH, theorical: healAmount}));
+                                });
+                            }
+                        }
+                    })
+                ],
                 Data.StriderType.SUPPORT,
                 "Life Channel",
                 '<div class="par">Each time Betheros deals or takes damage, the rest of the team is healed 10% of the damage amount.</div>',

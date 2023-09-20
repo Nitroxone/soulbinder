@@ -113,6 +113,6 @@ DONE - Add colors to effect names for a more comfortable read
 - Update an echo's triggers owner variable on equipping/unequipping
 
 TRIGGERS: 
-- Allow multiple trigger types per trigger
+DONE - Allow multiple trigger types per trigger
 
 HOTFIXES: #Store your live fixes during dev sessions here and clear them once you're done
