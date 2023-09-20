@@ -230,7 +230,7 @@ class QuantaParticle {
 
             // Update
             p.life--;
-            p.radius -= this.slowBurn ? 0.001 : 0.05;
+            p.radius -= this.slowBurn ? 0.0035 : 0.05;
             p.speed.x += p.acceleration.x;
             p.speed.y += p.acceleration.y;
             p.startX += p.speed.x;

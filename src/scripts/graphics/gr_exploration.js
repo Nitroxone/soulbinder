@@ -1,5 +1,5 @@
 function drawExplorationHubScreen() {
-    document.querySelector('#explorationDiv').innerHTML = '<div class="explorationHub"></div>';
+    document.querySelector('#explorationDiv').innerHTML = '<canvas class="explorationHubCanvas"></canvas><div class="explorationHub"></div>';
 
     let str = '';
 
@@ -23,9 +23,6 @@ function drawExplorationHubScreen() {
         str += '</div>'
     }
     str += '</div>';
-
-    str += '<canvas class="explorationHubCanvas"></canvas>';
-
 
     document.querySelector('.explorationHub').innerHTML = str;
     generateExplorationHubEvents();
