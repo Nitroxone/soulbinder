@@ -25,8 +25,25 @@ function drawExplorationHubScreen() {
     }
     str += '</div>';
 
+    str += '<canvas class="explorationHubCanvas"></canvas>';
+
 
     document.querySelector('.explorationHub').innerHTML = str;
+
+    Quanta.emit({
+        name: "explorationHub",
+        canvas: document.querySelector('.explorationHubCanvas'),
+        color: Data.Color.LEGENDARY,
+        amount: 300,
+        particleSize: 1,
+        density: 1,
+        fadeAwayRate: 0,
+        speed: {
+            x: () => { return (Math.random() * 1.2) - 1 },
+            y: () => { return -Math.abs((-1 + Math.random() * 1.1)) }
+        },
+        delay: () => { return getRandomNumber(0, 100) }
+    });
 }
 
 function getExplorationHubDungeon(du) {

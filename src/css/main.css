@@ -7903,6 +7903,11 @@ table.astralForgeShards td {
     background-position: 50% 40%;
 }
 
+.explorationHub {
+    position: relative;
+    height: 100%;
+}
+
 .eh-header {
     width: 100%;
     margin-top: 8rem;
@@ -7950,10 +7955,12 @@ table.astralForgeShards td {
     border-radius: 3px;
     padding: 1.2rem;
     transition: all .1s ease-in-out;
+    filter: grayscale(100%);
 }
 .eh-biomeCategory:hover {
     /*border-image: url('img/window1-tiny.png') 5 stretch;*/
     border-color: rgb(155, 155, 155);
+    filter: grayscale(0%);
     
     cursor: pointer;
     box-shadow: inset 0px 0px 10px 12px rgba(255, 255, 255, 0.1);
@@ -7966,4 +7973,12 @@ table.astralForgeShards td {
 }
 .eh-main > .eh-biomeCategory:not(:first-child) {
     margin-top: 1rem;
+}
+
+.explorationHubCanvas {
+    width: 100%;
+
+    position: absolute;
+    bottom: 0;
+    z-index: -1;
 }
