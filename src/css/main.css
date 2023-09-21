@@ -7994,6 +7994,7 @@ table.astralForgeShards td {
 }
 
 .eh-dungeon {
+    width: 100%;
     background-position: center;
     background-size: cover;
 }
@@ -8031,16 +8032,21 @@ table.astralForgeShards td {
     border-left: none;
     border-bottom: none;
 }
+.eh-dc-loot > .eh-dc-loot-list:not(:nth-child(2)) {
+    border-top: 1px dashed rgb(100, 100, 100);
+    padding-top: .75rem;
+}
 .eh-dc-loot-list {
     display: flex;
     flex-direction: row;
     justify-content: start;
     flex-wrap: wrap;
 
-    padding: 1rem;
+    padding: .75rem;
     padding-top: 0;
+    margin: 0 .75rem;
 }
-.eh-dc-loot-list > .eh-dc-loot-single:not(:first-child) {
+.eh-dc-loot-list > .eh-dc-loot-single:not(:first-child), .eh-dc-loot-list > .eh-dc-loot-singleSet:not(:first-child) {
     margin-left: 0.5rem;
 }
 .eh-dc-loot-single {
@@ -8054,6 +8060,13 @@ table.astralForgeShards td {
     border-radius: 100%;
     cursor: pointer;
     position: relative;
+}
+.eh-dc-loot-singleSet {
+    font-family: RobotoSlab;
+    padding: .25rem;
+    border-radius: 3px;
+    cursor: pointer;
+    border-width: 1px !important;
 }
 
 .eh-dc-bestiary {

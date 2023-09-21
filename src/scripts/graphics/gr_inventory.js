@@ -525,9 +525,9 @@ function getSetTooltip(set) {
     let str = '<div class="info tooltipSetWidth">';
     str += '<div class="tooltipSetTitle">' + set.name + '</div>';
     str += '<div class="tooltipSetAttributes">';
-    str += '<div class="tooltipSetAttribute">' + set.type.weight + '</div>';
     str += '<div class="tooltipSetAttribute">' + set.type.base + '</div>';
-    str += '<div class="tooltipSetAttribute">' + set.type.extra + '</div>';
+    str += '<div class="tooltipSetAttribute">| ' + set.type.primary + '</div>';
+    if(set.type.secondary) str += '<div class="tooltipSetAttribute">| ' + set.type.secondary + '</div>';
     str += '</div>';
     str += '<div class="divider"></div>';
     str += '<div class="tooltipSet">';

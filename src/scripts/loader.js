@@ -157,6 +157,24 @@ const Loader = {
                       [8, 12],
                       [0, 0],
                       ),
+            new Armor("Entarian Chestplate",
+                      "A fair protection.",
+                      2,
+                      10,
+                      Data.Rarity.COMMON,
+                      Data.ArmorType.CHESTPLATE,
+                      [6, 10],
+                      [1, 2],
+                      ),
+            new Armor("Entarian Boots",
+                      "A fair protection.",
+                      8,
+                      10,
+                      Data.Rarity.COMMON,
+                      Data.ArmorType.BOOTS,
+                      [5, 8],
+                      [2, 3],
+                      ),
             new Armor("Besieged King",
                       "Lorem ipsum",
                       45,
@@ -1216,9 +1234,8 @@ const Loader = {
                 "Highsteel Set",
                 Data.Rarity.COMMON,
                 {
-                    weight: Data.WeaponWeight.LIGHT,
                     base: Data.Effect.HEALTH,
-                    extra: Data.Effect.DODGE
+                    primary: Data.Effect.DODGE,
                 },
                 "",
                 [
@@ -1261,6 +1278,56 @@ const Loader = {
                     ]
                 },
             ),
+            new EquipmentSet(
+                "Entarian Set",
+                Data.Rarity.UNCOMMON,
+                {
+                    base: Data.Effect.STAMINA,
+                    primary: Data.Effect.ACCURACY,
+                },
+                "",
+                [
+                    what(game.all_armors, "entarian chestplate"),
+                    what(game.all_armors, "entarian boots"),
+                    what(game.all_weapons, "entarian axe"),
+                    what(game.all_trinkets, "talisman of fervour"),
+                    what(game.all_trinkets, "goodsight doll"),
+                ],
+                {
+                    2: [
+                        new Stat({
+                            effect: Data.Effect.ACCURACY,
+                            theorical: [6, 6],
+                            fixed: true,
+                            isPercentage: true
+                        })
+                    ],
+                    4: [
+                        new Stat({
+                            effect: Data.Effect.STAMINA,
+                            theorical: [30, 30],
+                            fixed: true,
+                            isPercentage: true
+                        })
+                    ],
+                    5: [
+                        new Echo(
+                            "Rebalancing",
+                            "Successful blows with a weapon grant a §1 {RESILIENCE} bonus for one round and apply a §2% {ACCURACY} debuff on the target. Critical blows with a weapon grant a §3% {REGEN_STAMINA} bonus for 2 round.",
+                            1,
+                            Data.Rarity.UNCOMMON,
+                            [],
+                            "Never stay still; so long are you can move, you will live.",
+                            {
+                                "resilience_boost": [5, 5],
+                                "accuracy_debuff": [4, 4],
+                                "stamina_regen": [3, 3]
+                            },
+                            []
+                        )
+                    ]
+                },
+            )
         ];
 
         for(const equipmentSet of equipmentSets) {
@@ -3098,26 +3165,30 @@ const Loader = {
                         what(game.all_resources, "decaying petals"),
                         what(game.all_resources, "reminder"),
                     ],
-                    weapons: [
-                        what(game.all_weapons, "highsteel sword"),
-                        what(game.all_weapons, "entarian axe"),
-                        what(game.all_weapons, "drancoran staff")
-                    ],
-                    armors: [
-                        what(game.all_armors, "highsteel helmet"),
-                        what(game.all_armors, "highsteel armor"),
-                        what(game.all_armors, "highsteel bracers"),
-                        what(game.all_armors, "highsteel boots"),
-                        what(game.all_armors, "highsteel shield"),
-                    ],
-                    trinkets: [
-                        what(game.all_trinkets, "omen insignia"),
-                        what(game.all_trinkets, "goodsight doll"),
-                        what(game.all_trinkets, "foresighting ring"),
-                        what(game.all_trinkets, "charm of second wind"),
+                    sets: [
+                        what(game.all_equipmentSets, "highsteel set"),
+                        what(game.all_equipmentSets, "entarian set")
                     ]
                 },
             }),
+            new Dungeon({
+                name: "Smoldering Cave",
+                desc: "",
+                background: "smoldering-cave.png",
+                biome: Data.DungeonBiome.UZIEL_JUNGLES,
+                maximumDepth: 3,
+                config: {
+                    floor1: {
+                        depth: 1,
+                    },
+                    floor2: {
+                        depth: 2,
+                    },
+                    floor3: {
+                        depth: 3,
+                    },
+                },
+            })
         ];
 
         for(const dungeon of dungeons) {

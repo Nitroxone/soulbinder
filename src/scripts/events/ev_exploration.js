@@ -11,6 +11,11 @@ function generateExplorationHubEvents() {
                     return getResourceTooltip(re);
                 }, {offY: -8});
             });
+            dun.lootConfig?.sets?.forEach(re => {
+                addTooltip(domWhat('edls-' + re.id), function(){
+                    return getSetTooltip(re);
+                }, {offY: -8});
+            });
         });
     });
 }
