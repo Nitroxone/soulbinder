@@ -82,13 +82,13 @@ function getExplorationHubDungeon(du) {
 function getEhdLoot(du) {
     let str = '';
 
-    str += '<div class="eh-dc-loot-list">';
+    str += '<div class="eh-dc-loot-list lootListResources">';
     du.lootConfig?.resources?.forEach(re => {
         str += '<div id="edls-' + re.id + '" class="eh-dc-loot-single" style="' + getIcon(re) + '; border: 2px solid ' + getRarityColorCode(re.rarity) +'"></div>';
     });
     str += '</div>';
 
-    str += '<div class="eh-dc-loot-list">';
+    str += '<div class="eh-dc-loot-list lootListSets">';
     du.lootConfig?.sets?.forEach(re => {
         str += '<div id="edls-' + re.id + '" class="eh-dc-loot-singleSet" style="border: 2px solid ' + getRarityColorCode(re.rarity) +'; color: ' + getRarityColorCode(re.rarity) + '">' + re.name + '</div>';
     });

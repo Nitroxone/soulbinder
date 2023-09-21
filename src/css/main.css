@@ -8041,9 +8041,6 @@ table.astralForgeShards td {
 .eh-dc-loot h3 {
     padding-bottom: 0;
 }
-.eh-dc-loot > .eh-dc-loot-list:not(:nth-child(2)) {
-    border-top: 1px dashed rgb(100, 100, 100);
-}
 .eh-dc-loot-list {
     display: flex;
     flex-direction: row;
@@ -8077,6 +8074,9 @@ table.astralForgeShards td {
     cursor: pointer;
     border-width: 1px !important;
     margin-top: .5rem;
+}
+.lootListResources {
+    padding-bottom: 0;
 }
 
 .eh-dc-bestiary {
