@@ -980,7 +980,7 @@ const Loader = {
             ),
             new Trinket(
                 "Talisman of Fervour",
-                "\"Would you dare to cross swords with him? He is the wisest of the Princes of Mithor. But impetuous dexterity does not come without fault; do not tempt the devil, or you may join the grave of the Baron of Gaushire.\" - Jir, Traveling Merchant",
+                "\"My counter? Do you think I give a damn about my bloody counter, Sard? Why would I need a counter when I can kill them within the blink of an eye?\" - Cialto, Master Duellist",
                 22,
                 10,
                 Data.Rarity.UNCOMMON,
