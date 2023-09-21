@@ -952,7 +952,7 @@ const Loader = {
                         theorical: [20, 25]
                     }),
                     new Stat({
-                        effect: Data.Effect.MODIF_DMG_TOTAL,
+                        effect: Data.Effect.MODIF_DMG_SKILL,
                         theorical: [-5, -7],
                         isPercentage: true
                     })
