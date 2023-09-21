@@ -3076,7 +3076,7 @@ const Loader = {
         const dungeons = [
             new Dungeon({
                 name: "Putrescent Ossuary",
-                desc: "Nestled beneath the ruins of the once-glorious Firthadel, the ossuary of the Landstar barony met its condemnation in the wake of a contamination wrought by noxious vapors seeping through a fissure in the earth. Proving difficult to restrain, multiple leaks of these harmful gases eventually enshrouded the city, leading to its evacuation, never to be reclaimed again.",
+                desc: "Nestled beneath the ruins of the once-glorious merchant city of Firthadel, the ossuary of the Landstar barony met its condemnation in the wake of a contamination wrought by noxious vapors seeping through a fissure in the earth. Proving difficult to restrain, multiple leaks of these harmful gases eventually enshrouded the city, leading to its evacuation, never to be reclaimed again.",
                 background: "putrescent_ossuary.png",
                 biome: Data.DungeonBiome.CRIMSON_MARSHLANDS,
                 maximumDepth: 3,
@@ -3098,6 +3098,24 @@ const Loader = {
                         what(game.all_resources, "decaying petals"),
                         what(game.all_resources, "reminder"),
                     ],
+                    weapons: [
+                        what(game.all_weapons, "highsteel sword"),
+                        what(game.all_weapons, "entarian axe"),
+                        what(game.all_weapons, "drancoran staff")
+                    ],
+                    armors: [
+                        what(game.all_armors, "highsteel helmet"),
+                        what(game.all_armors, "highsteel armor"),
+                        what(game.all_armors, "highsteel bracers"),
+                        what(game.all_armors, "highsteel boots"),
+                        what(game.all_armors, "highsteel shield"),
+                    ],
+                    trinkets: [
+                        what(game.all_trinkets, "omen insignia"),
+                        what(game.all_trinkets, "goodsight doll"),
+                        what(game.all_trinkets, "foresighting ring"),
+                        what(game.all_trinkets, "charm of second wind"),
+                    ]
                 },
             }),
         ];

@@ -10,7 +10,7 @@ function generateExplorationHubEvents() {
                 addTooltip(domWhat('edls-' + re.id), function(){
                     return getResourceTooltip(re);
                 }, {offY: -8});
-            })
+            });
         });
     });
 }

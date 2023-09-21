@@ -8035,6 +8035,7 @@ table.astralForgeShards td {
     display: flex;
     flex-direction: row;
     justify-content: start;
+    flex-wrap: wrap;
 
     padding: 1rem;
     padding-top: 0;
