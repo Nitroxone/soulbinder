@@ -7954,7 +7954,7 @@ table.astralForgeShards td {
     border-radius: 3px;
     padding: 1.2rem;
     transition: all .1s ease-in-out;
-    filter: grayscale(100%);
+    filter: grayscale(0%);
 }
 .eh-biomeCategory:hover {
     /*border-image: url('img/window1-tiny.png') 5 stretch;*/
@@ -7979,6 +7979,8 @@ table.astralForgeShards td {
     width: 70%;
     border: 4px solid transparent;
     border-image: url('img/window1-tiny.png') 7 stretch;
+
+    margin-top: .75rem;
 }
 .eh-biomeCategory.extended + .eh-biomeContent {
     display: flex;
@@ -7991,8 +7993,80 @@ table.astralForgeShards td {
     z-index: -1;
 }
 
+.eh-dungeon {
+    background-position: center;
+    background-size: cover;
+}
 .eh-dungeon h3 {
     font-family: RobotoSlabBold;
     font-size: 15px;
     padding: 1rem;
+}
+.eh-dungeonContent {
+
+}
+.eh-dc-desc {
+    text-align: justify;
+
+    padding: 1rem;
+    font-size: 11.5px;
+}
+
+.eh-dc-infos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: 
+        "eh-dc-loot eh-dc-bestiary";
+}
+.eh-dc-infos h3 {
+    font-size: 12px;
+}
+.eh-dc-loot {
+    grid-area: eh-dc-loot;
+
+    border: 2px solid transparent;
+    border-image: url('img/window1-smaller.png') 2 stretch;
+    border-top: none;
+    border-left: none;
+    border-bottom: none;
+}
+.eh-dc-loot-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+
+    padding: 1rem;
+    padding-top: 0;
+}
+.eh-dc-loot-list > .eh-dc-loot-single:not(:first-child) {
+    margin-left: 0.5rem;
+}
+.eh-dc-loot-single {
+    width: 30px;
+    height: 30px;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: rgba(0, 0, 0, .25);
+    padding: .5rem;
+    border-radius: 100%;
+    cursor: pointer;
+    position: relative;
+}
+
+.eh-dc-bestiary {
+    grid-area: eh-dc-bestiary;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: 
+        "eh-dc-b-enemies eh-dc-b-bosses";
+}
+.eh-dc-b-enemies {
+    grid-area: eh-dc-b-enemies;
+}
+.eh-dc-b-bosses {
+    grid-area: eh-dc-b-bosses;
 }

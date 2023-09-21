@@ -6,10 +6,12 @@
 
 class Dungeon {
     constructor(props) {
-        this.name = getValueFromObject(props, "name", "undefined");
+        this.name = getValueFromObject(props, "name", "none");
+        this.desc = getValueFromObject(props, "desc", "none");
         this.background = getValueFromObject(props, "background", "putrescent_ossuary.png");
         this.biome = getValueFromObject(props, "biome", Data.DungeonBiome.ALL);
         this.maximumDepth = getValueFromObject(props, "maximumDepth", 5);
+        this.lootConfig = getValueFromObject(props, "lootConfig", {});
         this.config = getValueFromObject(props, "config", {
             floor1: {
                 depth: 1,

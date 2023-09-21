@@ -3076,6 +3076,7 @@ const Loader = {
         const dungeons = [
             new Dungeon({
                 name: "Putrescent Ossuary",
+                desc: "Nestled beneath the ruins of the once-glorious Firthadel, the ossuary of the Landstar barony met its condemnation in the wake of a contamination wrought by noxious vapors seeping through a fissure in the earth. Proving difficult to restrain, multiple leaks of these harmful gases eventually enshrouded the city, leading to its evacuation, never to be reclaimed again.",
                 background: "putrescent_ossuary.png",
                 biome: Data.DungeonBiome.CRIMSON_MARSHLANDS,
                 maximumDepth: 3,
@@ -3089,7 +3090,15 @@ const Loader = {
                     floor3: {
                         depth: 3,
                     },
-                }
+                },
+                lootConfig: {
+                    resources: [
+                        what(game.all_resources, "dark stone"),
+                        what(game.all_resources, "silver essence"),
+                        what(game.all_resources, "decaying petals"),
+                        what(game.all_resources, "reminder"),
+                    ],
+                },
             }),
         ];
 
