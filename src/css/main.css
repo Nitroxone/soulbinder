@@ -8032,9 +8032,11 @@ table.astralForgeShards td {
     border-left: none;
     border-bottom: none;
 }
+.eh-dc-loot h3 {
+    padding-bottom: 0;
+}
 .eh-dc-loot > .eh-dc-loot-list:not(:nth-child(2)) {
     border-top: 1px dashed rgb(100, 100, 100);
-    padding-top: .75rem;
 }
 .eh-dc-loot-list {
     display: flex;
@@ -8060,6 +8062,7 @@ table.astralForgeShards td {
     border-radius: 100%;
     cursor: pointer;
     position: relative;
+    margin-top: .5rem;
 }
 .eh-dc-loot-singleSet {
     font-family: RobotoSlab;
@@ -8067,6 +8070,7 @@ table.astralForgeShards td {
     border-radius: 3px;
     cursor: pointer;
     border-width: 1px !important;
+    margin-top: .5rem;
 }
 
 .eh-dc-bestiary {

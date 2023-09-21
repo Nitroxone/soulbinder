@@ -159,7 +159,7 @@ const Loader = {
                       ),
             new Armor("Entarian Chestplate",
                       "A fair protection.",
-                      2,
+                      4,
                       10,
                       Data.Rarity.COMMON,
                       Data.ArmorType.CHESTPLATE,
@@ -168,12 +168,30 @@ const Loader = {
                       ),
             new Armor("Entarian Boots",
                       "A fair protection.",
-                      8,
+                      5,
                       10,
                       Data.Rarity.COMMON,
                       Data.ArmorType.BOOTS,
                       [5, 8],
                       [2, 3],
+                      ),
+            new Armor("Drancoran Hood",
+                      "A fair protection.",
+                      12,
+                      10,
+                      Data.Rarity.COMMON,
+                      Data.ArmorType.HELMET,
+                      [0, 0],
+                      [10, 12],
+                      ),
+            new Armor("Drancoran Mittens",
+                      "A fair protection.",
+                      6,
+                      10,
+                      Data.Rarity.COMMON,
+                      Data.ArmorType.GLOVES,
+                      [0, 0],
+                      [8, 10],
                       ),
             new Armor("Besieged King",
                       "Lorem ipsum",
@@ -901,6 +919,46 @@ const Loader = {
                 ],
             ),
             new Trinket(
+                "Haste Ring",
+                "To be swift without taking heed is imprudent. To take heed without hastening is equally so.",
+                101,
+                10,
+                Data.Rarity.UNCOMMON,
+                [
+                    new Stat({
+                        effect: Data.Effect.SPEED,
+                        theorical: [2, 4],
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MAXMANA,
+                        theorical: [20, 25]
+                    }),
+                ],
+            ),
+            new Trinket(
+                "Engraved Moonhorn",
+                "The Moon bathed Koruk in silver; his battered and feeble body convulsed; and from his lifeless eyes, he cried out to the night.",
+                39,
+                10,
+                Data.Rarity.RARE,
+                [
+                    new Stat({
+                        effect: Data.Effect.MODIF_HEAL_GIVEN,
+                        theorical: [10, 12],
+                        isPercentage: true
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MAXMANA,
+                        theorical: [20, 25]
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MODIF_DMG_TOTAL,
+                        theorical: [-5, -7],
+                        isPercentage: true
+                    })
+                ],
+            ),
+            new Trinket(
                 "Omen Insignia",
                 "\"I may see dragons in my mind's eye, but my quicksilver agility can dodge their fiery breath with ease.\" — Kabal, Counselor of the Queen",
                 41,
@@ -980,8 +1038,8 @@ const Loader = {
             ),
             new Trinket(
                 "Talisman of Fervour",
-                "\"My counter? Do you think I give a damn about my bloody counter, Sard? Why would I need a counter when I can kill them within the blink of an eye?\" - Cialto, Master Duellist",
-                22,
+                "\"My guard? Do you think I care a whit about my guard, Sarv? Why should I bother honing my guard when I can floor anyone with a single blow?\" - Cialto, Champion Swordsman",
+                18,
                 10,
                 Data.Rarity.UNCOMMON,
                 [
@@ -1322,16 +1380,15 @@ const Loader = {
                     ],
                     4: [
                         new Stat({
-                            effect: Data.Effect.STAMINA,
+                            effect: Data.Effect.MAXSTAMINA,
                             theorical: [30, 30],
                             fixed: true,
-                            isPercentage: true
                         })
                     ],
                     5: [
                         new Echo(
                             "Rebalancing",
-                            "Successful blows with a weapon grant a §1 {RESILIENCE} bonus for one round and apply a §2% {ACCURACY} debuff on the target. Critical blows with a weapon grant a §3% {REGEN_STAMINA} bonus for 2 round.",
+                            "Successful blows with a weapon grant a +§1 {RESILIENCE} bonus for one round and apply a -§2% {ACCURACY} debuff on the target. Critical blows with a weapon grant a +§3% {REGEN_STAMINA} bonus for 2 round.",
                             1,
                             Data.Rarity.UNCOMMON,
                             [],
@@ -1340,6 +1397,55 @@ const Loader = {
                                 "resilience_boost": [5, 5],
                                 "accuracy_debuff": [4, 4],
                                 "stamina_regen": [3, 3]
+                            },
+                            []
+                        )
+                    ]
+                },
+            ),
+            new EquipmentSet(
+                "Drancoran Set",
+                Data.Rarity.UNCOMMON,
+                {
+                    base: Data.Effect.MANA,
+                    primary: Data.Effect.SPEED,
+                    secondary: Data.Effect.MODIF_HEAL_GIVEN
+                },
+                "",
+                [
+                    what(game.all_armors, "drancoran hood"),
+                    what(game.all_armors, "drancoran mittens"),
+                    what(game.all_weapons, "drancoran staff"),
+                    what(game.all_trinkets, "haste ring"),
+                    what(game.all_trinkets, "engraved moonhorn"),
+                ],
+                {
+                    2: [
+                        new Stat({
+                            effect: Data.Effect.SPEED,
+                            theorical: [2, 2],
+                            fixed: true,
+                        })
+                    ],
+                    4: [
+                        new Stat({
+                            effect: Data.Effect.MAXMANA,
+                            theorical: [30, 30],
+                            fixed: true,
+                        })
+                    ],
+                    5: [
+                        new Echo(
+                            "Altruism",
+                            "Healing an ally with a skill grants them with a +§1 {SPEED} boost for the next round and adds a stack of Altruism on yourself. When 3 stacks are reached, receive a +§2% {MODIF_HEAL_GIVEN} boost for two rounds and a -§3% {MAXHEALTH} malus for one round.",
+                            1,
+                            Data.Rarity.UNCOMMON,
+                            [],
+                            "You are their spine.",
+                            {
+                                "speed_boost": [3, 3],
+                                "given_heal_boost": [20, 20],
+                                "maxhealth_debuff": [10, 10]
                             },
                             []
                         )
@@ -3185,7 +3291,8 @@ const Loader = {
                     ],
                     sets: [
                         what(game.all_equipmentSets, "highsteel set"),
-                        what(game.all_equipmentSets, "entarian set")
+                        what(game.all_equipmentSets, "entarian set"),
+                        what(game.all_equipmentSets, "drancoran set")
                     ]
                 },
             }),
