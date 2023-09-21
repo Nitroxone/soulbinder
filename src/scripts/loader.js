@@ -979,6 +979,24 @@ const Loader = {
                 ],
             ),
             new Trinket(
+                "Talisman of Fervour",
+                "\"Would you dare to cross swords with him? He is the wisest of the Princes of Mithor. But impetuous dexterity does not come without fault; do not tempt the devil, or you may join the grave of the Baron of Gaushire.\" - Jir, Traveling Merchant",
+                22,
+                10,
+                Data.Rarity.UNCOMMON,
+                [
+                    new Stat({
+                        effect: Data.Effect.MODIF_DMG_WEAPON,
+                        theorical: [15, 18],
+                        isPercentage: true
+                    }),
+                    new Stat({
+                        effect: Data.Effect.WARDING,
+                        theorical: [-8, -11],
+                    }),
+                ],
+            ),
+            new Trinket(
                 "Trapped Nebulae",
                 "A shifting storm howls in this sphere; warm and golden, cold and black, it twirls, revealing temporal fragments dating back to the earliest ages of Mithor.",
                 23,
