@@ -8009,8 +8009,32 @@ table.astralForgeShards td {
     font-size: 15px;
     padding: 1rem;
 }
+.eh-dungeonHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+.eh-dungeonHeader > .eh-dungeonHeader-arrow {
+    border: 1px solid rgb(155, 155, 155);
+    border-bottom: none;
+    border-right: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 2px;
+    margin: 1rem;
+    transform: rotate(45deg);
+    transition: all .25s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.eh-dungeon.extended .eh-dungeonHeader-arrow {
+    transform: rotate(225deg);
+}
 .eh-dungeonContent {
-
+    display: none;
+}
+.eh-dungeon.extended > .eh-dungeonContent {
+    display: block;
 }
 .eh-dc-desc {
     text-align: justify;

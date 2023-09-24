@@ -59,6 +59,7 @@ DUNGEONS:
 - Connect dungeons to combats
 ONGOING - Create dungeon hub and exploration start buttons
 - Create "minigames"
+- Wire the loot tables with the exploration hub so it updates the loot pool automatically without having to manually write it
 
 CRAFTING:
 - Start implementing

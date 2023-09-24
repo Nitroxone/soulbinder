@@ -47,7 +47,11 @@ function getExplorationHubDungeon(du) {
     let str = '';
 
     str += '<div class="eh-dungeon" style="background-image: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(255,255,255,0) 100%), url(\'css/img/bg/' + du.background + '\')">';
+
+    str += '<div class="eh-dungeonHeader">';
     str += '<h3>' + du.name + '</h3>';
+    str += '<div class="eh-dungeonHeader-arrow"></div>';
+    str += '</div>';
 
     str += '<div class="eh-dungeonContent">';
     str += '<div class="eh-dc-desc">' + du.desc + '</div>';

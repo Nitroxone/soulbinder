@@ -1,5 +1,6 @@
 function generateExplorationHubEvents() {
     const biomes = document.querySelectorAll('.eh-biomeCategory');
+    const dHeaders = document.querySelectorAll('.eh-dungeonHeader');
 
     biomes.forEach(bio => {
         bio.addEventListener('click', e => {
@@ -20,4 +21,10 @@ function generateExplorationHubEvents() {
             });
         });
     });
+
+    dHeaders.forEach(dh => {
+        dh.addEventListener('click', e => {
+            dh.parentElement.classList.toggle('extended');
+        })
+    })
 }
