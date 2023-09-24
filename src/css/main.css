@@ -2483,7 +2483,7 @@ table.statsTable tbody td:nth-child(3) {
 .tooltipDesc, .echoQuote {
     font-family: 'RobotoItalic';
     color: grey;
-    text-align: left;
+    text-align: justify;
 }
 .echoQuote {
     text-align: right;
