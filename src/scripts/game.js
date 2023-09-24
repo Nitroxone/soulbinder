@@ -387,7 +387,7 @@ class Game {
         this.message({type: Data.LogMessageType.REGULAR, text:'This is a regular message.'});
         this.message({type: Data.LogMessageType.GOOD, text:'This is a positive message.'});
         this.message({type: Data.LogMessageType.BAD, text:'This is a negative message.'});
-        this.message({type: Data.LogMessageType.TALL, text:'This is an bigger message.'});
+        this.message({type: Data.LogMessageType.TALL, text:'This is a bigger message.'});
 
         this.player.formationSet(what(this.player.roster, "amarok"), Data.FormationPosition.FRONT);
         this.player.formationSet(what(this.player.roster, "betheros"), Data.FormationPosition.MIDDLE);
