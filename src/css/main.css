@@ -7955,7 +7955,21 @@ table.astralForgeShards td {
     padding: 1.2rem;
     transition: all .1s ease-in-out;
     filter: grayscale(0%);
+
+    animation-name: eh-biomeCategorySlideIn;
+    animation-duration: .5s;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation-fill-mode: forwards;
+    opacity: 0;
+    transform: translateY(20px);
 }
+@keyframes eh-biomeCategorySlideIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .eh-biomeCategory:hover {
     /*border-image: url('img/window1-tiny.png') 5 stretch;*/
     border-color: rgb(155, 155, 155);
@@ -7989,9 +8003,10 @@ table.astralForgeShards td {
     display: flex;
 }
 .explorationHubCanvas {
-    width: 100%;
+    width: 990px;
+    height: 495px;
 
-    position: absolute;
+    position: fixed;
     bottom: 0;
     z-index: -1;
 }
@@ -8001,8 +8016,14 @@ table.astralForgeShards td {
     background-position: center;
     background-size: cover;
 
-    border: 4px solid transparent;
-    border-image: url('img/window1-tiny.png') 7 stretch;
+    /*border: 4px solid transparent;
+    border-image: url('img/window1-tiny.png') 7 stretch;*/
+    border: 2px solid rgb(100, 100, 100);
+    border-radius: 3px;
+    transition: all .1s ease-in-out;
+}
+.eh-dungeon:hover {
+    border-color: rgb(155, 155, 155);
 }
 .eh-dungeon h3 {
     font-family: RobotoSlabBold;

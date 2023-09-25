@@ -9,10 +9,12 @@ function drawExplorationHubScreen() {
     str += '</div>';
 
     str += '<div class="eh-main">';
+
+    let delay = 0;
     for(const biome in Data.DungeonBiome) {
         if(biome === 'ALL') continue;
 
-        str += '<div class="eh-biomeCategory" style="background-image: url(\'img/darkBorders.png\'), linear-gradient(0deg, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.15) 100%), url(\'css/img/bg/' + Data.DungeonBiomeBackground[biome] + '\')">';
+        str += '<div class="eh-biomeCategory" style="animation-delay: ' + delay + 's; background-image: url(\'img/darkBorders.png\'), linear-gradient(0deg, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.15) 100%), url(\'css/img/bg/' + Data.DungeonBiomeBackground[biome] + '\')">';
         str += '<h2 class="eh-biomeName">' + Data.DungeonBiome[biome] + '</h2>';
         str += '</div>';
 
@@ -21,6 +23,8 @@ function drawExplorationHubScreen() {
             str += getExplorationHubDungeon(du);
         })
         str += '</div>'
+
+        delay += 0.1;
     }
     str += '</div>';
 
