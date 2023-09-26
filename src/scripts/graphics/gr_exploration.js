@@ -54,29 +54,33 @@ function drawExplorationHubScreen() {
 function getExplorationHubRecap(refresh = false) {
     let str = '';
     
-    str += '<div class="eh-r-name">';
-    if(game.selectedDungeon) str += game.selectedDungeon.name;
+    str += '<div class="eh-r-name" style="' + (game.selectedDungeon ? 'border-style: solid' : '') + '">';
+    str += '<div class="eh-r-nameContainer">';
+    if(game.selectedDungeon) {
+        str += '<h1>' + game.selectedDungeon.name + '</h1>';
+        str += '<h2>' + game.selectedDungeon.biome + ', Level ' + game.selectedDungeon.level + '</h2>';
+    }
     else {
-        str += '<div class="eh-r-nameContainer">';
         str += '<h3>No vestige selected</h3>';
         str += '<h4>Right click on a vestige to select it</h4>';
-        str += '</div>';
     }
+    str += '</div>';
     str += '</div>';
 
     str += '<div class="eh-r-options">';
-    str += '<div class="eh-r-o-runType">Regular run</div>';
+    str += '<div class="eh-r-o-runType">Regular run<br><span class="lootModifIndic">+0% XP</span><span class="lootModifIndic">+0% Loot</span></div>';
     str += '<div class="eh-r-o-modifiers">';
     str += '<div id="dHubLifeblood" class="eh-r-o-m-frame"></div>';
     str += '<div id="dHubAgitator" class="eh-r-o-m-frame"></div>';
     str += '</div>';
-    str += '<div class="eh-r-dive">Dive</div>';
+    str += '<div class="eh-r-dive">Explore</div>';
     str += '<div id="dHubInventory" class="eh-r-inventory"></div>';
 
     str += '</div>';
 
     if(refresh) {
         document.querySelector('.eh-recap').innerHTML = str;
+        generateExplHubRecapEvents();
         return;
     }
     return str;

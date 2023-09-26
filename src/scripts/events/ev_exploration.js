@@ -25,6 +25,26 @@ function generateExplorationHubEvents() {
     dHeaders.forEach(dh => {
         dh.addEventListener('click', e => {
             dh.parentElement.classList.toggle('extended');
-        })
-    })
+        });
+        dh.addEventListener('contextmenu', e => {
+            e.preventDefault();
+            game.selectedDungeon = game.all_dungeons.find(x => x.name.toLowerCase() === dh.firstChild.textContent.toLowerCase());
+            getExplorationHubRecap(true);
+        });
+    });
+
+    generateExplHubRecapEvents();
+}
+
+function generateExplHubRecapEvents() {
+    const diveButton = document.querySelector('.eh-r-dive');
+
+    diveButton.addEventListener('click', e => {
+        if(game.selectedDungeon) {
+            clearInterval(Quanta.emitters.find(x => x.name === 'explorationHub').loop);
+            game.currentDungeon = game.selectedDungeon;
+            game.currentDungeon.init();
+            drawExplorationScreen();
+        }
+    });
 }

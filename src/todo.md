@@ -19,6 +19,8 @@ DONE - Actually implement set bonuses
 
 DONE - Make the interface more responsive
 
+- Define a maximum strider level
+
 ALCHEMY:
 - Add possibility to craft multiple potions in one shot
 ONGOING - Implement sound effects and animations
