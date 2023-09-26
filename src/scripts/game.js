@@ -70,6 +70,8 @@ class Game {
         this.currentBlackMarketResourcesTable;
         this.currentAuctionHouseTable;
 
+        this.selectedDungeon = null;
+
         this.all_skillTrees = [];
         this.all_masteryPathways = [];
 

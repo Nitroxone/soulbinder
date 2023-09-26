@@ -8139,3 +8139,14 @@ table.astralForgeShards td {
 .eh-dc-b-bosses {
     grid-area: eh-dc-b-bosses;
 }
+
+.eh-recap {
+    width: 80%;
+    position: sticky;
+    bottom: 10%;
+
+    background: url(img/darkBorders.png), url(img/bg1.png);
+    background-size: 100% 100%, auto;
+
+    box-shadow: 0px 0px 25px black;
+}

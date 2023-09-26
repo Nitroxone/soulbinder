@@ -26,6 +26,10 @@ function drawExplorationHubScreen() {
 
         delay += 0.1;
     }
+    str += '<div class="eh-recap coolBorderBis">';
+    str += getExplorationHubRecap();
+    str += '</div>';
+
     str += '</div>';
 
     document.querySelector('.explorationHub').innerHTML = str;
@@ -45,6 +49,37 @@ function drawExplorationHubScreen() {
         },
         delay: () => { return getRandomNumber(0, 100) }
     });
+}
+
+function getExplorationHubRecap(refresh = false) {
+    let str = '';
+    
+    str += '<div class="eh-r-name">';
+    if(game.selectedDungeon) str += game.selectedDungeon.name;
+    else {
+        str += '<div class="eh-r-namecontainer">';
+        str += '<h3>No vestige selected</h3>';
+        str += '<h4>Right click on a vestige to select it</h4>';
+        str += '</div>';
+    }
+    str += '</div>';
+
+    str += '<div class="eh-r-options">';
+    str += '<div class="eh-r-o-runType">Regular run</div>';
+    str += '<div class="eh-r-o-modifiers">';
+    str += '<div id="dHubLifeblood" class="eh-r-o-m-frame"></div>';
+    str += '<div id="dHubAgitator" class="eh-r-o-m-frame"></div>';
+    str += '</div>';
+    str += '<div class="eh-r-dive">Dive</div>';
+    str += '<div id="dHubInventory" class="eh-r-inventory"></div>';
+
+    str += '</div>';
+
+    if(refresh) {
+        document.querySelector('.eh-recap').innerHTML = str;
+        return;
+    }
+    return str;
 }
 
 function getExplorationHubDungeon(du) {
