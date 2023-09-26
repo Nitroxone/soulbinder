@@ -57,7 +57,7 @@ function getExplorationHubRecap(refresh = false) {
     str += '<div class="eh-r-name">';
     if(game.selectedDungeon) str += game.selectedDungeon.name;
     else {
-        str += '<div class="eh-r-namecontainer">';
+        str += '<div class="eh-r-nameContainer">';
         str += '<h3>No vestige selected</h3>';
         str += '<h4>Right click on a vestige to select it</h4>';
         str += '</div>';

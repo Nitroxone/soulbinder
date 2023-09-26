@@ -8141,7 +8141,7 @@ table.astralForgeShards td {
 }
 
 .eh-recap {
-    width: 80%;
+    width: 60%;
     position: sticky;
     bottom: 10%;
 
@@ -8149,4 +8149,43 @@ table.astralForgeShards td {
     background-size: 100% 100%, auto;
 
     box-shadow: 0px 0px 25px black;
+
+    display: grid;
+    grid-template-columns: 1fr .5fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: 
+        "eh-r-name eh-r-options";
+    gap: 0 .5rem;
+
+    padding: .5rem;
+}
+
+.eh-r-name {
+    border: 1px dashed rgb(50, 50, 50);
+    border-radius: 3px;
+    padding: .75rem;
+}
+.eh-r-nameContainer {
+    display: flex;
+    flex-direction: column;
+    color: grey;
+}
+.eh-r-nameContainer h3 {
+    font-size: 15px;
+    font-family: RobotoSlabMed;
+}
+.eh-r-nameContainer h4 {
+    font-family: RobotoItalic;
+}
+
+.eh-r-options {
+    padding: .75rem;
+    border: 1px solid rgb(50, 50, 50);
+    border-radius: 3px;
+}
+
+.eh-r-o-runType {
+    text-align: right;
+    font-family: RobotoSlabMed;
+    color: #bbb;
 }
