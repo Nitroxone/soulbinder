@@ -650,19 +650,45 @@ function getDungeonKnapsack() {
 
     str += '<div class="knpsckHeader">';
     str += '<h1>Knapsack</h1>';
-    str += '<h3>Capacity <span style="color: white">' + game.player.du_inventory.length + '/' + game.player.du_inventorySize + '</span></h3>';
+    str += '<span class="knpsckCap">' + getDungeonKnapsackCapacity() + '</span>';
     str += '</div>';
 
     str += '<div class="divider"></div>';
 
-    str += '<div class="knpsckContent">';
-    if(game.player.du_inventory.length === 0) str += '<h4>Empty knapsack<br><br>(drag and drop any inventory item here to add it to your knapsack)</h4>';
-    else {
+    str += '<div class="knpsckContent" ondragover="allowDrop(event);" ondrop="game.player.addToKnapsack(event);">';
+    str += getDungeonKnapsackContent();
+    str += '</div>';
 
+    str += '</div>';
+
+    return str;
+}
+
+function getDungeonKnapsackCapacity(refresh = false) {
+    let str = '';
+
+    str += '<h3>Capacity <span style="color: white">' + game.player.du_inventory.length + '/' + game.player.du_inventorySize + '</span></h3>';
+
+    if(refresh) {
+        document.querySelector('.knpsckCap').innerHTML = str;
+        return;
     }
-    str += '</div>';
+    return str;
+}
 
-    str += '</div>';
+function getDungeonKnapsackContent(refresh = false) {
+    let str = '';
 
+    if(game.player.du_inventory.length === 0) str += '<h4>Empty knapsack<br><br>(drag and drop any inventory item here to add it to your knapsack)</h4>';
+    else game.player.du_inventory.forEach(it => {
+        str += '<div id="kres-' + it.id + '" class="inventoryItem" style="' + getIcon(it) + '; border: 2px solid ' + getRarityColorCode(it.rarity) +'">';
+        str += '</div>';
+    });
+
+    if(refresh) {
+        document.querySelector('.knpsckContent').innerHTML = str;
+        generateDungeonKnapsackEvents();
+        return;
+    }
     return str;
 }
