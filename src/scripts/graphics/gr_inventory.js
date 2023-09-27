@@ -659,6 +659,15 @@ function getDungeonKnapsack() {
     str += getDungeonKnapsackContent();
     str += '</div>';
 
+    str += '<div class="knpsckRscAmount">';
+    str += '<div class="kra-min">Min</div>';
+    str += '<div class="kra-less">-</div>';
+    str += '<div class="kra-total">Add 0 Resource With a Long Name</div>'
+    str += '<div class="kra-more">+</div>';
+    str += '<div class="kra-max">Max</div>';
+    str += '<div class="kra-done">Done</div>';
+    str += '</div>'
+
     str += '</div>';
 
     return str;
@@ -679,7 +688,7 @@ function getDungeonKnapsackCapacity(refresh = false) {
 function getDungeonKnapsackContent(refresh = false) {
     let str = '';
 
-    if(game.player.du_inventory.length === 0) str += '<h4>Empty knapsack<br><br>(drag and drop any inventory item here to add it to your knapsack)</h4>';
+    if(game.player.du_inventory.length === 0) str += '<h4>Empty Knapsack<br><br>(drag and drop any inventory item here to add it to your Knapsack)</h4>';
     else game.player.du_inventory.forEach(it => {
         str += '<div id="kres-' + it.id + '" class="inventoryItem" style="' + getIcon(it) + '; border: 2px solid ' + getRarityColorCode(it.rarity) +'">';
         str += '</div>';
