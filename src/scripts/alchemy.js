@@ -29,7 +29,10 @@ class Alchemy {
             getAlchemyPotionPreviewEffects(true);
         }
 
-        const ingredient = game.player.inventory.getItemFromId(Data.ItemType.RESOURCE, event.dataTransfer.getData('ingredient'));
+        const ingredient = game.player.inventory.getItemFromId(Data.ItemType.RESOURCE, event.dataTransfer.getData('resource'));
+
+        if(!(ingredient instanceof AlchemicalIngredient)) return;
+        
         if(this.ingredients.includes(ingredient)) {
             addAlchemyNotification('This ingredient is already selected.');
             return;

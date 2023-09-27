@@ -130,7 +130,7 @@ function drawResourceInventory(resources = game.inventory.resources) {
     for(let i = 0; i < resources.length; i++) {
         if(resources[i].amount > 0) {
             let me = resources[i];
-            str += '<div id="res-' + me.id + '" class="inventoryItem" style="' + getIcon(me) + '; border: 2px solid ' + getRarityColorCode(me.rarity) +'"' + (me instanceof AlchemicalIngredient ? 'draggable="true"' : '') + '>';
+            str += '<div id="res-' + me.id + '" class="inventoryItem" style="' + getIcon(me) + '; border: 2px solid ' + getRarityColorCode(me.rarity) +'" draggable="true">';
             str += '<div id="res-amount-' + me.id + '" class="inventoryItemAmount">' + (me.amount > 99 ? '99+' : me.amount) + '</div>';
             str += '</div>';
         }
@@ -153,7 +153,7 @@ function drawResourceInventory(resources = game.inventory.resources) {
                 Sounds.Methods.playSound(Data.SoundType.TOOLTIP_HOVER);
             });
             document.querySelector('#res-' + me.id).addEventListener('dragstart', e => {
-                e.dataTransfer.setData('ingredient', me.id);
+                e.dataTransfer.setData('resource', me.id);
             })
         }
     }
@@ -249,7 +249,7 @@ function drawConsumablesInventory(consumables = game.inventory.consumables) {
     let str = '';
     for(let i = 0; i < consumables.length; i++) {
         let me = consumables[i];
-        str += '<div id="res-' + me.id + '" class="inventoryItem" style="' + getIcon(me) + '; border: 2px solid ' + getRarityColorCode(me.rarity) +'">';
+        str += '<div id="res-' + me.id + '" class="inventoryItem" style="' + getIcon(me) + '; border: 2px solid ' + getRarityColorCode(me.rarity) +'" draggable="true">';
         str += '</div>';
     }
     domWhat('res-cat-consumables').innerHTML = str;
@@ -266,6 +266,11 @@ function drawConsumablesInventory(consumables = game.inventory.consumables) {
         // Play sound on hover
         domWhat('res-' + me.id).addEventListener('mouseover', function(){
             Sounds.Methods.playSound(Data.SoundType.TOOLTIP_HOVER);
+        });
+
+        // Draggable events
+        document.querySelector('#res-' + me.id).addEventListener('dragstart', e => {
+            e.dataTransfer.setData('consumable', me.id);
         });
     }
     document.querySelector('#res-consumables').addEventListener('click', (e) => {
@@ -633,6 +638,30 @@ function getEchoDetails(echo, full = false, soulbindingFormat = false) {
             str += '<div class="echoQuote">' + echo.quote + '</div>';
         }
     }
+    str += '</div>';
+
+    return str;
+}
+
+function getDungeonKnapsack() {
+    let str = '';
+
+    str += '<div class="knpsckContainer">';
+
+    str += '<div class="knpsckHeader">';
+    str += '<h1>Knapsack</h1>';
+    str += '<h3>Capacity <span style="color: white">' + game.player.du_inventory.length + '/' + game.player.du_inventorySize + '</span></h3>';
+    str += '</div>';
+
+    str += '<div class="divider"></div>';
+
+    str += '<div class="knpsckContent">';
+    if(game.player.du_inventory.length === 0) str += '<h4>Empty knapsack<br><br>(drag and drop any inventory item here to add it to your knapsack)</h4>';
+    else {
+
+    }
+    str += '</div>';
+
     str += '</div>';
 
     return str;
