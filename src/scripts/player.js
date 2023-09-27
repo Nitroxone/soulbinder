@@ -34,6 +34,8 @@ class Player {
 
         // DUNGEONS CONFIG
         this.du_identifyRoomChance = 30;
+        this.du_inventorySize = 20;
+        this.du_inventory = [];
 
         // SIGILS
         this.sw_stalwartFactor = 5;
