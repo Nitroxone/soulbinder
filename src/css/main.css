@@ -8206,22 +8206,11 @@ table.astralForgeShards td {
     margin-bottom: .5rem;
 }
 
-.eh-r-dive {
+.eh-r-dive, .eh-r-inventory {
     position: absolute;
     bottom: -40px;
-    left: 50%;
-    transform: translateX(-50%);
 
-    background: url(img/darkBorders.png), url(img/bg4.png);
-    background-size: 100% 100%, auto;
-
-    width: 100px;
     padding: .75rem;
-
-    font-size: 15px;
-    font-family: RobotoSlabBold;
-    text-transform: uppercase;
-    text-align: center;
 
     border-radius: 3px;
 
@@ -8232,10 +8221,40 @@ table.astralForgeShards td {
 
     transition: all .1s ease-in-out;
 }
-.eh-r-dive:hover {
+.eh-r-dive {
+    width: 100px;
+
+    left: 50%;
+    transform: translateX(-50%);
+
+    background: url(img/darkBorders.png), url(img/bg4.png);
+    background-size: 100% 100%, auto;
+
+    font-size: 15px;
+    font-family: RobotoSlabBold;
+    text-transform: uppercase;
+    text-align: center;
+}
+.eh-r-dive:hover, .eh-r-inventory:hover {
     cursor: pointer;
     border: 2px solid rgb(150, 150, 150);
     color: #aaa;
+}
+
+.eh-r-inventory {
+    width: 41px;
+    height: 41px;
+
+    left: 70%;
+    transform: translateX(-70%);
+
+    background-image: url('img/du_inv_off.svg'), url(img/darkBorders.png), url(img/bg4.png);
+    background-size: 70%, 100% 100%, auto;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.eh-r-inventory:hover {
+    background-image: url('img/du_inv_on.svg'), url(img/darkBorders.png), url(img/bg4.png);
 }
 
 .eh-r-o-modifiers {
