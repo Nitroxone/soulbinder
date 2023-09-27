@@ -8292,3 +8292,38 @@ table.astralForgeShards td {
     padding-right: 3px;
     margin-left: .2rem; 
 }
+
+.knpsckContainer {
+    width: 300px;
+}
+.knpsckHeader {
+    width: 100%;
+
+    padding: .75rem;
+
+    display: flex;
+    justify-content: space-between;
+}
+.knpsckHeader h1 {
+    font-family: RobotoSlabBold;
+    font-size: 15px;
+    color: #aaa;
+}
+.knpsckHeader h3 {
+    color: grey;
+    font-family: RobotoBold;
+}
+.knpsckContent {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    padding: .75rem;
+
+    border: 1px dashed rgb(50, 50, 50);
+}
+.knpsckContent h4 {
+    font-family: RobotoItalic;
+    color: grey;
+}
