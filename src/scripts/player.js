@@ -100,4 +100,36 @@ class Player {
     getAllUnlockedSoulmarks() {
         return Config.Soulwriting.filter(sm => sm.unlocked);
     }
+
+    addToKnapsack(ev) {
+        if(this.du_inventory.length >= this.du_inventorySize) {
+            console.info('Knapsack is full.');
+            return;
+        }
+
+        let it, i = 0;
+        const types = ['weapon', 'armor', 'trinket', 'resource', 'sigil', 'consumable'];
+
+        do {
+            it = ev.dataTransfer.getData(types[i]);
+            i++;
+        } while(it === '');
+
+        it = this.inventory.getItemFromId(types[i-1].toUpperCase(), it);
+        if(it) {
+            this.inventory.removeItem(it);
+            this.du_inventory.push(it);
+
+            refreshKnapsackAndInventory();
+        }
+    }
+
+    removeFromKnapsack(item) {
+        if(item) {
+            removeFromArray(this.du_inventory, item);
+            this.inventory.addItem(item, 1, true);
+
+            refreshKnapsackAndInventory();
+        }
+    }
 }
