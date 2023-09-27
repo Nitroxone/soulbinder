@@ -38,6 +38,7 @@ function generateExplorationHubEvents() {
 
 function generateExplHubRecapEvents() {
     const diveButton = document.querySelector('.eh-r-dive');
+    const invButton = document.querySelector('#dHubInventory');
 
     diveButton.addEventListener('click', e => {
         if(game.selectedDungeon) {
@@ -46,5 +47,12 @@ function generateExplHubRecapEvents() {
             game.currentDungeon.init();
             drawExplorationScreen();
         }
+    });
+
+    addTooltip(invButton, function(){
+        return "Open the knapsack";
+    }, {offY: -8});
+    invButton.addEventListener('click', e => {
+        
     });
 }
