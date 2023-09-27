@@ -117,11 +117,18 @@ class Player {
 
         it = this.inventory.getItemFromId(types[i-1].toUpperCase(), it);
         if(it) {
-            this.inventory.removeItem(it);
-            this.du_inventory.push(it);
-
-            refreshKnapsackAndInventory();
+            if(it instanceof Resource) {
+                console.log('resource detected!');
+            }
+            this.transferToKnapsack(it);
         }
+    }
+
+    transferToKnapsack(it) {
+        this.inventory.removeItem(it);
+        this.du_inventory.push(it);
+
+        refreshKnapsackAndInventory();
     }
 
     removeFromKnapsack(item) {
