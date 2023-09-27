@@ -653,8 +653,6 @@ function getDungeonKnapsack() {
     str += '<span class="knpsckCap">' + getDungeonKnapsackCapacity() + '</span>';
     str += '</div>';
 
-    str += '<div class="divider"></div>';
-
     str += '<div class="knpsckContent" ondragover="allowDrop(event);" ondrop="game.player.addToKnapsack(event);">';
     str += getDungeonKnapsackContent();
     str += '</div>';
