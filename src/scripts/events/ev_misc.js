@@ -14,6 +14,7 @@ function spawnTooltip(item, fromExisting = 0) {
     else if(item instanceof EquipmentSet) tooltip.innerHTML = base + getSetTooltip(item) + '</div>';
     else if(item instanceof Consumable) tooltip.innerHTML = base + getConsumableTooltip(item) + '</div>';
     else if(item[0] === 'bonuses') tooltip.innerHTML = base + getStriderBonusesTooltip(item[1]) + '</div>';
+    else if(item[0] === 'knapsack') tooltip.innerHTML = base + getDungeonKnapsack() + '</div>';
     // Same position as hovered tooltip, but positioned in such way that it will cut the mouse off the hover event
 
 

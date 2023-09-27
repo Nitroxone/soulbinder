@@ -64,7 +64,10 @@ ONGOING - Create dungeon hub and exploration start buttons
 - Wire the loot tables with the exploration hub so it updates the loot pool automatically without having to manually write it
 - Add icons to map room tiles. Unknown : Question mark. Visited: regular icon. Completed : checkmark, detail can be seen on hover (tooltip?)
 - Rewrite some parts of the dungeon refresh function so that it can be called without causing 'damage'.
-- Implement the Dungeon inventory system
+ONGOING - Implement the Dungeon inventory system
+- Write a warning message if the player starts an exploration with an empty Knapsack
+- Add a button to instantly empty the Knapsack
+- Correctly handle the Knapsack resources management
 
 CRAFTING:
 - Start implementing

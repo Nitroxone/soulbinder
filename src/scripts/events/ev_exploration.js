@@ -53,6 +53,11 @@ function generateExplHubRecapEvents() {
         return "Open the knapsack";
     }, {offY: -8});
     invButton.addEventListener('click', e => {
-        
+        document.querySelectorAll('.knpsckContainer').forEach(kn => {
+            kn.parentElement.parentElement.remove();
+        })
+
+        spawnTooltip(['knapsack']);
+        generateDungeonKnapsackEvents();
     });
 }
