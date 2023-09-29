@@ -35,6 +35,7 @@ class Player {
         // DUNGEONS CONFIG
         this.du_identifyRoomChance = 30;
         this.du_inventorySize = 20;
+        this.du_invSelectedResource = null;
         this.du_inventory = [];
 
         // SIGILS
@@ -119,6 +120,7 @@ class Player {
         if(it) {
             if(it instanceof Resource) {
                 console.log('resource detected!');
+                toggleKnapsackResourceImporter(it);
             }
             this.transferToKnapsack(it);
         }

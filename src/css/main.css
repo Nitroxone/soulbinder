@@ -8335,3 +8335,21 @@ table.astralForgeShards td {
 .knpsckContent .inventoryItem:not(:first-child) {
     margin-left: 0.3rem;
 }
+
+.knpsckRscAmount {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    margin-top: 1rem;
+}
+.kra-total {
+    height: 22px;
+    padding: 4px 7px;
+    text-align: center;
+    width: 100%;
+    border: 1px solid #25304e;
+    border-left: none;
+    border-right: none;
+    font-family: RobotoBold;
+}

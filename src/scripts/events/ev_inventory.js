@@ -37,3 +37,41 @@ function refreshKnapsackAndInventory() {
     drawInventory();
     getDungeonKnapsackCapacity(true);
 }
+
+function toggleKnapsackResourceImporter(item) {
+    game.player.du_invSelectedResource = item;
+    getDungeonKnapsackResourceAmount(true);
+
+    const imp = document.querySelector('.knpsckRscAmount');
+    const rscName = imp.querySelector('.kra-total');
+    const more = imp.querySelector('.kra-more');
+    const less = imp.querySelector('.kra-less');
+    const min = imp.querySelector('.kra-min');
+    const max = imp.querySelector('.kra-max');
+    var amount = 1;
+
+    more.addEventListener('click', e => {
+        amount = Math.min(amount+1, item.amount);
+        refreshKnapsackResourceImporterName(item, amount);
+    });
+    less.addEventListener('click', e => {
+        amount = Math.max(1, amount-1);
+        refreshKnapsackResourceImporterName(item, amount);
+    });
+    min.addEventListener('click', e => {
+        amount = 1;
+        refreshKnapsackResourceImporterName(item, amount);
+    });
+    max.addEventListener('click', e => {
+        amount = item.amount;
+        refreshKnapsackResourceImporterName(item, amount);
+    });
+
+    imp.style.display = 'flex';
+    refreshKnapsackResourceImporterName(item, amount);
+    rscName.style.color = getRarityColorCode(item.rarity);
+}
+
+function refreshKnapsackResourceImporterName(item, amount) {
+    document.querySelector('.knpsckRscAmount .kra-total').textContent = amount + ' ' + item.name;
+}

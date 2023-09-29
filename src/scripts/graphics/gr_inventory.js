@@ -658,12 +658,7 @@ function getDungeonKnapsack() {
     str += '</div>';
 
     str += '<div class="knpsckRscAmount">';
-    str += '<div class="kra-min">Min</div>';
-    str += '<div class="kra-less">-</div>';
-    str += '<div class="kra-total">Add 0 Resource With a Long Name</div>'
-    str += '<div class="kra-more">+</div>';
-    str += '<div class="kra-max">Max</div>';
-    str += '<div class="kra-done">Done</div>';
+    str += getDungeonKnapsackResourceAmount();
     str += '</div>'
 
     str += '</div>';
@@ -695,6 +690,22 @@ function getDungeonKnapsackContent(refresh = false) {
     if(refresh) {
         document.querySelector('.knpsckContent').innerHTML = str;
         generateDungeonKnapsackEvents();
+        return;
+    }
+    return str;
+}
+
+function getDungeonKnapsackResourceAmount(refresh = false) {
+    let str = '';
+
+    str += '<div class="kra-min simpleButton normalSized">Min</div>';
+    str += '<div class="kra-less simpleButton normalSized">-</div>';
+    str += '<div class="kra-total">? undef</div>'
+    str += '<div class="kra-more simpleButton normalSized">+</div>';
+    str += '<div class="kra-max simpleButton normalSized">Max</div>';
+
+    if(refresh) {
+        document.querySelector('.knpsckRscAmount').innerHTML = str;
         return;
     }
     return str;
