@@ -660,6 +660,10 @@ function getDungeonKnapsack() {
     str += '<div class="knpsckRscAmount">';
     str += getDungeonKnapsackResourceAmount();
     str += '</div>'
+    str += '<div class="knpsckRscAmountActions">';
+    str += '<div class="knpsckRscAmountCancel simpleButton normalSized">Cancel</div>';
+    str += '<div class="knpsckRscAmountConfirm simpleButton normalSized">Add</div>';
+    str += '</div>';
 
     str += '</div>';
 

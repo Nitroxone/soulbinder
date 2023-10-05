@@ -8353,3 +8353,25 @@ table.astralForgeShards td {
     border-right: none;
     font-family: RobotoBold;
 }
+
+.knpsckRscAmountActions {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: .5rem;    
+}
+.knpsckRscAmountActions > div {
+    
+}
+.knpsckRscAmountConfirm {
+    margin-left: .25rem;
+}
+.knpsckRscAmountConfirm:hover {
+    color: green;
+    background: rgb(15, 15, 15);
+}
+.knpsckRscAmountCancel:hover {
+    color: red;
+    background: rgb(15, 15, 15);
+}
