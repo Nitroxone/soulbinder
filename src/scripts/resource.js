@@ -15,5 +15,6 @@ class Resource extends Item {
     constructor(name, desc, icon, price, rarity) {
         super(name, desc, icon, price, rarity);
         this.amount = 0;
+        this.knapsackAmount = 0;
     }
 }
