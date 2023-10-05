@@ -48,6 +48,10 @@ function toggleKnapsackResourceImporter(item) {
     const less = imp.querySelector('.kra-less');
     const min = imp.querySelector('.kra-min');
     const max = imp.querySelector('.kra-max');
+
+    const confirm = document.querySelector('.knpsckRscAmountConfirm');
+    const cancel = document.querySelector('.knpsckRscAmountCancel');
+
     var amount = 1;
 
     more.addEventListener('click', e => {
@@ -65,6 +69,15 @@ function toggleKnapsackResourceImporter(item) {
     max.addEventListener('click', e => {
         amount = item.amount;
         refreshKnapsackResourceImporterName(item, amount);
+    });
+
+    confirm.addEventListener('click', e => {
+        game.player.addResourceToKnapsack(item, amount);
+        game.player.du_invSelectedResource = null;
+        amount = 0;
+    })
+    cancel.addEventListener('click', e => {
+        console.log('Cancelling addition');
     });
 
     imp.style.display = 'flex';

@@ -122,7 +122,7 @@ class Player {
                 console.log('resource detected!');
                 toggleKnapsackResourceImporter(it);
             }
-            this.transferToKnapsack(it);
+            else this.transferToKnapsack(it);
         }
     }
 
@@ -137,6 +137,16 @@ class Player {
         if(item) {
             removeFromArray(this.du_inventory, item);
             this.inventory.addItem(item, 1, true);
+
+            refreshKnapsackAndInventory();
+        }
+    }
+
+    addResourceToKnapsack(item, amount) {
+        if(item) {
+            this.inventory.removeResource(item, amount);
+            if(!this.du_inventory.find(x => x === item)) this.du_inventory.push(item);
+            item.knapsackAmount += amount;
 
             refreshKnapsackAndInventory();
         }
