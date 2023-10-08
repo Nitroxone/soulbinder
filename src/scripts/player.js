@@ -135,8 +135,15 @@ class Player {
 
     removeFromKnapsack(item) {
         if(item) {
-            removeFromArray(this.du_inventory, item);
             this.inventory.addItem(item, 1, true);
+
+            if(item instanceof Resource) {
+                const ko = this.du_inventory.find(x => x === item);
+                ko.knapsackAmount -= 1;
+                if(ko.knapsackAmount === 0) removeFromArray(this.du_inventory, item);
+            } else {
+                removeFromArray(this.du_inventory, item);
+            }
 
             refreshKnapsackAndInventory();
         }

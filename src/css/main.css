@@ -8369,9 +8369,11 @@ table.astralForgeShards td {
 }
 .knpsckRscAmountConfirm:hover {
     color: green;
+    border-color: green;
     background: rgb(15, 15, 15);
 }
 .knpsckRscAmountCancel:hover {
     color: red;
+    border-color: red;
     background: rgb(15, 15, 15);
 }

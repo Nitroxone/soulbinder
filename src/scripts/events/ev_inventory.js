@@ -77,7 +77,8 @@ function toggleKnapsackResourceImporter(item) {
         amount = 0;
     })
     cancel.addEventListener('click', e => {
-        console.log('Cancelling addition');
+        game.player.du_invSelectedResource = null;
+        amount = 0;
     });
 
     imp.style.display = 'flex';
