@@ -688,6 +688,7 @@ function getDungeonKnapsackContent(refresh = false) {
     if(game.player.du_inventory.length === 0) str += '<h4>Empty Knapsack<br><br>(drag and drop any inventory item here to add it to your Knapsack)</h4>';
     else game.player.du_inventory.forEach(it => {
         str += '<div id="kres-' + it.id + '" class="inventoryItem" style="' + getIcon(it) + '; border: 2px solid ' + getRarityColorCode(it.rarity) +'">';
+        if(it instanceof Resource) str += '<div id="res-amount-' + it.id + '" class="inventoryItemAmount">' + (it.knapsackAmount > 99 ? '99+' : it.knapsackAmount) + '</div>';
         str += '</div>';
     });
 

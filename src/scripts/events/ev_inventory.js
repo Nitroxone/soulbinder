@@ -75,10 +75,16 @@ function toggleKnapsackResourceImporter(item) {
         game.player.addResourceToKnapsack(item, amount);
         game.player.du_invSelectedResource = null;
         amount = 0;
+
+        confirm.parentNode.style.display = 'none';
+        more.parentNode.style.display = 'none';
     })
     cancel.addEventListener('click', e => {
         game.player.du_invSelectedResource = null;
         amount = 0;
+
+        confirm.parentNode.style.display = 'none';
+        more.parentNode.style.display = 'none';
     });
 
     imp.style.display = 'flex';
@@ -87,5 +93,8 @@ function toggleKnapsackResourceImporter(item) {
 }
 
 function refreshKnapsackResourceImporterName(item, amount) {
+    document.querySelector('.knpsckRscAmountActions').style.display = 'flex';
+    document.querySelector('.knpsckRscAmount').style.display = 'flex';
+
     document.querySelector('.knpsckRscAmount .kra-total').textContent = amount + ' ' + item.name;
 }
