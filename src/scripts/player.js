@@ -82,26 +82,50 @@ class Player {
         this.roster.push(strider);
     }
 
+    /**
+     * Adds the provided Quest to the player's quest list.
+     * @param {Quest} quest the Quest to add
+     */
     addQuest(quest) {
         this.quests.push(quest);
     }
 
-    addSoulsToPlayer(amount) {
+    /**
+     * Adds the provided amount of souls to the player.
+     * @param {number} amount the amount of souls to add
+     */
+    addSouls(amount) {
         this.souls += amount;
     }
 
-    addGoldToPlayer(amount) {
+    /**
+     * Adds the provided amount of gold to the player.
+     * @param {number} amount the amount of gold to add
+     */
+    addGold(amount) {
         this.gold += amount;
     }
 
+    /**
+     * Unlocks the Soulmark whose name matches the provided string.
+     * @param {string} name the Soulmark's name to unlock
+     */
     addSoulmark(name) {
         Config.Soulwriting.find(sm => sm.name.toLowerCase() === name.toLowerCase()).unlocked = true;
     }
 
+    /**
+     * Returns all the Soulmarks unlocked by the player.
+     * @returns {Soulmark[]} an array of Soulmarks
+     */
     getAllUnlockedSoulmarks() {
         return Config.Soulwriting.filter(sm => sm.unlocked);
     }
 
+    /**
+     * Adds the Item stocked in the provided Event object to the player's Knapsack.
+     * @param {Event} ev the Event to retrieve the Item from
+     */
     addToKnapsack(ev) {
         if(this.du_inventory.length >= this.du_inventorySize) {
             console.info('Knapsack is full.');
@@ -126,6 +150,10 @@ class Player {
         }
     }
 
+    /**
+     * Transfers the provided Item from the player's inventory to his Knapsack.
+     * @param {Item} it the Item to transfer
+     */
     transferToKnapsack(it) {
         this.inventory.removeItem(it);
         this.du_inventory.push(it);
@@ -133,6 +161,11 @@ class Player {
         refreshKnapsackAndInventory();
     }
 
+    /**
+     * Removes the provided Item from this player's Knapsack and transfers it back to the Inventory.
+     * @param {Item} item the Item to remove
+     * @param {number} amount the amount of times the Item will be removed
+     */
     removeFromKnapsack(item, amount = 1) {
         if(item) {
             this.inventory.addItem(item, amount, true);
@@ -147,6 +180,11 @@ class Player {
         }
     }
 
+    /**
+     * Adds the provided Resource to the player's Knapsack, as many times as specified by the amount parameter.
+     * @param {Resource} item the Resource to add
+     * @param {number} amount the amount of times the Resource will be added
+     */
     addResourceToKnapsack(item, amount) {
         if(item) {
             this.inventory.removeResource(item, amount);
