@@ -68,8 +68,9 @@ ONGOING - Create dungeon hub and exploration start buttons
 ONGOING - Implement the Dungeon inventory system
 - Write a warning message if the player starts an exploration with an empty Knapsack
 - Add a button to instantly empty the Knapsack
-- Correctly handle the Knapsack resources management
+ONGOING - Correctly handle the Knapsack resources management
 - Add the possibility to manually set a resource amount to add into the Knapsack
+- Add a MAJ+click and CTRL+click binds to remove 10/100 resources from the knapsack.
 
 CRAFTING:
 - Start implementing
