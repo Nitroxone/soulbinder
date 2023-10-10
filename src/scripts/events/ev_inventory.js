@@ -27,7 +27,11 @@ function generateDungeonKnapsackEvents() {
             e.stopImmediatePropagation();
             e.preventDefault();
 
-            game.player.removeFromKnapsack(obj);
+            let amount = 1;
+            if(e.shiftKey) amount = Math.min(Math.max(obj.knapsackAmount - 10, obj.knapsackAmount), 10);
+            else if(e.ctrlKey) amount = Math.min(Math.max(obj.knapsackAmount - 100, obj.knapsackAmount), 100);
+
+            game.player.removeFromKnapsack(obj, amount);
         })
     })
 }
@@ -55,11 +59,17 @@ function toggleKnapsackResourceImporter(item) {
     var amount = 1;
 
     more.addEventListener('click', e => {
-        amount = Math.min(amount+1, item.amount);
+        if(e.shiftKey) amount = Math.min(amount+10, item.amount);
+        else if(e.ctrlKey) amount = Math.min(amount+100, item.amount);
+        else amount = Math.min(amount+1, item.amount);
+
         refreshKnapsackResourceImporterName(item, amount);
     });
     less.addEventListener('click', e => {
-        amount = Math.max(1, amount-1);
+        if(e.shiftKey) amount = Math.max(1, amount-10);
+        else if(e.ctrlKey) amount = Math.max(1, amount-100);
+        else amount = Math.max(1, amount-1);
+
         refreshKnapsackResourceImporterName(item, amount);
     });
     min.addEventListener('click', e => {
