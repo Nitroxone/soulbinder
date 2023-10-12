@@ -23,6 +23,8 @@ class DungeonRoom {
         this.actionDesc = '';
 
         this.foundLoot = null;
+
+        this.revealedCluster = false;
     }
 
     getRoomDescription(reassign = false) {
