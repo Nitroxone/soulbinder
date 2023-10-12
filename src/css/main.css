@@ -6469,6 +6469,15 @@ table.astralForgeShards td {
     border-color: yellow;
 }
 
+/* DUNGEON ROOM TYPES */
+.map-roomContainer.dr-type-entrance {
+    background-image: url('img/du_entrance_off.svg');
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    top:0;left:0;bottom:0;right:0;
+}
+
 .mapConnector {
     transition: all 1s cubic-bezier(1, 0, 0, 1);
     stroke: transparent;
