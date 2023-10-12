@@ -14,7 +14,7 @@ function drawExplorationScreen() {
         const cluster = 'parentCluster-' + cl.id;
         str += '<div id="cl-' + cl.id + '" class="map-clusterContainer" style="top: ' + cl.coordinates[0] * 50 + 'px; left: ' + cl.coordinates[1] * 50 + 'px;"></div>';
         cl.childrenRooms.forEach(ch => {
-            str += '<div id="ch-' + ch.id + '" class="' + cluster + ' map-roomContainer coolBorder' + (ch === floor.currentRoom ? ' visitedRoom currentRoom' : ' hiddenRoom') + '" style="top: ' + ch.coordinates[0] * 50 + 'px; left: ' + ch.coordinates[1] * 50 + 'px;"></div>';
+            str += '<div id="ch-' + ch.id + '" class="' + cluster + ' map-roomContainer coolBorder' + (ch === floor.currentRoom ? ' visitedRoom currentRoom' : ch.revealed ? ' revealedRoom visitedRoom' : cl.revealedCluster ? ' revealedRoom' : ' hiddenRoom') + '" style="top: ' + ch.coordinates[0] * 50 + 'px; left: ' + ch.coordinates[1] * 50 + 'px;"></div>';
         });
     })
     str += '</div>';
@@ -34,6 +34,7 @@ function drawExplorationScreen() {
     document.querySelector('.explorationContainer').innerHTML = str;
 
     drawMapConnectors();
+    revealFarClusters();
     bringRoomsForward();
     generateExplorationMapEvents();
     generateExplorationInfosPanelEvents();
@@ -188,7 +189,17 @@ function revealCluster(cluster) {
     document.querySelectorAll('.parentCluster-' + cluster.id).forEach(ro => {
         ro.classList.remove('hiddenRoom');
         ro.classList.add('revealedRoom');
-    })
+    });
+    cluster.revealedCluster = true;
+}
+
+function revealFarClusters() {
+    game.currentDungeon.currentFloor.clusters.filter(x => x.revealedCluster).forEach(cl => {
+        document.querySelectorAll('.parentCluster-' + cl.id).forEach(ro => {
+            ro.classList.remove('hiddenRoom');
+            ro.classList.add('revealedRoom');
+        });
+    });
 }
 
 function drawMapConnectors(refresh = false) {
