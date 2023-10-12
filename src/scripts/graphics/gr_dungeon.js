@@ -227,6 +227,7 @@ function drawMapConnectors(refresh = false) {
         let color = '';
         if(room.revealed) {
             if(!room.nextRoom.revealed) color = ' canVisitConnector';
+            else color = ' visitedConnector';
         }
         if(!room.revealed && room.nextRoom.revealed) color = ' canVisitConnector';
 
