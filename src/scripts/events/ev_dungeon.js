@@ -25,7 +25,25 @@ function generateExplorationInfosPanelEvents() {
 }
 
 function dungeonEnterEvent() {
-    
+    const enter = document.querySelector('.roomActions-action.enter');
+    const currentRoom = game.currentDungeon.currentFloor.currentRoom;
+    if(currentRoom.identified) {
+        // Nothing happens
+    } else {
+        currentRoom.identify();
+        document.querySelector('.roomHeader-type').textContent = currentRoom.type;
+        
+        document.querySelector('.roomActions-action.scout').remove();
+
+        if(currentRoom.canSearch()) {
+            document.querySelector('.roomActions-action.enter').outerHTML = getDungeonSearchButton(true);
+            document.querySelector('.roomActions-action.search').classList.add('revealSearchButton');
+            document.querySelector('.roomActions-action.search').classList.remove('minEnter');
+            dungeonSearchEvent();
+        } else {
+            document.querySelector('.roomActions-action.enter').classList.remove('minEnter');
+        }
+    }
 }
 
 function dungeonScoutEvent() {
