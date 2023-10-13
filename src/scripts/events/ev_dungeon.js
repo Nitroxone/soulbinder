@@ -8,7 +8,9 @@ function generateExplorationInfosPanelEvents() {
     const search = document.querySelector('.roomActions-action.search');
 
     if(enter) {
-
+        enter.addEventListener('click', e => {
+            dungeonEnterEvent();
+        })
     }
     if(scout) {
         scout.addEventListener('click', e => {
@@ -20,6 +22,10 @@ function generateExplorationInfosPanelEvents() {
             dungeonSearchEvent();
         });
     }
+}
+
+function dungeonEnterEvent() {
+    
 }
 
 function dungeonScoutEvent() {
