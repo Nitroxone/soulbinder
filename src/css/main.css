@@ -6470,13 +6470,42 @@ table.astralForgeShards td {
 }
 
 /* DUNGEON ROOM TYPES */
-.map-roomContainer.dr-type-entrance {
-    background-image: url('img/du_entrance_off.svg');
-    width: 35px;
-    height: 35px;
+.map-roomContainer > .dr-type {
+    width: 28px;
+    height: 28px;
     position: absolute;
-    top:0;left:0;bottom:0;right:0;
+
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
 }
+.map-roomContainer > .dr-type-entrance {
+    background-image: url('img/du_entrance_off.svg');
+}
+.map-roomContainer > .dr-type-chasm {
+    background-image: url('img/du_chasm_off.svg');
+}
+.map-roomContainer > .dr-type-boss_room {
+    background-image: url('img/du_boss_off.svg');
+}
+.map-roomContainer > .dr-type-eternity_well {
+    background-image: url('img/du_ew_off.svg');
+}
+.map-roomContainer > .dr-type-fractured_hollow {
+    background-image: url('img/du_fh_off.svg');
+}
+.map-roomContainer > .dr-type-sacrificial_alcove {
+    background-image: url('img/du_sa_off.svg');
+}
+.map-roomContainer > .dr-type-antechamber_of_marvels {
+    background-image: url('img/du_aom_off.svg');
+}
+.map-roomContainer > .dr-type-desecrated_altar {
+    background-image: url('img/du_ds_off.svg');
+}
+.map-roomContainer > .dr-type-dormant_room {
+    background-image: url('img/du_dr_off.svg');
+}
+
 
 .mapConnector {
     transition: all 1s cubic-bezier(1, 0, 0, 1);

@@ -14,7 +14,9 @@ function drawExplorationScreen() {
         const cluster = 'parentCluster-' + cl.id;
         str += '<div id="cl-' + cl.id + '" class="map-clusterContainer" style="top: ' + cl.coordinates[0] * 50 + 'px; left: ' + cl.coordinates[1] * 50 + 'px;"></div>';
         cl.childrenRooms.forEach(ch => {
-            str += '<div id="ch-' + ch.id + '" class="' + cluster + ' map-roomContainer dr-type-' + ch.type + ' coolBorder' + (ch === floor.currentRoom ? ' visitedRoom currentRoom' : ch.revealed ? ' revealedRoom visitedRoom' : cl.revealedCluster ? ' revealedRoom' : ' hiddenRoom') + '" style="top: ' + ch.coordinates[0] * 50 + 'px; left: ' + ch.coordinates[1] * 50 + 'px;"></div>';
+            str += '<div id="ch-' + ch.id + '" class="' + cluster + ' map-roomContainer coolBorder' + (ch === floor.currentRoom ? ' visitedRoom currentRoom' : ch.revealed ? ' revealedRoom visitedRoom' : cl.revealedCluster ? ' revealedRoom' : ' hiddenRoom') + '" style="top: ' + ch.coordinates[0] * 50 + 'px; left: ' + ch.coordinates[1] * 50 + 'px;">';
+            str += '<div class="dr-type dr-type-' + ch.type.replace(' ', '_') + '"></div>';
+            str += '</div>';
         });
     })
     str += '</div>';
