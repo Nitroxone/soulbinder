@@ -28,7 +28,7 @@ function dungeonEnterEvent() {
     const enter = document.querySelector('.roomActions-action.enter');
     const currentRoom = game.currentDungeon.currentFloor.currentRoom;
     if(currentRoom.identified) {
-        // Nothing happens
+        // Nothing happens (so far lol)
     } else {
         currentRoom.identify();
         document.querySelector('.roomHeader-type').textContent = currentRoom.type;

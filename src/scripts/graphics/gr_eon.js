@@ -57,8 +57,8 @@ function getEonsSelectors(refresh = false) {
 
     str += '<input type="text" class="es-box-search" placeholder="Search for an eon...">';
 
-    for(const cat in Data.EON_CATEGORIES) {
-        const eons = getUnlockedEonsWithType(Data.EON_CATEGORIES[cat]);
+    for(const cat in Data.EonCategory) {
+        const eons = getUnlockedEonsWithType(Data.EonCategory[cat]);
 
         str += '<div class="es-category">';
         str += '<h2 class="es-categoryTitle">' + cat + '</h2>';

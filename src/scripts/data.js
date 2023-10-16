@@ -554,7 +554,7 @@ const Data = Object.freeze({
         ADD: "add",
         REMOVE: "remove"
     },
-    EON_CATEGORIES: {
+    EonCategory: {
         MAJOR: "major",
         MINOR: "minor",
         LOCATIONS: "locations",
