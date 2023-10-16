@@ -2088,14 +2088,29 @@ function getPlayerCurrentLevel() {
     return game.player.level.currentLevel;
 }
 
+/**
+ * Returns all of the eons that are unlocked and which category matches the provided one.
+ * @param {Data.EonCategory} type the type of eon
+ * @returns {array} an array of Eons
+ */
 function getUnlockedEonsWithType(type) {
     return game.all_eons.filter(x => x.unlocked && x.category === type);
 }
 
+/**
+ * Returns the first found Eon object which is unlocked, and which title matches the provided string.
+ * @param {string} title the Eon title
+ * @returns {object} an Eon
+ */
 function getUnlockedEonFromTitle(title) {
     return game.all_eons.find(x => x.unlocked && x.title.toLowerCase() === title.toLowerCase());
 }
 
+/**
+ * Returns whether the provided HTMLElement's siblings are hidden (display = 'none')
+ * @param {HTMLElement} element the element to check
+ * @returns {boolean} whether the element's siblings are hidden 
+ */
 function areSiblingsHidden(element) {
     const siblings = Array.from(element.parentNode.children);
     return siblings.every(sib => {
@@ -2104,6 +2119,11 @@ function areSiblingsHidden(element) {
     });
 }
 
+/**
+ * Returns the Strider whose name matches the provided string.
+ * @param {string} name the name to filter on
+ * @returns {Strider|null} the Strider that was found (or null if none was found)
+ */
 function findStriderByName(name) {
     return game.all_striders.find(x => x.name.toLowerCase() === name.toLowerCase());
 }
