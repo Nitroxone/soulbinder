@@ -3269,7 +3269,7 @@ const Loader = {
                 name: "Putrescent Ossuary",
                 desc: "Nestled beneath the ruins of the once-glorious merchant city of Firthadel, the ossuary of the Landstar barony met its condemnation in the wake of a contamination wrought by noxious vapors seeping through a fissure in the earth. Proving difficult to restrain, multiple leaks of these harmful gases eventually enshrouded the city, leading to its evacuation, never to be reclaimed again.",
                 background: "putrescent_ossuary.png",
-                biome: Data.DungeonBiome.CRIMSON_MARSHLANDS,
+                biome: Data.DungeonBiome.THE_KAULT,
                 maximumDepth: 3,
                 config: {
                     floor1: {
