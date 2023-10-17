@@ -28,7 +28,7 @@ function dungeonEnterEvent() {
     const enter = document.querySelector('.roomActions-action.enter');
     const currentRoom = game.currentDungeon.currentFloor.currentRoom;
     if(currentRoom.identified) {
-        // Nothing happens (so far lol)
+        dungeonEnterRoom();
     } else {
         currentRoom.identify();
         document.querySelector('.roomHeader-type').textContent = currentRoom.type;
@@ -42,7 +42,17 @@ function dungeonEnterEvent() {
             dungeonSearchEvent();
         } else {
             document.querySelector('.roomActions-action.enter').classList.remove('minEnter');
+
+            dungeonEnterRoom();
         }
+    }
+}
+
+function dungeonEnterRoom() {
+    const room = game.currentDungeon.currentFloor.currentRoom;
+
+    switch(room.type) {
+        
     }
 }
 
