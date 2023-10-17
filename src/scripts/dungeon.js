@@ -28,6 +28,10 @@ class Dungeon {
             },
             floor5: {
                 depth: 5,
+            },
+            mobConfig: {
+                excludeMobs: [],
+                excludeFormations: []
             }
         });
 
