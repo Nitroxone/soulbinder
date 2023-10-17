@@ -30,12 +30,14 @@ class Enemy extends NPC {
                 mobType,
                 skills,
                 behavior,
-                drops
+                drops = {},
+                biome = Data.DungeonBiome.ALL
                 ) {
         super(name, desc, charset, subname, health, mana, stamina, dodge, speed, accuracy, protection, might, spirit, resBleed, resPoison, resMove, resStun, resilience, warding, critEffects, variables, triggers);
         this.mobType = mobType;
         this.skills = skills;
         this.behavior = behavior;
         this.drops = drops;
+        this.biome = biome;
     }
 }
