@@ -2942,19 +2942,19 @@ const Loader = {
         const enemyFormations = [
             new EnemyFormation({
                 name: "threeTicks",
-                biome: Data.DungeonBiome.UZIEL_JUNGLES,
+                biome: Data.DungeonBiome.THE_KAULT,
                 levels: [1, 2],
                 formation: [what(game.all_enemies, "mycelial tick"), what(game.all_enemies, "mycelial tick"), what(game.all_enemies, "mycelial tick")],
             }),
             new EnemyFormation({
                 name: "twoFungaliants",
-                biome: Data.DungeonBiome.UZIEL_JUNGLES,
+                biome: Data.DungeonBiome.THE_KAULT,
                 levels: [2, 3, 4],
                 formation: [what(game.all_enemies, "fungaliant"), what(game.all_enemies, "fungaliant"), what(game.all_enemies, "mycelial tick")],
             }),
             new EnemyFormation({
                 name: "gnarlyAndFungaliant",
-                biome: Data.DungeonBiome.UZIEL_JUNGLES,
+                biome: Data.DungeonBiome.THE_KAULT,
                 levels: [4, 5],
                 formation: [what(game.all_enemies, "fungaliant"), what(game.all_enemies, "fungaliant"), what(game.all_enemies, "gnarly horror")],
             }),

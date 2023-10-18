@@ -24,6 +24,8 @@ class DungeonRoom {
 
         this.foundLoot = null;
 
+        this.enemyGroup = null;
+
         this.revealedCluster = false;
     }
 
@@ -134,6 +136,23 @@ class DungeonRoom {
         switch(this.type) {
             case Data.DungeonRoomType.CHASM:
                 game.currentDungeon.moveToNextFloor();
+                break;
+            case Data.DungeonRoomType.DORMANT_ROOM:
+                this.assignEnemyGroup();
+                game.startBattle(this.enemyGroup);
+                break;
         }
+    }
+
+    /**
+     * Assigns an enemy formation to this room, based on the dungeon's parameters.
+     */
+    assignEnemyGroup() {
+        const biome = game.currentDungeon.biome;
+        let pool = game.all_enemyFormations.filter(x => {
+            return x.biome === biome || x.biome === Data.DungeonBiome.ALL
+        });
+        console.log('assigning: ' + choose(pool) + ' to ' + this.type);
+        this.enemyGroup = choose(pool);
     }
 }

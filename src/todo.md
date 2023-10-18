@@ -50,6 +50,7 @@ DONE - Implement shield in combats
 ABANDONED? - Implement skill stackability
 ONGOING - Change active effect display -> regroup everything to prevent clones, and only display the latest caster & skill
 - Start implementing echoes
+- Investigate and fix the shield issues
 
 ASTRAL FORGE:
 - Create GUI -- ONGOING
