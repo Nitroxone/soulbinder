@@ -122,15 +122,18 @@ class DungeonRoom {
      */
     isCombatRoom() {
         return this.type === Data.DungeonRoomType.BOSS
-                || this.type === Data.DungeonRoomType.DORMANT_ROOM
-                || this.type === Data.DungeonRoomType.FRACTURED_HOLLOW
-                || this.type === Data.DungeonRoomType.SACRIFICIAL_ALCOVE
+            || this.type === Data.DungeonRoomType.DORMANT_ROOM
+            || this.type === Data.DungeonRoomType.FRACTURED_HOLLOW
+            || this.type === Data.DungeonRoomType.SACRIFICIAL_ALCOVE
     }
 
     /**
-     * Enters the room.
+     * Enters the room (supposedly a non-treasure room).
      */
     enterRoom() {
-
+        switch(this.type) {
+            case Data.DungeonRoomType.CHASM:
+                game.currentDungeon.moveToNextFloor();
+        }
     }
 }
