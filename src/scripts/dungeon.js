@@ -38,18 +38,36 @@ class Dungeon {
         this.floors = [];
     }
 
+    /**
+     * Initializes the dungeon by building floors and setting the active floor.
+     */
     init() {
         this.generateFloors();
         this.currentFloor = this.floors[0];
     }
 
+    /**
+     * Generates the dungeon's floors.
+     */
     generateFloors() {
         for(let i = 0; i < this.maximumDepth; i++) {
             this.floors.push(new DungeonFloor(this.config['floor' + (i+1)]));
         }
     }
 
+    /**
+     * Returns the next floor of this dungeon, or null if none is next.
+     * @returns {DungeonFloor|null}
+     */
     getNextFloor() {
         return this.floors[this.floors.indexOf(this.currentFloor) + 1];
+    }
+
+    /**
+     * Changes the current floor to the next floor and refreshes the exploration screen.
+     */
+    moveToNextFloor() {
+        this.currentFloor = this.getNextFloor();
+        drawExplorationScreen();
     }
 }
