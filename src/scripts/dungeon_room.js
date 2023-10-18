@@ -155,4 +155,10 @@ class DungeonRoom {
         console.log('assigning: ' + choose(pool) + ' to ' + this.type);
         this.enemyGroup = choose(pool);
     }
+
+    battleEnded(outcome) {
+        if(outcome === Data.BattleOutcome.VICTORY) {
+            clearCurrentRoom();
+        }
+    }
 }

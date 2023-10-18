@@ -108,7 +108,8 @@ class Battle {
     end() {
         console.log("Battle ends!");
         this.runTriggersOnAll(Data.TriggerType.ON_BATTLE_END);
-        this.outcome = Data.BattleOutcome.VICTORY;
+        this.outcome = this.determineOutcome();
+        game.currentDungeon.currentFloor.currentRoom.battleEnded(this.outcome);
         drawEndBattleScreen();
     }
 
@@ -969,5 +970,10 @@ class Battle {
         this.emptyBattlePopupsQueues();
         this.resetEndTurnCounter();
         this.beginTurnPopups = true;
+    }
+
+    determineOutcome() {
+        if(this.allies.every(x => x.health === 0)) return Data.BattleOutcome.FAILURE;
+        else return Data.BattleOutcome.VICTORY;
     }
 }
