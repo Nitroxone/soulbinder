@@ -50,10 +50,15 @@ function dungeonEnterEvent() {
 
 function dungeonEnterRoom() {
     const room = game.currentDungeon.currentFloor.currentRoom;
-
-    switch(room.type) {
-        
+    room.enterRoom();
+    if(room.isCombatRoom()) {
+        room.engage();
+        dungeonRefreshRoomStatus();
     }
+}
+
+function dungeonRefreshRoomStatus() {
+    document.querySelector('.roomHeader-status').innerHTML = game.currentDungeon.currentFloor.currentRoom.status;
 }
 
 function dungeonScoutEvent() {
