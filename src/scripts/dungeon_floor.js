@@ -352,14 +352,25 @@ class DungeonFloor {
         this.currentRoom.status = Data.DungeonRoomStatus.CLEARED;
     }
 
+    /**
+     * Randomly returns a number based on the player's ability to identify rooms.
+     * @returns {number}
+     */
     canIdentifyRoom() {
         return Math.random() * 100 < game.player.du_identifyRoomChance;
     }
 
+    /**
+     * Attempts to identify a room.
+     */
     attemptToIdentifyRoom() {
         if(this.canIdentifyRoom()) this.identifyCurrentRoom();
     }
 
+    /**
+     * Moves the player to the next room on this floor.
+     * @returns {boolean} false if there is no next room (end reached)
+     */
     moveToNextRoom() {
         if(this.currentRoom.nextRoom) {
             this.currentRoom = this.currentRoom.nextRoom;
@@ -368,6 +379,10 @@ class DungeonFloor {
         else return false;
     }
 
+    /**
+     * Moves the player to the previous room on this floor.
+     * @returns {boolean} false if there is no previous room (beginning reached)
+     */
     moveToPreviousRoom() {
         if(this.currentRoom.previousRoom) {
             this.currentRoom = this.currentRoom.previousRoom;
