@@ -142,6 +142,12 @@ function generateMapRoomsEvents() {
         roomDom.addEventListener('click', e => {
             // Only works if clicking on an accessible tile (next or previous room to the current one)
             if(nextRoom === game.currentDungeon.currentFloor.currentRoom || previousRoom === game.currentDungeon.currentFloor.currentRoom) {
+                if(game.player.inCombat) {
+                    // Prevents changing rooms while in combat; 
+                    //TODO: add notification
+                    return;
+                }
+
                 if(!room.revealed) {
                     room.revealed = true;
                     roomDom.classList.remove('revealedRoom');

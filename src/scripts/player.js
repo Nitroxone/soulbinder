@@ -37,6 +37,7 @@ class Player {
         this.du_inventorySize = 20;
         this.du_invSelectedResource = null;
         this.du_inventory = [];
+        this.inCombat = false;
 
         // SIGILS
         this.sw_stalwartFactor = 5;
@@ -193,5 +194,19 @@ class Player {
 
             refreshKnapsackAndInventory();
         }
+    }
+
+    /**
+     * Switches the player combat state to true.
+     */
+    enterCombat() {
+        this.inCombat = true;
+    }
+
+    /**
+     * Switches the player combat state to false.
+     */
+    leaveCombat() {
+        this.inCombat = false
     }
 }

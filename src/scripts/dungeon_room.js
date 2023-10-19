@@ -140,6 +140,7 @@ class DungeonRoom {
             case Data.DungeonRoomType.DORMANT_ROOM:
                 this.assignEnemyGroup();
                 game.startBattle(this.enemyGroup);
+                game.player.enterCombat();
                 break;
         }
     }
@@ -156,7 +157,12 @@ class DungeonRoom {
         this.enemyGroup = choose(pool);
     }
 
+    /**
+     * Notifies the Dungeon that the a battle has ended.
+     * @param {Data.BattleOutcome} outcome the battle's outcome
+     */
     battleEnded(outcome) {
+        game.player.leaveCombat();
         if(outcome === Data.BattleOutcome.VICTORY) {
             clearCurrentRoom();
         }
