@@ -6365,6 +6365,8 @@ table.astralForgeShards td {
 
 .infosPanel-dungeonStats {
     height: 120px;
+
+    border-top: 1px dashed grey;
 }
 
 .infosPanel-actionResult {
