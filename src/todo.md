@@ -66,9 +66,9 @@ ONGOING - Create dungeon hub and exploration start buttons
 DONE - Add icons to map room tiles. Unknown : Question mark. Visited: regular icon. Completed : checkmark, detail can be seen on hover (tooltip?)
 DONE - Rewrite some parts of the dungeon refresh function so that it can be called without causing 'damage'.
 - Add items from loot to Knapsack
-- Block dungeon navigation while in combat
+DONE - Block dungeon navigation while in combat
 - Add possibility to leave room to come back later (regenerates a mob formation ; requires an item to prevent maluses?)
-- Disconnect Enter button from dungeon rooms to prevent spamming battles
+DONE - Disconnect Enter button from dungeon rooms to prevent spamming battles
 
 ONGOING - Implement the Dungeon inventory system
 - Write a warning message if the player starts an exploration with an empty Knapsack

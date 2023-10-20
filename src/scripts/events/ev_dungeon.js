@@ -50,6 +50,9 @@ function dungeonEnterEvent() {
 
 function dungeonEnterRoom() {
     const room = game.currentDungeon.currentFloor.currentRoom;
+    
+    if(game.player.inCombat || room.isCleared()) return;
+
     room.enterRoom();
     if(room.isCombatRoom()) {
         room.engage();
