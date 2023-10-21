@@ -154,7 +154,7 @@ class DungeonRoom {
             return x.biome === biome || x.biome === Data.DungeonBiome.ALL
         });
         console.log('assigning: ' + choose(pool) + ' to ' + this.type);
-        this.enemyGroup = choose(pool);
+        this.enemyGroup = Entity.clone(choose(pool));
     }
 
     /**
