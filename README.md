@@ -29,7 +29,7 @@ No planned release date. We want to take our time to make things right.
 
 ## Compatibility
 
-So far, Soulbinder is designed to be played in Chrome-based browsers (Google Chrome, Edge, Brave, etc), though it should also work fine in Firefox.
+So far, Soulbinder is designed to be played in Chrome-based browsers (Google Chrome, Edge, Brave, etc), though it should also work fine in Firefox. Don't you dare attempt to play this game in Internet Explorer.
 
 You cannot play Soulbinder on your phone, sorry. 
 
