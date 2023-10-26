@@ -2544,6 +2544,13 @@ hr.leftSided {
     border: 0;
     height: 2px;
 }
+hr.centerFade {
+    height: 6px;
+    background-image: linear-gradient(0deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+
+    border: 0;
+    height: 2px;
+}
 .tooltipSet {
     padding: 0.5rem;
     display: grid;
@@ -6365,14 +6372,23 @@ table.astralForgeShards td {
 
 .infosPanel-dungeonStats {
     height: 120px;
-
-    border-top: 1px dashed grey;
+}
+.infosPanel-dungeonStats::before {
+    content: '';
+    width: 100%;
+    height: 1px;
+    position: relative;
+    top: 1px;
+    background: linear-gradient(to right, rgba(0,0,0,0), rgba(255,255,255,0.5), rgba(0,0,0,0));
+    display: block;
 }
 
 .infosPanel-actionResult {
     height: 200px;
     overflow-x: hidden;
     overflow-y: scroll;
+
+    box-shadow: inset 0 -37px 25px 0px black;
 }
 .lootQuantity {
     font-family: RobotoSlabBold;
