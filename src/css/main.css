@@ -8283,6 +8283,8 @@ table.astralForgeShards td {
     bottom: 0;
     left: 0;
     transform: none;
+    width: 32px;
+    height: 32px;
 }
 .eh-r-dive {
     width: 100px;
