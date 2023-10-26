@@ -76,7 +76,7 @@ ON HOLD - Add a button to instantly empty the Knapsack
 DONE - Correctly handle the Knapsack resources management
 ABANDONED - Add the possibility to manually set a resource amount to add into the Knapsack
 DONE - Add a MAJ+click and CTRL+click binds to remove 10/100 resources from the knapsack.
-- Prevent adding items to the knapsack from the inventory while in a dungeon
+DONE - Prevent adding items to the knapsack from the inventory while in a dungeon
 
 CRAFTING:
 - Start implementing
