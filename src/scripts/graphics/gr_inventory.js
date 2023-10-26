@@ -83,6 +83,7 @@ function drawWeaponInventory(weapons = game.inventory.weapons) {
         // Draggable events
         document.querySelector('#res-' + me.id).addEventListener("dragstart", e => {
             e.dataTransfer.setData("weapon", me.id);
+            e.dataTransfer.setData("origin", "inventory");
             //console.log(e.dataTransfer.getData("weapon"));
         })
     }
@@ -117,6 +118,7 @@ function drawSigilInventory(sigils = game.inventory.sigils) {
         // Draggable events
         document.querySelector('#res-' + me.id).addEventListener("dragstart", e => {
             e.dataTransfer.setData("sigil", me.id);
+            e.dataTransfer.setData("origin", "inventory");
             //console.log(e.dataTransfer.getData("weapon"));
         })
     }
@@ -154,6 +156,7 @@ function drawResourceInventory(resources = game.inventory.resources) {
             });
             document.querySelector('#res-' + me.id).addEventListener('dragstart', e => {
                 e.dataTransfer.setData('resource', me.id);
+                e.dataTransfer.setData("origin", "inventory");
             })
         }
     }
@@ -196,6 +199,7 @@ function drawArmorInventory(armors = game.inventory.armors) {
         // Draggable events
         document.querySelector('#res-' + me.id).addEventListener("dragstart", e => {
             e.dataTransfer.setData("armor", me.id);
+            e.dataTransfer.setData("origin", "inventory");
             //console.log(e.dataTransfer.getData("armor"));
         })
     }
@@ -237,6 +241,7 @@ function drawTrinketInventory(trinkets = game.inventory.trinkets) {
         // Draggable events
         document.querySelector('#res-' + me.id).addEventListener("dragstart", e => {
             e.dataTransfer.setData("trinket", me.id);
+            e.dataTransfer.setData("origin", "inventory");
             //console.log(e.dataTransfer.getData("trinket"));
         });
     }
@@ -271,6 +276,7 @@ function drawConsumablesInventory(consumables = game.inventory.consumables) {
         // Draggable events
         document.querySelector('#res-' + me.id).addEventListener('dragstart', e => {
             e.dataTransfer.setData('consumable', me.id);
+            e.dataTransfer.setData("origin", "inventory");
         });
     }
     document.querySelector('#res-consumables').addEventListener('click', (e) => {
