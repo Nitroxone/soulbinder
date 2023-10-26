@@ -37,6 +37,8 @@ class Player {
         this.du_inventorySize = 20;
         this.du_invSelectedResource = null;
         this.du_inventory = [];
+        this.du_collectedGold = 0;
+        this.du_collectedSouls = 0;
         this.inCombat = false;
 
         // SIGILS
