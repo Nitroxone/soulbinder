@@ -6,6 +6,7 @@ function generateExplorationInfosPanelEvents() {
     const enter = document.querySelector('.roomActions-action.enter');
     const scout = document.querySelector('.roomActions-action.scout');
     const search = document.querySelector('.roomActions-action.search');
+    const invButton = document.querySelector('#dPanelInventory');
 
     if(enter) {
         enter.addEventListener('click', e => {
@@ -22,6 +23,18 @@ function generateExplorationInfosPanelEvents() {
             dungeonSearchEvent();
         });
     }
+
+    addTooltip(invButton, function(){
+        return "Open the knapsack";
+    }, {offY: -8});
+    invButton.addEventListener('click', e => {
+        document.querySelectorAll('.knpsckContainer').forEach(kn => {
+            kn.parentElement.parentElement.remove();
+        })
+
+        spawnTooltip(['knapsack']);
+        generateDungeonKnapsackEvents();
+    });
 }
 
 function dungeonEnterEvent() {

@@ -8277,6 +8277,9 @@ table.astralForgeShards td {
 
     transition: all .1s ease-in-out;
 }
+.eh-r-inventory.dungeonPanelFormat {
+    border-top: 2px solid rgb(50, 50, 50);
+}
 .eh-r-dive {
     width: 100px;
 

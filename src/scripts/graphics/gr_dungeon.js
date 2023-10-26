@@ -129,8 +129,16 @@ function drawDungeonFoundLoot(refresh = false) {
     return str;
 }
 
-function drawDungeonStats() {
+function drawDungeonStats(refresh = false) {
     let str = '';
+
+    str += '<div id="dPanelInventory" class="eh-r-inventory dungeonPanelFormat"></div>';
+
+    if(refresh) {
+        document.querySelector('.infosPanel-dungeonStats').innerHTML = str;
+        // Events
+        return;
+    }
     return str;
 }
 
