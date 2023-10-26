@@ -134,6 +134,10 @@ class Player {
             console.info('Knapsack is full.');
             return;
         }
+        if(ev.dataTransfer.getData('origin') === 'inventory') {
+            console.info('Cannot add items to the knapsack from the inventory while in a dungeon.');
+            return;
+        }
 
         let it, i = 0;
         const types = ['weapon', 'armor', 'trinket', 'resource', 'sigil', 'consumable'];
