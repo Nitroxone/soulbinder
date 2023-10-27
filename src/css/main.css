@@ -6368,6 +6368,7 @@ table.astralForgeShards td {
 
     /*border: 1px dashed grey;*/
     z-index: 100;
+    pointer-events: none;
 }
 
 .infosPanel-dungeonStats {
@@ -6400,6 +6401,11 @@ table.astralForgeShards td {
 }
 .roomLootResult-listItem {
     width: 55%;
+    transition: all .1s ease-in-out;
+}
+.roomLootResult-listItem:hover {
+    width: 60%;
+    cursor: pointer;
 }
 
 .roomLootResult-title {
