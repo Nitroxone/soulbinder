@@ -6407,6 +6407,15 @@ table.astralForgeShards td {
     width: 60%;
     cursor: pointer;
 }
+.roomLootResult-listItem.looted::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 10px;
+    height: 10px;
+    background: green;
+}
 
 .roomLootResult-title {
     width: 100%;
