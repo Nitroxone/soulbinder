@@ -55,15 +55,24 @@ function drawBlackMarket() {
     str += '</div>';
 
     str += '</div>';
+    str += '<div class="blackMarket-actions">';
+   
     str += '<div class="blackMarket-button--buy">';
-
-    str += '<p id="buy">BUY<p>';
-
-    str += '<div class="blackMarket-button-stackItems">';
-    str += '<div>+</div>';
-    str += '<div>-</div>';
+    str += '<p id="buy">BUY</p>';
     str += '</div>';
-    
+
+    str += '<div class="blackMarket-buttons--amount">';
+    str += '<span class="blackMarket-chosenAmount">';
+    str += game.black_market.selectedAmount;
+    str += '</span>';
+
+    str += '<div class="blackMarket-selectAmount">';
+    str += '<div class="blackMarket-increaseAmount">+</div>';
+    str += '<div class="blackMarket-decreaseAmount">-</div>';
+    str += '</div>'
+
+    str += '</div>';
+
     str += '</div>';
     str += '</div>';
 
@@ -75,6 +84,7 @@ function drawBlackMarket() {
     generateBlackMarketTabEvents();
     generateBlackMarketAbandonedCacheEvents();
     generateBlackMarketBuyButtonEvent();
+    setSelectedAmount();
 }
 
 function setBlackMarketActiveTab(tab) {
@@ -114,4 +124,20 @@ function generateTabContent(tab) {
 
 function unsetBlackMarketAllActiveTabs(tabs) {
     tabs.forEach(tab => tab.classList.remove('tabActive'));
+}
+
+function setSelectedAmount() {
+    document.querySelector('.blackMarket-increaseAmount').addEventListener('click', () => {
+        game.black_market.selectedAmount += 1;
+        updateSelectedAmountDisplay();
+    })
+    document.querySelector('.blackMarket-decreaseAmount').addEventListener('click', () => {
+        game.black_market.selectedAmount -= 1;
+        updateSelectedAmountDisplay();
+    })
+}
+
+function updateSelectedAmountDisplay() {
+    const selectedAmount = game.black_market.selectedAmount;
+    document.querySelector('.blackMarket-chosenAmount').textContent = selectedAmount;
 }

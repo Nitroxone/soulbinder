@@ -7,6 +7,7 @@ class BlackMarket {
         this.currentBlackMarketResourcesTable;
         this.currentTab;
         this.selectedItemId;
+        this.selectedAmount = 1;
     }
 
     /**
