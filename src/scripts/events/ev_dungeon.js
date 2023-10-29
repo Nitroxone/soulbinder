@@ -11,6 +11,7 @@ function generateExplorationInfosPanelEvents() {
     if(enter) {
         enter.addEventListener('click', e => {
             dungeonEnterEvent();
+            Sounds.Methods.playSound(Data.SoundType.DUNGEON_ROOM_ENTER);
         })
     }
     if(scout) {

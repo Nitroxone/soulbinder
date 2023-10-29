@@ -101,6 +101,12 @@ let Sounds = {
         ],
         SOULBIND_UNSLOT: [
             {name: "soulbindUnbind1.wav", volume: 0.6, alwaysDifferent: true, previousPitch: 1, pitch: () => {return getRandomNumber(0.98, 1.05)}}
+        ],
+        DUNGEON_ROOM_ENTER: [
+            {name: "du_roomEnter1.wav", volume: 0.5, alwaysDifferent: true, previousPitch: 1, pitch: () => {return getRandomNumber(0.98, 1.05)}},
+            {name: "du_roomEnter2.wav", volume: 0.5, alwaysDifferent: true, previousPitch: 1, pitch: () => {return getRandomNumber(0.98, 1.05)}},
+            {name: "du_roomEnter3.wav", volume: 0.5, alwaysDifferent: true, previousPitch: 1, pitch: () => {return getRandomNumber(0.98, 1.05)}},
+            {name: "du_roomEnter4.wav", volume: 0.5, alwaysDifferent: true, previousPitch: 1, pitch: () => {return getRandomNumber(0.98, 1.05)}},
         ]
     },
     Methods: {

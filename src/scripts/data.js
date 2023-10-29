@@ -537,6 +537,7 @@ const Data = Object.freeze({
         CRAFT_POTION_RESULT: "craft_potion_result",
         SELECTOR_ON: "selector_on",
         SELECTOR_OFF: "selector_off",
+
         SOULWRITE_SLOT: "soulwrite_slot",
         SOULWRITE_UNSLOT: "soulwrite_unslot",
         SOULWRITE_SLOT_IN: "soulwrite_slot_in",
@@ -546,9 +547,12 @@ const Data = Object.freeze({
         SOULWRITE_CORRUPT: "soulwrite_corrupt",
         SOULWRITE_STALWART: "soulwrite_stalwart",
         SOULWRITE_STCO: "soulwrite_stco",
+
         SOULBIND_PRESLOT: "soulbind_preslot",
         SOULBIND_SLOT: "soulbind_slot",
         SOULBIND_UNSLOT: "soulbind_unslot",
+
+        DUNGEON_ROOM_ENTER: "dungeon_room_enter"
     },
     AlterAction: {
         ADD: "add",
