@@ -23,15 +23,21 @@ function generateDungeonKnapsackEvents() {
             Sounds.Methods.playSound(Data.SoundType.TOOLTIP_HOVER);
         });
 
+        // Removal rules:
+        // - Holding Shift adds/removes 10
+        // - Holding Ctrl adds/removes 100
+        // - If in a dungeon, holding alt will discard the resource
+        // - Regular removal (adding the item back to inventory) is only allowed if not in a dungeon
         it.addEventListener('contextmenu', e => {
             e.stopImmediatePropagation();
             e.preventDefault();
 
             let amount = 1;
-            if(e.shiftKey) amount = Math.min(Math.max(obj.knapsackAmount - 10, obj.knapsackAmount), 10);
-            else if(e.ctrlKey) amount = Math.min(Math.max(obj.knapsackAmount - 100, obj.knapsackAmount), 100);
+            if(e.shiftKey && !e.ctrlKey) amount = Math.min(Math.max(obj.knapsackAmount - 10, obj.knapsackAmount), 10);
+            else if(e.ctrlKey && !e.shiftKey) amount = Math.min(Math.max(obj.knapsackAmount - 100, obj.knapsackAmount), 100);
 
-            game.player.removeFromKnapsack(obj, amount);
+            if(game.currentDungeon && e.altKey) game.player.discardFromKnapsack(obj, amount);
+            else if(!game.currentDungeon) game.player.removeFromKnapsack(obj, amount);
         })
     })
 }

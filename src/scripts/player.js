@@ -188,6 +188,23 @@ class Player {
     }
 
     /**
+     * Removes the provided Item from this player's Knapsack.
+     * @param {Item} item the Item to remove
+     * @param {number} amount the amount of times the Item will be removed
+     */
+    discardFromKnapsack(item, amount = 1) {
+        if(item) {
+            if(item instanceof Resource) {
+                const ko = this.du_inventory.find(x => x === item);
+                ko.knapsackAmount = Math.max(0, ko.knapsackAmount - amount);
+                if(ko.knapsackAmount === 0) removeFromArray(this.du_inventory, item);
+            } else removeFromArray(this.du_inventory, item);
+
+            refreshKnapsackAndInventory();
+        }
+    }
+
+    /**
      * Adds the provided Resource to the player's Knapsack, as many times as specified by the amount parameter.
      * @param {Resource} item the Resource to add
      * @param {number} amount the amount of times the Resource will be added
