@@ -134,7 +134,7 @@ class Player {
             console.info('Knapsack is full.');
             return;
         }
-        if(ev.dataTransfer.getData('origin') === 'inventory') {
+        if(ev.dataTransfer.getData('origin') === 'inventory' && game.currentDungeon) {
             console.info('Cannot add items to the knapsack from the inventory while in a dungeon.');
             return;
         }
