@@ -31,7 +31,6 @@ class BlackMarket {
     }
 
     buyItemFromBlackMarket() {
-        console.log("caca buy fonction");
         const tabName = capitalizeFirstLetter(this.currentTab.textContent);
         const table = this[`currentBlackMarket${tabName}Table`];
         const itemIndex = this.findItemIndex(table, this.selectedItemId);
@@ -39,19 +38,18 @@ class BlackMarket {
         if (itemIndex !== -1) {
             const item = table[itemIndex];
     
-            if (!this.hasEnoughGold(item.price)) {
+            if (!this.hasEnoughGold(item.price * this.selectedAmount)) {
                 console.error("Not enough gold to buy this item.");
                 return;
+            } else {
+                game.player.inventory.addItem(item, this.selectedAmount, false);
+                this.blackMarketTradeOperation(item.price * this.selectedAmount);
+                this.removeItemFromTable(table, itemIndex);
             }
-    
-            game.player.inventory.addItem(item, 1, false);
-            this.removeItemFromTable(table, itemIndex);
-            this.blackMarketTradeOperation(item.price);
         }
     }
     
     hasEnoughGold(cost) {
-        console.log("caca condition argent fonction");
         return game.player.inventory.gold >= cost;
     }
 
@@ -64,7 +62,6 @@ class BlackMarket {
     }
 
     removeItemFromTable(table, itemIndex) {
-        console.log("caca enlever objet de table fonction");
         table.splice(itemIndex, 1);
     }
 

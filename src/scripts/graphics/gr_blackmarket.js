@@ -88,8 +88,16 @@ function drawBlackMarket() {
 }
 
 function setBlackMarketActiveTab(tab) {
+    const amount = document.querySelector('.blackMarket-buttons--amount');
     tab.classList.add('tabActive');
     game.black_market.currentTab = tab;
+    if(tab.textContent === 'resources') {
+        amount.style.visibility = 'visible';
+    } else {
+        amount.style.visibility = 'hidden';
+        game.black_market.selectedAmount = 1;
+        updateSelectedAmountDisplay();
+    }
 }
 
 function generateTabContent(tab) {
@@ -132,8 +140,10 @@ function setSelectedAmount() {
         updateSelectedAmountDisplay();
     })
     document.querySelector('.blackMarket-decreaseAmount').addEventListener('click', () => {
-        game.black_market.selectedAmount -= 1;
-        updateSelectedAmountDisplay();
+        if (game.black_market.selectedAmount > 1) {
+            game.black_market.selectedAmount -= 1;
+            updateSelectedAmountDisplay();
+        }
     })
 }
 

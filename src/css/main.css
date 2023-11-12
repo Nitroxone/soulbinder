@@ -3612,6 +3612,7 @@ hr.centerFade {
     height: 100%;
     width: 30%;
     display: flex;
+    visibility: hidden;
     align-items: center;
     gap: 1em;
     flex: end;
