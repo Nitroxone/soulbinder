@@ -3319,5 +3319,24 @@ const Loader = {
         for(const dungeon of dungeons) {
             game.all_dungeons.push(dungeon);
         }
+    },
+
+    loadLootCaches: loadLootCaches = () => {
+        const caches = [
+            new LootCache({
+                name: "Moldy chest",
+                desc: 'Lorem ipsum',
+                icon: 15,
+                rarity: Data.Rarity.EPIC,
+                price: 900,
+                from: 'Smoldering Cave',
+                content: [],
+                isUnlocked: false,
+            })
+        ]
+
+        for(const cache in caches) {
+            game.black_market.allCaches.push(cache);
+        }
     }
 }

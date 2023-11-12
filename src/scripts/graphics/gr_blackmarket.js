@@ -26,33 +26,7 @@ function drawBlackMarket() {
 
     str += '<div class="blackMarket-menu--secondCol">';
     str += '<div class="blackMarket-menu--abandonedCache">';
-    str += '<div class="abandonedCacheIcon"></div>';
-    str += '<div class="abandonedCache-desc">';
-    str += '<p class="abandonedCache-title">Abandoned cache</p>';
 
-    str += '<div class="abandonedCache-desc--price">'
-    str += '<div class="tradeItems-goldIcon"></div>';
-    str += '<p class="abandonedCache-price--amount">900</p>';
-    str += '</div>';
-    str += '</div>';
-
-    str += '<div class="divider"></div>'
-
-    str += '<div class="abandonedCache-items">';
-
-    str += '<div class="abandonedCache-items--item"></div>';
-    str += '<div class="abandonedCache-items--item"></div>';
-    str += '<div class="abandonedCache-items--item"></div>';
-
-    str += '<div class="abandonedCache-items--item"></div>';
-    str += '<div class="abandonedCache-items--item"></div>';
-    str += '<div class="abandonedCache-items--item"></div>';
-
-    str += '<div class="abandonedCache-items--item"></div>';
-    str += '<div class="abandonedCache-items--item"></div>';
-    str += '<div class="abandonedCache-items--item"></div>';
-
-    str += '</div>';
 
     str += '</div>';
     str += '<div class="blackMarket-actions">';
@@ -84,7 +58,8 @@ function drawBlackMarket() {
     generateBlackMarketTabEvents();
     generateBlackMarketAbandonedCacheEvents();
     generateBlackMarketBuyButtonEvent();
-    setSelectedAmount();
+    setSelectedAmount();    
+    displayAllUnlockedLootCaches();
 }
 
 function setBlackMarketActiveTab(tab) {
@@ -150,4 +125,34 @@ function setSelectedAmount() {
 function updateSelectedAmountDisplay() {
     const selectedAmount = game.black_market.selectedAmount;
     document.querySelector('.blackMarket-chosenAmount').textContent = selectedAmount;
+}
+
+function displayAllUnlockedLootCaches() {
+    str = '';
+
+    str += '<div class="abandonedCacheIcon"></div>';
+    str += '<div class="abandonedCache-desc">';
+    str += '<p class="abandonedCache-title">Abandoned cache</p>';
+
+    str += '<div class="abandonedCache-desc--price">'
+    str += '<div class="tradeItems-goldIcon"></div>';
+    str += '<p class="abandonedCache-price--amount">900</p>';
+    str += '</div>';
+    str += '</div>';
+
+    str += '<div class="divider"></div>'
+
+    str += '<div class="abandonedCache-items">';
+
+    game.black_market.allCaches.forEach(cache => {
+        if(cache.isUnlocked) {
+            str += '<div class="abandonedCache-items--item">';
+            str += cache.icon;
+            ste += '</div>';
+        }
+    })
+    
+    str += '</div>';
+
+    document.querySelector('.blackMarket-menu--abandonedCache').innerHTML = str;
 }

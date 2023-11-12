@@ -14,7 +14,7 @@ class LootCache extends Item {
         this.isUnlocked = false;
     }
 
-    static unlockLootCache(from) {
+    unlockLootCache(from) {
         const cache = game.black_market.allCaches.find(item => item.from === from);
         if (cache && !cache.isUnlocked) {
             cache.isUnlocked = true;
@@ -24,5 +24,7 @@ class LootCache extends Item {
         console.warn(`Cache from ${from} was either not found or already unlocked.`);
         return false;
     }
+
+
 }
 

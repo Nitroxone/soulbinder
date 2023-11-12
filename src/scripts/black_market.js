@@ -1,5 +1,6 @@
 class BlackMarket {
     constructor() {
+        this.allCaches = [];
         this.currentBlackMarketWeaponsTable;
         this.currentBlackMarketArmorsTable;
         this.currentBlackMarketSigilsTable;
@@ -8,6 +9,7 @@ class BlackMarket {
         this.currentTab;
         this.selectedItemId;
         this.selectedAmount = 1;
+        this.selectedCache;
     }
 
     /**
@@ -35,18 +37,23 @@ class BlackMarket {
         const table = this[`currentBlackMarket${tabName}Table`];
         const itemIndex = this.findItemIndex(table, this.selectedItemId);
     
-        if (itemIndex !== -1) {
-            const item = table[itemIndex];
-    
-            if (!this.hasEnoughGold(item.price * this.selectedAmount)) {
-                console.error("Not enough gold to buy this item.");
-                return;
-            } else {
-                game.player.inventory.addItem(item, this.selectedAmount, false);
-                this.blackMarketTradeOperation(item.price * this.selectedAmount);
-                this.removeItemFromTable(table, itemIndex);
-            }
+        if (itemIndex === -1) {
+            return;
         }
+    
+        const item = table[itemIndex];
+        const cost = item.price * this.selectedAmount;
+    
+        if (!this.hasEnoughGold(cost)) {
+            console.error("Not enough gold to buy this item.");
+            return;
+        }
+    
+        game.player.inventory.addItem(item, this.selectedAmount, false);
+        this.blackMarketTradeOperation(cost);
+        this.removeItemFromTable(table, itemIndex);
+        game.black_market.selectedAmount = 1;
+        updateSelectedAmountDisplay();
     }
     
     hasEnoughGold(cost) {
@@ -62,7 +69,7 @@ class BlackMarket {
     }
 
     removeItemFromTable(table, itemIndex) {
-        table.splice(itemIndex, 1);
+        return table.splice(itemIndex, 1);
     }
 
     generateBlackMarketAllTables() {
