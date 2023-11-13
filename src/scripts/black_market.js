@@ -72,6 +72,18 @@ class BlackMarket {
         return table.splice(itemIndex, 1);
     }
 
+    unlockLootCache(from) {
+        const cache = this.allCaches.find(item => item.from === from);
+        console.log('cache : ', cache)
+        if (cache && !cache.isUnlocked) {
+            cache.isUnlocked = true;
+            console.log(`Cache from ${from} has been unlocked!`);
+            return true;
+        }
+        console.warn(`Cache from ${from} was either not found or already unlocked.`);
+        return false;
+    }
+
     generateBlackMarketAllTables() {
         this.generateBlackMarketTable('weapons');
         this.generateBlackMarketTable('armors');

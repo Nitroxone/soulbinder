@@ -3324,7 +3324,7 @@ const Loader = {
     loadLootCaches: loadLootCaches = () => {
         const caches = [
             new LootCache({
-                name: "Moldy chest",
+                name: 'Moldy chest',
                 desc: 'Lorem ipsum',
                 icon: 15,
                 rarity: Data.Rarity.EPIC,
@@ -3335,7 +3335,7 @@ const Loader = {
             })
         ]
 
-        for(const cache in caches) {
+        for(const cache of caches) {
             game.black_market.allCaches.push(cache);
         }
     }
