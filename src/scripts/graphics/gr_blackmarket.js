@@ -145,14 +145,34 @@ function displayAllUnlockedLootCaches() {
     str += '<div class="abandonedCache-items">';
 
     game.black_market.allCaches.forEach(cache => {
-        if(cache.isUnlocked) {
-            str += '<div class="abandonedCache-items--item">';
-            str += cache.icon;
-            ste += '</div>';
+        if (cache.isUnlocked) {
+            str += `<div class="abandonedCache-items--item" style="${getIcon(cache)}"></div>`;
         }
-    })
+    });
     
     str += '</div>';
 
     document.querySelector('.blackMarket-menu--abandonedCache').innerHTML = str;
+
+    selectLootCache();
+}
+
+function selectLootCache() {
+    const caches = document.querySelectorAll('.abandonedCache-items--item');
+
+    caches.forEach(cache => {
+        cache.addEventListener('click', () => {
+            caches.forEach(otherCache => {
+                if (otherCache !== cache) {
+                    otherCache.classList.remove('cacheSelected');
+                }
+            });
+
+            if (cache.classList.contains('cacheSelected')) {
+                cache.classList.remove('cacheSelected');
+            } else {
+                cache.classList.add('cacheSelected');
+            }
+        });
+    });
 }

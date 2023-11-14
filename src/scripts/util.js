@@ -129,6 +129,10 @@ function getIcon(entity, forceModif = 0, border = false) {
         bgModif = 60;
     }
     else if(entity instanceof Consumable) type = 'potions';
+    else if (entity instanceof LootCache) {
+        type = 'chests';
+        bgModif = 60;
+    }
     if(forceModif != 0) bgModif = forceModif;
 
     return 'background-image: url(css/img/' + type + '/' + entity.icon + '.png); background-size: '+ bgModif + '%;' + (border ? 'border: 1px solid ' + getRarityColorCode(entity.rarity) + ' !important;' : '');

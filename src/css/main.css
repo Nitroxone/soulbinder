@@ -3590,7 +3590,6 @@ hr.centerFade {
     background-size: 70%;
     background-position: 50% 50%;
     background-repeat: no-repeat;
-    background-image: url(img/chests/1.png);
 }
 
 .abandonedCache-items--item:hover {
