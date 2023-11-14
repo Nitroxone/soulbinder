@@ -3332,8 +3332,18 @@ const Loader = {
                 from: 'Smoldering Cave',
                 content: [],
                 isUnlocked: false,
+            }),
+            new LootCache({
+                name: 'Iron chest',
+                desc: 'Lorem ipsum',
+                icon: 14,
+                rarity: Data.Rarity.EPIC,
+                price: 900,
+                from: 'High Gate Ruins',
+                content: [],
+                isUnlocked: false,
             })
-        ]
+        ];
 
         for(const cache of caches) {
             game.black_market.allCaches.push(cache);

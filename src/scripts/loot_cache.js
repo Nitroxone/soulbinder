@@ -8,11 +8,11 @@ class LootCache extends Item {
     * @param {string} from The location where you can unlock the LootCache
     * @param {Array<Entity>} [content=[]] An array of Entities that this LootCache contains
     */
-    constructor(name, desc, icon, price, rarity, from, content = []) {
-        super(name, desc, icon, price, rarity);
-        this.from = from;
-        this.content = content;
-        this.isUnlocked = false;
+    constructor(props = {}) {
+        super(props.name, props.desc, props.icon, props.price, props.rarity);
+        this.from = getValueFromObject(props, 'from', 'unkown location');
+        this.content = getValueFromObject(props, 'content', [])
+        this.isUnlocked = getValueFromObject(props, 'isUnlocked', false)
     }
 }
 
