@@ -167,4 +167,8 @@ class DungeonRoom {
             clearCurrentRoom();
         }
     }
+
+    generateRoomLoot() {
+        this.foundLoot = LootTable.Generators.generateLoot(LootTable.Presets.Dungeon[this.type]);
+    }
 }

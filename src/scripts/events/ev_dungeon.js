@@ -123,7 +123,7 @@ function dungeonSearchEvent() {
     const search = document.querySelector('.roomActions-action.search');
     const currentRoom = game.currentDungeon.currentFloor.currentRoom;
     if(!currentRoom.isCleared()) {
-        currentRoom.foundLoot = LootTable.Generators.generateLoot(LootTable.Presets.Dungeon[currentRoom.type]);
+        currentRoom.generateRoomLoot();
         drawDungeonFoundLoot(true);
 
         let quantadelay = 0;
