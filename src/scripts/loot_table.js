@@ -118,6 +118,7 @@ let LootTable = {
                         legendary: 20,
                         elder: -100
                     },
+                    noDuplicates: true
                 }),
                 trinket: new LootParams({
                     amount: [2, 4],
@@ -222,15 +223,11 @@ let LootTable = {
                             // Retrieving the resource
                             eligible = pool.filter(rsc => rsc.rarity === rarity);
                             final = choose(eligible);
-                        } while(final === undefined);
 
-                        // Check for duplicates
-                        if(preset[type].noDuplicates) {
-                            while(generatedNames.includes(final.name)) {
-                                final = choose(eligible);
-                                if(final === undefined) break;
-                            }
-                        }
+                        } while(final === undefined || (final && preset[type].noDuplicates && generatedNames.includes(final.name)));
+                        // The horrendous condition above checks that 
+                        // - final is not undefined
+                        // - final is not a duplicate, if duplicates are not allowed
 
                         // Keeping track of each addition to prevent duplicates
                         generatedNames.push(final.name);

@@ -136,7 +136,7 @@ TRIGGERS:
 DONE - Allow multiple trigger types per trigger
 
 LOOT:
-- Prevent infinite loops from trying to avoid duplicates with insufficient variety among the loot pool
+DONE - Prevent infinite loops from trying to avoid duplicates with insufficient variety among the loot pool
 DONE - Prevent skipping generation because of insufficient variety among the loot pool
 
 HOTFIXES: #Store your live fixes during dev sessions here and clear them once you're done
