@@ -8,7 +8,7 @@ let Sounds = {
     FOLDER: "sounds/",
     Types: {
         MAJOR_TAB: [
-            {name: "major_tab.wav", volume: 0.2},
+            {name: "major_tab.wav", volume: 0.4},
         ],
         TOOLTIP_SPAWN: [
             {name: "tooltip_spawn.wav", volume: 0.3}
@@ -17,7 +17,7 @@ let Sounds = {
             {name: "tooltip_hover.wav", volume: 0.5, pitch: () => {return getRandomNumber(1.99, 2, true)}, alwaysDifferent: true, previousPitch: 2}
         ],
         TOOLTIP_CLOSE: [
-            {name: "click2.wav", volume: 0.5, pitch: () => {return 1.5}}
+            {name: "click2.wav", volume: 0.3, pitch: () => {return 1.2}}
         ],
         EQUIP: [
             {name: "equip1.wav", volume: 0.3},
