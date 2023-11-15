@@ -967,9 +967,9 @@ function getInventorySigilById(id) {
  * @returns {Weapon|Armor|Trinket} the item
  */
 function getAstralForgeItem(id) {
-    const wpn = getInventoryWeaponById(id);
-    const armor = getInventoryArmorById(id);
-    const trinket = getInventoryTrinketById(id);
+    const wpn = getInventoryWeaponById(id) || game.player.du_inventory.find(x => x.id === id);
+    const armor = getInventoryArmorById(id) || game.player.du_inventory.find(x => x.id === id);
+    const trinket = getInventoryTrinketById(id) || game.player.du_inventory.find(x => x.id === id);
 
     if(wpn) return wpn;
     if(armor) return armor;
