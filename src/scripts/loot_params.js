@@ -18,6 +18,7 @@ class LootParams {
         this.chance = getValueFromObject(props, "chance", 100);
         this.includes = getValueFromObject(props, "includes", {});
         this.includesOnly = getValueFromObject(props, "includesOnly", false);
+        this.noDuplicates = getValueFromObject(props, "noDuplicates", false);
     }
 
     /**

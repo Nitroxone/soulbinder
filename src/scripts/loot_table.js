@@ -117,7 +117,8 @@ let LootTable = {
                         epic: 20,
                         legendary: 20,
                         elder: -100
-                    }
+                    },
+                    noDuplicates: true
                 }),
                 trinket: new LootParams({
                     amount: [2, 4],
@@ -127,7 +128,8 @@ let LootTable = {
                         epic: 20,
                         legendary: 20,
                         elder: -100
-                    }
+                    },
+                    noDuplicates: true
                 }),
                 armor: new LootParams({
                     amount: [2, 4],
@@ -137,7 +139,8 @@ let LootTable = {
                         epic: 20,
                         legendary: 20,
                         elder: -100
-                    }
+                    },
+                    noDuplicates: true
                 }),
                 sigil: new LootParams({
                     amount: [1, 2],
@@ -158,6 +161,7 @@ let LootTable = {
         generateLoot: generateLoot = (preset) => {
             // Declaring an empty results array that will be filled.
             let results = [];
+            let generatedNames = [];
             // For each type of reward in the preset
             for(const type in preset) {
                 if(type === 'gold') {
@@ -232,15 +236,28 @@ let LootTable = {
                         let final = choose(eligible);
                         if(final === undefined) continue;
 
+                        // Check for duplicates
+                        if(preset[type].noDuplicates) {
+                            while(generatedNames.includes(final.name)) {
+                                final = choose(eligible);
+                                if(final === undefined) break;
+                            }
+                        }
+
+                        // Keeping track of each addition to prevent duplicates
+                        generatedNames.push(final.name);
+
                         if(results.some(obj => obj.item === final)) {
                             results.find(obj => obj.item === final).amount += 1;
                         }
-                        else results.push({
-                            type: lootType,
-                            rarity: rarity,
-                            amount: final.lootModifiers.amount,
-                            item: final
-                        });
+                        else {
+                            results.push({
+                                type: lootType,
+                                rarity: rarity,
+                                amount: final.lootModifiers.amount,
+                                item: final
+                            });
+                        }
                     }
                 }
             }
