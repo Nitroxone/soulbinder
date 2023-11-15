@@ -76,6 +76,9 @@ let LootTable = {
                         elder: -100,
                     }
                 }),
+                trinket: new LootParams({
+                    
+                }),
                 gold: [50, 70],
             },
             "entrance": {
@@ -232,6 +235,8 @@ let LootTable = {
 
                         // Keeping track of each addition to prevent duplicates
                         generatedNames.push(final.name);
+
+                        if(!(final instanceof Resource)) final = Entity.clone(final);
 
                         if(results.some(obj => obj.item === final)) {
                             results.find(obj => obj.item === final).amount += 1;
