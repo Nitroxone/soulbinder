@@ -6416,6 +6416,12 @@ table.astralForgeShards td {
     height: 10px;
     background: green;
 }
+.roomLootResult-listItem.lootedLoot {
+    opacity: .5 !important;
+}
+.roomLootResult-listItem.lootedLoot:hover {
+    opacity: .8 !important;
+}
 
 .roomLootResult-title {
     width: 100%;
