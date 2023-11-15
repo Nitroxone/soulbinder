@@ -118,7 +118,6 @@ let LootTable = {
                         legendary: 20,
                         elder: -100
                     },
-                    noDuplicates: true
                 }),
                 trinket: new LootParams({
                     amount: [2, 4],
@@ -216,25 +215,14 @@ let LootTable = {
 
                     // For each modifier
                     for(let i = 0; i < amount; i++) {
-                        let rarity = null;
-                        let luck = getRandomNumber(0, 100);
-                        if(luck === 0) luck++;
-                        for(const key in dropRate) {
-                            let modifier = preset[type].rarities[key];
-                            
-                            const percentage = dropRate[key] + modifier;
-                            if(luck <= percentage) {
-                                rarity = key;
-                            }
-                        }
-                        if(rarity === null && luck > 0) {
-                            rarity = Object.keys(dropRate)[0];
-                        }
+                        let final, rarity, eligible;
+                        do {
+                            rarity = generateLootRarity(dropRate, preset[type])
 
-                        // Retrieving the resource
-                        let eligible = pool.filter(rsc => rsc.rarity === rarity);
-                        let final = choose(eligible);
-                        if(final === undefined) continue;
+                            // Retrieving the resource
+                            eligible = pool.filter(rsc => rsc.rarity === rarity);
+                            final = choose(eligible);
+                        } while(final === undefined);
 
                         // Check for duplicates
                         if(preset[type].noDuplicates) {

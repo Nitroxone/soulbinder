@@ -2127,3 +2127,31 @@ function areSiblingsHidden(element) {
 function findStriderByName(name) {
     return game.all_striders.find(x => x.name.toLowerCase() === name.toLowerCase());
 }
+
+/**
+ * Generates an item rarity for a loot generation.
+ * @param {object} dropRate  the base item's drop rates
+ * @param {LootParams} presetType the item's additional drop rate parameters
+ * @returns {Data.Rarity} a generated rarity
+ */
+function generateLootRarity(dropRate, presetType) {
+    let rarity = null;
+    let luck = getRandomNumber(0, 100);
+
+    if(luck === 0) luck++;
+
+    for(const key in dropRate) {
+        let modifier = presetType.rarities[key];
+        const percentage = dropRate[key] + modifier;
+
+        if(luck <= percentage) {
+            rarity = key;
+        }
+    }
+
+    if(rarity === null && luck > 0) {
+        rarity = Object.keys(dropRate)[0]
+    }
+
+    return rarity;
+}
