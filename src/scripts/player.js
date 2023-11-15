@@ -127,33 +127,39 @@ class Player {
 
     /**
      * Adds the Item stocked in the provided Event object to the player's Knapsack.
-     * @param {Event} ev the Event to retrieve the Item from
+     * @param {Event|Item} ev the Event to retrieve the Item from, or an Item
      */
-    addToKnapsack(ev) {
+    addToKnapsack(ev, looted = false, amount = 1) {
         if(this.du_inventory.length >= this.du_inventorySize) {
             console.info('Knapsack is full.');
             return;
         }
-        if(ev.dataTransfer.getData('origin') === 'inventory' && game.currentDungeon) {
-            console.info('Cannot add items to the knapsack from the inventory while in a dungeon.');
-            return;
-        }
 
-        let it, i = 0;
-        const types = ['weapon', 'armor', 'trinket', 'resource', 'sigil', 'consumable'];
+        let it;
+        if(ev instanceof Event) {
+            if(ev.dataTransfer.getData('origin') === 'inventory' && game.currentDungeon) {
+                console.info('Cannot add items to the knapsack from the inventory while in a dungeon.');
+                return;
+            }
+    
+            let i = 0;
+            const types = ['weapon', 'armor', 'trinket', 'resource', 'sigil', 'consumable'];
+    
+            do {
+                it = ev.dataTransfer.getData(types[i]);
+                i++;
+            } while(it === '');
 
-        do {
-            it = ev.dataTransfer.getData(types[i]);
-            i++;
-        } while(it === '');
+            it = this.inventory.getItemFromId(types[i-1].toUpperCase(), it);
+        } else it = ev;
 
-        it = this.inventory.getItemFromId(types[i-1].toUpperCase(), it);
         if(it) {
             if(it instanceof Resource) {
                 console.log('resource detected!');
-                toggleKnapsackResourceImporter(it);
+                if(looted) this.addResourceToKnapsack(it, amount, looted);
+                else toggleKnapsackResourceImporter(it);
             }
-            else this.transferToKnapsack(it);
+            else this.transferToKnapsack(it, looted);
         }
     }
 
@@ -161,9 +167,18 @@ class Player {
      * Transfers the provided Item from the player's inventory to his Knapsack.
      * @param {Item} it the Item to transfer
      */
-    transferToKnapsack(it) {
-        this.inventory.removeItem(it);
+    transferToKnapsack(it, looted = false) {
+        if(!looted) this.inventory.removeItem(it);
+        else {
+            if(it instanceof Weapon || it instanceof Armor || it instanceof Trinket) {
+                it.generateStats();
+                it.addEcho();
+            };
+            if(it instanceof Sigil) it.generateStats();
+        }
+
         this.du_inventory.push(it);
+        if(looted && canReceiveAstralForge(it)) it.setAstralForgeItem();
 
         refreshKnapsackAndInventory();
     }
@@ -209,9 +224,9 @@ class Player {
      * @param {Resource} item the Resource to add
      * @param {number} amount the amount of times the Resource will be added
      */
-    addResourceToKnapsack(item, amount) {
+    addResourceToKnapsack(item, amount, looted = false) {
         if(item) {
-            this.inventory.removeResource(item, amount);
+            if(!looted) this.inventory.removeResource(item, amount);
             if(!this.du_inventory.find(x => x === item)) this.du_inventory.push(item);
             item.knapsackAmount += amount;
 
