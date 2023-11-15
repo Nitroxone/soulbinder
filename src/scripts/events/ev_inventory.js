@@ -48,6 +48,10 @@ function refreshKnapsackAndInventory() {
     getDungeonKnapsackCapacity(true);
 }
 
+function isKnapsackOpen() {
+    return document.querySelector('.knpsckContainer');
+}
+
 function toggleKnapsackResourceImporter(item) {
     game.player.du_invSelectedResource = item;
     getDungeonKnapsackResourceAmount(true);
