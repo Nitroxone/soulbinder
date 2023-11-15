@@ -17,7 +17,7 @@ let Sounds = {
             {name: "tooltip_hover.wav", volume: 0.5, pitch: () => {return getRandomNumber(1.99, 2, true)}, alwaysDifferent: true, previousPitch: 2}
         ],
         TOOLTIP_CLOSE: [
-            {name: "click2.wav", volume: 0.5, pitch: () => {return 1.5}}
+            {name: "click2.wav", volume: 0.3, pitch: () => {return 1.5}}
         ],
         EQUIP: [
             {name: "equip1.wav", volume: 0.3},
