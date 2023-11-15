@@ -36,6 +36,28 @@ function generateExplorationInfosPanelEvents() {
         spawnTooltip(['knapsack']);
         generateDungeonKnapsackEvents();
     });
+
+    generateDungeonFoundLootEvents();
+}
+
+function generateDungeonFoundLootEvents() {
+    const elements = document.querySelectorAll('.roomLootResult-listItem');
+    const loot = game.currentDungeon.currentFloor.currentRoom.foundLoot;
+
+    elements.forEach(el => {
+        if(el.classList.contains('lootedLoot')) return;
+
+        const id = el.id.slice(5);
+        const item = loot.find(x => (id === 'gold' ? x.type : x.item.id.toString()) === id)
+
+        el.addEventListener('click', e => {
+            if(item.looted) return;
+
+            game.player.addToKnapsack(item.item, true, item.amount);
+            el.classList.add('lootedLoot');
+            item.looted = true;
+        });
+    })
 }
 
 function dungeonEnterEvent() {
@@ -125,6 +147,7 @@ function dungeonSearchEvent() {
     if(!currentRoom.isCleared()) {
         currentRoom.generateRoomLoot();
         drawDungeonFoundLoot(true);
+        generateDungeonFoundLootEvents();
 
         let quantadelay = 0;
         document.querySelectorAll('.revealingLootCanvas').forEach(cv => {
