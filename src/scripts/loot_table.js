@@ -208,7 +208,8 @@ let LootTable = {
                             type: lootType,
                             rarity: what(pool, key).rarity,
                             amount: getRandomNumber(preset[type].includes[key][0], preset[type].includes[key][1]),
-                            item: what(pool, key)
+                            item: what(pool, key),
+                            looted: false
                         });
                     }
 
@@ -240,7 +241,8 @@ let LootTable = {
                                 type: lootType,
                                 rarity: rarity,
                                 amount: final.lootModifiers.amount,
-                                item: final
+                                item: final,
+                                looted: false
                             });
                         }
                     }
