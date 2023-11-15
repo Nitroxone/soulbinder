@@ -43,9 +43,11 @@ function generateDungeonKnapsackEvents() {
 }
 
 function refreshKnapsackAndInventory() {
-    getDungeonKnapsackContent(true);
     drawInventory();
-    getDungeonKnapsackCapacity(true);
+    if(isKnapsackOpen()) {
+        getDungeonKnapsackContent(true);
+        getDungeonKnapsackCapacity(true);
+    }
 }
 
 function isKnapsackOpen() {
