@@ -66,12 +66,12 @@ function drawWeaponInventory(weapons = game.inventory.weapons) {
         // Spawn tooltip and play sound on click
         domWhat('res-' + me.id).addEventListener('click', function(){
             Sounds.Methods.playSound(Data.SoundType.TOOLTIP_SPAWN);
-            spawnTooltip(me);
+            const tooltip = spawnTooltip(me);
             if(me.set) {
-                let tooltipDesc = domWhat('floating-' + me.id).querySelector('.tooltipSetText');
+                let tooltipDesc = tooltip.querySelector('.tooltipSetText');
                 tooltipDesc.addEventListener('click', (e) => {
                     Sounds.Methods.playSound(Data.SoundType.TOOLTIP_SPAWN);
-                    spawnTooltip(what(game.all_equipmentSets, me.set), me.id);
+                    spawnTooltip(what(game.all_equipmentSets, me.set), tooltip);
                 });
             }
         });
@@ -182,12 +182,12 @@ function drawArmorInventory(armors = game.inventory.armors) {
         // Spawn tooltip and play sound on click
         domWhat('res-' + me.id).addEventListener('click', function(){
             Sounds.Methods.playSound(Data.SoundType.TOOLTIP_SPAWN);
-            spawnTooltip(me);
+            const tooltip = spawnTooltip(me);
             if(me.set) {
-                let tooltipDesc = domWhat('floating-' + me.id).querySelector('.tooltipSetText');
+                let tooltipDesc = tooltip.querySelector('.tooltipSetText');
                 tooltipDesc.addEventListener('click', (e) => {
                     Sounds.Methods.playSound(Data.SoundType.TOOLTIP_SPAWN);
-                    spawnTooltip(what(game.all_equipmentSets, me.set), me.id);
+                    spawnTooltip(what(game.all_equipmentSets, me.set), tooltip);
                 });
             }
         });
@@ -224,12 +224,12 @@ function drawTrinketInventory(trinkets = game.inventory.trinkets) {
         // Spawn tooltip and play sound on click
         domWhat('res-' + me.id).addEventListener('click', function(){
             Sounds.Methods.playSound(Data.SoundType.TOOLTIP_SPAWN);
-            spawnTooltip(me);
+            const tooltip = spawnTooltip(me);
             if(me.set) {
-                let tooltipDesc = domWhat('floating-' + me.id).querySelector('.tooltipSetText');
+                let tooltipDesc = tooltip.querySelector('.tooltipSetText');
                 tooltipDesc.addEventListener('click', (e) => {
                     Sounds.Methods.playSound(Data.SoundType.TOOLTIP_SPAWN);
-                    spawnTooltip(what(game.all_equipmentSets, me.set), me.id);
+                    spawnTooltip(what(game.all_equipmentSets, me.set), tooltip);
                 });
             }
         });

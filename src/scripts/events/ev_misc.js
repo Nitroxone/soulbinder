@@ -1,8 +1,9 @@
 /**
  * Spawns a floating tooltip on screen based on the provided Item's data.
  * @param {Item|array} item the Item data to fill the tooltip with
+ * @param {HTMLElement} fromExisting the HTML element the tooltip should be spawned at
  */
-function spawnTooltip(item, fromExisting = 0) {
+function spawnTooltip(item, fromExisting = null) {
     //console.log(item);
     const base = '<div id="floating-' + item.id +'" class="tooltip framed bgDark tooltipSpawn">'
     const tooltip = document.createElement('div');
@@ -22,12 +23,10 @@ function spawnTooltip(item, fromExisting = 0) {
         top: domWhat('tooltipAnchor').offsetTop - 75 + 'px',
         left: domWhat('tooltipAnchor').offsetLeft + domWhat('tooltip').offsetLeft + 'px'
     }
-    if(fromExisting != 0) {
-        const domReference = domWhat('floating-' + fromExisting);
-        //console.log(domReference.getBoundingClientRect());
+    if(fromExisting) {
         tooltipPos = {
-            top: domReference.getBoundingClientRect().top + 'px',
-            left: domReference.getBoundingClientRect().left - 50 + 'px'
+            top: fromExisting.getBoundingClientRect().top + 'px',
+            left: fromExisting.getBoundingClientRect().left - 50 + 'px'
         }
     }
 
@@ -140,6 +139,7 @@ function spawnTooltip(item, fromExisting = 0) {
     }
 
     document.body.appendChild(tooltip);
+    return tooltip;
 }
 
 function addTooltip(element, func, object) {

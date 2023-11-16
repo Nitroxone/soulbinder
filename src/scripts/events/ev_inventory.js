@@ -16,7 +16,14 @@ function generateDungeonKnapsackEvents() {
         // Spawn tooltip and play sound on click
         it.addEventListener('click', function(){
             Sounds.Methods.playSound(Data.SoundType.TOOLTIP_SPAWN);
-            spawnTooltip(obj);
+            const tooltip = spawnTooltip(obj);
+            if(obj.set) {
+                let tooltipDesc = tooltip.querySelector('.tooltipSetText');
+                tooltipDesc.addEventListener('click', (e) => {
+                    Sounds.Methods.playSound(Data.SoundType.TOOLTIP_SPAWN);
+                    spawnTooltip(what(game.all_equipmentSets, obj.set), tooltip);
+                });
+            }
         });
         // Play sound on hover
         it.addEventListener('mouseover', function(){

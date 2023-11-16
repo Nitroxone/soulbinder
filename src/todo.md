@@ -78,6 +78,7 @@ ABANDONED - Add the possibility to manually set a resource amount to add into th
 DONE - Add a MAJ+click and CTRL+click binds to remove 10/100 resources from the knapsack.
 DONE - Prevent adding items to the knapsack from the inventory while in a dungeon
 - Write a warning message in case the player tries to discard an item which rarity is better or equal to Epic
+DONE - Fix a bug that prevents opening sets info from a Knapsack item
 
 CRAFTING:
 - Start implementing
@@ -138,5 +139,7 @@ DONE - Allow multiple trigger types per trigger
 LOOT:
 DONE - Prevent infinite loops from trying to avoid duplicates with insufficient variety among the loot pool
 DONE - Prevent skipping generation because of insufficient variety among the loot pool
+
+DONE - Fix a bug with opening set info tooltips
 
 HOTFIXES: #Store your live fixes during dev sessions here and clear them once you're done
