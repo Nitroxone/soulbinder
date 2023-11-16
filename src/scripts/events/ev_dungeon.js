@@ -53,10 +53,25 @@ function generateDungeonFoundLootEvents() {
         el.addEventListener('click', e => {
             if(item.looted) return;
 
-            game.player.addToKnapsack(item.item, true, item.amount);
-            el.classList.remove('revealingLoot');
-            el.classList.add('lootedLoot');
-            item.looted = true;
+            // Holding CTRL and SHIFT adds all of the loot to the Knapsack (if it has not been looted already)
+            if(e.ctrlKey && e.shiftKey) {
+                elements.forEach(elem => {
+                    if(!elem.classList.contains('lootedLoot')) {
+                        elem.classList.remove('revealingLoot');
+                        elem.classList.add('lootedLoot');
+                    }
+                });
+                loot.filter(x => !x.looted).forEach(lo => {
+                    game.player.addToKnapsack(lo.item, true, lo.amount);
+                    lo.looted = true;
+                });
+            }
+            else {
+                game.player.addToKnapsack(item.item, true, item.amount);
+                el.classList.remove('revealingLoot');
+                el.classList.add('lootedLoot');
+                item.looted = true;
+            }
         });
     })
 }
