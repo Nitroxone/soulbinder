@@ -54,6 +54,7 @@ function generateDungeonFoundLootEvents() {
             if(item.looted) return;
 
             game.player.addToKnapsack(item.item, true, item.amount);
+            el.classList.remove('revealingLoot');
             el.classList.add('lootedLoot');
             item.looted = true;
         });

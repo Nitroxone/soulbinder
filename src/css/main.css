@@ -6417,10 +6417,27 @@ table.astralForgeShards td {
     background: green;
 }
 .roomLootResult-listItem.lootedLoot {
-    opacity: .5 !important;
+    opacity: .5;
+    position: relative;
+    overflow: visible;
 }
 .roomLootResult-listItem.lootedLoot:hover {
     opacity: .8 !important;
+}
+.revealingLoot.lootedLoot {
+    opacity: 0;
+    animation-name: lootedRevealSlideIn;
+    animation-duration: .5s;
+    animation-timing-function: cubic-bezier(.68, -0.55, .27, 1.55);
+    animation-fill-mode: forwards;
+}
+@keyframes lootedRevealSlideIn {
+    from {
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 0.5;
+    }
 }
 
 .roomLootResult-title {
