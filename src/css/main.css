@@ -8480,3 +8480,14 @@ table.astralForgeShards td {
     border-color: red;
     background: rgb(15, 15, 15);
 }
+
+.knpsckGoldAndSouls {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.knpsckWealthIndicator {
+    display: flex;
+    flex-direction: row;
+}

@@ -663,6 +663,10 @@ function getDungeonKnapsack() {
     str += getDungeonKnapsackContent();
     str += '</div>';
 
+    str += '<div class="knpsckGoldAndSouls">';
+    str += getDungeonKnapsackGoldAndSouls();
+    str += '</div>';
+
     str += '<div class="knpsckRscAmount">';
     str += getDungeonKnapsackResourceAmount();
     str += '</div>'
@@ -673,6 +677,26 @@ function getDungeonKnapsack() {
 
     str += '</div>';
 
+    return str;
+}
+
+function getDungeonKnapsackGoldAndSouls(refresh = false) {
+    let str = '';
+
+    str += '<div class="knpsckWealthIndicator">';
+    str += '<div class="knpsckGoldIcon"></div>';
+    str += '<h5>' + game.player.du_collectedGold + '</h5>';
+    str += '</div>';
+
+    str += '<div class="knpsckWealthIndicator">';
+    str += '<div class="knpsckSoulsIcon"></div>';
+    str += '<h5>' + game.player.du_collectedSouls + '</h5>';
+    str += '</div>';
+
+    if(refresh) {
+        document.querySelector('.knpsckGoldAndSouls').innerHTML = str;
+        return;
+    }
     return str;
 }
 
