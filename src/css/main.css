@@ -6537,7 +6537,27 @@ table.astralForgeShards td {
     opacity: 1;
 }
 .map-roomContainer.currentRoom {
-    border-color: yellow;
+    border-color: rgb(50, 50, 50);
+    border-width: 2px;
+    
+    animation-name: currentRoomAnimation;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+@keyframes currentRoomAnimation {
+    25% {
+        border-top-color: cyan;
+    }
+    50% {
+        border-left-color: cyan;
+    }
+    75% {
+        border-bottom-color: cyan;
+    }
+    90% {
+        border-right-color: cyan;
+    }
 }
 
 /* DUNGEON ROOM TYPES */
