@@ -8486,8 +8486,29 @@ table.astralForgeShards td {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    margin-top: 0.2rem;
 }
 .knpsckWealthIndicator {
     display: flex;
     flex-direction: row;
+}
+.knpsckWealthIndicator h5 {
+    margin-left: 0.2rem;
+    font-family: RobotoBold;
+    line-height: 1.2;
+}
+.knpsckWealthIcon {
+    width: 12px;
+    height: 12px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.knpsckGoldIcon {
+    background-image: url('img/goldicon-small.png');
+}
+.knpsckGoldIcon + h5 {
+    color: yellow;
+}
+.knpsckSoulsIcon + h5 {
+    color: cyan;
 }

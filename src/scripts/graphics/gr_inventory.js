@@ -684,12 +684,12 @@ function getDungeonKnapsackGoldAndSouls(refresh = false) {
     let str = '';
 
     str += '<div class="knpsckWealthIndicator">';
-    str += '<div class="knpsckGoldIcon"></div>';
+    str += '<div class="knpsckWealthIcon knpsckGoldIcon"></div>';
     str += '<h5>' + game.player.du_collectedGold + '</h5>';
     str += '</div>';
 
     str += '<div class="knpsckWealthIndicator">';
-    str += '<div class="knpsckSoulsIcon"></div>';
+    str += '<div class="knpsckWealthIcon knpsckSoulsIcon"></div>';
     str += '<h5>' + game.player.du_collectedSouls + '</h5>';
     str += '</div>';
 
