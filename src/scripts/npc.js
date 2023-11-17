@@ -338,6 +338,14 @@ class NPC extends Entity {
     }
 
     /**
+     * Removes the specified number from this NPC's shield. Cannot go below 0.
+     * @param {number} amount the amount of shield to remove
+     */
+    removeShield(amount) {
+        this.shield = Math.max(this.shield - amount, 0);
+    }
+
+    /**
      * Applies the damage held in the provided params object to this NPC.
      * @param {object} params a battle attack params object
      */
@@ -815,7 +823,8 @@ class NPC extends Entity {
                     else if(eff.effect !== Data.Effect.STUN && eff.effect !== Data.Effect.GUARDED && eff.effect !== Data.Effect.GUARDING && !isBaseStatChange(eff, true))  this.alter({action: Data.AlterAction.REMOVE, uid: eff.uid});*/
 
                     if(eff.effect !== Data.Effect.STUN && eff.effect !== Data.Effect.GUARDED && eff.effect !== Data.Effect.GUARDING) {
-                        if(eff.type === Data.StatType.PASSIVE || (!isBaseStatChange(eff, true) && !isBleedingOrPoisoning(eff))) {
+                        if(isShieldEffect(eff)) this.removeShield(eff.getValue())
+                        else if(eff.type === Data.StatType.PASSIVE || (!isBaseStatChange(eff, true) && !isBleedingOrPoisoning(eff))) {
                             this.alter({action: Data.AlterAction.REMOVE, uid: eff.uid});
                         }
                     }

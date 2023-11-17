@@ -397,7 +397,7 @@ class Game {
         this.player.formationSet(what(this.player.roster, "carhal"), Data.FormationPosition.BACK);
         console.clear();
 
-        //this.startBattle(what(game.all_enemyFormations, "threeTicks").formation);
+        this.startBattle(what(game.all_enemyFormations, "threeTicks"));
         //this.currentBattle.end();
 
         this.initBlackMarket();
