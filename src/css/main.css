@@ -6548,12 +6548,14 @@ table.astralForgeShards td {
 @keyframes currentRoomAnimation {
     25% {
         border-top-color: cyan;
+        transform: scale(1.05);
     }
     50% {
         border-left-color: cyan;
     }
     75% {
         border-bottom-color: cyan;
+        transform: scale(1.05);
     }
     90% {
         border-right-color: cyan;
