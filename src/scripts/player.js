@@ -247,4 +247,22 @@ class Player {
     leaveCombat() {
         this.inCombat = false
     }
+
+    /**
+     * Adds gold to the Purse.
+     * @param {number} amount the amount of gold to add
+     */
+    addToPurse(amount) {
+        this.du_collectedGold += amount;
+        refreshKnapsackWealth();
+    }
+
+    /**
+     * Removes gold from the Purse.
+     * @param {number} amount the amount of gold to remove
+     */
+    removeFromPurse(amount) {
+        this.du_collectedGold = Math.max(0, this.du_collectedGold - amount);
+        refreshKnapsackWealth();
+    }
 }
