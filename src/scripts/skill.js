@@ -38,20 +38,40 @@ class Skill extends Entity {
         this.level = 1;
     }
 
+    /**
+     * Returns this Skill's caster effects at its current level.
+     * @returns {object} the current caster effects
+     */
     getCurrentEffectsCaster() {
         return this.effectsCaster[this.level];
     }
+
+    /**
+     * Returns this Skill's allies effects at its current level.
+     * @returns {object} the current allies effects
+     */
     getCurrentEffectsAllies() {
         return this.effectsAllies[this.level];
     }
+
+    /**
+     * Returns this Skill's enemies effects at its current level.
+     * @returns {object} the current enemies effects
+     */
     getCurrentEffectsEnemies() {
         return this.effectsEnemies[this.level];
     }
 
+    /**
+     * Reduces this Skill's cooldown by 1.
+     */
     reduceCooldown() {
         this.cooldownCountdown = Math.max(0, this.cooldownCountdown-1);
     }
     
+    /**
+     * Initializes this Skill's cooldown (this method is supposedly called whenever the skill is cast).
+     */
     applyCooldown() {
         this.cooldownCountdown = this.cooldown;
     }
