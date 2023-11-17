@@ -6417,7 +6417,6 @@ table.astralForgeShards td {
     background: green;
 }
 .roomLootResult-listItem.lootedLoot {
-    opacity: .5;
     position: relative;
     overflow: visible;
 }
@@ -6434,6 +6433,22 @@ table.astralForgeShards td {
 @keyframes lootedRevealSlideIn {
     from {
         transform: translateY(10px);
+    }
+    to {
+        opacity: 0.5;
+    }
+}
+.lootedLootAnim {
+    animation-name: lootedLootAnimation;
+    animation-duration: .5s;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation-fill-mode: forwards;
+    opacity: 1;
+}
+@keyframes lootedLootAnimation {
+    from {
+        transform: scale(0.8);
+        filter: grayscale(100%);
     }
     to {
         opacity: 0.5;

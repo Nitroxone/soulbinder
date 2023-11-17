@@ -55,10 +55,14 @@ function generateDungeonFoundLootEvents() {
 
             // Holding CTRL and SHIFT adds all of the loot to the Knapsack (if it has not been looted already)
             if(e.ctrlKey && e.shiftKey) {
+                let timer = 0;
                 elements.forEach(elem => {
                     if(!elem.classList.contains('lootedLoot')) {
+                        elem.style.animationDelay = timer + 's';
                         elem.classList.remove('revealingLoot');
                         elem.classList.add('lootedLoot');
+                        elem.classList.add('lootedLootAnim');
+                        timer += 0.1;
                     }
                 });
                 loot.filter(x => !x.looted).forEach(lo => {
@@ -70,8 +74,10 @@ function generateDungeonFoundLootEvents() {
             else {
                 if(item.type === 'gold') game.player.addToPurse(item.amount);
                 else game.player.addToKnapsack(item.item, true, item.amount);
+                el.style.animationDelay = "0s";
                 el.classList.remove('revealingLoot');
                 el.classList.add('lootedLoot');
+                el.classList.add('lootedLootAnim');
                 item.looted = true;
             }
         });
