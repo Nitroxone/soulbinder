@@ -6543,7 +6543,7 @@ table.astralForgeShards td {
     animation-name: currentRoomAnimation;
     animation-duration: 2s;
     animation-iteration-count: infinite;
-    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation-timing-function: ease-in-out;
 }
 @keyframes currentRoomAnimation {
     25% {
