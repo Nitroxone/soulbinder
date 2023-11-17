@@ -62,12 +62,14 @@ function generateDungeonFoundLootEvents() {
                     }
                 });
                 loot.filter(x => !x.looted).forEach(lo => {
-                    game.player.addToKnapsack(lo.item, true, lo.amount);
+                    if(lo.type === 'gold') game.player.addToPurse(lo.amount);
+                    else game.player.addToKnapsack(lo.item, true, lo.amount);
                     lo.looted = true;
                 });
             }
             else {
-                game.player.addToKnapsack(item.item, true, item.amount);
+                if(item.type === 'gold') game.player.addToPurse(item.amount);
+                else game.player.addToKnapsack(item.item, true, item.amount);
                 el.classList.remove('revealingLoot');
                 el.classList.add('lootedLoot');
                 item.looted = true;
