@@ -57,6 +57,10 @@ function refreshKnapsackAndInventory() {
     }
 }
 
+function refreshKnapsackWealth() {
+    isKnapsackOpen() && getDungeonKnapsackGoldAndSouls(true);
+}
+
 function isKnapsackOpen() {
     return document.querySelector('.knpsckContainer');
 }
