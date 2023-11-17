@@ -1362,6 +1362,14 @@ function isPoisoningEffect(eff) {
             || eff.effect === Data.Effect.BLIGHT_INCURABLE
 }
 
+/**
+ * Returns whether the provided effect is a shield effect.
+ * @param {Stat} eff the effect to check
+ * @returns {boolean} whether it's a shield effect
+ */
+function isShieldEffect(eff) {
+    return eff.effect === Data.Effect.SHIELD;
+}
 
 /**
  * Returns an EnemyFormation object which params match the ones from the provided Dungeon object.
