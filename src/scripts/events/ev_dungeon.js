@@ -72,6 +72,8 @@ function generateDungeonFoundLootEvents() {
                 });
             }
             else {
+                if(game.player.isKnapsackFull()) return;
+
                 if(item.type === 'gold') game.player.addToPurse(item.amount);
                 else game.player.addToKnapsack(item.item, true, item.amount);
                 el.style.animationDelay = "0s";
