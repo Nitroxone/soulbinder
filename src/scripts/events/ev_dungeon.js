@@ -56,7 +56,24 @@ function generateDungeonFoundLootEvents() {
             // Holding CTRL and SHIFT adds all of the loot to the Knapsack (if it has not been looted already)
             if(e.ctrlKey && e.shiftKey) {
                 let timer = 0;
-                elements.forEach(elem => {
+                for(let i = 0; i < elements.length; i++) {
+                    const elem = elements[i];
+                    const lo = loot[i];
+
+                    if(game.player.isKnapsackFull()) break;
+                    if(elem.classList.contains('lootedLoot') || lo.looted) continue;
+
+                    elem.style.animationDelay = timer + 's';
+                    elem.classList.remove('revealingLoot');
+                    elem.classList.add('lootedLoot');
+                    elem.classList.add('lootedLootAnim');
+                    timer += 0.1;
+                    if(lo.type === 'gold') game.player.addToPurse(lo.amount);
+                    else game.player.addToKnapsack(lo.item, true, lo.amount);
+                    lo.looted = true;
+                }
+
+                /*elements.forEach(elem => {
                     if(!elem.classList.contains('lootedLoot')) {
                         elem.style.animationDelay = timer + 's';
                         elem.classList.remove('revealingLoot');
@@ -69,9 +86,11 @@ function generateDungeonFoundLootEvents() {
                     if(lo.type === 'gold') game.player.addToPurse(lo.amount);
                     else game.player.addToKnapsack(lo.item, true, lo.amount);
                     lo.looted = true;
-                });
+                });*/
             }
             else {
+                if(game.player.isKnapsackFull()) return;
+
                 if(item.type === 'gold') game.player.addToPurse(item.amount);
                 else game.player.addToKnapsack(item.item, true, item.amount);
                 el.style.animationDelay = "0s";

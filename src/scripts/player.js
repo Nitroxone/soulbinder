@@ -265,4 +265,12 @@ class Player {
         this.du_collectedGold = Math.max(0, this.du_collectedGold - amount);
         refreshKnapsackWealth();
     }
+
+    /**
+     * Returns whether the player's Knapsack has reached full capacity.
+     * @returns {boolean} whether the Knapsack is full.
+     */
+    isKnapsackFull() {
+        return this.du_inventory.length >= this.du_inventorySize;
+    }
 }

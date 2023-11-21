@@ -80,6 +80,7 @@ DONE - Add a MAJ+click and CTRL+click binds to remove 10/100 resources from the 
 DONE - Prevent adding items to the knapsack from the inventory while in a dungeon
 - Write a warning message in case the player tries to discard an item which rarity is better or equal to Epic
 DONE - Fix a bug that prevents opening sets info from a Knapsack item
+- Better handle the case where the user tries to add stuff to a full knapsack
 
 CRAFTING:
 - Start implementing
