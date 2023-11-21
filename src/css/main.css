@@ -4804,7 +4804,7 @@ hr.centerFade {
         "swRead-sigil"
         "swRead-soulmarks";
 
-    background: url('img/darkBorders.png'), linear-gradient(0deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.25) 100%), url('img/bg/bg-soulreading.png');
+    background: url('img/darkBorders.png'), linear-gradient(0deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.25) 100%), url('img/spec-bg/7.png');
     background-position: top;
     background-repeat: no-repeat;
     background-size: 100% 100%, cover, cover;
