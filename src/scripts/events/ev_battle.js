@@ -259,7 +259,7 @@ function generateBattleSkillsEvents() {
 }
 
 function generateBattleConsumablesEvents() {
-    game.inventory.consumables.forEach(cons => {
+    game.player.du_inventory.filter(x => x instanceof Consumable).forEach(cons => {
         const dom = document.querySelector('#btl-' + cons.id);
         addTooltip(dom, function(){
             return getConsumableTooltip(cons);

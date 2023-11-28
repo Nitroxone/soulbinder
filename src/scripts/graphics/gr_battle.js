@@ -351,7 +351,7 @@ function getBattleConsumables(refresh = false) {
     let str = '';
 
     str += '<div class="battle-consumables">';
-    if(!game.currentBattle.isEnemyPlaying()) game.inventory.consumables.forEach(cons => {
+    if(!game.currentBattle.isEnemyPlaying()) game.player.du_inventory.filter(x => x instanceof Consumable).forEach(cons => {
         str += '<div id="btl-' + cons.id + '" class="inventoryItem" style="' + getIcon(cons) + '; border: 2px solid ' + getRarityColorCode(cons.rarity) +'"></div>'
     });
     str += '</div>';
