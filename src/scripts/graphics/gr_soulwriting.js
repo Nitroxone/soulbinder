@@ -7,15 +7,17 @@ function drawSoulwritingScreen() {
     str += '<div id="soulwtab-bend" class="soulwTab' + (game.soulwriting.currentTab === 'bend' ? ' activeTab' : '') + '">Bend</div>';
     str += '</div>';
 
-    str += '<div id="soulwcontent-read" class="soulwContent" style="display: grid">'
+    str += '<div id="soulwcontent-read" class="soulwContent" style="display: grid">';
     str += getSwRead();
     str += '</div>';
 
-    str += '<div id="soulwcontent-write" class="soulwContent" style="display: none">'
+    str += '<div id="soulwcontent-write" class="soulwContent" style="display: none">';
     str += getSwWrite();
     str += '</div>';
 
-    str += '<div id="soulwcontent-bend" class="soulwContent">BENDING</div>';
+    str += '<div id="soulwcontent-bend" class="soulwContent">';
+    str += getSwBend();
+    str += '</div>';
 
     return str;
 }
