@@ -530,44 +530,77 @@ class NPC extends Entity {
         return amount;
     }
 
+    /**
+     * Applies a stun effect to this NPC.
+     */
     applyStun() {
         this.isStunned = true;
         addSpecialEffect(this.getBattleFormationStringId(), Data.Effect.STUN);
     }
+
+    /**
+     * Removes a stun effect from this NPC.
+     */
     removeStun() {
         this.isStunned = false;
         removeSpecialEffect(this.getBattleFormationStringId(), Data.Effect.STUN);
     }
 
+    /**
+     * Applies a blocking effect to this NPC.
+     */
     applyBlocking() {
         this.isBlocking = true;
         addSpecialEffect(this.getBattleFormationStringId(), Data.Effect.BLOCK);
     }
+
+    /**
+     * Removes a blocking effect from this NPC.
+     */
     removeBlocking() {
         this.isBlocking = false;
         removeSpecialEffect(this.getBattleFormationStringId(), Data.Effect.BLOCK);
     }
 
+    /**
+     * Applies a guarded effect to this NPC.
+     * @param {NPC} npc the NPC that's guarding
+     */
     applyGuarded(npc) {
         this.isGuarded = true;
         this.guardedBy = npc;
         addSpecialEffect(this.getBattleFormationStringId(), Data.Effect.GUARDED);
     }
+
+    /**
+     * Removes a guarded effect from this NPC.
+     */
     removeGuarded() {
         this.isGuarded = false;
         this.guardedBy = null;
         removeSpecialEffect(this.getBattleFormationStringId(), Data.Effect.GUARDED);
     }
 
+    /**
+     * Applies a guarding effect to this NPC.
+     * @param {NPC} npc the NPC that's guarded
+     */
     applyGuarding(npc) {
         this.isGuarding = true;
         this.guarding = npc;
     }
+
+    /**
+     * Removes a guarding effect from this NPC.
+     */
     removeGuarding() {
         this.isGuarding = false;
         this.guarding = null;
     }
 
+    /**
+     * Applies Health/Stamina/Mana regeneration effects, if there is any.
+     */
     applySelfRegenerationEffects() {
         this.regenHealth > 0 && this.addBaseStat(new Stat({effect: Data.Effect.HEALTH, theorical: this.regenHealth, isPercentage: true}));
         this.regenMana > 0 && this.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: this.regenMana, isPercentage: true}));
@@ -630,6 +663,7 @@ class NPC extends Entity {
         }, false);
     }
 
+    
     getBattleFormationStringId() {
         const battle = game.currentBattle;
         let str = 'b-';
@@ -709,10 +743,10 @@ class NPC extends Entity {
 
     /**
      * Applies each Stat stored in "effects" parameter to this NPC, also adding an ActiveEffect?
-     * @param {Skill} skill 
-     * @param {NPC} originUser 
-     * @param {Stat[]} effects 
-     * @param {boolean} critical 
+     * @param {Skill} skill the Skill from which effects originate
+     * @param {NPC} originUser the Skill caster
+     * @param {Stat[]} effects the Skill's effects
+     * @param {boolean} critical whether the Skill is a critical hit
      */
     applyEffects(skill, originUser, effects, critical = false) {
         effects.forEach(eff => {
