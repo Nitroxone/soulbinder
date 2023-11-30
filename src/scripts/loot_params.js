@@ -8,12 +8,12 @@ class LootParams {
     constructor(props) {
         this.amount = getValueFromObject(props, 'amount', 1);
         this.rarities = getValueFromObject(props, 'rarities', {
-            common: 0,
-            uncommon: 0,
-            rare: 0,
-            epic: 0,
-            legendary: 0,
-            elder: 0,
+            regular: 0,
+            singular: 0,
+            precious: 0,
+            grand: 0,
+            mythic: 0,
+            relic: 0,
         });
         this.chance = getValueFromObject(props, "chance", 100);
         this.includes = getValueFromObject(props, "includes", {});

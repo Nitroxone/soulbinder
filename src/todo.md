@@ -78,7 +78,7 @@ DONE - Correctly handle the Knapsack resources management
 ABANDONED - Add the possibility to manually set a resource amount to add into the Knapsack
 DONE - Add a MAJ+click and CTRL+click binds to remove 10/100 resources from the knapsack.
 DONE - Prevent adding items to the knapsack from the inventory while in a dungeon
-- Write a warning message in case the player tries to discard an item which rarity is better or equal to Epic
+- Write a warning message in case the player tries to discard an item which rarity is better or equal to Grand
 DONE - Fix a bug that prevents opening sets info from a Knapsack item
 - Better handle the case where the user tries to add stuff to a full knapsack
 
@@ -128,7 +128,7 @@ DONE - Display the echo's origin object in the bonuses tooltip
 - Add list of skills to the bottom of the screen
 
 GAMEPLAY CHANGES:
-DONE - By default, only allow echoes on Weapons, Shields and Armors. Only elder Helmets/Gauntlets/Boots/Trinkets can receive echoes.
+DONE - By default, only allow echoes on Weapons, Shields and Armors. Only relic Helmets/Gauntlets/Boots/Trinkets can receive echoes.
 - Prevent equipping the same echo twice (from two different items).
 
 ECHOES: 

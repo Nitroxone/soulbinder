@@ -144,7 +144,7 @@ class Soulwriting {
      * @returns {Data.Rarity} the highest rarity
      */
     determineRarity() {
-        let highest = Data.Rarity.COMMON;
+        let highest = Data.Rarity.REGULAR;
         this.soulmarks.forEach(slmrk => {
             if(slmrk) highest = compareHighestRarities(highest, slmrk.rarity);
         });

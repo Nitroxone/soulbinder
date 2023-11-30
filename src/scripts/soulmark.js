@@ -12,7 +12,7 @@ class Soulmark {
         this.critical = getValueFromObject(props, "critical", new Stat({}));
         this.corrupted = getValueFromObject(props, "corrupted", new Stat({}));
         this.price = getValueFromObject(props, "price", 0);
-        this.rarity = getValueFromObject(props, "rarity", Data.Rarity.COMMON);
+        this.rarity = getValueFromObject(props, "rarity", Data.Rarity.REGULAR);
         this.researchTotal = getValueFromObject(props, "researchTotal", 1);
         this.availableBeforeMastery = getValueFromObject(props, "availableBeforeMastery", false);
         this.steps = getValueFromObject(props, "steps", []);

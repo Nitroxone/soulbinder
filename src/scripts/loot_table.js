@@ -7,60 +7,60 @@
 let LootTable = {
     DropRates: {
         Any: {
-            "common": 100,
-            "uncommon": 75,
-            "rare": 40,
-            "epic": 25,
-            "legendary": 10,
-            "elder": 5,
+            "regular": 100,
+            "singular": 75,
+            "precious": 40,
+            "grand": 25,
+            "mythic": 10,
+            "relic": 5,
         },
         Weapon: {
-            "common": 100,
-            "uncommon": 75,
-            "rare": 40,
-            "epic": 25,
-            "legendary": 10,
-            "elder": 5,
+            "regular": 100,
+            "singular": 75,
+            "precious": 40,
+            "grand": 25,
+            "mythic": 10,
+            "relic": 5,
         },
         Armor: {
-            "common": 100,
-            "uncommon": 75,
-            "rare": 40,
-            "epic": 25,
-            "legendary": 10,
-            "elder": 5,
+            "regular": 100,
+            "singular": 75,
+            "precious": 40,
+            "grand": 25,
+            "mythic": 10,
+            "relic": 5,
         },
         Trinket: {
-            "common": 100,
-            "uncommon": 75,
-            "rare": 40,
-            "epic": 25,
-            "legendary": 10,
-            "elder": 5,
+            "regular": 100,
+            "singular": 75,
+            "precious": 40,
+            "grand": 25,
+            "mythic": 10,
+            "relic": 5,
         },
         Resource: {
-            "common": 100,
-            "uncommon": 75,
-            "rare": 40,
-            "epic": 25,
-            "legendary": 10,
-            "elder": 5,
+            "regular": 100,
+            "singular": 75,
+            "precious": 40,
+            "grand": 25,
+            "mythic": 10,
+            "relic": 5,
         },
         Consumable: {
-            "common": 100,
-            "uncommon": 75,
-            "rare": 40,
-            "epic": 25,
-            "legendary": 10,
-            "elder": 5,
+            "regular": 100,
+            "singular": 75,
+            "precious": 40,
+            "grand": 25,
+            "mythic": 10,
+            "relic": 5,
         },
         Sigil: {
-            "common": 100,
-            "uncommon": 75,
-            "rare": 40,
-            "epic": 25,
-            "legendary": 10,
-            "elder": 5,
+            "regular": 100,
+            "singular": 75,
+            "precious": 40,
+            "grand": 25,
+            "mythic": 10,
+            "relic": 5,
         }
     },
     Presets: {
@@ -69,11 +69,11 @@ let LootTable = {
                 resource: new LootParams({
                     amount: [1, 3],
                     rarities: {
-                        common: 10,
-                        uncommon: 5,
-                        epic: -100,
-                        legendary: -100,
-                        elder: -100,
+                        regular: 10,
+                        singular: 5,
+                        grand: -100,
+                        mythic: -100,
+                        relic: -100,
                     }
                 }),
                 trinket: new LootParams({
@@ -85,9 +85,9 @@ let LootTable = {
                 resource: new LootParams({
                     amount: [1, 2],
                     rarities: {
-                        epic: -100,
-                        legendary: -100,
-                        elder: -100,
+                        grand: -100,
+                        mythic: -100,
+                        relic: -100,
                     },
                     includes: {
                         "solar firefly": [3, 6]
@@ -96,17 +96,17 @@ let LootTable = {
                 weapon: new LootParams({
                     chance: 10,
                     rarities: {
-                        epic: -100,
-                        legendary: -100,
-                        elder: -100
+                        grand: -100,
+                        mythic: -100,
+                        relic: -100
                     },
                 }),
                 trinket: new LootParams({
                     chance: 10,
                     rarities: {
-                        epic: -100,
-                        legendary: -100,
-                        elder: -100
+                        grand: -100,
+                        mythic: -100,
+                        relic: -100
                     }
                 }),
                 gold: [50, 70],
@@ -115,45 +115,45 @@ let LootTable = {
                 weapon: new LootParams({
                     amount: [1, 2],
                     rarities: {
-                        rare: 20,
-                        uncommon: 20,
-                        epic: 20,
-                        legendary: 20,
-                        elder: -100
+                        precious: 20,
+                        singular: 20,
+                        grand: 20,
+                        mythic: 20,
+                        relic: -100
                     },
                     noDuplicates: true
                 }),
                 trinket: new LootParams({
                     amount: [2, 4],
                     rarities: {
-                        rare: 20,
-                        uncommon: 20,
-                        epic: 20,
-                        legendary: 20,
-                        elder: -100
+                        precious: 20,
+                        singular: 20,
+                        grand: 20,
+                        mythic: 20,
+                        relic: -100
                     },
                     noDuplicates: true
                 }),
                 armor: new LootParams({
                     amount: [2, 4],
                     rarities: {
-                        rare: 20,
-                        uncommon: 20,
-                        epic: 20,
-                        legendary: 20,
-                        elder: -100
+                        precious: 20,
+                        singular: 20,
+                        grand: 20,
+                        mythic: 20,
+                        relic: -100
                     },
                     noDuplicates: true
                 }),
                 sigil: new LootParams({
                     amount: [1, 2],
                     rarities: {
-                        common: -100,
-                        rare: 20,
-                        uncommon: 20,
-                        epic: -100,
-                        legendary: -100,
-                        elder: -100
+                        regular: -100,
+                        precious: 20,
+                        singular: 20,
+                        grand: -100,
+                        mythic: -100,
+                        relic: -100
                     }
                 }),
                 gold: [200, 500],

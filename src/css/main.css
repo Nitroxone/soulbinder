@@ -1428,19 +1428,19 @@ a:active, .tooltiped:active {
     width: 256px;
     padding: 12px;
 }
-.infoIcon, .iconcloudCommon, .iconcloudUncommon, .iconcloudRare, .iconcloudEpic, .iconcloudLegendary, .iconcloudElder {
+.infoIcon, .iconcloudRegular, .iconcloudSingular, .iconcloudPrecious, .iconcloudGrand, .iconcloudMythic, .iconcloudRelic {
     margin-bottom: -1px;
     position: relative;
 }
 /*
-    COMMON : radial-gradient(farthest-side at 50% 100%, rgba(255, 255, 255, 0.25), transparent);
-    UNCOMMON : radial-gradient(farthest-side at 50% 100%, rgba(0, 255, 0, 0.5), transparent)
-    RARE : radial-gradient(farthest-side at 50% 100%, rgba(0, 221, 255, 0.55), transparent);
-    EPIC : radial-gradient(farthest-side at 50% 100%, rgba(255, 0, 255, 0.5), transparent)
-    LEGENDARY : radial-gradient(farthest-side at 50% 100%, rgba(255, 170, 0, 0.5), transparent)
+    REGULAR : radial-gradient(farthest-side at 50% 100%, rgba(255, 255, 255, 0.25), transparent);
+    SINGULAR : radial-gradient(farthest-side at 50% 100%, rgba(0, 255, 0, 0.5), transparent)
+    PRECIOUS : radial-gradient(farthest-side at 50% 100%, rgba(0, 221, 255, 0.55), transparent);
+    GRAND : radial-gradient(farthest-side at 50% 100%, rgba(255, 0, 255, 0.5), transparent)
+    MYTHIC : radial-gradient(farthest-side at 50% 100%, rgba(255, 170, 0, 0.5), transparent)
     MYTHICAL : radial-gradient(farthest-side at 50% 100%, rgba(251, 62, 141, 0.5), transparent)
      */
-.infoIcon::before, .iconcloudCommon::before, .iconcloudUncommon::before, .iconcloudRare::before, .iconcloudEpic::before, .iconcloudLegendary::before, .iconcloudElder::before {
+.infoIcon::before, .iconcloudRegular::before, .iconcloudSingular::before, .iconcloudPrecious::before, .iconcloudGrand::before, .iconcloudMythic::before, .iconcloudRelic::before {
     content: '';
     display: block;
     position: absolute;
@@ -1450,26 +1450,26 @@ a:active, .tooltiped:active {
     top: 0;
 }
 
-.iconcloudCommon::before, .infoIcon {background: radial-gradient(farthest-side at 50% 100%, rgba(255, 255, 255, 0.25), transparent);}
-.iconcloudUncommon::before {background: radial-gradient(farthest-side at 50% 100%, rgba(0, 255, 0, 0.5), transparent);}
-.iconcloudRare::before {background: radial-gradient(farthest-side at 50% 100%, rgba(0, 221, 255, 0.55), transparent);}
-.iconcloudEpic::before {background: radial-gradient(farthest-side at 50% 100%, rgba(255, 0, 255, 0.5), transparent);}
-.iconcloudLegendary::before {background:radial-gradient(farthest-side at 50% 100%, rgba(255, 170, 0, 0.5), transparent);}
-.iconcloudElder::before {background:radial-gradient(farthest-side at 50% 100%, rgba(251, 62, 141, 0.5), transparent);}
+.iconcloudRegular::before, .infoIcon {background: radial-gradient(farthest-side at 50% 100%, rgba(255, 255, 255, 0.25), transparent);}
+.iconcloudSingular::before {background: radial-gradient(farthest-side at 50% 100%, rgba(0, 255, 0, 0.5), transparent);}
+.iconcloudPrecious::before {background: radial-gradient(farthest-side at 50% 100%, rgba(0, 221, 255, 0.55), transparent);}
+.iconcloudGrand::before {background: radial-gradient(farthest-side at 50% 100%, rgba(255, 0, 255, 0.5), transparent);}
+.iconcloudMythic::before {background:radial-gradient(farthest-side at 50% 100%, rgba(255, 170, 0, 0.5), transparent);}
+.iconcloudRelic::before {background:radial-gradient(farthest-side at 50% 100%, rgba(251, 62, 141, 0.5), transparent);}
 
-.roundIconcloudCommon::before, .roundIconcloudUncommon::before, .roundIconcloudRare::before, .roundIconcloudEpic::before, .roundIconcloudLegendary::before, .roundIconcloudElder::before {
+.roundIconcloudRegular::before, .roundIconcloudSingular::before, .roundIconcloudPrecious::before, .roundIconcloudGrand::before, .roundIconcloudMythic::before, .roundIconcloudRelic::before {
     left: -110px;
     top: -20px;
     transform: rotate(135deg);
     width: 400%;
     height: 200%;
 }
-.roundIconcloudCommon::before {background: radial-gradient(farthest-side at 30% 100%, rgba(255, 255, 255, 0.25), transparent);}
-.roundIconcloudUncommon::before {background: radial-gradient(farthest-side at 30% 100%, rgba(0, 255, 0, 0.5), transparent);}
-.roundIconcloudRare::before {background: radial-gradient(farthest-side at 30% 100%, rgba(0, 221, 255, 0.55), transparent);}
-.roundIconcloudEpic::before {background: radial-gradient(farthest-side at 30% 100%, rgba(255, 0, 255, 0.5), transparent);}
-.roundIconcloudLegendary::before {background:radial-gradient(farthest-side at 30% 100%, rgba(255, 170, 0, 0.5), transparent);}
-.roundIconcloudElder::before {background:radial-gradient(farthest-side at 30% 100%, rgba(251, 62, 141, 0.5), transparent);}
+.roundIconcloudRegular::before {background: radial-gradient(farthest-side at 30% 100%, rgba(255, 255, 255, 0.25), transparent);}
+.roundIconcloudSingular::before {background: radial-gradient(farthest-side at 30% 100%, rgba(0, 255, 0, 0.5), transparent);}
+.roundIconcloudPrecious::before {background: radial-gradient(farthest-side at 30% 100%, rgba(0, 221, 255, 0.55), transparent);}
+.roundIconcloudGrand::before {background: radial-gradient(farthest-side at 30% 100%, rgba(255, 0, 255, 0.5), transparent);}
+.roundIconcloudMythic::before {background:radial-gradient(farthest-side at 30% 100%, rgba(255, 170, 0, 0.5), transparent);}
+.roundIconcloudRelic::before {background:radial-gradient(farthest-side at 30% 100%, rgba(251, 62, 141, 0.5), transparent);}
 
 .infoIconCompensated {margin-bottom: -7px;}
 .infoIconCompensated > .infoAmount {margin-top: -6px;}
@@ -5062,12 +5062,12 @@ hr.centerFade {
         transform: translate(0, 20%);
     }
 }
-.sbItemCommon {box-shadow: 0px 0px 0px 1px rgba(255,255,255,0.1) inset, 0px 1px 40px 5px rgba(255,255,255,0.25) inset;}
-.sbItemUncommon {box-shadow: 0px 0px 0px 1px rgba(255,255,255,0.1) inset, 0px 1px 40px 5px rgba(0,255,0,0.5) inset;}
-.sbItemRare {box-shadow: 0px 0px 0px 1px rgba(255,255,255,0.1) inset, 0px 1px 40px 5px rgba(0,221,255,0.55) inset;}
-.sbItemEpic {box-shadow: 0px 0px 0px 1px rgba(255,255,255,0.1) inset, 0px 1px 40px 5px rgba(255,0,255,0.5) inset;}
-.sbItemLegendary {box-shadow: 0px 0px 0px 1px rgba(255,255,255,0.1) inset, 0px 1px 40px 5px rgba(255,170,0,0.5) inset;}
-.sbItemElder {box-shadow: 0px 0px 0px 1px rgba(255,255,255,0.1) inset, 0px 1px 40px 5px rgba(251,62,141,0.5) inset;}
+.sbItemRegular {box-shadow: 0px 0px 0px 1px rgba(255,255,255,0.1) inset, 0px 1px 40px 5px rgba(255,255,255,0.25) inset;}
+.sbItemSingular {box-shadow: 0px 0px 0px 1px rgba(255,255,255,0.1) inset, 0px 1px 40px 5px rgba(0,255,0,0.5) inset;}
+.sbItemPrecious {box-shadow: 0px 0px 0px 1px rgba(255,255,255,0.1) inset, 0px 1px 40px 5px rgba(0,221,255,0.55) inset;}
+.sbItemGrand {box-shadow: 0px 0px 0px 1px rgba(255,255,255,0.1) inset, 0px 1px 40px 5px rgba(255,0,255,0.5) inset;}
+.sbItemMythic {box-shadow: 0px 0px 0px 1px rgba(255,255,255,0.1) inset, 0px 1px 40px 5px rgba(255,170,0,0.5) inset;}
+.sbItemRelic {box-shadow: 0px 0px 0px 1px rgba(255,255,255,0.1) inset, 0px 1px 40px 5px rgba(251,62,141,0.5) inset;}
 
 .sbCannotHostEcho {
     width: 100%;
@@ -5845,22 +5845,22 @@ table.astralForgeShards td {
 }
 
 
-.insetShadowCommon {
+.insetShadowRegular {
     box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.5),0px 2px 2px rgba(0,0,0,0.25),0px 0px 2px 2px #000 inset,0px 1px 20px 10px rgba(221,221,221,0.35) inset;
 }
-.insetShadowUncommon {
+.insetShadowSingular {
     box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.5),0px 2px 2px rgba(0,0,0,0.25),0px 0px 2px 2px #000 inset,0px 1px 20px 10px rgba(0,255,0,0.35) inset;
 }
-.insetShadowRare {
+.insetShadowPrecious {
     box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.5),0px 2px 2px rgba(0,0,0,0.25),0px 0px 2px 2px #000 inset,0px 1px 20px 10px rgba(0,221,255,0.35) inset;
 }
-.insetShadowEpic {
+.insetShadowGrand {
     box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.5),0px 2px 2px rgba(0,0,0,0.25),0px 0px 2px 2px #000 inset,0px 1px 20px 10px rgba(255,0,255,0.35) inset;
 }
-.insetShadowLegendary {
+.insetShadowMythic {
     box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.5),0px 2px 2px rgba(0,0,0,0.25),0px 0px 2px 2px #000 inset,0px 1px 20px 10px rgba(255,170,0,0.35) inset;
 }
-.insetShadowElder {
+.insetShadowRelic {
     box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.5),0px 2px 2px rgba(0,0,0,0.25),0px 0px 2px 2px #000 inset,0px 1px 20px 10px rgba(251,62,141,0.35) inset;
 }
 
@@ -6328,22 +6328,22 @@ table.astralForgeShards td {
     background-position: 0% 0%;
     transition: all .1s ease-in-out;
 }
-.revealLootCommon {
+.revealLootRegular {
     background: linear-gradient(90deg, #dddddd 0%, transparent 100%);
 }
-.revealLootUncommon {
+.revealLootSingular {
     background: linear-gradient(90deg, #00ff00 0%, transparent 100%);
 }
-.revealLootRare {
+.revealLootPrecious {
     background: linear-gradient(90deg, #00ddff 0%, transparent 100%);
 }
-.revealLootEpic {
+.revealLootGrand {
     background: linear-gradient(90deg, #ff00ff 0%, transparent 100%);
 }
-.revealLootLegendary {
+.revealLootMythic {
     background: linear-gradient(90deg, #ffaa00 0%, transparent 100%);
 }
-.revealLootElder {
+.revealLootRelic {
     background: linear-gradient(90deg, #fb3e8d 0%, transparent 100%);
 }
 .revealLootGold {
@@ -7964,15 +7964,15 @@ table.astralForgeShards td {
     margin-top: 0.25rem;
 }
 
-.treeNodeType-common, .treeNodeType-uncommon, .treeNodeType-rare, .treeNodeType-epic, .treeNodeType-legendary, .treeNodeType-elder {
+.treeNodeType-regular, .treeNodeType-singular, .treeNodeType-precious, .treeNodeType-grand, .treeNodeType-mythic, .treeNodeType-relic {
     width: fit-content;
 }
-.treeNodeType-common {}
-.treeNodeType-uncommon {color: #00ff00; border-color: #00ff00;}
-.treeNodeType-rare {color: #00ddff; border-color: #00ddff;}
-.treeNodeType-epic {color: #ff00ff; border-color: #ff00ff;}
-.treeNodeType-legendary {color: #ffaa00; border-color: #ffaa00;}
-.treeNodeType-elder {color: #fb3e8d; border-color: #fb3e8d;}
+.treeNodeType-regular {}
+.treeNodeType-singular {color: #00ff00; border-color: #00ff00;}
+.treeNodeType-precious {color: #00ddff; border-color: #00ddff;}
+.treeNodeType-grand {color: #ff00ff; border-color: #ff00ff;}
+.treeNodeType-mythic {color: #ffaa00; border-color: #ffaa00;}
+.treeNodeType-relic {color: #fb3e8d; border-color: #fb3e8d;}
 
 .consumableToxicityIndicator {
     color: var(--base-green);

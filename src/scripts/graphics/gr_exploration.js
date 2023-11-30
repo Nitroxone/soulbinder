@@ -38,7 +38,7 @@ function drawExplorationHubScreen() {
     Quanta.emit({
         name: "explorationHub",
         canvas: document.querySelector('.explorationHubCanvas'),
-        color: Data.Color.LEGENDARY,
+        color: Data.Color.MYTHIC,
         amount: 300,
         particleSize: 1,
         density: 1,

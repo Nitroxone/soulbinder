@@ -190,7 +190,7 @@ function generateSoulwritingInterfaceEvents() {
 
             Quanta.burst({
                 canvas: document.querySelector('#canv-soulwrite'),
-                color: Data.Color.RARE,
+                color: Data.Color.PRECIOUS,
                 amount: 300,
                 particleSize: 5,
                 duration: 4000,

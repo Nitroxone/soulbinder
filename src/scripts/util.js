@@ -612,18 +612,18 @@ function hexToRGBA(hex, alpha = 1) {
  */
 function getRarityColorCode(rarity) {
     switch(rarity) {
-        case Data.Rarity.COMMON:
-            return Data.Color.COMMON;
-        case Data.Rarity.UNCOMMON:
-            return Data.Color.UNCOMMON;
-        case Data.Rarity.RARE:
-            return Data.Color.RARE;
-        case Data.Rarity.EPIC:
-            return Data.Color.EPIC;
-        case Data.Rarity.LEGENDARY:
-            return Data.Color.LEGENDARY;
-        case Data.Rarity.ELDER:
-            return Data.Color.ELDER;
+        case Data.Rarity.REGULAR:
+            return Data.Color.REGULAR;
+        case Data.Rarity.SINGULAR:
+            return Data.Color.SINGULAR;
+        case Data.Rarity.PRECIOUS:
+            return Data.Color.PRECIOUS;
+        case Data.Rarity.GRAND:
+            return Data.Color.GRAND;
+        case Data.Rarity.MYTHIC:
+            return Data.Color.MYTHIC;
+        case Data.Rarity.RELIC:
+            return Data.Color.RELIC;
         case Data.Rarity.GOLD:
             return Data.Color.GOLD;
     }
@@ -636,17 +636,17 @@ function getRarityColorCode(rarity) {
  */
 function getParticleDensity(rarity) {
     switch(rarity) {
-        case Data.Rarity.COMMON:
+        case Data.Rarity.REGULAR:
             return 0;
-        case Data.Rarity.UNCOMMON:
+        case Data.Rarity.SINGULAR:
             return 2;
-        case Data.Rarity.RARE:
+        case Data.Rarity.PRECIOUS:
             return 4;
-        case Data.Rarity.EPIC:
+        case Data.Rarity.GRAND:
             return 6;
-        case Data.Rarity.LEGENDARY:
+        case Data.Rarity.MYTHIC:
             return 8;
-        case Data.Rarity.ELDER:
+        case Data.Rarity.RELIC:
             return 10;
         case Data.Rarity.GOLD:
             return 2;
@@ -660,17 +660,17 @@ function getParticleDensity(rarity) {
  */
 function getParticleGravity(rarity) {
     switch(rarity) {
-        case Data.Rarity.COMMON:
+        case Data.Rarity.REGULAR:
             return 0;
-        case Data.Rarity.UNCOMMON:
+        case Data.Rarity.SINGULAR:
             return -0.03;
-        case Data.Rarity.RARE:
+        case Data.Rarity.PRECIOUS:
             return -0.06;
-        case Data.Rarity.EPIC:
+        case Data.Rarity.GRAND:
             return -0.1;
-        case Data.Rarity.LEGENDARY:
+        case Data.Rarity.MYTHIC:
             return -0.12;
-        case Data.Rarity.ELDER:
+        case Data.Rarity.RELIC:
             return -0.15;
     }
 }
@@ -682,17 +682,17 @@ function getParticleGravity(rarity) {
  */
 function getParticleVelocityY(rarity) {
     switch(rarity) {
-        case Data.Rarity.COMMON:
+        case Data.Rarity.REGULAR:
             return 0;
-        case Data.Rarity.UNCOMMON:
+        case Data.Rarity.SINGULAR:
             return getRandomNumber(0.8, 1.2);
-        case Data.Rarity.RARE:
+        case Data.Rarity.PRECIOUS:
             return getRandomNumber(1, 1.4);
-        case Data.Rarity.EPIC:
+        case Data.Rarity.GRAND:
             return getRandomNumber(1.2, 1.6);
-        case Data.Rarity.LEGENDARY:
+        case Data.Rarity.MYTHIC:
             return getRandomNumber(1.4, 1.8);
-        case Data.Rarity.ELDER:
+        case Data.Rarity.RELIC:
             return getRandomNumber(1.6, 1.9);
     }
 }
@@ -704,17 +704,17 @@ function getParticleVelocityY(rarity) {
  */
 function getParticleVelocityX(rarity) {
     switch(rarity) {
-        case Data.Rarity.COMMON:
+        case Data.Rarity.REGULAR:
             return 0;
-        case Data.Rarity.UNCOMMON:
+        case Data.Rarity.SINGULAR:
             return (-1 + Math.round(Math.random()) * 2) * getRandomNumber(0.2, 0.4);
-        case Data.Rarity.RARE:
+        case Data.Rarity.PRECIOUS:
             return (-1 + Math.round(Math.random()) * 2) * getRandomNumber(0.3, 0.5);
-        case Data.Rarity.EPIC:
+        case Data.Rarity.GRAND:
             return (-1 + Math.round(Math.random()) * 2) * getRandomNumber(0.4, 0.6);
-        case Data.Rarity.LEGENDARY:
+        case Data.Rarity.MYTHIC:
             return (-1 + Math.round(Math.random()) * 2) * getRandomNumber(0.6, 0.8);
-        case Data.Rarity.ELDER:
+        case Data.Rarity.RELIC:
             return (-1 + Math.round(Math.random()) * 2) * getRandomNumber(1, 1.5);
     }
 }
@@ -726,17 +726,17 @@ function getParticleVelocityX(rarity) {
  */
 function getParticleLifetime(rarity) {
     switch(rarity) {
-        case Data.Rarity.COMMON:
+        case Data.Rarity.REGULAR:
             return 0;
-        case Data.Rarity.UNCOMMON:
+        case Data.Rarity.SINGULAR:
             return 45;
-        case Data.Rarity.RARE:
+        case Data.Rarity.PRECIOUS:
             return 40;
-        case Data.Rarity.EPIC:
+        case Data.Rarity.GRAND:
             return 30;
-        case Data.Rarity.LEGENDARY:
+        case Data.Rarity.MYTHIC:
             return 20;
-        case Data.Rarity.ELDER:
+        case Data.Rarity.RELIC:
             return 18;
     }
 }
@@ -1485,39 +1485,39 @@ function getQuantaBurstParamsFromRarity(rarity) {
                 amount: 100,
                 particleSize: 2
             }
-        case Data.Rarity.COMMON:
+        case Data.Rarity.REGULAR:
             return {
-                color: Data.Color.COMMON,
+                color: Data.Color.REGULAR,
                 amount: 0,
                 particleSize: 3,
             }
-        case Data.Rarity.UNCOMMON:
+        case Data.Rarity.SINGULAR:
             return {
-                color: Data.Color.UNCOMMON,
+                color: Data.Color.SINGULAR,
                 amount: 50,
                 particleSize: 3,
             }
-        case Data.Rarity.RARE:
+        case Data.Rarity.PRECIOUS:
             return {
-                color: Data.Color.RARE,
+                color: Data.Color.PRECIOUS,
                 amount: 200,
                 particleSize: 3,
             }
-        case Data.Rarity.EPIC:
+        case Data.Rarity.GRAND:
             return {
-                color: Data.Color.EPIC,
+                color: Data.Color.GRAND,
                 amount: 250,
                 particleSize: 3,
             }
-        case Data.Rarity.LEGENDARY:
+        case Data.Rarity.MYTHIC:
             return {
-                color: Data.Color.LEGENDARY,
+                color: Data.Color.MYTHIC,
                 amount: 300,
                 particleSize: 4,
             }
-        case Data.Rarity.ELDER:
+        case Data.Rarity.RELIC:
             return {
-                color: Data.Color.ELDER,
+                color: Data.Color.RELIC,
                 amount: 500,
                 particleSize: 6,
             }
@@ -1641,12 +1641,12 @@ function getRandomSigilName() {
  */
 function compareHighestRarities(a, b) {
     const rarities = {
-        "common": 1,
-        "uncommon": 2,
-        "rare": 3,
-        "epic": 4,
-        "legendary": 5,
-        "elder": 6
+        "regular": 1,
+        "singular": 2,
+        "precious": 3,
+        "grand": 4,
+        "mythic": 5,
+        "relic": 6
     }
 
     if(rarities[a.toLowerCase()] > rarities[b.toLowerCase()]) return a;
@@ -2044,17 +2044,17 @@ function findClosestInferiorOrEqualNumber(arr, x) {
 /**
  * Returns whether the provided item is able to receive an echo.
  * CANNOT RECEIVE AN ECHO IF:
- * - Is a non-Elder trinket
- * - Is a non-Elder Helmet, Gauntlets or Chestplate.
+ * - Is a non-Relic trinket
+ * - Is a non-Relic Helmet, Gauntlets or Chestplate.
  * @param {Weapon|Armor|Trinket} item the item to check
  * @returns {boolean} whether an echo can be hosted
  */
 function canReceiveEcho(item) {
     if(item instanceof Weapon) return true;
     else if(item instanceof Armor) {
-        if(item.rarity !== Data.Rarity.ELDER) return (item.type === Data.ArmorType.SHIELD || item.type === Data.ArmorType.CHESTPLATE);
+        if(item.rarity !== Data.Rarity.RELIC) return (item.type === Data.ArmorType.SHIELD || item.type === Data.ArmorType.CHESTPLATE);
         else return true;
-    } else if(item instanceof Trinket) return item.rarity === Data.Rarity.ELDER;
+    } else if(item instanceof Trinket) return item.rarity === Data.Rarity.RELIC;
 }
 
 /**

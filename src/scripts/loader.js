@@ -14,7 +14,7 @@ const Loader = {
                        "Swift and quite light. Effective in the hands of a swords master.",
                        3,
                        10,
-                       Data.Rarity.COMMON,
+                       Data.Rarity.REGULAR,
                        Data.WeaponType.SWORD,
                        Data.WeaponWeight.LIGHT,
                        [8, 13],
@@ -31,7 +31,7 @@ const Loader = {
                        "Axe description",
                        4,
                        10,
-                       Data.Rarity.COMMON,
+                       Data.Rarity.REGULAR,
                        Data.WeaponType.AXE,
                        Data.WeaponWeight.HEAVY,
                        [15, 18],
@@ -48,7 +48,7 @@ const Loader = {
                        "Staff description",
                        1,
                        10,
-                       Data.Rarity.UNCOMMON,
+                       Data.Rarity.SINGULAR,
                        Data.WeaponType.STAFF,
                        Data.WeaponWeight.LIGHT,
                        [2, 4],
@@ -65,7 +65,7 @@ const Loader = {
                        "Solana left this blade behind her; it knew many porters, but never a master. At least, that was until it fell into the hands of Betheros. The golden filaments of the hilt closed around his wrist, hugging it to perfection; like a distant kiss from the woman he once loved, and would never stop loving until his last breath.",
                        12,
                        10,
-                       Data.Rarity.LEGENDARY,
+                       Data.Rarity.MYTHIC,
                        Data.WeaponType.SWORD,
                        Data.WeaponWeight.LIGHT,
                        [13, 18],
@@ -82,7 +82,7 @@ const Loader = {
                         "Solana's Tulips",
                         "Each non-critical hit with this weapon gives a §1% {CRIT_LUK} bonus to its bearer, for one round. Each critical hit with this weapon regenerates §2% of its bearer's {MAXMANA} and generates §3 {SHIELD} points.",
                         1,
-                        Data.Rarity.LEGENDARY,
+                        Data.Rarity.MYTHIC,
                         [
                             new Stat({
                                 effect: Data.Effect.MODIF_HEAL_GIVEN,
@@ -116,7 +116,7 @@ const Loader = {
                       "A fair protection.",
                       26,
                       10,
-                      Data.Rarity.COMMON,
+                      Data.Rarity.REGULAR,
                       Data.ArmorType.HELMET,
                       [3, 6],
                       [0, 0],
@@ -125,7 +125,7 @@ const Loader = {
                       "A fair protection.",
                       2,
                       10,
-                      Data.Rarity.COMMON,
+                      Data.Rarity.REGULAR,
                       Data.ArmorType.CHESTPLATE,
                       [8, 12],
                       [0, 0],
@@ -134,7 +134,7 @@ const Loader = {
                       "A fair protection.",
                       9,
                       10,
-                      Data.Rarity.COMMON,
+                      Data.Rarity.REGULAR,
                       Data.ArmorType.GLOVES,
                       [8, 12],
                       [0, 0],
@@ -143,7 +143,7 @@ const Loader = {
                       "A fair protection.",
                       8,
                       10,
-                      Data.Rarity.COMMON,
+                      Data.Rarity.REGULAR,
                       Data.ArmorType.BOOTS,
                       [8, 12],
                       [0, 0],
@@ -152,7 +152,7 @@ const Loader = {
                       "A fair protection.",
                       15,
                       10,
-                      Data.Rarity.COMMON,
+                      Data.Rarity.REGULAR,
                       Data.ArmorType.SHIELD,
                       [8, 12],
                       [0, 0],
@@ -161,7 +161,7 @@ const Loader = {
                       "A fair protection.",
                       4,
                       10,
-                      Data.Rarity.COMMON,
+                      Data.Rarity.REGULAR,
                       Data.ArmorType.CHESTPLATE,
                       [6, 10],
                       [1, 2],
@@ -170,7 +170,7 @@ const Loader = {
                       "A fair protection.",
                       5,
                       10,
-                      Data.Rarity.COMMON,
+                      Data.Rarity.REGULAR,
                       Data.ArmorType.BOOTS,
                       [5, 8],
                       [2, 3],
@@ -179,7 +179,7 @@ const Loader = {
                       "A fair protection.",
                       12,
                       10,
-                      Data.Rarity.COMMON,
+                      Data.Rarity.REGULAR,
                       Data.ArmorType.HELMET,
                       [0, 0],
                       [10, 12],
@@ -188,7 +188,7 @@ const Loader = {
                       "A fair protection.",
                       6,
                       10,
-                      Data.Rarity.COMMON,
+                      Data.Rarity.REGULAR,
                       Data.ArmorType.GLOVES,
                       [0, 0],
                       [8, 10],
@@ -197,7 +197,7 @@ const Loader = {
                       "Lorem ipsum",
                       45,
                       100000,
-                      Data.Rarity.ELDER,
+                      Data.Rarity.RELIC,
                       Data.ArmorType.HELMET,
                       [120, 130],
                       [55, 60],
@@ -206,7 +206,7 @@ const Loader = {
                         "Wartime Efforts",
                         "Guarding an ally boosts them with a §1% {MODIF_DMG_TOTAL} for 1 round, and yourself with §2% {PROTECTION} for one round. While guarding, any friendly skill will boost the targets with §3% {REGEN_STAMINA} for one round, and any offensive skill will apply a §4% {DODGE} debuff to the targets for two rounds.",
                         1,
-                        Data.Rarity.ELDER,
+                        Data.Rarity.RELIC,
                         [
                             new Stat({
                                 effect: Data.Effect.PROTECTION,
@@ -243,42 +243,42 @@ const Loader = {
                 "The petals of this uncanny flower, delicate yet deadly, appear as midnight velvet veined with the essence of a dying star.<br><br>Cleanses a sigil's corrupted effects.",
                 4,
                 10,
-                Data.Rarity.EPIC,
+                Data.Rarity.GRAND,
             ),
             new Resource(
                 "Time Stream Catalyst",
                 "Maxes out a sigil's effects.",
                 1,
                 10,
-                Data.Rarity.EPIC,
+                Data.Rarity.GRAND,
             ),
             new Resource(
                 "Pearl of Wrath",
                 "This cracked pink pearl screams from within. It flutters in the palm of your hand, shooting inexplicable anger through every fibre of the person who admires it.<br><br>Pushes the sigil's effects beyond their maximum bound. May generate corrupt effects.",
                 2,
                 10,
-                Data.Rarity.LEGENDARY,
+                Data.Rarity.MYTHIC,
             ),
             new Resource(
                 "Reminder",
                 "Randomly recasts an item's effects.",
                 3,
                 10,
-                Data.Rarity.RARE
+                Data.Rarity.PRECIOUS
             ),
             new Resource(
                 "Seed of Remembrance",
                 "Can be used to store an echo, and reapply it later.",
                 22,
                 10,
-                Data.Rarity.LEGENDARY
+                Data.Rarity.MYTHIC
             ),
             new AlchemicalIngredient(
                 "Dark Stone",
                 "The Dark Stone is a foreboding artifact of ancient origin, radiating an unsettling aura of malevolence. Hewn from the depths of the abyss, its surface is smooth and obsidian-like, yet marred with jagged cracks that seem to pulse with a faint, eerie glow. Legends speak of its connection to the darkest forces of the world, making it both a coveted and feared object.",
                 6,
                 10,
-                Data.Rarity.COMMON,
+                Data.Rarity.REGULAR,
                 {
                     passive: {
                         effect: new Stat({effect: Data.Effect.PROTECTION, theorical: 2, isPercentage: true, alchemicalType: Data.AlchemicalEffectType.PASSIVE}),
@@ -296,10 +296,10 @@ const Loader = {
             ),
             new AlchemicalIngredient(
                 "Silver Essence",
-                "Silver Essence is a rare and coveted substance that is whispered to be the distilled essence of moonlight itself. It is a shimmering, ethereal liquid contained within a small vial adorned with intricate silver engravings. The power it holds is both enchanting and treacherous, capable of transforming ordinary weapons and armor into formidable tools of destruction.",
+                "Silver Essence is a precious and coveted substance that is whispered to be the distilled essence of moonlight itself. It is a shimmering, ethereal liquid contained within a small vial adorned with intricate silver engravings. The power it holds is both enchanting and treacherous, capable of transforming ordinary weapons and armor into formidable tools of destruction.",
                 5,
                 10,
-                Data.Rarity.COMMON,
+                Data.Rarity.REGULAR,
                 {
                     passive: {
                         effect: new Stat({effect: Data.Effect.MIGHT, theorical: 2, alchemicalType: Data.AlchemicalEffectType.PASSIVE}),
@@ -320,7 +320,7 @@ const Loader = {
                 "These withered petals, once vibrant and fragrant, have fallen from a cursed blossom in a forgotten realm. Despite their decaying state, their ominous beauty holds a sinister power. When ingested, Decaying Petals infuse the user with a potent essence of darkness.",
                 7,
                 10,
-                Data.Rarity.UNCOMMON,
+                Data.Rarity.SINGULAR,
                 {
                     passive: {
                         effect: new Stat({effect: Data.Effect.WARDING, theorical: 2, alchemicalType: Data.AlchemicalEffectType.PASSIVE}),
@@ -341,7 +341,7 @@ const Loader = {
                 "Can be used in the Astral Forge to create a temporal alteration. Adds +1 effect value.",
                 8,
                 10,
-                Data.Rarity.COMMON,
+                Data.Rarity.REGULAR,
                 1,
             ),
             new TimeShard(
@@ -349,7 +349,7 @@ const Loader = {
                 "Can be used in the Astral Forge to create a temporal alteration. Adds +5 effect value.",
                 8,
                 10,
-                Data.Rarity.UNCOMMON,
+                Data.Rarity.SINGULAR,
                 5
             ),
             new TimeShard(
@@ -357,7 +357,7 @@ const Loader = {
                 "Can be used in the Astral Forge to create a temporal alteration. Adds +50 effect value.",
                 8,
                 10,
-                Data.Rarity.RARE,
+                Data.Rarity.PRECIOUS,
                 50
             ),
             new TimeShard(
@@ -365,7 +365,7 @@ const Loader = {
                 "Can be used in the Astral Forge to create a temporal alteration. Adds +1% effect value.",
                 8,
                 10,
-                Data.Rarity.EPIC,
+                Data.Rarity.GRAND,
                 1,
                 true
             ),
@@ -374,7 +374,7 @@ const Loader = {
                 "Can be used in the Astral Forge to create a temporal alteration. Adds +5% effect value.",
                 8,
                 10,
-                Data.Rarity.EPIC,
+                Data.Rarity.GRAND,
                 5,
                 true
             ),
@@ -383,7 +383,7 @@ const Loader = {
                 "Can be used in the Astral Forge to create a temporal alteration. Enables an effect.",
                 8,
                 10,
-                Data.Rarity.EPIC,
+                Data.Rarity.GRAND,
                 true
             ),
             new TimeShard(
@@ -391,7 +391,7 @@ const Loader = {
                 "Can be used in the Astral Forge to create a temporal alteration. Adds a new line of effect.",
                 8,
                 10,
-                Data.Rarity.LEGENDARY,
+                Data.Rarity.MYTHIC,
                 "new"
             ),
             new Resource(
@@ -399,28 +399,28 @@ const Loader = {
                 "Can be used in the Astral Forge to force a Success on a temporal alteration. Warps the object in the process.",
                 9,
                 10,
-                Data.Rarity.EPIC,
+                Data.Rarity.GRAND,
             ),
             new Resource(
                 "Sparkling Comet Dust",
                 "Can be used in the Astral Forge to revert a temporal alteration.",
                 10,
                 10,
-                Data.Rarity.EPIC,
+                Data.Rarity.GRAND,
             ),
             new Resource(
                 "Glowing Comet Dust",
                 "Can be used in the Astral Forge to force a Critical Success on a temporal alteration. Seals the object's fate in the process.",
                 10,
                 10,
-                Data.Rarity.LEGENDARY,
+                Data.Rarity.MYTHIC,
             ),
             new Resource(
                 "Solar Firefly",
                 "Hovering in stillness, its ethereal wings wriggle as it emanates a mesmerizing, golden glow that adores even the most encompassing darkness.<br><br>Can be used to scout unknown rooms in dungeons.",
                 11,
                 11,
-                Data.Rarity.RARE
+                Data.Rarity.PRECIOUS
             )
         ];
 
@@ -436,7 +436,7 @@ const Loader = {
                      "The indecipherable carvings on the sigil strenghten your very flesh and the hardiness of your armor.",
                      1,
                      10,
-                     Data.Rarity.RARE,
+                     Data.Rarity.PRECIOUS,
                      {
                         type: Data.SigilType.ARMOR,
                         effects: [
@@ -465,7 +465,7 @@ const Loader = {
                      "From the stone emanates a singular power, that flows through the metal to your muscles, and floods your whole being with a supernatural strength.",
                      13,
                      10,
-                     Data.Rarity.UNCOMMON,
+                     Data.Rarity.SINGULAR,
                      {
                         type: Data.SigilType.WEAPON,
                         effects: [
@@ -495,7 +495,7 @@ const Loader = {
                      "The wounds burn with a terrible heat or biting cold. Bodies crumble and die at its touch.",
                      25,
                      10,
-                     Data.Rarity.RARE,
+                     Data.Rarity.PRECIOUS,
                      {
                         type: Data.SigilType.WEAPON,
                         effects: [
@@ -536,7 +536,7 @@ const Loader = {
                 "Sigil description",
                 1,
                 10,
-                Data.Rarity.RARE,
+                Data.Rarity.PRECIOUS,
                 [
                     new Ingredient(what(game.all_resources, "dark stone"), 1),
                     new Ingredient(what(game.all_resources, "silver essence"), 2),
@@ -549,7 +549,7 @@ const Loader = {
                 "Sigil description",
                 1,
                 10,
-                Data.Rarity.RARE,
+                Data.Rarity.PRECIOUS,
                 [
                     new Ingredient(what(game.all_resources, "dark stone"), 1),
                     new Ingredient(what(game.all_resources, "silver essence"), 2),
@@ -570,7 +570,7 @@ const Loader = {
                 "Snakebite",
                 "Heal §1% of your {MAXHEALTH} when an enemy is poisoned by this weapon.",
                 1,
-                Data.Rarity.UNCOMMON,
+                Data.Rarity.SINGULAR,
                 [
                     new Stat({
                         effect: Data.Effect.POISON_DMG,
@@ -592,7 +592,7 @@ const Loader = {
                 "Last Word",
                 "Each time a spell is cast during the fight, you gain §1% {SPIRIT} (stackable up to §2%). This effect fades away if you are stunned, killed, or if the fight ends.",
                 1,
-                Data.Rarity.RARE,
+                Data.Rarity.PRECIOUS,
                 [],
                 "The final word in a case is always a number.",
                 {
@@ -605,7 +605,7 @@ const Loader = {
                 "Octane",
                 "Replenish §1% of your {MAXMANA} every time you receive damage while being stunned.",
                 1,
-                Data.Rarity.UNCOMMON,
+                Data.Rarity.SINGULAR,
                 [
                     new Stat({
                         effect: Data.Effect.WARDING,
@@ -628,7 +628,7 @@ const Loader = {
                 "Hold the Line",
                 "Replenish §1% of your {MAXHEALTH} every time you receive damage while blocking. Blocking now consumes §2 {STAMINA}.",
                 1,
-                Data.Rarity.UNCOMMON,
+                Data.Rarity.SINGULAR,
                 [],
                 "\"When all seems lost, holding the line is not a choice; it's a sacred duty to defend what you hold dear.\" — Khej, Raincaller of Atalan",
                 {
@@ -642,7 +642,7 @@ const Loader = {
                 "Fencer's Mark",
                 "Replenish §1% of your {MAXSTAMINA} every time you dodge an attack.",
                 1,
-                Data.Rarity.RARE,
+                Data.Rarity.PRECIOUS,
                 [
                     new Stat({
                         effect: Data.Effect.SPEED,
@@ -670,7 +670,7 @@ const Loader = {
                 "Nemesis",
                 "Each time you attack, you additionally deal §1% of the damage you received during the previous round.",
                 1,
-                Data.Rarity.EPIC,
+                Data.Rarity.GRAND,
                 [
                     new Stat({
                         effect: Data.Effect.PROTECTION,
@@ -689,7 +689,7 @@ const Loader = {
                 "Cannibal Instinct",
                 "For each bleeding tick, you gain §1% {MODIF_DMG_TOTAL} (stackable up to §2%). This effect fades away if you are stunned, killed, or if the fight ends.",
                 1,
-                Data.Rarity.LEGENDARY,
+                Data.Rarity.MYTHIC,
                 [
                     new Stat({
                         effect: Data.Effect.BLEED_DMG,
@@ -722,7 +722,7 @@ const Loader = {
                 "Obliterate",
                 "Any critical hit with this weapon on a stunned enemy will instantly destroy their entire shield.",
                 1,
-                Data.Rarity.LEGENDARY,
+                Data.Rarity.MYTHIC,
                 [
                     new Stat({
                         effect: Data.Effect.MODIF_ACCURACY_STUN,
@@ -744,7 +744,7 @@ const Loader = {
                 "Relentless",
                 "Each critical hit generates a shield whose value equals §1% of your {MAXHEALTH} (stackable).",
                 1,
-                Data.Rarity.UNCOMMON,
+                Data.Rarity.SINGULAR,
                 [],
                 "When facing an insurmountable foe, the only defense is a relentless attack that leaves no room for their counteroffensive.",
                 {
@@ -757,7 +757,7 @@ const Loader = {
                 "Opportunistic",
                 "Each enemy you stun grants you a §1% {MODIF_ACCURACY_STUN} bonus on the next round, for one round.",
                 1,
-                Data.Rarity.UNCOMMON,
+                Data.Rarity.SINGULAR,
                 [],
                 "Seize this momentum, strike, strike again!",
                 {
@@ -770,7 +770,7 @@ const Loader = {
                 "Corrosive Blades",
                 "Hitting an enemy with this weapon reduces their {PROTECTION} by §1% (stackable, forever).",
                 1,
-                Data.Rarity.RARE,
+                Data.Rarity.PRECIOUS,
                 [],
                 "Where the kiss of steel meets the power of time.",
                 {
@@ -783,7 +783,7 @@ const Loader = {
                 "Reprieve",
                 "Each {STAMINA} debuff you receive grants you with a {SHIELD} that equals half that debuff amount.",
                 1,
-                Data.Rarity.EPIC,
+                Data.Rarity.GRAND,
                 [],
                 "Even peace awaits in the eye of the storm.",
                 {},
@@ -794,7 +794,7 @@ const Loader = {
                 "Anchorite",
                 "Gain a §1% {MODIF_DMG_TOTAL} and a §2% {MODIF_HEAL_GIVEN} bonuses on rounds you don't receive any damage (stackable, forever).",
                 1,
-                Data.Rarity.EPIC,
+                Data.Rarity.GRAND,
                 [],
                 "Amidst the deafening silence of loneliness, the mind is free to concentrate on the whispers of the soul.",
                 {
@@ -808,7 +808,7 @@ const Loader = {
                 "Erode Away",
                 "Hitting an enemy with this weapon reduces their {MAXHEALTH} by §1% (stackable, forever).",
                 1,
-                Data.Rarity.LEGENDARY,
+                Data.Rarity.MYTHIC,
                 [],
                 "Weathering, worn out by the winds of time.",
                 {
@@ -883,7 +883,7 @@ const Loader = {
                 "A fine piece of jewelry made in Uziel's marble heights. It is so lightweight that wearing it feels like wearing a ring of air.",
                 91,
                 10,
-                Data.Rarity.EPIC,
+                Data.Rarity.GRAND,
                 [
                     new Stat({
                         effect: Data.Effect.MAXHEALTH,
@@ -905,7 +905,7 @@ const Loader = {
                 "Ersatz of reality flash before your eyes ; some may be hallucinated, while others have simply not happened yet.",
                 97,
                 10,
-                Data.Rarity.UNCOMMON,
+                Data.Rarity.SINGULAR,
                 [
                     new Stat({
                         effect: Data.Effect.DODGE,
@@ -923,7 +923,7 @@ const Loader = {
                 "To be swift without taking heed is imprudent. To take heed without hastening is equally so.",
                 101,
                 10,
-                Data.Rarity.UNCOMMON,
+                Data.Rarity.SINGULAR,
                 [
                     new Stat({
                         effect: Data.Effect.SPEED,
@@ -940,7 +940,7 @@ const Loader = {
                 "The Moon bathed Koruk in silver; his battered and feeble body convulsed; and from his lifeless eyes, he cried out to the night.",
                 39,
                 10,
-                Data.Rarity.RARE,
+                Data.Rarity.PRECIOUS,
                 [
                     new Stat({
                         effect: Data.Effect.MODIF_HEAL_GIVEN,
@@ -963,7 +963,7 @@ const Loader = {
                 "\"I may see dragons in my mind's eye, but my quicksilver agility can dodge their fiery breath with ease.\" — Kabal, Counselor of the Queen",
                 41,
                 10,
-                Data.Rarity.COMMON,
+                Data.Rarity.REGULAR,
                 [
                     new Stat({
                         effect: Data.Effect.DODGE,
@@ -981,7 +981,7 @@ const Loader = {
                 "Refurbished, worn out, it has long been a child's best friend.",
                 38,
                 10,
-                Data.Rarity.COMMON,
+                Data.Rarity.REGULAR,
                 [
                     new Stat({
                         effect: Data.Effect.ACCURACY,
@@ -999,7 +999,7 @@ const Loader = {
                 "The pen shakes of itself, agitated in its heart of an unheard of ardor.",
                 47,
                 10,
-                Data.Rarity.UNCOMMON,
+                Data.Rarity.SINGULAR,
                 [
                     new Stat({
                         effect: Data.Effect.MAXSTAMINA,
@@ -1022,7 +1022,7 @@ const Loader = {
                 "\"Would you dare to cross swords with him? He is the wisest of the Princes of Mithor. But impetuous dexterity does not come without fault; do not tempt the devil, or you may join the grave of the Baron of Gaushire.\" - Jir, Traveling Merchant",
                 22,
                 10,
-                Data.Rarity.RARE,
+                Data.Rarity.PRECIOUS,
                 [
                     new Stat({
                         effect: Data.Effect.MODIF_DMG_WEAPON,
@@ -1041,7 +1041,7 @@ const Loader = {
                 "\"My guard? Do you think I care a whit about my guard, Sarv? Why should I bother honing my guard when I can floor anyone with a single blow?\" - Cialto, Champion Swordsman",
                 18,
                 10,
-                Data.Rarity.UNCOMMON,
+                Data.Rarity.SINGULAR,
                 [
                     new Stat({
                         effect: Data.Effect.MODIF_DMG_WEAPON,
@@ -1059,7 +1059,7 @@ const Loader = {
                 "A shifting storm howls in this sphere; warm and golden, cold and black, it twirls, revealing temporal fragments dating back to the earliest ages of Mithor.",
                 23,
                 10,
-                Data.Rarity.LEGENDARY,
+                Data.Rarity.MYTHIC,
                 [
                     new Stat({
                         effect: Data.Effect.MODIF_CHANCE_STUN,
@@ -1082,7 +1082,7 @@ const Loader = {
                 "This bag of coarsly extracted teeth is unexpectedly heavy. Maybe there's not just molars in there, but do you really want to find out?",
                 13,
                 10,
-                Data.Rarity.RARE,
+                Data.Rarity.PRECIOUS,
                 [
                     new Stat({
                         effect: Data.Effect.MODIF_CHANCE_MOVE,
@@ -1100,7 +1100,7 @@ const Loader = {
                 "\"Quote\" - The Ashen Warden",
                 29,
                 10,
-                Data.Rarity.EPIC,
+                Data.Rarity.GRAND,
                 [
                     new Stat({
                         effect: Data.Effect.MODIF_DMG_POISON,
@@ -1124,7 +1124,7 @@ const Loader = {
                 "\"Quote\" - Somebody",
                 32,
                 10,
-                Data.Rarity.RARE,
+                Data.Rarity.PRECIOUS,
                 [
                     new Stat({
                         effect: Data.Effect.MODIF_HEAL_GIVEN,
@@ -1142,7 +1142,7 @@ const Loader = {
                 "\"Quote\" - Somebody",
                 8,
                 10,
-                Data.Rarity.RARE,
+                Data.Rarity.PRECIOUS,
                 [
                     new Stat({
                         effect: Data.Effect.MODIF_ACCURACY_BLEED,
@@ -1166,7 +1166,7 @@ const Loader = {
                 "\"Quote\" - Somebody",
                 24,
                 10,
-                Data.Rarity.LEGENDARY,
+                Data.Rarity.MYTHIC,
                 [
                     new Stat({
                         effect: Data.Effect.MAXHEALTH,
@@ -1192,7 +1192,7 @@ const Loader = {
                 "\"Quote\" - Somebody",
                 25,
                 10,
-                Data.Rarity.RARE,
+                Data.Rarity.PRECIOUS,
                 [
                     new Stat({
                         effect: Data.Effect.REGEN_MANA,
@@ -1216,7 +1216,7 @@ const Loader = {
                 "\"Quote\" - Somebody",
                 9,
                 10,
-                Data.Rarity.EPIC,
+                Data.Rarity.GRAND,
                 [
                     new Stat({
                         effect: Data.Effect.MODIF_CHANCE_STUN,
@@ -1243,7 +1243,7 @@ const Loader = {
                 "Lorem ipsum",
                 37,
                 10000,
-                Data.Rarity.ELDER,
+                Data.Rarity.RELIC,
                 [
                     new Stat({
                         effect: Data.Effect.MAXMANA,
@@ -1275,7 +1275,7 @@ const Loader = {
                     "Jara's Cycle",
                      "Hitting an enemy with a weapon applies a §1% {MODIF_DMG_SKILL} boost to yourself. Hitting an enemy or an ally with a skill applies a §2% {MODIF_DMG_WEAPON} boost to yourself. Completing a cycle grants you a §3% {MODIF_DMG_TOTAL} and §4% {MODIF_HEAL_GIVEN}, stackable, forever.",
                     1,
-                    Data.Rarity.ELDER,
+                    Data.Rarity.RELIC,
                     [
                         new Stat({
                             effect: Data.Effect.MODIF_CRIT_BLEED,
@@ -1308,7 +1308,7 @@ const Loader = {
         const equipmentSets = [
             new EquipmentSet(
                 "Highsteel Set",
-                Data.Rarity.COMMON,
+                Data.Rarity.REGULAR,
                 {
                     base: Data.Effect.HEALTH,
                     primary: Data.Effect.DODGE,
@@ -1342,7 +1342,7 @@ const Loader = {
                             "Swift as Steel",
                             "Dodging an attack replenishes §1% of your {MAXHEALTH}. An enemy dodging one of your attacks grants you a §2% {DODGE} boost for 1 round.",
                             1,
-                            Data.Rarity.COMMON,
+                            Data.Rarity.REGULAR,
                             [],
                             "Blessed with agility akin to a sword forged from the air itself.",
                             {
@@ -1356,7 +1356,7 @@ const Loader = {
             ),
             new EquipmentSet(
                 "Entarian Set",
-                Data.Rarity.UNCOMMON,
+                Data.Rarity.SINGULAR,
                 {
                     base: Data.Effect.STAMINA,
                     primary: Data.Effect.ACCURACY,
@@ -1390,7 +1390,7 @@ const Loader = {
                             "Rebalancing",
                             "Successful blows with a weapon grant a +§1 {RESILIENCE} bonus for one round and apply a -§2% {ACCURACY} debuff on the target. Critical blows with a weapon grant a +§3% {REGEN_STAMINA} bonus for 2 round.",
                             1,
-                            Data.Rarity.UNCOMMON,
+                            Data.Rarity.SINGULAR,
                             [],
                             "Never stay still; so long are you can move, you will live.",
                             {
@@ -1405,7 +1405,7 @@ const Loader = {
             ),
             new EquipmentSet(
                 "Drancoran Set",
-                Data.Rarity.UNCOMMON,
+                Data.Rarity.SINGULAR,
                 {
                     base: Data.Effect.MANA,
                     primary: Data.Effect.SPEED,
@@ -1439,7 +1439,7 @@ const Loader = {
                             "Altruism",
                             "Healing an ally with a skill grants them with a +§1 {SPEED} boost for the next round and adds a stack of Altruism on yourself. When 3 stacks are reached, receive a +§2% {MODIF_HEAL_GIVEN} boost for two rounds and a -§3% {MAXHEALTH} malus for one round.",
                             1,
-                            Data.Rarity.UNCOMMON,
+                            Data.Rarity.SINGULAR,
                             [],
                             "You are their spine.",
                             {
