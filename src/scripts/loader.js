@@ -3297,6 +3297,62 @@ const Loader = {
                 },
             }),
             new Dungeon({
+                name: "Firthadel Cathedral",
+                desc: "",
+                background: "firthadel-cathedral.png",
+                biome: Data.DungeonBiome.THE_KAULT,
+                maximumDepth: 3,
+                config: {
+                    floor1: {
+                        depth: 1,
+                    },
+                    floor2: {
+                        depth: 2,
+                    },
+                    floor3: {
+                        depth: 3,
+                    },
+                },
+            }),
+            new Dungeon({
+                name: "Ankadorr's Lair",
+                desc: "",
+                background: "ankadorrs-lair.png",
+                biome: Data.DungeonBiome.THE_KAULT,
+                maximumDepth: 3,
+                config: {
+                    floor1: {
+                        depth: 1,
+                    },
+                    floor2: {
+                        depth: 2,
+                    },
+                    floor3: {
+                        depth: 3,
+                    },
+                },
+            }),
+            new Dungeon({
+                name: "Inside of the World-Tree",
+                desc: "",
+                background: "inside-of-the-world-tree.png",
+                biome: Data.DungeonBiome.THE_KAULT,
+                maximumDepth: 3,
+                config: {
+                    floor1: {
+                        depth: 1,
+                    },
+                    floor2: {
+                        depth: 2,
+                    },
+                    floor3: {
+                        depth: 3,
+                    },
+                },
+            }),
+
+
+            new Dungeon({
                 name: "Smoldering Cave",
                 desc: "",
                 background: "smoldering-cave.png",
@@ -3313,7 +3369,27 @@ const Loader = {
                         depth: 3,
                     },
                 },
-            })
+            }),
+            
+
+            new Dungeon({
+                name: "Wreck of the Stormbreaker",
+                desc: "",
+                background: "wreck-of-the-stormbreaker.png",
+                biome: Data.DungeonBiome.SHATTERED_ISLES,
+                maximumDepth: 3,
+                config: {
+                    floor1: {
+                        depth: 1,
+                    },
+                    floor2: {
+                        depth: 2,
+                    },
+                    floor3: {
+                        depth: 3,
+                    },
+                },
+            }),
         ];
 
         for(const dungeon of dungeons) {
