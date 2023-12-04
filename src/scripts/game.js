@@ -398,8 +398,8 @@ class Game {
         this.player.formationSet(what(this.player.roster, "carhal"), Data.FormationPosition.BACK);
 
         // Equipping
-        what(this.player.roster, "amarok").equipWeapon(what(this.player.inventory.weapons, 'entarian axe'));
-        what(this.player.roster, "carhal").equipWeapon(what(this.player.inventory.weapons, 'highsteel sword'));
+        what(this.player.roster, "carhal").equipWeapon(what(this.player.inventory.weapons, 'entarian axe'));
+        what(this.player.roster, "amarok").equipWeapon(what(this.player.inventory.weapons, 'highsteel sword'));
         what(this.player.roster, "betheros").equipWeapon(what(this.player.inventory.weapons, 'drancoran staff'));
 
         what(this.player.roster, "carhal").equipArmor(what(this.player.inventory.armors, 'entarian chestplate'));
