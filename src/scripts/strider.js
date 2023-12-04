@@ -177,10 +177,19 @@ class Strider extends NPC {
 
     /**
      * Equips the trinket whose ID is provided in the DragEvent object.
-     * @param {DragEvent} event the Event from which the trinket will be retrieved
+     * @param {DragEvent|Trinket} item the Event from which the trinket will be retrieved, or a Trinket object
      */
-    equipTrinket(event) {
-        const trinket = game.player.inventory.getItemFromId(Data.ItemType.TRINKET, event.dataTransfer.getData("trinket"));
+    equipTrinket(item) {
+        let trinket = null;
+
+        if(item instanceof DragEvent) {
+            trinket = game.player.inventory.getItemFromId(Data.ItemType.TRINKET, item.dataTransfer.getData("trinket"));
+        } else trinket = item;
+        if(!trinket) {
+            console.error('Tried to equip a trinket that does not exist.');
+            return;
+        }
+
         if(this.hasFreeTrinketSlots()) {
             trinket.effects.forEach(effect => {
                 //this.addEffect(effect);
@@ -200,7 +209,12 @@ class Strider extends NPC {
             console.log(trinket.name + ' was equipped to ' + this.name);
             Sounds.Methods.playSound(Data.SoundType.EQUIP);
             drawTrinketInventory();
-            spawnStriderPopup(this, true);
+            
+            try {
+                spawnStriderPopup(this, true);
+            } catch(e) {
+                console.log('Could not refresh Strided popup.');
+            }
         } else {
             ERROR(this.name + ' cannot equip more trinkets.');
         }
@@ -297,17 +311,19 @@ class Strider extends NPC {
 
     /**
      * Equips the armor whose ID is provided in the DragEvent object.
-     * @param {DragEvent|Armor} item the Event from which the armor will be retrieved
+     * @param {DragEvent|Armor} item the Event from which the armor will be retrieved, or an Armor object
      */
     equipArmor(item) {
         let armor = null;
-        if(!item instanceof Armor) {
+
+        if(item instanceof DragEvent) {
             armor = game.player.inventory.getItemFromId(Data.ItemType.ARMOR, item.dataTransfer.getData('armor'));
         } else armor = item;
         if(!armor) {
             console.error('Tried to equip an armor that doesn\'t exist.');
             return;
         }
+
         // check if armor is already equipped
         switch(armor.type) {
             case Data.ArmorType.HELMET:
@@ -345,7 +361,12 @@ class Strider extends NPC {
         console.log(armor.name + ' was equipped to ' + this.name);
         Sounds.Methods.playSound(Data.SoundType.EQUIP);
         drawInventory();
-        spawnStriderPopup(this, true);
+        
+        try {
+            spawnStriderPopup(this, true);
+        } catch(e) {
+            console.log('Could not refresh Strided popup.');
+        }
     }
 
     /**
@@ -398,11 +419,20 @@ class Strider extends NPC {
 
     /**
      * Equips the Weapon from the data in the provided DragEvent to the targeted hand.
-     * @param {DragEvent} event 
+     * @param {DragEvent|Weapon} item the Event from which the weapon will be retrieved, or a Weapon object
      * @param {Data.WeaponHand} hand the hand to equip the weapon to
      */
-    equipWeapon(event, hand = '') {
-        const weapon = game.player.inventory.getItemFromId(Data.ItemType.WEAPON, event.dataTransfer.getData('weapon'));
+    equipWeapon(item, hand = '') {
+        let weapon = null;
+
+        if(item instanceof DragEvent) {
+            weapon = game.player.inventory.getItemFromId(Data.ItemType.WEAPON, item.dataTransfer.getData('weapon'));
+        } else weapon = item;
+        if(!weapon) {
+            console.error('Tried to equip a weapon that does not exist.');
+            return;
+        }
+
         if(weapon.weight === Data.WeaponWeight.HEAVY) {
             if(this.eqWeaponLeft) this.unequipWeapon(Data.WeaponHand.LEFT);
             if(this.eqWeaponRight) this.unequipWeapon(Data.WeaponHand.RIGHT);
@@ -443,7 +473,12 @@ class Strider extends NPC {
         game.player.inventory.removeItem(weapon);
         Sounds.Methods.playSound(Data.SoundType.EQUIP_WEAPON);
         drawInventory();
-        spawnStriderPopup(this, true);
+        
+        try {
+            spawnStriderPopup(this, true);
+        } catch(e) {
+            console.log('Could not refresh Strided popup.');
+        }
     }
 
     /**
