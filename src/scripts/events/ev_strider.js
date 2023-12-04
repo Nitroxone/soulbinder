@@ -35,18 +35,58 @@ function generateStriderScreenEquipmentEvents(strider) {
         wpnB.addEventListener('contextmenu', e => {e.stopImmediatePropagation(); e.preventDefault(); strider.unequipWeapon(Data.WeaponHand.BOTH)});
     }
 
-    // Gear tooltips
-    strider.eqHelmet && addTooltip(helm, function(){ return getArmorTooltip(strider.eqHelmet) }, { offY: -8 });
-    strider.eqChestplate && addTooltip(ches, function(){ return getArmorTooltip(strider.eqChestplate) }, { offY: -8 });
-    strider.eqGloves && addTooltip(glov, function(){ return getArmorTooltip(strider.eqGloves) }, { offY: -8 });
-    strider.eqBoots && addTooltip(boot, function(){ return getArmorTooltip(strider.eqBoots) }, { offY: -8 });
-    strider.eqShield && addTooltip(shie, function(){ return getArmorTooltip(strider.eqShield) }, { offY: -8 });
-    strider.trinkets[0] && addTooltip(trk1, function(){ return getTrinketTooltip(strider.trinkets[0]) }, { offY: -8 });
-    strider.trinkets[1] && addTooltip(trk2, function(){ return getTrinketTooltip(strider.trinkets[1]) }, { offY: -8 });
-    strider.trinkets[2] && addTooltip(trk3, function(){ return getTrinketTooltip(strider.trinkets[2]) }, { offY: -8 });
-    strider.eqWeaponLeft && addTooltip(wpnL, function(){ return getWeaponTooltip(strider.eqWeaponLeft) }, { offY: -8 });
-    strider.eqWeaponRight && addTooltip(wpnR, function(){ return getWeaponTooltip(strider.eqWeaponRight) }, { offY: -8 });
-    strider.eqWeaponBoth && addTooltip(wpnB, function(){ return getWeaponTooltip(strider.eqWeaponBoth) }, { offY: -8 });
+    const domList = [
+        helm, 
+        ches, 
+        glov, 
+        boot, 
+        shie, 
+        trk1, 
+        trk2, 
+        trk3, 
+        wpnL, 
+        wpnR, 
+        wpnB
+    ];
+    const objList = [
+        strider.eqHelmet,
+        strider.eqChestplate,
+        strider.eqGloves,
+        strider.eqBoots,
+        strider.eqShield,
+        strider.trinkets[0],
+        strider.trinkets[1],
+        strider.trinkets[2],
+        strider.eqWeaponLeft,
+        strider.eqWeaponRight,
+        strider.eqWeaponBoth
+    ];
+
+    for (let i = 0; i < domList.length; i++) {
+        const dom = domList[i];
+        const obj = objList[i];
+
+        if (obj) {
+            if (obj instanceof Armor) addTooltip(dom, function(){ return getArmorTooltip(obj) }, { offY: -8 });
+            if (obj instanceof Weapon) addTooltip(dom, function(){ return getWeaponTooltip(obj) }, { offY: -8 });
+            if (obj instanceof Trinket) addTooltip(dom, function(){ return getTrinketTooltip(obj) }, { offY: -8 });
+
+            dom.addEventListener('click', function(){
+                Sounds.Methods.playSound(Data.SoundType.TOOLTIP_SPAWN);
+                const tooltip = spawnTooltip(obj);
+                if(obj.set) {
+                    let tooltipDesc = tooltip.querySelector('.tooltipSetText');
+                    tooltipDesc.addEventListener('click', (e) => {
+                        Sounds.Methods.playSound(Data.SoundType.TOOLTIP_SPAWN);
+                        spawnTooltip(what(game.all_equipmentSets, obj.set), tooltip);
+                    });
+                }
+            });
+            dom.addEventListener('mouseover', function() {
+                Sounds.Methods.playSound(Data.SoundType.TOOLTIP_HOVER);
+            });
+        }
+    }
 
     const striderBonuses = document.querySelector('#bonusesIcon-' + strider.id);
     addTooltip(striderBonuses, function(){
