@@ -297,10 +297,17 @@ class Strider extends NPC {
 
     /**
      * Equips the armor whose ID is provided in the DragEvent object.
-     * @param {DragEvent} event the Event from which the armor will be retrieved
+     * @param {DragEvent|Armor} item the Event from which the armor will be retrieved
      */
-    equipArmor(event) {
-        const armor = game.player.inventory.getItemFromId(Data.ItemType.ARMOR, event.dataTransfer.getData('armor'));
+    equipArmor(item) {
+        let armor = null;
+        if(!item instanceof Armor) {
+            armor = game.player.inventory.getItemFromId(Data.ItemType.ARMOR, item.dataTransfer.getData('armor'));
+        } else armor = item;
+        if(!armor) {
+            console.error('Tried to equip an armor that doesn\'t exist.');
+            return;
+        }
         // check if armor is already equipped
         switch(armor.type) {
             case Data.ArmorType.HELMET:
