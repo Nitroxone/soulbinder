@@ -1273,7 +1273,7 @@ const Loader = {
                 2,
                 new Echo(
                     "Jara's Cycle",
-                     "Hitting an enemy with a weapon applies a §1% {MODIF_DMG_SKILL} boost to yourself. Hitting an enemy or an ally with a skill applies a §2% {MODIF_DMG_WEAPON} boost to yourself. Completing a cycle grants you a §3% {MODIF_DMG_TOTAL} and §4% {MODIF_HEAL_GIVEN}, stackable, forever.",
+                    "Hitting an enemy with a weapon applies a §1% {MODIF_DMG_SKILL} boost to yourself. Hitting an enemy or an ally with a skill applies a §2% {MODIF_DMG_WEAPON} boost to yourself. Completing a cycle grants you a §3% {MODIF_DMG_TOTAL} and §4% {MODIF_HEAL_GIVEN}, stackable, forever.",
                     1,
                     Data.Rarity.RELIC,
                     [
@@ -1297,6 +1297,125 @@ const Loader = {
                     },
                     []
                 )
+            ),
+            new Trinket(
+                "Eyeballs of the False Prophet",
+                "Lorem ipsum",
+                4,
+                1000,
+                Data.Rarity.PRECIOUS,
+                [
+                    new Stat({
+                        effect: Data.Effect.DODGE,
+                        theorical: [12, 15],
+                        isPercentage: true
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MODIF_DMG_TOTAL,
+                        theorical: [30, 35],
+                        isPercentage: true
+                    })
+                ],
+                2
+            ),
+            new Trinket(
+                "Malignant Heart",
+                "Lorem ipsum",
+                16,
+                1000,
+                Data.Rarity.MYTHIC,
+                [
+                    new Stat({
+                        effect: Data.Effect.MAXSTAMINA,
+                        theorical: [120, 135],
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MAXHEALTH,
+                        theorical: [50, 65],
+                    }),
+                ],
+                2
+            ),
+            new Trinket(
+                "Codex Oblivio",
+                "Lorem ipsum",
+                11,
+                1000,
+                Data.Rarity.SINGULAR,
+                [
+                    new Stat({
+                        effect: Data.Effect.REGEN_MANA,
+                        theorical: [8, 10],
+                        isPercentage: true
+                    }),
+                    new Stat({
+                        effect: Data.Effect.DAMAGE_REFLECTION,
+                        theorical: [5, 6],
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MODIF_DMG_SKILL,
+                        theorical: [8, 12],
+                        isPercentage: true
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MAXHEALTH,
+                        theorical: [-30, -40],
+                    }),
+                ],
+            ),
+            new Trinket(
+                "Borri's Phalanges",
+                "Lorem ipsum",
+                10,
+                1000,
+                Data.Rarity.REGULAR,
+                [
+                    new Stat({
+                        effect: Data.Effect.PROTECTION,
+                        theorical: [6, 8],
+                        isPercentage: true
+                    }),
+                    new Stat({
+                        effect: Data.Effect.SPEED,
+                        theorical: [-1, -1],
+                    })
+                ],
+            ),
+            new Trinket(
+                "Fluttering Stones",
+                "Lorem ipsum",
+                17,
+                1000,
+                Data.Rarity.REGULAR,
+                [
+                    new Stat({
+                        effect: Data.Effect.MODIF_CHANCE_MOVE,
+                        theorical: [9, 13],
+                        isPercentage: true
+                    }),
+                    new Stat({
+                        effect: Data.Effect.RES_STUN,
+                        theorical: [-4, -5],
+                        isPercentage: true
+                    })
+                ]
+            ),
+            new Trinket(
+                "Banished Soldier's Memento",
+                "For a man needs a dear memory to remain faithful, fill his night thoughts, and keep madness at bay.",
+                30,
+                1000,
+                Data.Rarity.SINGULAR,
+                [
+                    new Stat({
+                        effect: Data.Effect.MAXSTAMINA,
+                        theorical: [50, 55],
+                    }),
+                    new Stat({
+                        effect: Data.Effect.SPEED,
+                        theorical: [1, 1]
+                    }),
+                ]
             )
         ];
 
