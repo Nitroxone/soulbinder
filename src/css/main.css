@@ -3389,13 +3389,16 @@ hr.centerFade {
 
 .skillTreeNode-animate-progress {
     animation-name: nodeAnimateProgress;
-    animation-duration: 1s;
-    animation-timing-function: ease-in-out;
+    animation-duration: 1.5s;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
     animation-iteration-count: 1;
 }
 @keyframes nodeAnimateProgress {
     30% {
-        box-shadow: 0px 0px 30px 10px #ffbf0046;
+        box-shadow: 0px 0px 80px 80px black;
+    }
+    60% {
+        transform: scale(1.1);
     }
 }
 .skillTreeNode-animate-full {
