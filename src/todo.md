@@ -52,6 +52,7 @@ ONGOING - Change active effect display -> regroup everything to prevent clones, 
 - Start implementing echoes
 DONE - Investigate and fix the shield issues
 - Improve the guarding ability (allow friendly skills on guarded allies)
+- Clear all Skill effects after a battle ends
 
 ASTRAL FORGE:
 - Create GUI -- ONGOING
