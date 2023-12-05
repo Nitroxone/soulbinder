@@ -1300,7 +1300,7 @@ const Loader = {
             ),
             new Trinket(
                 "Eyeballs of the False Prophet",
-                "Lorem ipsum",
+                "Darkened by visions of madness, those predatory eyes radiated ineffable secrets as they shifted in their sockets. Now torn away, they ooze with a mucus of sulfur and terror. Do you feel them writhing of their own accord in your hand? Do not gaze upon them for too long.",
                 4,
                 1000,
                 Data.Rarity.PRECIOUS,
@@ -1320,7 +1320,7 @@ const Loader = {
             ),
             new Trinket(
                 "Malignant Heart",
-                "Lorem ipsum",
+                "When Gundd fell into the star within Gusho's stomach, he survived under the protection of Lantho. However, as he cried out in despair while swimming among the souls of the damned, they rushed into his mouth, grew within him, infecting his heart. A thunderous heart attack claimed him. If it had a mouth, that heart would scream all the woes of humanity without ever falling silent.",
                 16,
                 1000,
                 Data.Rarity.MYTHIC,
