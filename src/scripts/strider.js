@@ -192,7 +192,6 @@ class Strider extends NPC {
 
         if(this.hasFreeTrinketSlots()) {
             trinket.effects.forEach(effect => {
-                //this.addEffect(effect);
                 this.alter({effect: effect, origin: trinket, action: Data.AlterAction.ADD});
             });
             this.applyEcho(trinket);

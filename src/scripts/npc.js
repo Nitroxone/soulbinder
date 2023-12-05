@@ -803,6 +803,9 @@ class NPC extends Entity {
      */
     addEcho(echo) {
         this.echoes.push(echo);
+        echo.triggers.forEach(trig => {
+            this.triggers.push(trig);
+        });
     }
 
     /**
@@ -811,6 +814,9 @@ class NPC extends Entity {
      */
     removeEcho(echo) {
         removeFromArray(this.echoes, echo);
+        echo.triggers.forEach(trig => {
+            removeFromArray(this.triggers, trig);
+        });
     }
 
     reduceSkillsCooldown() {

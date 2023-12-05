@@ -1519,13 +1519,13 @@ const Loader = {
                             "Never stay still; so long as you can move, you will live.",
                             {
                                 "resilience_boost": [5, 5],
-                                "accuracy_debuff": [4, 4],
+                                "accuracy_debuff": [-4, -4],
                                 "stamina_regen": [3, 3]
                             },
                             [
                                 new Trigger({
                                     name: 'rebalancing_set',
-                                    type: [Data.TriggerType.ON_DEAL_WEAPON, Data.TriggerType.ON_DEAL_CRITICAL],
+                                    type: Data.TriggerType.ON_DEAL_WEAPON,
                                     checker: function(){return true;},
                                     behavior: function(){
                                         console.info('ENTARIAN SET ECHO TRIGGERED');
@@ -1557,26 +1557,8 @@ const Loader = {
                                             isPercentage: true
                                         }));
 
-                                        caster.addActiveEffect(new ActiveEffect({
-                                            name: 'Rebalancing',
-                                            originUser: caster,
-                                            originObject: Data.ActiveEffectType.ECHO,
-                                            effects: allyEffects,
-                                            style: {
-                                                color: Data.Color.GRAND,
-                                                bold: true
-                                            }
-                                        }));
-                                        target.addActiveEffect(new ActiveEffect({
-                                            name: 'Rebalancing',
-                                            originUser: caster,
-                                            originObject: Data.ActiveEffectType.ECHO,
-                                            effects: enemyEffects,
-                                            style: {
-                                                color: Data.Color.GRAND,
-                                                bold: true
-                                            }
-                                        }));
+                                        caster.applyEffects(this, caster, allyEffects, params.critical);
+                                        target.applyEffects(this, caster, enemyEffects, params.critical);
                                     }
                                 })
                             ]
@@ -2324,7 +2306,7 @@ const Loader = {
                         13,
                         {
                             type: Data.SkillType.OFFENSIVE,
-                            manaCost: 10,
+                            manaCost: 5,
                             cooldown: 1,
                             dmgType: Data.SkillDamageType.PHYSICAL,
                             dmgMultiplier: 35,
@@ -2364,10 +2346,10 @@ const Loader = {
                         14,
                         {
                             type: Data.SkillType.OFFENSIVE,
-                            manaCost: 50,
+                            manaCost: 20,
                             cooldown: 3,
                             dmgType: Data.SkillDamageType.PHYSICAL,
-                            dmgMultiplier: 105,
+                            dmgMultiplier: 150,
                             criMultiplier: 10,
                             accMultiplier: 85,
                             targets: {allies: '-0', enemies: '-1'},
@@ -2409,7 +2391,7 @@ const Loader = {
                         15,
                         {
                             type: Data.SkillType.FRIENDLY,
-                            manaCost: 100,
+                            manaCost: 15,
                             cooldown: 3,
                             criMultiplier: 10,
                             accMultiplier: 100,
@@ -2447,7 +2429,7 @@ const Loader = {
                         16,
                         {
                             type: Data.SkillType.FRIENDLY,
-                            manaCost: 40,
+                            manaCost: 10,
                             cooldown: 3,
                             criMultiplier: 10,
                             accMultiplier: 100,
@@ -2479,7 +2461,7 @@ const Loader = {
                                 guarded: null
                             }
                         }
-                    )
+                    ),
                 ],
                 '10% 30%'
             ),
@@ -3191,6 +3173,7 @@ const Loader = {
                             },
                             behavior: function(){
                                 console.log(this.title);
+                                game.currentBattle.target.push(this.owner);
                                 game.currentBattle.selectedSkill = this.owner.skills[2];
                                 game.currentBattle.executeSkill();
                             }
