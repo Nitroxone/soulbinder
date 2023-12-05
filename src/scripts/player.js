@@ -42,8 +42,8 @@ class Player {
         this.inCombat = false;
 
         // SIGILS
-        this.sw_stalwartFactor = 5;
-        this.sw_corruptFactor = 5;
+        this.sw_stalwartFactor = 15;
+        this.sw_corruptFactor = 15;
 
         this.sr_sigilsCrushed = 0;
     }
