@@ -32,6 +32,7 @@ class Skill extends Entity {
         this.condition = getValueFromObject(props, "condition", {checker: function(){return true}, message: ''})
         this.stackable = getValueFromObject(props, "stackable", 1);
         this.ignoresProtection = getValueFromObject(props, "ignoreProtection", false);
+        this.onCast = getValueFromObject(props, "onCast", null);
 
         this.cooldownCountdown = 0;
 

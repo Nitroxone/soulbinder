@@ -450,7 +450,9 @@ class Battle {
 
                 // Successful hit
                 this.runTriggersOnCurrent(Data.TriggerType.ON_DEAL_DAMAGE);
+                this.runTriggersOnCurrent(Data.TriggerType.ON_DEAL_WEAPON);
                 tar.runTriggers(Data.TriggerType.ON_RECV_DAMAGE);
+                tar.runTriggers(Data.TriggerType.ON_RECV_WEAPON);
 
                 tar.receiveDamage(params);
                 this.applyDamageReflection(params, tar);
@@ -658,6 +660,7 @@ class Battle {
         if(effects) current.applyEffects(skill, current, effects, isCrit);
 
         current.useSkill(skill);
+        skill.onCast && skill.onCast();
         this.runPopups();
     }
 

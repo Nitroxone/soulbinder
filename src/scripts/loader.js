@@ -1300,7 +1300,7 @@ const Loader = {
             ),
             new Trinket(
                 "Eyeballs of the False Prophet",
-                "Lorem ipsum",
+                "Darkened by visions of madness, those predatory eyes radiated ineffable secrets as they shifted in their sockets. Now torn away, they ooze with a mucus of sulfur and terror. Do you feel them writhing of their own accord in your hand? Do not gaze upon them for too long.",
                 4,
                 1000,
                 Data.Rarity.PRECIOUS,
@@ -1320,7 +1320,7 @@ const Loader = {
             ),
             new Trinket(
                 "Malignant Heart",
-                "Lorem ipsum",
+                "When Gundd fell into the star within Gusho's stomach, he survived under the protection of Lantho. However, as he cried out in despair while swimming among the souls of the damned, they rushed into his mouth, grew within him, infecting his heart. A thunderous heart attack claimed him. If it had a mouth, that heart would scream all the woes of humanity without ever falling silent.",
                 16,
                 1000,
                 Data.Rarity.MYTHIC,
@@ -1365,7 +1365,7 @@ const Loader = {
             ),
             new Trinket(
                 "Borri's Phalanges",
-                "Lorem ipsum",
+                "Far behind him, amidst the prodigious howls wrenched from the trees by the wind, he discerned the cries of Olmir intertwining with the barks of wolves. \"Let him perish, may he occupy them long enough,\" thought Olmir.",
                 10,
                 1000,
                 Data.Rarity.REGULAR,
@@ -1394,8 +1394,13 @@ const Loader = {
                         isPercentage: true
                     }),
                     new Stat({
+                        effect: Data.Effect.MODIF_CHANCE_STUN,
+                        theorical: [5, 7],
+                        isPercentage: true
+                    }),
+                    new Stat({
                         effect: Data.Effect.RES_STUN,
-                        theorical: [-4, -5],
+                        theorical: [10, 12],
                         isPercentage: true
                     })
                 ]
@@ -1507,17 +1512,56 @@ const Loader = {
                     5: [
                         new Echo(
                             "Rebalancing",
-                            "Successful blows with a weapon grant a +§1 {RESILIENCE} bonus for one round and apply a -§2% {ACCURACY} debuff on the target. Critical blows with a weapon grant a +§3% {REGEN_STAMINA} bonus for 2 round.",
+                            "Successful blows with a weapon grant a +§1 {RESILIENCE} bonus for one round and apply a -§2% {ACCURACY} debuff on the target. Critical blows with a weapon grant a +§3% {REGEN_STAMINA} bonus for 2 rounds.",
                             1,
                             Data.Rarity.SINGULAR,
                             [],
-                            "Never stay still; so long are you can move, you will live.",
+                            "Never stay still; so long as you can move, you will live.",
                             {
                                 "resilience_boost": [5, 5],
-                                "accuracy_debuff": [4, 4],
+                                "accuracy_debuff": [-4, -4],
                                 "stamina_regen": [3, 3]
                             },
-                            []
+                            [
+                                new Trigger({
+                                    name: 'rebalancing_set',
+                                    type: Data.TriggerType.ON_DEAL_WEAPON,
+                                    checker: function(){return true;},
+                                    behavior: function(){
+                                        console.info('ENTARIAN SET ECHO TRIGGERED');
+                                        const params = game.currentBattle.params;
+                                        const caster = game.currentBattle.currentPlay;
+                                        const target = game.currentBattle.target[0];
+
+                                        const allyEffects = [
+                                            new Stat({
+                                                effect: Data.Effect.RESILIENCE,
+                                                theorical: this.variables.resilience_boost,
+                                                duration: 1
+                                            }),
+                                        ];
+                                        const enemyEffects = [
+                                            new Stat({
+                                                effect: Data.Effect.ACCURACY,
+                                                theorical: this.variables.accuracy_debuff,
+                                                isPercentage: true,
+                                                duration: 1
+                                            })
+                                        ]
+
+                                        if(params.critical) allyEffects.push(new Stat({
+                                            effect: Data.Effect.STAMINA,
+                                            theorical: this.variables.stamina_regen,
+                                            duration: 2,
+                                            type: Data.StatType.ACTIVE,
+                                            isPercentage: true
+                                        }));
+
+                                        caster.applyEffects(this, caster, allyEffects, params.critical);
+                                        target.applyEffects(this, caster, enemyEffects, params.critical);
+                                    }
+                                })
+                            ]
                         )
                     ]
                 },
@@ -1580,7 +1624,12 @@ const Loader = {
             for(let key in equipmentSet.bonus) {
                 equipmentSet.bonus[key].forEach(bonus => {
                     bonus.fix();
-                    if(bonus instanceof Echo) bonus.parent = {name: equipmentSet.name, rarity: equipmentSet.rarity};
+                    if(bonus instanceof Echo) {
+                        bonus.parent = {name: equipmentSet.name, rarity: equipmentSet.rarity};
+                        bonus.triggers.forEach(trig => {
+                            trig.behavior = trig.behavior.bind(bonus);
+                        });
+                    }
                 })
             }
             game.all_equipmentSets.push(equipmentSet);
@@ -2257,7 +2306,7 @@ const Loader = {
                         13,
                         {
                             type: Data.SkillType.OFFENSIVE,
-                            manaCost: 10,
+                            manaCost: 5,
                             cooldown: 1,
                             dmgType: Data.SkillDamageType.PHYSICAL,
                             dmgMultiplier: 35,
@@ -2297,12 +2346,12 @@ const Loader = {
                         14,
                         {
                             type: Data.SkillType.OFFENSIVE,
-                            manaCost: 50,
+                            manaCost: 20,
                             cooldown: 3,
                             dmgType: Data.SkillDamageType.PHYSICAL,
-                            dmgMultiplier: 105,
+                            dmgMultiplier: 150,
                             criMultiplier: 10,
-                            accMultiplier: 85,
+                            accMultiplier: 90,
                             targets: {allies: '-0', enemies: '-1'},
                             launchPos: [false, false, true],
                             effectsCaster: {
@@ -2342,7 +2391,7 @@ const Loader = {
                         15,
                         {
                             type: Data.SkillType.FRIENDLY,
-                            manaCost: 100,
+                            manaCost: 15,
                             cooldown: 3,
                             criMultiplier: 10,
                             accMultiplier: 100,
@@ -2380,7 +2429,7 @@ const Loader = {
                         16,
                         {
                             type: Data.SkillType.FRIENDLY,
-                            manaCost: 40,
+                            manaCost: 10,
                             cooldown: 3,
                             criMultiplier: 10,
                             accMultiplier: 100,
@@ -2412,7 +2461,7 @@ const Loader = {
                                 guarded: null
                             }
                         }
-                    )
+                    ),
                 ],
                 '10% 30%'
             ),
@@ -2486,7 +2535,7 @@ const Loader = {
                         13,
                         {
                             type: Data.SkillType.FRIENDLY,
-                            manaCost: 30,
+                            manaCost: 5,
                             criMultiplier: 15,
                             accMultiplier: 100,
                             cooldown: 2,
@@ -2512,7 +2561,7 @@ const Loader = {
                         {
                             type: Data.SkillType.OFFENSIVE,
                             dmgType: Data.SkillDamageType.MAGICAL,
-                            manaCost: 20,
+                            manaCost: 10,
                             dmgMultiplier: 100,
                             criMultiplier: 10,
                             accMultiplier: 90,
@@ -2538,7 +2587,7 @@ const Loader = {
                         {
                             type: Data.SkillType.OFFENSIVE,
                             dmgType: Data.SkillDamageType.MAGICAL,
-                            manaCost: 30,
+                            manaCost: 15,
                             dmgMultiplier: 120,
                             criMultiplier: 20,
                             accMultiplier: 85,
@@ -2634,7 +2683,7 @@ const Loader = {
                         13,
                         {
                             type: Data.SkillType.FRIENDLY,
-                            manaCost: 25,
+                            manaCost: 5,
                             critMultiplier: 20,
                             accMultiplier: 85,
                             targets: {allies: '-123', enemies: '-123'},
@@ -2680,7 +2729,7 @@ const Loader = {
                         14,
                         {
                             type: Data.SkillType.FRIENDLY,
-                            manaCost: 50,
+                            manaCost: 20,
                             critMultiplier: 15,
                             accMultiplier: 100,
                             targets: {allies: '@123', enemies: '-0'},
@@ -2704,7 +2753,7 @@ const Loader = {
                         15,
                         {
                             type: Data.SkillType.OFFENSIVE,
-                            manaCost: 20,
+                            manaCost: 5,
                             dmgType: Data.SkillDamageType.MAGICAL,
                             dmgMultiplier: 20,
                             criMultiplier: 10,
@@ -2740,7 +2789,7 @@ const Loader = {
                         16,
                         {
                             type: Data.SkillType.FRIENDLY,
-                            manaCost: 30,
+                            manaCost: 10,
                             criMultiplier: 15,
                             targets: {allies: '-123', enemies: '-0'},
                             effectsCaster: {
@@ -3010,6 +3059,7 @@ const Loader = {
                                 console.log('blocks');
                                 this.owner.applyBlocking();
                                 this.owner.removeBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 5}));
+                                this.owner.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 5}));
                                 game.currentBattle.endTurn();
                             }
                         }),
@@ -3030,8 +3080,150 @@ const Loader = {
                 {},
                 [],
                 Data.MobType.REGULAR,
-                [],
-                null,
+                [
+                    new Skill(
+                        "Spores of Abundance",
+                        "",
+                        0,
+                        {
+                            type: Data.SkillType.FRIENDLY,
+                            manaCost: 20,
+                            criMultiplier: 15,
+                            targets: {allies: '-123', enemies: '-0'},
+                            effectsEnemies: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.HEALTH, theorical: [15, 20], isPercentage: true, type: Data.StatType.ACTIVE}),
+                                        new Stat({effect: Data.Effect.MODIF_CRIT_SKILL, theorical: [10, 15], isPercentage: true, duration: 2}),
+                                        new Stat({effect: Data.Effect.MANA, theorical: [20, 25], isPercentage: true, type: Data.StatType.ACTIVE, duration: 2}),
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.HEALTH, theorical: [20, 25], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true}),
+                                        new Stat({effect: Data.Effect.MODIF_CRIT_SKILL, theorical: [15, 20], isPercentage: true, duration: 2, isCritical: true}),
+                                        new Stat({effect: Data.Effect.MANA, theorical: [20, 25], isPercentage: true, type: Data.StatType.ACTIVE, duration: 2, isCritical: true}),
+                                    ]
+                                }
+                            }
+                        }
+                    ),
+                    new Skill(
+                        "Debilitating Roots",
+                        "",
+                        0,
+                        {
+                            type: Data.SkillType.OFFENSIVE,
+                            manaCost: 10,
+                            dmgType: Data.SkillDamageType.MAGICAL,
+                            dmgMultiplier: 80,
+                            criMultiplier: 20,
+                            accMultiplier: 90,
+                            cooldown: 2,
+                            launchPos: [false, true, true],
+                            targets: {allies: '-0', enemies: '@123'},
+                            effectsAllies: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.RES_POISON_DMG, theorical: [-5, -10], duration: 2}),
+                                        new Stat({effect: Data.Effect.WARDING, theorical: [-8, -10], duration: 2}),
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.RES_POISON_DMG, theorical: [-5, -10], duration: 2, isCritical: true}),
+                                        new Stat({effect: Data.Effect.WARDING, theorical: [-8, -10], duration: 2, isCritical: true}),
+                                    ]
+                                }
+                            }
+                        }
+                    ),
+                    new Skill(
+                        "Repositioning",
+                        "",
+                        0,
+                        {
+                            type: Data.SkillType.BOTH,
+                            manaCost: 0,
+                            criMultiplier: 15,
+                            accMultiplier: 100,
+                            dmgMultiplier: 110,
+                            launchPos: [true, false, false],
+                            targets: {allies: '-0', enemies: '-1'},
+                            effectsCaster: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.BACK_ONE}),
+                                        new Stat({effect: Data.Effect.PROTECTION, theorical: 8, duration: 2, isPercentage: true}),
+                                        new Stat({effect: Data.Effect.MANA, theorical: 15, isPercentage: true, type: Data.StatType.ACTIVE})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.BACK_TWO}),
+                                        new Stat({effect: Data.Effect.PROTECTION, theorical: 5, duration: 2, isPercentage: true, isCritical: true}),
+                                        new Stat({effect: Data.Effect.MANA, theorical: 20, isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true}),
+                                    ]
+                                }
+                            }
+                        }
+                    )
+                ],
+                new EnemyBehavior({
+                    actions: [
+                        new EnemyAction({
+                            title: 'move back',
+                            owner: function(){ return what(game.currentBattle.enemies, "fungaliant") },
+                            checker: function(){ 
+                                return this.owner.getSelfPosInBattle() === Data.FormationPosition.FRONT;
+                            },
+                            behavior: function(){
+                                console.log(this.title);
+                                game.currentBattle.target.push(this.owner);
+                                game.currentBattle.selectedSkill = this.owner.skills[2];
+                                game.currentBattle.executeSkill();
+                            }
+                        }),
+                        new EnemyAction({
+                            title: 'weaken striders',
+                            owner: function(){ return what(game.currentBattle.enemies, "fungaliant") },
+                            checker: function(){
+                                return this.owner.skills[1].cooldownCountdown === 0 && this.owner.skills[1].manaCost <= this.owner.mana;
+                            },
+                            behavior: function(){
+                                console.log(this.title);
+                                game.currentBattle.target.push(
+                                    game.currentBattle.allies[0],
+                                    game.currentBattle.allies[1],
+                                    game.currentBattle.allies[2]
+                                );
+                                game.currentBattle.selectedSkill = this.owner.skills[1];
+                                game.currentBattle.executeSkill();
+                            }
+                        }),
+                        new EnemyAction({
+                            title: 'heal enemies',
+                            owner: function(){ return what(game.currentBattle.enemies, "fungaliant") },
+                            checker: function(){
+                                return this.owner.skills[0].manaCost <= this.owner.mana;
+                            },
+                            behavior: function(){
+                                console.log(this.title);
+                                game.currentBattle.target.push(choose(game.currentBattle.enemies));
+                                game.currentBattle.selectedSkill = this.owner.skills[0];
+                                game.currentBattle.executeSkill();
+                            }
+                        }),
+                        new EnemyAction({
+                            title: 'block',
+                            owner: function(){ return what(game.currentBattle.enemies, "fungaliant") },
+                            checker: function(){
+                                return this.owner.stamina > 0;
+                            },
+                            behavior: function(){
+                                console.log(this.title);
+                                this.owner.applyBlocking();
+                                this.owner.removeBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 5}));
+                                this.owner.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 5}));
+                                game.currentBattle.endTurn();
+                            }
+                        })
+                    ]
+                }),
             ),
             new Enemy(
                 "Gnarly Horror",

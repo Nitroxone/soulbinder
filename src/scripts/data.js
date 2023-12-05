@@ -183,6 +183,8 @@ const Data = Object.freeze({
         ON_ATTACK: 'ON_ATTACK',
         ON_USE_SKILL: 'ON_USE_SKILL',
         ON_USE_WEAPON: 'ON_USE_WEAPON',
+        ON_DEAL_WEAPON: 'ON_DEAL_WEAPON',
+        ON_RECV_WEAPON: 'ON_RECV_WEAPON',
         ON_DEAL_DAMAGE: 'ON_DEAL_DAMAGE',
         ON_RECV_DAMAGE: 'ON_RECV_DAMAGE',
         ON_DEAL_MISSED: 'ON_DEAL_MISSED',
