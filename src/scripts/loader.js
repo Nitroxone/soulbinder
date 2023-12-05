@@ -1365,7 +1365,7 @@ const Loader = {
             ),
             new Trinket(
                 "Borri's Phalanges",
-                "Lorem ipsum",
+                "Far behind him, amidst the prodigious howls wrenched from the trees by the wind, he discerned the cries of Olmir intertwining with the barks of wolves. \"Let him perish, may he occupy them long enough,\" thought Olmir.",
                 10,
                 1000,
                 Data.Rarity.REGULAR,
