@@ -660,6 +660,7 @@ class Battle {
         if(effects) current.applyEffects(skill, current, effects, isCrit);
 
         current.useSkill(skill);
+        skill.onCast && skill.onCast();
         this.runPopups();
     }
 
