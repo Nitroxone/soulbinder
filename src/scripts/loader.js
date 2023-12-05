@@ -1394,8 +1394,13 @@ const Loader = {
                         isPercentage: true
                     }),
                     new Stat({
+                        effect: Data.Effect.MODIF_CHANCE_STUN,
+                        theorical: [5, 7],
+                        isPercentage: true
+                    }),
+                    new Stat({
                         effect: Data.Effect.RES_STUN,
-                        theorical: [-4, -5],
+                        theorical: [10, 12],
                         isPercentage: true
                     })
                 ]
