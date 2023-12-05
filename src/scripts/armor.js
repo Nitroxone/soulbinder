@@ -158,6 +158,9 @@ class Armor extends Item {
             echo.fix();
             this.echo = echo;
             this.echo.parent = this;
+            this.echo.triggers.forEach(trig => {
+                trig.behavior = trig.behavior.bind(this.echo);
+            })
         } else {
             if(this.echo) {
                 this.echo.parent = this;

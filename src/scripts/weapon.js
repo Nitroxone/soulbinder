@@ -263,8 +263,14 @@ class Weapon extends Item {
             });
             this.echo = echo;
             this.echo.parent = this;
+            this.echo.triggers.forEach(trig => {
+                trig.behavior = trig.behavior.bind(this.echo);
+            })
         } else {
             this.echo.parent = this;
+            this.echo.triggers.forEach(trig => {
+                trig.behavior = trig.behavior.bind(this.echo);
+            })
         }
     }
 
