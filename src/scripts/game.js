@@ -394,8 +394,8 @@ class Game {
         this.message({type: Data.LogMessageType.TALL, text:'This is a bigger message.'});
 
         this.player.formationSet(what(this.player.roster, "amarok"), Data.FormationPosition.FRONT);
-        this.player.formationSet(what(this.player.roster, "betheros"), Data.FormationPosition.MIDDLE);
-        this.player.formationSet(what(this.player.roster, "carhal"), Data.FormationPosition.BACK);
+        this.player.formationSet(what(this.player.roster, "carhal"), Data.FormationPosition.MIDDLE);
+        this.player.formationSet(what(this.player.roster, "betheros"), Data.FormationPosition.BACK);
 
         // Equipping
         what(this.player.roster, "carhal").equipWeapon(what(this.player.inventory.weapons, 'entarian axe'));
