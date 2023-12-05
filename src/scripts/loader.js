@@ -3015,6 +3015,7 @@ const Loader = {
                                 console.log('blocks');
                                 this.owner.applyBlocking();
                                 this.owner.removeBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 5}));
+                                this.owner.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 5}));
                                 game.currentBattle.endTurn();
                             }
                         }),
@@ -3035,8 +3036,149 @@ const Loader = {
                 {},
                 [],
                 Data.MobType.REGULAR,
-                [],
-                null,
+                [
+                    new Skill(
+                        "Spores of Abundance",
+                        "",
+                        0,
+                        {
+                            type: Data.SkillType.FRIENDLY,
+                            manaCost: 20,
+                            criMultiplier: 15,
+                            targets: {allies: '-123', enemies: '-0'},
+                            effectsEnemies: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.HEALTH, theorical: [15, 20], isPercentage: true, type: Data.StatType.ACTIVE}),
+                                        new Stat({effect: Data.Effect.MODIF_CRIT_SKILL, theorical: [10, 15], isPercentage: true, duration: 2}),
+                                        new Stat({effect: Data.Effect.MANA, theorical: [20, 25], isPercentage: true, type: Data.StatType.ACTIVE, duration: 2}),
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.HEALTH, theorical: [20, 25], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true}),
+                                        new Stat({effect: Data.Effect.MODIF_CRIT_SKILL, theorical: [15, 20], isPercentage: true, duration: 2, isCritical: true}),
+                                        new Stat({effect: Data.Effect.MANA, theorical: [20, 25], isPercentage: true, type: Data.StatType.ACTIVE, duration: 2, isCritical: true}),
+                                    ]
+                                }
+                            }
+                        }
+                    ),
+                    new Skill(
+                        "Debilitating Roots",
+                        "",
+                        0,
+                        {
+                            type: Data.SkillType.OFFENSIVE,
+                            manaCost: 10,
+                            dmgType: Data.SkillDamageType.MAGICAL,
+                            dmgMultiplier: 80,
+                            criMultiplier: 20,
+                            accMultiplier: 90,
+                            cooldown: 2,
+                            launchPos: [false, true, true],
+                            targets: {allies: '-0', enemies: '@123'},
+                            effectsAllies: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.RES_POISON_DMG, theorical: [-5, -10], duration: 2}),
+                                        new Stat({effect: Data.Effect.WARDING, theorical: [-8, -10], duration: 2}),
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.RES_POISON_DMG, theorical: [-5, -10], duration: 2, isCritical: true}),
+                                        new Stat({effect: Data.Effect.WARDING, theorical: [-8, -10], duration: 2, isCritical: true}),
+                                    ]
+                                }
+                            }
+                        }
+                    ),
+                    new Skill(
+                        "Repositioning",
+                        "",
+                        0,
+                        {
+                            type: Data.SkillType.BOTH,
+                            manaCost: 0,
+                            criMultiplier: 15,
+                            accMultiplier: 100,
+                            dmgMultiplier: 110,
+                            launchPos: [true, false, false],
+                            targets: {allies: '-0', enemies: '-1'},
+                            effectsCaster: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.BACK_ONE}),
+                                        new Stat({effect: Data.Effect.PROTECTION, theorical: 8, duration: 2, isPercentage: true}),
+                                        new Stat({effect: Data.Effect.MANA, theorical: 15, isPercentage: true, type: Data.StatType.ACTIVE})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.BACK_TWO}),
+                                        new Stat({effect: Data.Effect.PROTECTION, theorical: 5, duration: 2, isPercentage: true, isCritical: true}),
+                                        new Stat({effect: Data.Effect.MANA, theorical: 20, isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true}),
+                                    ]
+                                }
+                            }
+                        }
+                    )
+                ],
+                new EnemyBehavior({
+                    actions: [
+                        new EnemyAction({
+                            title: 'move back',
+                            owner: function(){ return what(game.currentBattle.enemies, "fungaliant") },
+                            checker: function(){ 
+                                return this.owner.getSelfPosInBattle() === Data.FormationPosition.FRONT;
+                            },
+                            behavior: function(){
+                                console.log(this.title);
+                                game.currentBattle.selectedSkill = this.owner.skills[2];
+                                game.currentBattle.executeSkill();
+                            }
+                        }),
+                        new EnemyAction({
+                            title: 'weaken striders',
+                            owner: function(){ return what(game.currentBattle.enemies, "fungaliant") },
+                            checker: function(){
+                                return this.owner.skills[1].cooldownCountdown === 0 && this.owner.skills[1].manaCost <= this.owner.mana;
+                            },
+                            behavior: function(){
+                                console.log(this.title);
+                                game.currentBattle.target.push(
+                                    game.currentBattle.allies[0],
+                                    game.currentBattle.allies[1],
+                                    game.currentBattle.allies[2]
+                                );
+                                game.currentBattle.selectedSkill = this.owner.skills[1];
+                                game.currentBattle.executeSkill();
+                            }
+                        }),
+                        new EnemyAction({
+                            title: 'heal enemies',
+                            owner: function(){ return what(game.currentBattle.enemies, "fungaliant") },
+                            checker: function(){
+                                return this.owner.skills[0].manaCost <= this.owner.mana;
+                            },
+                            behavior: function(){
+                                console.log(this.title);
+                                game.currentBattle.target.push(choose(game.currentBattle.enemies));
+                                game.currentBattle.selectedSkill = this.owner.skills[0];
+                                game.currentBattle.executeSkill();
+                            }
+                        }),
+                        new EnemyAction({
+                            title: 'block',
+                            owner: function(){ return what(game.currentBattle.enemies, "fungaliant") },
+                            checker: function(){
+                                return this.owner.stamina > 0;
+                            },
+                            behavior: function(){
+                                console.log(this.title);
+                                this.owner.applyBlocking();
+                                this.owner.removeBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 5}));
+                                this.owner.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 5}));
+                                game.currentBattle.endTurn();
+                            }
+                        })
+                    ]
+                }),
             ),
             new Enemy(
                 "Gnarly Horror",
