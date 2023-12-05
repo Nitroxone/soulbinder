@@ -1512,17 +1512,74 @@ const Loader = {
                     5: [
                         new Echo(
                             "Rebalancing",
-                            "Successful blows with a weapon grant a +§1 {RESILIENCE} bonus for one round and apply a -§2% {ACCURACY} debuff on the target. Critical blows with a weapon grant a +§3% {REGEN_STAMINA} bonus for 2 round.",
+                            "Successful blows with a weapon grant a +§1 {RESILIENCE} bonus for one round and apply a -§2% {ACCURACY} debuff on the target. Critical blows with a weapon grant a +§3% {REGEN_STAMINA} bonus for 2 rounds.",
                             1,
                             Data.Rarity.SINGULAR,
                             [],
-                            "Never stay still; so long are you can move, you will live.",
+                            "Never stay still; so long as you can move, you will live.",
                             {
                                 "resilience_boost": [5, 5],
                                 "accuracy_debuff": [4, 4],
                                 "stamina_regen": [3, 3]
                             },
-                            []
+                            [
+                                new Trigger({
+                                    name: 'rebalancing_set',
+                                    type: [Data.TriggerType.ON_DEAL_WEAPON, Data.TriggerType.ON_DEAL_CRITICAL],
+                                    checker: function(){return true;},
+                                    behavior: function(){
+                                        console.info('ENTARIAN SET ECHO TRIGGERED');
+                                        const params = game.currentBattle.params;
+                                        const caster = game.currentBattle.currentPlay;
+                                        const target = game.currentBattle.target[0];
+
+                                        const allyEffects = [
+                                            new Stat({
+                                                effect: Data.Effect.RESILIENCE,
+                                                theorical: this.variables.resilience_boost,
+                                                duration: 1
+                                            }),
+                                        ];
+                                        const enemyEffects = [
+                                            new Stat({
+                                                effect: Data.Effect.ACCURACY,
+                                                theorical: this.variables.accuracy_debuff,
+                                                isPercentage: true,
+                                                duration: 1
+                                            })
+                                        ]
+
+                                        if(params.critical) allyEffects.push(new Stat({
+                                            effect: Data.Effect.STAMINA,
+                                            theorical: this.variables.stamina_regen,
+                                            duration: 2,
+                                            type: Data.StatType.ACTIVE,
+                                            isPercentage: true
+                                        }));
+
+                                        caster.addActiveEffect(new ActiveEffect({
+                                            name: 'Rebalancing',
+                                            originUser: caster,
+                                            originObject: Data.ActiveEffectType.ECHO,
+                                            effects: allyEffects,
+                                            style: {
+                                                color: Data.Color.GRAND,
+                                                bold: true
+                                            }
+                                        }));
+                                        target.addActiveEffect(new ActiveEffect({
+                                            name: 'Rebalancing',
+                                            originUser: caster,
+                                            originObject: Data.ActiveEffectType.ECHO,
+                                            effects: enemyEffects,
+                                            style: {
+                                                color: Data.Color.GRAND,
+                                                bold: true
+                                            }
+                                        }));
+                                    }
+                                })
+                            ]
                         )
                     ]
                 },
@@ -1585,7 +1642,12 @@ const Loader = {
             for(let key in equipmentSet.bonus) {
                 equipmentSet.bonus[key].forEach(bonus => {
                     bonus.fix();
-                    if(bonus instanceof Echo) bonus.parent = {name: equipmentSet.name, rarity: equipmentSet.rarity};
+                    if(bonus instanceof Echo) {
+                        bonus.parent = {name: equipmentSet.name, rarity: equipmentSet.rarity};
+                        bonus.triggers.forEach(trig => {
+                            trig.behavior = trig.behavior.bind(bonus);
+                        });
+                    }
                 })
             }
             game.all_equipmentSets.push(equipmentSet);
