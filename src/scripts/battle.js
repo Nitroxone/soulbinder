@@ -659,6 +659,7 @@ class Battle {
         effects = [];
 
         // CASTER EFFECTS
+        
         if(skill.effectsCaster) {
             effects = [];
             accessor = (isCrit ? 'critical' : 'regular');
@@ -676,7 +677,7 @@ class Battle {
                     effects.push(newEff);
                 }
                 // Moving
-                this.applyCasterMovement(eff);
+                else this.applyCasterMovement(eff);
             });
             current.addBattlePopup(new BattlePopup(0, '<div class="popupIcon" style="background-image: url(\'css/img/skills/' + current.name + skill.icon + '.png\');"></div>'));
         }
@@ -717,26 +718,27 @@ class Battle {
      */
     applyCasterMovement(skill) {
         const current = this.currentPlay;
+        const type = this.allies.includes(current) ? 'a' : 'e';
         switch(skill.effect) {
             case Data.Effect.BACK_ONE:
                 if(current.getSelfPosInBattle() === Data.FormationPosition.FRONT) {
-                    this.movementQueue.push(new BattleMove(current, Data.FormationPosition.MIDDLE, 'a'));
+                    this.movementQueue.push(new BattleMove(current, Data.FormationPosition.MIDDLE, type));
                 } else if(current.getSelfPosInBattle() === Data.FormationPosition.MIDDLE) {
-                    this.movementQueue.push(new BattleMove(current, Data.FormationPosition.BACK, 'a'));
+                    this.movementQueue.push(new BattleMove(current, Data.FormationPosition.BACK, type));
                 }
                 break;
             case Data.Effect.BACK_TWO:
-                this.movementQueue.push(new BattleMove(current, Data.FormationPosition.BACK, 'a'));
+                this.movementQueue.push(new BattleMove(current, Data.FormationPosition.BACK, type));
                 break;
             case Data.Effect.FRONT_ONE:
                 if(current.getSelfPosInBattle() === Data.FormationPosition.BACK) {
-                    this.movementQueue.push(new BattleMove(current, Data.FormationPosition.MIDDLE, 'a'));
+                    this.movementQueue.push(new BattleMove(current, Data.FormationPosition.MIDDLE, type));
                 } else if(current.getSelfPosInBattle() === Data.FormationPosition.MIDDLE) {
-                    this.movementQueue.push(new BattleMove(current, Data.FormationPosition.FRONT, 'a'));
+                    this.movementQueue.push(new BattleMove(current, Data.FormationPosition.FRONT, type));
                 }
                 break;
             case Data.Effect.FRONT_TWO:
-                this.movementQueue.push(new BattleMove(current, Data.FormationPosition.FRONT, 'a'));
+                this.movementQueue.push(new BattleMove(current, Data.FormationPosition.FRONT, type));
                 break;
         }
     }
@@ -758,7 +760,6 @@ class Battle {
      * Executes all of the popups on every fighter in order.
      */
     runPopups() {
-
         this.order.forEach(el => {
             el.executePopups();
         });
@@ -852,6 +853,11 @@ class Battle {
             }
         } else {
             throw new Error('No move NPC type was provided.');
+        }
+        if(this.currentPlay.name === 'Fungaliant' && this.currentPlay.getSelfPosInBattle() === Data.FormationPosition.FRONT) {
+            console.log('--------------------AFTER MOVEMENTS EXECUTION');
+            console.error(this.allies);
+            debugger
         }
     }
 

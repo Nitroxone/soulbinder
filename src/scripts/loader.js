@@ -2607,7 +2607,7 @@ const Loader = {
                     ),
                     new Skill(
                         "Ballista",
-                        "Deals damage that ignores protection. Applies §Bleeding§ to the target.",
+                        "Deals damage that ignores protection. Applies §Bleeding§ to the target. §Pushes back§ the target, then §Pulls it§ after one round.",
                         16,
                         {
                             type: Data.SkillType.OFFENSIVE,
@@ -2617,16 +2617,18 @@ const Loader = {
                             criMultiplier: 15,
                             accMultiplier: 100,
                             cooldown: 1,
-                            launchPos: [true, false, false],
-                            targets: {allies: '-0', enemies: '-3'},
+                            launchPos: [true, true, false],
+                            targets: {allies: '-0', enemies: '-2'},
                             ignoresProtection: true,
                             effectsEnemies: {
                                 1: {
                                     regular: [
-                                        new Stat({effect: Data.Effect.BLEEDING_CURABLE, theorical: [3, 4], type: Data.StatType.ACTIVE, duration: 2})
+                                        new Stat({effect: Data.Effect.BLEEDING_CURABLE, theorical: [3, 4], type: Data.StatType.ACTIVE, duration: 2}),
+                                        new Stat({effect: Data.Effect.PULL_ONE}),
                                     ],
                                     critical: [
-                                        new Stat({effect: Data.Effect.BLEEDING_CURABLE, theorical: 5, type: Data.StatType.ACTIVE, duration: 2, isCritical: true})
+                                        new Stat({effect: Data.Effect.BLEEDING_CURABLE, theorical: 5, type: Data.StatType.ACTIVE, duration: 2, isCritical: true}),
+                                        new Stat({effect: Data.Effect.PULL_ONE, isCritical: true})
                                     ]
                                 }
                             }
@@ -3197,7 +3199,7 @@ const Loader = {
                             accMultiplier: 100,
                             dmgMultiplier: 110,
                             launchPos: [true, false, false],
-                            targets: {allies: '-0', enemies: '-1'},
+                            targets: {allies: '-1', enemies: '-1'},
                             effectsCaster: {
                                 1: {
                                     regular: [
@@ -3225,7 +3227,7 @@ const Loader = {
                             },
                             behavior: function(){
                                 console.log(this.title);
-                                game.currentBattle.target.push(this.owner);
+                                game.currentBattle.target.push(game.currentBattle.allies[2]);
                                 game.currentBattle.selectedSkill = this.owner.skills[2];
                                 game.currentBattle.executeSkill();
                             }
