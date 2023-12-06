@@ -359,7 +359,7 @@ class NPC extends Entity {
         magi_damage = Math.max(0, magi - this.warding);
 
         damage = phys_damage + magi_damage + crit;
-        damage -= Math.round(damage * this.protection / 100);
+        if(!params.ignoresProtection) damage -= Math.round(damage * this.protection / 100);
 
         if(this.isBlocking) {
             let reduction = 0;
@@ -371,7 +371,7 @@ class NPC extends Entity {
 
         this.removeBaseStat(new Stat({effect: Data.Effect.HEALTH, theorical: damage}));
 
-        console.log(this.name + ' received ' + damage + ' damage (' + phys + ' phys, effective ' + phys_damage + ' | ' + magi + ' magi, effective ' + magi_damage + ' | ' + crit + ' critical -> Total ' + damage + ' with ' + this.protection + '% reduction');
+        console.log(this.name + ' received ' + damage + ' damage (' + phys + ' phys, effective ' + phys_damage + ' | ' + magi + ' magi, effective ' + magi_damage + ' | ' + crit + ' critical -> Total ' + damage + ' with ' + this.protection + '% reduction' + (params.ignoresProtection ? ' (BYPASSED PROTECTION)' : ''));
     }
 
     receiveBleedOrPoison(eff) {
@@ -914,5 +914,14 @@ class NPC extends Entity {
 
     getActiveEffect(name) {
         return this.activeEffects.find(x => x.name.toLowerCase() === name.toLowerCase());
+    }
+
+    addCriticalEffects() {
+        console.log(this.critEffects);
+        const cloned = Entity.clone(this.critEffects);
+        cloned.forEach(eff => {
+            eff.fix();
+        });
+        this.applyEffects({name: this.subname}, this, cloned, true);
     }
 }

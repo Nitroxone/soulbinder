@@ -2074,7 +2074,8 @@ const Loader = {
                 [new Stat({
                     effect: Data.Effect.PROTECTION,
                     theorical: [3, 7],
-                    isPercentage: true
+                    isPercentage: true,
+                    duration: 2
                 })],
                 {
                     threshold_weak: 50,
@@ -2519,7 +2520,7 @@ const Loader = {
                 [50, 50], [50, 50],
                 30, 45,
                 0, 0,
-                [new Stat({effect: Data.Effect.MIGHT, theorical: [3, 7]})],
+                [new Stat({effect: Data.Effect.MIGHT, theorical: [3, 7], duration: 2})],
                 {},
                 [],
                 Data.StriderType.STRIKER,
@@ -2643,7 +2644,7 @@ const Loader = {
                 [50, 50], [50, 50],
                 30, 45,
                 0, 0,
-                [new Stat({effect: Data.Effect.MODIF_HEAL_GIVEN, theorical: [3, 7], isPercentage: true})],
+                [new Stat({effect: Data.Effect.MODIF_HEAL_GIVEN, theorical: [3, 7], isPercentage: true, duration: 2})],
                 {
                     life_channel_rate: 0.10,
                 },
