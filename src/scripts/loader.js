@@ -2548,7 +2548,7 @@ const Loader = {
                 {},
                 [],
                 Data.StriderType.STRIKER,
-                "Hawkeye's Mastery",
+                "Scars of the Tree",
                 "Hawkeye's Mastery power description",
                 'quote',
                 0,
