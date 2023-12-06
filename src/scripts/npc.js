@@ -900,22 +900,50 @@ class NPC extends Entity {
         return found;
     }
 
+    /**
+     * Returns whether this NPC's health is equal to or below 0.
+     * @returns {boolean} whether the NPC is dead
+     */
     isDead() {
         return this.health <= 0;
     }
 
+    /**
+     * Empties this NPC's popups queue.
+     */
     emptyPopupsQueue() {
         this.popupsQueue = [];
     }
 
+    /**
+     * Finds and returns the bonus which UUID matches the provided one.
+     * @param {string} uid the UUID to find
+     * @returns {Bonus|null} the matching Bonus object, or null if none was found
+     */
     findBonusWithUid(uid) {
         return this.bonuses.find(x => x.stat.uid === uid);
     }
 
+    /**
+     * Finds and returns the ActiveEffect which name matches the provided one.
+     * @param {string} name the ActiveEffect's name to find
+     * @returns {ActiveEffect|null} the matching ActiveEffect object, or null if none was found
+     */
     getActiveEffect(name) {
         return this.activeEffects.find(x => x.name.toLowerCase() === name.toLowerCase());
     }
 
+    /**
+     * Removes the ActiveEffect whose name matches the provided one.
+     * @param {string} name the ActiveEffect's name to remove
+     */
+    removeActiveEffect(name) {
+        removeFromArray(this.activeEffects, this.getActiveEffect(name));
+    }
+
+    /**
+     * Adds this NPC's critical effects.
+     */
     addCriticalEffects() {
         console.log(this.critEffects);
         const cloned = Entity.clone(this.critEffects);

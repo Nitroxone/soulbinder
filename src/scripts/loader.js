@@ -2143,9 +2143,7 @@ const Loader = {
                                 });
 
                                 // add active effect and remove others
-                                if(amarok.activeEffects.find(x => x.name === 'Darkspawn [BOOSTED]')) {
-                                    amarok.removeActiveEffect('Darkspawn [BOOSTED]');
-                                }
+                                amarok.removeActiveEffect('Darkspawn [BOOSTED]');
                                 amarok.activeEffects.push(new ActiveEffect({
                                     name: 'Darkspawn [WEAK]',
                                     originUser: amarok,
@@ -2212,10 +2210,12 @@ const Loader = {
                             amarok.variables.boost_protection = 0;
                             amarok.variables.boost_might = 0;
 
-                            const weak = amarok.getActiveEffect('Darkspawn [WEAK]');
+                            /*const weak = amarok.getActiveEffect('Darkspawn [WEAK]');
                             const boosted = amarok.getActiveEffect('Darkspawn [BOOSTED]');
                             if(weak) removeFromArray(amarok.activeEffects, weak);
-                            if(boosted) removeFromArray(amarok.activeEffects, boosted);
+                            if(boosted) removeFromArray(amarok.activeEffects, boosted);*/
+                            amarok.removeActiveEffect('Darkspawn [WEAK]');
+                            amarok.removeActiveEffect('Darkspawn [BOOSTED]');
                         },
                     }),
                     new Trigger({
@@ -2283,6 +2283,30 @@ const Loader = {
                                     name: 'Darkspawn [BOOSTED]'
                                 }
                             });
+
+                            // add active effect and remove others
+                            amarok.removeActiveEffect('Darkspawn [BOOSTED]');
+                            amarok.removeActiveEffect('Darkspawn [WEAK]');
+                            amarok.activeEffects.push(new ActiveEffect({
+                                name: 'Darkspawn [BOOSTED]',
+                                originUser: amarok,
+                                originObject: Data.ActiveEffectType.POWER,
+                                effects: [
+                                    new Stat({
+                                        effect: Data.Effect.PROTECTION, 
+                                        theorical: amarok.variables.boost_protection, 
+                                        isPercentage: true,
+                                    }),
+                                    new Stat({
+                                        effect: Data.Effect.MIGHT,
+                                        theorical: amarok.variables.boost_might,
+                                    })
+                                ],
+                                style: {
+                                    color: Data.Color.PURPLE,
+                                    bold: true
+                                }
+                            }));
                         }
                     }),
                     new Trigger({
