@@ -157,7 +157,7 @@ class Battle {
         this.beginTurnPopups = false;
         this.runPopups();
         // SKIP ENEMIES
-        if(this.currentPlay.isStunned) this.endTurn();
+        if(this.currentPlay.isStunned || this.currentPlay.isDead()) this.endTurn();
         if(this.isEnemyPlaying()) {
             this.handleEnemyTurn();
         }
@@ -446,6 +446,8 @@ class Battle {
 
         this.runTriggersOnCurrent(Data.TriggerType.ON_ATTACK);
         this.target.forEach(tar => {
+            if(tar.isDead()) return;
+
             this.computeAttackParams(tar);
             let params = this.params;
             if(params.success_accuracy && !params.success_dodge) {
@@ -561,6 +563,11 @@ class Battle {
 
         this.runTriggersOnCurrent(Data.TriggerType.ON_ATTACK);
         this.target.forEach(tar => {
+            if(tar.isDead()) {
+                console.error(tar.name + ' is dead! Ignoring');
+                return;
+            }
+
             this.computeSkillParams(tar, isCrit);
             let params = this.params;
             if(params.success_accuracy && !params.success_dodge) {
