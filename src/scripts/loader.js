@@ -2569,11 +2569,13 @@ const Loader = {
                                 1: {
                                     regular: [
                                         new Stat({effect: Data.Effect.BACK_ONE}),
-                                        new Stat({effect: Data.Effect.DODGE, theorical: 5, duration: 2, isPercentage: true})
+                                        new Stat({effect: Data.Effect.DODGE, theorical: 5, duration: 2, isPercentage: true}),
+                                        new Stat({effect: Data.Effect.ACCURACY, theorical: [5, 8], duration: 2, isPercentage: true})
                                     ],
                                     critical: [
                                         new Stat({effect: Data.Effect.BACK_ONE}),
-                                        new Stat({effect: Data.Effect.DODGE, theorical: 7, duration: 2, isPercentage: true, isCritical: true})
+                                        new Stat({effect: Data.Effect.DODGE, theorical: 7, duration: 2, isPercentage: true, isCritical: true}),
+                                        new Stat({effect: Data.Effect.ACCURACY, theorical: 10, duration: 2, isPercentage: true})
                                     ]
                                 }
                             }
@@ -2606,7 +2608,7 @@ const Loader = {
                         }
                     ),
                     new Skill(
-                        "Ballista",
+                        "Grappling Ballista",
                         "Deals damage that ignores protection. Applies §Bleeding§ to the target. §Pushes back§ the target, then §Pulls it§ after one round.",
                         16,
                         {
@@ -2653,11 +2655,11 @@ const Loader = {
                             effectsCaster: {
                                 1: {
                                     regular: [
-                                        new Stat({effect: Data.Effect.STUN, duration: 1}),
+                                        new Stat({effect: Data.Effect.STUN, duration: 1, chance: 50}),
                                         new Stat({effect: Data.Effect.STAMINA, duration: 2, theorical: 4, isPercentage: true, type: Data.StatType.ACTIVE})
                                     ],
                                     critical: [
-                                        new Stat({effect: Data.Effect.STUN, duration: 1, isCritical: true}),
+                                        new Stat({effect: Data.Effect.STUN, duration: 1, chance: 45, isCritical: true}),
                                         new Stat({effect: Data.Effect.STAMINA, duration: 2, theorical: 4, isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true})
                                     ]
                                 }
