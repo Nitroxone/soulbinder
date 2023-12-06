@@ -282,7 +282,8 @@ class Battle {
             crit_damage: 0,
             success_accuracy: false,
             success_dodge: false,
-            critical: false
+            critical: false,
+            ignoresProtection: false
         };
     }
 
@@ -385,6 +386,8 @@ class Battle {
         let accuracyModifiers = 0;
         let critModifiers = 0;
 
+        if(skill.ignoresProtection) this.params.ignoresProtection = true;
+
         if(target.isStunned) {
             accuracyModifiers += current.modifAccuracyStun;
             critModifiers += current.modifCritStun;
@@ -460,7 +463,7 @@ class Battle {
 
                 if(params.critical) {
                     console.log('Critical blow!');
-                    //this.currentPlay.addCriticalEffects();
+                    this.currentPlay.addCriticalEffects();
                     this.runTriggersOnCurrent(Data.TriggerType.ON_DEAL_CRITICAL);
                     tar.runTriggers(Data.TriggerType.ON_RECV_CRITICAL);
                 }
@@ -561,7 +564,21 @@ class Battle {
             this.computeSkillParams(tar, isCrit);
             let params = this.params;
             if(params.success_accuracy && !params.success_dodge) {
-                if(tar.isGuarded) tar = tar.guardedBy;
+                // Guard checks - allow guard only if
+                // - Is a single target enemy attack
+                if(tar.isGuarded) {
+                    console.error('PROCESSING GUARD...');
+                    const allyCheck = this.allies.includes(current) && this.allies.includes(tar);
+                    const enemCheck = this.enemies.includes(current) && this.enemies.includes(tar);
+
+                    if(!(this.target.length > 1 || allyCheck || enemCheck)) {
+                        tar = tar.guardedBy;
+                        console.error('APPLIED GUARD');
+                    }
+                    else {
+                        console.error('IGNORED GUARD');
+                    }
+                }
 
                 // Successful hit
                 console.log('Successful hit!');
@@ -576,7 +593,7 @@ class Battle {
                 accessor = (params.critical ? 'critical' : 'regular');
                 if(params.critical) {
                     console.log('Critical blow!');
-                    //this.currentPlay.addCriticalEffects();
+                    this.currentPlay.addCriticalEffects();
                     this.runTriggersOnCurrent(Data.TriggerType.ON_DEAL_CRITICAL);
                     tar.runTriggers(Data.TriggerType.ON_RECV_CRITICAL);
                 }

@@ -51,9 +51,10 @@ ABANDONED? - Implement skill stackability
 ONGOING - Change active effect display -> regroup everything to prevent clones, and only display the latest caster & skill
 - Start implementing echoes
 DONE - Investigate and fix the shield issues
-- Improve the guarding ability (allow friendly skills on guarded allies)
+DONE - Improve the guarding ability (allow friendly skills on guarded allies)
 - Clear all Skill effects after a battle ends
 - Prevent NPCs from being brought back to life by simple healing
+DONE - Implement NPC critical effects
 
 ASTRAL FORGE:
 - Create GUI -- ONGOING
