@@ -765,7 +765,7 @@ class NPC extends Entity {
             }
         });
         for(let i = effects.length - 1; i >= 0; i--) {
-            if(effects[i].duration === 0) removeFromArray(effects, effects[i]);
+            if(effects[i].duration === 0 && effects[i].delay === 0) removeFromArray(effects, effects[i]);
         }
 
         if(effects.length > 0) this.addActiveEffect(new ActiveEffect({
@@ -857,12 +857,12 @@ class NPC extends Entity {
                     eff.duration = 0;
                     removeFromArray(ae.effects, eff);
                     if(eff.effect === Data.Effect.STUN) this.removeStun();
-                    if(eff.effect === Data.Effect.GUARDED) this.removeGuarded();
-                    if(eff.effect === Data.Effect.GUARDING) this.removeGuarding();
-                    /*if(eff.type === Data.StatType.PASSIVE && eff.effect !== Data.Effect.STUN && eff.effect !== Data.Effect.GUARDED && eff.effect !== Data.Effect.GUARDING) this.alter({action: Data.AlterAction.REMOVE, uid: eff.uid});
-                    else if(eff.effect !== Data.Effect.STUN && eff.effect !== Data.Effect.GUARDED && eff.effect !== Data.Effect.GUARDING && !isBaseStatChange(eff, true))  this.alter({action: Data.AlterAction.REMOVE, uid: eff.uid});*/
-
-                    if(eff.effect !== Data.Effect.STUN && eff.effect !== Data.Effect.GUARDED && eff.effect !== Data.Effect.GUARDING) {
+                    else if(eff.effect === Data.Effect.GUARDED) this.removeGuarded();
+                    else if(eff.effect === Data.Effect.GUARDING) this.removeGuarding();
+                    else if(isMovementEffect(eff.effect)) {
+                        game.currentBattle.applyCasterMovement({effect: convertMovementToCasterType(eff).effect});
+                    }
+                    else {
                         if(isShieldEffect(eff)) this.removeShield(eff.getValue())
                         else if(eff.type === Data.StatType.PASSIVE || (!isBaseStatChange(eff, true) && !isBleedingOrPoisoning(eff))) {
                             this.alter({action: Data.AlterAction.REMOVE, uid: eff.uid});

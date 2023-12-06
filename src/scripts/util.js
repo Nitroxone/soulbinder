@@ -1312,6 +1312,15 @@ function isMovementEffect(eff) {
         || eff === Data.Effect.BACK_TWO;
 }
 
+function convertMovementToCasterType(eff) {
+    if(eff.effect === Data.Effect.PULL_ONE) eff.effect = Data.Effect.FRONT_ONE;
+    else if(eff.effect === Data.Effect.PULL_TWO) eff.effect = Data.Effect.FRONT_TWO;
+    else if(eff.effect === Data.Effect.PUSH_ONE) eff.effect = Data.Effect.BACK_ONE;
+    else if(eff.effect === Data.Effect.PUSH_TWO) eff.effect = Data.Effect.BACK_TWO;
+
+    return eff;
+}
+
 /**
  * Returns whether the provided effect is a base stat ([max]health, [max]mana, [max]stamina) effect.
  * @param {Stat} eff the effect to check

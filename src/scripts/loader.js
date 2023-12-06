@@ -1090,8 +1090,8 @@ const Loader = {
                         isPercentage: true
                     }),
                     new Stat({
-                        effect: Data.Effect.SPEED,
-                        theorical: [-3, -5],
+                        effect: Data.Effect.RESILIENCE,
+                        theorical: [12, 15],
                     })
                 ]
             ),
@@ -2624,11 +2624,13 @@ const Loader = {
                                 1: {
                                     regular: [
                                         new Stat({effect: Data.Effect.BLEEDING_CURABLE, theorical: [3, 4], type: Data.StatType.ACTIVE, duration: 2}),
-                                        new Stat({effect: Data.Effect.PULL_ONE}),
+                                        new Stat({effect: Data.Effect.PUSH_ONE, chance: 150}),
+                                        new Stat({effect: Data.Effect.PULL_ONE, chance: 150, delay: 1, duration: 1})
                                     ],
                                     critical: [
                                         new Stat({effect: Data.Effect.BLEEDING_CURABLE, theorical: 5, type: Data.StatType.ACTIVE, duration: 2, isCritical: true}),
-                                        new Stat({effect: Data.Effect.PULL_ONE, isCritical: true})
+                                        new Stat({effect: Data.Effect.PUSH_ONE, chance: 150, isCritical: true}),
+                                        new Stat({effect: Data.Effect.PULL_ONE, chance: 150, delay: 1, duration: 1, isCritical: true})
                                     ]
                                 }
                             }

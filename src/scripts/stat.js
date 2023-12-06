@@ -189,7 +189,7 @@ class Stat {
             str += ' ' 
             + (noName ? '' : capitalizeFirstLetter(this.effect))
             + (includeChance && this.effect === Data.Effect.STUN || isMovementEffect(this.effect) ? '<span style="color: grey"> (' + this.chance + '% base)' : '')
-            + (this.duration > 0 ? '<span style="color: #ddd"> (' + this.duration + ' round' + (this.duration > 1 ? 's' : '') + ')</span>' : '')
+            + (this.duration > 0 && !isMovementEffect(this.effect) ? '<span style="color: #ddd"> (' + this.duration + ' round' + (this.duration > 1 ? 's' : '') + ')</span>' : '')
             + (this.delay > 0 ? '<span style="color: #ddd"> [in ' + this.delay + ' round' + (this.delay > 1 ? 's' : '') + ']</span>' : '');
             str += '</div>';
         } else {

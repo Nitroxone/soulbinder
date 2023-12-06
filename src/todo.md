@@ -55,6 +55,8 @@ DONE - Improve the guarding ability (allow friendly skills on guarded allies)
 - Clear all Skill effects after a battle ends
 - Prevent NPCs from being brought back to life by simple healing
 DONE - Implement NPC critical effects
+- Allow delayed movement effects
+- Add more visual cues (critical hit, who is attacking...)
 
 ASTRAL FORGE:
 - Create GUI -- ONGOING

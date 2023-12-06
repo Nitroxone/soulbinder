@@ -411,6 +411,7 @@ class Game {
 
         what(this.player.roster, "carhal").equipTrinket(what(this.player.inventory.trinkets, 'talisman of fervour'));
         what(this.player.roster, "carhal").equipTrinket(what(this.player.inventory.trinkets, 'goodsight doll'));
+        what(this.player.roster, "carhal").equipTrinket(what(this.player.inventory.trinkets, 'molars of the jailor'));
         what(this.player.roster, "amarok").equipTrinket(what(this.player.inventory.trinkets, 'foresighting ring'));
         what(this.player.roster, "amarok").equipTrinket(what(this.player.inventory.trinkets, 'omen insignia'));
         what(this.player.roster, "betheros").equipTrinket(what(this.player.inventory.trinkets, 'haste ring'));
