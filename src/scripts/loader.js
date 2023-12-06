@@ -2606,6 +2606,33 @@ const Loader = {
                         }
                     ),
                     new Skill(
+                        "Ballista",
+                        "Deals damage that ignores protection. Applies §Bleeding§ to the target.",
+                        16,
+                        {
+                            type: Data.SkillType.OFFENSIVE,
+                            dmgType: Data.SkillDamageType.PHYSICAL,
+                            manaCost: 15,
+                            dmgMultiplier: 90,
+                            criMultiplier: 15,
+                            accMultiplier: 100,
+                            cooldown: 1,
+                            launchPos: [true, false, false],
+                            targets: {allies: '-0', enemies: '-3'},
+                            ignoresProtection: true,
+                            effectsEnemies: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.BLEEDING_CURABLE, theorical: [3, 4], type: Data.StatType.ACTIVE, duration: 2})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.BLEEDING_CURABLE, theorical: 5, type: Data.StatType.ACTIVE, duration: 2, isCritical: true})
+                                    ]
+                                }
+                            }
+                        }
+                    ),
+                    new Skill(
                         "Concussive Blast",
                         "Deals damage to enemies and applies a §Stamina regeneration§ boost to Carhal. Has a chance to §Stun§ Carhal.",
                         15,
