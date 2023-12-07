@@ -2545,8 +2545,122 @@ const Loader = {
                 30, 45,
                 0, 0,
                 [new Stat({effect: Data.Effect.MIGHT, theorical: [3, 7], duration: 2})],
-                {},
-                [],
+                {
+                    "r_dodge": [5, 10, 15],
+                    "r_wpn_dmg": [10, 15, 25],
+                    "r_might": [10, 20, 35],
+                    "r_speed": [2, 4, 5],
+                    "r_stun_chance": [10, 15, 25],
+                    "r_recv_heal": [10, 15, 30],
+                    "r_accuracy": [5, 10, 20],
+                    "r_spirit": [5, 15, 35],
+                    "r_skill_dmg": [10, 15, 25],
+                    "stillTracker": 0,
+                    "rootsStage_Carhal": 0,
+                    getRootsBonuses: function(pos, tier){
+                        switch(pos) {
+                            case Data.FormationPosition.FRONT:
+                                return [
+                                    new Stat({effect: Data.Effect.DODGE, theorical: this["r_dodge"][tier-1], isPercentage: true}),
+                                    new Stat({effect: Data.Effect.MODIF_DMG_WEAPON, theorical: this["r_wpn_dmg"][tier-1], isPercentage: true}),
+                                    new Stat({effect: Data.Effect.MIGHT, theorical: this["r_might"][tier-1]}),
+                                ];
+                            case Data.FormationPosition.MIDDLE:
+                                return [
+                                    new Stat({effect: Data.Effect.SPEED, theorical: this["r_speed"][tier-1]}),
+                                    new Stat({effect: Data.Effect.MODIF_CHANCE_STUN, theorical: this["r_stun_chance"][tier-1], isPercentage: true}),
+                                    new Stat({effect: Data.Effect.MODIF_HEAL_RECV, theorical: this["r_recv_heal"][tier-1], isPercentage: true}),
+                                ];
+                            case Data.FormationPosition.BACK:
+                                return [
+                                    new Stat({effect: Data.Effect.ACCURACY, theorical: this["r_accuracy"][tier-1], isPercentage: true}),
+                                    new Stat({effect: Data.Effect.SPIRIT, theorical: this["r_spirit"][tier-1]}),
+                                    new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: this["r_skill_dmg"][tier-1], isPercentage: true}),
+                                ];
+                        }
+                    },
+                    addBonusesWithName: function(carhal, bonuses, name){
+                        bonuses.forEach(bo => {
+                            carhal.alter({
+                                effect: bo,
+                                action: Data.AlterAction.ADD,
+                                origin: {
+                                    type: Data.ActiveEffectType.POWER,
+                                    name: name
+                                }
+                            });
+                        });
+                    },
+                    changeActiveEffect: function(oldName, newName, bonuses, carhal){
+                        carhal.removeActiveEffect(oldName);
+                        carhal.addActiveEffect(new ActiveEffect({
+                            name: newName,
+                            originUser: carhal,
+                            originObject: Data.ActiveEffectType.POWER,
+                            effects: bonuses,
+                            style: {
+                                color: Data.Color.PURPLE,
+                                bold: true
+                            }
+                        }));
+                    }
+                },
+                [
+                    new Trigger({
+                        name: "carhal_roots",
+                        type: Data.TriggerType.ON_TURN_BEGIN,
+                        checker: function(){return true;},
+                        behavior: function(){
+                            console.log('CACA');
+                            const carhal = this.owner;
+                            const vars = carhal.variables;
+
+                            // Increase the stationary tracker if below 5 (max. value)
+                            vars.stillTracker < 5 && vars.stillTracker++;
+
+                            if(vars.stillTracker == 2 && vars.rootsStage_Carhal === 0) {
+                                // Shallow roots
+                                vars.rootsStage_Carhal++;
+
+                                // Retrieve pos
+                                const pos = carhal.getSelfPosInBattle();
+                                const bonuses = vars.getRootsBonuses(pos, vars.rootsStage_Carhal);
+                                // Apply alterations
+                                vars.addBonusesWithName(carhal, bonuses, 'Shallow Roots');
+                                // Apply ActiveEffect
+                                vars.changeActiveEffect('', 'Shallow Roots', bonuses, carhal);
+                            } else if(vars.stillTracker == 3 && vars.rootsStage_Carhal === 1) {
+                                // Growing roots
+                                vars.rootsStage_Carhal++;
+
+                                // Retrieve pos
+                                const pos = carhal.getSelfPosInBattle();
+                                const bonuses = vars.getRootsBonuses(pos, vars.rootsStage_Carhal);
+
+                                // Remove previous bonuses
+                                carhal.removeAllBonusesWithName('Shallow Roots');
+                                // Add new bonuses
+                                vars.addBonusesWithName(carhal, bonuses, 'Growing Roots');
+                                // Remove old ActiveEffect
+                                vars.changeActiveEffect('Shallow Roots', 'Growing Roots', bonuses, carhal);
+                            } else if(vars.stillTracker === 4 && vars.rootsStage_Carhal === 2) {
+                                // Entrenched roots
+                                vars.rootsStage_Carhal++;
+
+                                // Retrieve pos
+                                const pos = carhal.getSelfPosInBattle();
+                                const bonuses = vars.getRootsBonuses(pos, vars.rootsStage_Carhal);
+
+                                // Remove previous bonuses
+                                carhal.removeAllBonusesWithName('Growing Roots');
+                                // Add new bonuses
+                                vars.addBonusesWithName(carhal, bonuses, 'Entrenched Roots');
+                                // Remove old ActiveEffect
+                                vars.changeActiveEffect('Growing Roots', 'Entrenched Roots', bonuses, carhal);
+                            }
+                        }
+                    })
+                ],
                 Data.StriderType.STRIKER,
                 "Sentient Roots",
                 '<div class="par jus">Remaining stationary for two consecutive rounds will trigger <span class="bold blue">Root</span> bonuses, increasing further each round up to 3 Tiers: <span class="bold blue">Shallow Roots</span>, <span class="bold blue">Growing Roots</span> and <span class="bold blue">Entrenched Roots</span>. Bonuses vary according to Carhal\'s position.</div><div class="par bulleted"><span class="bold">Front</span>: Increased <span class="bold blue">Dodge</span>, <span class="bold blue">Might</span> and <span class="bold blue">Weapon Damage</span></div><div class="par bulleted"><span class="bold">Middle</span>: Increased <span class="bold blue">Speed</span>, <span class="bold blue">Stun Chance</span> and <span class="bold blue">Received heal</span></div><div class="par bulleted"><span class="bold">Back:</span> Increased <span class="bold blue">Accuracy</span>, <span class="bold blue">Spirit</span> and <span class="bold blue">Skill damage</span></div><div class="par jus">Once Carhal leaves a position, the <span class="bold blue">Roots</span> bonus will persist for two rounds, and will be also applied to the Strider who arrives on that position.</div>',
