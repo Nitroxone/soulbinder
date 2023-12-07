@@ -201,12 +201,16 @@ const Data = Object.freeze({
         ON_RECV_POISON: 'ON_RECV_POISON',
         ON_DEAL_BLEEDING: 'ON_DEAL_BLEEDING',
         ON_RECV_BLEEDING: 'ON_RECV_BLEEDING',
+        ON_RECV_MOVE: 'ON_MOVE',
+        ON_DEAL_MOVE: 'ON_DEAL_MOVE',
+
         ON_TURN_BEGIN: 'ON_TURN_BEGIN',
         ON_TURN_END: 'ON_TURN_END',
         ON_ROUND_BEGIN: 'ON_ROUND_BEGIN',
         ON_ROUND_END: 'ON_ROUND_END',
         ON_BATTLE_START: 'ON_BATTLE_START',
         ON_BATTLE_END: 'ON_BATTLE_END',
+        
         ON_BLOCK_BEGIN: 'ON_BLOCK',
         ON_BLOCK: 'ON_BLOCK',
         ON_BLOCK_END: 'ON_BLOCK_END',
