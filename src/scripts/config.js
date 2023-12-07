@@ -284,7 +284,7 @@ let Config = {
             effect: Data.Effect.PROTECTION,
             name: "bastion",
             theorical: [3, 5],
-            critical: new Stat({effect: Data.Effect.DAMAGE_REFLECTION, theorical: [1, 3], isPercentage: true, isCritical: true}),
+            critical: new Stat({effect: Data.Effect.DAMAGE_REFLECTION, theorical: [1, 3], isCritical: true}),
             corrupted: new Stat({effect: Data.Effect.MAXHEALTH, theorical: [-10, -25], isCorrupt: true}),
             unlocked: false,
             price: 8,
