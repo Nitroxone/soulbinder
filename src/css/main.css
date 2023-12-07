@@ -3306,6 +3306,9 @@ hr.centerFade {
 .blue {
     color: #7393B3;
 }
+.jus {
+    text-align: justify !important;
+}
 .nodeFull {
     color: #4CBB17;
 }
