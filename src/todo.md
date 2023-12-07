@@ -49,13 +49,13 @@ DONE - Implement shield in combats
 - Thoroughly comment complex battle functions
 ABANDONED? - Implement skill stackability
 ONGOING - Change active effect display -> regroup everything to prevent clones, and only display the latest caster & skill
-- Start implementing echoes
+ONGOING - Start implementing echoes
 DONE - Investigate and fix the shield issues
 DONE - Improve the guarding ability (allow friendly skills on guarded allies)
 - Clear all Skill effects after a battle ends
 - Prevent NPCs from being brought back to life by simple healing
 DONE - Implement NPC critical effects
-- Allow delayed movement effects
+DONE - Allow delayed movement effects
 - Add more visual cues (critical hit, who is attacking...)
 
 ASTRAL FORGE:

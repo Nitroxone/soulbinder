@@ -2616,7 +2616,7 @@ const Loader = {
                             const vars = carhal.variables;
 
                             // Increase the stationary tracker if below 5 (max. value)
-                            vars.stillTracker < 5 && vars.stillTracker++;
+                            vars.stillTracker < 4 && vars.stillTracker++;
 
                             if(vars.stillTracker == 2 && vars.rootsStage_Carhal === 0) {
                                 // Shallow roots
@@ -2658,6 +2658,14 @@ const Loader = {
                                 // Remove old ActiveEffect
                                 vars.changeActiveEffect('Growing Roots', 'Entrenched Roots', bonuses, carhal);
                             }
+                        }
+                    }),
+                    new Trigger({
+                        name: 'carhal_roots_move',
+                        type: Data.TriggerType.ON_RECV_MOVE,
+                        checker: function(){return true;},
+                        behavior: function(){
+                            console.error('MOVEMENT TRIGGER!');
                         }
                     })
                 ],

@@ -148,6 +148,8 @@ class Battle {
     beginTurn() {
         if(this.nextInOrder()) return; // IF A NEW ROUND IS STARTING, CANCEL THE FIRST TURN OR IT WILL BE PLAYED TWICE BY THE SAME FIGHTER.
         console.log("Currently playing: " + this.currentPlay.name);
+        const skipBecauseStunned = this.currentPlay.isStunned;
+
         this.currentPlay.runTriggers(Data.TriggerType.ON_TURN_BEGIN);
         this.currentPlay.executeActiveEffects();
         this.currentPlay.reduceSkillsCooldown();
@@ -157,7 +159,10 @@ class Battle {
         this.beginTurnPopups = false;
         this.runPopups();
         // SKIP ENEMIES
-        if(this.currentPlay.isStunned || this.currentPlay.isDead()) this.endTurn();
+        if(skipBecauseStunned || this.currentPlay.isDead()) {
+            this.endTurn();
+            return;
+        }
         if(this.isEnemyPlaying()) {
             this.handleEnemyTurn();
         }
@@ -743,6 +748,7 @@ class Battle {
             default:
                 throw new Error(skill);
         }
+
     }
 
     /**
@@ -992,6 +998,7 @@ class Battle {
     executeMovements() {
         this.movementQueue.forEach(mov => {
             this.move(mov.npc, mov.target, mov.type);
+            mov.npc.runTriggers(Data.TriggerType.ON_RECV_MOVE);
         });
     }
 
