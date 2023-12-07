@@ -2506,7 +2506,7 @@ const Loader = {
                 Data.StriderType.STRIKER,
                 "Marked for Death",
                 '<div class="par">Each successful hit from Brim on a enemy marks it with a <span class="bold blue">Black Glyph</span>, which can be stacked up 3 times. Each successful hit on an enemy that is marked with a <span class="bold blue">Black Glyph</span> triggers a Bleeding effect.</div><div class="par bulleted"><span class="bold blue">1 Black Glyph</span>: 2 Bleeding (2 rounds)</div><div class="par bulleted"><span class="bold blue">2 Black Glyphs</span>: 5 Bleeding (2 rounds)</div><div class="par bulleted"><span class="bold blue">3 Black Glyphs</span>: 8 Incurable Bleeding (3 rounds). Next hit removes all of the Black Glyphs on the target.</div>',
-                '"For Ghirgynth\'s servants dance with the dead, Amarok\'s flesh slavers over pain."',
+                '"An unnameable force carves a strange symbol on your very skin. You have been marked ; and death cannot be pushed back no more."',
                 0,
                 what(game.all_skillTrees, "amarok"),
                 [],
@@ -2550,7 +2550,7 @@ const Loader = {
                 Data.StriderType.STRIKER,
                 "Sentient Roots",
                 '<div class="par jus">Remaining stationary for two consecutive rounds will trigger <span class="bold blue">Root</span> bonuses, increasing further each round up to 3 Tiers: <span class="bold blue">Shallow Roots</span>, <span class="bold blue">Growing Roots</span> and <span class="bold blue">Entrenched Roots</span>. Bonuses vary according to Carhal\'s position.</div><div class="par bulleted"><span class="bold">Front</span>: Increased <span class="bold blue">Dodge</span>, <span class="bold blue">Might</span> and <span class="bold blue">Weapon Damage</span></div><div class="par bulleted"><span class="bold">Middle</span>: Increased <span class="bold blue">Speed</span>, <span class="bold blue">Stun Chance</span> and <span class="bold blue">Received heal</span></div><div class="par bulleted"><span class="bold">Back:</span> Increased <span class="bold blue">Accuracy</span>, <span class="bold blue">Spirit</span> and <span class="bold blue">Skill damage</span></div><div class="par jus">Once Carhal leaves a position, the <span class="bold blue">Roots</span> bonus will persist for two rounds, and will be also applied to the Strider who arrives on that position.</div>',
-                'quote',
+                '"As trees are never the same, Carhal danced, backed and leapt with them, blessed with all the virtues that nature had to offer."',
                 0,
                 what(game.all_skillTrees, "amarok"),
                 [
