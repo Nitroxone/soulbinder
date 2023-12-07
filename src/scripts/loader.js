@@ -590,7 +590,7 @@ const Loader = {
             ),
             new Echo(
                 "Last Word",
-                "Each time a spell is cast during the fight, you gain §1% {SPIRIT} (stackable up to §2%). This effect fades away if you are stunned, killed, or if the fight ends.",
+                "Each time a spell is cast during the fight, you gain §1% {SPIRIT} (stackable up to §2%). This effect fades away if you are stunned.",
                 1,
                 Data.Rarity.PRECIOUS,
                 [],
@@ -687,7 +687,7 @@ const Loader = {
             ),
             new Echo(
                 "Cannibal Instinct",
-                "For each bleeding tick, you gain §1% {MODIF_DMG_TOTAL} (stackable up to §2%). This effect fades away if you are stunned, killed, or if the fight ends.",
+                "For each bleeding tick, you gain §1% {MODIF_DMG_TOTAL} (stackable up to §2%). This effect fades away if you are stunned.",
                 1,
                 Data.Rarity.MYTHIC,
                 [
