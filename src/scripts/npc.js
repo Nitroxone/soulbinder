@@ -952,4 +952,17 @@ class NPC extends Entity {
         });
         this.applyEffects({name: this.subname}, this, cloned, true);
     }
+
+    /**
+     * Removes all of the alterations which name matches the provided one.
+     * @param {string} name the name of alterations to remove
+     */
+    removeAllBonusesWithName(name) {
+        this.bonuses.filter(x => x.origin.name === name).forEach(bo => {
+            this.alter({
+                uid: bo.stat.uid,
+                action: Data.AlterAction.REMOVE
+            });
+        });
+    }
 }
