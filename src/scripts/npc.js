@@ -391,7 +391,7 @@ class NPC extends Entity {
      * @param {Stat} eff the effect to add
      */
     removeBaseStat(eff) {
-        let damage; // 22 shield, 20 dmg
+        let damage;
         if(eff.effect === Data.Effect.HEALTH) {
             let removeShield = false;
             damage = (eff.isPercentage ? this.maxHealth * Math.abs(eff.getValue()) / 100 : eff.getValue());
