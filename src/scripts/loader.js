@@ -1526,7 +1526,6 @@ const Loader = {
                                 new Trigger({
                                     name: 'rebalancing_set',
                                     type: Data.TriggerType.ON_DEAL_WEAPON,
-                                    checker: function(){return true;},
                                     behavior: function(){
                                         console.info('ENTARIAN SET ECHO TRIGGERED');
                                         const params = game.currentBattle.params;
@@ -2312,7 +2311,6 @@ const Loader = {
                     new Trigger({
                         name: "amarok_ae_giver",
                         type: Data.TriggerType.ON_BATTLE_START,
-                        checker: function(){return true},
                         behavior: function() {
                             this.owner.runTriggers(Data.TriggerType.ON_STAT_CHANGE);
                         }
@@ -2603,17 +2601,23 @@ const Loader = {
                                 bold: true
                             }
                         }));
-                    }
+                    },
+                    "tier1": "Sentient Roots [SHALLOW]",
+                    "tier2": "Sentient Roots [GROWING]",
+                    "tier3": "Sentient Roots [ENTRENCHED]",
+                    "previousPos": null,
                 },
                 [
                     new Trigger({
                         name: "carhal_roots",
                         type: Data.TriggerType.ON_TURN_BEGIN,
-                        checker: function(){return true;},
                         behavior: function(){
                             console.log('CACA');
                             const carhal = this.owner;
                             const vars = carhal.variables;
+
+                            // Set current position
+                            vars.previousPos = carhal.getSelfPosInBattle();
 
                             // Increase the stationary tracker if below 5 (max. value)
                             vars.stillTracker < 4 && vars.stillTracker++;
@@ -2622,50 +2626,62 @@ const Loader = {
                                 // Shallow roots
                                 vars.rootsStage_Carhal++;
 
-                                // Retrieve pos
+                                // Retrieve bonuses according to pos
                                 const pos = carhal.getSelfPosInBattle();
                                 const bonuses = vars.getRootsBonuses(pos, vars.rootsStage_Carhal);
                                 // Apply alterations
-                                vars.addBonusesWithName(carhal, bonuses, 'Shallow Roots');
+                                vars.addBonusesWithName(carhal, bonuses, vars.tier1);
                                 // Apply ActiveEffect
-                                vars.changeActiveEffect('', 'Shallow Roots', bonuses, carhal);
+                                vars.changeActiveEffect('', vars.tier1, bonuses, carhal);
                             } else if(vars.stillTracker == 3 && vars.rootsStage_Carhal === 1) {
                                 // Growing roots
                                 vars.rootsStage_Carhal++;
 
-                                // Retrieve pos
+                                // Retrieve bonuses according to pos
                                 const pos = carhal.getSelfPosInBattle();
                                 const bonuses = vars.getRootsBonuses(pos, vars.rootsStage_Carhal);
 
                                 // Remove previous bonuses
-                                carhal.removeAllBonusesWithName('Shallow Roots');
+                                carhal.removeAllBonusesWithName(vars.tier1);
                                 // Add new bonuses
-                                vars.addBonusesWithName(carhal, bonuses, 'Growing Roots');
+                                vars.addBonusesWithName(carhal, bonuses, vars.tier2);
                                 // Remove old ActiveEffect
-                                vars.changeActiveEffect('Shallow Roots', 'Growing Roots', bonuses, carhal);
+                                vars.changeActiveEffect(vars.tier1, vars.tier2, bonuses, carhal);
                             } else if(vars.stillTracker === 4 && vars.rootsStage_Carhal === 2) {
                                 // Entrenched roots
                                 vars.rootsStage_Carhal++;
 
-                                // Retrieve pos
+                                // Retrieve bonuses according to pos
                                 const pos = carhal.getSelfPosInBattle();
                                 const bonuses = vars.getRootsBonuses(pos, vars.rootsStage_Carhal);
 
                                 // Remove previous bonuses
-                                carhal.removeAllBonusesWithName('Growing Roots');
+                                carhal.removeAllBonusesWithName(vars.tier2);
                                 // Add new bonuses
-                                vars.addBonusesWithName(carhal, bonuses, 'Entrenched Roots');
+                                vars.addBonusesWithName(carhal, bonuses, vars.tier3);
                                 // Remove old ActiveEffect
-                                vars.changeActiveEffect('Growing Roots', 'Entrenched Roots', bonuses, carhal);
+                                vars.changeActiveEffect(vars.tier2, vars.tier3, bonuses, carhal);
                             }
                         }
                     }),
                     new Trigger({
                         name: 'carhal_roots_move',
                         type: Data.TriggerType.ON_RECV_MOVE,
-                        checker: function(){return true;},
                         behavior: function(){
-                            console.error('MOVEMENT TRIGGER!');
+                            const carhal = this.owner;
+                            const vars = carhal.variables;
+                            console.log('Carhal Movement Trigger');
+
+                            const currentTier = vars["tier" + vars.rootsStage_Carhal];
+                            console.log('Current SentientRoots tier : ' + currentTier);
+                            // Add duration to bonuses to make them last 2 rounds
+                            if(currentTier) {
+                                carhal.bonuses.filter(x => x.origin.name === currentTier)?.map(x => x.stat.duration = 2);
+                                carhal.getActiveEffect(currentTier)?.effects.map(x => x.duration = 2);
+
+                                vars.rootsStage_Carhal = 0;
+                                vars.stillTracker = 0;
+                            }
                         }
                     })
                 ],
@@ -2831,7 +2847,6 @@ const Loader = {
                     new Trigger({
                         name: 'betheros_lifechannel',
                         type: [Data.TriggerType.ON_RECV_DAMAGE, Data.TriggerType.ON_DEAL_DAMAGE],
-                        checker: function(){return true;},
                         behavior: function(){
                             console.info('BETHEROS LIFE CHANNEL TRIGGERED!');
                             console.info(game.currentBattle.params);
