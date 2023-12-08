@@ -108,6 +108,7 @@ class Battle {
     end() {
         console.log("Battle ends!");
         this.runTriggersOnAll(Data.TriggerType.ON_BATTLE_END);
+        this.cleanAllBattleEffects();
         this.outcome = this.determineOutcome();
         game.currentDungeon.currentFloor.currentRoom.battleEnded(this.outcome);
         drawEndBattleScreen();
@@ -1016,20 +1017,37 @@ class Battle {
         });
     }
 
+    /**
+     * Empties the popups queues of each NPC in the battle.
+     */
     emptyBattlePopupsQueues() {
         this.order.forEach(fi => {
             fi.emptyPopupsQueue();
         });
     }
 
+    /**
+     * Overloads battle popups by emptying queues and resetting trackers.
+     */
     overloadPopups() {
         this.emptyBattlePopupsQueues();
         this.resetEndTurnCounter();
         this.beginTurnPopups = true;
     }
 
+    /**
+     * Determines the Battle's outcome based on NPC's health and returns it.
+     * @returns {Data.BattleOutcome} the outcome of the battle
+     */
     determineOutcome() {
         if(this.allies.every(x => x.health === 0)) return Data.BattleOutcome.FAILURE;
         else return Data.BattleOutcome.VICTORY;
+    }
+
+    /**
+     * Cleans all of the ActiveEffects from all NPCs.
+     */
+    cleanAllBattleEffects() {
+        
     }
 }
