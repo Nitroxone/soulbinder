@@ -638,8 +638,11 @@ class Battle {
                                 effects.push(newEff);
                             } else {
                                 // Moving
-                                if((Math.random() * 100 < current.modifChanceMove + eff.chance - tar.resMove) && eff.delay === 0) this.applyEnemyMovement(eff, tar);
-                                else tar.addBattlePopup(new BattlePopup(0, '<p>Resisted mov!</p>'));
+                                if((Math.random() * 100 < current.modifChanceMove + eff.chance - tar.resMove) && eff.delay === 0) {
+                                    this.applyEnemyMovement(eff, tar);
+                                    current.runTriggers(Data.TriggerType.ON_DEAL_MOVE);
+                                }
+                                else tar.addBattlePopup(new BattlePopup(0, '<p>Evaded!</p>'));
                             }
                         });
                     }
@@ -836,6 +839,12 @@ class Battle {
                     arr[targetIndex] = arr[origIndex];
                     arr[origIndex] = temp;
                     console.log('Moved ' + npc.name + ' to ' + target + ' (switch type)');
+
+                    // Triggers
+                    console.log(arr[targetIndex].name + ' is now on pos ' + arr[targetIndex].getSelfPosInBattle());
+                    console.log(arr[origIndex].name + ' is now on pos ' + arr[origIndex].getSelfPosInBattle());
+                    arr[targetIndex].runTriggers(Data.TriggerType.ON_RECV_MOVE);
+                    arr[origIndex].runTriggers(Data.TriggerType.ON_RECV_MOVE);
                 } else {
                     if(origIndex == 2 && targetIndex == 0) {
                         if(type === "a") this.moveAnimation(npc, Data.FormationPosition.FRONT, Data.AnimMoveType.LEFT_TWO);
@@ -845,6 +854,9 @@ class Battle {
                         arr[1] = arr[0];
                         arr[targetIndex] = temp;
                         console.log("Moved " + npc.name + " to " + target + " (push type)");
+
+                        // Triggers
+                        arr.forEach(el => { el.runTriggers(Data.TriggerType.ON_RECV_MOVE) });
                     } else if(origIndex == 0 && targetIndex == 2) {
                         if(type === "a") this.moveAnimation(npc, Data.FormationPosition.BACK, Data.AnimMoveType.RIGHT_TWO);
                         else if(type === "e") this.moveAnimation(npc, Data.FormationPosition.BACK, Data.AnimMoveType.LEFT_TWO);
@@ -853,6 +865,9 @@ class Battle {
                         arr[1] = arr[2];
                         arr[targetIndex] = temp;
                         console.log("Moved " + npc.name + " to " + target + " (push type)");
+
+                        // Triggers
+                        arr.forEach(el => { el.runTriggers(Data.TriggerType.ON_RECV_MOVE) });
                     } else {
                         throw new Error("Unhandled move case.");
                     }
@@ -998,7 +1013,6 @@ class Battle {
     executeMovements() {
         this.movementQueue.forEach(mov => {
             this.move(mov.npc, mov.target, mov.type);
-            mov.npc.runTriggers(Data.TriggerType.ON_RECV_MOVE);
         });
     }
 
