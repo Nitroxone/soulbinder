@@ -58,6 +58,7 @@ DONE - Implement NPC critical effects
 DONE - Allow delayed movement effects
 - Add more visual cues (critical hit, who is attacking...)
 - Rethink the "Incurable Bleeding" thing, especially on weapons
+- Make it impossible to swap gear while in live combat
 
 ASTRAL FORGE:
 - Create GUI -- ONGOING
@@ -76,6 +77,7 @@ DONE - Add items from loot to Knapsack
 DONE - Block dungeon navigation while in combat
 - Add possibility to leave room to come back later (regenerates a mob formation ; requires an item to prevent maluses?)
 DONE - Disconnect Enter button from dungeon rooms to prevent spamming battles
+- Make it possible to swap gear within the Knapsack while exploring a dungeon
 
 ONGOING - Implement the Dungeon inventory system
 - Write a warning message if the player starts an exploration with an empty Knapsack
