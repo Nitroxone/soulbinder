@@ -2485,6 +2485,43 @@ const Loader = {
                             }
                         }
                     ),
+                    new Skill(
+                        "Fulmination",
+                        "§Pulls§ an enemy and decreases their §Resilience§. Increases Amarok's §Might§.",
+                        17,
+                        {
+                            type: Data.SkillType.OFFENSIVE,
+                            manaCost: 10,
+                            cooldown: 2,
+                            dmgType: Data.SkillDamageType.MAGICAL,
+                            dmgMultiplier: 60,
+                            criMultiplier: 10,
+                            accMultiplier: 100,
+                            targets: {allies: '-0', enemies: '-3'},
+                            effectsCaster: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.MIGHT, theorical: [10, 15], duration: 2}),
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.MIGHT, theorical: 17, duration: 2, isCritical: true})
+                                    ]
+                                }
+                            },
+                            effectsEnemies: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.PULL_TWO, chance: 100}),
+                                        new Stat({effect: Data.Effect.RESILIENCE, theorical: [-10, -15], duration: 2}),
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.PULL_TWO, chance: 130}),
+                                        new Stat({effect: Data.Effect.RESILIENCE, theorical: [-17, -20], duration: 2}),
+                                    ]
+                                }
+                            }
+                        }
+                    )
                 ],
                 '10% 30%'
             ),
