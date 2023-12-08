@@ -57,6 +57,7 @@ DONE - Improve the guarding ability (allow friendly skills on guarded allies)
 DONE - Implement NPC critical effects
 DONE - Allow delayed movement effects
 - Add more visual cues (critical hit, who is attacking...)
+- Rethink the "Incurable Bleeding" thing, especially on weapons
 
 ASTRAL FORGE:
 - Create GUI -- ONGOING
