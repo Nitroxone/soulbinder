@@ -2679,9 +2679,18 @@ const Loader = {
                                 carhal.bonuses.filter(x => x.origin.name === currentTier)?.map(x => x.stat.duration = 2);
                                 carhal.getActiveEffect(currentTier)?.effects.map(x => x.duration = 2);
 
-                                vars.rootsStage_Carhal = 0;
-                                vars.stillTracker = 0;
+                                // Retrieve the new NPC on Carhal's ancient position
+                                const npc = getFighterFromPositionAndType(Data.BattleFighterType.HERO, vars.previousPos);
+                                console.log('The NPC on Carhal\'s previous position is now ' + npc.name);
+
+                                // Apply same bonuses to that NPC
+                                let bonuses = vars.getRootsBonuses(vars.previousPos, vars.rootsStage_Carhal).map(x => x.duration = 2);
+                                vars.addBonusesWithName(npc, bonuses, currentTier);
+                                vars.changeActiveEffect('', currentTier, bonuses, npc);
                             }
+                            // Reset trackers
+                            vars.rootsStage_Carhal = 0;
+                            vars.stillTracker = 0;
                         }
                     })
                 ],
