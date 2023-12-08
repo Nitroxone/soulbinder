@@ -2532,7 +2532,7 @@ const Loader = {
                 1,
                 what(game.all_skillTrees, "amarok"),
                 [],
-                '10% 30%'
+                '10% 50%'
             ),
             new Strider(
                 "Carhal",
