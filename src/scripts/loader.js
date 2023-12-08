@@ -2721,7 +2721,8 @@ const Loader = {
                                 console.log('The NPC on Carhal\'s previous position is now ' + npc.name);
 
                                 // Apply same bonuses to that NPC
-                                let bonuses = vars.getRootsBonuses(vars.previousPos, vars.rootsStage_Carhal).map(x => x.duration = 2);
+                                let bonuses = vars.getRootsBonuses(vars.previousPos, vars.rootsStage_Carhal);
+                                bonuses.map(x => x.duration = 2);
                                 vars.addBonusesWithName(npc, bonuses, currentTier);
                                 vars.changeActiveEffect('', currentTier, bonuses, npc);
                             }
