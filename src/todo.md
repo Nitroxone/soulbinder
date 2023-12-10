@@ -59,6 +59,8 @@ DONE - Allow delayed movement effects
 - Add more visual cues (critical hit, who is attacking...)
 - Rethink the "Incurable Bleeding" thing, especially on weapons
 - Make it impossible to swap gear while in live combat
+- What is mob stamina bar for? -> Find something to do with it
+- Implement Striders stat restoration after combat (how much? all of it?)
 
 ASTRAL FORGE:
 - Create GUI -- ONGOING
