@@ -1048,6 +1048,20 @@ class Battle {
      * Cleans all of the ActiveEffects from all NPCs.
      */
     cleanAllBattleEffects() {
-        
+        this.order.forEach(npc => {
+            if(npc.isStunned) npc.removeStun();
+            if(npc.isGuarded) npc.removeGuarded();
+            if(npc.isGuarding) npc.removeGuarding();
+            npc.shield = 0;
+
+            npc.activeEffects.forEach(ae => {
+                ae.effects.forEach(eff => {
+                    if(eff.type === Data.StatType.PASSIVE && !isShieldEffect(eff) && !isBleedingOrPoisoning(eff) && !isBaseStatChange(eff, true) && !isStunOrGuardRelatedEffect(eff)) {
+                        console.log('Attempting to remove ' + eff.effect + ' from ' + npc.name);
+                        npc.alter({action: Data.AlterAction.REMOVE, uid: eff.uid});
+                    }
+                });
+            });
+        });
     }
 }
