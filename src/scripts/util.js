@@ -1381,6 +1381,19 @@ function isShieldEffect(eff) {
 }
 
 /**
+ * Returns whether the provided effect is of Stun, Guarded or Guarding type.
+ * @param {Stat} eff the effect to check
+ * @returns {boolean} whether it's a stun, guarding, or guarded effect
+ */
+function isStunOrGuardRelatedEffect(eff) {
+    return [
+        Data.Effect.STUN,
+        Data.Effect.GUARDED,
+        Data.Effect.GUARDING
+    ].includes(eff.effect);
+}
+
+/**
  * Returns an EnemyFormation object which params match the ones from the provided Dungeon object.
  * @param {Dungeon} dungeon the Dungeon to retrieve the parameters from
  * @returns {EnemyFormation} a matching EnemyFormation
