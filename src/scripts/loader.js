@@ -2117,28 +2117,26 @@ const Loader = {
 
                                 var might_debuff = -(amarok.might - Math.round(amarok.might - (amarok.might * amarok.variables.might_debuff_rate)));
 
-                                amarok.alter({
-                                    effect: new Stat({
+                                const bonuses = [
+                                    new Stat({
                                         effect: Data.Effect.PROTECTION, 
                                         theorical: -30, 
                                         isPercentage: true
                                     }),
-                                    action: Data.AlterAction.ADD,
-                                    origin: {
-                                        type: Data.ActiveEffectType.POWER,
-                                        name: 'Darkspawn [WEAK]'
-                                    },
-                                });
-                                amarok.alter({
-                                    effect: new Stat({
+                                    new Stat({
                                         effect: Data.Effect.MIGHT,
                                         theorical: might_debuff,
-                                    }),
-                                    action: Data.AlterAction.ADD,
-                                    origin: {
-                                        type: Data.ActiveEffectType.POWER,
-                                        name: 'Darkspawn [WEAK]'
-                                    },
+                                    })
+                                ];
+                                bonuses.forEach(bo => {
+                                    amarok.alter({
+                                        effect: bo,
+                                        action: Data.AlterAction.ADD,
+                                        origin: {
+                                            type: Data.ActiveEffectType.POWER,
+                                            name: 'Darkspawn [WEAK]'
+                                        },
+                                    });
                                 });
 
                                 // add active effect and remove others
@@ -2147,17 +2145,7 @@ const Loader = {
                                     name: 'Darkspawn [WEAK]',
                                     originUser: amarok,
                                     originObject: Data.ActiveEffectType.POWER,
-                                    effects: [
-                                        new Stat({
-                                            effect: Data.Effect.PROTECTION, 
-                                            theorical: -30, 
-                                            isPercentage: true
-                                        }),
-                                        new Stat({
-                                            effect: Data.Effect.MIGHT,
-                                            theorical: might_debuff,
-                                        })
-                                    ],
+                                    effects: bonuses,
                                     style: {
                                         color: Data.Color.PURPLE,
                                         bold: true
@@ -2259,29 +2247,28 @@ const Loader = {
                             amarok.variables.boost_protection = Math.round(2 * multiplier);
                             amarok.variables.boost_might = Math.round(3 * (multiplier / 2));
 
-                            amarok.alter({
-                                effect: new Stat({
+                            const bonuses = [
+                                new Stat({
                                     effect: Data.Effect.PROTECTION,
                                     theorical: amarok.variables.boost_protection,
                                     isPercentage: true
                                 }),
-                                action: Data.AlterAction.ADD,
-                                origin: {
-                                    type: Data.ActiveEffectType.POWER,
-                                    name: 'Darkspawn [BOOSTED]'
-                                }
-                            });
-                            amarok.alter({
-                                effect: new Stat({
+                                new Stat({
                                     effect: Data.Effect.MIGHT,
                                     theorical: amarok.variables.boost_might,
-                                }),
-                                action: Data.AlterAction.ADD,
-                                origin: {
-                                    type: Data.ActiveEffectType.POWER,
-                                    name: 'Darkspawn [BOOSTED]'
-                                }
-                            });
+                                })
+                            ];
+
+                            bonuses.forEach(bo => {
+                                amarok.alter({
+                                    effect: bo,
+                                    action: Data.AlterAction.ADD,
+                                    origin: {
+                                        type: Data.ActiveEffectType.POWER,
+                                        name: 'Darkspawn [BOOSTED]'
+                                    }
+                                });
+                            })
 
                             // add active effect and remove others
                             amarok.removeActiveEffect('Darkspawn [BOOSTED]');
@@ -2290,17 +2277,7 @@ const Loader = {
                                 name: 'Darkspawn [BOOSTED]',
                                 originUser: amarok,
                                 originObject: Data.ActiveEffectType.POWER,
-                                effects: [
-                                    new Stat({
-                                        effect: Data.Effect.PROTECTION, 
-                                        theorical: amarok.variables.boost_protection, 
-                                        isPercentage: true,
-                                    }),
-                                    new Stat({
-                                        effect: Data.Effect.MIGHT,
-                                        theorical: amarok.variables.boost_might,
-                                    })
-                                ],
+                                effects: bonuses,
                                 style: {
                                     color: Data.Color.PURPLE,
                                     bold: true
