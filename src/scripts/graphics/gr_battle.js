@@ -240,7 +240,7 @@ function removeSpecialEffect(pos, type) {
     }
     let identifier = '.specialEffect.' + type;
 
-    document.querySelector('#' + pos).querySelector(identifier).remove();
+    document.querySelector('#' + pos)?.querySelector(identifier)?.remove();
 }
 
 function getBattleScreenFormationAlliesSingle(pos) {
