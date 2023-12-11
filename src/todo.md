@@ -52,7 +52,7 @@ ONGOING - Change active effect display -> regroup everything to prevent clones, 
 ONGOING - Start implementing echoes
 DONE - Investigate and fix the shield issues
 DONE - Improve the guarding ability (allow friendly skills on guarded allies)
-- Clear all Skill effects after a battle ends
+DONE - Clear all Skill effects after a battle ends
 - Prevent NPCs from being brought back to life by simple healing
 DONE - Implement NPC critical effects
 DONE - Allow delayed movement effects
@@ -61,6 +61,8 @@ DONE - Allow delayed movement effects
 - Make it impossible to swap gear while in live combat
 - What is mob stamina bar for? -> Find something to do with it
 - Implement Striders stat restoration after combat (how much? all of it?)
+- Implement Mobs carrying/using special items
+- Implement the Deathblows system
 
 ASTRAL FORGE:
 - Create GUI -- ONGOING
