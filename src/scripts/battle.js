@@ -521,6 +521,8 @@ class Battle {
                 if(tar.stamina <= 0 && tar.shield <= 0) {
                     // Deathblow
                     console.log('Deathblow!');
+                    this.currentPlay.runTriggers(Data.TriggerType.ON_DEAL_DEATHBLOW);
+                    tar.runTriggers(Data.TriggerType.ON_RECV_DEATHBLOW);
                     tar.health = 0;
                 }
             } else if(!params.success_accuracy) {
