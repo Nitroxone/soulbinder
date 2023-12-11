@@ -61,7 +61,7 @@ DONE - Allow delayed movement effects
 - Make it impossible to swap gear while in live combat
 - Implement Striders stat restoration after combat (how much? all of it?)
 - Implement Mobs carrying/using special items
-- Implement the Deathblows system
+ONGOING (not fully tested) - Implement the Deathblows system
 
 ASTRAL FORGE:
 - Create GUI -- ONGOING
