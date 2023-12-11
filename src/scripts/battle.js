@@ -517,6 +517,12 @@ class Battle {
                         }
                     }));
                 }
+
+                if(tar.stamina <= 0 && tar.shield <= 0) {
+                    // Deathblow
+                    console.log('Deathblow!');
+                    tar.health = 0;
+                }
             } else if(!params.success_accuracy) {
                 // Missed
                 console.log('Missed!');
