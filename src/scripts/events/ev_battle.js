@@ -75,21 +75,36 @@ function battleAttackPickTarget() {
     front.addEventListener('click', e => {
         if(battle.selectedWeapon.range[0]) {
             battle.target.push(battle.enemies[2]);
-            console.log('Attacking: ' + battle.enemies[2].name);
+            if(battle.selectedWeapon.weight === Data.WeaponWeight.HEAVY) {
+                if(battle.selectedWeapon.range[1]) battle.target.push(battle.enemies[1]);
+                if(battle.selectedWeapon.range[2]) battle.target.push(battle.enemies[0]);
+            }
+            console.log('Attacking: ');
+            battle.target.forEach(tar => { console.log(tar.name) });
             battle.executeAttack();
         }
     });
     middle.addEventListener('click', e => {
         if(battle.selectedWeapon.range[1]) {
             battle.target.push(battle.enemies[1]);
-            console.log('Attacking: ' + battle.enemies[1].name);
+            if(battle.selectedWeapon.weight === Data.WeaponWeight.HEAVY) {
+                if(battle.selectedWeapon.range[0]) battle.target.push(battle.enemies[2]);
+                if(battle.selectedWeapon.range[2]) battle.target.push(battle.enemies[0]);
+            }
+            console.log('Attacking: ');
+            battle.target.forEach(tar => { console.log(tar.name) });
             battle.executeAttack();
         }
     });
     back.addEventListener('click', e => {
         if(battle.selectedWeapon.range[2]) {
             battle.target.push(battle.enemies[0]);
-            console.log('Attacking: ' + battle.enemies[0].name);
+            if(battle.selectedWeapon.weight === Data.WeaponWeight.HEAVY) {
+                if(battle.selectedWeapon.range[1]) battle.target.push(battle.enemies[1]);
+                if(battle.selectedWeapon.range[0]) battle.target.push(battle.enemies[2]);
+            }
+            console.log('Attacking: ');
+            battle.target.forEach(tar => { console.log(tar.name) });
             battle.executeAttack();
         }
     });
