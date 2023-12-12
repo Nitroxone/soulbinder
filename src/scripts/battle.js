@@ -1080,6 +1080,7 @@ class Battle {
                     }
                 });
             });
+            npc.activeEffects = [];
         });
     }
 }
