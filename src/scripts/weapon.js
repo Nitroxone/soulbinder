@@ -64,6 +64,8 @@ class Weapon extends Item {
 
         this.range = range;
 
+        this.staDmgRate = weight === Data.WeaponWeight.HEAVY ? 0.25 : 0.75;
+
         this.allowedAlterations = allowedAlterations;
         this.alterations = [];
         this.sigil = null;
