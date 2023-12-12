@@ -3459,7 +3459,7 @@ const Loader = {
                 [],
                 {},
                 [],
-                Data.MobType.STRONGER,
+                Data.MobType.MAJOR,
                 [
                     new Skill(
                         "Armored Bark",
