@@ -42,7 +42,7 @@ const Loader = {
                        [5, 8],
                        [[2, 4], [1, 1], true],
                        [[0, 0], [0, 0], true],
-                       [true, false, false],
+                       [true, true, false],
                        ),
             new Weapon("Drancoran Staff",
                        "Staff description",
@@ -1530,7 +1530,7 @@ const Loader = {
                                         console.info('ENTARIAN SET ECHO TRIGGERED');
                                         const params = game.currentBattle.params;
                                         const caster = game.currentBattle.currentPlay;
-                                        const target = game.currentBattle.target[0];
+                                        const target = game.currentBattle.target[game.currentBattle.targetTracker];
 
                                         const allyEffects = [
                                             new Stat({

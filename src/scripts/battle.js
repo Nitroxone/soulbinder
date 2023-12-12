@@ -447,6 +447,7 @@ class Battle {
      */
     executeAttack() {
         this.overloadPopups();
+        this.resetTargetTracker();
 
         const weapon = this.selectedWeapon;
 
@@ -538,6 +539,8 @@ class Battle {
                 tar.runTriggers(Data.TriggerType.ON_RECV_DODGED);
                 tar.addBattlePopup(new BattlePopup(0, '<p>Dodged!</p>'));
             }
+
+            this.targetTracker++;
         });
 
         this.currentPlay.useWeapon(this.selectedWeapon);
