@@ -2185,3 +2185,20 @@ function generateLootRarity(dropRate, presetType) {
 
     return rarity;
 }
+
+/**
+ * Finds the NPC with the lowest Stat among the array and returns it.
+ * @param {NPC[]} npcs the array of NPC objects to filter
+ * @param {Data.Stat} stat the Stat to filter on
+ * @returns {NPC} the NPC with the lowest Stat
+ */
+function findNPCWithLowestStat(npcs, stat) {
+    if (npcs.length === 0) return null;
+    
+    // Use reduce to find the object with the lowest stat
+    const lowest = npcs.reduce((minObj, curObj) => {
+        return curObj[stat] < minObj[stat] ? curObj : minObj;
+    }, npcs[0]); // Initialize with the first object
+
+    return lowest;
+  }
