@@ -3364,6 +3364,7 @@ const Loader = {
                             criMultiplier: 15,
                             accMultiplier: 100,
                             dmgMultiplier: 110,
+                            dmgType: Data.SkillDamageType.PHYSICAL,
                             launchPos: [true, false, false],
                             targets: {allies: '-1', enemies: '-1'},
                             effectsCaster: {
