@@ -526,6 +526,13 @@ class Battle {
                     tar.runTriggers(Data.TriggerType.ON_RECV_DEATHBLOW);
                     tar.health = 0;
                 }
+
+                const staDmg = (params.phys_damage + params.magi_damage) * this.selectedWeapon.staDmgRate;
+                tar.removeBaseStat(new Stat({
+                    effect: Data.Effect.STAMINA,
+                    theorical: staDmg,
+                }));
+
             } else if(!params.success_accuracy) {
                 // Missed
                 console.log('Missed!');
