@@ -499,7 +499,7 @@ function getBattleFighterDetails(fighter) {
     str += '<div class="battle-fighterDetails-infos">';
     str += '<h4>' + fighter.name + '</h4>';
     str += '<div class="battle-fighterDetails-tags">';
-    str += '<div class="striderInfos-desc-type coolBorder">' + (fighter instanceof Strider ? capitalizeFirstLetter(fighter.striderType) : 'Monster') + '</div>';
+    str += '<div class="striderInfos-desc-type coolBorder">' + (fighter instanceof Strider ? capitalizeFirstLetter(fighter.striderType) : capitalizeFirstLetter(fighter.mobType)) + '</div>';
     if(fighter instanceof Strider) str += '<div class="striderInfos-desc-level coolBorder">Level ' + fighter.level.currentLevel + '</div>';
     str += '</div>';
     str += '</div>';
