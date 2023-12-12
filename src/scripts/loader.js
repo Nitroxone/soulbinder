@@ -3460,8 +3460,160 @@ const Loader = {
                 {},
                 [],
                 Data.MobType.STRONGER,
-                [],
-                null,
+                [
+                    new Skill(
+                        "Armored Bark",
+                        "",
+                        0,
+                        {
+                            type: Data.SkillType.FRIENDLY,
+                            manaCost: 10,
+                            cooldown: 3,
+                            criMultiplier: 10,
+                            accMultiplier: 100,
+                            targets: {allies: '-123', enemies: '-0'},
+                            launchPos: [true, true, true],
+                            effectsCaster: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.GUARDING, duration: 2}),
+                                        new Stat({effect: Data.Effect.PROTECTION, theorical: [15, 20], isPercentage: true, duration: 2}),
+                                        new Stat({effect: Data.Effect.RES_STUN, theorical: [15, 20], isPercentage: true, duration: 2})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.GUARDING, duration: 2, isCritical: true}),
+                                        new Stat({effect: Data.Effect.PROTECTION, theorical: 22, isPercentage: true, duration: 2, isCritical: true}),
+                                        new Stat({effect: Data.Effect.RES_STUN, theorical: 22, isPercentage: true, duration: 2, isCritical: true})
+                                    ]
+                                }
+                            },
+                            effectsEnemies: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.GUARDED, duration: 2}),
+                                        new Stat({effect: Data.Effect.MODIF_DMG_TOTAL, theorical: [10, 15], isPercentage: true, duration: 1})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.GUARDED, duration: 2}),
+                                        new Stat({effect: Data.Effect.MODIF_DMG_TOTAL, theorical: 18, isPercentage: true, duration: 1})
+                                    ]
+                                }
+                            },
+                            variables: {
+                                guarded: null
+                            }
+                        }
+                    ),
+                    new Skill(
+                        "Sprawling Crush",
+                        "",
+                        0,
+                        {
+                            type: Data.SkillType.OFFENSIVE,
+                            manaCost: 20,
+                            cooldown: 2,
+                            dmgMultiplier: 120,
+                            dmgType: Data.SkillDamageType.PHYSICAL,
+                            criMultiplier: 5,
+                            accMultiplier: 90,
+                            targets: {allies: '-12', enemies: '-0'},
+                            launchPos: [true, true, false],
+                            effectsAllies: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.STUN, duration: 2, chance: 100}),
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.STUN, duration: 2, chance: 100}),
+                                        new Stat({effect: Data.Effect.BACK_ONE, chance: 100})
+                                    ]
+                                }
+                            }
+                        }
+                    ),
+                    new Skill(
+                        "Advance",
+                        "",
+                        0,
+                        {
+                            type: Data.SkillType.FRIENDLY,
+                            manaCost: 0,
+                            criMultiplier: 15,
+                            launch: [true, false, false],
+                            effectsCaster: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.FRONT_TWO}),
+                                        new Stat({effect: Data.Effect.WARDING, theorical: [10, 15], duration: 1}),
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.FRONT_TWO}),
+                                        new Stat({effect: Data.Effect.WARDING, theorical: 18, duration: 2}),
+                                        new Stat({effect: Data.Effect.RES_STUN, theorical: 10, duration: 1})
+                                    ]
+                                }
+                            }
+                        }
+                    )
+                ],
+                new EnemyBehavior({
+                    actions: [
+                        new EnemyAction({
+                            title: 'protecc',
+                            owner: function(){ return what(game.currentBattle.enemies, "gnarly horror") },
+                            checker: function(){
+                                return this.owner.skills[0].cooldownCountdown === 0 && this.owner.skills[0].manaCost <= this.owner.mana;
+                            },
+                            behavior: function(){
+                                console.log(this.title);
+                                const lowest = findNPCWithLowestStat(game.currentBattle.enemies, "health");
+                                game.currentBattle.target.push(lowest);
+                                game.currentBattle.selectedSkill = this.owner.skills[0];
+                                game.currentBattle.executeSkill();
+                            }
+                        }),
+                        new EnemyAction({
+                            title: 'stun',
+                            owner: function(){ return what(game.currentBattle.enemies, "gnarly horror") },
+                            checker: function(){
+                                return this.owner.skills[1].cooldownCountdown === 0 && this.owner.skills[1].manaCost <= this.owner.mana;
+                            },
+                            behavior: function(){
+                                console.log(this.title);
+                                const lowest = findNPCWithLowestStat(game.currentBattle.allies.filter(x => x.health > 0 && x.getSelfPosInBattle() != Data.FormationPosition.BACK), "resStun");
+                                game.currentBattle.target.push(lowest);
+                                game.currentBattle.selectedSkill = this.owner.skills[1];
+                                game.currentBattle.executeSkill();
+                            }
+                        }),
+                        new EnemyAction({
+                            title: 'move forward',
+                            owner: function(){ return what(game.currentBattle.enemies, "gnarly horror") },
+                            checker: function(){
+                                return this.owner.getSelfPosInBattle() === Data.FormationPosition.BACK
+                            },
+                            behavior: function(){
+                                console.log(this.title);
+                                game.currentBattle.selectedSkill = this.owner.skills[2];
+                                game.currentBattle.executeSkill();
+                            }
+                        }),
+                        new EnemyAction({
+                            title: 'block',
+                            owner: function(){ return what(game.currentBattle.enemies, "gnarly horror") },
+                            checker: function(){
+                                return this.owner.stamina > 0;
+                            },
+                            behavior: function(){
+                                console.log(this.title);
+                                this.owner.applyBlocking();
+                                this.owner.removeBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 5}));
+                                this.owner.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 10}));
+                                game.currentBattle.endTurn();
+                            }
+                        })
+                    ]
+                }),
             )
         ];
 
