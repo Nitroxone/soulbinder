@@ -62,6 +62,7 @@ DONE - Allow delayed movement effects
 - Implement Striders stat restoration after combat (how much? all of it?)
 - Implement Mobs carrying/using special items
 ONGOING (not fully tested) - Implement the Deathblows system
+ONGOING - Remove Guard when a mob dies
 
 ASTRAL FORGE:
 - Create GUI -- ONGOING
