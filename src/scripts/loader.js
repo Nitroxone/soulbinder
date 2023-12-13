@@ -2458,7 +2458,8 @@ const Loader = {
                                 }
                             },
                             variables: {
-                                guarded: null
+                                guarded: null,
+                                guarding: null
                             }
                         }
                     ),
@@ -3500,7 +3501,8 @@ const Loader = {
                                 }
                             },
                             variables: {
-                                guarded: null
+                                guarded: null,
+                                guarding: null
                             }
                         }
                     ),

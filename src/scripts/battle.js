@@ -635,7 +635,10 @@ class Battle {
                     if(skill.effectsAllies && arrayContains(this.allies, tar)) {
                         skill.effectsAllies[skill.level][accessor].forEach(eff => {
                             if(!isMovementEffect(eff.effect)) {
-                                if(eff.effect === Data.Effect.GUARDED) skill.variables.guarded = tar;
+                                if(eff.effect === Data.Effect.GUARDED) {
+                                    skill.variables.guarded = tar;
+                                    skill.variables.guarding = current;
+                                }
                                 let newEff = Entity.clone(eff);
                                 newEff.fix();
                                 effects.push(newEff);
@@ -651,7 +654,10 @@ class Battle {
                                         return;
                                     }
                                 }
-                                if(eff.effect === Data.Effect.GUARDED) skill.variables.guarded = tar;
+                                if(eff.effect === Data.Effect.GUARDED) {
+                                    skill.variables.guarded = tar;
+                                    skill.variables.guarding = current;
+                                }
                                 let newEff = Entity.clone(eff);
                                 newEff.fix();
                                 effects.push(newEff);
@@ -698,7 +704,10 @@ class Battle {
                             return;
                         }
                     }
-                    if(eff.effect === Data.Effect.GUARDED) skill.variables.guarded = tar;
+                    if(eff.effect === Data.Effect.GUARDED) {
+                        skill.variables.guarded = tar;
+                        skill.variables.guarding = current;
+                    }
                     let newEff = Entity.clone(eff);
                     newEff.fix();
                     effects.push(newEff);
