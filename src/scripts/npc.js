@@ -859,8 +859,14 @@ class NPC extends Entity {
                     eff.duration = 0;
                     removeFromArray(ae.effects, eff);
                     if(eff.effect === Data.Effect.STUN) this.removeStun();
-                    else if(eff.effect === Data.Effect.GUARDED) this.removeGuarded();
-                    else if(eff.effect === Data.Effect.GUARDING) this.removeGuarding();
+                    else if(eff.effect === Data.Effect.GUARDED) {
+                        this.removeGuarded();
+                        ae.originObject.variables.guarded = null;
+                    }
+                    else if(eff.effect === Data.Effect.GUARDING) {
+                        this.removeGuarding();
+                        ae.originObject.variables.guarding = null;
+                    }
                     else if(isMovementEffect(eff.effect)) {
                         game.currentBattle.applyCasterMovement({effect: convertMovementToCasterType(eff).effect});
                     }
@@ -1000,7 +1006,10 @@ class NPC extends Entity {
             if(ae.originObject?.variables?.guarding == this) {
                 // Only remove the Guarded effect - keep the other effects from the same Skill
                 const obj = ae.originObject.variables.guarded.activeEffects.find(x => x.name === ae.name);
-                removeFromArray(obj.effects, obj.effects.find(x => x.effect === Data.Effect.GUARDED));
+                if(obj) {
+                    removeFromArray(obj.effects, obj.effects.find(x => x.effect === Data.Effect.GUARDED));
+                    if(obj.effects.length === 0) ae.originObject.variables.guarded.removeActiveEffect(ae.name);
+                }
                 ae.originObject.variables.guarded.removeGuarded();
             }
         })
