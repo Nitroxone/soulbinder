@@ -2201,4 +2201,4 @@ function findNPCWithLowestStat(npcs, stat) {
     }, npcs[0]); // Initialize with the first object
 
     return lowest;
-  }
+}
