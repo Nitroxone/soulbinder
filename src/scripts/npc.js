@@ -411,6 +411,8 @@ class NPC extends Entity {
                 this.health = Math.max(0, this.health - Math.round(damage));
             }
             this.runTriggers(Data.TriggerType.ON_REMOVE_HEALTH);
+
+            if(this.health === 0) this.kill();
         } else if(eff.effect === Data.Effect.STAMINA) {
             damage = (eff.isPercentage ? this.maxStamina * Math.abs(eff.getValue()) / 100 : Math.abs(eff.getValue()));
             if(damage > 0) this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.GREEN + '">-' + Math.round(damage) + '</p>'));
@@ -857,8 +859,14 @@ class NPC extends Entity {
                     eff.duration = 0;
                     removeFromArray(ae.effects, eff);
                     if(eff.effect === Data.Effect.STUN) this.removeStun();
-                    else if(eff.effect === Data.Effect.GUARDED) this.removeGuarded();
-                    else if(eff.effect === Data.Effect.GUARDING) this.removeGuarding();
+                    else if(eff.effect === Data.Effect.GUARDED) {
+                        this.removeGuarded();
+                        ae.originObject.variables.guarded = null;
+                    }
+                    else if(eff.effect === Data.Effect.GUARDING) {
+                        this.removeGuarding();
+                        ae.originObject.variables.guarding = null;
+                    }
                     else if(isMovementEffect(eff.effect)) {
                         game.currentBattle.applyCasterMovement({effect: convertMovementToCasterType(eff).effect});
                     }
@@ -964,5 +972,48 @@ class NPC extends Entity {
                 action: Data.AlterAction.REMOVE
             });
         });
+    }
+
+    /**
+     * Removes all of the Battle Effects (Skill effects, Stun, Guard, ActiveEffects...) from this NPC.
+     */
+    cleanAllBattleEffects() {
+        if(this.isStunned) this.removeStun();
+        if(this.isGuarded) this.removeGuarded();
+        if(this.isGuarding) this.removeGuarding();
+        this.shield = 0;
+
+        this.activeEffects.forEach(ae => {
+            ae.effects.forEach(eff => {
+                if(eff.type === Data.StatType.PASSIVE && !isShieldEffect(eff) && !isBleedingOrPoisoning(eff) && !isBaseStatChange(eff, true) && !isStunOrGuardRelatedEffect(eff)) {
+                    console.log('Attempting to remove ' + eff.effect + ' from ' + this.name);
+                    this.alter({action: Data.AlterAction.REMOVE, uid: eff.uid});
+                }
+            });
+        });
+        this.activeEffects = [];
+    }
+
+    /**
+     * Kills this NPC.
+     */
+    kill() {
+        // Just to make sure
+        this.health = 0;
+
+        // Remove the Guarding effects from other affected NPCs
+        this.activeEffects.forEach(ae => {
+            if(ae.originObject?.variables?.guarding == this) {
+                // Only remove the Guarded effect - keep the other effects from the same Skill
+                const obj = ae.originObject.variables.guarded.activeEffects.find(x => x.name === ae.name);
+                if(obj) {
+                    removeFromArray(obj.effects, obj.effects.find(x => x.effect === Data.Effect.GUARDED));
+                    if(obj.effects.length === 0) ae.originObject.variables.guarded.removeActiveEffect(ae.name);
+                }
+                ae.originObject.variables.guarded.removeGuarded();
+            }
+        })
+        // Remove all effects from that NPC
+        this.cleanAllBattleEffects();
     }
 }

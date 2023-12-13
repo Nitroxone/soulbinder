@@ -108,7 +108,7 @@ class Battle {
     end() {
         console.log("Battle ends!");
         this.runTriggersOnAll(Data.TriggerType.ON_BATTLE_END);
-        this.cleanAllBattleEffects();
+        this.cleanAllBattleEffectsFromFighters();
         this.outcome = this.determineOutcome();
         game.currentDungeon.currentFloor.currentRoom.battleEnded(this.outcome);
         drawEndBattleScreen();
@@ -450,6 +450,7 @@ class Battle {
         this.resetTargetTracker();
 
         const weapon = this.selectedWeapon;
+        const current = this.currentPlay;
 
         this.runTriggersOnCurrent(Data.TriggerType.ON_ATTACK);
         this.target.forEach(tar => {
@@ -458,7 +459,21 @@ class Battle {
             this.computeAttackParams(tar);
             let params = this.params;
             if(params.success_accuracy && !params.success_dodge) {
-                if(tar.isGuarded) tar = tar.guardedBy;
+                // Guard checks - allow guard only if
+                // - Is a single target enemy attack
+                if(tar.isGuarded) {
+                    console.error('PROCESSING GUARD...');
+                    const allyCheck = this.allies.includes(current) && this.allies.includes(tar);
+                    const enemCheck = this.enemies.includes(current) && this.enemies.includes(tar);
+
+                    if(!(this.target.length > 1 || allyCheck || enemCheck)) {
+                        tar = tar.guardedBy;
+                        console.error('APPLIED GUARD');
+                    }
+                    else {
+                        console.error('IGNORED GUARD');
+                    }
+                }
 
                 // Successful hit
                 this.runTriggersOnCurrent(Data.TriggerType.ON_DEAL_DAMAGE);
@@ -524,7 +539,7 @@ class Battle {
                     console.log('Deathblow!');
                     this.currentPlay.runTriggers(Data.TriggerType.ON_DEAL_DEATHBLOW);
                     tar.runTriggers(Data.TriggerType.ON_RECV_DEATHBLOW);
-                    tar.health = 0;
+                    tar.kill();
                 }
 
                 const staDmg = (params.phys_damage + params.magi_damage) * this.selectedWeapon.staDmgRate;
@@ -635,7 +650,10 @@ class Battle {
                     if(skill.effectsAllies && arrayContains(this.allies, tar)) {
                         skill.effectsAllies[skill.level][accessor].forEach(eff => {
                             if(!isMovementEffect(eff.effect)) {
-                                if(eff.effect === Data.Effect.GUARDED) skill.variables.guarded = tar;
+                                if(eff.effect === Data.Effect.GUARDED) {
+                                    skill.variables.guarded = tar;
+                                    skill.variables.guarding = current;
+                                }
                                 let newEff = Entity.clone(eff);
                                 newEff.fix();
                                 effects.push(newEff);
@@ -651,7 +669,10 @@ class Battle {
                                         return;
                                     }
                                 }
-                                if(eff.effect === Data.Effect.GUARDED) skill.variables.guarded = tar;
+                                if(eff.effect === Data.Effect.GUARDED) {
+                                    skill.variables.guarded = tar;
+                                    skill.variables.guarding = current;
+                                }
                                 let newEff = Entity.clone(eff);
                                 newEff.fix();
                                 effects.push(newEff);
@@ -698,7 +719,10 @@ class Battle {
                             return;
                         }
                     }
-                    if(eff.effect === Data.Effect.GUARDED) skill.variables.guarded = tar;
+                    if(eff.effect === Data.Effect.GUARDED) {
+                        skill.variables.guarded = tar;
+                        skill.variables.guarding = current;
+                    }
                     let newEff = Entity.clone(eff);
                     newEff.fix();
                     effects.push(newEff);
@@ -1065,22 +1089,9 @@ class Battle {
     /**
      * Cleans all of the ActiveEffects from all NPCs.
      */
-    cleanAllBattleEffects() {
+    cleanAllBattleEffectsFromFighters() {
         this.order.forEach(npc => {
-            if(npc.isStunned) npc.removeStun();
-            if(npc.isGuarded) npc.removeGuarded();
-            if(npc.isGuarding) npc.removeGuarding();
-            npc.shield = 0;
-
-            npc.activeEffects.forEach(ae => {
-                ae.effects.forEach(eff => {
-                    if(eff.type === Data.StatType.PASSIVE && !isShieldEffect(eff) && !isBleedingOrPoisoning(eff) && !isBaseStatChange(eff, true) && !isStunOrGuardRelatedEffect(eff)) {
-                        console.log('Attempting to remove ' + eff.effect + ' from ' + npc.name);
-                        npc.alter({action: Data.AlterAction.REMOVE, uid: eff.uid});
-                    }
-                });
-            });
-            npc.activeEffects = [];
+            npc.cleanAllBattleEffects();
         });
     }
 }
