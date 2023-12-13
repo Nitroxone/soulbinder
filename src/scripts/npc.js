@@ -968,6 +968,9 @@ class NPC extends Entity {
         });
     }
 
+    /**
+     * Removes all of the Battle Effects (Skill effects, Stun, Guard, ActiveEffects...) from this NPC.
+     */
     cleanAllBattleEffects() {
         if(this.isStunned) this.removeStun();
         if(this.isGuarded) this.removeGuarded();
@@ -985,10 +988,23 @@ class NPC extends Entity {
         this.activeEffects = [];
     }
 
+    /**
+     * Kills this NPC.
+     */
     kill() {
         // Just to make sure
         this.health = 0;
 
+        // Remove the Guarding effects from other affected NPCs
+        this.activeEffects.forEach(ae => {
+            if(ae.originObject?.variables?.guarding == this) {
+                // Only remove the Guarded effect - keep the other effects from the same Skill
+                const obj = ae.originObject.variables.guarded.activeEffects.find(x => x.name === ae.name);
+                removeFromArray(obj.effects, obj.effects.find(x => x.effect === Data.Effect.GUARDED));
+                ae.originObject.variables.guarded.removeGuarded();
+            }
+        })
+        // Remove all effects from that NPC
         this.cleanAllBattleEffects();
     }
 }
