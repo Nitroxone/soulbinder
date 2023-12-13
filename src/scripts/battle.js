@@ -458,7 +458,21 @@ class Battle {
             this.computeAttackParams(tar);
             let params = this.params;
             if(params.success_accuracy && !params.success_dodge) {
-                if(tar.isGuarded) tar = tar.guardedBy;
+                // Guard checks - allow guard only if
+                // - Is a single target enemy attack
+                if(tar.isGuarded) {
+                    console.error('PROCESSING GUARD...');
+                    const allyCheck = this.allies.includes(current) && this.allies.includes(tar);
+                    const enemCheck = this.enemies.includes(current) && this.enemies.includes(tar);
+
+                    if(!(this.target.length > 1 || allyCheck || enemCheck)) {
+                        tar = tar.guardedBy;
+                        console.error('APPLIED GUARD');
+                    }
+                    else {
+                        console.error('IGNORED GUARD');
+                    }
+                }
 
                 // Successful hit
                 this.runTriggersOnCurrent(Data.TriggerType.ON_DEAL_DAMAGE);
@@ -524,7 +538,7 @@ class Battle {
                     console.log('Deathblow!');
                     this.currentPlay.runTriggers(Data.TriggerType.ON_DEAL_DEATHBLOW);
                     tar.runTriggers(Data.TriggerType.ON_RECV_DEATHBLOW);
-                    tar.health = 0;
+                    tar.kill();
                 }
 
                 const staDmg = (params.phys_damage + params.magi_damage) * this.selectedWeapon.staDmgRate;
