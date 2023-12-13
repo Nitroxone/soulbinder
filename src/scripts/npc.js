@@ -411,6 +411,8 @@ class NPC extends Entity {
                 this.health = Math.max(0, this.health - Math.round(damage));
             }
             this.runTriggers(Data.TriggerType.ON_REMOVE_HEALTH);
+
+            if(this.health === 0) this.kill();
         } else if(eff.effect === Data.Effect.STAMINA) {
             damage = (eff.isPercentage ? this.maxStamina * Math.abs(eff.getValue()) / 100 : Math.abs(eff.getValue()));
             if(damage > 0) this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.GREEN + '">-' + Math.round(damage) + '</p>'));
@@ -964,5 +966,29 @@ class NPC extends Entity {
                 action: Data.AlterAction.REMOVE
             });
         });
+    }
+
+    cleanAllBattleEffects() {
+        if(this.isStunned) this.removeStun();
+        if(this.isGuarded) this.removeGuarded();
+        if(this.isGuarding) this.removeGuarding();
+        this.shield = 0;
+
+        this.activeEffects.forEach(ae => {
+            ae.effects.forEach(eff => {
+                if(eff.type === Data.StatType.PASSIVE && !isShieldEffect(eff) && !isBleedingOrPoisoning(eff) && !isBaseStatChange(eff, true) && !isStunOrGuardRelatedEffect(eff)) {
+                    console.log('Attempting to remove ' + eff.effect + ' from ' + this.name);
+                    this.alter({action: Data.AlterAction.REMOVE, uid: eff.uid});
+                }
+            });
+        });
+        this.activeEffects = [];
+    }
+
+    kill() {
+        // Just to make sure
+        this.health = 0;
+
+        this.cleanAllBattleEffects();
     }
 }
