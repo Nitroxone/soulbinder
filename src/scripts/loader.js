@@ -3568,7 +3568,7 @@ const Loader = {
                             },
                             behavior: function(){
                                 console.log(this.title);
-                                const lowest = findNPCWithLowestStat(game.currentBattle.enemies, "health");
+                                const lowest = findNPCWithLowestStat(game.currentBattle.enemies.filter(x => x.health > 0), "health");
                                 game.currentBattle.target.push(lowest);
                                 game.currentBattle.selectedSkill = this.owner.skills[0];
                                 game.currentBattle.executeSkill();
