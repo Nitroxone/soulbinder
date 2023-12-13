@@ -450,6 +450,7 @@ class Battle {
         this.resetTargetTracker();
 
         const weapon = this.selectedWeapon;
+        const current = this.currentPlay;
 
         this.runTriggersOnCurrent(Data.TriggerType.ON_ATTACK);
         this.target.forEach(tar => {
