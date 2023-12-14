@@ -156,4 +156,7 @@ DONE - Prevent skipping generation because of insufficient variety among the loo
 
 DONE - Fix a bug with opening set info tooltips
 
+- Fix a bug that doesn't correctly assign mobs to a room
+- Fix ON_BATTLE_START triggers not being systematically fired
+
 HOTFIXES: #Store your live fixes during dev sessions here and clear them once you're done
