@@ -3425,7 +3425,12 @@ const Loader = {
                             },
                             behavior: function(){
                                 console.log(this.title);
-                                game.currentBattle.target.push(choose(game.currentBattle.enemies));
+                                game.currentBattle.target.push(
+                                    findNPCWithLowestStat(
+                                        game.currentBattle.enemies.filter(x => x.health > 0), 
+                                        Data.Effect.HEALTH
+                                    )
+                                );
                                 game.currentBattle.selectedSkill = this.owner.skills[0];
                                 game.currentBattle.executeSkill();
                             }
