@@ -7598,6 +7598,26 @@ table.astralForgeShards td {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    animation: battleAttackInfoAnim 3s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+@keyframes battleAttackInfoAnim {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.8) translateX(-50%);
+    }
+    5%, 95% {
+        opacity: 1;
+        transform: translateX(-50%);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-50%);
+    }
+}
+.battle-attackInfo h1 {
+    font-family: RobotoSlabBold;
+    font-size: large;
 }
 
 .battle-combatInfo {
