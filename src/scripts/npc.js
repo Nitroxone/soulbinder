@@ -985,7 +985,7 @@ class NPC extends Entity {
 
         this.activeEffects.forEach(ae => {
             ae.effects.forEach(eff => {
-                if(eff.type === Data.StatType.PASSIVE && !isShieldEffect(eff) && !isBleedingOrPoisoning(eff) && !isBaseStatChange(eff, true) && !isStunOrGuardRelatedEffect(eff)) {
+                if(eff.type === Data.StatType.PASSIVE && !isShieldEffect(eff) && !isBleedingOrPoisoning(eff) && !isBaseStatChange(eff, true) && !isStunOrGuardRelatedEffect(eff) && !isMovementEffect(eff.effect)) {
                     console.log('Attempting to remove ' + eff.effect + ' from ' + this.name);
                     this.alter({action: Data.AlterAction.REMOVE, uid: eff.uid});
                 }
