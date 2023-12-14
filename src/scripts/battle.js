@@ -567,9 +567,7 @@ class Battle {
 
         this.currentPlay.useWeapon(this.selectedWeapon);
 
-        setTimeout(() => {
-            this.runPopups();
-        }, 2000);
+        this.runPopups();
     }
 
     /**
@@ -739,7 +737,13 @@ class Battle {
 
         current.useSkill(skill);
         skill.onCast && skill.onCast();
-        this.runPopups();
+        
+        if(this.isEnemyPlaying()) {
+            addBattleAttackMessage(current.name, skill.name);
+            setTimeout(() => {
+                this.runPopups();
+            }, 2000);
+        } else this.runPopups();
     }
 
     /**

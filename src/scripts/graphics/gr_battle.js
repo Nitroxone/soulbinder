@@ -105,6 +105,8 @@ function getBattleGlobalInfo(refresh = false) {
     str += '<h4>' + (game.currentDungeon ? 'Depth ' + game.currentDungeon.currentFloor.depth + ' [' + + game.currentDungeon.currentFloor.currentRoom.coordinates[0] + ', ' + game.currentDungeon.currentFloor.currentRoom.coordinates[1] + '] — ' + capitalizeFirstLetter(game.currentDungeon.currentFloor.currentRoom.type) : 'Unknown Position') + '</h4>'
     str += '</div>';
 
+    str += '<div class="battle-attackInfo"></div>';
+
     str += '<div class="battle-combatInfo">'
     str += '<h1>Group fight</h1>';
     str += '<h4>Round ' + game.currentBattle.round + ' — ' + game.currentBattle.currentPlay.name + '\'s Turn</h4>'
@@ -603,8 +605,5 @@ function addBattleAttackMessage(author, name) {
     str += '<h3 class="atk-author">' + author + '</h3>';
     str += '<h1 class="atk-name">' + name + '</h1>';
 
-    const container = document.createElement('div');
-    container.classList.add('battle-attackInfo');
-    container.innerHTML = str;
-    document.querySelector('.battle-globalInfo').insertBefore(container, document.querySelector('.battle-combatInfo'));
+    document.querySelector('.battle-attackInfo').outerHTML = '<div class="battle-attackInfo">' + str + '</div>';
 }
