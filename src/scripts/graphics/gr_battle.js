@@ -596,3 +596,15 @@ function addBattleNotification(message) {
 
     document.querySelector('.battle-notifications').innerHTML = str;
 }
+
+function addBattleAttackMessage(author, name) {
+    let str = '';
+
+    str += '<h3 class="atk-author">' + author + '</h3>';
+    str += '<h1 class="atk-name">' + name + '</h1>';
+
+    const container = document.createElement('div');
+    container.classList.add('battle-attackInfo');
+    container.innerHTML = str;
+    document.querySelector('.battle-globalInfo').insertBefore(container, document.querySelector('.battle-combatInfo'));
+}

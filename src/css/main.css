@@ -7588,6 +7588,18 @@ table.astralForgeShards td {
     color: grey;
 }
 
+.battle-attackInfo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 300px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .battle-combatInfo {
     text-align: right;
 }
@@ -8558,84 +8570,41 @@ table.astralForgeShards td {
 
 /* FIGHT ANIMS */
 
+
+
 .fa-hit {
     animation-duration: 1.9s;
     animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
-    z-index: 100;
+    z-index: 1000;
     position: relative;
 }
 .fa-hit.ally-front-to-front {
     animation-name: faHitAllyFrontToFront;
 }
-.fa-hit.ally-front-to-front {
-    animation-name: faHitAllyFrontToMid;
+.fa-hit.ally-front-to-middle {
+    animation-name: faHitAllyFrontToMiddle;
 }
-.fa-hit.ally-front-to-front {
+.fa-hit.ally-front-to-back {
     animation-name: faHitAllyFrontToBack;
 }
-@keyframes faHitAllyFrontToFront {
-    0% {
-        filter: hue-rotate(180deg) contrast(1.05);
-    }
-    20% {
-        transform: scale(1.1);
-    }
-    45% {
-        filter: hue-rotate(75deg) contrast(1.05);
-        transform: scale(1.1);
-    }
-    52% {
-        transform: scale(1.1) translate(100px, 15px);
-        box-shadow: 0px 0px 50px black;
-        filter: hue-rotate(75deg) contrast(1.05) brightness(5);
-    }
-    60% {
-        filter: hue-rotate(180deg) contrast(1.05);
-        
-        box-shadow: 0px 0px 25px black;
-    }
+@keyframes faHitAllyFrontToMiddle {
+    0% { filter: hue-rotate(180deg) contrast(1.05); }
+    20% { transform: scale(1.1); }
+    45% { filter: hue-rotate(75deg) contrast(1.05); transform: scale(1.1); }
+    52% { transform: scale(1.1) translate(150px, 15px); box-shadow: 0px 0px 50px black; filter: hue-rotate(75deg) contrast(1.05) brightness(5); }
+    60% { filter: hue-rotate(180deg) contrast(1.05); box-shadow: 0px 0px 25px black; }
 }
-@keyframes faHitAllyFrontToMid {
-    0% {
-        filter: hue-rotate(180deg) contrast(1.05);
-    }
-    20% {
-        transform: scale(1.1);
-    }
-    45% {
-        filter: hue-rotate(75deg) contrast(1.05);
-        transform: scale(1.1);
-    }
-    52% {
-        transform: scale(1.1) translate(200px, 15px);
-        box-shadow: 0px 0px 50px black;
-        filter: hue-rotate(75deg) contrast(1.05) brightness(5);
-    }
-    60% {
-        filter: hue-rotate(180deg) contrast(1.05);
-        
-        box-shadow: 0px 0px 25px black;
-    }
+@keyframes faHitAllyFrontToMiddle {
+    0% { filter: hue-rotate(180deg) contrast(1.05); }
+    20% { transform: scale(1.1); }
+    45% { filter: hue-rotate(75deg) contrast(1.05); transform: scale(1.1); }
+    52% { transform: scale(1.1) translate(280px, 15px); box-shadow: 0px 0px 50px black; filter: hue-rotate(75deg) contrast(1.05) brightness(5); }
+    60% { filter: hue-rotate(180deg) contrast(1.05); box-shadow: 0px 0px 25px black; }
 }
-@keyframes faHitAllyFrontToBack {
-    0% {
-        filter: hue-rotate(180deg) contrast(1.05);
-    }
-    20% {
-        transform: scale(1.1);
-    }
-    45% {
-        filter: hue-rotate(75deg) contrast(1.05);
-        transform: scale(1.1);
-    }
-    52% {
-        transform: scale(1.1) translate(300px, 15px);
-        box-shadow: 0px 0px 50px black;
-        filter: hue-rotate(75deg) contrast(1.05) brightness(5);
-    }
-    60% {
-        filter: hue-rotate(180deg) contrast(1.05);
-        
-        box-shadow: 0px 0px 25px black;
-    }
+@keyframes faHitAllyFrontToMiddle {
+    0% { filter: hue-rotate(180deg) contrast(1.05); }
+    20% { transform: scale(1.1); }
+    45% { filter: hue-rotate(75deg) contrast(1.05); transform: scale(1.1); }
+    52% { transform: scale(1.1) translate(450px, 15px); box-shadow: 0px 0px 50px black; filter: hue-rotate(75deg) contrast(1.05) brightness(5); }
+    60% { filter: hue-rotate(180deg) contrast(1.05); box-shadow: 0px 0px 25px black; }
 }

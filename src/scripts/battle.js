@@ -567,7 +567,9 @@ class Battle {
 
         this.currentPlay.useWeapon(this.selectedWeapon);
 
-        this.runPopups();
+        setTimeout(() => {
+            this.runPopups();
+        }, 2000);
     }
 
     /**
