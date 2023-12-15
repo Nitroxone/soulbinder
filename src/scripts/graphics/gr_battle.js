@@ -163,13 +163,14 @@ function getFighterFrame(fighter, type, pos) {
     type = type.toLowerCase();
     typeMin = type.charAt(0);
     const playOrder = game.currentBattle.order.indexOf(fighter) + 1;
+    const isCurrentPlay = game.currentBattle.currentPlay === fighter;
 
     const id = 'aw-' + typeMin + '-' + pos;
 
     str += '<div id="gw-' + typeMin + '-' + pos + '" class="category" style="display: inline-block; overflow: visible;"><div class="battlePositionName">' + capitalizeFirstLetter(pos) + '</div>';
     str += '<div id="' + id + '" class="animationsWrapper"></div>';
     if(fighter) {
-        str += '<div id="b-' + type + '-' + pos + '" class="battleFighter" style="background-image: linear-gradient(transparent 0%, rgba(0, 0, 0, 1) 70%), url(\'css/img/chars/' + fighter.charset + '\'); ' + (fighter.health === 0 ? ' filter: grayscale(100%);' : '') + '">';
+        str += '<div id="b-' + type + '-' + pos + '" class="battleFighter' + (isCurrentPlay ? ' currentPlayFrame' : '') + '" style="background-image: linear-gradient(transparent 0%, rgba(0, 0, 0, 1) 70%), url(\'css/img/chars/' + fighter.charset + '\'); ' + (fighter.health === 0 ? ' filter: grayscale(100%);' : '') + '">';
         str += '<div class="battle-shieldContainer">' + getBattleShieldAmount(fighter) + '</div>';
         str += '<div class="battle-specialEffectsContainer">' + getSpecialEffects(fighter) + '</div>';
         str += '<div class="gaugeProgress"><div class="statGauge health" style="width:'+ Math.round((fighter.health*100)/fighter.maxHealth) +'%"><span class="gaugeIndicator">'+ fighter.health + '/' + fighter.maxHealth +'</span></div></div>';
@@ -177,7 +178,7 @@ function getFighterFrame(fighter, type, pos) {
         str += '<div class="gaugeProgress"><div class="statGauge mana" style="width:'+ Math.round((fighter.mana*100)/fighter.maxMana) +'%"><span class="gaugeIndicator">'+ fighter.mana + '/' + fighter.maxMana +'</span></div></div>';
         str += '</div>';
     }
-    str += '<div class="playOrderIndicator">' + playOrder + '</div>';
+    str += '<div class="playOrderIndicator' + (isCurrentPlay ? ' currentPlayIndicator' : '') + '">' + playOrder + '</div>';
     str += '</div>';
 
     return str;

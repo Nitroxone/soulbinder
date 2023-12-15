@@ -7276,6 +7276,34 @@ table.astralForgeShards td {
     z-index: 10;
 }
 
+.currentPlayIndicator {
+    animation: curPlayIndicatorAnim 2s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+@keyframes curPlayIndicatorAnim {
+    50% { transform: rotate3d(1, 1, 1, 360deg) scale(1.75); border-color: white }
+    100% { transform: rotate3d(1, 1, 1, 720deg); }
+}
+
+.currentPlayFrame {
+    animation: curPlayFrameAnim 1.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+@keyframes curPlayFrameAnim {
+    25% {
+        border-top-color: cyan;
+        transform: scale(1.05);
+    }
+    50% {
+        border-left-color: cyan;
+    }
+    75% {
+        border-bottom-color: cyan;
+        transform: scale(1.05);
+    }
+    90% {
+        border-right-color: cyan;
+    }
+}
+
 .skillCondition {
     border: 1px solid #cf750e;
     border-radius: 3px;
