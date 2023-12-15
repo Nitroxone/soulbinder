@@ -56,8 +56,7 @@ DONE - Clear all Skill effects after a battle ends
 - Prevent NPCs from being brought back to life by simple healing
 DONE - Implement NPC critical effects
 DONE - Allow delayed movement effects
-- Add more visual cues (critical hit, who is attacking...)
-- Rethink the "Incurable Bleeding" thing, especially on weapons
+ONGOING - Add more visual cues (critical hit, who is attacking...)
 - Make it impossible to swap gear while in live combat
 - Implement Striders stat restoration after combat (how much? all of it?)
 - Implement Mobs carrying/using special items
@@ -145,7 +144,7 @@ DONE - By default, only allow echoes on Weapons, Shields and Armors. Only relic 
 
 ECHOES: 
 DONE - Add colors to effect names for a more comfortable read
-- Update an echo's triggers owner variable on equipping/unequipping
+DONE - Update an echo's triggers owner variable on equipping/unequipping
 
 TRIGGERS: 
 DONE - Allow multiple trigger types per trigger
