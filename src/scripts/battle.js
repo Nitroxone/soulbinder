@@ -95,7 +95,6 @@ class Battle {
      */
     start() {
         this.buildBehaviors();
-        this.generateOrder();
         this.runTriggersOnAllies(Data.TriggerType.ON_BATTLE_START);
         this.runTriggersOnEnemies(Data.TriggerType.ON_BATTLE_START);
         this.beginRound();
