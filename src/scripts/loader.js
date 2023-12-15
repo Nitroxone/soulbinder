@@ -1473,7 +1473,38 @@ const Loader = {
                                 "health_regen": [5, 5],
                                 "dodge_boost": [4, 4],
                             },
-                            []
+                            [
+                                new Trigger({
+                                    name: "swift-as-steel_dealDodge",
+                                    type: Data.TriggerType.ON_DEAL_DODGED,
+                                    behavior: function(){
+                                        console.info('SWIFT AS STEEL BUFF TRIGGERED');
+
+                                        const effects = [
+                                            new Stat({
+                                                effect: Data.Effect.DODGE,
+                                                theorical: this.variables.dodge_boost,
+                                                duration: 2,
+                                                isPercentage: true
+                                            })
+                                        ];
+                                        this.owner.applyEffects(this, this.owner, effects);
+                                    }
+                                }),
+                                new Trigger({
+                                    name: "swift-as-steel_recvDodge",
+                                    type: Data.TriggerType.ON_RECV_DODGED,
+                                    behavior: function(){
+                                        console.info('SWIFT AS STEEL BUFF TRIGGERED');
+
+                                        this.owner.addBaseStat(new Stat({
+                                            effect: Data.Effect.HEALTH,
+                                            theorical: this.variables.health_regen,
+                                            isPercentage: true
+                                        }));
+                                    }
+                                })
+                            ]
                         )
                     ]
                 },
