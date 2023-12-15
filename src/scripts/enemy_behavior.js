@@ -24,6 +24,6 @@ class EnemyBehavior {
                 return;
             }
         }
-        if(!hasPlayed) game.currentBattle.endTurn();
+        if(!hasPlayed) game.currentBattle.runPopups();
     }
 }

@@ -140,7 +140,7 @@ class Battle {
 
     handleEnemyTurn() {
         if(!this.currentPlay.isDead()) this.currentPlay.behavior.play();
-        else this.endTurn();
+        else this.runPopups();
     }
 
     /**
@@ -160,9 +160,13 @@ class Battle {
         this.beginTurnPopups = false;
         this.runPopups();
         // SKIP ENEMIES
-        if(skipBecauseStunned || this.currentPlay.isDead()) {
-            this.endTurn();
+        if(skipBecauseStunned) {
+            this.runPopups();
             return;
+        }
+        if(this.currentPlay.isDead()) {
+            this.endTurn();
+            return
         }
         if(this.isEnemyPlaying()) {
             this.handleEnemyTurn();
