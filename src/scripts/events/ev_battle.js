@@ -334,5 +334,9 @@ function generateBattleFightersEvents() {
                 generateBattleConsumablesEvents();
             }
         });
+        fighter.parentElement.querySelector('.playOrderIndicator').addEventListener('animationend', function(){
+            this.classList.remove('currentPlayIndicator');
+            this.classList.add('currentPlayIndicatorLoop');
+        })
     });
 }

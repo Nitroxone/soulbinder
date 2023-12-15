@@ -7283,6 +7283,25 @@ table.astralForgeShards td {
     50% { transform: rotate3d(1, 1, 1, 360deg) scale(1.75); border-color: white }
     100% { transform: rotate3d(1, 1, 1, 720deg); }
 }
+.currentPlayIndicatorLoop {
+    animation: curPlayIndicatorAnimLoop 2s ease-in-out infinite;
+}
+@keyframes curPlayIndicatorAnimLoop {
+    25% {
+        border-top-color: cyan;
+        transform: scale(1.25);
+    }
+    50% {
+        border-left-color: cyan;
+    }
+    75% {
+        border-bottom-color: cyan;
+        transform: scale(1.25);
+    }
+    90% {
+        border-right-color: cyan;
+    }
+}
 
 .currentPlayFrame {
     animation: curPlayFrameAnim 1.5s cubic-bezier(0.075, 0.82, 0.165, 1);
