@@ -355,8 +355,8 @@ class NPC extends Entity {
         const crit = params.crit_damage;
         let damage, phys_damage, magi_damage;
 
-        phys_damage = Math.max(0, phys - this.resilience);
-        magi_damage = Math.max(0, magi - this.warding);
+        phys_damage = phys === 0 ? 0 : Math.max(0, phys - this.resilience);
+        magi_damage = magi === 0 ? 0 : Math.max(0, magi - this.warding);
 
         damage = phys_damage + magi_damage + crit;
         if(!params.ignoresProtection) damage -= Math.round(damage * this.protection / 100);
