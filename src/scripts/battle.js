@@ -454,7 +454,8 @@ class Battle {
 
         this.runTriggersOnCurrent(Data.TriggerType.ON_ATTACK);
         this.target.forEach(tar => {
-            document.querySelector('#' + tar.getBattleFormationStringId()).classList.add('npcBattleTargeted');
+            const tarDom = document.querySelector('#' + tar.getBattleFormationStringId());
+            tarDom.classList.add('npcBattleTargeted');
             if(tar.isDead()) return;
 
             this.computeAttackParams(tar);
@@ -488,6 +489,7 @@ class Battle {
 
                 if(params.critical) {
                     console.log('Critical blow!');
+                    tarDom.classList.add('criticalHit');
                     this.currentPlay.addCriticalEffects();
                     this.runTriggersOnCurrent(Data.TriggerType.ON_DEAL_CRITICAL);
                     tar.runTriggers(Data.TriggerType.ON_RECV_CRITICAL);
@@ -603,7 +605,8 @@ class Battle {
 
         this.runTriggersOnCurrent(Data.TriggerType.ON_ATTACK);
         this.target.forEach(tar => {
-            document.querySelector('#' + tar.getBattleFormationStringId()).classList.add('npcBattleTargeted');
+            const tarDom = document.querySelector('#' + tar.getBattleFormationStringId());
+            tarDom.classList.add('npcBattleTargeted');
 
             if(tar.isDead()) {
                 console.error(tar.name + ' is dead! Ignoring');
@@ -642,6 +645,7 @@ class Battle {
                 accessor = (params.critical ? 'critical' : 'regular');
                 if(params.critical) {
                     console.log('Critical blow!');
+                    tarDom.classList.add('criticalHit');
                     this.currentPlay.addCriticalEffects();
                     this.runTriggersOnCurrent(Data.TriggerType.ON_DEAL_CRITICAL);
                     tar.runTriggers(Data.TriggerType.ON_RECV_CRITICAL);
