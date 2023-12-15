@@ -2639,6 +2639,7 @@ hr.centerFade {
     background-color: rgba(34, 47, 62, 1);
     border-radius: 3px;
     padding: 0.5rem 0.35rem;
+    pointer-events: none;
 }
 .hide {
     display: none;
