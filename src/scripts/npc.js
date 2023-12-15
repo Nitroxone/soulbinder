@@ -554,6 +554,7 @@ class NPC extends Entity {
     applyBlocking() {
         this.isBlocking = true;
         addSpecialEffect(this.getBattleFormationStringId(), Data.Effect.BLOCK);
+        this.addBattlePopup(new BattlePopup(0, '<p>Blocks!</p>'));
     }
 
     /**
