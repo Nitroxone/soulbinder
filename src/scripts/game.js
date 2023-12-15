@@ -419,7 +419,7 @@ class Game {
 
         console.clear();
 
-        this.startBattle(what(game.all_enemyFormations, "gnarlyAndFungaliant"));
+        this.startBattle(Entity.clone(what(game.all_enemyFormations, "gnarlyAndFungaliant")));
         //this.currentBattle.end();
 
         this.initBlackMarket();
