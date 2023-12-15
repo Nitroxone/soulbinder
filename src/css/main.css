@@ -7665,7 +7665,12 @@ table.astralForgeShards td {
 }
 .battle-attackInfo h1 {
     font-family: RobotoSlabBold;
-    font-size: large;
+    font-size: 1.22rem;
+}
+.battle-attackInfo h3 {
+    font-family: RobotoBold;
+    font-size: .75rem;
+    color: dimgrey;
 }
 
 .battle-combatInfo {
