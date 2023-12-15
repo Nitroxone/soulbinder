@@ -454,6 +454,7 @@ class Battle {
 
         this.runTriggersOnCurrent(Data.TriggerType.ON_ATTACK);
         this.target.forEach(tar => {
+            document.querySelector('#' + tar.getBattleFormationStringId()).classList.add('npcBattleTargeted');
             if(tar.isDead()) return;
 
             this.computeAttackParams(tar);
@@ -602,6 +603,8 @@ class Battle {
 
         this.runTriggersOnCurrent(Data.TriggerType.ON_ATTACK);
         this.target.forEach(tar => {
+            document.querySelector('#' + tar.getBattleFormationStringId()).classList.add('npcBattleTargeted');
+
             if(tar.isDead()) {
                 console.error(tar.name + ' is dead! Ignoring');
                 return;
