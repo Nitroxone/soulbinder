@@ -7277,7 +7277,7 @@ table.astralForgeShards td {
     animation: curPlayIndicatorAnim 2s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 @keyframes curPlayIndicatorAnim {
-    50% { transform: rotate3d(1, 1, 1, 360deg) scale(1.75); border-color: white }
+    50% { transform: rotate3d(1, 1, 1, 360deg) scale(1.75); border-color: white; filter: invert(); }
     100% { transform: rotate3d(1, 1, 1, 720deg); }
 }
 .currentPlayIndicatorLoop {
@@ -7287,6 +7287,7 @@ table.astralForgeShards td {
     25% {
         border-top-color: cyan;
         transform: scale(1.25);
+        filter: brightness(110%);
     }
     50% {
         border-left-color: cyan;
@@ -7294,6 +7295,7 @@ table.astralForgeShards td {
     75% {
         border-bottom-color: cyan;
         transform: scale(1.25);
+        filter: brightness(110%);
     }
     90% {
         border-right-color: cyan;
