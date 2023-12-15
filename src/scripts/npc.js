@@ -805,8 +805,10 @@ class NPC extends Entity {
      */
     addEcho(echo) {
         this.echoes.push(echo);
+        echo.owner = this;
         echo.triggers.forEach(trig => {
             this.triggers.push(trig);
+            trig.owner = this;
         });
     }
 
@@ -816,8 +818,10 @@ class NPC extends Entity {
      */
     removeEcho(echo) {
         removeFromArray(this.echoes, echo);
+        echo.owner = null;
         echo.triggers.forEach(trig => {
             removeFromArray(this.triggers, trig);
+            trig.owner = null;
         });
     }
 

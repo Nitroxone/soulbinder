@@ -32,7 +32,8 @@ class Echo extends Entity {
         this.variables = variables;
         this.triggers = triggers;
         this.type = type;
-        this.parent = null;
+        this.parent = null; // The object from where the Echo emanates
+        this.owner = null; // The NPC that is currently bearing the Echo
     }
 
     /**

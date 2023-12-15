@@ -1479,16 +1479,16 @@ const Loader = {
                                     type: Data.TriggerType.ON_DEAL_DODGED,
                                     behavior: function(){
                                         console.info('SWIFT AS STEEL BUFF TRIGGERED');
-                                        const caster = game.currentBattle.currentPlay;
 
                                         const effects = [
                                             new Stat({
                                                 effect: Data.Effect.DODGE,
                                                 theorical: this.variables.dodge_boost,
-                                                duration: 2
+                                                duration: 2,
+                                                isPercentage: true
                                             })
                                         ];
-                                        caster.applyEffects(this, caster, effects);
+                                        this.owner.applyEffects(this, this.owner, effects);
                                     }
                                 }),
                                 new Trigger({
@@ -1496,18 +1496,12 @@ const Loader = {
                                     type: Data.TriggerType.ON_RECV_DODGED,
                                     behavior: function(){
                                         console.info('SWIFT AS STEEL BUFF TRIGGERED');
-                                        const caster = game.currentBattle.currentPlay;
 
-                                        const effects = [
-                                            new Stat({
-                                                effect: Data.Effect.HEALTH,
-                                                theorical: this.variables.health_regen,
-                                                duration: 1,
-                                                type: Data.StatType.ACTIVE,
-                                                isPercentage: true
-                                            })
-                                        ]
-                                        caster.applyEffects(this, caster, effects);
+                                        this.owner.addBaseStat(new Stat({
+                                            effect: Data.Effect.HEALTH,
+                                            theorical: this.variables.health_regen,
+                                            isPercentage: true
+                                        }));
                                     }
                                 })
                             ]
