@@ -693,7 +693,7 @@ class Battle {
                             }
                         });
                     }
-                    tar.addBattlePopup(new BattlePopup(0, '<div class="popupIcon" style="background-image: url(\'css/img/skills/' + current.name + skill.icon + '.png\');"></div>'));
+                    if(!this.isEnemyPlaying()) tar.addBattlePopup(new BattlePopup(0, '<div class="popupIcon" style="background-image: url(\'css/img/skills/' + current.name + skill.icon + '.png\');"></div>'));
                 }
 
                 tar.applyEffects(skill, current, effects, params.critical);
@@ -749,7 +749,7 @@ class Battle {
             addBattleAttackMessage(current.name, skill.name);
             setTimeout(() => {
                 this.runPopups();
-            }, 2000);
+            }, 1500);
         } else this.runPopups();
     }
 
