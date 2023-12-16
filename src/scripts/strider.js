@@ -178,8 +178,9 @@ class Strider extends NPC {
     /**
      * Equips the trinket whose ID is provided in the DragEvent object.
      * @param {DragEvent|Trinket} item the Event from which the trinket will be retrieved, or a Trinket object
+     * @param {boolean} mute whether to mute the equipping sound
      */
-    equipTrinket(item) {
+    equipTrinket(item, mute = false) {
         let trinket = null;
 
         if(item instanceof DragEvent) {
@@ -206,7 +207,7 @@ class Strider extends NPC {
             game.player.inventory.removeItem(trinket);
             this.removeAvailableTrinketSlot();
             console.log(trinket.name + ' was equipped to ' + this.name);
-            Sounds.Methods.playSound(Data.SoundType.EQUIP);
+            !mute && Sounds.Methods.playSound(Data.SoundType.EQUIP);
             drawTrinketInventory();
             
             try {
@@ -222,8 +223,9 @@ class Strider extends NPC {
     /**
      * Unequips the provided Trinket.
      * @param {Trinket} trinket the Trinket to unequip
+     * @param {boolean} mute whether to mute the unequipping sound
      */
-    unequipTrinket(trinket) {
+    unequipTrinket(trinket, mute = false) {
         if(!trinket) return;
         if(!arrayContains(this.trinkets, trinket)) throw new Error('Tried to unequip a trinket that is not equipped.');
         trinket.effects.forEach(effect => {
@@ -311,8 +313,9 @@ class Strider extends NPC {
     /**
      * Equips the armor whose ID is provided in the DragEvent object.
      * @param {DragEvent|Armor} item the Event from which the armor will be retrieved, or an Armor object
+     * @param {boolean} mute whether to mute the equipping sound
      */
-    equipArmor(item) {
+    equipArmor(item, mute = false) {
         let armor = null;
 
         if(item instanceof DragEvent) {
@@ -358,7 +361,7 @@ class Strider extends NPC {
 
         game.player.inventory.removeItem(armor);
         console.log(armor.name + ' was equipped to ' + this.name);
-        Sounds.Methods.playSound(Data.SoundType.EQUIP);
+        !mute && Sounds.Methods.playSound(Data.SoundType.EQUIP);
         drawInventory();
         
         try {
@@ -371,8 +374,9 @@ class Strider extends NPC {
     /**
      * Unequips the provided armor.
      * @param {Armor} armor the armor to unequip
+     * @param {boolean} mute whether to mute the unequipping sound
      */
-    unequipArmor(armor) {
+    unequipArmor(armor, mute = false) {
         if(!armor) return;
         switch(armor.type) {
             case Data.ArmorType.HELMET:
@@ -411,7 +415,7 @@ class Strider extends NPC {
 
         game.player.inventory.addItem(armor, 1, true);
         console.log(armor.name + ' was unequipped from ' + this.name);
-        Sounds.Methods.playSound(Data.SoundType.UNEQUIP);
+        !mute && Sounds.Methods.playSound(Data.SoundType.UNEQUIP);
         drawInventory();
         spawnStriderPopup(this, true);
     }
@@ -420,8 +424,9 @@ class Strider extends NPC {
      * Equips the Weapon from the data in the provided DragEvent to the targeted hand.
      * @param {DragEvent|Weapon} item the Event from which the weapon will be retrieved, or a Weapon object
      * @param {Data.WeaponHand} hand the hand to equip the weapon to
+     * @param {boolean} mute whether to mute the equipping sound
      */
-    equipWeapon(item, hand = '') {
+    equipWeapon(item, hand = '', mute = false) {
         let weapon = null;
 
         if(item instanceof DragEvent) {
@@ -470,7 +475,7 @@ class Strider extends NPC {
         this.updateSetBonuses(weapon, Data.AlterAction.ADD); 
 
         game.player.inventory.removeItem(weapon);
-        Sounds.Methods.playSound(Data.SoundType.EQUIP_WEAPON);
+        !mute && Sounds.Methods.playSound(Data.SoundType.EQUIP_WEAPON);
         drawInventory();
         
         try {
@@ -483,8 +488,9 @@ class Strider extends NPC {
     /**
      * Unequips the weapon from the provided hand.
      * @param {Data.WeaponHand} hand the hand to unequip the weapon from
+     * @param {boolean} mute whether to mute the unequipping sound
      */
-    unequipWeapon(hand) {
+    unequipWeapon(hand, mute = false) {
         if(hand === Data.WeaponHand.RIGHT && this.eqWeaponRight) {
             if(!this.eqWeaponRight) return;
             game.player.inventory.addItem(this.eqWeaponRight, 1, true);
