@@ -441,6 +441,8 @@ class NPC extends Entity {
             if(originUser) {
                 console.info('ORIGIN USER DETECTED!!!! ' + originUser.name + ' on ' + this.name);
                 amount += amount * originUser.modifHealGiven / 100;
+                originUser.runTriggers(Data.TriggerType.ON_DEAL_HEAL);
+                this.runTriggers(Data.TriggerType.ON_RECV_HEAL);
             }
 
             this.health = Math.min(this.maxHealth, this.health + Math.round(amount));
