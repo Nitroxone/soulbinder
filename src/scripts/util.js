@@ -2202,3 +2202,13 @@ function findNPCWithLowestStat(npcs, stat) {
 
     return lowest;
 }
+
+function getcTarget() {
+    return getcBattle().target[getcBattle().targetTracker];
+}
+function getcBattle() {
+    return game.currentBattle;
+}
+function getcPlayer() {
+    return getcBattle().currentPlay;
+}
