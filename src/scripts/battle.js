@@ -598,6 +598,7 @@ class Battle {
      */
     executeSkill() {
         this.overloadPopups();
+        this.resetTargetTracker();
 
         const skill = this.selectedSkill;
         const current = this.currentPlay;
