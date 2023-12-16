@@ -646,16 +646,16 @@ const Loader = {
                 [
                     new Stat({
                         effect: Data.Effect.SPEED,
-                        theorical: [7, 10]
+                        theorical: [1, 2]
                     }),
                     new Stat({
                         effect: Data.Effect.DODGE,
-                        theorical: [2, 8],
+                        theorical: [1, 1],
                         isPercentage: true
                     }),
                     new Stat({
                         effect: Data.Effect.ACCURACY,
-                        theorical: [2, 8],
+                        theorical: [2, 3],
                         isPercentage: true
                     })
                 ],
@@ -674,7 +674,7 @@ const Loader = {
                 [
                     new Stat({
                         effect: Data.Effect.PROTECTION,
-                        theorical: [-10, -20],
+                        theorical: [-4, -8],
                         isPercentage: true
                     })
                 ],
@@ -1630,7 +1630,7 @@ const Loader = {
                     5: [
                         new Echo(
                             "Altruism",
-                            "Healing an ally with a skill grants them with a +§1 {SPEED} boost for the next round and adds a stack of Altruism on yourself. When 3 stacks are reached, receive a +§2% {MODIF_HEAL_GIVEN} boost for two rounds and a -§3% {MAXHEALTH} malus for one round.",
+                            "Healing an ally with a skill grants them with a +§1 {SPEED} boost for 2 rounds and adds a stack of Altruism on yourself. When 3 stacks are reached, receive a +§2% {MODIF_HEAL_GIVEN} boost for two rounds and a -§3% {MAXHEALTH} malus for one round, and the stacks will be removed.",
                             1,
                             Data.Rarity.SINGULAR,
                             [],
@@ -1638,9 +1638,63 @@ const Loader = {
                             {
                                 "speed_boost": [3, 3],
                                 "given_heal_boost": [20, 20],
-                                "maxhealth_debuff": [10, 10]
+                                "maxhealth_debuff": [-10, -10],
+                                "stacks": [0, 0],
                             },
-                            []
+                            [
+                                new Trigger({
+                                    name: "altruism_manageStacks",
+                                    type: Data.TriggerType.ON_DEAL_HEAL,
+                                    behavior: function(){
+                                        console.info('ALTRUISM - MANAGE STACKS');
+                                        const target = getcTarget();
+                                        const caster = getcPlayer();
+
+                                        target.applyEffects(
+                                            this,
+                                            caster,
+                                            [
+                                                new Stat({
+                                                    effect: Data.Effect.SPEED,
+                                                    theorical: this.variables.speed_boost,
+                                                    duration: 2,
+                                                })
+                                            ],
+                                        );
+                                        
+                                        if(this.variables.stacks < 3) this.variables.stacks++;
+                                    }
+                                }),
+                                new Trigger({
+                                    name: "altruism_applyEffect",
+                                    type: Data.TriggerType.ON_DEAL_HEAL,
+                                    checker: function(){
+                                        return this.variables.stacks >= 3;
+                                    },
+                                    behavior: function(){
+                                        console.info('ALTRUISM - APPLY EFFECTS');
+                                        const caster = getcPlayer();
+                                        const effects = [
+                                            new Stat({
+                                                effect: Data.Effect.MODIF_HEAL_GIVEN,
+                                                theorical: this.variables.given_heal_boost,
+                                                isPercentage: true,
+                                                duration: 2
+                                            }),
+                                            new Stat({
+                                                effect: Data.Effect.MAXHEALTH,
+                                                theorical: this.variables.maxhealth_debuff,
+                                                isPercentage: true,
+                                                duration: 1
+                                            })
+                                        ];
+
+                                        caster.applyEffects(this, caster, effects);
+
+                                        this.variables.stacks = 0;
+                                    }
+                                })
+                            ]
                         )
                     ]
                 },
@@ -1658,6 +1712,7 @@ const Loader = {
                         bonus.parent = {name: equipmentSet.name, rarity: equipmentSet.rarity};
                         bonus.triggers.forEach(trig => {
                             trig.behavior = trig.behavior.bind(bonus);
+                            trig.checker = trig.checker.bind(bonus);
                         });
                     }
                 })
@@ -2480,7 +2535,7 @@ const Loader = {
                                 1: {
                                     regular: [
                                         new Stat({effect: Data.Effect.GUARDED, duration: 2}),
-                                        new Stat({effect: Data.Effect.MAXMANA, theorical: [20, 25], isPercentage: true, duration: 2})
+                                        new Stat({effect: Data.Effect.MAXMANA, theorical: [-20, -25], isPercentage: true, duration: 2})
                                     ],
                                     critical: [
                                         new Stat({effect: Data.Effect.GUARDED, duration: 2, isCritical: true}),
