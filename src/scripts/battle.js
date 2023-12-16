@@ -139,7 +139,7 @@ class Battle {
 
     handleEnemyTurn() {
         if(!this.currentPlay.isDead()) this.currentPlay.behavior.play();
-        else this.runPopups();
+        else this.finishTurn();
     }
 
     /**
@@ -200,6 +200,7 @@ class Battle {
             this.resetEndTurnCounter();
             if(!this.beginTurnPopups) {
                 this.beginTurnPopups = true;
+                console.log('BEGIN TURN POPUPS HAVE BEEN SET TO TRUE');
                 return;
             }
             if(this.movementQueue.length !== 0) setTimeout(() => {this.endTurn();}, 300);
@@ -1108,6 +1109,31 @@ class Battle {
     cleanAllBattleEffectsFromFighters() {
         this.order.forEach(npc => {
             npc.cleanAllBattleEffects();
+        });
+    }
+
+    /**
+     * Ends the current turn after running a condition to make sure all popups have been properly executed.
+     */
+    async finishTurn() {
+        await this.waitForBeginTurnPopups();
+        this.runPopups();
+    }
+
+    /**
+     * Checks whether the popups have all been executed. If they have not, loops until they do.
+     * @returns {Promise}
+     */
+    async waitForBeginTurnPopups() {
+        if(this.beginTurnPopups) return Promise.resolve();
+
+        return new Promise(resolve => {
+            const checkCondition = () => {
+                if(this.beginTurnPopups) resolve();
+                else setTimeout(checkCondition, 100);
+            };
+
+            checkCondition();
         });
     }
 }

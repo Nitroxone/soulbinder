@@ -41,7 +41,7 @@ function generateBattleCommandsEvents() {
     def.addEventListener('click', e => {
         console.log('blocking');
         current.applyBlocking();
-        battle.runPopups();
+        battle.finishTurn();
     });
     mov.addEventListener('click', e => {
         if(battle.action != Data.BattleAction.MOVE) {
@@ -55,7 +55,7 @@ function generateBattleCommandsEvents() {
     });
     ski.addEventListener('click', e => {
         console.log('skipping');
-        battle.runPopups();
+        battle.finishTurn();
     });
 }
 
@@ -211,21 +211,21 @@ function battleMovePickTarget() {
         back.classList.add('battle-target');
         back.addEventListener('click', e => {
             battle.move(battle.currentPlay, Data.FormationPosition.BACK, "a");
-            setTimeout(() => {battle.runPopups();}, 300); // the setTimeout is kind of a nasty way of waiting for the CSS animations to finish but meh... will fix that later
+            setTimeout(() => {battle.finishTurn();}, 300); // the setTimeout is kind of a nasty way of waiting for the CSS animations to finish but meh... will fix that later
         });
     }
     if(battle.allies.indexOf(battle.currentPlay) !== 1) {
         middle.classList.add('battle-target');
         middle.addEventListener('click', e => {
             battle.move(battle.currentPlay, Data.FormationPosition.MIDDLE, "a");
-            setTimeout(() => {battle.runPopups();}, 300);
+            setTimeout(() => {battle.finishTurn();}, 300);
         });
     }
     if(battle.allies.indexOf(battle.currentPlay) !== 2) {
         front.classList.add('battle-target');
         front.addEventListener('click', e => {
             battle.move(battle.currentPlay, Data.FormationPosition.FRONT, "a");
-            setTimeout(() => {battle.runPopups();}, 300);
+            setTimeout(() => {battle.finishTurn();}, 300);
         });
     }
 }

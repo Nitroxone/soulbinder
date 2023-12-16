@@ -3312,7 +3312,7 @@ const Loader = {
                                 this.owner.applyBlocking();
                                 this.owner.removeBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 5}));
                                 this.owner.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 5}));
-                                game.currentBattle.runPopups();
+                                game.currentBattle.finishTurn();
                             }
                         }),
                     ]
@@ -3477,7 +3477,7 @@ const Loader = {
                                 this.owner.applyBlocking();
                                 this.owner.removeBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 5}));
                                 this.owner.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 5}));
-                                game.currentBattle.runPopups();
+                                game.currentBattle.finishTurn();
                             }
                         })
                     ]
@@ -3647,7 +3647,7 @@ const Loader = {
                                 this.owner.applyBlocking();
                                 this.owner.removeBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 5}));
                                 this.owner.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 10}));
-                                game.currentBattle.runPopups();
+                                game.currentBattle.finishTurn();
                             }
                         })
                     ]
