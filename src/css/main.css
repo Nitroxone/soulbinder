@@ -2440,6 +2440,9 @@ table.statsTable tbody td:nth-child(3) {
     font-size: 12px;
     font-weight: normal;
 }
+.sigilInfo-infos {
+    pointer-events: none;
+}
 .sigilCorruption {
     border: 1px solid rgba(169,0,0,0.9);
     border-radius: 3px;
