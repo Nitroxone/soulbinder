@@ -398,24 +398,24 @@ class Game {
         this.player.formationSet(what(this.player.roster, "betheros"), Data.FormationPosition.BACK);
 
         // Equipping
-        what(this.player.roster, "carhal").equipWeapon(what(this.player.inventory.weapons, 'entarian axe'));
-        what(this.player.roster, "amarok").equipWeapon(what(this.player.inventory.weapons, 'highsteel sword'));
-        what(this.player.roster, "betheros").equipWeapon(what(this.player.inventory.weapons, 'drancoran staff'));
+        what(this.player.roster, "carhal").equipWeapon(what(this.player.inventory.weapons, 'entarian axe'), '', true);
+        what(this.player.roster, "amarok").equipWeapon(what(this.player.inventory.weapons, 'highsteel sword'), '', true);
+        what(this.player.roster, "betheros").equipWeapon(what(this.player.inventory.weapons, 'drancoran staff'), '', true);
 
-        what(this.player.roster, "carhal").equipArmor(what(this.player.inventory.armors, 'entarian chestplate'));
-        what(this.player.roster, "carhal").equipArmor(what(this.player.inventory.armors, 'entarian boots'));
-        what(this.player.roster, "betheros").equipArmor(what(this.player.inventory.armors, 'drancoran hood'));
-        what(this.player.roster, "betheros").equipArmor(what(this.player.inventory.armors, 'drancoran mittens'));
-        what(this.player.roster, "amarok").equipArmor(what(this.player.inventory.armors, 'highsteel helmet'));
-        what(this.player.roster, "amarok").equipArmor(what(this.player.inventory.armors, 'highsteel boots'));
+        what(this.player.roster, "carhal").equipArmor(what(this.player.inventory.armors, 'entarian chestplate'), true);
+        what(this.player.roster, "carhal").equipArmor(what(this.player.inventory.armors, 'entarian boots'), true);
+        what(this.player.roster, "betheros").equipArmor(what(this.player.inventory.armors, 'drancoran hood'), true);
+        what(this.player.roster, "betheros").equipArmor(what(this.player.inventory.armors, 'drancoran mittens'), true);
+        what(this.player.roster, "amarok").equipArmor(what(this.player.inventory.armors, 'highsteel helmet'), true);
+        what(this.player.roster, "amarok").equipArmor(what(this.player.inventory.armors, 'highsteel boots'), true);
 
-        what(this.player.roster, "carhal").equipTrinket(what(this.player.inventory.trinkets, 'talisman of fervour'));
-        what(this.player.roster, "carhal").equipTrinket(what(this.player.inventory.trinkets, 'goodsight doll'));
-        what(this.player.roster, "carhal").equipTrinket(what(this.player.inventory.trinkets, 'molars of the jailor'));
-        what(this.player.roster, "amarok").equipTrinket(what(this.player.inventory.trinkets, 'foresighting ring'));
-        what(this.player.roster, "amarok").equipTrinket(what(this.player.inventory.trinkets, 'omen insignia'));
-        what(this.player.roster, "betheros").equipTrinket(what(this.player.inventory.trinkets, 'haste ring'));
-        what(this.player.roster, "betheros").equipTrinket(what(this.player.inventory.trinkets, 'engraved moonhorn'));
+        what(this.player.roster, "carhal").equipTrinket(what(this.player.inventory.trinkets, 'talisman of fervour'), true);
+        what(this.player.roster, "carhal").equipTrinket(what(this.player.inventory.trinkets, 'goodsight doll'), true);
+        what(this.player.roster, "carhal").equipTrinket(what(this.player.inventory.trinkets, 'molars of the jailor'), true);
+        what(this.player.roster, "amarok").equipTrinket(what(this.player.inventory.trinkets, 'foresighting ring'), true);
+        what(this.player.roster, "amarok").equipTrinket(what(this.player.inventory.trinkets, 'omen insignia'), true);
+        what(this.player.roster, "betheros").equipTrinket(what(this.player.inventory.trinkets, 'haste ring'), true);
+        what(this.player.roster, "betheros").equipTrinket(what(this.player.inventory.trinkets, 'engraved moonhorn'), true);
 
         console.clear();
 
