@@ -48,7 +48,7 @@ DONE - Implement shield in combats
 ONGOING - Implement consumables & using them in combat
 - Thoroughly comment complex battle functions
 ABANDONED? - Implement skill stackability
-ONGOING - Change active effect display -> regroup everything to prevent clones, and only display the latest caster & skill
+DONE - Change active effect display -> regroup everything to prevent clones, and only display the latest caster & skill
 ONGOING - Start implementing echoes
 DONE - Investigate and fix the shield issues
 DONE - Improve the guarding ability (allow friendly skills on guarded allies)
@@ -62,6 +62,7 @@ ONGOING - Add more visual cues (critical hit, who is attacking...)
 - Implement Mobs carrying/using special items
 DONE - Implement the Deathblows system
 DONE - Remove Guard when a mob dies
+- Add a function to manage stacks (for echoes, inner powers...)
 
 ASTRAL FORGE:
 - Create GUI -- ONGOING

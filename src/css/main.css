@@ -8657,3 +8657,30 @@ table.astralForgeShards td {
         filter: invert() hue-rotate(360deg) contrast(1.1);
     }
 }
+
+/* PIN ICON */
+
+#pinInventory {
+
+    width: 15px;
+    height: 15px;
+
+    background-image: url('img/pin_off.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 80%;
+    border-radius: 3px;
+    cursor: pointer;
+
+    padding: .65rem;
+    margin: .5rem 0 0 .5rem;
+    border: 1px solid transparent;
+}
+#pinInventory:hover, .pinOn {
+    border: 1px solid rgb(100, 100, 100);
+
+    background-image: url('img/pin_on.svg');
+}
+.hideSidebar {
+    width: 0% !important;
+}

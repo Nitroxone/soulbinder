@@ -88,6 +88,8 @@ class Game {
         this.actionListeners = [];
 
         this.textDisplaySwitch = false;
+
+        this.pinnedInventory = false;
     }
 
     addCallbacks() {
@@ -379,6 +381,7 @@ class Game {
         unlockAllEonFragments();
 
         drawInventory();
+        addInventoryPinEvent();
         drawStridersScreen();
         drawHubScreen();
         drawWorkshopScreen();
@@ -423,5 +426,8 @@ class Game {
         //this.currentBattle.end();
 
         this.initBlackMarket();
+
+        what(this.player.roster, "amarok").level.addLevel(30);
+        what(this.player.roster, "amarok").skillPoints = 100;
     }
 }

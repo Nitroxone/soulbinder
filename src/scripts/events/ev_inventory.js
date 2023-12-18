@@ -131,3 +131,11 @@ function refreshKnapsackResourceImporterName(item, amount) {
 
     document.querySelector('.knpsckRscAmount .kra-total').textContent = amount + ' ' + item.name;
 }
+
+function addInventoryPinEvent() {
+    const pin = document.querySelector('#pinInventory');
+
+    pin.addEventListener('click', e => {
+        document.querySelector('#resources').classList.toggle('hideSidebar');
+    })
+}
