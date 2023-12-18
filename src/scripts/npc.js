@@ -514,18 +514,21 @@ class NPC extends Entity {
         if(eff.effect === Data.Effect.MAXHEALTH) {
             if(eff.isPercentage) amount = Math.round(this.maxHealth * eff.getValue() / 100);
             else amount = eff.getValue();
+            amount = Math.abs(amount);
 
             this.maxHealth -= amount;
             this.health -= amount;
         } else if(eff.effect === Data.Effect.MAXSTAMINA) {
             if(eff.isPercentage) amount = Math.round(this.maxStamina * eff.getValue() / 100);
             else amount = eff.getValue();
+            amount = Math.abs(amount);
 
             this.maxStamina -= amount;
             this.stamina -= amount;
         } else if(eff.effect === Data.Effect.MAXMANA) {
             if(eff.isPercentage) amount = Math.round(this.maxMana * eff.getValue() / 100);
             else amount = eff.getValue();
+            amount = Math.abs(amount);
 
             this.maxMana -= amount;
             this.mana -= amount;
@@ -741,8 +744,8 @@ class NPC extends Entity {
         } else if(isBaseMaxStat(eff)) {
             /*if(eff.getValue() > 0) this.increaseBaseStat(eff);
             else this.decreaseBaseStat(eff);*/
-            const action = eff.getValue() > 0 ? Data.AlterAction.ADD : Data.AlterAction.REMOVE;
-            this.alter({effect: eff, action: action, uid: eff.uid, origin: origin});
+            //const action = eff.getValue() > 0 ? Data.AlterAction.ADD : Data.AlterAction.REMOVE;
+            this.alter({effect: eff, action: Data.AlterAction.ADD, uid: eff.uid, origin: origin});
         }
     }
 
