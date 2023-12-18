@@ -29,19 +29,18 @@ class Level {
     }
 
     nextLevel() {
-        let remaining;
-        this.currentXp == this.nextXp ? remaining = 0 : remaining = this.currentXp;
-        if(!(this.currentLevel == this.max)) {
+        let remaining = this.currentXp;
+        if (this.currentLevel < this.max) {
             this.currentLevel += 1;
         }
         this.currentXp = remaining;
-        this.nextXp = this.nextXp + Math.round(this.nextXp * this.growthRate);
-        console.log("Level gained. Now level: " + this.currentLevel);
-        console.log(this.nextXp + "XP to the next level.");
+        this.nextXp += Math.round(this.nextXp * this.growthRate);
+        console.log(`Level gained. Now level: ${this.currentLevel}`);
+        console.log(`${this.nextXp} XP to the next level.`);
     }
 
     addLevel(amount = 1) {
-        for(let i = 0; i < amount; i++) {
+        for (let i = 0; i < amount; i++) {
             this.nextLevel();
         }
     }
@@ -50,24 +49,27 @@ class Level {
         let levelsAmount = 0;
         let remaining;
 
-        while(amount >= this.nextXp) {
+        while (amount >= this.nextXp) {
             amount -= this.nextXp;
-            this.nextLevel()
+            this.nextLevel();
             levelsAmount++;
         }
-        if(amount > (this.nextXp - this.currentXp)) {
+
+        if (amount > (this.nextXp - this.currentXp)) {
             remaining = amount - (this.nextXp - this.currentXp);
-            this.currentXp += amount - remaining;
+            this.currentXp = remaining;
             this.nextLevel();
         } else {
             remaining = amount;
         }
+
         this.currentXp += remaining;
-        if(this.currentXp == this.nextXp) {
+        if (this.currentXp === this.nextXp) {
             this.nextLevel();
             levelsAmount++;
         }
-        console.log("Levels gained : " + levelsAmount);
-        console.log("Current XP : " + this.currentXp + "/" + this.nextXp);
+
+        console.log(`Levels gained: ${levelsAmount}`);
+        console.log(`Current XP: ${this.currentXp}/${this.nextXp}`);
     }
 }
