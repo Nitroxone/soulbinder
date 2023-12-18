@@ -8700,14 +8700,16 @@ table.astralForgeShards td {
     cursor: pointer;
 
     padding: .65rem;
-    margin: .5rem 0 0;
     border: 1px solid transparent;
-    border-left: none;
+
+    position: absolute;
+    top: 7px;
+    left: 7px;
+    z-index: 2;
 }
 #repinInventory:hover {
     border: 1px solid rgb(100, 100, 100);
     background-image: url('img/pin_on.svg');
-    border-left: none;
 }
 #repinInventory.noDisplay {
     display: none;
