@@ -208,6 +208,7 @@ class Game {
 
     buildTabs() {
         let str = '';
+        str += '<div id="repinInventory" class="noDisplay"></div>';
         str += '<div id="sectionTabs" class="tabList"></div>';
         for(let i = 0; i < this.tabs.length; i++) {
             this.tabs[i].div = this.tabs[i].id + 'Div';

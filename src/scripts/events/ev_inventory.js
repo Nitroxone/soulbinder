@@ -134,8 +134,18 @@ function refreshKnapsackResourceImporterName(item, amount) {
 
 function addInventoryPinEvent() {
     const pin = document.querySelector('#pinInventory');
+    const repin = document.querySelector('#repinInventory');
+    const resources = document.querySelector('#resources');
+    const sections = document.querySelector('#sections');
 
     pin.addEventListener('click', e => {
-        document.querySelector('#resources').classList.toggle('hideSidebar');
+        resources.classList.toggle('hideSidebar');
+        sections.classList.toggle('noLeftSidebar');
+        repin.classList.toggle('noDisplay');
+    });
+    repin.addEventListener('click', e => {
+        resources.classList.toggle('hideSidebar');
+        sections.classList.toggle('noLeftSidebar');
+        repin.classList.toggle('noDisplay');
     })
 }
