@@ -546,6 +546,7 @@ class Battle {
                     console.log('Deathblow!');
                     this.currentPlay.runTriggers(Data.TriggerType.ON_DEAL_DEATHBLOW);
                     tar.runTriggers(Data.TriggerType.ON_RECV_DEATHBLOW);
+                    tar.addBattlePopup(new BattlePopup(0, '<p style="color: crimson; font-family: RobotoSlabBold">Deathblow!</p>'))
                     tar.kill();
                 }
 
