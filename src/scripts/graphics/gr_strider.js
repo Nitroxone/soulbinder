@@ -45,6 +45,7 @@ function spawnStriderPopup(strider, refresh = false) {
     //console.log(popupWindow);
 
     let str = '';
+    str += '<div id="close-strider' + strider.id + '" class="closeWindowButton selectorClose">X</div>';
     str += '<div class="striderPopup-wrapper">';
 
     str += '<div class="striderInfos" style="background-image:  linear-gradient(270deg, transparent 5%, rgba(0, 0, 0, 1) 100%), url(\'css/img/chars/' + strider.name.toLowerCase() + '_bg.webp\');' + (strider.customBgPos ? 'background-position: ' + strider.customBgPos : '') + '">';
@@ -177,6 +178,10 @@ function spawnStriderPopup(strider, refresh = false) {
     if(!refresh) {
         popupWindow.addEventListener('contextmenu', e => {
             e.preventDefault();
+            Sounds.Methods.playSound(Data.SoundType.TOOLTIP_CLOSE);
+            popupWindow.remove();
+        });
+        document.querySelector('#close-strider' + strider.id).addEventListener('click', function(e) {
             Sounds.Methods.playSound(Data.SoundType.TOOLTIP_CLOSE);
             popupWindow.remove();
         });

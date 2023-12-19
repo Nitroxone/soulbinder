@@ -5,7 +5,8 @@
  */
 function spawnTooltip(item, fromExisting = null) {
     //console.log(item);
-    const base = '<div id="floating-' + item.id +'" class="tooltip framed bgDark tooltipSpawn">'
+    const base = '<div id="floating-' + item.id +'" class="tooltip framed bgDark tooltipSpawn"><div id="close-' + item.id + '" class="closeWindowButton selectorClose">X</div>';
+
     const tooltip = document.createElement('div');
     if(item instanceof Weapon) tooltip.innerHTML = base + getWeaponTooltip(item, null, true) + '</div>';
     else if(item instanceof Armor) tooltip.innerHTML = base + getArmorTooltip(item, null, true) + '</div>';
@@ -66,6 +67,10 @@ function spawnTooltip(item, fromExisting = null) {
         Sounds.Methods.playSound(Data.SoundType.TOOLTIP_CLOSE);
         tooltip.remove();
     });
+    tooltip.querySelector('#close-' + item.id).addEventListener('click', function(e) {
+        Sounds.Methods.playSound(Data.SoundType.TOOLTIP_CLOSE);
+        tooltip.remove();
+    })
 
     if(item[0] === 'bonuses') {
         const strider = item[1];
