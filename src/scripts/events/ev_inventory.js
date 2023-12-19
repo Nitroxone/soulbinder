@@ -142,26 +142,20 @@ function addSidePinEvents() {
     const chatTabs = document.querySelector('#chatTabs');
     const sections = document.querySelector('#sections');
 
-    pin.addEventListener('click', e => {
+    const pinLeft = () => {
         resources.classList.toggle('hideSidebar');
         sections.classList.toggle('noLeftSidebar');
         repin.classList.toggle('noDisplay');
-    });
-    repin.addEventListener('click', e => {
-        resources.classList.toggle('hideSidebar');
-        sections.classList.toggle('noLeftSidebar');
-        repin.classList.toggle('noDisplay');
-    });
-    pinChat.addEventListener('click', e => {
+    }
+    const pinRight = () => {
         chat.classList.toggle('hideSidebar');
         sections.classList.toggle('noRightSidebar');
         repinChat.classList.toggle('noDisplay');
         chatTabs.classList.toggle('noDisplay');
-    });
-    repinChat.addEventListener('click', e => {
-        chat.classList.toggle('hideSidebar');
-        sections.classList.toggle('noRightSidebar');
-        repinChat.classList.toggle('noDisplay');
-        chatTabs.classList.toggle('noDisplay');
-    });
+    }
+
+    pin.addEventListener('click', pinLeft);
+    repin.addEventListener('click', pinLeft);
+    pinChat.addEventListener('click', pinRight);
+    repinChat.addEventListener('click', pinRight);
 }
