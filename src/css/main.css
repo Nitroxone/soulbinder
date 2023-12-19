@@ -3889,7 +3889,6 @@ hr.centerFade {
     height: 100%;
     width: 100%;
     position: relative;
-
     display: grid;
     grid-template-columns: 0.9fr 1fr;
     grid-template-rows: 1fr 0.8fr 1fr 0.8fr;
@@ -3899,7 +3898,6 @@ hr.centerFade {
         "alchInterface soulwInterface"
         "craftInterface soulbInterface"
         "craftInterface paragInterface";
-
     overflow: hidden;
 }
 .craftInterface {

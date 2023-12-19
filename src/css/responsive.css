@@ -5,7 +5,7 @@
 @container (max-width: 1000px) {
     .workshopContainer {
         width: 100%;
-        height: auto;
+        height: auto
     }
     .workshopMenu {
         place-content: center;
@@ -17,6 +17,7 @@
             "soulwInterface"
             "soulbInterface"
             "paragInterface";
+        display: initial;
     }
     .alchInterface,
     .craftInterface,
