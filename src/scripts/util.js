@@ -2212,3 +2212,11 @@ function getcBattle() {
 function getcPlayer() {
     return getcBattle().currentPlay;
 }
+
+function isEffectOverloaded(eff) {
+    return eff.fixed && eff.getValue() > eff.theorical[1] && eff.getValue() > 0
+}
+
+function getPropertyNameWithOverload(name, eff) {
+    return '<td' + (isEffectOverloaded(eff) ? ' style="color: ' + Data.Color.OVERLOADED + '; font-family: RobotoBold"' : '') + '>' + name + '</td>'
+}

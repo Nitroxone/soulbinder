@@ -199,6 +199,7 @@ class Game {
             new Tab('Eons', 'eons', 'Read your collected text fragments.', false, 'right'),
             new Tab('Achievements', 'achievements', 'Scroll through your unlocked (and yet to be unlocked) achievements.', false, 'right'),
             new Tab('Infos', 'updates', 'Read the game\'s update logs and other things.', true, 'right'),
+            new Tab('Settings', 'settings', 'Change the game\'s settings.', true, 'right')
         ];
 
         for(const tab of tabs) {
@@ -236,6 +237,9 @@ class Game {
             switch(tab.id) {
                 case 'updates':
                     this.dialogue.popup(this.updateLogPopup, 'bigDialogue', tab.domWhat);
+                    break;
+                case 'settings':
+                    this.dialogue.popup(this.settingsPopup, 'bigDialogue', tab.domWhat);
             }
         } else {
             this.tab = tab;
@@ -277,6 +281,13 @@ class Game {
         str += '<div class="buttonBox">' + game.dialogue.getCloseButton() + '</div>';
 
         return str;
+    }
+
+    settingsPopup() {
+        let str = '';
+        
+        return str;
+        
     }
 
     refresh() {
