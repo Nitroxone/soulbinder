@@ -4510,6 +4510,7 @@ hr.centerFade {
 .swWriteSlotSelected {
     border-image: url('img/window1-smaller.png') 3 stretch;
     background: rgba(255, 255, 255, 0.25);
+    scale: 1.1;
 }
 
 #sws1 {
