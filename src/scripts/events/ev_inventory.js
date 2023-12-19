@@ -132,10 +132,14 @@ function refreshKnapsackResourceImporterName(item, amount) {
     document.querySelector('.knpsckRscAmount .kra-total').textContent = amount + ' ' + item.name;
 }
 
-function addInventoryPinEvent() {
+function addSidePinEvents() {
     const pin = document.querySelector('#pinInventory');
     const repin = document.querySelector('#repinInventory');
+    const pinChat = document.querySelector('#pinChat');
+    const repinChat = document.querySelector('#repinChat');
     const resources = document.querySelector('#resources');
+    const chat = document.querySelector('#messages');
+    const chatTabs = document.querySelector('#chatTabs');
     const sections = document.querySelector('#sections');
 
     pin.addEventListener('click', e => {
@@ -147,5 +151,17 @@ function addInventoryPinEvent() {
         resources.classList.toggle('hideSidebar');
         sections.classList.toggle('noLeftSidebar');
         repin.classList.toggle('noDisplay');
-    })
+    });
+    pinChat.addEventListener('click', e => {
+        chat.classList.toggle('hideSidebar');
+        sections.classList.toggle('noRightSidebar');
+        repinChat.classList.toggle('noDisplay');
+        chatTabs.classList.toggle('noDisplay');
+    });
+    repinChat.addEventListener('click', e => {
+        chat.classList.toggle('hideSidebar');
+        sections.classList.toggle('noRightSidebar');
+        repinChat.classList.toggle('noDisplay');
+        chatTabs.classList.toggle('noDisplay');
+    });
 }

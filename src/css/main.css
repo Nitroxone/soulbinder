@@ -8660,7 +8660,7 @@ table.astralForgeShards td {
 
 /* PIN ICON */
 
-#pinInventory {
+#pinInventory, #pinChat {
 
     width: 15px;
     height: 15px;
@@ -8676,7 +8676,7 @@ table.astralForgeShards td {
     margin: .5rem 0 0 .5rem;
     border: 1px solid transparent;
 }
-#pinInventory:hover, .pinOn {
+#pinInventory:hover, #pinChat:hover, .pinOn {
     border: 1px solid rgb(100, 100, 100);
 
     background-image: url('img/pin_on.svg');
@@ -8687,30 +8687,34 @@ table.astralForgeShards td {
 .noLeftSidebar {
     left: 0 !important;
 }
+.noRightSidebar {
+    right: 0 !important;
+}
 
-#repinInventory {
+#repinInventory, #repinChat {
     width: 15px;
     height: 15px;
-
     background-image: url('img/pin_off.svg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: 80%;
     border-radius: 0 3px 3px 0;
     cursor: pointer;
-
     padding: .65rem;
     border: 1px solid transparent;
-
     position: absolute;
     top: 7px;
     left: 7px;
     z-index: 2;
 }
-#repinInventory:hover {
+#repinChat {
+    right: 7px;
+    left: initial;
+}
+#repinInventory:hover, #repinChat:hover {
     border: 1px solid rgb(100, 100, 100);
     background-image: url('img/pin_on.svg');
 }
-#repinInventory.noDisplay {
+#repinInventory.noDisplay, #repinChat.noDisplay, #chatTabs.noDisplay {
     display: none;
 }
