@@ -66,6 +66,109 @@ function spawnStriderPopup(strider, refresh = false) {
     str += '</div>';
 
     str += '<div class="striderStats">';
+    str += getStriderStats(strider);
+    str += '</div>';
+
+    str += '<div class="striderEquipment">';
+    str += getStriderEquipment(strider);
+    str += '</div>';
+
+    str += '<div class="striderSkillTree coolBorder" style="background-image: linear-gradient(270deg, transparent 0%, rgba(0, 0, 0, 0.6) 0%), url(\'css/img/chars/' + strider.name.toLowerCase() + '_skilltree.webp\');">';
+    str += '<div class="stridersSkillTreePointsIndicator">' + strider.skillPoints +' unspent points</div>';
+    str += drawSkillTree(strider);
+    str += '</div>';
+
+    str += '<div class="striderMasteryPathway framed">';
+    str += '</div>';
+
+    str += '<div class="striderSkills">';
+    str += '</div>';
+
+    str += '</div>';
+
+    popupWindow.innerHTML = str;
+    if(!refresh) {
+        popupWindow.addEventListener('contextmenu', e => {
+            e.preventDefault();
+            Sounds.Methods.playSound(Data.SoundType.TOOLTIP_CLOSE);
+            popupWindow.remove();
+        });
+        document.querySelector('#close-strider' + strider.id).addEventListener('click', function(e) {
+            Sounds.Methods.playSound(Data.SoundType.TOOLTIP_CLOSE);
+            popupWindow.remove();
+        });
+    }
+
+    !refresh && generateStriderScreenEquipmentEvents(strider);
+    drawSkillTreeLines(strider);
+    bringNodesForward();
+    addSkillTreeTooltips(strider);
+}
+
+function highlightDrag(e) {
+    e.classList.add('dragOver');
+}
+function disableHighlightDrag(e) {
+    e.classList.remove('dragOver');
+}
+
+function allowDrop(e) {
+    e.preventDefault();
+}
+
+function getStriderEquipment(strider, refresh = false) {
+    let str = '';
+
+    str += '<div class="striderEquipmentSlots">';
+    str += '<div id="strider-helmet" class="sigilInfo sigilInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \'' + strider.name + '\').equipArmor(event);" style="' + getIcon(strider.eqHelmet, 25, true) + '">';
+    str += '<div class="sigilInfo-infos"><div class="sigilTitle" style="text-align: left;">' + (strider.eqHelmet ? getSmallThingNoIcon(strider.eqHelmet) : 'No helmet') + '</div>';
+    str += '</div></div>';
+    str += '<div id="strider-chestplate" class="sigilInfo sigilInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \'' + strider.name + '\').equipArmor(event);" style="' + getIcon(strider.eqChestplate, 25, true) + '">';
+    str += '<div class="sigilInfo-infos"><div class="sigilTitle" style="text-align: left;">' + (strider.eqChestplate ? getSmallThingNoIcon(strider.eqChestplate) : 'No chestplate') + '</div>';
+    str += '</div></div>';
+    str += '<div id="strider-gloves" class="sigilInfo sigilInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \'' + strider.name + '\').equipArmor(event);" style="' + getIcon(strider.eqGloves, 25, true) + '">';
+    str += '<div class="sigilInfo-infos"><div class="sigilTitle" style="text-align: left;">' + (strider.eqGloves ? getSmallThingNoIcon(strider.eqGloves) : 'No gloves') + '</div>';
+    str += '</div></div>';
+    str += '<div id="strider-boots" class="sigilInfo sigilInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \'' + strider.name + '\').equipArmor(event);" style="' + getIcon(strider.eqBoots, 25, true) + '">';
+    str += '<div class="sigilInfo-infos"><div class="sigilTitle" style="text-align: left;">' + (strider.eqBoots ? getSmallThingNoIcon(strider.eqBoots) : 'No boots') + '</div>';
+    str += '</div></div>';
+    str += '<div id="strider-shield" class="sigilInfo sigilInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \'' + strider.name + '\').equipArmor(event);" style="' + getIcon(strider.eqShield, 25, true) + '">';
+    str += '<div class="sigilInfo-infos"><div class="sigilTitle" style="text-align: left;">' + (strider.eqShield ? getSmallThingNoIcon(strider.eqShield) : 'No shield') + '</div>';
+    str += '</div></div>';
+    str += '<div id="strider-trinket1" class="sigilInfo sigilInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \''+ strider.name +'\').equipTrinket(event);" style="' + getIcon(strider.trinkets[0], 25, true) + '">';
+    str += '<div class="sigilInfo-infos"><div class="sigilTitle" style="text-align: left;">' + (strider.trinkets[0] ? getSmallThingNoIcon(strider.trinkets[0]) : 'No trinket') + '</div>';
+    str += '</div></div>';
+    str += '<div id="strider-trinket2" class="sigilInfo sigilInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \''+ strider.name +'\').equipTrinket(event);" style="' + getIcon(strider.trinkets[1], 25, true) + '">';
+    str += '<div class="sigilInfo-infos"><div class="sigilTitle" style="text-align: left;">' + (strider.trinkets[1] ? getSmallThingNoIcon(strider.trinkets[1]) : 'No trinket') + '</div>';
+    str += '</div></div>';
+    str += '<div id="strider-trinket3" class="sigilInfo sigilInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \''+ strider.name +'\').equipTrinket(event);" style="' + getIcon(strider.trinkets[2], 25, true) + '">';
+    str += '<div class="sigilInfo-infos"><div class="sigilTitle" style="text-align: left;">' + (strider.trinkets[2] ? getSmallThingNoIcon(strider.trinkets[2]) : 'No trinket') + '</div>';
+    str += '</div></div>';
+    if(!strider.eqWeaponBoth) {
+        str += '<div id="strider-weaponLeft" class="sigilInfo sigilInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \'' + strider.name + '\').equipWeapon(event, \'' + Data.WeaponHand.LEFT + '\');" style="' + getIcon(strider.eqWeaponLeft, 25, true) + '")>';
+        str += '<div class="sigilInfo-infos"><div class="sigilTitle" style="text-align: left;">' + (strider.eqWeaponLeft ? getSmallThingNoIcon(strider.eqWeaponLeft) : 'No weapon') + '</div>';
+        str += '</div></div>';
+        str += '<div id="strider-weaponRight" class="sigilInfo sigilInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \'' + strider.name + '\').equipWeapon(event, \'' + Data.WeaponHand.RIGHT + '\');" style="' + getIcon(strider.eqWeaponRight, 25, true) + '")>';
+        str += '<div class="sigilInfo-infos"><div class="sigilTitle" style="text-align: left;">' + (strider.eqWeaponRight ? getSmallThingNoIcon(strider.eqWeaponRight) : 'No weapon') + '</div>';
+        str += '</div></div>';
+    } else {
+        str += '<div id="strider-weaponBoth" class="sigilInfo sigilInfoEmpty bigSlot" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \'' + strider.name + '\').equipWeapon(event);" style="' + getIcon(strider.eqWeaponBoth, 25, true) + '")>';
+        str += '<div class="sigilInfo-infos"><div class="sigilTitle" style="text-align: left;">' + (strider.eqWeaponBoth ? getSmallThingNoIcon(strider.eqWeaponBoth) : 'No weapon') + '</div>';
+        str += '</div></div>';
+    }
+    str += '</div>';
+
+    if(refresh) {
+        document.querySelector('.striderEquipment').innerHTML = str;
+        generateStriderScreenEquipmentEvents(strider);
+        return;
+    }
+    return str;
+}
+
+function getStriderStats(strider, refresh = false) {
+    let str = '';
+
     str += '<div class="striderStats-title">';
     str += 'Stats';
     str += '<div id="bonusesIcon-' + strider.id + '" class="striderStats-bonusesIcon"></div>';
@@ -118,90 +221,12 @@ function spawnStriderPopup(strider, refresh = false) {
     str += '<div class="spacer"></div>'
     str += '<div class="striderStats-stat">' + '<span class="statTitle">Toxicity</span><span class="statValue">' + strider.toxicity + '/' + strider.maxToxicity + '</span>' + '</div>';
     str += '</div>';
-    str += '</div>';
 
-    str += '<div class="striderEquipment">';
-    str += '<div class="striderEquipmentSlots">';
-    str += '<div id="strider-helmet" class="sigilInfo sigilInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \'' + strider.name + '\').equipArmor(event);" style="' + getIcon(strider.eqHelmet, 25, true) + '">';
-    str += '<div class="sigilInfo-infos"><div class="sigilTitle" style="text-align: left;">' + (strider.eqHelmet ? getSmallThingNoIcon(strider.eqHelmet) : 'No helmet') + '</div>';
-    str += '</div></div>';
-    str += '<div id="strider-chestplate" class="sigilInfo sigilInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \'' + strider.name + '\').equipArmor(event);" style="' + getIcon(strider.eqChestplate, 25, true) + '">';
-    str += '<div class="sigilInfo-infos"><div class="sigilTitle" style="text-align: left;">' + (strider.eqChestplate ? getSmallThingNoIcon(strider.eqChestplate) : 'No chestplate') + '</div>';
-    str += '</div></div>';
-    str += '<div id="strider-gloves" class="sigilInfo sigilInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \'' + strider.name + '\').equipArmor(event);" style="' + getIcon(strider.eqGloves, 25, true) + '">';
-    str += '<div class="sigilInfo-infos"><div class="sigilTitle" style="text-align: left;">' + (strider.eqGloves ? getSmallThingNoIcon(strider.eqGloves) : 'No gloves') + '</div>';
-    str += '</div></div>';
-    str += '<div id="strider-boots" class="sigilInfo sigilInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \'' + strider.name + '\').equipArmor(event);" style="' + getIcon(strider.eqBoots, 25, true) + '">';
-    str += '<div class="sigilInfo-infos"><div class="sigilTitle" style="text-align: left;">' + (strider.eqBoots ? getSmallThingNoIcon(strider.eqBoots) : 'No boots') + '</div>';
-    str += '</div></div>';
-    str += '<div id="strider-shield" class="sigilInfo sigilInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \'' + strider.name + '\').equipArmor(event);" style="' + getIcon(strider.eqShield, 25, true) + '">';
-    str += '<div class="sigilInfo-infos"><div class="sigilTitle" style="text-align: left;">' + (strider.eqShield ? getSmallThingNoIcon(strider.eqShield) : 'No shield') + '</div>';
-    str += '</div></div>';
-    str += '<div id="strider-trinket1" class="sigilInfo sigilInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \''+ strider.name +'\').equipTrinket(event);" style="' + getIcon(strider.trinkets[0], 25, true) + '">';
-    str += '<div class="sigilInfo-infos"><div class="sigilTitle" style="text-align: left;">' + (strider.trinkets[0] ? getSmallThingNoIcon(strider.trinkets[0]) : 'No trinket') + '</div>';
-    str += '</div></div>';
-    str += '<div id="strider-trinket2" class="sigilInfo sigilInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \''+ strider.name +'\').equipTrinket(event);" style="' + getIcon(strider.trinkets[1], 25, true) + '">';
-    str += '<div class="sigilInfo-infos"><div class="sigilTitle" style="text-align: left;">' + (strider.trinkets[1] ? getSmallThingNoIcon(strider.trinkets[1]) : 'No trinket') + '</div>';
-    str += '</div></div>';
-    str += '<div id="strider-trinket3" class="sigilInfo sigilInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \''+ strider.name +'\').equipTrinket(event);" style="' + getIcon(strider.trinkets[2], 25, true) + '">';
-    str += '<div class="sigilInfo-infos"><div class="sigilTitle" style="text-align: left;">' + (strider.trinkets[2] ? getSmallThingNoIcon(strider.trinkets[2]) : 'No trinket') + '</div>';
-    str += '</div></div>';
-    if(!strider.eqWeaponBoth) {
-        str += '<div id="strider-weaponLeft" class="sigilInfo sigilInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \'' + strider.name + '\').equipWeapon(event, \'' + Data.WeaponHand.LEFT + '\');" style="' + getIcon(strider.eqWeaponLeft, 25, true) + '")>';
-        str += '<div class="sigilInfo-infos"><div class="sigilTitle" style="text-align: left;">' + (strider.eqWeaponLeft ? getSmallThingNoIcon(strider.eqWeaponLeft) : 'No weapon') + '</div>';
-        str += '</div></div>';
-        str += '<div id="strider-weaponRight" class="sigilInfo sigilInfoEmpty" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \'' + strider.name + '\').equipWeapon(event, \'' + Data.WeaponHand.RIGHT + '\');" style="' + getIcon(strider.eqWeaponRight, 25, true) + '")>';
-        str += '<div class="sigilInfo-infos"><div class="sigilTitle" style="text-align: left;">' + (strider.eqWeaponRight ? getSmallThingNoIcon(strider.eqWeaponRight) : 'No weapon') + '</div>';
-        str += '</div></div>';
-    } else {
-        str += '<div id="strider-weaponBoth" class="sigilInfo sigilInfoEmpty bigSlot" ondragover="allowDrop(event);" ondrop="what(game.player.roster, \'' + strider.name + '\').equipWeapon(event);" style="' + getIcon(strider.eqWeaponBoth, 25, true) + '")>';
-        str += '<div class="sigilInfo-infos"><div class="sigilTitle" style="text-align: left;">' + (strider.eqWeaponBoth ? getSmallThingNoIcon(strider.eqWeaponBoth) : 'No weapon') + '</div>';
-        str += '</div></div>';
+    if(refresh) {
+        document.querySelector('.striderStats').innerHTML = str;
+        return;
     }
-    str += '</div>';
-    str += '</div>';
-
-    str += '<div class="striderSkillTree coolBorder" style="background-image: linear-gradient(270deg, transparent 0%, rgba(0, 0, 0, 0.6) 0%), url(\'css/img/chars/' + strider.name.toLowerCase() + '_skilltree.webp\');">';
-    str += '<div class="stridersSkillTreePointsIndicator">' + strider.skillPoints +' unspent points</div>';
-    str += drawSkillTree(strider);
-    str += '</div>';
-
-    str += '<div class="striderMasteryPathway framed">';
-    str += '</div>';
-
-    str += '<div class="striderSkills">';
-    str += '</div>';
-
-    str += '</div>';
-
-    popupWindow.innerHTML = str;
-    if(!refresh) {
-        popupWindow.addEventListener('contextmenu', e => {
-            e.preventDefault();
-            Sounds.Methods.playSound(Data.SoundType.TOOLTIP_CLOSE);
-            popupWindow.remove();
-        });
-        document.querySelector('#close-strider' + strider.id).addEventListener('click', function(e) {
-            Sounds.Methods.playSound(Data.SoundType.TOOLTIP_CLOSE);
-            popupWindow.remove();
-        });
-    }
-
-    generateStriderScreenEquipmentEvents(strider);
-    drawSkillTreeLines(strider);
-    bringNodesForward();
-    addSkillTreeTooltips(strider);
-}
-
-function highlightDrag(e) {
-    e.classList.add('dragOver');
-}
-function disableHighlightDrag(e) {
-    e.classList.remove('dragOver');
-}
-
-function allowDrop(e) {
-    e.preventDefault();
+    return str;
 }
 
 function getStriderBonusesTooltip(strider, static = false) {

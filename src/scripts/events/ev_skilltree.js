@@ -44,6 +44,7 @@ function addSkillTreeTooltips(strider) {
 
         document.querySelector('#' + trimWhitespacesInsideString(node.name)).addEventListener('click', (e) => {
             unlockNode(strider, node);
+            getStriderStats(strider, true);
         })
         document.querySelector('#' + trimWhitespacesInsideString(node.name)).addEventListener('contextmenu', e => {
             e.preventDefault();

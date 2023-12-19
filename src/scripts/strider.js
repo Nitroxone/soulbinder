@@ -211,7 +211,8 @@ class Strider extends NPC {
             drawTrinketInventory();
             
             try {
-                spawnStriderPopup(this, true);
+                getStriderStats(this, true);
+                getStriderEquipment(this, true);
             } catch(e) {
                 console.log('Could not refresh Strided popup.');
             }
@@ -246,7 +247,13 @@ class Strider extends NPC {
         console.log(trinket.name + ' was unequipped from ' + this.name);
         Sounds.Methods.playSound(Data.SoundType.UNEQUIP);
         drawInventory();
-        spawnStriderPopup(this, true);
+
+        try {
+            getStriderStats(this, true);
+            getStriderEquipment(this, true);
+        } catch(e) {
+            console.log('Could not refresh Strided popup.');
+        }
     }
 
     /**
@@ -365,7 +372,8 @@ class Strider extends NPC {
         drawInventory();
         
         try {
-            spawnStriderPopup(this, true);
+            getStriderStats(this, true);
+            getStriderEquipment(this, true);
         } catch(e) {
             console.log('Could not refresh Strided popup.');
         }
@@ -417,7 +425,13 @@ class Strider extends NPC {
         console.log(armor.name + ' was unequipped from ' + this.name);
         !mute && Sounds.Methods.playSound(Data.SoundType.UNEQUIP);
         drawInventory();
-        spawnStriderPopup(this, true);
+        
+        try {
+            getStriderStats(this, true);
+            getStriderEquipment(this, true);
+        } catch(e) {
+            console.log('Could not refresh Strided popup.');
+        }
     }
 
     /**
@@ -479,7 +493,8 @@ class Strider extends NPC {
         drawInventory();
         
         try {
-            spawnStriderPopup(this, true);
+            getStriderStats(this, true);
+            getStriderEquipment(this, true);
         } catch(e) {
             console.log('Could not refresh Strided popup.');
         }
@@ -533,7 +548,13 @@ class Strider extends NPC {
         }
         Sounds.Methods.playSound(Data.SoundType.UNEQUIP);
         drawInventory();
-        spawnStriderPopup(this, true);
+        
+        try {
+            getStriderStats(this, true);
+            getStriderEquipment(this, true);
+        } catch(e) {
+            console.log('Could not refresh Strided popup.');
+        }
     }
 
     /**
