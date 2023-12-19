@@ -4997,20 +4997,17 @@ hr.centerFade {
 
 .soulbInterface {
     grid-area: soulbInterface;
-
     display: grid;
     grid-template-columns: 1.1fr 2fr;
     grid-template-rows: 1fr;
     gap: 0 0;
-    grid-template-areas: "sbItem sbObjects";
-
+    grid-template-areas:
+        "sbItem sbObjects";
     overflow: hidden;
-
     background: url('img/darkBorders.png'), linear-gradient(0deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.45) 100%), url('img/bg/bg-soulbinding.png');
     background-size: 100% 100%, cover, cover;
     background-position: center;
     background-repeat: no-repeat;
-
     animation-name: soulwInterfaceSlideIn;
     animation-duration: 1s;
     animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
@@ -8675,11 +8672,22 @@ table.astralForgeShards td {
     padding: .65rem;
     margin: .5rem 0 0 .5rem;
     border: 1px solid transparent;
+
+    position: sticky;
+    top: .5rem;
+    left: .5rem;
+    z-index: 2;
+    filter: drop-shadow(0 0 1px #000000) brightness(2);
+}
+#pinChat {
+    left: initial;
+    right: .5rem;
 }
 #pinInventory:hover, #pinChat:hover, .pinOn {
     border: 1px solid rgb(100, 100, 100);
 
     background-image: url('img/pin_on.svg');
+    background-color: rgba(0, 0, 0, 0.4);
 }
 .hideSidebar {
     width: 0% !important;
