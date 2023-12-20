@@ -6743,7 +6743,7 @@ table.astralForgeShards td {
 }
 
 .battleFighter:hover {
-    cursor: pointer;
+    
     border-color: rgb(155, 155, 155);
     box-shadow: inset 0px 0px 10px 12px rgba(255, 255, 255, 0.1);
 }
@@ -7094,6 +7094,7 @@ table.astralForgeShards td {
 
 .battle-target, .battle-skillTargetSingle, .battle-skillTargetMultiple {
     position: relative;
+    cursor: pointer;
 }
 .battle-target {
     border-color: white;
