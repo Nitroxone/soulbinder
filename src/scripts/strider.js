@@ -242,7 +242,15 @@ class Strider extends NPC {
         this.updateSetBonuses(trinket, Data.AlterAction.REMOVE);
 
         removeFromArray(this.trinkets, trinket);
-        game.player.inventory.addItem(trinket, 1, true);
+        
+        if(!game.currentDungeon) game.player.inventory.addItem(trinket, 1, true);
+        else {
+            if(game.player.isKnapsackFull()) console.log('Cannot unequip ' + trinket.name + ' because the Knapsack is full!');
+            else {
+                game.player.addToKnapsack(trinket);
+            }
+        }
+
         this.addAvailableTrinketSlot();
         console.log(trinket.name + ' was unequipped from ' + this.name);
         Sounds.Methods.playSound(Data.SoundType.UNEQUIP);
@@ -408,8 +416,7 @@ class Strider extends NPC {
                 this.eqShield = null;
                 break;
         }
-        //this.addEffect(new Stat({effect: Data.Effect.RESILIENCE, theorical: armor.resilience}), true);
-        //this.addEffect(new Stat({effect: Data.Effect.WARDING, theorical: armor.warding}), true);
+
         this.alter({uid: armor.resilience.uid, action: Data.AlterAction.REMOVE});
         this.alter({uid: armor.warding.uid, action: Data.AlterAction.REMOVE});
 
@@ -421,7 +428,14 @@ class Strider extends NPC {
         // Updating sets
         this.updateSetBonuses(armor, Data.AlterAction.REMOVE);
 
-        game.player.inventory.addItem(armor, 1, true);
+        if(!game.currentDungeon) game.player.inventory.addItem(armor, 1, true);
+        else {
+            if(game.player.isKnapsackFull()) console.log('Cannot unequip ' + armor.name + ' because the Knapsack is full!');
+            else {
+                game.player.addToKnapsack(armor);
+            }
+        }
+
         console.log(armor.name + ' was unequipped from ' + this.name);
         !mute && Sounds.Methods.playSound(Data.SoundType.UNEQUIP);
         drawInventory();
