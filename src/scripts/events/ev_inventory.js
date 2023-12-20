@@ -14,7 +14,9 @@ function generateDungeonKnapsackEvents() {
         }, {offY: -8});
 
         // Spawn tooltip and play sound on click
-        it.addEventListener('click', function(){
+        it.addEventListener('click', function(e){
+            e.stopImmediatePropagation();
+
             Sounds.Methods.playSound(Data.SoundType.TOOLTIP_SPAWN);
             const tooltip = spawnTooltip(obj);
             if(obj.set) {
@@ -29,6 +31,23 @@ function generateDungeonKnapsackEvents() {
         it.addEventListener('mouseover', function(){
             Sounds.Methods.playSound(Data.SoundType.TOOLTIP_HOVER);
         });
+
+        // Draggable events
+        it.addEventListener('dragstart', e => {
+            e.stopPropagation();
+
+            if(obj instanceof Weapon) e.dataTransfer.setData("weapon", obj.id);
+            if(obj instanceof Armor) e.dataTransfer.setData("armor", obj.id);
+            if(obj instanceof Trinket) e.dataTransfer.setData("trinket", obj.id);
+            if(obj instanceof Resource) e.dataTransfer.setData("resource", obj.id);
+            if(obj instanceof Sigil) e.dataTransfer.setData("sigil", obj.id);
+            if(obj instanceof Consumable) e.dataTransfer.setData("consumable", obj.id);
+
+            e.dataTransfer.setData("origin", "knapsack");
+        });
+        it.addEventListener('mousedown', e => {
+            e.stopPropagation();
+        })
 
         // Removal rules:
         // - Holding Shift adds/removes 10
@@ -45,7 +64,7 @@ function generateDungeonKnapsackEvents() {
 
             if(game.currentDungeon && e.altKey) game.player.discardFromKnapsack(obj, amount);
             else if(!game.currentDungeon) game.player.removeFromKnapsack(obj, amount);
-        })
+        });
     })
 }
 
