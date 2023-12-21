@@ -182,9 +182,12 @@ class Strider extends NPC {
      */
     equipTrinket(item, mute = false) {
         let trinket = null;
+        const origin = item instanceof DragEvent ? item.dataTransfer.getData('origin') : null;
+        const id = item instanceof DragEvent ? item.dataTransfer.getData('trinket') : null;
 
         if(item instanceof DragEvent) {
-            trinket = game.player.inventory.getItemFromId(Data.ItemType.TRINKET, item.dataTransfer.getData("trinket"));
+            if(origin === 'inventory') trinket = game.player.inventory.getItemFromId(Data.ItemType.TRINKET, id);
+            else if(origin === 'knapsack') trinket = game.player.du_inventory.find(x => x.id == id);
         } else trinket = item;
         if(!trinket) {
             console.error('Tried to equip a trinket that does not exist.');
@@ -204,7 +207,10 @@ class Strider extends NPC {
             this.updateSetBonuses(trinket, Data.AlterAction.ADD); 
 
             this.trinkets.push(trinket);
-            game.player.inventory.removeItem(trinket);
+            
+            if((item instanceof DragEvent && origin === 'inventory') || item instanceof Trinket) game.player.inventory.removeItem(trinket);
+            else game.player.removeFromKnapsackWithoutChecks(trinket);
+            
             this.removeAvailableTrinketSlot();
             console.log(trinket.name + ' was equipped to ' + this.name);
             !mute && Sounds.Methods.playSound(Data.SoundType.EQUIP);
@@ -229,6 +235,15 @@ class Strider extends NPC {
     unequipTrinket(trinket, mute = false) {
         if(!trinket) return;
         if(!arrayContains(this.trinkets, trinket)) throw new Error('Tried to unequip a trinket that is not equipped.');
+        if(!game.currentDungeon) game.player.inventory.addItem(trinket, 1, true);
+        else {
+            if(game.player.isKnapsackFull()) {
+                console.log('Cannot unequip ' + trinket.name + ' because the Knapsack is full!');
+                return;
+            }
+            else game.player.addToKnapsackWithoutChecks(trinket);
+        }
+
         trinket.effects.forEach(effect => {
             //this.addEffect(effect, true);
             this.alter({uid: effect.uid, action: Data.AlterAction.REMOVE});
@@ -242,18 +257,10 @@ class Strider extends NPC {
         this.updateSetBonuses(trinket, Data.AlterAction.REMOVE);
 
         removeFromArray(this.trinkets, trinket);
-        
-        if(!game.currentDungeon) game.player.inventory.addItem(trinket, 1, true);
-        else {
-            if(game.player.isKnapsackFull()) console.log('Cannot unequip ' + trinket.name + ' because the Knapsack is full!');
-            else {
-                game.player.addToKnapsack(trinket);
-            }
-        }
 
         this.addAvailableTrinketSlot();
         console.log(trinket.name + ' was unequipped from ' + this.name);
-        Sounds.Methods.playSound(Data.SoundType.UNEQUIP);
+        !mute && Sounds.Methods.playSound(Data.SoundType.UNEQUIP);
         drawInventory();
 
         try {
@@ -332,9 +339,12 @@ class Strider extends NPC {
      */
     equipArmor(item, mute = false) {
         let armor = null;
+        const origin = item instanceof DragEvent ? item.dataTransfer.getData('origin') : null;
+        const id = item instanceof DragEvent ? item.dataTransfer.getData('armor') : null;
 
         if(item instanceof DragEvent) {
-            armor = game.player.inventory.getItemFromId(Data.ItemType.ARMOR, item.dataTransfer.getData('armor'));
+            if(origin === 'inventory') armor = game.player.inventory.getItemFromId(Data.ItemType.ARMOR, id);
+            else if(origin === 'knapsack') armor = game.player.du_inventory.find(x => x.id == id);
         } else armor = item;
         if(!armor) {
             console.error('Tried to equip an armor that doesn\'t exist.');
@@ -374,7 +384,9 @@ class Strider extends NPC {
         // Updating sets
         this.updateSetBonuses(armor, Data.AlterAction.ADD);
 
-        game.player.inventory.removeItem(armor);
+        if((item instanceof DragEvent && origin === 'inventory') || item instanceof Armor) game.player.inventory.removeItem(armor);
+        else game.player.removeFromKnapsackWithoutChecks(armor);
+
         console.log(armor.name + ' was equipped to ' + this.name);
         !mute && Sounds.Methods.playSound(Data.SoundType.EQUIP);
         drawInventory();
@@ -394,6 +406,15 @@ class Strider extends NPC {
      */
     unequipArmor(armor, mute = false) {
         if(!armor) return;
+        if(!game.currentDungeon) game.player.inventory.addItem(armor, 1, true);
+        else {
+            if(game.player.isKnapsackFull()) {
+                console.log('Cannot unequip ' + armor.name + ' because the Knapsack is full!');
+                return;
+            }
+            else game.player.addToKnapsackWithoutChecks(armor);
+        }
+
         switch(armor.type) {
             case Data.ArmorType.HELMET:
                 if(!this.eqHelmet) throw new Error('Tried to unequip an armor that is not equipped');
@@ -428,14 +449,6 @@ class Strider extends NPC {
         // Updating sets
         this.updateSetBonuses(armor, Data.AlterAction.REMOVE);
 
-        if(!game.currentDungeon) game.player.inventory.addItem(armor, 1, true);
-        else {
-            if(game.player.isKnapsackFull()) console.log('Cannot unequip ' + armor.name + ' because the Knapsack is full!');
-            else {
-                game.player.addToKnapsack(armor);
-            }
-        }
-
         console.log(armor.name + ' was unequipped from ' + this.name);
         !mute && Sounds.Methods.playSound(Data.SoundType.UNEQUIP);
         drawInventory();
@@ -456,9 +469,12 @@ class Strider extends NPC {
      */
     equipWeapon(item, hand = '', mute = false) {
         let weapon = null;
+        const origin = item instanceof DragEvent ? item.dataTransfer.getData('origin') : null;
+        const id = item instanceof DragEvent ? item.dataTransfer.getData('weapon') : null;
 
         if(item instanceof DragEvent) {
-            weapon = game.player.inventory.getItemFromId(Data.ItemType.WEAPON, item.dataTransfer.getData('weapon'));
+            if(origin === 'inventory') weapon = game.player.inventory.getItemFromId(Data.ItemType.WEAPON, id);
+            else if(origin === 'knapsack') weapon = game.player.du_inventory.find(x => x.id == id);
         } else weapon = item;
         if(!weapon) {
             console.error('Tried to equip a weapon that does not exist.');
@@ -502,7 +518,9 @@ class Strider extends NPC {
         // Updating sets
         this.updateSetBonuses(weapon, Data.AlterAction.ADD); 
 
-        game.player.inventory.removeItem(weapon);
+        if((item instanceof DragEvent && origin === 'inventory') || item instanceof Weapon) game.player.inventory.removeItem(weapon);
+        else game.player.removeFromKnapsackWithoutChecks(weapon);
+
         !mute && Sounds.Methods.playSound(Data.SoundType.EQUIP_WEAPON);
         drawInventory();
         
@@ -522,7 +540,16 @@ class Strider extends NPC {
     unequipWeapon(hand, mute = false) {
         if(hand === Data.WeaponHand.RIGHT && this.eqWeaponRight) {
             if(!this.eqWeaponRight) return;
-            game.player.inventory.addItem(this.eqWeaponRight, 1, true);
+            
+            if(!game.currentDungeon) game.player.inventory.addItem(this.eqWeaponRight, 1, true);
+            else {
+                if(game.player.isKnapsackFull()) {
+                    console.log('Cannot unequip ' + this.eqWeaponRight.name + ' because the Knapsack is full!');
+                    return;
+                }
+                else game.player.addToKnapsackWithoutChecks(this.eqWeaponRight);
+            }
+
             console.log(this.eqWeaponRight.name + ' was unequipped from ' + this.name + '\'s right hand.');
 
             this.applyEcho(this.eqWeaponRight, true);
@@ -535,7 +562,16 @@ class Strider extends NPC {
             this.eqWeaponRight = null;
         } else if(hand === Data.WeaponHand.LEFT && this.eqWeaponLeft) {
             if(!this.eqWeaponLeft) return;
-            game.player.inventory.addItem(this.eqWeaponLeft, 1, true);
+            
+            if(!game.currentDungeon) game.player.inventory.addItem(this.eqWeaponLeft, 1, true);
+            else {
+                if(game.player.isKnapsackFull()) {
+                    console.log('Cannot unequip ' + this.eqWeaponLeft.name + ' because the Knapsack is full!');
+                    return;
+                }
+                else game.player.addToKnapsackWithoutChecks(this.eqWeaponLeft);
+            }
+
             console.log(this.eqWeaponLeft.name + ' was unequipped from ' + this.name + '\'s left hand.');
             
             this.applyEcho(this.eqWeaponLeft, true);
@@ -548,7 +584,16 @@ class Strider extends NPC {
             this.eqWeaponLeft = null;
         } else if(hand === Data.WeaponHand.BOTH) {
             if(!this.eqWeaponBoth) return; 
-            game.player.inventory.addItem(this.eqWeaponBoth, 1, true);
+            
+            if(!game.currentDungeon) game.player.inventory.addItem(this.eqWeaponBoth, 1, true);
+            else {
+                if(game.player.isKnapsackFull()) {
+                    console.log('Cannot unequip ' + this.eqWeaponBoth.name + ' because the Knapsack is full!');
+                    return;
+                }
+                else game.player.addToKnapsackWithoutChecks(this.eqWeaponBoth);
+            }
+
             console.log(this.eqWeaponBoth.name + ' was unequipped from ' + this.name + '\'s both hands.');
                         
             this.applyEcho(this.eqWeaponBoth, true);
@@ -560,7 +605,7 @@ class Strider extends NPC {
 
             this.eqWeaponBoth = null;
         }
-        Sounds.Methods.playSound(Data.SoundType.UNEQUIP);
+        !mute && Sounds.Methods.playSound(Data.SoundType.UNEQUIP);
         drawInventory();
         
         try {
