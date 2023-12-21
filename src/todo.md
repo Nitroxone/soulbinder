@@ -63,6 +63,8 @@ ONGOING - Add more visual cues (critical hit, who is attacking...)
 DONE - Implement the Deathblows system
 DONE - Remove Guard when a mob dies
 - Add a function to manage stacks (for echoes, inner powers...)
+DONE - Fix incorrect event target refresh when swapping weapons
+DONE - Make Attack button select your first light weapon / your heavy weapon
 
 ASTRAL FORGE:
 - Create GUI -- ONGOING

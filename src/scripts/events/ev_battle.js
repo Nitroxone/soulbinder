@@ -9,6 +9,8 @@ function generateBattleCommandsEvents() {
     const wpns = document.querySelectorAll('.battle-weaponIcon');
     wpns.forEach(wpn => {
         wpn.addEventListener('click', e => {
+            e.stopPropagation();
+
             const weapon = getEquippedWeaponById(current, Number(wpn.id.substring(5)));
             if(current.stamina < weapon.effort) {
                 console.log('Not enough stamina.');
@@ -23,8 +25,10 @@ function generateBattleCommandsEvents() {
                     wpn.classList.add('battle-weaponSelected');
                     battleAttackPickTarget();
                 } else if (battle.action === Data.BattleAction.ATTACK && battle.selectedWeapon !== weapon) {
+                    battleCommandsCancelCurrent();
                     battleSelectionRemoveHighlights();
                     document.querySelectorAll('.battle-weaponIcon').forEach(wpn => {wpn.classList.remove('battle-weaponSelected');})
+                    battle.action = Data.BattleAction.ATTACK;
                     battle.selectedWeapon = weapon;
                     wpn.classList.add('battle-weaponSelected');
                     console.log('Preparing attack with ' + battle.selectedWeapon.name);
@@ -36,7 +40,7 @@ function generateBattleCommandsEvents() {
     })
 
     atk.addEventListener('click', e => {
-
+        wpns[0].dispatchEvent(new Event('click'));
     });
     def.addEventListener('click', e => {
         console.log('blocking');
