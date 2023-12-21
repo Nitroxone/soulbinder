@@ -313,10 +313,19 @@ function getAstralForgeEffects(forgeItem, refresh = false) {
 }
 
 function openAstralForge(event) {
+    let weapon, armor, trinket;
+
     // retrieving data
-    const weapon = event.dataTransfer.getData("weapon");
-    const armor = event.dataTransfer.getData("armor");
-    const trinket = event.dataTransfer.getData("trinket");
+    if(event instanceof DragEvent) {
+        weapon = event.dataTransfer.getData("weapon");
+        armor = event.dataTransfer.getData("armor");
+        trinket = event.dataTransfer.getData("trinket");
+    } else {
+        weapon = event.id;
+        armor = event.id;
+        trinket = event.id;
+    }
+    
 
     if(weapon !== '') drawAstralForgeScreen(getInventoryWeaponById(Number(weapon)).astralForgeItem);
     else if(armor !== '') drawAstralForgeScreen(getInventoryArmorById(Number(armor)).astralForgeItem);
