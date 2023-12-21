@@ -325,9 +325,9 @@ function getRangeString(range, compare) {
             compare[i] ? newrange[i] = true : (compare[i] == null) ? newrange[i] = false : '';
         }
     }
-    if(newrange[2]) str += 'Front, ';
+    if(newrange[0]) str += 'Front, ';
     if(newrange[1]) str += 'Middle, ';
-    if(newrange[0]) str += 'Back, ';
+    if(newrange[2]) str += 'Back, ';
     str !== '' ? str = str.slice(0, -2) : str = 'None';
     return str;
 }
