@@ -400,7 +400,7 @@ function getSigilTooltip(sigil) {
 
     str += '<div class="consumableEffects">';
     sigil.effects.forEach(effect => {
-            str += effect.getFormatted({cssClass: "itemEffect consumableEffect", noTheorical: isEffectUnvaluable(effect.effect)});
+            str += effect.getFormatted({cssClass: "itemEffect consumableEffect", noTheorical: isEffectUnvaluable(effect.effect), allowUnvaluableColor: true});
     });
     if(sigil.isCritical) {
         sigil.critical.forEach(effect => {
@@ -599,7 +599,7 @@ function getSigilDetails(sigil, full = false, soulbindingFormat = false) {
     if(full || soulbindingFormat) {
         sigil.effects.forEach(effect => {
             //str += '<div class="sigilEffect" style="' + (soulbindingFormat ? 'display: none;' : '') + '">' + (effect.value > 0 ? '+ ' : effect.value < 0 ? '- ' : '') + (effect.value == 0 ? '' : Math.abs(effect.value)) + (effect.isPercentage ? '%' : '') + ' ' + capitalizeFirstLetter(effect.effect) + '<span class="theoricalval">[' + effect.theorical[0] + '-' + effect.theorical[1] + ']</span>' + '</div>';
-            str += effect.getFormatted({cssClass: 'sigilEffect', hidden: soulbindingFormat, noTheorical: isEffectUnvaluable(effect.effect)});
+            str += effect.getFormatted({cssClass: 'sigilEffect', hidden: soulbindingFormat, noTheorical: isEffectUnvaluable(effect.effect), allowUnvaluableColor: true});
         });
         if(sigil.isCritical) {
             sigil.critical.forEach(effect => {
