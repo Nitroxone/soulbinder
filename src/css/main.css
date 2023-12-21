@@ -4054,6 +4054,7 @@ hr.centerFade {
     flex-wrap: wrap;
     height: 120px;
     overflow-y: scroll;
+    padding: .5rem 0 .5rem 0;
 }
 .selectorItem {
     width: 50px;
