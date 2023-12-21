@@ -141,6 +141,10 @@ class Player {
                 console.info('Cannot add items to the knapsack from the inventory while in a dungeon.');
                 return;
             }
+            if(ev.dataTransfer.getData('origin') === 'knapsack') {
+                console.info('Cannot recursively add a Knapsack item to your Knapsack.');
+                return;
+            }
     
             let i = 0;
             const types = ['weapon', 'armor', 'trinket', 'resource', 'sigil', 'consumable'];
@@ -184,6 +188,21 @@ class Player {
     }
 
     /**
+     * Adds the provided Item to the Knapsack without running the usual proper checks, and attempts to refresh.
+     * A inventory capacity check is still executed.
+     * @param {Item} it the Item to add
+     */
+    addToKnapsackWithoutChecks(it) {
+        if(this.isKnapsackFull()) {
+            console.info('Knapsack is full.');
+            return;
+        }
+
+        this.du_inventory.push(it);
+        refreshKnapsackAndInventory();
+    }
+
+    /**
      * Removes the provided Item from this player's Knapsack and transfers it back to the Inventory.
      * @param {Item} item the Item to remove
      * @param {number} amount the amount of times the Item will be removed
@@ -200,6 +219,16 @@ class Player {
 
             refreshKnapsackAndInventory();
         }
+    }
+
+    /**
+     * Removes the provided Item from the Knapsack without running proper checks, and attemps to refresh.
+     * @param {Item} item the Item to refresh
+     */
+    removeFromKnapsackWithoutChecks(item) {
+        removeFromArray(this.du_inventory, item);
+
+        refreshKnapsackAndInventory();
     }
 
     /**
