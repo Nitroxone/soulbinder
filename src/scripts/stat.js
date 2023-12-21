@@ -148,6 +148,7 @@ class Stat {
         const includeChance = getValueFromObject(props, "includeChance", true);
         const noValue = getValueFromObject(props, "noValue", false);
         const noName = getValueFromObject(props, "noName", false);
+        const allowUnvaluableColor = getValueFromObject(props, "allowUnvaluableColor", false);
 
         if(defaultColor) {
             if(this.getValue() > 0) {
@@ -166,6 +167,7 @@ class Stat {
                 bold = true;
             }
         }
+        if(allowUnvaluableColor && isEffectUnvaluable(this.effect)) color = Data.Color.ORANGE;
 
         let str = '';
         if(skillFormat) {
