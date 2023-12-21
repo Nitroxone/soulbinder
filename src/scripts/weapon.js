@@ -226,22 +226,22 @@ class Weapon extends Item {
                 this.poison[2] = remove ? true : false;
                 break;
             case Data.Effect.RANGE_BACK_OFF:
-                this.range[2] = remove ? !this.range[2] : this.range[2];
+                this.range[2] = remove ? true : false;
                 break;
             case Data.Effect.RANGE_BACK_ON:
-                this.range[2] = remove ? this.range[2] : !this.range[2];
+                this.range[2] = remove ? false : true;
                 break;
             case Data.Effect.RANGE_MIDDLE_OFF:
-                this.range[1] = remove ? !this.range[1] : this.range[1];
+                this.range[1] = remove ? true : false;
                 break;
             case Data.Effect.RANGE_MIDDLE_ON:
-                this.range[1] = remove ? this.range[1] : !this.range[1];
+                this.range[1] = remove ? false : true;
                 break;
             case Data.Effect.RANGE_FRONT_OFF:
-                this.range[0] = remove ? !this.range[0] : this.range[0];
+                this.range[0] = remove ? true : false;
                 break;
             case Data.Effect.RANGE_FRONT_ON:
-                this.range[0] = remove ? this.range[0] : !this.range[0];
+                this.range[0] = remove ? false : true;
                 break;
         }
     }
