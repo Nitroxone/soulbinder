@@ -339,7 +339,7 @@ const Loader = {
             new TimeShard(
                 "Minor Time Shard",
                 "Can be used in the Astral Forge to create a temporal alteration. Adds +1 effect value.",
-                8,
+                62,
                 10,
                 Data.Rarity.REGULAR,
                 1,
@@ -347,7 +347,7 @@ const Loader = {
             new TimeShard(
                 "Major Time Shard",
                 "Can be used in the Astral Forge to create a temporal alteration. Adds +5 effect value.",
-                8,
+                63,
                 10,
                 Data.Rarity.SINGULAR,
                 5
@@ -355,7 +355,7 @@ const Loader = {
             new TimeShard(
                 "Superior Time Shard",
                 "Can be used in the Astral Forge to create a temporal alteration. Adds +50 effect value.",
-                8,
+                64,
                 10,
                 Data.Rarity.PRECIOUS,
                 50
@@ -363,7 +363,7 @@ const Loader = {
             new TimeShard(
                 "Gleaming Time Shard",
                 "Can be used in the Astral Forge to create a temporal alteration. Adds +1% effect value.",
-                8,
+                65,
                 10,
                 Data.Rarity.GRAND,
                 1,
@@ -372,7 +372,7 @@ const Loader = {
             new TimeShard(
                 "Iridescent Time Shard",
                 "Can be used in the Astral Forge to create a temporal alteration. Adds +5% effect value.",
-                8,
+                66,
                 10,
                 Data.Rarity.GRAND,
                 5,
@@ -381,7 +381,7 @@ const Loader = {
             new TimeShard(
                 "Unstable Time Shard",
                 "Can be used in the Astral Forge to create a temporal alteration. Enables an effect.",
-                8,
+                67,
                 10,
                 Data.Rarity.GRAND,
                 true
@@ -389,7 +389,7 @@ const Loader = {
             new TimeShard(
                 "Prismatic Time Shard",
                 "Can be used in the Astral Forge to create a temporal alteration. Adds a new line of effect.",
-                8,
+                68,
                 10,
                 Data.Rarity.MYTHIC,
                 "new"
