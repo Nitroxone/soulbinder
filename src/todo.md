@@ -81,7 +81,7 @@ DONE - Add items from loot to Knapsack
 DONE - Block dungeon navigation while in combat
 - Add possibility to leave room to come back later (regenerates a mob formation ; requires an item to prevent maluses?)
 DONE - Disconnect Enter button from dungeon rooms to prevent spamming battles
-- Make it possible to swap gear within the Knapsack while exploring a dungeon
+ONGOING - Make it possible to swap gear within the Knapsack while exploring a dungeon
 
 ONGOING - Implement the Dungeon inventory system
 - Write a warning message if the player starts an exploration with an empty Knapsack
@@ -157,6 +157,6 @@ DONE - Prevent skipping generation because of insufficient variety among the loo
 DONE - Fix a bug with opening set info tooltips
 
 DONE - Fix a bug that doesn't correctly assign mobs to a room
-- Fix ON_BATTLE_START triggers not being systematically fired
+DONE - Fix ON_BATTLE_START triggers not being systematically fired
 
 HOTFIXES: #Store your live fixes during dev sessions here and clear them once you're done
