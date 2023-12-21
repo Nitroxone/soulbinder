@@ -208,10 +208,10 @@ class Weapon extends Item {
                 this.bleed[1] = Math.max(0, this.bleed[1] + effect.getValue() * factor);
                 break;
             case Data.Effect.BLEED_CURABLE:
-                this.bleed[2] = remove ? !this.bleed[2] : this.bleed[2];
+                this.bleed[2] = remove ? false : true;
                 break;
             case Data.Effect.BLEED_INCURABLE:
-                this.bleed[2] = remove ? !this.bleed[2] : this.bleed[2];
+                this.bleed[2] = remove ? true : false;
                 break;
             case Data.Effect.POISON_DMG:
                 this.poison[0] = Math.max(0, this.poison[0] + effect.getValue() * factor);
@@ -220,28 +220,28 @@ class Weapon extends Item {
                 this.poison[1] = Math.max(0, this.poison[1] + effect.getValue() * factor);
                 break;
             case Data.Effect.POISON_CURABLE:
-                this.poison[2] = remove ? !this.poison[2] : this.poison[2];
+                this.poison[2] = remove ? false : true;
                 break;
             case Data.Effect.POISON_INCURABLE:
-                this.poison[2] = remove ? !this.poison[2] : this.poison[2];
+                this.poison[2] = remove ? true : false;
                 break;
             case Data.Effect.RANGE_BACK_OFF:
                 this.range[2] = remove ? !this.range[2] : this.range[2];
                 break;
             case Data.Effect.RANGE_BACK_ON:
-                this.range[2] = remove ? !this.range[2] : this.range[2];
+                this.range[2] = remove ? this.range[2] : !this.range[2];
                 break;
             case Data.Effect.RANGE_MIDDLE_OFF:
                 this.range[1] = remove ? !this.range[1] : this.range[1];
                 break;
             case Data.Effect.RANGE_MIDDLE_ON:
-                this.range[1] = remove ? !this.range[1] : this.range[1];
+                this.range[1] = remove ? this.range[1] : !this.range[1];
                 break;
             case Data.Effect.RANGE_FRONT_OFF:
                 this.range[0] = remove ? !this.range[0] : this.range[0];
                 break;
             case Data.Effect.RANGE_FRONT_ON:
-                this.range[0] = remove ? !this.range[0] : this.range[0];
+                this.range[0] = remove ? this.range[0] : !this.range[0];
                 break;
         }
     }
