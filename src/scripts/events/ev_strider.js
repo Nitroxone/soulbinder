@@ -87,7 +87,9 @@ function generateStriderScreenEquipmentEvents(strider) {
             });
         }
     }
+}
 
+function generateStriderScreenStatsEvents(strider) {
     const striderBonuses = document.querySelector('#bonusesIcon-' + strider.id);
     addTooltip(striderBonuses, function(){
         return getStriderBonusesTooltip(strider, true);

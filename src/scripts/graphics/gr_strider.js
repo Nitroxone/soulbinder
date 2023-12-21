@@ -99,7 +99,10 @@ function spawnStriderPopup(strider, refresh = false) {
         });
     }
 
-    !refresh && generateStriderScreenEquipmentEvents(strider);
+    if(!refresh) {
+        generateStriderScreenEquipmentEvents(strider);
+        generateStriderScreenStatsEvents(strider);
+    }
     drawSkillTreeLines(strider);
     bringNodesForward();
     addSkillTreeTooltips(strider);
@@ -224,6 +227,7 @@ function getStriderStats(strider, refresh = false) {
 
     if(refresh) {
         document.querySelector('.striderStats').innerHTML = str;
+        generateStriderScreenStatsEvents(strider);
         return;
     }
     return str;
