@@ -395,21 +395,21 @@ const Loader = {
                 "new"
             ),
             new Resource(
-                "Comet Dust",
+                "Frozen Comet Ore",
                 "Can be used in the Astral Forge to force a Success on a temporal alteration. Warps the object in the process.",
                 69,
                 10,
                 Data.Rarity.GRAND,
             ),
             new Resource(
-                "Sparkling Comet Dust",
+                "Burning Comet Ore",
                 "Can be used in the Astral Forge to revert a temporal alteration.",
                 70,
                 10,
                 Data.Rarity.GRAND,
             ),
             new Resource(
-                "Glowing Comet Dust",
+                "Broken Comet Ore",
                 "Can be used in the Astral Forge to force a Critical Success on a temporal alteration. Seals the object's fate in the process.",
                 71,
                 10,

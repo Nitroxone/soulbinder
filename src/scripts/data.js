@@ -424,15 +424,15 @@ const Data = Object.freeze({
         EFFECT_ALREADY_EXISTS: "The effect already exists.",
         NEGATIVE_OR_NULL_VALUE: "The effect cannot be altered because it is null or negative.",
         MAXIMUM_VALUE_REACHED: "This effect cannot be further altered.",
-        IS_WARPED: "This item is warped, thus it cannot be altered with a comet dust.",
+        IS_WARPED: "This item is warped, thus it cannot be altered with a Comet Ore.",
         IS_SEALED: "This item is sealed and cannot be altered no more.",
         NONE: "No error!"
     },
     ReversionError: {
         NO_BOOKMARK: "No bookmark has been selected.",
-        NO_DUST: "No Comet Dust has been selected.",
-        DUST_AMOUNT_NULL: "The selected Comet Dust's amount is equal to zero.",
-        INCOMPATIBILITY: "The selected Comet Dust cannot be used to revert an alteration.",
+        NO_ORE: "No Comet Ore has been selected.",
+        ORE_AMOUNT_NULL: "The selected Comet Ore's amount is equal to zero.",
+        INCOMPATIBILITY: "The selected Comet Ore cannot be used to revert an alteration.",
         IS_SEALED: "A reversion cannot be performed on a sealed object.",
         NONE: "No error!"
     },

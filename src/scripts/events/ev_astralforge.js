@@ -17,7 +17,7 @@ function generateAstralForgeScreenButtonEvents(forgeItem) {
     });
 }
 
-function generateAstralForgeScreenEvents(forgeItem, skipShards = false, skipEffects = false, skipHistory = false, skipCometDusts = false) {
+function generateAstralForgeScreenEvents(forgeItem, skipShards = false, skipEffects = false, skipHistory = false, skipCometOres = false) {
     if(!skipShards) {
         document.querySelectorAll('.shardSelectable').forEach(sha => {
             sha.addEventListener('click', e => {
@@ -67,7 +67,7 @@ function generateAstralForgeScreenEvents(forgeItem, skipShards = false, skipEffe
                         getAstralForgeShards(forgeItem.selectedOverload, true);
                         generateAstralForgeScreenEvents(forgeItem, false, true, true, false);
                         unselectCurrentShard(forgeItem);
-                        unselectCurrentCometDust(forgeItem);
+                        unselectCurrentCometOre(forgeItem);
                         generateAstralForgeScreenButtonEvents(forgeItem);
                     });
                 });
@@ -115,22 +115,22 @@ function generateAstralForgeScreenEvents(forgeItem, skipShards = false, skipEffe
             console.log(forgeItem.selectedBookmark);
         });
     });
-    if(!skipCometDusts) document.querySelectorAll('.dustSelectable').forEach(comdus => {
-        comdus.addEventListener('click', e => {
-            const dust = getInventoryResourceById(Number(comdus.id));
+    if(!skipCometOres) document.querySelectorAll('.oreSelectable').forEach(comore => {
+        comore.addEventListener('click', e => {
+            const ore = getInventoryResourceById(Number(comore.id));
 
-            if(forgeItem.selectedCometDust && forgeItem.selectedCometDust === dust) {
-                forgeItem.clearSelectedCometDust();
-            } else if(forgeItem.selectedCometDust) {
-                unselectCurrentCometDust(forgeItem);
-                forgeItem.clearSelectedCometDust();
-                forgeItem.selectCometDust(dust);
+            if(forgeItem.selectedCometOre && forgeItem.selectedCometOre === ore) {
+                forgeItem.clearSelectedCometOre();
+            } else if(forgeItem.selectedCometOre) {
+                unselectCurrentCometOre(forgeItem);
+                forgeItem.clearSelectedCometOre();
+                forgeItem.selectCometOre(ore);
             } else {
-                forgeItem.selectCometDust(dust);
+                forgeItem.selectCometOre(ore);
             }
 
-            comdus.classList.toggle('cometdustSelected');
-            console.log(forgeItem.selectedCometDust);
+            comore.classList.toggle('cometoreSelected');
+            console.log(forgeItem.selectedCometOre);
         });
     });
 }
@@ -145,7 +145,7 @@ function launchAlteration(forgeItem) {
         getAstralForgeEffects(forgeItem, true);
 
         updateAstralForgeShardCounter(forgeItem.selectedShard);
-        if(forgeItem.selectedCometDust) updateAstralForgeCometDustCounter(forgeItem.selectedCometDust);
+        if(forgeItem.selectedCometOre) updateAstralForgeCometOreCounter(forgeItem.selectedCometOre);
 
         if(forgeItem.selectedShard.amount === 0) {
             unselectCurrentShard(forgeItem);
@@ -175,11 +175,11 @@ function launchReversion(forgeItem) {
 
         getAstralForgeEffects(forgeItem, true);
 
-        updateAstralForgeCometDustCounter(forgeItem.selectedCometDust);
+        updateAstralForgeCometOreCounter(forgeItem.selectedCometOre);
 
-        if(forgeItem.selectedCometDust.amount === 0) {
-            unselectCurrentCometDust(forgeItem);
-            forgeItem.clearSelectedCometDust();
+        if(forgeItem.selectedCometOre.amount === 0) {
+            unselectCurrentCometOre(forgeItem);
+            forgeItem.clearSelectedCometOre();
         }
 
         getAstralForgeHistory(forgeItem, true)

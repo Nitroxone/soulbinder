@@ -44,7 +44,7 @@ function drawAstralForgeScreen(forgeItem, refresh = false) {
             Sounds.Methods.playSound(Data.SoundType.TOOLTIP_CLOSE);
             forgeItem.clearShard();
             forgeItem.clearEffect();
-            forgeItem.clearSelectedCometDust();
+            forgeItem.clearSelectedCometOre();
             forgeItem.clearSelectedOverload();
             forgeItem.clearSelectedBookmark();
             popupWindow.remove();
@@ -71,8 +71,8 @@ function addAstralForgeNotification(message) {
 function updateAstralForgeShardCounter(shard) {
     document.getElementById(shard.id).childNodes[0].innerHTML = shard.amount;
 }
-function updateAstralForgeCometDustCounter(cometDust) {
-    document.getElementById(cometDust.id).childNodes[0].innerHTML = cometDust.amount;
+function updateAstralForgeCometOreCounter(cometOre) {
+    document.getElementById(cometOre.id).childNodes[0].innerHTML = cometOre.amount;
 }
 function getSelectedAstralForgeShard(forgeItem) {
     return document.getElementById(forgeItem.selectedShard.id)
@@ -86,15 +86,15 @@ function getSelectedAstralForgeEffect(forgeItem) {
 function unselectCurrentEffect(forgeItem) {
     getSelectedAstralForgeEffect(forgeItem).classList.toggle('effectSelected');
 }
-function getSelectedAstralForgeCometDust(forgeItem) {
-    const cometDust = forgeItem.selectedCometDust;
-    if(!cometDust) return null;
-    return document.getElementById(cometDust.id);
+function getSelectedAstralForgeCometOre(forgeItem) {
+    const cometOre = forgeItem.selectedCometOre;
+    if(!cometOre) return null;
+    return document.getElementById(cometOre.id);
 }
-function unselectCurrentCometDust(forgeItem) {
-    const cometDust = getSelectedAstralForgeCometDust(forgeItem);
-    if(!cometDust) return;
-    cometDust.classList.toggle('cometdustSelected');
+function unselectCurrentCometOre(forgeItem) {
+    const cometOre = getSelectedAstralForgeCometOre(forgeItem);
+    if(!cometOre) return;
+    cometOre.classList.toggle('cometOreSelected');
 }
 function getSelectedAstralForgeBookmark(forgeItem) {
     const bookmark = forgeItem.selectedBookmark;
@@ -124,7 +124,7 @@ function clearAnimationClasses() {
 function getAstralForgeShards(overload, refresh = false) {
     let str = '<table class="astralForgeShards"><tbody>';
     let shards = game.player.inventory.getTimeShards();
-    let cometDusts = game.player.inventory.getCometDusts();
+    let cometOres = game.player.inventory.getCometOres();
     shards.forEach(shard => {
         str += '<tr id="' + shard.id + '" class="shard shardSelectable">';
         str += '<td style="width: 20%; text-align: center;">' + shard.amount + '</td>';
@@ -138,10 +138,10 @@ function getAstralForgeShards(overload, refresh = false) {
     str += '<div class="divider"></div>';
 
     str += '<table class="astralForgeShards"><tbody>';
-    cometDusts.forEach(dust => {
-        str += '<tr id="' + dust.id + '" class="shard dustSelectable">';
-        str += '<td style="width: 20%; text-align: center;">' + dust.amount + '</td>';
-        str += '<td style="color: ' + getRarityColorCode(dust.rarity) + '">' + dust.name + '</td>';
+    cometOres.forEach(ore => {
+        str += '<tr id="' + ore.id + '" class="shard oreSelectable">';
+        str += '<td style="width: 20%; text-align: center;">' + ore.amount + '</td>';
+        str += '<td style="color: ' + getRarityColorCode(ore.rarity) + '">' + ore.name + '</td>';
         str += '</tr>';
     })
     str += '</tbody></table>';

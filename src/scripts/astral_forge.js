@@ -22,7 +22,7 @@ class AstralForge {
         this.selectedShard = null;
         this.selectedEffect = null;
         this.selectedBookmark = null;
-        this.selectedCometDust = null;
+        this.selectedCometOre = null;
         this.selectedOverload = null;
 
         this.consumeSubstrate = false;
@@ -102,19 +102,19 @@ class AstralForge {
     }
 
     /**
-     * Returns whether a forced successful outcome should be activated, based on the currently selected comet dust.
+     * Returns whether a forced successful outcome should be activated, based on the currently selected comet ore.
      * @returns {Data.AlterationAttemptOutcome|null} the possibly forced outcome
      */
     getForceOutcome() {
-        if(!this.selectedCometDust) return null;
-        else switch(this.selectedCometDust.name.toLowerCase()) {
-            case "comet dust":
+        if(!this.selectedCometOre) return null;
+        else switch(this.selectedCometOre.name.toLowerCase()) {
+            case "frozen comet ore":
                 this.warp();
-                game.player.inventory.removeResource(this.selectedCometDust);
+                game.player.inventory.removeResource(this.selectedCometOre);
                 return Data.AlterationAttemptOutcome.SUCCESS;
-            case "glowing comet dust":
+            case "broken comet ore":
                 this.seal();
-                game.player.inventory.removeResource(this.selectedCometDust);
+                game.player.inventory.removeResource(this.selectedCometOre);
                 return Data.AlterationAttemptOutcome.CRITICAL_SUCCESS;
         }
     }
@@ -606,18 +606,18 @@ class AstralForge {
     }
 
     /***
-     * Sets the selected Comet Dust of this AstralForge to the provided Comet Dust.
-     * @param {Resource} dust the Comet Dust to select
+     * Sets the selected Comet Ore of this AstralForge to the provided Comet Ore.
+     * @param {Resource} ore the Comet Ore to select
      */
-    selectCometDust(dust) {
-        this.selectedCometDust = dust;
+    selectCometOre(ore) {
+        this.selectedCometOre = ore;
     }
 
     /**
-     * Clears this AstralForge's selected comet dust.
+     * Clears this AstralForge's selected Comet Ore.
      */
-    clearSelectedCometDust() {
-        this.selectedCometDust = null;
+    clearSelectedCometOre() {
+        this.selectedCometOre = null;
     }
 
     /**
@@ -628,12 +628,12 @@ class AstralForge {
     }
 
     /**
-     * Returns whether the provided Comet Dust can apply a bookmark reversion.
-     * @param {Resource} cometDust the comet dust to check
-     * @returns {boolean} whether a bookmark reversion can be applied with this comet dust
+     * Returns whether the provided Comet Ore can apply a bookmark reversion.
+     * @param {Resource} cometOre the Comet Ore to check
+     * @returns {boolean} whether a bookmark reversion can be applied with this Comet Ore
      */
-    canCometDustApplyReversion(cometDust) {
-        return cometDust.name.toLowerCase() === "sparkling comet dust";
+    canCometOreApplyReversion(cometOre) {
+        return cometOre.name.toLowerCase() === "burning comet ore";
     }
 
     /**
@@ -651,7 +651,7 @@ class AstralForge {
         if(this.getEffectValue(effect) <= 0 && !this.selectedOverload) return Data.AlterationError.NEGATIVE_OR_NULL_VALUE;
         if(this.isMaxValueReached(effect) && !this.selectedOverload) return Data.AlterationError.MAXIMUM_VALUE_REACHED;
         if(this.state == Data.AstralForgeState.SEALED) return Data.AlterationError.IS_SEALED;
-        if(this.selectedCometDust && this.selectedCometDust.name.toLowerCase() === 'comet dust' && this.state == Data.AstralForgeState.WARPED) return Data.AlterationError.IS_WARPED;
+        if(this.selectedCometOre && this.selectedCometOre.name.toLowerCase() === 'comet ore' && this.state == Data.AstralForgeState.WARPED) return Data.AlterationError.IS_WARPED;
         return Data.AlterationError.NONE;
     }
 
@@ -665,7 +665,7 @@ class AstralForge {
             this.updateReferenceAddedValue(obj.effect.effect, -obj.effect.getValue());
         });
         this.removeBookmark(bookmark);
-        game.player.inventory.removeResource(this.selectedCometDust);
+        game.player.inventory.removeResource(this.selectedCometOre);
     }
 
     /**
@@ -682,11 +682,11 @@ class AstralForge {
      */
     canLaunchReversion() {
         const bookmark = this.selectedBookmark;
-        const cometDust = this.selectedCometDust;
+        const cometOre = this.selectedCometOre;
         if(!bookmark) return Data.ReversionError.NO_BOOKMARK;
-        if(!cometDust) return Data.ReversionError.NO_DUST;
-        if(cometDust.amount <= 0) return Data.ReversionError.DUST_AMOUNT_NULL;
-        if(!this.canCometDustApplyReversion(cometDust)) return Data.ReversionError.INCOMPATIBILITY;
+        if(!cometOre) return Data.ReversionError.NO_ORE;
+        if(cometOre.amount <= 0) return Data.ReversionError.ORE_AMOUNT_NULL;
+        if(!this.canCometOreApplyReversion(cometOre)) return Data.ReversionError.INCOMPATIBILITY;
         if(this.state === Data.AstralForgeState.SEALED) return Data.ReversionError.IS_SEALED;
         return Data.ReversionError.NONE;
     }

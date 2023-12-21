@@ -343,16 +343,16 @@ class Inventory {
         return timeShards;
     }
 
-    getCometDusts() {
-        let cometDusts = [];
+    getCometOres() {
+        let cometOres = [];
         let names = [
-            "comet dust",
-            "glowing comet dust",
-            "sparkling comet dust"
+            "frozen comet ore",
+            "burning comet ore",
+            "broken comet ore"
         ]
         this.resources.forEach(res => {
-            if(names.includes(res.name.toLowerCase())) cometDusts.push(res);
+            if(names.includes(res.name.toLowerCase())) cometOres.push(res);
         });
-        return cometDusts;
+        return cometOres;
     }
 }
