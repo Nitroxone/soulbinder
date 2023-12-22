@@ -112,7 +112,7 @@ class AstralForge {
                 this.warp();
                 game.player.inventory.removeResource(this.selectedCometOre);
                 return Data.AlterationAttemptOutcome.SUCCESS;
-            case "broken comet ore":
+            case "irradiant comet ore":
                 this.seal();
                 game.player.inventory.removeResource(this.selectedCometOre);
                 return Data.AlterationAttemptOutcome.CRITICAL_SUCCESS;

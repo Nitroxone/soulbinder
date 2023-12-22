@@ -409,7 +409,7 @@ const Loader = {
                 Data.Rarity.GRAND,
             ),
             new Resource(
-                "Broken Comet Ore",
+                "Irradiant Comet Ore",
                 "Can be used in the Astral Forge to force a Critical Success on a temporal alteration. Seals the object's fate in the process.",
                 71,
                 10,

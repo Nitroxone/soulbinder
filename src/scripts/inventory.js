@@ -348,7 +348,7 @@ class Inventory {
         let names = [
             "frozen comet ore",
             "burning comet ore",
-            "broken comet ore"
+            "irradiant comet ore"
         ]
         this.resources.forEach(res => {
             if(names.includes(res.name.toLowerCase())) cometOres.push(res);
