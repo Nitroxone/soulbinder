@@ -229,7 +229,7 @@ class Game {
             addTooltip(this.tabs[i].domWhat, function(tab){return function(){return tab.desc;};}(this.tabs[i]), {offY:-8});
         }
         // SETS THE STARTING TAB
-        this.setTab(this.tabs[3]);
+        this.setTab(this.tabs[1]);
     }
 
     setTab(tab) {
@@ -433,14 +433,15 @@ class Game {
         what(this.player.roster, "betheros").equipTrinket(what(this.player.inventory.trinkets, 'haste ring'), true);
         what(this.player.roster, "betheros").equipTrinket(what(this.player.inventory.trinkets, 'engraved moonhorn'), true);
 
+        what(this.player.roster, "amarok").level.addLevel(30);
+        what(this.player.roster, "amarok").skillPoints = 100;
+
         console.clear();
 
         this.startBattle(Entity.clone(what(game.all_enemyFormations, "gnarlyAndFungaliant")));
         //this.currentBattle.end();
 
         this.initBlackMarket();
-
-        what(this.player.roster, "amarok").level.addLevel(30);
-        what(this.player.roster, "amarok").skillPoints = 100;
+        openAstralForge(game.player.inventory.weapons[0]);
     }
 }

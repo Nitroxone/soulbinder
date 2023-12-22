@@ -229,6 +229,36 @@ const Loader = {
                         [],
                       )
                       ),
+            new Armor(
+                "Solana's Shield of the Sun",
+                "Lorem ipsum",
+                24,
+                1000,
+                Data.Rarity.MYTHIC,
+                Data.ArmorType.SHIELD,
+                [10, 15],
+                [25, 30],
+                2,
+                new Echo(
+                    "Solana's Endless Embrace",
+                    "Gain a §1% {PROTECTION} debuff and a §2% {MODIF_HEAL_GIVEN} at the end of every round you don't deal damage. Dealing damage breaks the effects, and regenerates §3% of your {MAXHEALTH}, multiplied by the amount of rounds the effects have been active for.",
+                    1,
+                    Data.Rarity.MYTHIC,
+                    [
+                        new Stat({
+                            effect: Data.Effect.RES_STUN,
+                            theorical: [15, 18],
+                            isPercentage: true
+                        }),
+                    ],
+                    "\"Always remember, Betheros. Go forth!\"",
+                    {
+                        "modif_protection": [-10, -12],
+                        "modif_given_heal": [5, 8],
+                        "health_regen": [6, 6]
+                    }
+                )
+            ),
         ];
 
         for(const armor of armors) {
@@ -934,6 +964,29 @@ const Loader = {
                         theorical: [20, 25]
                     }),
                 ],
+            ),
+            new Trinket(
+                "Solana's Ring of the Sun",
+                "Whoever wears the ring, holds the power of the sun... for Solana's soul is trapped within its nebula's essence.",
+                106,
+                10000,
+                Data.Rarity.MYTHIC,
+                [
+                    new Stat({
+                        effect: Data.Effect.MAXHEALTH,
+                        theorical: [200, 220]
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MODIF_HEAL_GIVEN,
+                        theorical: [15, 18],
+                        isPercentage: true
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MODIF_DMG_WEAPON,
+                        theorical: [5, 10],
+                        isPercentage: true
+                    }),
+                ]
             ),
             new Trinket(
                 "Engraved Moonhorn",
