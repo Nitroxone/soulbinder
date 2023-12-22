@@ -256,7 +256,8 @@ const Loader = {
                         "modif_protection": [-10, -12],
                         "modif_given_heal": [5, 8],
                         "health_regen": [6, 6]
-                    }
+                    },
+                    []
                 )
             ),
         ];
