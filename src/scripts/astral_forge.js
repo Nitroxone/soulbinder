@@ -651,7 +651,7 @@ class AstralForge {
         if(this.getEffectValue(effect) <= 0 && !this.selectedOverload) return Data.AlterationError.NEGATIVE_OR_NULL_VALUE;
         if(this.isMaxValueReached(effect) && !this.selectedOverload) return Data.AlterationError.MAXIMUM_VALUE_REACHED;
         if(this.state == Data.AstralForgeState.SEALED) return Data.AlterationError.IS_SEALED;
-        if(this.selectedCometOre && this.selectedCometOre.name.toLowerCase() === 'comet ore' && this.state == Data.AstralForgeState.WARPED) return Data.AlterationError.IS_WARPED;
+        if(this.selectedCometOre && this.selectedCometOre.name.toLowerCase() === 'frozen comet ore' && this.state == Data.AstralForgeState.WARPED) return Data.AlterationError.IS_WARPED;
         return Data.AlterationError.NONE;
     }
 
