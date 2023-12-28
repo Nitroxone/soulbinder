@@ -5639,6 +5639,7 @@ hr.centerFade {
 table.astralForgeEffects, table.astralForgeShards {
     width: 100%;
     border-collapse: collapse;
+    font-family: 'RobotoSlabMed';
 }
 table.astralForgeEffects thead tr {
     padding: 0.5rem;
@@ -5656,7 +5657,7 @@ table.astralForgeEffects td {
     padding: 1rem 0.5rem;
 }
 table.astralForgeEffects tr, table.astralForgeShards tr {
-    transition: all .1s ease-in-out;
+    /*transition: all .1s ease-in-out;*/
 }
 table.astralForgeEffects tr:nth-child(odd), table.astralForgeShards tr:nth-child(odd) {
     background: rgba(0, 0, 0, 0.7);
@@ -5693,8 +5694,18 @@ table.astralForgeShards td {
     padding: 0.75rem 0;
 }
 
+.effectSelectable {
+    font-family: 'RobotoSlabMed';
+}
+.shardSelectable {
+    font-family: 'RobotoSlabMed';
+}
+.oreSelectable {
+    font-family: 'RobotoSlabMed';
+}
+
 .shardSelected {
-    border: 1px double rgb(125, 125, 125);
+    border: 1px solid rgb(125, 125, 125);
 }
 .effectSelected {
     border: 1px double rgb(125, 125, 125);
