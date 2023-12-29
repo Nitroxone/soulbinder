@@ -7,7 +7,7 @@ function generateAstralForgeScreenButtonEvents(forgeItem) {
 
     const consumesubstrateButton = document.querySelector('.consumesubstrateButton');
     consumesubstrateButton.addEventListener('click', e => {
-        consumesubstrateButton.classList.toggle('selected');
+        consumesubstrateButton.classList.toggle('off');
         forgeItem.consumeSubstrate = !forgeItem.consumeSubstrate;
     });
 

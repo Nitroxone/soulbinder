@@ -3122,6 +3122,11 @@ hr.centerFade {
     cursor: pointer;
 }
 
+.consumesubstrateButton, .revertAlterationButton, .alterButton {
+    text-align: left;
+    width: 100%;
+}
+
 .simpleButton.normalSized {
     width: auto;
     text-align: center;

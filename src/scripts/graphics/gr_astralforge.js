@@ -147,7 +147,7 @@ function getAstralForgeShards(overload, refresh = false) {
     str += '</tbody></table>';
 
     str += '<div class="simpleButton alterButton" style="margin-top: 1rem">Alter</div>';
-    str += '<div class="simpleButton consumesubstrateButton" style="margin-top: 0.5rem">Consume substrate</div>';
+    str += '<div class="toggleButton off consumesubstrateButton" style="margin-top: 0.5rem">Consume substrate</div>';
     str += '<div class="simpleButton revertAlterationButton" style="margin-top: 0.5rem">Revert alteration</div>';
 
     if(refresh) {
