@@ -419,7 +419,7 @@ const Loader = {
             ),
             new TimeShard(
                 "Prismatic Time Shard",
-                "Can be used in the Astral Forge to create a temporal alteration. Adds a new line of effect.",
+                "Can be used in the Astral Forge to create a temporal alteration. Adds a new line of effect. Seals the object in the process.",
                 68,
                 10,
                 Data.Rarity.MYTHIC,
