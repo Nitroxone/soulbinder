@@ -549,6 +549,7 @@ class AstralForge {
      */
     warp() {
         this.state = Data.AstralForgeState.WARPED;
+        Sounds.Methods.playSound(Data.SoundType.AF_WARPED);
         console.log(this.item.name + " is now " + this.state);
     }
 
@@ -557,6 +558,7 @@ class AstralForge {
      */
     seal() {
         this.state = Data.AstralForgeState.SEALED;
+        Sounds.Methods.playSound(Data.SoundType.AF_SEALED);
         console.log(this.item.name + " is now " + this.state);
     }
 
