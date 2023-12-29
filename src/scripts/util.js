@@ -2220,3 +2220,18 @@ function isEffectOverloaded(eff) {
 function getPropertyNameWithOverload(name, eff) {
     return '<td' + (isEffectOverloaded(eff) ? ' style="color: ' + Data.Color.OVERLOADED + '; font-family: RobotoBold"' : '') + '>' + name + '</td>'
 }
+
+function getAstralForgeSoundEffect(outcome) {
+    switch(outcome) {
+        case Data.AlterationAttemptOutcome.CRITICAL_FAILURE:
+            return Data.SoundType.AF_CRITICAL_FAILURE;
+        case Data.AlterationAttemptOutcome.CRITICAL_SUCCESS:
+            return Data.SoundType.AF_CRITICAL_SUCCESS;
+        case Data.AlterationAttemptOutcome.FAILURE:
+            return Data.SoundType.AF_FAILURE;
+        case Data.AlterationAttemptOutcome.SUCCESS:
+            return Data.SoundType.AF_SUCCESS;
+        default:
+            return null;
+    }
+}
