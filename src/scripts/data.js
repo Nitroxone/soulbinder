@@ -560,7 +560,15 @@ const Data = Object.freeze({
         SOULBIND_SLOT: "soulbind_slot",
         SOULBIND_UNSLOT: "soulbind_unslot",
 
-        DUNGEON_ROOM_ENTER: "dungeon_room_enter"
+        DUNGEON_ROOM_ENTER: "dungeon_room_enter",
+
+        AF_SUCCESS: "af_success",
+        AF_FAILURE: "af_failure",
+        AF_CRITICAL_SUCCESS: "af_critical_success",
+        AF_CRITICAL_FAILURE: "af_critical_failure",
+        AF_REVERT: "af_revert",
+        AF_WARPED: "af_warped",
+        AF_SEALED: "af_sealed"
     },
     AlterAction: {
         ADD: "add",

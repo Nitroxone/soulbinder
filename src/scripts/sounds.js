@@ -107,7 +107,28 @@ let Sounds = {
             {name: "du_roomEnter2.wav", volume: 0.5, alwaysDifferent: true, previousPitch: 1, pitch: () => {return getRandomNumber(0.98, 1.05)}},
             {name: "du_roomEnter3.wav", volume: 0.5, alwaysDifferent: true, previousPitch: 1, pitch: () => {return getRandomNumber(0.98, 1.05)}},
             {name: "du_roomEnter4.wav", volume: 0.5, alwaysDifferent: true, previousPitch: 1, pitch: () => {return getRandomNumber(0.98, 1.05)}},
-        ]
+        ],
+        AF_SUCCESS: [
+            {name: "af_success.wav", volume: 0.4}
+        ],
+        AF_FAILURE: [
+            {name: "af_failure.wav", volume: 0.4}
+        ],
+        AF_CRITICAL_SUCCESS: [
+            {name: "af_criticalsuccess.wav", volume: 0.4}
+        ],
+        AF_CRITICAL_FAILURE: [
+            {name: "af_criticalfailure.wav", volume: 0.4}
+        ],
+        AF_REVERT: [
+            {name: "af_revert.wav", volume: 0.4}
+        ],
+        AF_WARPED: [
+            {name: "af_warped.wav", volume: 0.4}
+        ],
+        AF_SEALED: [
+            {name: "af_sealed.wav", volume: 0.4}
+        ],
     },
     Methods: {
         playSound: playSound = (type, vol = 0.5, pit = 1) => {
