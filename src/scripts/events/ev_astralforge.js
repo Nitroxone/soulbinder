@@ -152,6 +152,7 @@ function launchAlteration(forgeItem) {
             forgeItem.clearShard();
         }
 
+        Sounds.Methods.playSound(getAstralForgeSoundEffect(alterationOutcome));
         getAstralForgeHistory(forgeItem, true)
         if(forgeItem.selectedEffect) unselectCurrentEffect(forgeItem);
 
@@ -182,6 +183,7 @@ function launchReversion(forgeItem) {
             forgeItem.clearSelectedCometOre();
         }
 
+        Sounds.Methods.playSound(Data.SoundType.AF_REVERT);
         getAstralForgeHistory(forgeItem, true)
         if(forgeItem.selectedEffect) unselectCurrentEffect(forgeItem);
 
