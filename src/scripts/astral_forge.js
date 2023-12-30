@@ -663,8 +663,10 @@ class AstralForge {
      */
     revertAlteration(bookmark) {
         bookmark.bookmark.forEach(obj => {
-            this.item.addEffect(obj.effect, true);
-            this.updateReferenceAddedValue(obj.effect.effect, -obj.effect.getValue());
+            if(!this.willCauseUnallowedOverload(obj.effect)) {
+                this.item.addEffect(obj.effect, true);
+                this.updateReferenceAddedValue(obj.effect.effect, -obj.effect.getValue());
+            }
         });
         this.removeBookmark(bookmark);
         game.player.inventory.removeResource(this.selectedCometOre);
@@ -826,6 +828,18 @@ class AstralForge {
         const reference = this.getEffectFromReferenceTable(eff);
         if(eff === Data.Effect.EFFORT) return reference.max <= Math.abs(reference.added);
         return reference.max <= reference.added;
+    }
+
+    /**
+     * Returns whether the provided Stat will cause an unallowed overload.
+     * @param {Stat} eff the effect to check
+     * @returns {boolean} whether adding this Stat will cause an unallowed overload.
+     */
+    willCauseUnallowedOverload(eff) {
+        if(!eff) return false;
+        const reference = this.getEffectFromReferenceTable(eff.effect);
+        if(eff.effect === Data.Effect.EFFORT) return Math.abs(reference.added) + eff.getValue() > reference.max;
+        else return reference.added - eff.getValue() > reference.max;
     }
 
     /**
