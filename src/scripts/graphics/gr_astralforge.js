@@ -94,7 +94,7 @@ function getSelectedAstralForgeCometOre(forgeItem) {
 function unselectCurrentCometOre(forgeItem) {
     const cometOre = getSelectedAstralForgeCometOre(forgeItem);
     if(!cometOre) return;
-    cometOre.classList.toggle('cometOreSelected');
+    cometOre.classList.toggle('cometoreSelected');
 }
 function getSelectedAstralForgeBookmark(forgeItem) {
     const bookmark = forgeItem.selectedBookmark;
