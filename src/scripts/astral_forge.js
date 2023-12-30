@@ -882,7 +882,7 @@ class AstralForge {
             str += this.getFormattedModification({effect: ref.effect, added: ref.getValue(), overload: true})
         })
         if(str !== '') {
-            str = '<div class="editedIconStats"><p>This item is <span style="font-family: RobotoBold; color: ' + getAstralForgeItemStateColorCode(this.state) + '">' + capitalizeFirstLetter(this.state) + '</span>.</p><div class="divider"></div>' + str + '</div>';
+            str = '<div class="editedIconStats"><p>This item is <span style="font-family: RobotoBold; color: ' + getAstralForgeItemStateColorCode(this.state) + '">' + capitalizeFirstLetter(this.state) + '</span>.</p><br>' + str + '</div>';
         }
         return str;
     }
