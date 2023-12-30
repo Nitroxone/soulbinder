@@ -129,6 +129,22 @@ let Sounds = {
         AF_SEALED: [
             {name: "af_sealed.wav", volume: 0.4}
         ],
+
+        BATTLE_WIN_GROUP: [
+            {name: "btl_win_reg.wav", volume: 0.5}
+        ],
+        BATTLE_WIN_WAVE: [
+            {name: "btl_win_wave.wav", volume: 0.5}
+        ],
+        BATTLE_WIN_SPECIAL: [
+            {name: "btl_win_special.wav", volume: 0.5}
+        ],
+        BATTLE_WIN_MINIBOSS: [
+            {name: "btl_win_boss.wav", volume: 0.5}
+        ],
+        BATTLE_WIN_BOSS: [
+            {name: "btl_win_boss.wav", volume: 0.5}
+        ]
     },
     Methods: {
         playSound: playSound = (type, vol = 0.5, pit = 1) => {
