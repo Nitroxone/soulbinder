@@ -1928,7 +1928,7 @@ function getItemAlterationsTooltip(item) {
         str += '<h2>Astral</h2>'
         str += item.astralForgeItem.getFormattedModifications();
         str += '</div>';
-        str += '<div class="divider"></div>';
+        if(item.hasSigil()) str += '<div class="divider"></div>';
     }
     if(item.hasSigil()) str += '<div class="editedIconStats">' + getSigilEffectsFromItem(item) + '</div>';
 
