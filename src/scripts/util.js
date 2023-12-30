@@ -2236,7 +2236,7 @@ function getAstralForgeSoundEffect(outcome) {
     }
 }
 
-function getBattleOutcomeSound(outcome) {
+function getBattleTypeSound(outcome) {
     switch(outcome) {
         case Data.BattleType.GROUP:
             return Data.SoundType.BATTLE_WIN_GROUP;
