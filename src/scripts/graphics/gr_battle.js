@@ -63,6 +63,8 @@ function drawEndBattleScreen() {
     str += '</div>';
 
     document.querySelector('.battleEndContainer').innerHTML = str;
+
+    Sounds.Methods.playSound(getBattleOutcomeSound(battle.type));
 }
 
 function drawBattleScreen() {
