@@ -2235,3 +2235,18 @@ function getAstralForgeSoundEffect(outcome) {
             return null;
     }
 }
+
+function getBattleOutcomeSound(outcome) {
+    switch(outcome) {
+        case Data.BattleType.GROUP:
+            return Data.SoundType.BATTLE_WIN_GROUP;
+        case Data.BattleType.WAVE:
+            return Data.SoundType.BATTLE_WIN_WAVE;
+        case Data.BattleType.SPECIAL:
+            return Data.SoundType.BATTLE_WIN_SPECIAL;
+        case Data.BattleType.MINI_BOSS:
+            return Data.SoundType.BATTLE_WIN_MINIBOSS;
+        case Data.BattleType.BOSS:
+            return Data.SoundType.BATTLE_WIN_BOSS;
+    }
+}
