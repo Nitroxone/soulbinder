@@ -33,6 +33,7 @@ function generateAstralForgeScreenEvents(forgeItem, skipShards = false, skipEffe
                     forgeItem.selectShard(shard);
                 }
 
+                Sounds.Methods.playSound(Data.SoundType.TOOLTIP_HOVER);
                 const overloadWindow = document.querySelector('.astralForge-overloadWindow');
                 if(overloadWindow) overloadWindow.remove();
 
@@ -93,6 +94,8 @@ function generateAstralForgeScreenEvents(forgeItem, skipShards = false, skipEffe
                 forgeItem.selectEffect(effect);
             }
 
+            Sounds.Methods.playSound(Data.SoundType.TOOLTIP_HOVER);
+
             eff.classList.toggle('effectSelected');
             console.log(forgeItem.selectedEffect);
         });
@@ -111,6 +114,8 @@ function generateAstralForgeScreenEvents(forgeItem, skipShards = false, skipEffe
                 forgeItem.selectBookmark(bookmark);
             }
 
+            Sounds.Methods.playSound(Data.SoundType.TOOLTIP_HOVER);
+
             hist.classList.toggle('bookmarkSelected');
             console.log(forgeItem.selectedBookmark);
         });
@@ -128,6 +133,8 @@ function generateAstralForgeScreenEvents(forgeItem, skipShards = false, skipEffe
             } else {
                 forgeItem.selectCometOre(ore);
             }
+
+            Sounds.Methods.playSound(Data.SoundType.TOOLTIP_HOVER);
 
             comore.classList.toggle('cometoreSelected');
             console.log(forgeItem.selectedCometOre);
