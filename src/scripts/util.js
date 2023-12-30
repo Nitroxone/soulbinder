@@ -2203,24 +2203,54 @@ function findNPCWithLowestStat(npcs, stat) {
     return lowest;
 }
 
+/**
+ * Shorthand function to get the currently tracked battle target.
+ * @returns {NPC} the currently tracked target
+ */
 function getcTarget() {
     return getcBattle().target[getcBattle().targetTracker];
 }
+
+/**
+ * Shorthand function to get the current battle.
+ * @returns {Battle} the current Battle
+ */
 function getcBattle() {
     return game.currentBattle;
 }
+
+/**
+ * Returns the currently playing NPC.
+ * @returns {NPC} the NPC that is currently playing
+ */
 function getcPlayer() {
     return getcBattle().currentPlay;
 }
 
+/**
+ * Returns whether the provided effect is overloaded.
+ * @param {Stat} eff the effect to check
+ * @returns {boolean} whether the provided effect is overloaded
+ */
 function isEffectOverloaded(eff) {
     return eff.fixed && eff.getValue() > eff.theorical[1] && eff.getValue() > 0
 }
 
+/**
+ * Returns a <td> HTML styled string that contains the provided name and the adequate color according to whether the provided effect is overloaded
+ * @param {string} name 
+ * @param {Stat} eff 
+ * @returns 
+ */
 function getPropertyNameWithOverload(name, eff) {
     return '<td' + (isEffectOverloaded(eff) ? ' style="color: ' + Data.Color.OVERLOADED + '; font-family: RobotoBold"' : '') + '>' + name + '</td>'
 }
 
+/**
+ * Returns the sound effect name that matches the provided Astral Forge alteration attempt outcome.
+ * @param {Data.AlterationAttemptOutcome} outcome the outcome to retrieve a sound effect from
+ * @returns {Data.SoundType} the matching sound
+ */
 function getAstralForgeSoundEffect(outcome) {
     switch(outcome) {
         case Data.AlterationAttemptOutcome.CRITICAL_FAILURE:
@@ -2236,8 +2266,13 @@ function getAstralForgeSoundEffect(outcome) {
     }
 }
 
-function getBattleTypeSound(outcome) {
-    switch(outcome) {
+/**
+ * Returns the sound effect name that matches the provided Battle type.
+ * @param {Data.BattleType} type the type to retrieve a sound effect from
+ * @returns {Data.SoundType} the matching sound
+ */
+function getBattleTypeSound(type) {
+    switch(type) {
         case Data.BattleType.GROUP:
             return Data.SoundType.BATTLE_WIN_GROUP;
         case Data.BattleType.WAVE:

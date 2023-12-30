@@ -70,7 +70,7 @@ ASTRAL FORGE:
 - Create GUI -- ONGOING
 - Implement an item pricing change on alteration (increasing/decreasing stats brings the price up and down)
 - Implement AstralForge guide (and general guide system)
-- Prevent going further than allowed Max by reverting an alteration
+DONE - Prevent going further than allowed Max by reverting an alteration
 
 DUNGEONS:
 ONGOING - Create floor transitions
