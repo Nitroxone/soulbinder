@@ -3780,6 +3780,7 @@ const Loader = {
                     what(game.all_enemies, "mycelial tick"), 
                     what(game.all_enemies, "mycelial tick")
                 ],
+                type: Data.BattleType.GROUP
             }),
             new EnemyFormation({
                 name: "twoFungaliants",
@@ -3790,6 +3791,7 @@ const Loader = {
                     what(game.all_enemies, "fungaliant"), 
                     what(game.all_enemies, "mycelial tick")
                 ],
+                type: Data.BattleType.GROUP
             }),
             new EnemyFormation({
                 name: "gnarlyAndFungaliant",
@@ -3800,6 +3802,7 @@ const Loader = {
                     what(game.all_enemies, "fungaliant"), 
                     what(game.all_enemies, "gnarly horror")
                 ],
+                type: Data.BattleType.GROUP
             }),
         ];  
 

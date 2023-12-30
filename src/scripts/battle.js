@@ -5,7 +5,7 @@
 */
 
 class Battle {
-    constructor(allies, enemies) {
+    constructor(allies, enemies, type) {
         this.allies = allies;
         this.enemies = enemies;
 
@@ -21,6 +21,8 @@ class Battle {
         this.endturnCounter = 0;
         this.movementQueue = [];
         this.beginTurnPopups = false;
+
+        this.type = type;
 
         this.params = null;
         this.resetAttackParams();

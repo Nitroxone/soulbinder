@@ -11,5 +11,6 @@ class EnemyFormation {
         this.levels = getValueFromObject(props, "levels", [1, 2, 3, 4, 5]);
         this.formation = getValueFromObject(props, "formation", [null, null, null]);
         this.params = getValueFromObject(props, "params", null);
+        this.type = getValueFromObject(props, "type", null);
     }
 }
