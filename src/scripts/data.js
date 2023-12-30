@@ -468,6 +468,8 @@ const Data = Object.freeze({
     DungeonEncounterHostileBattleType: {
         GROUP: "group",
         WAVE: "wave",
+        SPECIAL: "special",
+        MINI_BOSS: "miniboss",
         BOSS: "boss"
     },
     DungeonBiome: {
@@ -511,6 +513,8 @@ const Data = Object.freeze({
     BattleType: {
         GROUP: "group",
         WAVE: "wave",
+        SPECIAL: "special",
+        MINI_BOSS: "miniboss",
         BOSS: "boss"
     },
     BattleOutcome: {
@@ -568,7 +572,13 @@ const Data = Object.freeze({
         AF_CRITICAL_FAILURE: "af_critical_failure",
         AF_REVERT: "af_revert",
         AF_WARPED: "af_warped",
-        AF_SEALED: "af_sealed"
+        AF_SEALED: "af_sealed",
+
+        BATTLE_WIN_GROUP: "battle_win_group",
+        BATTLE_WIN_WAVE: "battle_win_wave",
+        BATTLE_WIN_SPECIAL: "battle_win_special",
+        BATTLE_WIN_MINIBOSS: "battle_win_miniboss",
+        BATTLE_WIN_BOSS: "battle_win_boss"
     },
     AlterAction: {
         ADD: "add",
