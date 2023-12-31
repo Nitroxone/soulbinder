@@ -3987,7 +3987,7 @@ hr.centerFade {
     width: 72px;
     height: 72px;
 
-    filter: drop-shadow(0px 0px 8px rgb(255, 0, 0));
+    filter: drop-shadow(0px 0px 18px rgba(255, 255, 255, 0.5));
     background-size: 65%;
     background-position: center;
     background-repeat: no-repeat;
