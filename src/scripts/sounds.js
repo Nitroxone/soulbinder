@@ -29,14 +29,14 @@ let Sounds = {
             {name: "equip5.mp3", volume: 0.3},
         ],
         UNEQUIP: [
-            {name: "unequip.wav", volume: 0.3, pitch: () => {return getRandomNumber(0.8, 0.85)}}
+            {name: "unequip.wav", volume: 0.3, pitch: () => {return getRandomNumber(0.8, 0.85, true)}}
         ],
         INGREDIENT_IN: [
-            {name: "ingredient_in1.mp3", volume: 0.4, pitch: () => {return getRandomNumber(1, 1.05)}},
-            {name: "ingredient_in2.mp3", volume: 0.4, pitch: () => {return getRandomNumber(1, 1.05)}}
+            {name: "ingredient_in1.mp3", volume: 0.4, pitch: () => {return getRandomNumber(1, 1.05, true)}},
+            {name: "ingredient_in2.mp3", volume: 0.4, pitch: () => {return getRandomNumber(1, 1.05, true)}}
         ],
         INGREDIENT_OUT: [
-            {name: "ingredient_out.mp3", volume: 0.4, pitch: () => {return getRandomNumber(1, 1.05)}}
+            {name: "ingredient_out.mp3", volume: 0.4, pitch: () => {return getRandomNumber(1, 1.05, true)}}
         ],
         SELECTOR: [
             {name: "selector1.mp3", volume: 0.3},
@@ -89,10 +89,13 @@ let Sounds = {
         SOULWRITE_STCO: [
             {name: "soulwriteWriteStco.wav", volume: 0.6}
         ],
+        SOULBIND_SLOT_ITEM: [
+            {name: "soulbindSlotItem.wav", volume: 0.6, alwaysDifferent: true, previousPitch: 1, pitch: () => {return getRandomNumber(0.99, 1.02, true)}}
+        ],
         SOULBIND_PRESLOT: [
-            {name: "soulbindPreslot1.mp3", volume: 0.6},
-            {name: "soulbindPreslot2.mp3", volume: 0.6},
-            {name: "soulbindPreslot3.mp3", volume: 0.6},
+            {name: "soulbindPreslot1.wav", volume: 0.6},
+            {name: "soulbindPreslot2.wav", volume: 0.6},
+            {name: "soulbindPreslot3.wav", volume: 0.6},
         ],
         SOULBIND_SLOT: [
             {name: "soulbindBind1.wav", volume: 0.6},

@@ -27,6 +27,7 @@ class Soulbinding {
 
         getSoulbindingItem(true);
         getSoulbindingObjects(true);
+        Sounds.Methods.playSound(Data.SoundType.SOULBIND_SLOT_ITEM);
     }
 
     /**

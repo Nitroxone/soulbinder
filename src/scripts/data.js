@@ -560,6 +560,7 @@ const Data = Object.freeze({
         SOULWRITE_STALWART: "soulwrite_stalwart",
         SOULWRITE_STCO: "soulwrite_stco",
 
+        SOULBIND_SLOT_ITEM: "soulbind_slot_item",
         SOULBIND_PRESLOT: "soulbind_preslot",
         SOULBIND_SLOT: "soulbind_slot",
         SOULBIND_UNSLOT: "soulbind_unslot",
