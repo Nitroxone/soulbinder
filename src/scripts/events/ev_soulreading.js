@@ -10,6 +10,7 @@ function generateSoulreadingSoulmarkEvents() {
 
         dom.addEventListener('mousedown', (e) => {
             if(sm.canBeExtracted() && e.button === 0) {
+                Sounds.Methods.playSound(Data.SoundType.SOULREAD_PROCESS);
                 dom.querySelector('.srAnimatorProgress').style.width = '100%';
                 extractTimeout = setTimeout(() => { // e.button === 0 checks that only a LEFT CLICK can trigger the timeout.
                     game.soulwriting.extractSoulmark(sm);

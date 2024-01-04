@@ -225,6 +225,7 @@ class Soulwriting {
 
         this.sigil = sigil;
 
+        Sounds.Methods.playSound(Data.SoundType.SOULREAD_SLOT);
         getSoulreadingSigil(true);
         getSoulreadingSoulmarks(true);
     }
@@ -240,6 +241,7 @@ class Soulwriting {
         this.sigil = null;
 
         // UI update
+        Sounds.Methods.playSound(Data.SoundType.SOULREAD_READ);
         getSwRead(true);
         getSwWriteList(true);
         drawSigilInventory();
