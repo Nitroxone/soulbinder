@@ -60,6 +60,22 @@ let Sounds = {
             {name: "potion_result1.wav", volume: 0.6},
             {name: "potion_result2.wav", volume: 0.6},
         ],
+
+        SOULREAD_SLOT: [
+            {name: "soulreadSlot1.wav", volume: 0.6},
+            {name: "soulreadSlot2.wav", volume: 0.6},
+        ],
+        SOULREAD_READ: [
+            {name: "soulreadRead1.wav", volume: 0.6},
+            {name: "soulreadRead2.wav", volume: 0.6},
+            {name: "soulreadRead3.wav", volume: 0.6},
+        ],
+        SOULREAD_PROCESS: [
+            {name: "soulreadProcess1.wav", volume: 0.6},
+            {name: "soulreadProcess2.wav", volume: 0.6},
+            {name: "soulreadProcess3.wav", volume: 0.6},
+        ],
+
         SOULWRITE_WRITE_WRITE: [
             {name: "soulwriteWriteWrite.wav", volume: 0.6}
         ],
@@ -89,6 +105,7 @@ let Sounds = {
         SOULWRITE_STCO: [
             {name: "soulwriteWriteStco.wav", volume: 0.6}
         ],
+
         SOULBIND_SLOT_ITEM: [
             {name: "soulbindSlotItem.wav", volume: 0.6, alwaysDifferent: true, previousPitch: 1, pitch: () => {return getRandomNumber(0.99, 1.02, true)}}
         ],
@@ -105,12 +122,14 @@ let Sounds = {
         SOULBIND_UNSLOT: [
             {name: "soulbindUnbind1.wav", volume: 0.6, alwaysDifferent: true, previousPitch: 1, pitch: () => {return getRandomNumber(0.98, 1.05)}}
         ],
+
         DUNGEON_ROOM_ENTER: [
             {name: "du_roomEnter1.wav", volume: 0.5, alwaysDifferent: true, previousPitch: 1, pitch: () => {return getRandomNumber(0.98, 1.05)}},
             {name: "du_roomEnter2.wav", volume: 0.5, alwaysDifferent: true, previousPitch: 1, pitch: () => {return getRandomNumber(0.98, 1.05)}},
             {name: "du_roomEnter3.wav", volume: 0.5, alwaysDifferent: true, previousPitch: 1, pitch: () => {return getRandomNumber(0.98, 1.05)}},
             {name: "du_roomEnter4.wav", volume: 0.5, alwaysDifferent: true, previousPitch: 1, pitch: () => {return getRandomNumber(0.98, 1.05)}},
         ],
+
         AF_SUCCESS: [
             {name: "af_success.wav", volume: 0.4}
         ],

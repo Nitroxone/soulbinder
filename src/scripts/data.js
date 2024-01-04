@@ -550,6 +550,10 @@ const Data = Object.freeze({
         SELECTOR_ON: "selector_on",
         SELECTOR_OFF: "selector_off",
 
+        SOULREAD_SLOT: "soulread_slot",
+        SOULREAD_PROCESS: "soulread_process",
+        SOULREAD_READ: "soulread_read",
+
         SOULWRITE_SLOT: "soulwrite_slot",
         SOULWRITE_UNSLOT: "soulwrite_unslot",
         SOULWRITE_SLOT_IN: "soulwrite_slot_in",
