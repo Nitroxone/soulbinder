@@ -385,10 +385,10 @@ class Game {
         this.currentDungeon = this.all_dungeons.find(x => x.name === 'Putrescent Ossuary');
         this.currentDungeon.init();
 
-        Config.Soulwriting.forEach(sw => {
-            sw.unlocked = true;
-            sw.studied = sw.researchTotal;
-        });
+        // Config.Soulwriting.forEach(sw => {
+        //     sw.unlocked = true;
+        //     sw.studied = sw.researchTotal;
+        // });
 
         unlockAllEons();
         unlockAllEonFragments();
