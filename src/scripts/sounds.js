@@ -17,7 +17,7 @@ let Sounds = {
             {name: "tooltip_hover.wav", volume: 0.5, pitch: () => {return getRandomNumber(1.99, 2, true)}, alwaysDifferent: true, previousPitch: 2}
         ],
         TOOLTIP_CLOSE: [
-            {name: "click2.wav", volume: 0.3, pitch: () => {return 1.2}}
+            {name: "click2.wav", volume: 0.3, pitch: () => {return 1}}
         ],
         EQUIP: [
             {name: "equip1.wav", volume: 0.3},
@@ -107,7 +107,7 @@ let Sounds = {
         ],
 
         SOULBIND_SLOT_ITEM: [
-            {name: "soulbindSlotItem.wav", volume: 0.6, alwaysDifferent: true, previousPitch: 1, pitch: () => {return getRandomNumber(0.99, 1.02, true)}}
+            {name: "soulbindSlotItem.wav", volume: 0.6, alwaysDifferent: true, previousPitch: 1, pitch: () => {return getRandomNumber(0.99, 1.01, true)}}
         ],
         SOULBIND_PRESLOT: [
             {name: "soulbindPreslot1.wav", volume: 0.6},

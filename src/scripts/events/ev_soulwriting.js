@@ -67,6 +67,7 @@ function generateSoulwritingInterfaceEvents() {
     for(let i = 0; i < tabs.length; i++) {
         let tab = tabs[i];
         tab.addEventListener('click', e => {
+            Sounds.Methods.playSound(Data.SoundType.TOOLTIP_HOVER);
             tabs[game.soulwriting.getCurrentTabIndex()].classList.remove('activeTab');
             game.soulwriting.switchTab(i);
             tab.classList.add('activeTab');
