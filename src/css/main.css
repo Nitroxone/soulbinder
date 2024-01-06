@@ -2217,6 +2217,8 @@ table.statsTable tbody td:nth-child(3) {
 }
 .gaugeProgress.slmrkGauge .gaugeIndicator {
     font-size: 9px;
+    font-family: Roboto;
+    line-height: 1;
 }
 
 .statGauge {
@@ -4856,14 +4858,15 @@ hr.centerFade {
     padding-bottom: 1rem;
 }
 .swReadSoulmarksContainer > .swWriteList-single {
-    border: 3px solid transparent;
-    border-image: url('img/window1.png') 3 stretch;
-    background-color: rgba(0, 0, 0, 0.75);
+    border: 2px solid rgb(100, 100, 100);
+    background: url('img/darkBorders.png'), url('img/bg4.png');
+    background-size: 100% 100%, auto;
     padding: .5rem;
     transition: all .1s ease-in-out;
 }
 .swReadSoulmarksContainer > .swWriteList-single:hover {
-    border: 1.5px solid rgb(185, 185, 185);
+    border: 2px solid rgb(155, 155, 155);
+    box-shadow: inset 0px 0px 10px 12px rgba(255, 255, 255, 0.1);
 }
 .soulreadingSoulmarkContainer {
     display: flex;
@@ -4912,6 +4915,7 @@ hr.centerFade {
 .slmrkNum {
     height: 12px;
     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+    display: flex;
 }
 .slmrkNum.none {
     background: url('img/upgrading_icon.png');
