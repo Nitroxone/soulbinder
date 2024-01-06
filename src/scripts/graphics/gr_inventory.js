@@ -87,9 +87,6 @@ function drawWeaponInventory(weapons = game.inventory.weapons) {
             //console.log(e.dataTransfer.getData("weapon"));
         })
     }
-    document.querySelector('#res-weapons').addEventListener('click', (e) => {
-        document.querySelector('#res-cat-weapons').classList.toggle('hide');
-    })
 }
 
 function drawSigilInventory(sigils = game.inventory.sigils) {
@@ -122,9 +119,6 @@ function drawSigilInventory(sigils = game.inventory.sigils) {
             //console.log(e.dataTransfer.getData("weapon"));
         })
     }
-    document.querySelector('#res-sigils').addEventListener('click', (e) => {
-        document.querySelector('#res-cat-sigils').classList.toggle('hide');
-    });
 }
 
 function drawResourceInventory(resources = game.inventory.resources) {
@@ -160,10 +154,6 @@ function drawResourceInventory(resources = game.inventory.resources) {
             })
         }
     }
-    document.querySelector('#res-resources').addEventListener('click', (e) => {
-        document.querySelector('#res-cat-resources').classList.toggle('hide');
-    })
-
 }
 
 function drawArmorInventory(armors = game.inventory.armors) {
@@ -203,9 +193,6 @@ function drawArmorInventory(armors = game.inventory.armors) {
             //console.log(e.dataTransfer.getData("armor"));
         })
     }
-    document.querySelector('#res-armors').addEventListener('click', (e) => {
-        document.querySelector('#res-cat-armors').classList.toggle('hide');
-    })
 }
 
 function drawTrinketInventory(trinkets = game.inventory.trinkets) {
@@ -245,9 +232,6 @@ function drawTrinketInventory(trinkets = game.inventory.trinkets) {
             //console.log(e.dataTransfer.getData("trinket"));
         });
     }
-    document.querySelector('#res-trinkets').addEventListener('click', (e) => {
-        document.querySelector('#res-cat-trinkets').classList.toggle('hide');
-    })
 }
 
 function drawConsumablesInventory(consumables = game.inventory.consumables) {
@@ -279,9 +263,6 @@ function drawConsumablesInventory(consumables = game.inventory.consumables) {
             e.dataTransfer.setData("origin", "inventory");
         });
     }
-    document.querySelector('#res-consumables').addEventListener('click', (e) => {
-        document.querySelector('#res-cat-consumables').classList.toggle('hide');
-    });
 }
 
 function getTrinketTooltip(trinket, asResult = null, full = false) {

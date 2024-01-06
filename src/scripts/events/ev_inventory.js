@@ -178,3 +178,24 @@ function addSidePinEvents() {
     pinChat.addEventListener('click', pinRight);
     repinChat.addEventListener('click', pinRight);
 }
+
+function addInventoryCollapseEvents() {
+    document.querySelector('#res-weapons').addEventListener('click', (e) => {
+        document.querySelector('#res-cat-weapons').classList.toggle('hide');
+    });
+    document.querySelector('#res-armors').addEventListener('click', (e) => {
+        document.querySelector('#res-cat-armors').classList.toggle('hide');
+    });
+    document.querySelector('#res-trinkets').addEventListener('click', (e) => {
+        document.querySelector('#res-cat-trinkets').classList.toggle('hide');
+    });
+    document.querySelector('#res-resources').addEventListener('click', (e) => {
+        document.querySelector('#res-cat-resources').classList.toggle('hide');
+    });
+    document.querySelector('#res-sigils').addEventListener('click', (e) => {
+        document.querySelector('#res-cat-sigils').classList.toggle('hide');
+    });
+    document.querySelector('#res-consumables').addEventListener('click', (e) => {
+        document.querySelector('#res-cat-consumables').classList.toggle('hide');
+    });
+}
