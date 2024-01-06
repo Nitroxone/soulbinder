@@ -34,6 +34,16 @@ class Soulmark {
     }
 
     /**
+     * Returns a formatted string containing this Soulmark's current value.
+     * @returns {string} the formatted current value
+     */
+    getFormattedCurrent() {
+        const st = new Stat({effect: this.effect, theorical: this.getCurrent()});
+
+        return st.getFormatted({noValue: true, noName: true});
+    }
+
+    /**
      * Returns this Soulmark's next value.
      * @returns {array|boolean} the next value
      */
@@ -41,6 +51,16 @@ class Soulmark {
         if(this.steps.length === 0) return this.theorical;
         else if(this.isMastered()) return this.getCurrent();
         return this.steps[this.studied];
+    }
+
+    /**
+     * Returns a formatted string containing this Soulmark's next value.
+     * @returns {string} the formatted next value
+     */
+    getFormattedNext() {
+        const st = new Stat({effect: this.effect, theorical: this.getNext()});
+
+        return st.getFormatted({noValue: true, noName: true});
     }
 
     /**
