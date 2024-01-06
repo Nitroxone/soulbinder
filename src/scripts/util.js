@@ -1951,14 +1951,16 @@ function getSoulmarkFromEffect(effect) {
  */
 function getSoulreadingSoulmarkValue(sm) {
     if(sm.studied === sm.researchTotal-1) {
-        if(isEffectUnvaluable(sm.effect)) return "None -> Active";
-        else return (sm.getCurrent() + ' ---> ' + sm.theorical);
+        if(isEffectUnvaluable(sm.effect)) return 'None <div class="slmrkArrow">→</div> Active';
+        else {
+            return (sm.getFormattedCurrent() + ' <div class="slmrkArrow">→</div> ' + sm.theorical);
+        }
     } else if(sm.studied === 0) {
         if(isEffectUnvaluable(sm.effect)) return "None";
-        else return ("0 ---> " + sm.getNext());
+        else return ('0 <div class="slmrkArrow">→</div> ' + sm.getFormattedNext());
     } else if(sm.studied > 0 && sm.studied < sm.researchTotal) {
         if(isEffectUnvaluable(sm.effect)) return "None";
-        else return (sm.getCurrent() + ' ---> ' + sm.getNext());
+        else return (sm.getFormattedCurrent() + ' <div class="slmrkArrow">→</div> ' + sm.getFormattedNext());
     } else if(sm.isMastered()) {
         return "Mastered";
     }
