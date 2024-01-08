@@ -229,7 +229,7 @@ class Game {
             addTooltip(this.tabs[i].domWhat, function(tab){return function(){return tab.desc;};}(this.tabs[i]), {offY:-8});
         }
         // SETS THE STARTING TAB
-        this.setTab(this.tabs[1]);
+        this.setTab(this.tabs[4]);
     }
 
     setTab(tab) {
@@ -382,8 +382,8 @@ class Game {
         //this.inventory.enchant(this.inventory.weapons[0], this.inventory.sigils[1]);
         //this.inventory.enchant(this.inventory.armors[0], this.inventory.sigils[0]);
 
-        this.currentDungeon = this.all_dungeons.find(x => x.name === 'Putrescent Ossuary');
-        this.currentDungeon.init();
+        //this.currentDungeon = this.all_dungeons.find(x => x.name === 'Putrescent Ossuary');
+        //this.currentDungeon.init();
 
         // Config.Soulwriting.forEach(sw => {
         //     sw.unlocked = true;
@@ -398,8 +398,8 @@ class Game {
         drawStridersScreen();
         drawHubScreen();
         drawWorkshopScreen();
-        drawExplorationScreen();
-        //drawExplorationHubScreen();
+        //drawExplorationScreen();
+        drawExplorationHubScreen();
         drawEonScreen();
         drawEmptyBattleScreen();
 
@@ -438,7 +438,7 @@ class Game {
 
         console.clear();
 
-        this.startBattle(Entity.clone(what(game.all_enemyFormations, "gnarlyAndFungaliant")));
+        //this.startBattle(Entity.clone(what(game.all_enemyFormations, "gnarlyAndFungaliant")));
         //this.currentBattle.end();
 
         this.initBlackMarket();
