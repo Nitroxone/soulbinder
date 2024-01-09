@@ -2290,3 +2290,24 @@ function getBattleTypeSound(type) {
             return Data.SoundType.BATTLE_WIN_BOSS;
     }
 }
+
+/**
+ * Returns the closest possible elements of the array at the given index.
+ * @param {any[]} arr the array to process
+ * @param {number} index which index to search upon
+ * @returns {any[]} the closest elements
+ */
+function getClosestElements(arr, index) {
+    // Ensure the index is within a valid range
+    if(index < 0 || index >= arr.length) {
+        console.error('Invalid index');
+        return;
+    }
+
+    // Calculate the range of indices to consider (within the bounds of the array)
+    const start = Math.max(0, index -1);
+    const end = Math.min(arr.length - 1, index + 1)
+
+    // Get the elements within the specified range
+    return arr.slice(start, end + 1);
+}
