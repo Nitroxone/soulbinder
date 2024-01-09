@@ -6,15 +6,6 @@
 
 /**
  * The DungeonFloor holds all of the logic and data of a Dungeon's floor.
- * 
- * TECHNICAL STUFF:
- * There are different factors that alter the generation of rooms.
- * First, clusters are generated : they are dots placed on the grid, around which dungeon rooms will be generated.
- * The clusters' positioning is determined like that :
- * - A straight vertical, horizontally centered line is drawn on the grid, from top to bottom. 
- * - The line is by default straight, but it can be altered with two variables.
- * - The pathCurve variable tells how curvy the line should be. It's a value between 0 and 1 (0 = straight, 1 = very curvy)
- * - The chaoticCurve variable, which matters only if pathCurve > 0, determines the amplitude of the curve. The higher, the curviest (default = 2).
  */
 class DungeonFloor {
     constructor(props) {
@@ -50,16 +41,6 @@ class DungeonFloor {
     }
 
     /**
-     * Generates connections between each room. 
-     * Each room connects to the next one in the same cluster. 
-     * The last room of a cluster connects to the first room of the next cluster.
-     * The last room of the last cluster has no connection with a next room.
-     */
-    generateConnections() {
-
-    }
-
-    /**
      * Fills the rooms array with empty rooms, according to the ROWS and COLS of the floor.
      */
     generateGrid() {
@@ -89,10 +70,14 @@ class DungeonFloor {
             console.log(ro.coordinates);
         })
 
+        // Keep track of visited rooms
+        const visitedRooms = new Set();
+
         // Create a path from each starting room
         startingRooms.forEach(room => {
             // Recursivity time!
-            this.createPathFromStartingRoom(room);
+            this.createPathFromStartingRoom(room, visitedRooms);
+            visitedRooms.clear();
         });
     }
 
@@ -100,8 +85,8 @@ class DungeonFloor {
      * Creates a path of rooms, using the provided room as a starting point.
      * @param {DungeonRoom} start the path's starting point
      */
-    createPathFromStartingRoom(start) {
-        this.createPathRecursive(start, 1);
+    createPathFromStartingRoom(start, visitedRooms) {
+        this.createPathRecursive(start, 1, visitedRooms);
     }
 
     /**
@@ -109,19 +94,23 @@ class DungeonFloor {
      * @param {*} current the current room
      * @param {*} row the row of the room
      */
-    createPathRecursive(current, row) {
+    createPathRecursive(current, row, visitedRooms) {
         current.type = Data.DungeonRoomType.CHASM;
+        visitedRooms.add(current);
+
         if(row >= this.ROWS) return;
 
         // Find random position in the next row
-        const pool = this.rooms.filter(x => x.coordinates[0] === row);
+        const pool = this.rooms.filter(x => x.coordinates[0] === row && !visitedRooms.has(x));
+        if(pool.length === 0) return; // No more rooms available in the row
+
         const next = choose(getClosestElements(pool, current.coordinates[1]));
         // Connect the rooms!
         current.nextRoom = next;
         next.previousRoom = current;
 
         // Continue to next room
-        this.createPathRecursive(next, row + 1);
+        this.createPathRecursive(next, row + 1, visitedRooms);
     }
 
     /**
@@ -148,46 +137,51 @@ class DungeonFloor {
     }
 
     print() {
-        for(let i = 0; i != this.ROWS; i++) {
-            let row = [i];
-            for(let j = 0; j != this.COLS; j++) {
-            
-                switch(hasRoomWithCoordinates(this.rooms, [i, j]).type) {
+        // Print column indices
+        let colIndices = '  ';
+        for (let j = 0; j < this.COLS; j++) {
+            colIndices += ' ' + j.toString().padStart(2, ' ');
+        }
+        console.log(colIndices);
+    
+        for (let i = 0; i < this.ROWS; i++) {
+            let row = i.toString().padStart(2, ' ') + ' ';
+            for (let j = 0; j < this.COLS; j++) {
+                const room = hasRoomWithCoordinates(this.rooms, [i, j]);
+                switch (room.type) {
                     case Data.DungeonRoomType.ANTECHAMBER_OF_MARVELS:
-                        row.push('A');
+                        row += ' A ';
                         break;
                     case Data.DungeonRoomType.BOSS:
-                        row.push('B');
+                        row += ' B ';
                         break;
                     case Data.DungeonRoomType.CHASM:
-                        row.push('?');
+                        row += ' ? ';
                         break;
                     case Data.DungeonRoomType.DORMANT_ROOM:
-                        row.push('D');
+                        row += ' D ';
                         break;
                     case Data.DungeonRoomType.EMPTY:
-                        row.push('.');
+                        row += ' . ';
                         break;
                     case Data.DungeonRoomType.ENTRANCE:
-                        row.push('!');
+                        row += ' ! ';
                         break;
                     case Data.DungeonRoomType.ETERNITY_WELL:
-                        row.push('E');
+                        row += ' E ';
                         break;
                     case Data.DungeonRoomType.FRACTURED_HOLLOW:
-                        row.push('F');
+                        row += ' F ';
                         break;
                     case Data.DungeonRoomType.SACRIFICIAL_ALCOVE:
-                        row.push('S');
+                        row += ' S ';
                         break;
                 }
-                
-                //if(j === this.COLS - 1) break;
             }
-            console.log(row.join(' '));
-            //if(i === this.ROWS - 1) break;
+            console.log(row);
         }
     }
+    
 
     /**
      * Returns the Entrance room of this floor.
