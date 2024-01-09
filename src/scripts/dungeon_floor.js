@@ -60,13 +60,8 @@ class DungeonFloor {
     }
 
     /**
-     * Generates the amount of rooms per cluster. This amount will be randomized if the DungeonFloor parameter "unequalRepartition" is set to true.
-     * @returns {number[]} the amount of rooms per cluster
+     * Fills the rooms array with empty rooms, according to the ROWS and COLS of the floor.
      */
-    generateRoomCounts() {
-
-    }
-
     generateGrid() {
         for(let i = 0; i < this.ROWS; i++) {
             for(let j = 0; j < this.COLS; j++) {
@@ -75,6 +70,9 @@ class DungeonFloor {
         }
     }
 
+    /**
+     * Generates paths and rooms for this floor.
+     */
     generateRooms() {
         // Pick starting rooms
         const startingRooms = [];
@@ -98,10 +96,19 @@ class DungeonFloor {
         });
     }
 
+    /**
+     * Creates a path of rooms, using the provided room as a starting point.
+     * @param {DungeonRoom} start the path's starting point
+     */
     createPathFromStartingRoom(start) {
         this.createPathRecursive(start, 1);
     }
 
+    /**
+     * Recursively creates a path by reassigning room coordinates.
+     * @param {*} current the current room
+     * @param {*} row the row of the room
+     */
     createPathRecursive(current, row) {
         current.type = Data.DungeonRoomType.CHASM;
         if(row >= this.ROWS) return;
@@ -117,6 +124,10 @@ class DungeonFloor {
         this.createPathRecursive(next, row + 1);
     }
 
+    /**
+     * Prints various informations about the path that starts from the provided room.
+     * @param {DungeonRoom} start the path start
+     */
     getPathInfo(start) {
         const getNextCoords = (current, results) => {
             if(!current.nextRoom) return results;
