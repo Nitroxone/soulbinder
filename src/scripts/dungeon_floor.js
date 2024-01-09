@@ -103,14 +103,12 @@ class DungeonFloor {
     }
 
     createPathRecursive(current, row) {
-        if(row >= this.ROWS) return;
-
         current.type = Data.DungeonRoomType.CHASM;
+        if(row >= this.ROWS) return;
 
         // Find random position in the next row
         const pool = this.rooms.filter(x => x.coordinates[0] === row);
         const next = choose(getClosestElements(pool, current.coordinates[1]));
-
         // Connect the rooms!
         current.nextRoom = next;
         next.previousRoom = current;
@@ -119,48 +117,64 @@ class DungeonFloor {
         this.createPathRecursive(next, row + 1);
     }
 
+    getPathInfo(start) {
+        const getNextCoords = (current, results) => {
+            if(!current.nextRoom) return results;
+
+            results.push(current.coordinates);
+            console.log(results);
+
+            return getNextCoords(current.nextRoom, results);
+        }
+        const res = getNextCoords(start, []);
+        
+        if(res) {
+            console.log('The path starting from ' + start.coordinates + ' has ' + res.length + ' rooms.');
+            let str = '';
+            res.forEach(re => { str += re + '\n' });
+            console.log(str);
+        } else console.error('Something went wrong!')
+    }
+
     print() {
-        for(let i = 0; i < this.COLS; i++) {
-            let row = [];
-            for(let j = 0; j < this.ROWS; j++) {
+        for(let i = 0; i != this.ROWS; i++) {
+            let row = [i];
+            for(let j = 0; j != this.COLS; j++) {
             
-                if(hasRoomWithCoordinates(this.rooms, [i, j])) {
-                    switch(hasRoomWithCoordinates(this.rooms, [i, j]).type) {
-                        case Data.DungeonRoomType.ANTECHAMBER_OF_MARVELS:
-                            row.push('A');
-                            break;
-                        case Data.DungeonRoomType.BOSS:
-                            row.push('B');
-                            break;
-                        case Data.DungeonRoomType.CHASM:
-                            row.push('?');
-                            break;
-                        case Data.DungeonRoomType.DORMANT_ROOM:
-                            row.push('D');
-                            break;
-                        case Data.DungeonRoomType.EMPTY:
-                            row.push('.');
-                            break;
-                        case Data.DungeonRoomType.ENTRANCE:
-                            row.push('!');
-                            break;
-                        case Data.DungeonRoomType.ETERNITY_WELL:
-                            row.push('E');
-                            break;
-                        case Data.DungeonRoomType.FRACTURED_HOLLOW:
-                            row.push('F');
-                            break;
-                        case Data.DungeonRoomType.SACRIFICIAL_ALCOVE:
-                            row.push('S');
-                            break;
-                    }
+                switch(hasRoomWithCoordinates(this.rooms, [i, j]).type) {
+                    case Data.DungeonRoomType.ANTECHAMBER_OF_MARVELS:
+                        row.push('A');
+                        break;
+                    case Data.DungeonRoomType.BOSS:
+                        row.push('B');
+                        break;
+                    case Data.DungeonRoomType.CHASM:
+                        row.push('?');
+                        break;
+                    case Data.DungeonRoomType.DORMANT_ROOM:
+                        row.push('D');
+                        break;
+                    case Data.DungeonRoomType.EMPTY:
+                        row.push('.');
+                        break;
+                    case Data.DungeonRoomType.ENTRANCE:
+                        row.push('!');
+                        break;
+                    case Data.DungeonRoomType.ETERNITY_WELL:
+                        row.push('E');
+                        break;
+                    case Data.DungeonRoomType.FRACTURED_HOLLOW:
+                        row.push('F');
+                        break;
+                    case Data.DungeonRoomType.SACRIFICIAL_ALCOVE:
+                        row.push('S');
+                        break;
                 }
-                else row.push('.');
                 
-                if(j === this.gridSize[1] - 1) break;
+                //if(j === this.COLS - 1) break;
             }
             console.log(row.join(' '));
-            if(i === this.gridSize[0] - 1) break;
+            //if(i === this.ROWS - 1) break;
         }
     }
 
