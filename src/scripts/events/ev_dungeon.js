@@ -213,7 +213,7 @@ function dungeonSearchEvent() {
 }
 
 function generateMapRoomsEvents() {
-    game.currentDungeon.currentFloor.rooms.forEach(room => {
+    game.currentDungeon.currentFloor.getAssignedRooms().forEach(room => {
         const nextRoom = room.nextRoom || null;
         const previousRoom = room.previousRoom || null;
 

@@ -9,16 +9,12 @@ function drawExplorationScreen() {
     str += '<div id="exploration-mapPanel" class="coolBorder">'
     str += '<div class="exploration-repositionMap"></div>';
     str += '<div class="exploration-mapContainer">';
-    str += '<div class="exploration-map" style="width: ' + (floor.gridSize[1] * 50) + 'px; height: ' + (floor.gridSize[0] * 50) + 'px;">';
-    floor.clusters.forEach(cl => {
-        const cluster = 'parentCluster-' + cl.id;
-        str += '<div id="cl-' + cl.id + '" class="map-clusterContainer" style="top: ' + cl.coordinates[0] * 50 + 'px; left: ' + cl.coordinates[1] * 50 + 'px;"></div>';
-        cl.childrenRooms.forEach(ch => {
-            str += '<div id="ch-' + ch.id + '" class="' + cluster + ' map-roomContainer coolBorder' + (ch === floor.currentRoom ? ' visitedRoom currentRoom' : ch.revealed ? ' revealedRoom visitedRoom' : cl.revealedCluster ? ' revealedRoom' : ' hiddenRoom') + '" style="top: ' + ch.coordinates[0] * 50 + 'px; left: ' + ch.coordinates[1] * 50 + 'px;">';
-            str += '<div class="dr-type dr-type-' + ch.type.replaceAll(' ', '_') + '"></div>';
-            str += '</div>';
-        });
-    })
+    str += '<div class="exploration-map" style="width: ' + (floor.gridSize[0] * 100) + 'px; height: ' + (floor.gridSize[1] * 100) + 'px;">';
+    floor.getAssignedRooms().forEach(room => {
+        str += '<div id="ch-' + room.id + '" class="map-roomContainer coolBorder' + (room === floor.currentRoom ? ' visitedRoom currentRoom' : room.revealed ? ' revealedRoom visitedRoom' : ' hiddenRoom') + '" style="top: ' + room.coordinates[0] * 100 + 'px; left: ' + room.coordinates[1] * 100 + 'px;">';
+        str += '<div class="dr-type dr-type-' + room.type.replaceAll(' ', '_') + '"></div>';
+        str += '</div>';
+    });
     str += '</div>';
     str += '</div>';
     str += '<img class="mapCornerTl" src="css/img/map_tl_corner.png" />';
@@ -36,7 +32,6 @@ function drawExplorationScreen() {
     document.querySelector('.explorationContainer').innerHTML = str;
 
     drawMapConnectors();
-    revealFarClusters();
     bringRoomsForward();
     generateExplorationMapEvents();
     generateExplorationInfosPanelEvents();
@@ -219,19 +214,7 @@ function drawMapConnectors(refresh = false) {
 
     str += '<svg class="mapConnectorsOverlay" height="' + parent.scrollHeight + '" width="' + parent.offsetWidth + '">';
 
-    revealCluster(game.currentDungeon.currentFloor.currentRoom.parentCluster);
-    const currentRoom = game.currentDungeon.currentFloor.currentRoom;
-    const currentRoomDom = document.querySelector('#ch-' + currentRoom.id);
-    if(currentRoom.previousRoom) {
-        let previousRoomDom = document.querySelector('#ch-' + currentRoom.previousRoom.id);
-        if(currentRoomDom.classList[0] !== previousRoomDom.classList[0]) revealCluster(currentRoom.previousRoom.parentCluster);
-    }
-    if(currentRoom.nextRoom) {
-        let nextRoomDom = document.querySelector('#ch-' + currentRoom.nextRoom.id);
-        if(currentRoomDom.classList[0] !== nextRoomDom.classList[0]) revealCluster(currentRoom.nextRoom.parentCluster);
-    }
-
-    game.currentDungeon.currentFloor.rooms.forEach(room => {
+    game.currentDungeon.currentFloor.getAssignedRooms().forEach(room => {
         if(!room.nextRoom) return;
         const elem = document.querySelector('#ch-' + room.id);
 
