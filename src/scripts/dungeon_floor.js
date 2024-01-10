@@ -188,19 +188,21 @@ class DungeonFloor {
             let connectors = '';
             connectors += i.toString().padStart(2, ' ') + ' ';
 
-            let prev = this.rooms.filter(x => x.coordinates[0] === i);
+            let prev = this.rooms.filter(x => x.coordinates[0] === i+1);
             prev.forEach(room => {
-                if(!room.nextRoom) {
+                if(!room.previousRoom) {
                     connectors += '  ';
                 }
-                else if(room.nextRoom.coordinates[1] > room.coordinates[1]) connectors += ' \\';
-                else if(room.nextRoom.coordinates[1] == room.coordinates[1]) connectors += '| ';
-                else if(room.nextRoom.coordinates[1] < room.coordinates[1]) {
-                    if(!connectors.endsWith('/ ')) {
-                        connectors = connectors.slice(0, -1);
-                        connectors += '/  ';
+                else {
+                    if(room.previousRoom.coordinates[1] < room.coordinates[1]) {
+                        if(connectors.endsWith(' ')) {
+                            connectors = connectors.slice(0, -1);
+                            connectors += '\\  ';
+                        }
+                        else connectors += '\\ ';
                     }
-                    else connectors += '/ ';
+                    else if(room.previousRoom.coordinates[1] == room.coordinates[1]) connectors += '| ';
+                    else if(room.previousRoom.coordinates[1] > room.coordinates[1]) connectors += ' /';
                 }
             })
             total += connectors;
