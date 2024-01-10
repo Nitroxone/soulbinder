@@ -33,8 +33,9 @@ class DungeonFloor {
         this.generateRooms();
 
         //this.currentRoom = this.getEntranceRoom();
-        //this.revealCurrentRoom();
-        //this.identifyCurrentRoom();
+        this.currentRoom = choose(this.rooms.filter(x => x.coordinates[0] === 0 && x.nextRoom));
+        this.revealCurrentRoom();
+        this.identifyCurrentRoom();
 
         //this.visitCurrentRoom();
         //this.clearCurrentRoom();
@@ -285,5 +286,9 @@ class DungeonFloor {
             this.attemptToIdentifyRoom();
         }
         else return false;
+    }
+
+    getAssignedRooms() {
+        return this.rooms.filter(x => x.type !== Data.DungeonRoomType.EMPTY)
     }
 }
