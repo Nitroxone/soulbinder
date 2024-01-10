@@ -209,33 +209,64 @@ function revealFarClusters() {
 
 function drawMapConnectors(refresh = false) {
     const parent = document.querySelector('.exploration-map');
+    const rooms = game.currentDungeon.currentFloor.getAssignedRooms();
 
     let str = '';
 
     str += '<svg class="mapConnectorsOverlay" height="' + parent.scrollHeight + '" width="' + parent.offsetWidth + '">';
 
-    game.currentDungeon.currentFloor.getAssignedRooms().forEach(room => {
-        if(!room.nextRoom) return;
-        const elem = document.querySelector('#ch-' + room.id);
-
-        const basePos = elem.getBoundingClientRect();
-        const basePosOriginX = (elem.offsetLeft + basePos.width / 2) + 4.5;
-        const basePosOriginY = (elem.offsetTop + basePos.height / 2) + 4.5;
-
-        const nextRoomDom = document.querySelector('#ch-' + room.nextRoom.id);
-        const targetPos = nextRoomDom.getBoundingClientRect();
-        const targetPosOriginX = (nextRoomDom.offsetLeft + targetPos.width / 2) + 4.5;
-        const targetPosOriginY = (nextRoomDom.offsetTop + targetPos.height / 2) + 4.5;
-        const id = 'connector_' + room.id + '_to_' + room.nextRoom.id;
-
-        let color = '';
-        if(room.revealed) {
-            if(!room.nextRoom.revealed) color = ' canVisitConnector';
-            else color = ' visitedConnector';
+    rooms.forEach(ro => {
+        if(!ro.nextRoom) return;
+        else {
+            rooms.filter(x => x.coordinates[0] === ro.coordinates[0] && x.nextRoom.previousRoom === ro).forEach(room => {
+                if(!room.nextRoom) return;
+                const elem = document.querySelector('#ch-' + room.id);
+    
+                const basePos = elem.getBoundingClientRect();
+                const basePosOriginX = (elem.offsetLeft + basePos.width / 2) + 4.5;
+                const basePosOriginY = (elem.offsetTop + basePos.height / 2) + 4.5;
+    
+                console.log('PROCESSING ROOM ' + room.coordinates);
+                const nextRoomDom = document.querySelector('#ch-' + room.nextRoom.id);
+                const targetPos = nextRoomDom.getBoundingClientRect();
+                const targetPosOriginX = (nextRoomDom.offsetLeft + targetPos.width / 2) + 4.5;
+                const targetPosOriginY = (nextRoomDom.offsetTop + targetPos.height / 2) + 4.5;
+                const id = 'connector_' + room.id + '_to_' + room.nextRoom.id;
+    
+                let color = '';
+                if(room.revealed) {
+                    if(!room.nextRoom.revealed) color = ' canVisitConnector';
+                    else color = ' visitedConnector';
+                }
+                if(!room.revealed && room.nextRoom.revealed) color = ' canVisitConnector';
+    
+                str += '<line class="mapConnector' + color + '" id="' + id + '" x1="' + basePosOriginX + '" y1="' + basePosOriginY + '" x2="' + targetPosOriginX + '" y2="' + targetPosOriginY + '" style="stroke-width: 1;" />';
+            });
+            rooms.filter(x => x.coordinates[0] === ro.coordinates[0]+1 && x.previousRoom === ro).forEach(room => {
+                if(!room.previousRoom) return;
+                const elem = document.querySelector('#ch-' + room.id);
+    
+                const basePos = elem.getBoundingClientRect();
+                const basePosOriginX = (elem.offsetLeft + basePos.width / 2) + 4.5;
+                const basePosOriginY = (elem.offsetTop + basePos.height / 2) + 4.5;
+    
+                console.log('PROCESSING ROOM ' + room.coordinates);
+                const nextRoomDom = document.querySelector('#ch-' + room.previousRoom.id);
+                const targetPos = nextRoomDom.getBoundingClientRect();
+                const targetPosOriginX = (nextRoomDom.offsetLeft + targetPos.width / 2) + 4.5;
+                const targetPosOriginY = (nextRoomDom.offsetTop + targetPos.height / 2) + 4.5;
+                const id = 'connector_' + room.id + '_to_' + room.previousRoom.id;
+    
+                let color = '';
+                if(room.revealed) {
+                    if(!room.previousRoom.revealed) color = ' canVisitConnector';
+                    else color = ' visitedConnector';
+                }
+                if(!room.revealed && room.previousRoom.revealed) color = ' canVisitConnector';
+    
+                str += '<line class="mapConnector' + color + '" id="' + id + '" x1="' + basePosOriginX + '" y1="' + basePosOriginY + '" x2="' + targetPosOriginX + '" y2="' + targetPosOriginY + '" style="stroke-width: 1;" />';
+            })
         }
-        if(!room.revealed && room.nextRoom.revealed) color = ' canVisitConnector';
-
-        str += '<line class="mapConnector' + color + '" id="' + id + '" x1="' + basePosOriginX + '" y1="' + basePosOriginY + '" x2="' + targetPosOriginX + '" y2="' + targetPosOriginY + '" style="stroke-width: 1;" />';
     });
 
     str += '</svg>';

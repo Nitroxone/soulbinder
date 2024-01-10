@@ -10,7 +10,7 @@
 class DungeonFloor {
     constructor(props) {
         this.depth = getValueFromObject(props, "depth", 0);
-        this.gridSize = getValueFromObject(props, "gridSize", [7, 15]); // [width, height]
+        this.gridSize = getValueFromObject(props, "gridSize", [10, 7]); // [width, height]
         this.roomTypes = getValueFromObject(props, "roomTypes", {
             "boss room": 1,
             "eternity well": getRandomNumber(1, 3),
@@ -97,7 +97,7 @@ class DungeonFloor {
      */
     createPathRecursive(current, row, visitedRooms) {
         current.type = Data.DungeonRoomType.CHASM;
-        visitedRooms.add(current);
+        //visitedRooms.add(current);
 
         if(row >= this.ROWS) return;
 

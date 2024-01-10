@@ -6551,7 +6551,7 @@ table.astralForgeShards td {
 }
 
 .map-roomContainer.hiddenRoom {
-    opacity: 0;
+    /*opacity: 0;*/
 }
 .map-roomContainer.revealedRoom {
     opacity: 0.5;
@@ -6626,7 +6626,7 @@ table.astralForgeShards td {
 
 .mapConnector {
     transition: all 1s cubic-bezier(1, 0, 0, 1);
-    stroke: transparent;
+    stroke: blueviolet;
 }
 .visitedConnector {
     stroke: grey;
