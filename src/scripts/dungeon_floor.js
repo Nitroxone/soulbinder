@@ -270,6 +270,7 @@ class DungeonFloor {
      */
     moveToNextRoom() {
         if(this.room.nextRoom) {
+            console.log('moving to next room!');
             this.room = this.room.nextRoom;
             this.attemptToIdentifyRoom();
         }
