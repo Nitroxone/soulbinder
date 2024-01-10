@@ -345,7 +345,7 @@ function generateExplorationMapEvents() {
         targetLeft -= parseFloat(currentDom.style.left);
         targetTop -= parseFloat(currentDom.style.top);
 
-        map.style.transition = 'transform .2s cubic-bezier(.49,-0.02,0,1.05) 0s, left .2s cubic-bezier(.49,-0.02,0,1.05) 0s, top .2s cubic-bezier(.49,-0.02,0,1.05) 0s';
+        map.style.transition = 'transform .5s cubic-bezier(0.075, 0.82, 0.165, 1) 0s, left .5s cubic-bezier(0.075, 0.82, 0.165, 1) 0s, top .5s cubic-bezier(0.075, 0.82, 0.165, 1) 0s';
         mapContainer.style.transition = 'background-position-x .5s cubic-bezier(1,0,0,1), background-position-y .5s cubic-bezier(1,0,0,1)';
         map.style.transform = 'scale(1)';
         map.style.left = targetLeft + 'px';
