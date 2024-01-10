@@ -1,8 +1,8 @@
 function drawExplorationScreen() {
     document.querySelector('#explorationDiv').innerHTML = '<div class="explorationContainer"></div>';
 
-    const dungeon = game.currentDungeon;
-    const floor = dungeon.currentFloor;
+    const dungeon = game.dungeon;
+    const floor = dungeon.floor;
 
     let str ='';
 
@@ -11,8 +11,9 @@ function drawExplorationScreen() {
     str += '<div class="exploration-mapContainer">';
     str += '<div class="exploration-map" style="width: ' + (floor.gridSize[0] * 100) + 'px; height: ' + (floor.gridSize[1] * 100) + 'px;">';
     floor.getAssignedRooms().forEach(room => {
-        str += '<div id="ch-' + room.id + '" class="map-roomContainer coolBorder' + (room === floor.currentRoom ? ' visitedRoom currentRoom' : room.revealed ? ' revealedRoom visitedRoom' : ' hiddenRoom') + '" style="top: ' + room.coordinates[0] * 100 + 'px; left: ' + room.coordinates[1] * 100 + 'px;">';
-        str += '<div class="dr-type dr-type-' + room.type.replaceAll(' ', '_') + '"></div>';
+        str += '<div id="ch-' + room.id + '" class="map-roomContainer coolBorder' + (room === floor.room ? ' visitedRoom currentRoom' : room.revealed ? ' revealedRoom visitedRoom' : ' hiddenRoom') + '" style="top: ' + room.coordinates[0] * 100 + 'px; left: ' + room.coordinates[1] * 100 + 'px;">';
+        //str += '<div class="dr-type dr-type-' + room.type.replaceAll(' ', '_') + '"></div>';
+        str += '<span style="font-size: 1rem">' + room.coordinates + '</span>';
         str += '</div>';
     });
     str += '</div>';
@@ -88,16 +89,16 @@ function clearCurrentDungeonPanelDesc() {
 }
 
 function clearCurrentRoom() {
-    game.currentDungeon.currentFloor.currentRoom.clear();
+    game.dungeon.floor.room.clear();
     document.querySelector('.infosPanel-roomHeader').classList.add('clearedHeader');
-    document.querySelector('.roomHeader-status').innerHTML = game.currentDungeon.currentFloor.currentRoom.status;
+    document.querySelector('.roomHeader-status').innerHTML = game.dungeon.floor.room.status;
 
     clearCurrentDungeonPanelDesc();
-    setTimeout(() => {displayTextLetterByLetter(game.currentDungeon.currentFloor.currentRoom.getRoomDescription(), '.infosPanel-roomDesc', 0);}, 10);
+    setTimeout(() => {displayTextLetterByLetter(game.dungeon.floor.room.getRoomDescription(), '.infosPanel-roomDesc', 0);}, 10);
 }
 
 function drawDungeonFoundLoot(refresh = false) {
-    let loot = game.currentDungeon.currentFloor.currentRoom.foundLoot;
+    let loot = game.dungeon.floor.room.foundLoot;
 
     let str = '';
     str += '<div class="divider"></div>'
@@ -139,7 +140,7 @@ function drawDungeonStats(refresh = false) {
 
 function drawExplorationInfosPanel(refresh = false) {
     let str = '';
-    const currentRoom = game.currentDungeon.currentFloor.currentRoom;
+    const currentRoom = game.dungeon.floor.room;
     const actions = currentRoom.getActions();
 
     str += '<div class="infosPanel-roomHeader' + (currentRoom.status === Data.DungeonRoomStatus.CLEARED ? ' clearedHeader' : '') + '">';
@@ -171,7 +172,7 @@ function drawExplorationInfosPanel(refresh = false) {
 
 function drawDungeonPanelActions(refresh = false) {
     let str = '';
-    const actions = game.currentDungeon.currentFloor.currentRoom.getActions();
+    const actions = game.dungeon.floor.room.getActions();
 
     if(actions.includes(Data.DungeonRoomAction.ENTER)) {
         str += getDungeonEnterButton(actions.includes(Data.DungeonRoomAction.SCOUT));
@@ -199,7 +200,7 @@ function revealCluster(cluster) {
 }
 
 function revealFarClusters() {
-    game.currentDungeon.currentFloor.clusters.filter(x => x.revealedCluster).forEach(cl => {
+    game.dungeon.floor.clusters.filter(x => x.revealedCluster).forEach(cl => {
         document.querySelectorAll('.parentCluster-' + cl.id).forEach(ro => {
             ro.classList.remove('hiddenRoom');
             ro.classList.add('revealedRoom');
@@ -209,7 +210,7 @@ function revealFarClusters() {
 
 function drawMapConnectors(refresh = false) {
     const parent = document.querySelector('.exploration-map');
-    const rooms = game.currentDungeon.currentFloor.getAssignedRooms();
+    const rooms = game.dungeon.floor.getAssignedRooms();
 
     let str = '';
 
@@ -218,6 +219,7 @@ function drawMapConnectors(refresh = false) {
     rooms.forEach(ro => {
         if(!ro.nextRoom) return;
         else {
+            // TODO: refacto this horrendous fucking shit (too lazy right now)
             rooms.filter(x => x.coordinates[0] === ro.coordinates[0] && x.nextRoom.previousRoom === ro).forEach(room => {
                 if(!room.nextRoom) return;
                 const elem = document.querySelector('#ch-' + room.id);

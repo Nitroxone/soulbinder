@@ -32,8 +32,8 @@ class DungeonFloor {
         this.generateGrid();
         this.generateRooms();
 
-        //this.currentRoom = this.getEntranceRoom();
-        this.currentRoom = choose(this.rooms.filter(x => x.coordinates[0] === 0 && x.nextRoom));
+        //this.room = this.getEntranceRoom();
+        this.room = choose(this.rooms.filter(x => x.coordinates[0] === 0 && x.nextRoom));
         this.revealCurrentRoom();
         this.identifyCurrentRoom();
 
@@ -225,28 +225,28 @@ class DungeonFloor {
      * Marks the current room as visited.
      */
     visitCurrentRoom() {
-        this.currentRoom.visited = true;
+        this.room.visited = true;
     }
 
     /**
      * Marks the current room as revealed.
      */
     revealCurrentRoom() {
-        this.currentRoom.revealed = true;
+        this.room.revealed = true;
     }
 
     /**
      * Marks the current room as identified.
      */
     identifyCurrentRoom() {
-        this.currentRoom.identified = true;
+        this.room.identified = true;
     }
 
     /**
      * Marks the current room as cleared.
      */
     clearCurrentRoom() {
-        this.currentRoom.status = Data.DungeonRoomStatus.CLEARED;
+        this.room.status = Data.DungeonRoomStatus.CLEARED;
     }
 
     /**
@@ -269,8 +269,8 @@ class DungeonFloor {
      * @returns {boolean} false if there is no next room (end reached)
      */
     moveToNextRoom() {
-        if(this.currentRoom.nextRoom) {
-            this.currentRoom = this.currentRoom.nextRoom;
+        if(this.room.nextRoom) {
+            this.room = this.room.nextRoom;
             this.attemptToIdentifyRoom();
         }
         else return false;
@@ -281,8 +281,8 @@ class DungeonFloor {
      * @returns {boolean} false if there is no previous room (beginning reached)
      */
     moveToPreviousRoom() {
-        if(this.currentRoom.previousRoom) {
-            this.currentRoom = this.currentRoom.previousRoom;
+        if(this.room.previousRoom) {
+            this.room = this.room.previousRoom;
             this.attemptToIdentifyRoom();
         }
         else return false;

@@ -43,7 +43,7 @@ class Game {
         this.currentBattle = null;
         this.selectedBiome = null;
         this.selectedZone = null;
-        this.currentDungeon = null;
+        this.dungeon = null;
 
         this.particlesTooltipCanvasInterval = null;
         this.particlesTooltipCanvasItem = null;
@@ -312,7 +312,7 @@ class Game {
     }
 
     startDungeon() {
-        this.currentDungeon = new Dungeon();
+        this.dungeon = new Dungeon();
         drawDungeon();
     }
 
@@ -382,8 +382,8 @@ class Game {
         //this.inventory.enchant(this.inventory.weapons[0], this.inventory.sigils[1]);
         //this.inventory.enchant(this.inventory.armors[0], this.inventory.sigils[0]);
 
-        this.currentDungeon = this.all_dungeons.find(x => x.name === 'Putrescent Ossuary');
-        this.currentDungeon.init();
+        this.dungeon = this.all_dungeons.find(x => x.name === 'Putrescent Ossuary');
+        this.dungeon.init();
 
         // Config.Soulwriting.forEach(sw => {
         //     sw.unlocked = true;

@@ -62,8 +62,8 @@ function generateDungeonKnapsackEvents() {
             if(e.shiftKey && !e.ctrlKey) amount = Math.min(Math.max(obj.knapsackAmount - 10, obj.knapsackAmount), 10);
             else if(e.ctrlKey && !e.shiftKey) amount = Math.min(Math.max(obj.knapsackAmount - 100, obj.knapsackAmount), 100);
 
-            if(game.currentDungeon && e.altKey) game.player.discardFromKnapsack(obj, amount);
-            else if(!game.currentDungeon) game.player.removeFromKnapsack(obj, amount);
+            if(game.dungeon && e.altKey) game.player.discardFromKnapsack(obj, amount);
+            else if(!game.dungeon) game.player.removeFromKnapsack(obj, amount);
         });
     })
 }

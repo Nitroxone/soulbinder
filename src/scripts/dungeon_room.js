@@ -36,7 +36,7 @@ class DungeonRoom {
         if(!this.identified) desc = choose(Speech.Dungeon.Rooms["unknown"]);
         else {
             if(this.type === Data.DungeonRoomType.ANTECHAMBER_OF_MARVELS) desc = choose(Speech.Dungeon.Rooms['antechamber of marvels']);
-            else desc = choose(Speech.Dungeon.Rooms[this.type][game.currentDungeon.name.toLowerCase()][this.status]);
+            else desc = choose(Speech.Dungeon.Rooms[this.type][game.dungeon.name.toLowerCase()][this.status]);
         }
         this.desc = desc;
 
@@ -130,7 +130,7 @@ class DungeonRoom {
     enterRoom() {
         switch(this.type) {
             case Data.DungeonRoomType.CHASM:
-                game.currentDungeon.moveToNextFloor();
+                game.dungeon.moveToNextFloor();
                 break;
             case Data.DungeonRoomType.DORMANT_ROOM:
                 this.assignEnemyGroup();
@@ -144,7 +144,7 @@ class DungeonRoom {
      * Assigns an enemy formation to this room, based on the dungeon's parameters.
      */
     assignEnemyGroup() {
-        const biome = game.currentDungeon.biome;
+        const biome = game.dungeon.biome;
         let pool = game.all_enemyFormations.filter(x => {
             return x.biome === biome || x.biome === Data.DungeonBiome.ALL
         });

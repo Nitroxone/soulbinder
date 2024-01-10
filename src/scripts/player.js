@@ -137,7 +137,7 @@ class Player {
 
         let it;
         if(ev instanceof Event) {
-            if(ev.dataTransfer.getData('origin') === 'inventory' && game.currentDungeon) {
+            if(ev.dataTransfer.getData('origin') === 'inventory' && game.dungeon) {
                 console.info('Cannot add items to the knapsack from the inventory while in a dungeon.');
                 return;
             }

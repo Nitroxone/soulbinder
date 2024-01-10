@@ -9,14 +9,14 @@ function drawEmptyBattleScreen() {
 function drawEndBattleScreen() {
     const battle = game.currentBattle;
     console.log(battle);
-    document.querySelector('#battleDiv').innerHTML = '<div class="battleEndContainer coolBorderBis" style="background-image: linear-gradient(0deg, transparent 0%, rgba(0, 0, 0, 1) 100%), url(\'css/img/bg/' + game.currentDungeon.background + '\')"></div>';
+    document.querySelector('#battleDiv').innerHTML = '<div class="battleEndContainer coolBorderBis" style="background-image: linear-gradient(0deg, transparent 0%, rgba(0, 0, 0, 1) 100%), url(\'css/img/bg/' + game.dungeon.background + '\')"></div>';
 
     let str = '';
 
     str += '<div class="battleEnd-header">';
     str += '<div class="titles">';
     str += '<h1>' + battle.outcome + '</h1>';
-    str += '<h3>' + game.currentDungeon.currentFloor.currentRoom.type + ' completed</h3>'
+    str += '<h3>' + game.dungeon.floor.room.type + ' completed</h3>'
     str += '</div>';
     str += '</div>';
 
@@ -103,8 +103,8 @@ function getBattleGlobalInfo(refresh = false) {
     let str = '';
 
     str += '<div class="battle-dungeonInfo">'
-    str += '<h1>' + (game.currentDungeon ? capitalizeFirstLetter(game.currentDungeon.name) : 'Unknown Dungeon') + '</h1>';
-    str += '<h4>' + (game.currentDungeon ? 'Depth ' + game.currentDungeon.currentFloor.depth + ' [' + + game.currentDungeon.currentFloor.currentRoom.coordinates[0] + ', ' + game.currentDungeon.currentFloor.currentRoom.coordinates[1] + '] — ' + capitalizeFirstLetter(game.currentDungeon.currentFloor.currentRoom.type) : 'Unknown Position') + '</h4>'
+    str += '<h1>' + (game.dungeon ? capitalizeFirstLetter(game.dungeon.name) : 'Unknown Dungeon') + '</h1>';
+    str += '<h4>' + (game.dungeon ? 'Depth ' + game.dungeon.floor.depth + ' [' + + game.dungeon.floor.room.coordinates[0] + ', ' + game.dungeon.floor.room.coordinates[1] + '] — ' + capitalizeFirstLetter(game.dungeon.floor.room.type) : 'Unknown Position') + '</h4>'
     str += '</div>';
 
     str += '<div class="battle-attackInfo"></div>';

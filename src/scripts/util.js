@@ -1398,7 +1398,7 @@ function isStunOrGuardRelatedEffect(eff) {
  * @param {Dungeon} dungeon the Dungeon to retrieve the parameters from
  * @returns {EnemyFormation} a matching EnemyFormation
  */
-function getRandomEnemyFormationFromDungeon(dungeon = game.currentDungeon) {
+function getRandomEnemyFormationFromDungeon(dungeon = game.dungeon) {
     let available = [];
     game.all_enemyFormations.forEach(ef => {
         if(ef.biome === dungeon.biome && ef.zone === dungeon.zone && ef.levels.includes(dungeon.currentLevel)) available.push(ef);

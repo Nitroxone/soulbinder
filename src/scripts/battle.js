@@ -111,7 +111,7 @@ class Battle {
         this.runTriggersOnAll(Data.TriggerType.ON_BATTLE_END);
         this.cleanAllBattleEffectsFromFighters();
         this.outcome = this.determineOutcome();
-        game.currentDungeon.currentFloor.currentRoom.battleEnded(this.outcome);
+        game.dungeon.floor.room.battleEnded(this.outcome);
         drawEndBattleScreen();
     }
 

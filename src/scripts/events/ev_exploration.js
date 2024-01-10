@@ -43,8 +43,8 @@ function generateExplHubRecapEvents() {
     diveButton.addEventListener('click', e => {
         if(game.selectedDungeon) {
             clearInterval(Quanta.emitters.find(x => x.name === 'explorationHub').loop);
-            game.currentDungeon = game.selectedDungeon;
-            game.currentDungeon.init();
+            game.dungeon = game.selectedDungeon;
+            game.dungeon.init();
             drawExplorationScreen();
         }
     });

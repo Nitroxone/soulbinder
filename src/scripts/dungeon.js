@@ -43,7 +43,7 @@ class Dungeon {
      */
     init() {
         this.generateFloors();
-        this.currentFloor = this.floors[0];
+        this.floor = this.floors[0];
     }
 
     /**
@@ -60,14 +60,14 @@ class Dungeon {
      * @returns {DungeonFloor|null}
      */
     getNextFloor() {
-        return this.floors[this.floors.indexOf(this.currentFloor) + 1];
+        return this.floors[this.floors.indexOf(this.floor) + 1];
     }
 
     /**
      * Changes the current floor to the next floor and refreshes the exploration screen.
      */
     moveToNextFloor() {
-        this.currentFloor = this.getNextFloor();
+        this.floor = this.getNextFloor();
         drawExplorationScreen();
     }
 }

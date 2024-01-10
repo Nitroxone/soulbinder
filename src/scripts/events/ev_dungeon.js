@@ -1,5 +1,5 @@
 function generateExplorationInfosPanelEvents() {
-    const currentRoom = game.currentDungeon.currentFloor.currentRoom;
+    const currentRoom = game.dungeon.floor.room;
     const delay = currentRoom.isCleared() ? 0 : 1;
     displayTextLetterByLetter(currentRoom.getRoomDescription(), '.infosPanel-roomDesc', delay);
 
@@ -42,7 +42,7 @@ function generateExplorationInfosPanelEvents() {
 
 function generateDungeonFoundLootEvents() {
     const elements = document.querySelectorAll('.roomLootResult-listItem');
-    const loot = game.currentDungeon.currentFloor.currentRoom.foundLoot;
+    const loot = game.dungeon.floor.room.foundLoot;
 
     elements.forEach(el => {
         if(el.classList.contains('lootedLoot')) return;
@@ -105,7 +105,7 @@ function generateDungeonFoundLootEvents() {
 
 function dungeonEnterEvent() {
     const enter = document.querySelector('.roomActions-action.enter');
-    const currentRoom = game.currentDungeon.currentFloor.currentRoom;
+    const currentRoom = game.dungeon.floor.room;
     if(currentRoom.identified) {
         dungeonEnterRoom();
     } else {
@@ -128,7 +128,7 @@ function dungeonEnterEvent() {
 }
 
 function dungeonEnterRoom() {
-    const room = game.currentDungeon.currentFloor.currentRoom;
+    const room = game.dungeon.floor.room;
     
     if(game.player.inCombat || room.isCleared()) return;
 
@@ -140,12 +140,12 @@ function dungeonEnterRoom() {
 }
 
 function dungeonRefreshRoomStatus() {
-    document.querySelector('.roomHeader-status').innerHTML = game.currentDungeon.currentFloor.currentRoom.status;
+    document.querySelector('.roomHeader-status').innerHTML = game.dungeon.floor.room.status;
 }
 
 function dungeonScoutEvent() {
     const scout = document.querySelector('.roomActions-action.scout');
-    const currentRoom = game.currentDungeon.currentFloor.currentRoom;
+    const currentRoom = game.dungeon.floor.room;
     if(currentRoom.scout()) {
         const sfCv = document.querySelector('#solarFireflyCanvas');
 
@@ -186,7 +186,7 @@ function dungeonScoutEvent() {
 
 function dungeonSearchEvent() {
     const search = document.querySelector('.roomActions-action.search');
-    const currentRoom = game.currentDungeon.currentFloor.currentRoom;
+    const currentRoom = game.dungeon.floor.room;
     if(!currentRoom.isCleared()) {
         currentRoom.generateRoomLoot();
         drawDungeonFoundLoot(true);
@@ -213,7 +213,7 @@ function dungeonSearchEvent() {
 }
 
 function generateMapRoomsEvents() {
-    game.currentDungeon.currentFloor.getAssignedRooms().forEach(room => {
+    game.dungeon.floor.getAssignedRooms().forEach(room => {
         const nextRoom = room.nextRoom || null;
         const previousRoom = room.previousRoom || null;
 
@@ -224,7 +224,7 @@ function generateMapRoomsEvents() {
         // When clicking on a room tile
         roomDom.addEventListener('click', e => {
             // Only works if clicking on an accessible tile (next or previous room to the current one)
-            if(nextRoom === game.currentDungeon.currentFloor.currentRoom || previousRoom === game.currentDungeon.currentFloor.currentRoom) {
+            if(nextRoom === game.dungeon.floor.room || previousRoom === game.dungeon.floor.room) {
                 if(game.player.inCombat) {
                     // Prevents changing rooms while in combat; 
                     //TODO: add notification
@@ -265,14 +265,14 @@ function generateMapRoomsEvents() {
                 }
 
                 // Moving backward
-                if(nextRoom === game.currentDungeon.currentFloor.currentRoom) {
+                if(nextRoom === game.dungeon.floor.room) {
                     nextRoomDom.classList.remove('currentRoom');
-                    game.currentDungeon.currentFloor.moveToPreviousRoom();
+                    game.dungeon.floor.moveToPreviousRoom();
                 }
                 // Moving forward
-                else if(previousRoom === game.currentDungeon.currentFloor.currentRoom) {
+                else if(previousRoom === game.dungeon.floor.room) {
                     previousRoomDom.classList.remove('currentRoom');
-                    game.currentDungeon.currentFloor.moveToNextRoom();
+                    game.dungeon.floor.moveToNextRoom();
                 }
 
                 roomDom.classList.add('currentRoom');
@@ -336,7 +336,7 @@ function generateExplorationMapEvents() {
         });
     });
     document.querySelector('.exploration-repositionMap').addEventListener('click', e => {
-        const current = game.currentDungeon.currentFloor.currentRoom;
+        const current = game.dungeon.floor.room;
         const currentDom = document.querySelector('#ch-' + current.id);
         console.log(currentDom);
 

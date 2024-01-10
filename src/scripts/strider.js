@@ -235,7 +235,7 @@ class Strider extends NPC {
     unequipTrinket(trinket, mute = false) {
         if(!trinket) return;
         if(!arrayContains(this.trinkets, trinket)) throw new Error('Tried to unequip a trinket that is not equipped.');
-        if(!game.currentDungeon) game.player.inventory.addItem(trinket, 1, true);
+        if(!game.dungeon) game.player.inventory.addItem(trinket, 1, true);
         else {
             if(game.player.isKnapsackFull()) {
                 console.log('Cannot unequip ' + trinket.name + ' because the Knapsack is full!');
@@ -406,7 +406,7 @@ class Strider extends NPC {
      */
     unequipArmor(armor, mute = false) {
         if(!armor) return;
-        if(!game.currentDungeon) game.player.inventory.addItem(armor, 1, true);
+        if(!game.dungeon) game.player.inventory.addItem(armor, 1, true);
         else {
             if(game.player.isKnapsackFull()) {
                 console.log('Cannot unequip ' + armor.name + ' because the Knapsack is full!');
@@ -541,7 +541,7 @@ class Strider extends NPC {
         if(hand === Data.WeaponHand.RIGHT && this.eqWeaponRight) {
             if(!this.eqWeaponRight) return;
             
-            if(!game.currentDungeon) game.player.inventory.addItem(this.eqWeaponRight, 1, true);
+            if(!game.dungeon) game.player.inventory.addItem(this.eqWeaponRight, 1, true);
             else {
                 if(game.player.isKnapsackFull()) {
                     console.log('Cannot unequip ' + this.eqWeaponRight.name + ' because the Knapsack is full!');
@@ -563,7 +563,7 @@ class Strider extends NPC {
         } else if(hand === Data.WeaponHand.LEFT && this.eqWeaponLeft) {
             if(!this.eqWeaponLeft) return;
             
-            if(!game.currentDungeon) game.player.inventory.addItem(this.eqWeaponLeft, 1, true);
+            if(!game.dungeon) game.player.inventory.addItem(this.eqWeaponLeft, 1, true);
             else {
                 if(game.player.isKnapsackFull()) {
                     console.log('Cannot unequip ' + this.eqWeaponLeft.name + ' because the Knapsack is full!');
@@ -585,7 +585,7 @@ class Strider extends NPC {
         } else if(hand === Data.WeaponHand.BOTH) {
             if(!this.eqWeaponBoth) return; 
             
-            if(!game.currentDungeon) game.player.inventory.addItem(this.eqWeaponBoth, 1, true);
+            if(!game.dungeon) game.player.inventory.addItem(this.eqWeaponBoth, 1, true);
             else {
                 if(game.player.isKnapsackFull()) {
                     console.log('Cannot unequip ' + this.eqWeaponBoth.name + ' because the Knapsack is full!');
