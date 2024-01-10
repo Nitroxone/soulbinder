@@ -382,8 +382,8 @@ class Game {
         //this.inventory.enchant(this.inventory.weapons[0], this.inventory.sigils[1]);
         //this.inventory.enchant(this.inventory.armors[0], this.inventory.sigils[0]);
 
-        //this.currentDungeon = this.all_dungeons.find(x => x.name === 'Putrescent Ossuary');
-        //this.currentDungeon.init();
+        this.currentDungeon = this.all_dungeons.find(x => x.name === 'Putrescent Ossuary');
+        this.currentDungeon.init();
 
         // Config.Soulwriting.forEach(sw => {
         //     sw.unlocked = true;
@@ -398,8 +398,8 @@ class Game {
         drawStridersScreen();
         drawHubScreen();
         drawWorkshopScreen();
-        //drawExplorationScreen();
-        drawExplorationHubScreen();
+        drawExplorationScreen();
+        //drawExplorationHubScreen();
         drawEonScreen();
         drawEmptyBattleScreen();
 
