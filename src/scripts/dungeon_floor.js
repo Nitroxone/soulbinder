@@ -137,12 +137,14 @@ class DungeonFloor {
     }
 
     print() {
+        let total = '';
+
         // Print column indices
         let colIndices = '  ';
         for (let j = 0; j < this.COLS; j++) {
-            colIndices += ' ' + j.toString().padStart(2, ' ');
+            colIndices += j.toString().padStart(2, ' ');
         }
-        console.log(colIndices);
+        total += colIndices + '\n';
     
         for (let i = 0; i < this.ROWS; i++) {
             let row = i.toString().padStart(2, ' ') + ' ';
@@ -150,36 +152,61 @@ class DungeonFloor {
                 const room = hasRoomWithCoordinates(this.rooms, [i, j]);
                 switch (room.type) {
                     case Data.DungeonRoomType.ANTECHAMBER_OF_MARVELS:
-                        row += ' A ';
+                        row += 'A ';
                         break;
                     case Data.DungeonRoomType.BOSS:
-                        row += ' B ';
+                        row += 'B ';
                         break;
                     case Data.DungeonRoomType.CHASM:
-                        row += ' ? ';
+                        row += '? ';
                         break;
                     case Data.DungeonRoomType.DORMANT_ROOM:
-                        row += ' D ';
+                        row += 'D ';
                         break;
                     case Data.DungeonRoomType.EMPTY:
-                        row += ' . ';
+                        row += '. ';
                         break;
                     case Data.DungeonRoomType.ENTRANCE:
-                        row += ' ! ';
+                        row += '! ';
                         break;
                     case Data.DungeonRoomType.ETERNITY_WELL:
-                        row += ' E ';
+                        row += 'E ';
                         break;
                     case Data.DungeonRoomType.FRACTURED_HOLLOW:
-                        row += ' F ';
+                        row += 'F ';
                         break;
                     case Data.DungeonRoomType.SACRIFICIAL_ALCOVE:
-                        row += ' S ';
+                        row += 'S ';
                         break;
                 }
             }
-            console.log(row);
+            total += row + '\n';
+
+            // Connections ?  .  .  .  .  .  .
+            // Retrieve the current row's rooms; 
+            // for each of them, determine the symbol to add based on the position of the next room
+            let connectors = '';
+            connectors += i.toString().padStart(2, ' ') + ' ';
+
+            let prev = this.rooms.filter(x => x.coordinates[0] === i);
+            prev.forEach(room => {
+                if(!room.nextRoom) {
+                    connectors += '  ';
+                }
+                else if(room.nextRoom.coordinates[1] > room.coordinates[1]) connectors += ' \\';
+                else if(room.nextRoom.coordinates[1] == room.coordinates[1]) connectors += '| ';
+                else if(room.nextRoom.coordinates[1] < room.coordinates[1]) {
+                    if(!connectors.endsWith('/ ')) {
+                        connectors = connectors.slice(0, -1);
+                        connectors += '/  ';
+                    }
+                    else connectors += '/ ';
+                }
+            })
+            total += connectors;
+            total += '\n'
         }
+        console.log(total);
     }
     
 
