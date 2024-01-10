@@ -217,10 +217,35 @@ function drawMapConnectors(refresh = false) {
     str += '<svg class="mapConnectorsOverlay" height="' + parent.scrollHeight + '" width="' + parent.offsetWidth + '">';
 
     rooms.forEach(ro => {
-        if(!ro.nextRoom) return;
+        if(!ro.nextRooms) return;
         else {
             // TODO: refacto this horrendous fucking shit (too lazy right now)
-            rooms.filter(x => x.coordinates[0] === ro.coordinates[0] && x.nextRoom.previousRoom === ro).forEach(room => {
+            ro.nextRooms.forEach(room => {
+
+                const elem = document.querySelector('#ch-' + ro.id);
+    
+                const basePos = elem.getBoundingClientRect();
+                const basePosOriginX = (elem.offsetLeft + basePos.width / 2) + 4.5;
+                const basePosOriginY = (elem.offsetTop + basePos.height / 2) + 4.5;
+    
+                console.log('PROCESSING ROOM ' + ro.coordinates);
+                const nextRoomDom = document.querySelector('#ch-' + room.id);
+                const targetPos = nextRoomDom.getBoundingClientRect();
+                const targetPosOriginX = (nextRoomDom.offsetLeft + targetPos.width / 2) + 4.5;
+                const targetPosOriginY = (nextRoomDom.offsetTop + targetPos.height / 2) + 4.5;
+                const id = 'connector_' + ro.id + '_to_' + room.id;
+    
+                let color = '';
+                if(room.revealed) {
+                    if(!room.revealed) color = ' canVisitConnector';
+                    else color = ' visitedConnector';
+                }
+                if(!room.revealed && room.revealed) color = ' canVisitConnector';
+    
+                str += '<line class="mapConnector' + color + '" id="' + id + '" x1="' + basePosOriginX + '" y1="' + basePosOriginY + '" x2="' + targetPosOriginX + '" y2="' + targetPosOriginY + '" style="stroke-width: 1;" />';
+            });
+
+            /*rooms.filter(x => x.coordinates[0] === ro.coordinates[0] && x.nextRoom.previousRoom === ro).forEach(room => {
                 if(!room.nextRoom) return;
                 const elem = document.querySelector('#ch-' + room.id);
     
@@ -267,7 +292,7 @@ function drawMapConnectors(refresh = false) {
                 if(!room.revealed && room.previousRoom.revealed) color = ' canVisitConnector';
     
                 str += '<line class="mapConnector' + color + '" id="' + id + '" x1="' + basePosOriginX + '" y1="' + basePosOriginY + '" x2="' + targetPosOriginX + '" y2="' + targetPosOriginY + '" style="stroke-width: 1;" />';
-            })
+            })*/
         }
     });
 

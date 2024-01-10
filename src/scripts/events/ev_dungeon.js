@@ -220,6 +220,19 @@ function generateMapRoomsEvents() {
 
         // When clicking on a room tile
         roomDom.addEventListener('click', e => {
+
+            const curr = game.dungeon.floor.room;
+            let candidate = curr.nextRooms.find(x => x == room) || curr.previousRooms.find(x => x == room);
+            console.log(candidate);
+
+            if(candidate) {
+                game.dungeon.floor.moveTo(candidate);
+            }
+            
+            
+
+            // ---------------------------------
+
             const currentRoom = game.dungeon.floor.room;
             const nextRoom = room.nextRoom || null;
             const previousRoom = room.previousRoom || null;
