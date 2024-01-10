@@ -33,7 +33,7 @@ class DungeonFloor {
         this.generateRooms();
 
         //this.room = this.getEntranceRoom();
-        this.room = choose(this.rooms.filter(x => x.coordinates[0] === 0 && x.nextRoom));
+        this.room = choose(this.rooms.filter(x => x.coordinates[0] === 0 && x.nextRooms));
         this.revealCurrentRoom();
         this.identifyCurrentRoom();
 
@@ -107,8 +107,8 @@ class DungeonFloor {
 
         const next = choose(getClosestElements(pool, current.coordinates[1]));
         // Connect the rooms!
-        current.nextRoom = next;
-        next.previousRoom = current;
+        current.nextRooms.push(next)
+        next.previousRooms.push(current);
 
         // Continue to next room
         this.createPathRecursive(next, row + 1, visitedRooms);
