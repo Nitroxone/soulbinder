@@ -213,69 +213,30 @@ function dungeonSearchEvent() {
 }
 
 function generateMapRoomsEvents() {
-    game.dungeon.floor.getAssignedRooms().forEach(room => {
-        const nextRoom = room.nextRoom || null;
-        const previousRoom = room.previousRoom || null;
-
+    const rooms = game.dungeon.floor.getAssignedRooms();
+    rooms.forEach(room => {
+        
         const roomDom = document.querySelector('#ch-' + room.id);
-        const nextRoomDom = nextRoom ? document.querySelector('#ch-' + nextRoom.id) : null;
-        const previousRoomDom = previousRoom ? document.querySelector('#ch-' + previousRoom.id) : null;
 
         // When clicking on a room tile
         roomDom.addEventListener('click', e => {
-            // Only works if clicking on an accessible tile (next or previous room to the current one)
-            if(nextRoom === game.dungeon.floor.room || previousRoom === game.dungeon.floor.room) {
+
+            const curr = game.dungeon.floor.room;
+            const candidate = curr.nextRooms.find(x => x == room) || curr.previousRooms.find(x => x == room);
+
+            const currDom = document.querySelector('#ch-' + curr.id);
+
+            if(candidate) {
                 if(game.player.inCombat) {
-                    // Prevents changing rooms while in combat; 
-                    //TODO: add notification
+                    // Prevents changing rooms while in combat
+                    // TODO: add notification
                     return;
                 }
 
-                if(!room.revealed) {
-                    room.revealed = true;
-                    roomDom.classList.remove('revealedRoom');
-                    roomDom.classList.add('visitedRoom');
-
-                    if(previousRoom) {
-                        let prevLine = document.querySelector('#connector_' + previousRoom.id + '_to_' + room.id);
-                        console.log(prevLine);
-                        if(!previousRoom.revealed) prevLine.classList.add('canVisitConnector');
-                        else {
-                            prevLine.classList.remove('canVisitConnector');
-                            prevLine.classList.add('visitedConnector');
-                        }
-
-                        if(previousRoomDom) {
-                            if(previousRoomDom.classList[0] !== roomDom.classList[0]) revealCluster(previousRoom.parentCluster);
-                        }
-                    }
-                    if(nextRoom) {
-                        let nextLine = document.querySelector('#connector_' + room.id + '_to_' + nextRoom.id);
-                        console.log(nextLine);
-                        if(!nextRoom.revealed)  nextLine.classList.add('canVisitConnector');
-                        else {
-                            nextLine.classList.remove('canVisitConnector');
-                            nextLine.classList.add('visitedConnector');
-                        }
-
-                        if(nextRoomDom) {
-                            if(nextRoomDom.classList[0] !== roomDom.classList[0]) revealCluster(nextRoom.parentCluster);
-                        }
-                    }
-                }
-
-                // Moving backward
-                if(nextRoom === game.dungeon.floor.room) {
-                    nextRoomDom.classList.remove('currentRoom');
-                    game.dungeon.floor.moveToPreviousRoom();
-                }
-                // Moving forward
-                else if(previousRoom === game.dungeon.floor.room) {
-                    previousRoomDom.classList.remove('currentRoom');
-                    game.dungeon.floor.moveToNextRoom();
-                }
-
+                game.dungeon.floor.moveTo(candidate);
+                currDom.classList.remove('currentRoom');
                 roomDom.classList.add('currentRoom');
+
                 drawExplorationInfosPanel(true);
                 generateExplorationInfosPanelEvents();
             }
@@ -345,7 +306,7 @@ function generateExplorationMapEvents() {
         targetLeft -= parseFloat(currentDom.style.left);
         targetTop -= parseFloat(currentDom.style.top);
 
-        map.style.transition = 'transform .2s cubic-bezier(.49,-0.02,0,1.05) 0s, left .2s cubic-bezier(.49,-0.02,0,1.05) 0s, top .2s cubic-bezier(.49,-0.02,0,1.05) 0s';
+        map.style.transition = 'transform .5s cubic-bezier(0.075, 0.82, 0.165, 1) 0s, left .5s cubic-bezier(0.075, 0.82, 0.165, 1) 0s, top .5s cubic-bezier(0.075, 0.82, 0.165, 1) 0s';
         mapContainer.style.transition = 'background-position-x .5s cubic-bezier(1,0,0,1), background-position-y .5s cubic-bezier(1,0,0,1)';
         map.style.transform = 'scale(1)';
         map.style.left = targetLeft + 'px';

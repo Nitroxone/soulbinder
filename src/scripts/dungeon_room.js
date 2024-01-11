@@ -9,8 +9,8 @@ class DungeonRoom {
         this.id = Math.floor(Math.random() * Date.now());
         this.coordinates = getValueFromObject(props, "coordinates", [0, 0]);
         this.type = getValueFromObject(props, "type", Data.DungeonRoomType.EMPTY);
-        this.nextRoom = getValueFromObject(props, "nextRoom", null);
-        this.previousRoom = getValueFromObject(props, "previousRoom", null);
+        this.nextRooms = getValueFromObject(props, "nextRooms", []);
+        this.previousRooms = getValueFromObject(props, "previousRooms", []);
 
         this.status = Data.DungeonRoomStatus.UNCLEARED;
         this.visited = false;

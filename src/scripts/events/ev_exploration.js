@@ -44,8 +44,7 @@ function generateExplHubRecapEvents() {
         if(game.selectedDungeon) {
             clearInterval(Quanta.emitters.find(x => x.name === 'explorationHub').loop);
             game.dungeon = game.selectedDungeon;
-            game.dungeon.init();
-            drawExplorationScreen();
+            game.startDungeon();
         }
     });
 

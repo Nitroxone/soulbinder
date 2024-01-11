@@ -5939,7 +5939,8 @@ table.astralForgeShards td {
     position: relative;
     cursor: move;
 
-    background: url('img/wilderness.jpg');
+    background-image: url('img/darkBorders.png'), url('img/bg4.png');
+    background-size: 100% 100%, auto;
     transition: background-size .5s ease-in-out;
 }
 .exploration-mapContainer::before {
@@ -5955,7 +5956,7 @@ table.astralForgeShards td {
     align-items: center;
 
     position: absolute;
-    transition: transform .2s cubic-bezier(.49,-0.02,0,1.05) 0s;
+    transition: transform .8s cubic-bezier(0.075, 0.82, 0.165, 1) 0s;
 
     top: 0;
     left: 0;

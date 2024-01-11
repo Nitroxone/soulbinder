@@ -10,7 +10,7 @@
 class DungeonFloor {
     constructor(props) {
         this.depth = getValueFromObject(props, "depth", 0);
-        this.gridSize = getValueFromObject(props, "gridSize", [10, 7]); // [width, height]
+        this.gridSize = getValueFromObject(props, "gridSize", [6, 7]); // [width, height]
         this.roomTypes = getValueFromObject(props, "roomTypes", {
             "boss room": 1,
             "eternity well": getRandomNumber(1, 3),
@@ -21,7 +21,7 @@ class DungeonFloor {
             "entrance": 1,
             "chasm": 1,
         });
-        this.startingRooms = getValueFromObject(props, "startingRooms", 3);
+        this.startingRooms = getValueFromObject(props, "startingRooms", 4);
 
         this.ROWS = this.gridSize[0];
         this.COLS = this.gridSize[1];
@@ -30,10 +30,11 @@ class DungeonFloor {
         this.connectors = [];
 
         this.generateGrid();
+        this.generatePaths();
         this.generateRooms();
 
         //this.room = this.getEntranceRoom();
-        this.room = choose(this.rooms.filter(x => x.coordinates[0] === 0 && x.nextRoom));
+        this.room = choose(this.rooms.filter(x => x.coordinates[0] === 0 && x.nextRooms.length > 0));
         this.revealCurrentRoom();
         this.identifyCurrentRoom();
 
@@ -53,9 +54,18 @@ class DungeonFloor {
     }
 
     /**
-     * Generates paths and rooms for this floor.
+     * Populates the generated rooms.
      */
     generateRooms() {
+        this.getAssignedRooms().forEach(room => {
+
+        })
+    }
+
+    /**
+     * Generates paths and rooms for this floor.
+     */
+    generatePaths() {
         // Pick starting rooms
         const startingRooms = [];
         for(let i = 0; i < this.startingRooms; i++) {
@@ -107,8 +117,8 @@ class DungeonFloor {
 
         const next = choose(getClosestElements(pool, current.coordinates[1]));
         // Connect the rooms!
-        current.nextRoom = next;
-        next.previousRoom = current;
+        current.nextRooms.push(next)
+        next.previousRooms.push(current);
 
         // Continue to next room
         this.createPathRecursive(next, row + 1, visitedRooms);
@@ -239,7 +249,7 @@ class DungeonFloor {
      * Marks the current room as identified.
      */
     identifyCurrentRoom() {
-        this.room.identified = true;
+        this.room.identify();
     }
 
     /**
@@ -261,33 +271,32 @@ class DungeonFloor {
      * Attempts to identify a room.
      */
     attemptToIdentifyRoom() {
-        if(this.canIdentifyRoom()) this.identifyCurrentRoom();
+        console.log('attempting to reveal room...');
+        if(this.canIdentifyRoom() && this.room.visited) this.identifyCurrentRoom();
+        else {
+            console.log('failed!');
+        }
     }
 
     /**
-     * Moves the player to the next room on this floor.
-     * @returns {boolean} false if there is no next room (end reached)
+     * Changes this DungeonFloor's current room to the provided one.
+     * @param {DungeonRoom} room the DungeonRoom to move to
+     * @returns {boolean|void} false if the provided DungeonRoom is null
      */
-    moveToNextRoom() {
-        if(this.room.nextRoom) {
-            this.room = this.room.nextRoom;
-            this.attemptToIdentifyRoom();
-        }
-        else return false;
+    moveTo(room) {
+        if(room) {
+            this.room = room;
+            if(!room.visited) {
+                this.visitCurrentRoom();
+                this.attemptToIdentifyRoom();
+            }
+        } else return false;
     }
 
     /**
-     * Moves the player to the previous room on this floor.
-     * @returns {boolean} false if there is no previous room (beginning reached)
+     * Returns this DungeonFloor's rooms that are not empty.
+     * @returns {DungeonRoom[]} the rooms on this floor that are not empty
      */
-    moveToPreviousRoom() {
-        if(this.room.previousRoom) {
-            this.room = this.room.previousRoom;
-            this.attemptToIdentifyRoom();
-        }
-        else return false;
-    }
-
     getAssignedRooms() {
         return this.rooms.filter(x => x.type !== Data.DungeonRoomType.EMPTY)
     }
