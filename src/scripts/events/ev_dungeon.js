@@ -222,51 +222,21 @@ function generateMapRoomsEvents() {
         roomDom.addEventListener('click', e => {
 
             const curr = game.dungeon.floor.room;
-            let candidate = curr.nextRooms.find(x => x == room) || curr.previousRooms.find(x => x == room);
-            console.log(candidate);
+            const candidate = curr.nextRooms.find(x => x == room) || curr.previousRooms.find(x => x == room);
+
+            const currDom = document.querySelector('#ch-' + curr.id);
 
             if(candidate) {
-                game.dungeon.floor.moveTo(candidate);
-            }
-            
-            
-
-            // ---------------------------------
-
-            const currentRoom = game.dungeon.floor.room;
-            const nextRoom = room.nextRoom || null;
-            const previousRoom = room.previousRoom || null;
-
-            const nextRoomDom = nextRoom ? document.querySelector('#ch-' + nextRoom.id) : null;
-            const previousRoomDom = previousRoom ? document.querySelector('#ch-' + previousRoom.id) : null;
-    
-            const previousRooms = rooms.filter(x => x.coordinates[0] === room.coordinates[0] - 1 && x.nextRoom == room);
-            const nextRooms = rooms.filter(x => x.coordinates[0] === room.coordinates[0] + 1 && x.previousRoom == room);
-
-            // Only works if clicking on an accessible tile (next or previous room to the current one)
-            console.log('room: ' + room.coordinates);
-            console.log('prev: ' + previousRooms.map(x => x.coordinates).join(' '));
-            console.log('next: ' + nextRooms.map(x => x.coordinates).join(' '));
-            console.log('curr: ' + currentRoom.coordinates);
-            if(nextRooms.includes(currentRoom) || previousRooms.includes(currentRoom)) {
                 if(game.player.inCombat) {
-                    // Prevents changing rooms while in combat; 
-                    //TODO: add notification
+                    // Prevents changing rooms while in combat
+                    // TODO: add notification
                     return;
                 }
 
-                // Moving backward
-                if(nextRooms.includes(currentRoom)) {
-                    nextRoomDom.classList.remove('currentRoom');
-                    game.dungeon.floor.moveToPreviousRoom();
-                }
-                // Moving forward
-                else if(previousRooms.includes(currentRoom)) {
-                    previousRoomDom.classList.remove('currentRoom');
-                    game.dungeon.floor.moveToNextRoom();
-                }
-
+                game.dungeon.floor.moveTo(candidate);
+                currDom.classList.remove('currentRoom');
                 roomDom.classList.add('currentRoom');
+
                 drawExplorationInfosPanel(true);
                 generateExplorationInfosPanelEvents();
             }
