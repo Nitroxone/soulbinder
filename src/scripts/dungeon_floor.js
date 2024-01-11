@@ -10,7 +10,7 @@
 class DungeonFloor {
     constructor(props) {
         this.depth = getValueFromObject(props, "depth", 0);
-        this.gridSize = getValueFromObject(props, "gridSize", [6, 7]); // [width, height]
+        this.gridSize = getValueFromObject(props, "gridSize", [10, 7]); // [width, height]
         this.roomTypes = getValueFromObject(props, "roomTypes", {
             "boss room": 1,
             "eternity well": getRandomNumber(1, 3),
@@ -106,7 +106,7 @@ class DungeonFloor {
      * @param {*} row the row of the room
      */
     createPathRecursive(current, row, visitedRooms) {
-        current.type = Data.DungeonRoomType.CHASM;
+        current.type = Data.DungeonRoomType.EMPTY;
         //visitedRooms.add(current);
 
         if(row >= this.ROWS) return;
@@ -174,7 +174,7 @@ class DungeonFloor {
                     case Data.DungeonRoomType.DORMANT_ROOM:
                         row += 'D ';
                         break;
-                    case Data.DungeonRoomType.EMPTY:
+                    case Data.DungeonRoomType.UNASSIGNED:
                         row += '. ';
                         break;
                     case Data.DungeonRoomType.ENTRANCE:
@@ -298,6 +298,6 @@ class DungeonFloor {
      * @returns {DungeonRoom[]} the rooms on this floor that are not empty
      */
     getAssignedRooms() {
-        return this.rooms.filter(x => x.type !== Data.DungeonRoomType.EMPTY)
+        return this.rooms.filter(x => x.type !== Data.DungeonRoomType.UNASSIGNED)
     }
 }
