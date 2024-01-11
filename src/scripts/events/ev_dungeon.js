@@ -254,13 +254,30 @@ function generateExplorationMapEvents() {
         mapContainer.style.transition = '';
         e.preventDefault();
 
-        const direction = Math.sign(e.deltaY);
+        const direction = Math.sign(e.deltaY); // 1 out, -1 in
 
         zoomLevel += -direction * 0.65;
         zoomLevel = Math.max(0.65, zoomLevel);
         zoomLevel = Math.min(1, zoomLevel);
 
         map.style.transform = 'scale(' + zoomLevel + ')';
+
+        const current = game.dungeon.floor.room;
+        const currentDom = document.querySelector('#ch-' + current.id);
+
+        if(direction === 1) {
+            const targetLeft = (mapContainer.offsetWidth / 2) - (currentDom.offsetWidth / 2) ;
+            const targetTop = (mapContainer.offsetHeight / 2) - (currentDom.offsetHeight / 2) ;
+            const currentLeft = parseFloat(currentDom.style.left) || 0;
+            const currentTop = parseFloat(currentDom.style.top) || 0;
+
+            const offsetLeft = targetLeft - currentLeft;
+            const offsetTop = targetTop - currentTop;
+            // targetLeft *= zoomLevel;
+            // targetTop *= zoomLevel;
+            map.style.left = offsetLeft/2 - 50 + 'px';
+            map.style.top = offsetTop/2 + 50 + 'px';
+        }
     });
     mapContainer.addEventListener('mousedown', e => {
         map.style.transition = '';
