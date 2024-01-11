@@ -8,7 +8,7 @@ class DungeonRoom {
     constructor(props) {
         this.id = Math.floor(Math.random() * Date.now());
         this.coordinates = getValueFromObject(props, "coordinates", [0, 0]);
-        this.type = getValueFromObject(props, "type", Data.DungeonRoomType.EMPTY);
+        this.type = getValueFromObject(props, "type", Data.DungeonRoomType.UNASSIGNED);
         this.nextRooms = getValueFromObject(props, "nextRooms", []);
         this.previousRooms = getValueFromObject(props, "previousRooms", []);
 
