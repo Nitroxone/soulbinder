@@ -10,7 +10,7 @@
 class DungeonFloor {
     constructor(props) {
         this.depth = getValueFromObject(props, "depth", 0);
-        this.gridSize = getValueFromObject(props, "gridSize", [10, 7]); // [width, height]
+        this.gridSize = getValueFromObject(props, "gridSize", [50, 7]); // [width, height]
         this.roomTypes = getValueFromObject(props, "roomTypes", {
             "boss room": 1,
             "eternity well": getRandomNumber(1, 3),

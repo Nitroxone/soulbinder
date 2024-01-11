@@ -266,8 +266,8 @@ function generateExplorationMapEvents() {
         const currentDom = document.querySelector('#ch-' + current.id);
 
         if(direction === 1) {
-            const targetLeft = (mapContainer.offsetWidth / 2) - (currentDom.offsetWidth / 2) ;
-            const targetTop = (mapContainer.offsetHeight / 2) - (currentDom.offsetHeight / 2) ;
+            const targetLeft = (mapContainer.getBoundingClientRect().width / 2) - (currentDom.getBoundingClientRect().width / 2);
+            const targetTop = (mapContainer.getBoundingClientRect().height / 2) - (currentDom.getBoundingClientRect().height / 2);
             const currentLeft = parseFloat(currentDom.style.left) || 0;
             const currentTop = parseFloat(currentDom.style.top) || 0;
 
@@ -275,8 +275,8 @@ function generateExplorationMapEvents() {
             const offsetTop = targetTop - currentTop;
             // targetLeft *= zoomLevel;
             // targetTop *= zoomLevel;
-            map.style.left = offsetLeft/2 - 50 + 'px';
-            map.style.top = offsetTop/2 + 50 + 'px';
+            map.style.left = offsetLeft*0.65 + 'px';
+            map.style.top = offsetTop*0.65 + 'px';
         }
     });
     mapContainer.addEventListener('mousedown', e => {

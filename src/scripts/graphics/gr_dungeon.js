@@ -9,7 +9,7 @@ function drawExplorationScreen() {
     str += '<div id="exploration-mapPanel" class="coolBorder">'
     str += '<div class="exploration-repositionMap"></div>';
     str += '<div class="exploration-mapContainer">';
-    str += '<div class="exploration-map" style="width: ' + (floor.gridSize[0] * 100 + 100) + 'px; height: ' + (floor.gridSize[1] * 100 + 100) + 'px;">';
+    str += '<div class="exploration-map" style="width: ' + (floor.gridSize[1] * 100 + 100) + 'px; height: ' + (floor.gridSize[0] * 100 + 100) + 'px;">';
     floor.getAssignedRooms().forEach(room => {
         str += '<div id="ch-' + room.id + '" class="map-roomContainer coolBorder' + (room === floor.room ? ' visitedRoom currentRoom' : room.revealed ? ' revealedRoom visitedRoom' : ' hiddenRoom') + '" style="top: ' + room.coordinates[0] * 100 + 'px; left: ' + room.coordinates[1] * 100 + 'px;">';
         //str += '<div class="dr-type dr-type-' + room.type.replaceAll(' ', '_') + '"></div>';
