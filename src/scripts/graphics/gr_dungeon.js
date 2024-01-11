@@ -9,7 +9,7 @@ function drawExplorationScreen() {
     str += '<div id="exploration-mapPanel" class="coolBorder">'
     str += '<div class="exploration-repositionMap"></div>';
     str += '<div class="exploration-mapContainer">';
-    str += '<div class="exploration-map" style="width: ' + (floor.gridSize[0] * 100) + 'px; height: ' + (floor.gridSize[1] * 100) + 'px;">';
+    str += '<div class="exploration-map" style="width: ' + (floor.gridSize[0] * 100 + 100) + 'px; height: ' + (floor.gridSize[1] * 100 + 100) + 'px;">';
     floor.getAssignedRooms().forEach(room => {
         str += '<div id="ch-' + room.id + '" class="map-roomContainer coolBorder' + (room === floor.room ? ' visitedRoom currentRoom' : room.revealed ? ' revealedRoom visitedRoom' : ' hiddenRoom') + '" style="top: ' + room.coordinates[0] * 100 + 'px; left: ' + room.coordinates[1] * 100 + 'px;">';
         //str += '<div class="dr-type dr-type-' + room.type.replaceAll(' ', '_') + '"></div>';
@@ -228,7 +228,6 @@ function drawMapConnectors(refresh = false) {
                 const basePosOriginX = (elem.offsetLeft + basePos.width / 2) + 4.5;
                 const basePosOriginY = (elem.offsetTop + basePos.height / 2) + 4.5;
     
-                console.log('PROCESSING ROOM ' + ro.coordinates);
                 const nextRoomDom = document.querySelector('#ch-' + room.id);
                 const targetPos = nextRoomDom.getBoundingClientRect();
                 const targetPosOriginX = (nextRoomDom.offsetLeft + targetPos.width / 2) + 4.5;
@@ -244,55 +243,6 @@ function drawMapConnectors(refresh = false) {
     
                 str += '<line class="mapConnector' + color + '" id="' + id + '" x1="' + basePosOriginX + '" y1="' + basePosOriginY + '" x2="' + targetPosOriginX + '" y2="' + targetPosOriginY + '" style="stroke-width: 1;" />';
             });
-
-            /*rooms.filter(x => x.coordinates[0] === ro.coordinates[0] && x.nextRoom.previousRoom === ro).forEach(room => {
-                if(!room.nextRoom) return;
-                const elem = document.querySelector('#ch-' + room.id);
-    
-                const basePos = elem.getBoundingClientRect();
-                const basePosOriginX = (elem.offsetLeft + basePos.width / 2) + 4.5;
-                const basePosOriginY = (elem.offsetTop + basePos.height / 2) + 4.5;
-    
-                console.log('PROCESSING ROOM ' + room.coordinates);
-                const nextRoomDom = document.querySelector('#ch-' + room.nextRoom.id);
-                const targetPos = nextRoomDom.getBoundingClientRect();
-                const targetPosOriginX = (nextRoomDom.offsetLeft + targetPos.width / 2) + 4.5;
-                const targetPosOriginY = (nextRoomDom.offsetTop + targetPos.height / 2) + 4.5;
-                const id = 'connector_' + room.id + '_to_' + room.nextRoom.id;
-    
-                let color = '';
-                if(room.revealed) {
-                    if(!room.nextRoom.revealed) color = ' canVisitConnector';
-                    else color = ' visitedConnector';
-                }
-                if(!room.revealed && room.nextRoom.revealed) color = ' canVisitConnector';
-    
-                str += '<line class="mapConnector' + color + '" id="' + id + '" x1="' + basePosOriginX + '" y1="' + basePosOriginY + '" x2="' + targetPosOriginX + '" y2="' + targetPosOriginY + '" style="stroke-width: 1;" />';
-            });
-            rooms.filter(x => x.coordinates[0] === ro.coordinates[0]+1 && x.previousRoom === ro).forEach(room => {
-                if(!room.previousRoom) return;
-                const elem = document.querySelector('#ch-' + room.id);
-    
-                const basePos = elem.getBoundingClientRect();
-                const basePosOriginX = (elem.offsetLeft + basePos.width / 2) + 4.5;
-                const basePosOriginY = (elem.offsetTop + basePos.height / 2) + 4.5;
-    
-                console.log('PROCESSING ROOM ' + room.coordinates);
-                const nextRoomDom = document.querySelector('#ch-' + room.previousRoom.id);
-                const targetPos = nextRoomDom.getBoundingClientRect();
-                const targetPosOriginX = (nextRoomDom.offsetLeft + targetPos.width / 2) + 4.5;
-                const targetPosOriginY = (nextRoomDom.offsetTop + targetPos.height / 2) + 4.5;
-                const id = 'connector_' + room.id + '_to_' + room.previousRoom.id;
-    
-                let color = '';
-                if(room.revealed) {
-                    if(!room.previousRoom.revealed) color = ' canVisitConnector';
-                    else color = ' visitedConnector';
-                }
-                if(!room.revealed && room.previousRoom.revealed) color = ' canVisitConnector';
-    
-                str += '<line class="mapConnector' + color + '" id="' + id + '" x1="' + basePosOriginX + '" y1="' + basePosOriginY + '" x2="' + targetPosOriginX + '" y2="' + targetPosOriginY + '" style="stroke-width: 1;" />';
-            })*/
         }
     });
 
