@@ -30,6 +30,7 @@ class DungeonFloor {
         this.connectors = [];
 
         this.generateGrid();
+        this.generatePaths();
         this.generateRooms();
 
         //this.room = this.getEntranceRoom();
@@ -53,9 +54,18 @@ class DungeonFloor {
     }
 
     /**
-     * Generates paths and rooms for this floor.
+     * Populates the generated rooms.
      */
     generateRooms() {
+        this.getAssignedRooms().forEach(room => {
+
+        })
+    }
+
+    /**
+     * Generates paths and rooms for this floor.
+     */
+    generatePaths() {
         // Pick starting rooms
         const startingRooms = [];
         for(let i = 0; i < this.startingRooms; i++) {
@@ -239,7 +249,7 @@ class DungeonFloor {
      * Marks the current room as identified.
      */
     identifyCurrentRoom() {
-        this.room.identified = true;
+        this.room.identify();
     }
 
     /**
@@ -261,34 +271,14 @@ class DungeonFloor {
      * Attempts to identify a room.
      */
     attemptToIdentifyRoom() {
-        if(this.canIdentifyRoom()) this.identifyCurrentRoom();
+        if(this.canIdentifyRoom() && this.room.visited) this.identifyCurrentRoom();
     }
 
     /**
-     * Moves the player to the next room on this floor.
-     * @returns {boolean} false if there is no next room (end reached)
+     * Changes this DungeonFloor's current room to the provided one.
+     * @param {DungeonRoom} room the DungeonRoom to move to
+     * @returns {boolean|void} false if the provided DungeonRoom is null
      */
-    moveToNextRoom() {
-        if(this.room.nextRoom) {
-            console.log('moving to next room!');
-            this.room = this.room.nextRoom;
-            this.attemptToIdentifyRoom();
-        }
-        else return false;
-    }
-
-    /**
-     * Moves the player to the previous room on this floor.
-     * @returns {boolean} false if there is no previous room (beginning reached)
-     */
-    moveToPreviousRoom() {
-        if(this.room.previousRoom) {
-            this.room = this.room.previousRoom;
-            this.attemptToIdentifyRoom();
-        }
-        else return false;
-    }
-
     moveTo(room) {
         if(room) {
             this.room = room;
@@ -296,6 +286,10 @@ class DungeonFloor {
         } else return false;
     }
 
+    /**
+     * Returns this DungeonFloor's rooms that are not empty.
+     * @returns {DungeonRoom[]} the rooms on this floor that are not empty
+     */
     getAssignedRooms() {
         return this.rooms.filter(x => x.type !== Data.DungeonRoomType.EMPTY)
     }
