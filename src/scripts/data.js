@@ -475,7 +475,7 @@ const Data = Object.freeze({
     DungeonBiome: {
         UZIEL_JUNGLES: "uziel jungles",
         SERPENTINE_MOUNTAINS: "serpentine mountains",
-        MITHOR: "mithor",
+        UPLANDS_OF_MITHOR: "uplands of mithor",
         THE_KAULT: "the kault",
         ELJINN_DESERT: "eljinn desert",
         SHATTERED_ISLES: "shattered isles",
@@ -485,7 +485,7 @@ const Data = Object.freeze({
     DungeonBiomeBackground: {
         UZIEL_JUNGLES: "jungle_biome.png",
         SERPENTINE_MOUNTAINS: "snow_biome.png",
-        MITHOR: "plain_biome.png",
+        UPLANDS_OF_MITHOR: "plain_biome.png",
         THE_KAULT: "swamp_biome.png",
         ELJINN_DESERT: "desert_biome.png",
         SHATTERED_ISLES: "coast_biome.png",
