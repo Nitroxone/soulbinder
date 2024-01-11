@@ -70,6 +70,8 @@ class Dungeon {
         this.floor = this.getNextFloor();
 
         if(this.floor) drawExplorationScreen();
-        else drawExplorationHubScreen();
+        else {
+            game.endDungeon();
+        }
     }
 }
