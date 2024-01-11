@@ -107,7 +107,7 @@ let Sounds = {
         ],
 
         SOULBIND_SLOT_ITEM: [
-            {name: "soulbindSlotItem.wav", volume: 0.6, alwaysDifferent: true, previousPitch: 1, pitch: () => {return getRandomNumber(0.99, 1, true)}}
+            {name: "soulbindSlotItem.wav", volume: 0.6, alwaysDifferent: true, previousPitch: 1, pitch: () => {return getRandomNumber(0.98, 0.985, true)}}
         ],
         SOULBIND_PRESLOT: [
             {name: "soulbindPreslot1.wav", volume: 0.6},
