@@ -10,7 +10,7 @@
 class DungeonFloor {
     constructor(props) {
         this.depth = getValueFromObject(props, "depth", 0);
-        this.gridSize = getValueFromObject(props, "gridSize", [10, 7]); // [width, height]
+        this.gridSize = getValueFromObject(props, "gridSize", [6, 7]); // [width, height]
         this.roomTypes = getValueFromObject(props, "roomTypes", {
             "boss room": 1,
             "eternity well": getRandomNumber(1, 3),
@@ -21,7 +21,7 @@ class DungeonFloor {
             "entrance": 1,
             "chasm": 1,
         });
-        this.startingRooms = getValueFromObject(props, "startingRooms", 3);
+        this.startingRooms = getValueFromObject(props, "startingRooms", 4);
 
         this.ROWS = this.gridSize[0];
         this.COLS = this.gridSize[1];
@@ -271,7 +271,11 @@ class DungeonFloor {
      * Attempts to identify a room.
      */
     attemptToIdentifyRoom() {
+        console.log('attempting to reveal room...');
         if(this.canIdentifyRoom() && this.room.visited) this.identifyCurrentRoom();
+        else {
+            console.log('failed!');
+        }
     }
 
     /**
@@ -282,7 +286,10 @@ class DungeonFloor {
     moveTo(room) {
         if(room) {
             this.room = room;
-            this.attemptToIdentifyRoom();
+            if(!room.visited) {
+                this.visitCurrentRoom();
+                this.attemptToIdentifyRoom();
+            }
         } else return false;
     }
 
