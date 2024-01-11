@@ -68,6 +68,8 @@ class Dungeon {
      */
     moveToNextFloor() {
         this.floor = this.getNextFloor();
-        drawExplorationScreen();
+
+        if(this.floor) drawExplorationScreen();
+        else drawExplorationHubScreen();
     }
 }
