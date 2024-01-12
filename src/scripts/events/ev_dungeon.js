@@ -244,6 +244,18 @@ function generateMapRoomsEvents() {
     })
 }
 
+function getRelativePos(a, b) {
+    const rect = a.getBoundingClientRect();
+    const parentRect = b.getBoundingClientRect();
+
+    const relativeTop = rect.top - parentRect.top;
+    const relativeLeft = rect.left - parentRect.left;
+
+    console.log(`Relative top position: ${relativeTop}px`);
+    console.log(`Relative left position: ${relativeLeft}px`);
+    return { relativeTop, relativeLeft };
+}
+
 function generateExplorationMapEvents() {
     let zoomLevel = 1;
     const map = document.querySelector('.exploration-map');
@@ -261,23 +273,6 @@ function generateExplorationMapEvents() {
         zoomLevel = Math.min(1, zoomLevel);
 
         map.style.transform = 'scale(' + zoomLevel + ')';
-
-        const current = game.dungeon.floor.room;
-        const currentDom = document.querySelector('#ch-' + current.id);
-
-        if(direction === 1) {
-            const targetLeft = (mapContainer.getBoundingClientRect().width / 2) - (currentDom.getBoundingClientRect().width / 2);
-            const targetTop = (mapContainer.getBoundingClientRect().height / 2) - (currentDom.getBoundingClientRect().height / 2);
-            const currentLeft = parseFloat(currentDom.style.left) || 0;
-            const currentTop = parseFloat(currentDom.style.top) || 0;
-
-            const offsetLeft = targetLeft - currentLeft;
-            const offsetTop = targetTop - currentTop;
-            // targetLeft *= zoomLevel;
-            // targetTop *= zoomLevel;
-            map.style.left = offsetLeft*0.65 + 'px';
-            map.style.top = offsetTop*0.65 + 'px';
-        }
     });
     mapContainer.addEventListener('mousedown', e => {
         map.style.transition = '';

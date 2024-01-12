@@ -5960,6 +5960,8 @@ table.astralForgeShards td {
 
     top: 0;
     left: 0;
+
+    transform-origin: center;
 }
 
 .exploration-repositionMap {
