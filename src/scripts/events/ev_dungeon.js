@@ -318,6 +318,10 @@ function generateExplorationMapEvents() {
         targetLeft -= parseFloat(currentDom.style.left);
         targetTop -= parseFloat(currentDom.style.top);
 
+        // Update to prevent incoherences
+        translateX = targetLeft;
+        translateY = targetTop;
+
         map.style.transition = 'transform .5s cubic-bezier(0.075, 0.82, 0.165, 1)';
         mapContainer.style.transition = 'background-position-x .5s cubic-bezier(1,0,0,1), background-position-y .5s cubic-bezier(1,0,0,1)';
         map.style.transform = `scale(1) translate(${targetLeft}px, ${targetTop}px)`;
