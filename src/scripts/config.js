@@ -978,16 +978,18 @@ let Config = {
         }),
     ],
     DungeonFloorConfig: {
-        GLOBAL: {
-            FIRST: {
-                ENTRANCE: 100
-            },
-            LAST: {
-                CHASM: 100
+        GLOBAL: new DungeonFloorConfig({
+            ROWS: {
+                FIRST: {
+                    ENTRANCE: 100
+                },
+                LAST: {
+                    CHASM: 100
+                }
             }
-        },
-        10: {
+        }),
+        10: new DungeonFloorConfig({
 
-        }
+        })
     }
 }
