@@ -2311,3 +2311,12 @@ function getClosestElements(arr, index) {
     // Get the elements within the specified range
     return arr.slice(start, end + 1);
 }
+
+/**
+ * Returns the DungeonFloorConfig that matches the provided name.
+ * @param {string|number} name the name to match
+ * @returns {object|null} a DungeonFloorConfig, or null if none is found
+ */
+function getDungeonFloorConfig(name) {
+    return Config.DungeonFloorConfig[name];
+}

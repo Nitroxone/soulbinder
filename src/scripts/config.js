@@ -976,5 +976,18 @@ let Config = {
             availableBeforeMastery: true,
             steps: []
         }),
-    ]
+    ],
+    DungeonFloorConfig: {
+        GLOBAL: {
+            FIRST: {
+                ENTRANCE: 100
+            },
+            LAST: {
+                CHASM: 100
+            }
+        },
+        10: {
+
+        }
+    }
 }

@@ -11,16 +11,7 @@ class DungeonFloor {
     constructor(props) {
         this.depth = getValueFromObject(props, "depth", 0);
         this.gridSize = getValueFromObject(props, "gridSize", [10, 7]); // [width, height]
-        this.roomTypes = getValueFromObject(props, "roomTypes", {
-            "boss room": 1,
-            "eternity well": getRandomNumber(1, 3),
-            "fractured hollow": 1,
-            "sacrificial alcove": getRandomNumber(2, 5),
-            "dormant room": getRandomNumber(3, 8),
-            "antechamber of marvels": 1,
-            "entrance": 1,
-            "chasm": 1,
-        });
+        this.config = getValueFromObject(props, "roomTypes", getDungeonFloorConfig(this.gridSize[0]));
         this.startingRooms = getValueFromObject(props, "startingRooms", 4);
 
         this.ROWS = this.gridSize[0];
