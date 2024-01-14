@@ -48,9 +48,18 @@ class DungeonFloor {
      * Populates the generated rooms.
      */
     generateRooms() {
-        this.getAssignedRooms().forEach(room => {
+        const rooms = this.getAssignedRooms();
+        let selection, pool, choice;
+        for(const row in this.config.rows) {
+            if(row === 'FIRST') {
+                pool = this.config.rows[row];
 
-        })
+                selection = rooms.filter(x => x.coordinates[0] === 0);
+                selection.forEach(room => {
+                    room.type === choose(pool);
+                });
+            }
+        }
     }
 
     /**
