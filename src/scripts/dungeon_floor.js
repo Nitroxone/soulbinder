@@ -11,7 +11,7 @@ class DungeonFloor {
     constructor(props) {
         this.depth = getValueFromObject(props, "depth", 0);
         this.gridSize = getValueFromObject(props, "gridSize", [10, 7]); // [width, height]
-        this.config = getValueFromObject(props, "roomTypes", getDungeonFloorConfig(this.gridSize[0]));
+        this.config = getValueFromObject(props, "roomTypes", getDungeonFloorConfig('GLOBAL'));
         this.startingRooms = getValueFromObject(props, "startingRooms", 4);
 
         this.ROWS = this.gridSize[0];
@@ -51,14 +51,33 @@ class DungeonFloor {
         const rooms = this.getAssignedRooms();
         let selection, pool, choice;
         for(const row in this.config.rows) {
-            if(row === 'FIRST') {
-                pool = this.config.rows[row];
+            console.log(row);
 
-                selection = rooms.filter(x => x.coordinates[0] === 0);
-                selection.forEach(room => {
-                    room.type === choose(pool);
-                });
-            }
+            if(row === 'LAST') {
+                selection = rooms.filter(x => x.coordinates[0] === this.ROWS-1);
+            } else selection = rooms.filter(x => x.coordinates[0] === Number(row) - 1);
+
+            pool = this.config.rows[row];
+
+            selection.forEach(room => {
+                choice = Data.DungeonRoomType[this.getRoomType(pool)];
+                console.log(choice);
+                room.type = choice;
+                console.log(`Room ${room.coordinates} was given type ${choice}`);
+            });
+        }
+    }
+
+    getRoomType(row) {
+        if(!row) throw new Error('The room assignment script encountered an error.');
+
+        const chances = Object.values(row).reduce((sum, percentage) => sum + percentage, 0);
+        const randVal = Math.random() * 100;
+
+        let cumulative = 0;
+        for(const roomType in row) {
+            cumulative += (row[roomType] / chances) * 100;
+            if(randVal <= cumulative) return roomType;
         }
     }
 

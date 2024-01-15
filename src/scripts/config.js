@@ -981,7 +981,16 @@ let Config = {
         GLOBAL: new DungeonFloorConfig({
             ROWS: {
                 FIRST: {
-                    ENTRANCE: 100
+                    ENTRANCE: 100,
+                },
+                2: {
+                    DORMANT_ROOM: 100
+                },
+                3: {
+                    SACRIFICIAL_ALCOVE: 50,
+                    FRACTURED_HOLLOW: 20,
+                    ANTECHAMBER_OF_MARVELS: 0.05,
+                    DESECRATED_ALTAR: 3
                 },
                 LAST: {
                     CHASM: 100
