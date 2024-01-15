@@ -983,7 +983,7 @@ let Config = {
                 1: {
                     ENTRANCE: 100,
                 },
-                2: {
+                /* 2: {
                     DORMANT_ROOM: 100
                 },
                 3: {
@@ -991,14 +991,19 @@ let Config = {
                     FRACTURED_HOLLOW: 20,
                     ANTECHAMBER_OF_MARVELS: 0.05,
                     DESECRATED_ALTAR: 3
-                },
+                }, */
                 LAST: {
                     CHASM: 100
                 }
-            }
+            },
         }),
         10: new DungeonFloorConfig({
-
+            ROWS: {
+                4: {
+                    DESECRATED_ALTAR: 50,
+                    ANTECHAMBER_OF_MARVELS: 50
+                }
+            }
         })
     }
 }
