@@ -980,7 +980,7 @@ let Config = {
     DungeonFloorConfig: {
         GLOBAL: new DungeonFloorConfig({
             ROWS: {
-                FIRST: {
+                1: {
                     ENTRANCE: 100,
                 },
                 2: {
