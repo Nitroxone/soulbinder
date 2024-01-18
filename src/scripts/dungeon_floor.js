@@ -51,17 +51,15 @@ class DungeonFloor {
         const rooms = this.getAssignedRooms();
         let selection, pool, choice;
         for(const row in this.config.rows) {
-            console.log(row);
+            let target = row === 'LAST' ? this.ROWS-1 : Number(row) - 1;
 
-            if(row === 'LAST') {
-                selection = rooms.filter(x => x.coordinates[0] === this.ROWS-1);
-            } else selection = rooms.filter(x => x.coordinates[0] === Number(row) - 1);
+            selection = rooms.filter(x => x.coordinates[0] === target);
 
             pool = this.config.rows[row];
+            console.log(pool);  
 
             selection.forEach(room => {
                 choice = Data.DungeonRoomType[this.getRoomType(pool)];
-                console.log(choice);
                 room.type = choice;
                 console.log(`Room ${room.coordinates} was given type ${choice}`);
             });

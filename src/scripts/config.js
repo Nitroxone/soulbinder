@@ -999,9 +999,12 @@ let Config = {
         }),
         10: new DungeonFloorConfig({
             ROWS: {
+                2: {
+                    DORMANT_ROOM: { cha: 50, min: 1 },
+                    SACRIFICIAL_ALCOVE: { cha: 50, min: 1, max: 1 },
+                },
                 4: {
-                    DESECRATED_ALTAR: 50,
-                    ANTECHAMBER_OF_MARVELS: 50
+                    EQUALLY: ["DESECRATED_ALTAR", "ANTECHAMBER_OF_MARVELS", "ETERNITY_WELL"]
                 }
             }
         })
