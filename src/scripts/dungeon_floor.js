@@ -48,22 +48,61 @@ class DungeonFloor {
      * Populates the generated rooms.
      */
     generateRooms() {
+        // Room repartition algorithm:
+        // 1. Run checks to make sure config is valid (min < max, total requirements are not below room amount...)
+        // 2. Start by filling required rooms
+        // 3. Randomly fill the rest
+        // 4. Shuffle & assign
+
         const rooms = this.getAssignedRooms();
         let selection, pool, choice;
         for(const row in this.config.rows) {
+            let types = [];
             let target = row === 'LAST' ? this.ROWS-1 : Number(row) - 1;
 
             selection = rooms.filter(x => x.coordinates[0] === target);
 
             pool = this.config.rows[row];
             console.log(pool);  
+            this.validateRowConfig(selection, pool);
 
-            selection.forEach(room => {
-                choice = Data.DungeonRoomType[this.getRoomType(pool)];
-                room.type = choice;
-                console.log(`Room ${room.coordinates} was given type ${choice}`);
-            });
+            for(const roomType in pool) {
+                if(!pool[roomType].min) continue;
+
+                for(let i = 0; i < pool[roomType].min; i++) {
+                    types.push(roomType);
+                }
+            }
+
+            // selection.forEach(room => {
+            //     choice = Data.DungeonRoomType[this.getRoomType(pool)];
+            //     room.type = choice;
+            //     console.log(`Room ${room.coordinates} was given type ${choice}`);
+            // });
+            for(let i = 0; i < selection.length - types.length; i++) {
+                let result;
+                do {
+                    result = this.getRoomType(pool);
+                    result = Data.DungeonRoomType[result];
+                } while(pool[result].max <= types.filter(x => x === result).length || !pool[result].max);
+                console.log("max: " + pool[result].max);
+                console.log("currmax: " + types.filter(x => x === result).length);
+
+                types.push(result);
+            }
+
+            if(selection.length !== types.length) throw new Error('Error: misaligned types. Assigned ' + types.length + ', required ' + selection.length);
+
+            types = shuffle(types);
+            for(let i = 0; i < selection.length; i++) {
+                selection[i].type = types[i];
+                console.log(`Room ${selection[i].coordinates} was given type ${types[i]}`);
+            }
         }
+    }
+
+    validateRowConfig(row, config) {
+        return true;
     }
 
     getRoomType(row) {
