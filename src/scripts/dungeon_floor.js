@@ -84,7 +84,7 @@ class DungeonFloor {
                 do {
                     result = this.getRoomType(pool);
                     result = Data.DungeonRoomType[result];
-                } while(pool[result].max <= types.filter(x => x === result).length || !pool[result].max);
+                } while(!result.max || pool[result].max <= types.filter(x => x === result).length);
                 console.log("max: " + pool[result].max);
                 console.log("currmax: " + types.filter(x => x === result).length);
 
