@@ -67,14 +67,16 @@ class DungeonFloor {
     }
 
     getRoomType(row) {
+        console.log(row);
         if(!row) throw new Error('The room assignment script encountered an error.');
 
-        const chances = Object.values(row).reduce((sum, percentage) => sum + percentage, 0);
+        //const chancesArray = Object.values(row).map(obj => obj.cha);
+        const chances = Object.values(row).map(obj => obj.cha).reduce((sum, percentage) => sum + percentage, 0);
         const randVal = Math.random() * 100;
 
         let cumulative = 0;
         for(const roomType in row) {
-            cumulative += (row[roomType] / chances) * 100;
+            cumulative += (row[roomType].cha / chances) * 100;
             if(randVal <= cumulative) return roomType;
         }
     }

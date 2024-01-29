@@ -979,9 +979,10 @@ let Config = {
     ],
     DungeonFloorConfig: {
         GLOBAL: new DungeonFloorConfig({
+            STARTING_ROOMS: 4,
             ROWS: {
                 1: {
-                    ENTRANCE: 100,
+                    ENTRANCE: { cha: 100 },
                 },
                 /* 2: {
                     DORMANT_ROOM: 100
@@ -993,7 +994,7 @@ let Config = {
                     DESECRATED_ALTAR: 3
                 }, */
                 LAST: {
-                    CHASM: 100
+                    CHASM: { cha: 100 }
                 }
             },
         }),
