@@ -54,6 +54,9 @@ class DungeonFloor {
         }
     }
 
+    /**
+     * Resets all the rooms on this floor.
+     */
     resetRooms() {
         this.getAssignedRooms().forEach(ro => {
             ro.type = Data.DungeonRoomType.UNASSIGNED;
@@ -134,29 +137,36 @@ class DungeonFloor {
      * @returns {boolean}
      */
     validateConfig() {
-        const cfg = this.config.rows;
-        const rooms = this.getAssignedRooms();
+        const cfg = this.config.rows; // Get this floor's rows config
+        const rooms = this.getAssignedRooms(); // Get the "alive" rooms
 
-        for(let i = 0; i < this.ROWS; i++) {
-            const rowCfg = cfg[String(i+1)];
+        for(let i = 0; i < this.ROWS; i++) { // iterate over rows
+            const rowCfg = cfg[String(i+1)]; // Get row config that matches the current row we're processing
 
-            if(!rowCfg) continue;
+            if(!rowCfg) continue; // skip if no matching config
 
+            // This horrendously long and unreadable line below gets the total amount of minimum requirements on the current row
             const totalMin = Object.values(rowCfg).map(x => typeof x === 'object' && x !== null && typeof x.min === 'number' ? x.min : 0).reduce((sum, add) => sum + add, 0);
             const roomsAmount = rooms.filter(x => x.coordinates[0] === i).length;
 
+            // Essentially just compare the amount of min with the amount of rooms
             console.log(`Row ${i} : total min ${totalMin}, ${roomsAmount} rooms`, rowCfg);
+            // Also check if the total min amount is greater than the starting rooms amount to just go faster
             if(totalMin > this.startingRooms) throw new Error('Too many requirements for too little starting rooms.');
             if(totalMin > roomsAmount) return false;
         }
         return true;
     }
 
+    /**
+     * Retrieves a room type from the given row config
+     * @param {object} row a DungeonFloorConfig row object
+     * @returns {Data.DungeonRoomType} a room type
+     */
     getRoomType(row) {
         console.log(row);
         if(!row) throw new Error('The room assignment script encountered an error.');
 
-        //const chancesArray = Object.values(row).map(obj => obj.cha);
         const chances = Object.values(row).map(obj => obj.cha).reduce((sum, percentage) => sum + percentage, 0);
         const randVal = Math.random() * 100;
 
