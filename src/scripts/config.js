@@ -999,7 +999,6 @@ let Config = {
             },
         }),
         10: new DungeonFloorConfig({
-            STARTING_ROOMS: 4,
             ROWS: {
                 2: {
                     DORMANT_ROOM: { cha: 70, min: 1 },
