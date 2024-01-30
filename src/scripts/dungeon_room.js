@@ -30,6 +30,7 @@ class DungeonRoom {
      * @returns {string} the room's description
      */
     getRoomDescription(reassign = false) {
+        console.log('Getting description for room type :' + this.type + ', dungeon : ' + game.dungeon.name);
         if(this.desc !== '' && !reassign) return this.desc;
         let desc = '';
 
