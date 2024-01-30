@@ -11,7 +11,7 @@ class DungeonFloor {
     constructor(props) {
         this.depth = getValueFromObject(props, "depth", 0);
         this.gridSize = getValueFromObject(props, "gridSize", [10, 7]); // [width, height]
-        this.config = getValueFromObject(props, "roomTypes", getDungeonFloorConfig('GLOBAL'));
+        this.config = getValueFromObject(props, "roomTypes", getDungeonFloorConfig(this.gridSize[0]));
         this.startingRooms = getValueFromObject(props, "startingRooms", 4);
 
         this.ROWS = this.gridSize[0];
@@ -21,8 +21,11 @@ class DungeonFloor {
         this.connectors = [];
 
         this.generateGrid();
-        this.generatePaths();
-        this.generateRooms();
+        do {
+            this.generatePaths();
+            var success = this.generateRooms();
+            if(!success) console.error('Generation failed ! Retrying...');
+        } while(!success);
 
         //this.room = this.getEntranceRoom();
         this.room = choose(this.rooms.filter(x => x.coordinates[0] === 0 && x.nextRooms.length > 0));
@@ -64,7 +67,9 @@ class DungeonFloor {
 
             pool = this.config.rows[row];
             console.log(pool);  
-            this.validateRowConfig(selection, pool);
+            if(!this.validateRowConfig(selection, pool)) {
+                return false
+            }
 
             for(const roomType in pool) {
                 if(!pool[roomType].min) continue;
@@ -73,24 +78,31 @@ class DungeonFloor {
                     types.push(roomType);
                 }
             }
-
+            console.log(selection.length - types.length);
             // selection.forEach(room => {
             //     choice = Data.DungeonRoomType[this.getRoomType(pool)];
             //     room.type = choice;
             //     console.log(`Room ${room.coordinates} was given type ${choice}`);
             // });
+            let otherTypes = [];
             for(let i = 0; i < selection.length - types.length; i++) {
                 let result;
                 do {
                     result = this.getRoomType(pool);
-                    result = Data.DungeonRoomType[result];
-                } while(!result.max || pool[result].max <= types.filter(x => x === result).length);
-                console.log("max: " + pool[result].max);
+                    //result = Data.DungeonRoomType[result];
+                    console.log(result);
+                    console.log(pool[result]);
+                    
+                } while(pool[result].max && pool[result].max <= otherTypes.filter(x => x === result).length);
+                console.log("max: " + (pool[result].max || 0));
                 console.log("currmax: " + types.filter(x => x === result).length);
 
-                types.push(result);
+                otherTypes.push(result);
             }
+            types = types.concat(otherTypes);
+            types = types.map(x => x = Data.DungeonRoomType[x]);
 
+            console.log(types);
             if(selection.length !== types.length) throw new Error('Error: misaligned types. Assigned ' + types.length + ', required ' + selection.length);
 
             types = shuffle(types);
@@ -98,10 +110,17 @@ class DungeonFloor {
                 selection[i].type = types[i];
                 console.log(`Room ${selection[i].coordinates} was given type ${types[i]}`);
             }
+
         }
+        return { success: true, message: '' };
     }
 
     validateRowConfig(row, config) {
+        console.log(row);
+        console.log(config);
+        const totalMin = Object.values(config).map(x => x.min).reduce((sum, add) => sum + add, 0);
+        if(totalMin > row.length) return false;
+
         return true;
     }
 
