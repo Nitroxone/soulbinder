@@ -11,20 +11,27 @@ class DungeonFloor {
     constructor(props) {
         this.depth = getValueFromObject(props, "depth", 0);
         this.gridSize = getValueFromObject(props, "gridSize", [10, 7]); // [width, height]
-        this.config = getValueFromObject(props, "roomTypes", getDungeonFloorConfig(this.gridSize[0]));
-        this.startingRooms = getValueFromObject(props, "startingRooms", this.config.startingRooms);
+        this.config = getValueFromObject(props, "roomTypes", buildDungeonFloorConfigFromGlobal(this.gridSize[0]));
         
         this.ROWS = this.gridSize[0];
         this.COLS = this.gridSize[1];
-
+        
         this.rooms = [];
         this.connectors = [];
-
+        
         this.generateGrid();
+        this.startingRooms = this.config.startingRooms;
+        console.log('starting rooms: ' + this.startingRooms);
+        let count = 0;
         do {
             this.generatePaths();
             var success = this.generateRooms();
-            if(!success) console.error('Generation failed ! Retrying...');
+            if(!success) {
+                console.error('Generation failed ! Retrying...');
+                this.resetRooms();
+                count++;
+                if(count == 10) throw new Error('Too many failed attemps.');
+            }
         } while(!success);
 
         //this.room = this.getEntranceRoom();
@@ -37,7 +44,7 @@ class DungeonFloor {
     }
 
     /**
-     * Fills the rooms array with empty rooms, according to the ROWS and COLS of the floor.
+     * Fills the rooms array with UNASSIGNED rooms, according to the ROWS and COLS of the floor.
      */
     generateGrid() {
         for(let i = 0; i < this.ROWS; i++) {
@@ -45,6 +52,14 @@ class DungeonFloor {
                 this.rooms.push(new DungeonRoom({coordinates: [i, j]}));
             }
         }
+    }
+
+    resetRooms() {
+        this.getAssignedRooms().forEach(ro => {
+            ro.type = Data.DungeonRoomType.UNASSIGNED;
+            ro.previousRooms = [];
+            ro.nextRooms = [];
+        });
     }
 
     /**
@@ -58,7 +73,8 @@ class DungeonFloor {
         // 4. Shuffle & assign
 
         const rooms = this.getAssignedRooms();
-        let selection, pool, choice;
+        let selection, pool;
+        if(!this.validateConfig()) return false;
         for(const row in this.config.rows) {
             let types = [];
             let target = row === 'LAST' ? this.ROWS-1 : Number(row) - 1;
@@ -67,9 +83,6 @@ class DungeonFloor {
 
             pool = this.config.rows[row];
             console.log(pool);  
-            if(!this.validateRowConfig(selection, pool)) {
-                return false
-            }
 
             for(const roomType in pool) {
                 if(!pool[roomType].min) continue;
@@ -79,6 +92,7 @@ class DungeonFloor {
                 }
             }
             console.log(selection.length - types.length);
+            console.log('types :', types, 'selection :', selection, ' on row ' + target);
             // selection.forEach(room => {
             //     choice = Data.DungeonRoomType[this.getRoomType(pool)];
             //     room.type = choice;
@@ -103,7 +117,7 @@ class DungeonFloor {
             types = types.map(x => x = Data.DungeonRoomType[x]);
 
             console.log(types);
-            if(selection.length !== types.length) throw new Error('Error: misaligned types. Assigned ' + types.length + ', required ' + selection.length);
+            if(selection.length !== types.length) throw new Error('Misaligned types. Assigned ' + types.length + ', required ' + selection.length);
 
             types = shuffle(types);
             for(let i = 0; i < selection.length; i++) {
@@ -112,15 +126,29 @@ class DungeonFloor {
             }
 
         }
-        return { success: true, message: '' };
+        return true;
     }
 
-    validateRowConfig(row, config) {
-        console.log(row);
-        console.log(config);
-        const totalMin = Object.values(config).map(x => x.min).reduce((sum, add) => sum + add, 0);
-        if(totalMin > row.length) return false;
+    /**
+     * Validates the current floor configuration through various checks.
+     * @returns {boolean}
+     */
+    validateConfig() {
+        const cfg = this.config.rows;
+        const rooms = this.getAssignedRooms();
 
+        for(let i = 0; i < this.ROWS; i++) {
+            const rowCfg = cfg[String(i+1)];
+
+            if(!rowCfg) continue;
+
+            const totalMin = Object.values(rowCfg).map(x => typeof x === 'object' && x !== null && typeof x.min === 'number' ? x.min : 0).reduce((sum, add) => sum + add, 0);
+            const roomsAmount = rooms.filter(x => x.coordinates[0] === i).length;
+
+            console.log(`Row ${i} : total min ${totalMin}, ${roomsAmount} rooms`, rowCfg);
+            if(totalMin > this.startingRooms) throw new Error('Too many requirements for too little starting rooms.');
+            if(totalMin > roomsAmount) return false;
+        }
         return true;
     }
 
@@ -158,14 +186,10 @@ class DungeonFloor {
             console.log(ro.coordinates);
         })
 
-        // Keep track of visited rooms
-        const visitedRooms = new Set();
-
         // Create a path from each starting room
         startingRooms.forEach(room => {
             // Recursivity time!
-            this.createPathFromStartingRoom(room, visitedRooms);
-            visitedRooms.clear();
+            this.createPathFromStartingRoom(room);
         });
     }
 
@@ -173,8 +197,8 @@ class DungeonFloor {
      * Creates a path of rooms, using the provided room as a starting point.
      * @param {DungeonRoom} start the path's starting point
      */
-    createPathFromStartingRoom(start, visitedRooms) {
-        this.createPathRecursive(start, 1, visitedRooms);
+    createPathFromStartingRoom(start) {
+        this.createPathRecursive(start, 1);
     }
 
     /**
@@ -182,14 +206,13 @@ class DungeonFloor {
      * @param {*} current the current room
      * @param {*} row the row of the room
      */
-    createPathRecursive(current, row, visitedRooms) {
+    createPathRecursive(current, row) {
         current.type = Data.DungeonRoomType.EMPTY;
-        //visitedRooms.add(current);
 
         if(row >= this.ROWS) return;
 
         // Find random position in the next row
-        const pool = this.rooms.filter(x => x.coordinates[0] === row && !visitedRooms.has(x));
+        const pool = this.rooms.filter(x => x.coordinates[0] === row);
         if(pool.length === 0) return; // No more rooms available in the row
 
         const next = choose(getClosestElements(pool, current.coordinates[1]));
@@ -198,7 +221,7 @@ class DungeonFloor {
         next.previousRooms.push(current);
 
         // Continue to next room
-        this.createPathRecursive(next, row + 1, visitedRooms);
+        this.createPathRecursive(next, row + 1);
     }
 
     /**
@@ -371,8 +394,8 @@ class DungeonFloor {
     }
 
     /**
-     * Returns this DungeonFloor's rooms that are not empty.
-     * @returns {DungeonRoom[]} the rooms on this floor that are not empty
+     * Returns this DungeonFloor's rooms that are not UNASSIGNED.
+     * @returns {DungeonRoom[]} the rooms on this floor that are not UNASSIGNED
      */
     getAssignedRooms() {
         return this.rooms.filter(x => x.type !== Data.DungeonRoomType.UNASSIGNED)
