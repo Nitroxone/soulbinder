@@ -51,7 +51,11 @@ class Dungeon {
      */
     generateFloors() {
         for(let i = 0; i < this.maximumDepth; i++) {
-            this.floors.push(new DungeonFloor(this.config['floor' + (i+1)]));
+            const config = this.config["floor" + (i+1)];
+            const props = { depth: 1 };
+            if(config.gridSize) props.gridSize = config.gridSize;
+            if(config.config) props.config = config.config;
+            this.floors.push(new DungeonFloor(props));
         }
     }
 
