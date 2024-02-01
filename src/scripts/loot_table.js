@@ -75,9 +75,10 @@ let LootTable = {
                         mythic: -100,
                         relic: -100,
                     },
-                    pool: [
-                        "dark stone"
-                    ]
+                    pool: {
+                        "dark stone": 100,
+                        "minor time shard": 80
+                    },
                 }),
                 gold: [50, 70],
             },
@@ -183,11 +184,16 @@ let LootTable = {
                         "weapon": game.all_weapons,
                         "resource": game.all_resources
                     }
-
-                    if(Array.isArray(preset[type].pool)) {
-                        pool = preset[type].pool.map(x => {
-                            return what(poolsMap[type], x);
-                        });
+                    
+                    if(typeof preset[type].pool == 'object') {
+                        pool = [];
+                        for(const obj in preset[type].pool) {
+                            if(computeChance(Number(preset[type].pool[obj]))) {
+                                pool.push(
+                                    what(poolsMap[type], obj)
+                                );
+                            }
+                        }
                     }
 
                     if(type === 'resource') {
