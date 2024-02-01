@@ -6042,9 +6042,25 @@ table.astralForgeShards td {
     width: 100%;
     height: 220px;
     top: -150px;
-    /*right: -100px;*/
-    background: rgb(238,149,81, 0.5);
     background: radial-gradient(circle, rgba(238,149,81,0.25) 0%, rgba(255,255,255,0) 100%);
+}
+.infosPanel-roomHeader.engaged::before {
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
+    content: '';
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 220px;
+    top: -150px;
+    background: radial-gradient(circle, rgba(220,20,60,0.35) 0%, rgba(255,255,255,0) 100%);
+    animation: roomHeaderEngagedAnim 5s ease infinite;
+}
+@keyframes roomHeaderEngagedAnim {
+    50% {
+        transform: scale(1.35);
+        filter: brightness(125%) saturate(50%);
+    }
 }
 
 .infosPanel-roomDesc {
