@@ -36,7 +36,7 @@ class DungeonRoom {
 
         if(!this.identified) desc = choose(Speech.Dungeon.Rooms["unknown"]);
         else {
-            if(this.type === Data.DungeonRoomType.ANTECHAMBER_OF_MARVELS) desc = choose(Speech.Dungeon.Rooms['antechamber_of_marvels']);
+            if(this.type === Data.DungeonRoomType.ANTECHAMBER_OF_MARVELS) desc = choose(Speech.Dungeon.Rooms['antechamber of marvels']);
             else desc = choose(Speech.Dungeon.Rooms[this.type][game.dungeon.name.toLowerCase()][this.status]);
         }
         this.desc = desc;
