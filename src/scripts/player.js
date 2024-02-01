@@ -39,6 +39,8 @@ class Player {
         this.du_inventory = [];
         this.du_collectedGold = 0;
         this.du_collectedSouls = 0;
+        this.du_ephemeralLuck = 0;
+        this.du_ephemeralLuckGainModifier = 1;
         this.inCombat = false;
 
         // SIGILS
