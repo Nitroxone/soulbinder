@@ -74,10 +74,10 @@ let LootTable = {
                         grand: -100,
                         mythic: -100,
                         relic: -100,
-                    }
-                }),
-                trinket: new LootParams({
-                    
+                    },
+                    pool: [
+                        "dark stone"
+                    ]
                 }),
                 gold: [50, 70],
             },
@@ -175,31 +175,48 @@ let LootTable = {
                     });
                 } else {
                     let dropRate, lootType, pool;
+                    const poolsMap = {
+                        "consumable": game.all_consumables,
+                        "armor": game.all_armors,
+                        "trinket": game.all_trinkets,
+                        "sigil": game.all_sigils,
+                        "weapon": game.all_weapons,
+                        "resource": game.all_resources
+                    }
+
+                    if(Array.isArray(preset[type].pool)) {
+                        pool = preset[type].pool.map(x => {
+                            return what(poolsMap[type], x);
+                        });
+                    }
+
                     if(type === 'resource') {
                         dropRate = LootTable.DropRates.Resource;
                         lootType = 'resource';
-                        pool = game.all_resources;
+                        if(!pool || preset[type].pool === "any") pool = game.all_resources;
                     } else if(type === 'weapon') {
                         dropRate = LootTable.DropRates.Weapon;
                         lootType = 'weapon';
-                        pool = game.all_weapons;
+                        if(!pool || preset[type].pool === "any") pool = game.all_weapons;
                     } else if(type === 'trinket') {
                         dropRate = LootTable.DropRates.Trinket;
                         lootType = 'trinket';
-                        pool = game.all_trinkets;
+                        if(!pool || preset[type].pool === "any") pool = game.all_trinkets;
                     } else if(type === 'armor') {
                         dropRate = LootTable.DropRates.Armor;
                         lootType = 'armor';
-                        pool = game.all_armors;
+                        if(!pool || preset[type].pool === "any") pool = game.all_armors;
                     } else if(type === 'sigil') {
                         dropRate = LootTable.DropRates.Sigil;
                         lootType = 'sigil';
-                        pool = game.all_sigils;
+                        if(!pool || preset[type].pool === "any") pool = game.all_sigils;
                     } else if(type === 'consumable') {
                         dropRate = LootTable.DropRates.Consumable;
                         lootType = 'consumable';
-                        pool = game.all_consumables;
+                        if(!pool || preset[type].pool === "any") pool = game.all_consumables;
                     }
+
+                    console.log("pool:", pool);
 
                     if(getRandomNumber(0, 100) > preset[type].chance) continue;
                     // Get the amount (add modifiers for that later)
