@@ -441,7 +441,7 @@ class Game {
         what(this.player.roster, "amarok").level.addLevel(30);
         what(this.player.roster, "amarok").skillPoints = 100;
 
-        console.clear();
+        //console.clear();
 
         //this.startBattle(Entity.clone(what(game.all_enemyFormations, "gnarlyAndFungaliant")));
         //this.currentBattle.end();

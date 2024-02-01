@@ -244,77 +244,91 @@ function generateMapRoomsEvents() {
     })
 }
 
+function getRelativePos(a, b) {
+    const rect = a.getBoundingClientRect();
+    const parentRect = b.getBoundingClientRect();
+
+    const relativeTop = rect.top - parentRect.top;
+    const relativeLeft = rect.left - parentRect.left;
+
+    console.log(`Relative top position: ${relativeTop}px`);
+    console.log(`Relative left position: ${relativeLeft}px`);
+    return { relativeTop, relativeLeft };
+}
+
 function generateExplorationMapEvents() {
     let zoomLevel = 1;
     const map = document.querySelector('.exploration-map');
     const mapContainer = document.querySelector('.exploration-mapContainer');
+    let translateX = 0;
+    let translateY = 0;
 
     mapContainer.addEventListener('wheel', e => {
         map.style.transition = '';
         mapContainer.style.transition = '';
         e.preventDefault();
 
-        const direction = Math.sign(e.deltaY);
+        const direction = Math.sign(e.deltaY); // 1 out, -1 in
 
-        zoomLevel += -direction * 0.65;
+        zoomLevel += -direction * 0.05;
         zoomLevel = Math.max(0.65, zoomLevel);
         zoomLevel = Math.min(1, zoomLevel);
 
-        map.style.transform = 'scale(' + zoomLevel + ')';
+        map.style.transform = `scale(${zoomLevel}) translate(${translateX}px, ${translateY}px)`;
     });
+
     mapContainer.addEventListener('mousedown', e => {
         map.style.transition = '';
         mapContainer.style.transition = '';
-        var moving = true;
+        let moving = true;
 
-        var initX = e.clientX;
-        var initY = e.clientY;
+        let initX = e.clientX;
+        let initY = e.clientY;
 
-        mapContainer.addEventListener('mousemove', e => {
-            if(!moving) return;
+        const onMove = (e) => {
+            if (!moving) return;
 
             const deltaX = e.clientX - initX;
             const deltaY = e.clientY - initY;
             initX = e.clientX;
             initY = e.clientY;
 
-            let left = isNaN(parseInt(map.style.left)) ? 0 : parseInt(map.style.left);
-            let top = isNaN(parseInt(map.style.top)) ? 0 : parseInt(map.style.top);
-            let offsetLeft = left + deltaX;
-            let offsetTop = top + deltaY;
-            map.style.left = offsetLeft + 'px';
-            map.style.top = offsetTop + 'px';
-            /*let divider = map.style.transform === 'scale(0.5)' ? 4 : 6;
-            mapContainer.style.backgroundPositionX = (offsetLeft/divider) + 'px';
-            mapContainer.style.backgroundPositionY = (offsetTop/divider) + 'px';*/
-        });
+            translateX += deltaX;
+            translateY += deltaY;
 
-        mapContainer.addEventListener('mouseup', e => {
+            map.style.transform = `scale(${zoomLevel}) translate(${translateX}px, ${translateY}px)`;
+        };
+
+        const stopMoving = () => {
             moving = false;
-        });
-        mapContainer.addEventListener('mouseleave', e => {
-            moving = false;
-        });
+        };
+
+        mapContainer.addEventListener('mousemove', onMove);
+        mapContainer.addEventListener('mouseup', stopMoving);
+        mapContainer.addEventListener('mouseleave', stopMoving);
     });
+
     document.querySelector('.exploration-repositionMap').addEventListener('click', e => {
         const current = game.dungeon.floor.room;
         const currentDom = document.querySelector('#ch-' + current.id);
         console.log(currentDom);
 
-        var targetLeft = (mapContainer.offsetWidth / 2) - (currentDom.offsetWidth / 2);
-        var targetTop = (mapContainer.offsetHeight / 2) - (currentDom.offsetHeight / 2);
+        let targetLeft = (mapContainer.offsetWidth / 2) - (currentDom.offsetWidth / 2);
+        let targetTop = (mapContainer.offsetHeight / 2) - (currentDom.offsetHeight / 2);
         targetLeft -= parseFloat(currentDom.style.left);
         targetTop -= parseFloat(currentDom.style.top);
 
-        map.style.transition = 'transform .5s cubic-bezier(0.075, 0.82, 0.165, 1) 0s, left .5s cubic-bezier(0.075, 0.82, 0.165, 1) 0s, top .5s cubic-bezier(0.075, 0.82, 0.165, 1) 0s';
+        // Update to prevent incoherences
+        translateX = targetLeft;
+        translateY = targetTop;
+
+        map.style.transition = 'transform .5s cubic-bezier(0.075, 0.82, 0.165, 1)';
         mapContainer.style.transition = 'background-position-x .5s cubic-bezier(1,0,0,1), background-position-y .5s cubic-bezier(1,0,0,1)';
-        map.style.transform = 'scale(1)';
-        map.style.left = targetLeft + 'px';
-        map.style.top = targetTop + 'px';
-        /*mapContainer.style.backgroundPositionX = '0px';
-        mapContainer.style.backgroundPositionY = '0px';*/
-    })
+        map.style.transform = `scale(1) translate(${targetLeft}px, ${targetTop}px)`;
+    });
 }
+
+
 
 function recenterDungeonMap() {
     document.querySelector('.exploration-repositionMap').dispatchEvent(new Event('click'));

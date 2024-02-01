@@ -2311,3 +2311,43 @@ function getClosestElements(arr, index) {
     // Get the elements within the specified range
     return arr.slice(start, end + 1);
 }
+
+/**
+ * Returns the DungeonFloorConfig that matches the provided name.
+ * @param {string|number} name the name to match
+ * @returns {object|null} a DungeonFloorConfig, or null if none is found
+ */
+function getDungeonFloorConfig(name) {
+    return Config.DungeonFloorConfig[String(name)];
+}
+
+/**
+ * 
+ * @param {string|number} name 
+ * @returns 
+ */
+function buildDungeonFloorConfigFromGlobal(name) {
+    var target = structuredClone(Config.DungeonFloorConfig.GLOBAL);
+    var source = structuredClone(getDungeonFloorConfig(name));
+    deepMerge(target, source);
+    return target;
+}
+
+/**
+ * Recursively applies a deep (ie. with nested properties) merge on the two provided objects.
+ * The target object is overriden with any property of the source object that is able to. 
+ * Properties that don't exist are left untouched.
+ * @param {object} target 
+ * @param {object} source 
+ */
+function deepMerge(target, source) {
+    for(const key in source) {
+        if(source.hasOwnProperty(key)) {
+            if(source[key] instanceof Object && key in target) {
+                deepMerge(target[key], source[key]);
+            } else {
+                target[key] = source[key];
+            }
+        }
+    }
+}

@@ -8,7 +8,7 @@ class DungeonRoom {
     constructor(props) {
         this.id = Math.floor(Math.random() * Date.now());
         this.coordinates = getValueFromObject(props, "coordinates", [0, 0]);
-        this.type = getValueFromObject(props, "type", Data.DungeonRoomType.EMPTY);
+        this.type = getValueFromObject(props, "type", Data.DungeonRoomType.UNASSIGNED);
         this.nextRooms = getValueFromObject(props, "nextRooms", []);
         this.previousRooms = getValueFromObject(props, "previousRooms", []);
 
@@ -30,12 +30,13 @@ class DungeonRoom {
      * @returns {string} the room's description
      */
     getRoomDescription(reassign = false) {
+        console.log('Getting description for room type :' + this.type + ', dungeon : ' + game.dungeon.name);
         if(this.desc !== '' && !reassign) return this.desc;
         let desc = '';
 
         if(!this.identified) desc = choose(Speech.Dungeon.Rooms["unknown"]);
         else {
-            if(this.type === Data.DungeonRoomType.ANTECHAMBER_OF_MARVELS) desc = choose(Speech.Dungeon.Rooms['antechamber of marvels']);
+            if(this.type === Data.DungeonRoomType.ANTECHAMBER_OF_MARVELS) desc = choose(Speech.Dungeon.Rooms['antechamber_of_marvels']);
             else desc = choose(Speech.Dungeon.Rooms[this.type][game.dungeon.name.toLowerCase()][this.status]);
         }
         this.desc = desc;
@@ -63,10 +64,8 @@ class DungeonRoom {
         let actions = [];
         if(this.isCleared()) return actions;
         if(this.identified) {
-            if(!this.visited) {
-                if(this.canSearch()) actions.push(Data.DungeonRoomAction.SEARCH);
-                else actions.push(Data.DungeonRoomAction.ENTER);
-            }
+            if(this.canSearch()) actions.push(Data.DungeonRoomAction.SEARCH);
+            else actions.push(Data.DungeonRoomAction.ENTER);
         } else actions.push(Data.DungeonRoomAction.ENTER, Data.DungeonRoomAction.SCOUT);
         return actions;
     }

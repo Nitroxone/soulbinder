@@ -443,6 +443,7 @@ const Data = Object.freeze({
         PUTRESCENT_OSSUARY: "putrescent ossuary",
     },  
     DungeonRoomType: {
+        UNASSIGNED: "unassigned",
         ENTRANCE: "entrance",
         CHASM: "chasm",
         BOSS: "boss room",
