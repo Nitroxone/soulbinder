@@ -259,6 +259,7 @@ let LootTable = {
                             results.find(obj => obj.item === final).amount += 1;
                         }
                         else {
+                            final.origin = Data.OriginType.SCAVENGED;
                             results.push({
                                 type: lootType,
                                 rarity: rarity,
