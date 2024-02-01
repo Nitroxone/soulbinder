@@ -3425,7 +3425,16 @@ const Loader = {
                             }
                         }),
                     ]
-                })
+                }),
+                {
+                    resource: new LootParams({
+                        amount: [1, 2],
+                        pool: [
+                            "dark stone",
+                            "minor time shard"
+                        ]
+                    })
+                }
             ),
             new Enemy(
                 "Fungaliant",

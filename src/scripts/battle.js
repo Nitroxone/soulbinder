@@ -24,6 +24,8 @@ class Battle {
 
         this.type = type;
 
+        this.loot = [];
+
         this.params = null;
         this.resetAttackParams();
     }
@@ -111,6 +113,7 @@ class Battle {
         this.runTriggersOnAll(Data.TriggerType.ON_BATTLE_END);
         this.cleanAllBattleEffectsFromFighters();
         this.outcome = this.determineOutcome();
+        this.generateLoot();
         game.dungeon.floor.room.battleEnded(this.outcome);
         drawEndBattleScreen();
     }
@@ -1138,6 +1141,12 @@ class Battle {
             };
 
             checkCondition();
+        });
+    }
+
+    generateLoot() {
+        this.enemies.forEach(en => {
+            this.loot = this.loot.concat(LootTable.Generators.generateLoot(en.drops));
         });
     }
 }
