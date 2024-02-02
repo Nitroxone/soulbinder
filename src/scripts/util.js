@@ -2351,3 +2351,40 @@ function deepMerge(target, source) {
         }
     }
 }
+
+/**
+ * Merges the loot Resource items from the provided array and returns it.
+ * @param {object[]} loots the loot items array
+ * @returns {object[]} the merged array
+ */
+function mergeLoots(loots) {
+    let merged = [];
+
+    console.log("Loot premerge: ");
+    loots.filter(x => x.item instanceof Resource).forEach(lo => {
+        console.log(lo.item.name, lo.amount);
+    });
+    /*loots.filter(x => x.item instanceof Resource).forEach(item => {
+        let existing = merged.find(x => x.item.name === item.item.name);
+
+        if(existing) existing.amount += item.amount;
+        else merged.push(item);
+    });*/
+
+    merged = loots.reduce((accumulator, currentItem) => {
+        let existingItem = accumulator.find(item => item.item.name === currentItem.item.name);
+
+        if(existingItem && existingItem.item instanceof Resource) existingItem.amount += currentItem.amount;
+        else accumulator.push({...currentItem});
+
+        return accumulator;
+    }, []);
+
+    console.log("Merged: ", merged);
+    console.log("Loot postmerge: ");
+    loots.filter(x => x.item instanceof Resource).forEach(lo => {
+        console.log(lo.item.name, lo.amount);
+    });
+
+    return merged;
+}
