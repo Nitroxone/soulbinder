@@ -10,8 +10,9 @@
  * - "amount", "rarities", "chance" and "includes" only work for GLOBAL unspecified loot pools.
  * - Default param for "pool" is "any". Below is an example of what a specified pool looks like :
  * pool: {
- *      "dark stone": 55, // 55% chance of looting Dark Stone
- *      "decaying petals": 80
+ *      "dark stone": 55, // 55% chance of looting 1 Dark Stone
+ *      "decaying petals": [80, 4], // 80% chance of looting 4 Decaying Petals
+ *      "silver essence": [41, [2, 4]] // 41% chance of looting between 2 and 4 Silver Essence
  * }
  */
 class LootParams {

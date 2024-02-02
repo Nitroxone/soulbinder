@@ -75,7 +75,7 @@ let LootTable = {
                         relic: -100,
                     },
                     pool: {
-                        "minor time shard": 80,
+                        "minor time shard": [80, [2, 5]],
                         "dark stone": 50,
                     },
                 }),
@@ -244,10 +244,18 @@ let LootTable = {
                         if(!Array.isArray(pool)) {
                             for(obj in pool) {
                                 console.log('Rolling dice for ' + obj + '...');
-                                if(computeChance(pool[obj])) {
+                                const chance = Array.isArray(pool[obj]) ? pool[obj][0] : pool[obj];
+                                if(computeChance(chance)) {
                                     console.log("Passed!");
                                     final = what(poolsMap[type], obj);
-                                    finals.push(final);
+                                    if(!Array.isArray(pool[obj])) finals.push(final);
+                                    else {
+                                        let quantity;
+                                        if(Array.isArray(pool[obj][1])) quantity = getRandomNumber(pool[obj][1][0], pool[obj][1][1]);
+                                        else quantity = pool[obj][1];
+
+                                        for(let k = 0; k < quantity; k++) { finals.push(final) }
+                                    }
                                 }
                             }
                             final = null;
@@ -290,7 +298,7 @@ let LootTable = {
                             generatedNames = generatedNames.concat(finals.map(x => x.name));
 
                             finals.map(x => {
-                                if(x instanceof Resource) x = Entity.clone(x);
+                                if(!(x instanceof Resource)) x = Entity.clone(x);
                             });
                             finals.forEach(fin => {
                                 if(results.some(obj => obj.item === fin)) {
