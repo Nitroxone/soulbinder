@@ -1144,9 +1144,19 @@ class Battle {
         });
     }
 
+    /**
+     * Generates loots based on the enemies' loot tables, then merges them.
+     */
     generateLoot() {
+        this.loot = [];
+        let loot = [];
+
         this.enemies.forEach(en => {
-            this.loot = this.loot.concat(LootTable.Generators.generateLoot(en.drops));
+            const looted = LootTable.Generators.generateLoot(en.drops);
+            loot = loot.concat(looted);
         });
+
+        this.loot = mergeLoots(loot);
+        console.log("Total final loot: ", this.loot);
     }
 }

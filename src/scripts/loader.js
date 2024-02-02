@@ -3428,11 +3428,16 @@ const Loader = {
                 }),
                 {
                     resource: new LootParams({
-                        amount: [1, 2],
-                        pool: [
-                            "dark stone",
-                            "minor time shard"
-                        ]
+                        pool: {
+                            "dark stone": 100,
+                            "minor time shard": [35, 2]
+                        }
+                    }),
+                    trinket: new LootParams({
+                        pool: {
+                            "goodsight doll": 10,
+                            "omen insignia": 5
+                        }
                     })
                 }
             ),
