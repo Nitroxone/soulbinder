@@ -67,7 +67,6 @@ let LootTable = {
         Dungeon: {
             "empty room": {
                 resource: new LootParams({
-                    amount: [1, 3],
                     rarities: {
                         regular: 10,
                         singular: 5,
@@ -76,8 +75,8 @@ let LootTable = {
                         relic: -100,
                     },
                     pool: {
-                        "dark stone": 100,
-                        "minor time shard": 80
+                        "minor time shard": 80,
+                        "dark stone": 50,
                     },
                 }),
                 trinket: new LootParams({
@@ -221,7 +220,8 @@ let LootTable = {
 
                     if(getRandomNumber(0, 100) > preset[type].chance) continue;
                     // Get the amount (add modifiers for that later)
-                    let amount = preset[type].getAmount();
+                    let amount = 1;
+                    if(Array.isArray(pool)) amount = preset[type].getAmount();
 
                     for(const key in preset[type].includes) {
                         if(results.some(obj => obj.item === what(pool, key))) results.find(obj => obj.item === what(pool, key)).amount += getRandomNumber(preset[type].includes[key][0], preset[type].includes[key][1]);
@@ -239,6 +239,7 @@ let LootTable = {
                     // For each modifier
                     for(let i = 0; i < amount; i++) {
                         let final, rarity, eligible;
+                        let finals = [];
 
                         if(!Array.isArray(pool)) {
                             for(obj in pool) {
@@ -246,9 +247,10 @@ let LootTable = {
                                 if(computeChance(pool[obj])) {
                                     console.log("Passed!");
                                     final = what(poolsMap[type], obj);
-                                    rarity = final.rarity;
+                                    finals.push(final);
                                 }
                             }
+                            final = null;
                         } else {
                             do {
                                 rarity = generateLootRarity(dropRate, preset[type])
@@ -263,25 +265,49 @@ let LootTable = {
                             // - final is not a duplicate, if duplicates are not allowed
                         }
 
-                        console.log(final);
-                        // Keeping track of each addition to prevent duplicates
-                        generatedNames.push(final.name);
+                        if(final) {
+                            console.log(final);
+                            // Keeping track of each addition to prevent duplicates
+                            generatedNames.push(final.name);
+    
+                            if(!(final instanceof Resource)) final = Entity.clone(final);
+    
+                            if(results.some(obj => obj.item === final)) {
+                                results.find(obj => obj.item === final).amount += 1;
+                            }
+                            else {
+                                final.origin = Data.OriginType.SCAVENGED;
+                                results.push({
+                                    type: lootType,
+                                    rarity: rarity,
+                                    amount: final.lootModifiers.amount,
+                                    item: final,
+                                    looted: false
+                                });
+                            }
+                        } else {
+                            console.log(finals);
+                            generatedNames = generatedNames.concat(finals.map(x => x.name));
 
-                        if(!(final instanceof Resource)) final = Entity.clone(final);
-
-                        if(results.some(obj => obj.item === final)) {
-                            results.find(obj => obj.item === final).amount += 1;
-                        }
-                        else {
-                            final.origin = Data.OriginType.SCAVENGED;
-                            results.push({
-                                type: lootType,
-                                rarity: rarity,
-                                amount: final.lootModifiers.amount,
-                                item: final,
-                                looted: false
+                            finals.map(x => {
+                                if(x instanceof Resource) x = Entity.clone(x);
                             });
+                            finals.forEach(fin => {
+                                if(results.some(obj => obj.item === fin)) {
+                                    results.find(obj => obj.item === fin).amount += 1;
+                                } else {
+                                    fin.origin = Data.OriginType.SCAVENGED;
+                                    results.push({
+                                        type: lootType,
+                                        rarity: fin.rarity,
+                                        amount: fin.lootModifiers.amount,
+                                        item: fin,
+                                        looted: false
+                                    });
+                                }
+                            })
                         }
+
                     }
                 }
             }
