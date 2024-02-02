@@ -116,6 +116,7 @@ class Battle {
         this.generateLoot();
         game.dungeon.floor.room.battleEnded(this.outcome);
         drawEndBattleScreen();
+        generateEndBattleScreenEvents();
     }
 
     /**

@@ -344,3 +344,7 @@ function generateBattleFightersEvents() {
         })
     });
 }
+
+function generateEndBattleScreenEvents() {
+    
+}
