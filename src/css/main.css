@@ -8031,6 +8031,15 @@ table.astralForgeShards td {
 .battleEnd-loot {
     grid-area: battleEnd-loot;
 }
+.battleEnd-loot .battleEnd-loot-single {
+    width: 95%;
+    transition: all .1s ease-in-out;
+}
+.battleEnd-loot .battleEnd-loot-single:hover {
+    width: 90%;
+    cursor: pointer;
+}
+
 .battleEnd-progress {
     grid-area: battleEnd-progress;
 }

@@ -8,6 +8,7 @@ function drawEmptyBattleScreen() {
 
 function drawEndBattleScreen() {
     const battle = game.currentBattle;
+    const loot = battle.loot;
     console.log(battle);
     document.querySelector('#battleDiv').innerHTML = '<div class="battleEndContainer coolBorderBis" style="background-image: linear-gradient(0deg, transparent 0%, rgba(0, 0, 0, 1) 100%), url(\'css/img/bg/' + game.dungeon.background + '\')"></div>';
 
@@ -57,6 +58,19 @@ function drawEndBattleScreen() {
 
     str += '<div class="battleEnd-loot coolBorderBis">';
     str += '<div class="lootHeader">Loot</div>';
+    if(loot.length > 0) {
+        let timer = 0;
+        loot.forEach(lo => {
+            str += '<div id="loit-' + (lo.type === 'gold' ? 'gold' : lo.item.id) + '" class="battleEnd-loot-single sigilInfo revealingLoot' + (lo.looted ? ' lootedLoot' : '') + '" style="animation-delay: ' + timer + 's;' + (lo.type === 'gold' ? 'background-image: url(\'css/img/goldicon.png\'); background-size: 25%;' : getIcon(lo.item, 25, true)) + '">';
+            str += '<div class="sigilTitle" style="text-align: left">' + '<span class="lootQuantity">' + lo.amount + ' </span>' + (lo.type === 'gold' ? '<span class="smallThingNoIcon" style="color: yellow">Gold</span>' : getSmallThingNoIcon(lo.item, null)) + '</div>';
+            str += '<div class="revealingLootAnim revealLoot' + (lo.type === 'gold' ? 'Gold' : capitalizeFirstLetter(lo.item.rarity)) + '" style="animation-delay: ' + (timer) + 's;"></div>';
+            str += '<canvas class="revealingLootCanvas ' + (lo.type === 'gold' ? 'gold' : lo.item.rarity) + '"></canvas>';
+            str += '</div>';
+            timer += 0.25;
+        });
+    } else {
+        str += '<div class="roomLootResult-title">No loot found</div>';
+    }
     str += '</div>';
 
     str += '<div class="battleEnd-progress">';
