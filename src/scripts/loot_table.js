@@ -241,13 +241,19 @@ let LootTable = {
                         let final, rarity, eligible;
                         let finals = [];
 
+                        // If it's a customized pool
                         if(!Array.isArray(pool)) {
+                            // Iterate over each
                             for(obj in pool) {
-                                console.log('Rolling dice for ' + obj + '...');
+                                // Get drop chance and roll a die
                                 const chance = Array.isArray(pool[obj]) ? pool[obj][0] : pool[obj];
                                 if(computeChance(chance)) {
-                                    console.log("Passed!");
+                                    // Get object
                                     final = what(poolsMap[type], obj);
+                                    // Add quantity
+                                    // - 1 if none is specified
+                                    // - If a static value is specified, add it
+                                    // - If a ranged value is specified, compute it then add it
                                     if(!Array.isArray(pool[obj])) finals.push(final);
                                     else {
                                         let quantity;
@@ -273,6 +279,7 @@ let LootTable = {
                             // - final is not a duplicate, if duplicates are not allowed
                         }
 
+                        // Handle it differently based on whether the pool is customized
                         if(final) {
                             console.log(final);
                             // Keeping track of each addition to prevent duplicates
