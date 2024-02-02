@@ -4,16 +4,26 @@
 
 */
 
+/**
+ * This class holds all the data and a bit of logic to create loot parameters.
+ * There are a few things to note:
+ * - "amount", "rarities", and "chance" only work for GLOBAL unspecified loot pools.
+ * - Default param for "pool" is "any". Below is an example of what a specified pool looks like :
+ * pool: {
+ *      "dark stone": 55, // 55% chance of looting Dark Stone
+ *      "decaying petals": 80
+ * }
+ */
 class LootParams {
     constructor(props) {
         this.amount = getValueFromObject(props, 'amount', 1);
         this.rarities = getValueFromObject(props, 'rarities', {
-            regular: 0,
-            singular: 0,
-            precious: 0,
-            grand: 0,
-            mythic: 0,
-            relic: 0,
+            regular: 100,
+            singular: 65,
+            precious: 35,
+            grand: 15,
+            mythic: 5,
+            relic: 0.05,
         });
         this.chance = getValueFromObject(props, "chance", 100);
         this.includes = getValueFromObject(props, "includes", {});

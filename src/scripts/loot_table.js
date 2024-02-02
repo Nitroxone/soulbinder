@@ -80,6 +80,10 @@ let LootTable = {
                         "minor time shard": 80
                     },
                 }),
+                trinket: new LootParams({
+                    amount: 1,
+                    noDuplicates: true,
+                }),
                 gold: [50, 70],
             },
             "entrance": {
@@ -158,7 +162,7 @@ let LootTable = {
                     }
                 }),
                 gold: [200, 500],
-            }
+            },
         }
     },
     Generators: {
@@ -185,16 +189,7 @@ let LootTable = {
                         "resource": game.all_resources
                     }
                     
-                    if(typeof preset[type].pool == 'object') {
-                        pool = [];
-                        for(const obj in preset[type].pool) {
-                            if(computeChance(Number(preset[type].pool[obj]))) {
-                                pool.push(
-                                    what(poolsMap[type], obj)
-                                );
-                            }
-                        }
-                    }
+                    if(typeof preset[type].pool == 'object') pool = preset[type].pool;
 
                     if(type === 'resource') {
                         dropRate = LootTable.DropRates.Resource;
@@ -244,18 +239,31 @@ let LootTable = {
                     // For each modifier
                     for(let i = 0; i < amount; i++) {
                         let final, rarity, eligible;
-                        do {
-                            rarity = generateLootRarity(dropRate, preset[type])
 
-                            // Retrieving the resource
-                            eligible = pool.filter(rsc => rsc.rarity === rarity);
-                            final = choose(eligible);
+                        if(!Array.isArray(pool)) {
+                            for(obj in pool) {
+                                console.log('Rolling dice for ' + obj + '...');
+                                if(computeChance(pool[obj])) {
+                                    console.log("Passed!");
+                                    final = what(poolsMap[type], obj);
+                                    rarity = final.rarity;
+                                }
+                            }
+                        } else {
+                            do {
+                                rarity = generateLootRarity(dropRate, preset[type])
 
-                        } while(final === undefined || (final && preset[type].noDuplicates && generatedNames.includes(final.name)));
-                        // The horrendous condition above checks that 
-                        // - final is not undefined
-                        // - final is not a duplicate, if duplicates are not allowed
+                                // Retrieving the resource
+                                eligible = pool.filter(rsc => rsc.rarity === rarity);
+                                final = choose(eligible);
 
+                            } while(final === undefined || (final && preset[type].noDuplicates && generatedNames.includes(final.name)));
+                            // The horrendous condition above checks that 
+                            // - final is not undefined
+                            // - final is not a duplicate, if duplicates are not allowed
+                        }
+
+                        console.log(final);
                         // Keeping track of each addition to prevent duplicates
                         generatedNames.push(final.name);
 
