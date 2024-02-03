@@ -304,9 +304,8 @@ let LootTable = {
                             console.log(finals);
                             generatedNames = generatedNames.concat(finals.map(x => x.name));
 
-                            finals.map(x => {
-                                if(!(x instanceof Resource)) x = Entity.clone(x);
-                            });
+                            finals = finals.map(x => (x instanceof Resource) ? x : Entity.clone(x));
+                            console.log("Cloned finals:", finals);
                             finals.forEach(fin => {
                                 if(results.some(obj => obj.item === fin)) {
                                     results.find(obj => obj.item === fin).amount += 1;
