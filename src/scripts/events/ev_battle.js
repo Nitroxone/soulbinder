@@ -346,5 +346,70 @@ function generateBattleFightersEvents() {
 }
 
 function generateEndBattleScreenEvents() {
+    drawEndBattleScreen();
     
+    let quantadelay = 0;
+    document.querySelectorAll('.revealingLootCanvas.battleEndLootCanvas').forEach(cv => {
+        setTimeout(() => {
+            let params = getQuantaBurstParamsFromRarity(cv.classList[1]);
+
+            Quanta.burst({
+                canvas: cv,
+                color: params.color,
+                amount: params.amount,
+                particleSize: params.particleSize
+            });
+        }, quantadelay);
+        quantadelay += 250;
+    });
+
+    const elements = document.querySelectorAll('.battleEnd-loot-single');
+    const loot = game.currentBattle.loot;
+
+    loot.forEach(x => {
+        if(x.item) console.log(x.item.id);
+        else console.log(x.type);
+    })
+    elements.forEach(el => {
+        if(el.classList.contains('lootedLoot')) return;
+
+        const id = el.id.split('-')[2];
+        const item = loot.find(x => (id == 'gold' ? x.type : x.item?.id.toString()) === id)
+
+        el.addEventListener('click', e => {
+            if(item.looted) return;
+
+            // Holding CTRL and SHIFT adds all of the loot to the Knapsack (if it has not been looted already)
+            if(e.ctrlKey && e.shiftKey) {
+                let timer = 0;
+                for(let i = 0; i < elements.length; i++) {
+                    const elem = elements[i];
+                    const lo = loot[i];
+
+                    if(game.player.isKnapsackFull()) break;
+                    if(elem.classList.contains('lootedLoot') || lo.looted) continue;
+
+                    elem.style.animationDelay = timer + 's';
+                    elem.classList.remove('revealingLoot');
+                    elem.classList.add('lootedLoot');
+                    elem.classList.add('lootedLootAnim');
+                    timer += 0.1;
+                    if(lo.type === 'gold') game.player.addToPurse(lo.amount);
+                    else game.player.addToKnapsack(lo.item, true, lo.amount);
+                    lo.looted = true;
+                }
+            }
+            else {
+                if(game.player.isKnapsackFull()) return;
+
+                if(item.type === 'gold') game.player.addToPurse(item.amount);
+                else game.player.addToKnapsack(item.item, true, item.amount);
+                el.style.animationDelay = "0s";
+                el.classList.remove('revealingLoot');
+                el.classList.add('lootedLoot');
+                el.classList.add('lootedLootAnim');
+                item.looted = true;
+            }
+        });
+    })
 }
