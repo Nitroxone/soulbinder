@@ -2364,18 +2364,19 @@ function mergeLoots(loots) {
     loots.filter(x => x.item instanceof Resource).forEach(lo => {
         console.log(lo.item.name, lo.amount);
     });
-    /*loots.filter(x => x.item instanceof Resource).forEach(item => {
-        let existing = merged.find(x => x.item.name === item.item.name);
-
-        if(existing) existing.amount += item.amount;
-        else merged.push(item);
-    });*/
 
     merged = loots.reduce((accumulator, currentItem) => {
-        let existingItem = accumulator.find(item => item.item.name === currentItem.item.name);
+        if(currentItem.type === 'gold') {
+            let existingItem = accumulator.find(item => item.type == 'gold');
 
-        if(existingItem && existingItem.item instanceof Resource) existingItem.amount += currentItem.amount;
-        else accumulator.push({...currentItem});
+            if(existingItem) existingItem.amount += currentItem.amount;
+            else accumulator.push({...currentItem});
+        } else {
+            let existingItem = accumulator.find(item => item.type !== 'gold' && item.item.name === currentItem.item.name);
+
+            if(existingItem && existingItem.item instanceof Resource) existingItem.amount += currentItem.amount;
+            else accumulator.push({...currentItem});
+        }
 
         return accumulator;
     }, []);
