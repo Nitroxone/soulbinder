@@ -3438,7 +3438,13 @@ const Loader = {
                             "goodsight doll": 10,
                             "omen insignia": 5
                         }
-                    })
+                    }),
+                    weapon: new LootParams({
+                        pool: {
+                            "solana's sword of the sun": 50
+                        }
+                    }),
+                    gold: [0, 20]
                 }
             ),
             new Enemy(
