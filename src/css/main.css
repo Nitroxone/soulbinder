@@ -2717,6 +2717,43 @@ hr.centerFade {
     font-family: "RobotoBold";
     font-size: 0.8rem;
 }
+
+.striforContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+}
+.strifor-slot {
+    flex: 1;
+
+    border: 4px solid transparent;
+    border-image: url(img/window1.png) 4 stretch;
+    border-top: none;
+    border-left: none;
+    border-bottom: none;
+
+    background-image: linear-gradient(270deg, transparent 0%, rgba(0, 0, 0, 0.1) 90%);
+
+    height: 350px;
+    transition: all .25s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+    background-position: center;
+    background-size: 120%;
+
+    transform: scale(1) translate(0, 0);
+}
+.strifor-slot:last-child {
+    border: none;
+}
+
+.strifor-slot:hover {
+    box-shadow: inset 0px 0px 10px 12px rgba(255, 255, 255, 0.1);
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+
 .teamContainer {
     width:100%;
     display: flex;
@@ -2725,6 +2762,7 @@ hr.centerFade {
     align-items: center;
 
     padding: 4rem;
+    padding-top: 2rem;
 }
 .team {
     display:flex;
@@ -2738,6 +2776,8 @@ hr.centerFade {
 .team > .striderContainer {
     margin: 0.5rem;
 }
+
+
 .striderPopup {
     width: 865px;
     height: 650px;
