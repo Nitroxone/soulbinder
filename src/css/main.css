@@ -3781,6 +3781,9 @@ hr.centerFade {
 .goldIcon {
     background-image: url(img/goldicon-small.png);
 }
+.soulIcon {
+    background-image: url(img/soulsicon-small.png);
+}
 
 .commanderXpBar, .commanderXpBar-fill {
     width: 100%;
@@ -8696,6 +8699,9 @@ table.astralForgeShards td {
 }
 .knpsckGoldIcon + h5 {
     color: yellow;
+}
+.knpsckSoulsIcon {
+    background-image: url('img/soulsicon-small.png');
 }
 .knpsckSoulsIcon + h5 {
     color: cyan;
