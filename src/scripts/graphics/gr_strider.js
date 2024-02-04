@@ -32,9 +32,9 @@ function drawStridersScreen() {
 function drawStridersFormationContainer(refresh = false) {
     let str = '';
 
-    str += '<div id="striforBack" class="strifor-slot" style="background-image: linear-gradient(270deg, transparent 0%, rgba(0, 0, 0, 1) 100%), url(\'css/img/chars/' + game.player.formation[0]?.charset + '\')"></div>';
-    str += '<div id="striforMiddle" class="strifor-slot" style="background-image: linear-gradient(270deg, transparent 0%, rgba(0, 0, 0, 1) 100%), url(\'css/img/chars/' + game.player.formation[1]?.charset + '\')"></div>';
-    str += '<div id="striforFront" class="strifor-slot" style="background-image: linear-gradient(270deg, transparent 0%, rgba(0, 0, 0, 1) 100%), url(\'css/img/chars/' + game.player.formation[2]?.charset + '\')"></div>';
+    str += '<div id="striforBack" class="strifor-slot" style="background-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 1) 100%), url(\'css/img/chars/' + game.player.formation[0]?.charset + '\')"></div>';
+    str += '<div id="striforMiddle" class="strifor-slot" style="background-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 1) 100%), url(\'css/img/chars/' + game.player.formation[1]?.charset + '\')"></div>';
+    str += '<div id="striforFront" class="strifor-slot" style="background-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 1) 100%), url(\'css/img/chars/' + game.player.formation[2]?.charset + '\')"></div>';
 
     if(refresh) {
         document.querySelector('.striforContainer').innerHTML = str;
