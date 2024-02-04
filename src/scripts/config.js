@@ -1012,5 +1012,16 @@ let Config = {
                 }
             }
         })
+    },
+    EphemeralLuck: {
+        Gains: {
+            DORMANT_ROOM: 500,
+            SACRIFICIAL_ALCOVE: 750,
+            FRACTURED_HOLLOW: 1250
+        },
+        Costs: {
+            ANTECHAMBER_OF_MARVELS: 1100,
+            DESECRATED_ALTAR: 600
+        }
     }
 }
