@@ -110,7 +110,7 @@ function drawDungeonFoundLoot(refresh = false) {
             str += '<div id="loit-' + (lo.type === 'gold' ? 'gold' : lo.item.id) + '" class="roomLootResult-listItem sigilInfo revealingLoot' + (lo.looted ? ' lootedLoot' : '') + '" style="animation-delay: ' + timer + 's;' + (lo.type === 'gold' ? 'background-image: url(\'css/img/goldicon.png\'); background-size: 25%;' : getIcon(lo.item, 25, true)) + '">';
             str += '<div class="sigilTitle" style="text-align: left">' + '<span class="lootQuantity">' + lo.amount + ' </span>' + (lo.type === 'gold' ? '<span class="smallThingNoIcon" style="color: yellow">Gold</span>' : getSmallThingNoIcon(lo.item, null)) + '</div>';
             str += '<div class="revealingLootAnim revealLoot' + (lo.type === 'gold' ? 'Gold' : capitalizeFirstLetter(lo.item.rarity)) + '" style="animation-delay: ' + (timer) + 's;"></div>';
-            if(refresh) str += '<canvas class="revealingLootCanvas ' + (lo.type === 'gold' ? 'gold' : lo.item.rarity) + '"></canvas>';
+            if(refresh) str += '<canvas class="revealingLootCanvas ' + (lo.type === 'gold' ? 'gold' : lo.item.rarity) + ' roomLootCanvas"></canvas>';
             str += '</div>';
             timer += 0.25;
         });

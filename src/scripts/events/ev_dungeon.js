@@ -193,7 +193,7 @@ function dungeonSearchEvent() {
         generateDungeonFoundLootEvents();
 
         let quantadelay = 0;
-        document.querySelectorAll('.revealingLootCanvas').forEach(cv => {
+        document.querySelectorAll('.revealingLootCanvas.roomLootCanvas').forEach(cv => {
             setTimeout(() => {
                 let params = getQuantaBurstParamsFromRarity(cv.classList[1]);
 
