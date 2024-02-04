@@ -3430,18 +3430,16 @@ const Loader = {
                     resource: new LootParams({
                         pool: {
                             "dark stone": 100,
-                            "minor time shard": [35, 2]
+                            "decaying petals": 100,
+                            "silver essence": 100,
+                            "minor time shard": [35, 2],
+                            "reminder": [90, [2, 5]],
                         }
                     }),
                     trinket: new LootParams({
                         pool: {
-                            "goodsight doll": 10,
-                            "omen insignia": 5
-                        }
-                    }),
-                    weapon: new LootParams({
-                        pool: {
-                            "solana's sword of the sun": 50
+                            "goodsight doll": 100,
+                            "omen insignia": 100
                         }
                     }),
                     gold: [0, 20]
