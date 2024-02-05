@@ -2764,6 +2764,12 @@ hr.centerFade {
     overflow: hidden;
     cursor: pointer;
 }
+#striforFront {
+    border-radius: 0 5px 5px 0;
+}
+#striforBack {
+    border-radius: 5px 0 0 5px;
+}
 
 .strifor-wrapper:last-child .strifor-slot{
     border: none;
