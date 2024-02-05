@@ -2746,7 +2746,8 @@ hr.centerFade {
     overflow: hidden;
     cursor: pointer;
 }
-.strifor-slot:last-child {
+
+.strifor-wrapper:last-child .strifor-slot{
     border: none;
 }
 .strifor-slot:hover {
@@ -2809,6 +2810,23 @@ hr.centerFade {
 .strifor-wrapper {
     position: relative;
     width: 100%;
+
+    animation-name: striderSlotFadeIn;
+    animation-duration: 1.5s;
+    animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+    animation-fill-mode: forwards;
+    opacity: 0;
+}
+#striforMiddle-wrapper { animation-delay: .125s }
+#striforFront-wrapper { animation-delay: .25s }
+@keyframes striderSlotFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20%);
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 .teamContainer {
