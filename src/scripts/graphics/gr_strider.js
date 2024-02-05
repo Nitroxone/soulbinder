@@ -2,6 +2,10 @@ function drawStridersScreen() {
     document.querySelector('#stridersDiv').innerHTML = '<div class="stridersContainer"></div>';
     let str = '';
 
+    str += '<div class="striforBanner">';
+    str += '<h1>Formation</h1>';
+    str += '</div>';
+
     str += '<div class="striforContainer">';
     str += drawStridersFormationContainer();
     str += '</div>';

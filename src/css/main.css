@@ -2717,6 +2717,23 @@ hr.centerFade {
     font-family: "RobotoBold";
     font-size: 0.8rem;
 }
+.striforBanner {
+    width: 100%;
+    text-align: center;
+    margin: 2.5rem 0;
+}
+.striforBanner h1 {
+    font-family: RobotoSlab;
+    font-variant: small-caps;
+    font-size: 55px;
+
+    background-image: linear-gradient(0deg, rgba(88,88,88,.1), rgba(222,222,222,1));
+    background-clip: text;
+    color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: none;
+}
 
 .striforContainer {
     width: 100%;
@@ -2752,12 +2769,15 @@ hr.centerFade {
 }
 .strifor-slot:hover {
     box-shadow: inset 0px 0px 10px 12px rgba(255, 255, 255, 0.1);
-    background-size: 100%;
+    background-size: 110%;
     background-repeat: no-repeat;
 }
 .strifor-slot:hover .strifor-name {
     font-size: 51px;
-    bottom: -15px;
+    bottom: 5px;
+}
+.strifor-wrapper:hover .strifor-posLabel {
+    top: -15px;
 }
 .strifor-posLabel {
     width: fit-content;
@@ -2765,9 +2785,9 @@ hr.centerFade {
     margin: 0 auto;
     text-align: center;
     font-variant: small-caps;
-    font-size: 13px;
-    padding: 0.3em;
-    padding-bottom: 0.3em;
+    font-size: 15px;
+    padding: 0 .5rem;
+    padding-bottom: 0.2em;
 
     background-image: url('img/bg4.png');
     background-size: cover;
@@ -2780,7 +2800,7 @@ hr.centerFade {
     font-family: RobotoSlab;
 
     position: absolute;
-    bottom: -11px;
+    top: -11px;
     left: 50%;
     transform: translate(-50%);
 
@@ -2837,7 +2857,7 @@ hr.centerFade {
     align-items: center;
 
     padding: 4rem;
-    padding-top: 2rem;
+    padding-top: 0;
 }
 .team {
     display:flex;
