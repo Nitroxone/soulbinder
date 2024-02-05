@@ -2741,18 +2741,75 @@ hr.centerFade {
     background-position: center;
     background-size: 120%;
 
-    transform: scale(1) translate(0, 0);
+    position: relative;
+
+    overflow: hidden;
+    cursor: pointer;
 }
 .strifor-slot:last-child {
     border: none;
 }
-
 .strifor-slot:hover {
     box-shadow: inset 0px 0px 10px 12px rgba(255, 255, 255, 0.1);
     background-size: 100%;
     background-repeat: no-repeat;
 }
+.strifor-slot:hover .strifor-name {
+    font-size: 51px;
+    bottom: -15px;
+}
+.strifor-posLabel {
+    width: fit-content;
 
+    margin: 0 auto;
+    text-align: center;
+    font-variant: small-caps;
+    font-size: 13px;
+    padding: 0.3em;
+    padding-bottom: 0.3em;
+
+    background-image: url('img/bg4.png');
+    background-size: cover;
+    background-repeat: repeat;
+
+    border: 1px solid rgb(100, 100, 100);
+
+    border-radius: 3px;
+
+    font-family: RobotoSlab;
+
+    position: absolute;
+    bottom: -11px;
+    left: 50%;
+    transform: translate(-50%);
+
+    transition: all .25s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.strifor-name {
+    font-family: RobotoSlab;
+    font-variant: small-caps;
+    font-size: 55px;
+
+    background-image: linear-gradient(0deg, rgba(88,88,88,.1), rgba(222,222,222,1));
+    background-clip: text;
+    color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: none;
+    
+    position: absolute;
+    bottom: -11px;
+    left: 50%;
+    transform: translate(-50%);
+    z-index: 0;
+
+    transition: all .25s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.strifor-wrapper {
+    position: relative;
+    width: 100%;
+}
 
 .teamContainer {
     width:100%;

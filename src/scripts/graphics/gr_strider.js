@@ -30,11 +30,32 @@ function drawStridersScreen() {
 }
 
 function drawStridersFormationContainer(refresh = false) {
+    const front = game.player.formation[2];
+    const middle = game.player.formation[1];
+    const back = game.player.formation[0];
+
     let str = '';
 
-    str += '<div id="striforBack" class="strifor-slot" style="background-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 1) 100%), url(\'css/img/chars/' + game.player.formation[0]?.charset + '\')"></div>';
-    str += '<div id="striforMiddle" class="strifor-slot" style="background-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 1) 100%), url(\'css/img/chars/' + game.player.formation[1]?.charset + '\')"></div>';
-    str += '<div id="striforFront" class="strifor-slot" style="background-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 1) 100%), url(\'css/img/chars/' + game.player.formation[2]?.charset + '\')"></div>';
+    str += '<div id="striforBack-wrapper" class="strifor-wrapper">';
+    str += '<div id="striforBack" class="strifor-slot" style="background-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 1) 100%), url(\'css/img/chars/' + game.player.formation[0]?.charset + '\')">';
+    str += '<h1 class="strifor-name">' + (back?.name || '') + '</h1>';
+    str += '</div>';
+    str += '<div class="strifor-posLabel">Back</div>';
+    str += '</div>';
+
+    str += '<div id="striforMiddle-wrapper" class="strifor-wrapper">';
+    str += '<div id="striforMiddle" class="strifor-slot" style="background-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 1) 100%), url(\'css/img/chars/' + game.player.formation[1]?.charset + '\')">';
+    str += '<h1 class="strifor-name">' + (middle?.name || '') + '</h1>';
+    str += '</div>';
+    str += '<div class="strifor-posLabel">Middle</div>';
+    str += '</div>';
+
+    str += '<div id="striforFront-wrapper" class="strifor-wrapper">';
+    str += '<div id="striforFront" class="strifor-slot" style="background-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 1) 100%), url(\'css/img/chars/' + game.player.formation[2]?.charset + '\')">';
+    str += '<h1 class="strifor-name">' + (front?.name || '') + '</h1>';
+    str += '</div>';
+    str += '<div class="strifor-posLabel">Front</div>';
+    str += '</div>';
 
     if(refresh) {
         document.querySelector('.striforContainer').innerHTML = str;
