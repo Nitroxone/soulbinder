@@ -2839,7 +2839,7 @@ hr.centerFade {
     width: 100%;
 
     animation-name: striderSlotFadeIn;
-    animation-duration: 1.5s;
+    animation-duration: 1s;
     animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
     animation-fill-mode: forwards;
     opacity: 0;
