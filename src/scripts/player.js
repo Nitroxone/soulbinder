@@ -52,6 +52,9 @@ class Player {
 
     /**
      * Sets the provided NPC to the provided FormationPosition in the formation.
+     * - Empty slot = immediate attribution
+     * - NPC already in formation to a different slot = swap 
+     * - Different NPC = replace
      * @param {NPC} npc 
      * @param {Data.FormationPosition} pos 
      */
@@ -76,6 +79,28 @@ class Player {
                     break;
             }
             //if(found) removeFromArray(this.roster, npc);
+        }
+    }
+
+    // TODO: move refresh calls in here (because of a few cases where refresh calls are unnecessary)
+    formationSet(npc, pos) {
+        const exists = this.formation.find(x => x === npc);
+        const target = getFormationIndexFromFormationPosition(pos);
+        if(exists) {
+            const index = this.formation.indexOf(exists);
+
+            if(index === target) {
+                // Attempting to assign Strider to same pos: nothing to change
+                console.info("Nothing to update in the formation");
+            } else {
+                // Swap
+                const old = this.formation[target];
+                this.formation[index] = old;
+                this.formation[target] = exists;
+            }
+
+        } else {
+            this.formation[target] = npc;
         }
     }
 

@@ -2396,3 +2396,10 @@ function getStriderFromFormationPosition(pos) {
     if(pos === Data.FormationPosition.FRONT) return game.player.formation[2];
     return undefined;
 }
+
+function getFormationIndexFromFormationPosition(pos) {
+    if(pos === Data.FormationPosition.BACK) return 0;
+    if(pos === Data.FormationPosition.MIDDLE) return 1;
+    if(pos === Data.FormationPosition.FRONT) return 2;
+    return undefined;
+}
