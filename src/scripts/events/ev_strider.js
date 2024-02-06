@@ -99,3 +99,31 @@ function generateStriderScreenStatsEvents(strider) {
         Sounds.Methods.playSound(Data.SoundType.TOOLTIP_SPAWN);
     });
 }
+
+function generateStridersFormationEvents() {
+    const striders = document.querySelectorAll('.striderContainer');
+    const slots = document.querySelectorAll('.strifor-wrapper');
+
+    striders.forEach(stri => {
+        const striderId = Number(stri.id.split('-')[1]);
+        stri.addEventListener("dragstart", e => {
+            e.dataTransfer.setData("strider", striderId);
+            console.log("started datatransfer of strider " + game.all_striders.find(x => x.id === striderId).name);
+        });
+    });
+    slots.forEach(slot => {
+        generateStridersFormationSlotEvents(slot);
+    });
+}
+
+function generateStridersFormationSlotEvents(slot) {
+    slot.addEventListener("dragover", e => { allowDrop(e) });
+    slot.addEventListener("drop", e => {
+        let pos = slot.id.split('-')[0].slice(7); // Get the pos (ex. would return "Front" from "striforFront-wrapper")
+        pos = Data.FormationPosition[pos.toUpperCase()]; // Technically useless, as the retrieved pos string
+        // is equal to what's defined in data... but whatever let's just keep it clean
+        const strider = game.all_striders.find(x => x.id === Number(e.dataTransfer.getData("strider")));
+        game.player.formationSet(strider, pos);
+        getStriderFormationSingle(pos, true);
+    });
+}

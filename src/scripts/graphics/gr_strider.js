@@ -14,7 +14,7 @@ function drawStridersScreen() {
     str += '<div class="team">';
     delayCounter = 0;
     game.player.roster.forEach(strider => {
-        str += '<div id="striderContainer-' + strider.id + '" class="striderContainer" style="animation-delay: ' + delayCounter + 's; background-image: linear-gradient(270deg, transparent 0%, rgba(0, 0, 0, 1) 100%), url(\'css/img/chars/' + strider.charset + '\');">'
+        str += '<div id="striderContainer-' + strider.id + '" class="striderContainer" style="animation-delay: ' + delayCounter + 's; background-image: linear-gradient(270deg, transparent 0%, rgba(0, 0, 0, 1) 100%), url(\'css/img/chars/' + strider.charset + '\');" draggable="true">'
         str += '<h1>' + strider.name + '</h1>';
         str += '<h3>' + capitalizeFirstLetter(strider.striderType) + ', Level ' + strider.level.currentLevel + '</h3>';
         str += '</div>';
@@ -31,6 +31,8 @@ function drawStridersScreen() {
             Sounds.Methods.playSound(Data.SoundType.TOOLTIP_SPAWN);
         });
     });
+
+    generateStridersFormationEvents();
 }
 
 function drawStridersFormationContainer(refresh = false) {
@@ -40,30 +42,33 @@ function drawStridersFormationContainer(refresh = false) {
 
     let str = '';
 
-    str += '<div id="striforBack-wrapper" class="strifor-wrapper">';
-    str += '<div id="striforBack" class="strifor-slot" style="background-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 1) 100%), url(\'css/img/chars/' + game.player.formation[0]?.charset + '\')">';
-    str += '<h1 class="strifor-name">' + (back?.name || '') + '</h1>';
-    str += '</div>';
-    str += '<div class="strifor-posLabel">Back</div>';
-    str += '</div>';
-
-    str += '<div id="striforMiddle-wrapper" class="strifor-wrapper">';
-    str += '<div id="striforMiddle" class="strifor-slot" style="background-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 1) 100%), url(\'css/img/chars/' + game.player.formation[1]?.charset + '\')">';
-    str += '<h1 class="strifor-name">' + (middle?.name || '') + '</h1>';
-    str += '</div>';
-    str += '<div class="strifor-posLabel">Middle</div>';
-    str += '</div>';
-
-    str += '<div id="striforFront-wrapper" class="strifor-wrapper">';
-    str += '<div id="striforFront" class="strifor-slot" style="background-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 1) 100%), url(\'css/img/chars/' + game.player.formation[2]?.charset + '\')">';
-    str += '<h1 class="strifor-name">' + (front?.name || '') + '</h1>';
-    str += '</div>';
-    str += '<div class="strifor-posLabel">Front</div>';
-    str += '</div>';
+    str += getStriderFormationSingle(Data.FormationPosition.BACK);
+    str += getStriderFormationSingle(Data.FormationPosition.MIDDLE);
+    str += getStriderFormationSingle(Data.FormationPosition.FRONT);
 
     if(refresh) {
         document.querySelector('.striforContainer').innerHTML = str;
-        // Events
+        generateStridersFormationEvents();
+        return;
+    }
+    return str;
+}
+
+function getStriderFormationSingle(pos, refresh = false) {
+    let str = '';
+    let strider = getStriderFromFormationPosition(pos);
+
+    str += '<div id="strifor' + pos + '-wrapper" class="strifor-wrapper">';
+    str += '<div id="strifor' + pos + '" class="strifor-slot" style="background-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 1) 100%), url(\'css/img/chars/' + strider?.charset + '\')">';
+    str += '<h1 class="strifor-name">' + (strider?.name || '') + '</h1>';
+    str += '</div>';
+    str += '<div class="strifor-posLabel">' + pos + '</div>';
+    str += '</div>';
+
+    if(refresh) {
+        const striDom = document.querySelector('#strifor' + pos + '-wrapper');
+        striDom.innerHTML = str;
+        generateStridersFormationSlotEvents(striDom);
         return;
     }
     return str;

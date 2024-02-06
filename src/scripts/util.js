@@ -2389,3 +2389,10 @@ function mergeLoots(loots) {
 
     return merged;
 }
+
+function getStriderFromFormationPosition(pos) {
+    if(pos === Data.FormationPosition.BACK) return game.player.formation[0];
+    if(pos === Data.FormationPosition.MIDDLE) return game.player.formation[1];
+    if(pos === Data.FormationPosition.FRONT) return game.player.formation[2];
+    return undefined;
+}
