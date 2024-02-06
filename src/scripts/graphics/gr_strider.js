@@ -36,10 +36,6 @@ function drawStridersScreen() {
 }
 
 function drawStridersFormationContainer(refresh = false) {
-    const front = game.player.formation[2];
-    const middle = game.player.formation[1];
-    const back = game.player.formation[0];
-
     let str = '';
 
     str += getStriderFormationSingle(Data.FormationPosition.BACK);
@@ -66,9 +62,8 @@ function getStriderFormationSingle(pos, refresh = false) {
     str += '</div>';
 
     if(refresh) {
-        const striDom = document.querySelector('#strifor' + pos + '-wrapper');
-        striDom.innerHTML = str;
-        generateStridersFormationSlotEvents(striDom);
+        document.querySelector('#strifor' + pos + '-wrapper').outerHTML = str;
+        generateStridersFormationSlotEvents(document.querySelector('#strifor' + pos + '-wrapper'));
         return;
     }
     return str;
