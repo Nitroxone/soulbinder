@@ -1200,17 +1200,17 @@ function processSkillDescription(desc) {
 function getFighterFromPosition(pos) {
     switch(pos) {
         case 'b-hero-back':
-            return game.currentBattle.allies[0];
+            return game.battle.allies[0];
         case 'b-hero-middle':
-            return game.currentBattle.allies[1];
+            return game.battle.allies[1];
         case 'b-hero-front':
-            return game.currentBattle.allies[2];
+            return game.battle.allies[2];
         case 'b-enemy-back':
-            return game.currentBattle.enemies[0];
+            return game.battle.enemies[0];
         case 'b-enemy-middle':
-            return game.currentBattle.enemies[1];
+            return game.battle.enemies[1];
         case 'b-enemy-front':
-            return game.currentBattle.enemies[2];
+            return game.battle.enemies[2];
     }
 }
 
@@ -1224,20 +1224,20 @@ function getFighterFromPositionAndType(type, position) {
     if(type === Data.BattleFighterType.ENEMY) {
         switch(position) {
             case Data.FormationPosition.BACK:
-                return game.currentBattle.allies[0];
+                return game.battle.allies[0];
             case Data.FormationPosition.MIDDLE:
-                return game.currentBattle.allies[1];
+                return game.battle.allies[1];
             case Data.FormationPosition.FRONT:
-                return game.currentBattle.allies[2];
+                return game.battle.allies[2];
         }
     } else if(type === Data.BattleFighterType.HERO) {
         switch(position) {
             case Data.FormationPosition.BACK:
-                return game.currentBattle.allies[0];
+                return game.battle.allies[0];
             case Data.FormationPosition.MIDDLE:
-                return game.currentBattle.allies[1];
+                return game.battle.allies[1];
             case Data.FormationPosition.FRONT:
-                return game.currentBattle.allies[2];
+                return game.battle.allies[2];
         }
     }
 }
@@ -1589,8 +1589,8 @@ function getDungeonEnterButton(min = false) {
  * @returns {Enemy} an enemy
  */
 function getEnemyById(id) {
-    for(let i = 0; i < game.currentBattle.enemies.length; i++) {
-        if(game.currentBattle.enemies[i].id === id) return game.currentBattle.enemies[i];
+    for(let i = 0; i < game.battle.enemies.length; i++) {
+        if(game.battle.enemies[i].id === id) return game.battle.enemies[i];
     }
 }
 
@@ -2221,7 +2221,7 @@ function getcTarget() {
  * @returns {Battle} the current Battle
  */
 function getcBattle() {
-    return game.currentBattle;
+    return game.battle;
 }
 
 /**

@@ -40,7 +40,7 @@ class Game {
 
         this.formationFocus = null;
 
-        this.currentBattle = null;
+        this.battle = null;
         this.selectedBiome = null;
         this.selectedZone = null;
         this.dungeon = null;
@@ -307,8 +307,8 @@ class Game {
         for(let i = 0; i < enemies.formation.length; i++) {
             enemies.formation[i] = Entity.clone(enemies.formation[i]);
         }
-        this.currentBattle = new Battle(this.player.formation, enemies.formation, enemies.type);
-        this.currentBattle.start();
+        this.battle = new Battle(this.player.formation, enemies.formation, enemies.type);
+        this.battle.start();
     }
 
     startDungeon() {
@@ -444,7 +444,7 @@ class Game {
         //console.clear();
 
         //this.startBattle(Entity.clone(what(game.all_enemyFormations, "gnarlyAndFungaliant")));
-        //this.currentBattle.end();
+        //this.battle.end();
 
         this.initBlackMarket();
         openAstralForge(game.player.inventory.weapons[0]);

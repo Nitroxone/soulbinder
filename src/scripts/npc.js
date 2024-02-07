@@ -648,7 +648,7 @@ class NPC extends Entity {
     nextPopup() {
         const pos = this.getBattleAnimationStringId();
         if(this.popupsQueue.length > 0) this.executePopup(pos, this.popupsQueue[0]);
-        else game.currentBattle.addEndTurnCounter();
+        else game.battle.addEndTurnCounter();
     }
 
     /**
@@ -673,7 +673,7 @@ class NPC extends Entity {
 
     
     getBattleFormationStringId() {
-        const battle = game.currentBattle;
+        const battle = game.battle;
         let str = 'b-';
         if(arrayContains(battle.allies, this)) str += 'hero-';
         else if(arrayContains(battle.enemies, this)) str += 'enemy-';
@@ -682,7 +682,7 @@ class NPC extends Entity {
     }
 
     getBattleFormationWrapperStringId() {
-        const battle = game.currentBattle;
+        const battle = game.battle;
         let str = 'gw-';
         if(arrayContains(battle.allies, this)) str += 'h-';
         else if(arrayContains(battle.enemies, this)) str += 'e-';
@@ -691,7 +691,7 @@ class NPC extends Entity {
     }
 
     getBattleAnimationStringId() {
-        const battle = game.currentBattle;
+        const battle = game.battle;
         let str = 'aw-';
         if(arrayContains(battle.allies, this)) str += 'h-';
         else if(arrayContains(battle.enemies, this)) str += 'e-';
@@ -700,7 +700,7 @@ class NPC extends Entity {
     }
 
     getPopupIdString() {
-        const battle = game.currentBattle;
+        const battle = game.battle;
         let str = 'popup-';
         if(arrayContains(battle.allies, this)) str += 'h-';
         else if(arrayContains(battle.enemies, this)) str += 'e-';
@@ -713,7 +713,7 @@ class NPC extends Entity {
      * @returns {Data.FormationPosition} this NPC's current position
      */
     getSelfPosInBattle() {
-        const battle = game.currentBattle;
+        const battle = game.battle;
         if(battle.allies[0] === this) return Data.FormationPosition.BACK;
         if(battle.allies[1] === this) return Data.FormationPosition.MIDDLE;
         if(battle.allies[2] === this) return Data.FormationPosition.FRONT;
@@ -878,7 +878,7 @@ class NPC extends Entity {
                         ae.originObject.variables.guarding = null;
                     }
                     else if(isMovementEffect(eff.effect)) {
-                        game.currentBattle.applyCasterMovement({effect: convertMovementToCasterType(eff).effect});
+                        game.battle.applyCasterMovement({effect: convertMovementToCasterType(eff).effect});
                     }
                     else {
                         if(isShieldEffect(eff)) this.removeShield(eff.getValue())

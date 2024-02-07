@@ -119,7 +119,7 @@ function generateStridersFormationEvents() {
 function generateStridersFormationSlotEvents(slot) {
     slot.addEventListener("dragover", e => { allowDrop(e) });
     slot.addEventListener("drop", e => {
-        if(game.currentBattle) return; // Can't update formation if a Battle is active
+        if(game.battle) return; // Can't update formation if a Battle is active
 
         let pos = slot.id.split('-')[0].slice(7); // Get the pos (ex. would return "Front" from "striforFront-wrapper")
         pos = Data.FormationPosition[pos.toUpperCase()]; // Technically useless, as the retrieved pos string

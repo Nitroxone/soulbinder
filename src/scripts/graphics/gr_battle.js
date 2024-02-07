@@ -7,7 +7,7 @@ function drawEmptyBattleScreen() {
 }
 
 function drawEndBattleScreen() {
-    const battle = game.currentBattle;
+    const battle = game.battle;
     const loot = battle.loot;
     console.log(battle);
     document.querySelector('#battleDiv').innerHTML = '<div class="battleEndContainer coolBorderBis" style="background-image: linear-gradient(0deg, transparent 0%, rgba(0, 0, 0, 1) 100%), url(\'css/img/bg/' + game.dungeon.background + '\')"></div>';
@@ -105,7 +105,7 @@ function drawBattleScreen() {
 
     document.querySelector('.battle').innerHTML = str;
 
-    if(!game.currentBattle.isEnemyPlaying()) {
+    if(!game.battle.isEnemyPlaying()) {
         generateBattleCommandsEvents();
         generateBattleSkillsEvents();
         generateBattleConsumablesEvents();
@@ -125,7 +125,7 @@ function getBattleGlobalInfo(refresh = false) {
 
     str += '<div class="battle-combatInfo">'
     str += '<h1>Group fight</h1>';
-    str += '<h4>Round ' + game.currentBattle.round + ' — ' + game.currentBattle.currentPlay.name + '\'s Turn</h4>'
+    str += '<h4>Round ' + game.battle.round + ' — ' + game.battle.currentPlay.name + '\'s Turn</h4>'
     str += '</div>'
 
     if(refresh) {
@@ -139,9 +139,9 @@ function getBattleGlobalInfo(refresh = false) {
 function getFormationBattleAllies(refresh = false) {
     let str = '';
     if(!refresh) str += '<div id="battle-fighters-allies">';
-    const back = game.currentBattle.allies[0];
-    const middle = game.currentBattle.allies[1];
-    const front = game.currentBattle.allies[2];
+    const back = game.battle.allies[0];
+    const middle = game.battle.allies[1];
+    const front = game.battle.allies[2];
 
     str += getFighterFrame(back, Data.BattleFighterType.HERO, Data.FormationPosition.BACK);
     str += getFighterFrame(middle, Data.BattleFighterType.HERO, Data.FormationPosition.MIDDLE);
@@ -157,9 +157,9 @@ function getFormationBattleAllies(refresh = false) {
 function getFormationBattleEnemies(refresh = false) {
     let str = '';
     if(!refresh) str += '<div id="battle-fighters-enemies">';
-    const back = game.currentBattle.enemies[0];
-    const middle = game.currentBattle.enemies[1];
-    const front = game.currentBattle.enemies[2];
+    const back = game.battle.enemies[0];
+    const middle = game.battle.enemies[1];
+    const front = game.battle.enemies[2];
 
     str += getFighterFrame(front, Data.BattleFighterType.ENEMY, Data.FormationPosition.FRONT);
     str += getFighterFrame(middle, Data.BattleFighterType.ENEMY, Data.FormationPosition.MIDDLE);
@@ -178,8 +178,8 @@ function getFighterFrame(fighter, type, pos) {
     pos = pos.toLowerCase();
     type = type.toLowerCase();
     typeMin = type.charAt(0);
-    const playOrder = game.currentBattle.order.indexOf(fighter) + 1;
-    const isCurrentPlay = game.currentBattle.currentPlay === fighter;
+    const playOrder = game.battle.order.indexOf(fighter) + 1;
+    const isCurrentPlay = game.battle.currentPlay === fighter;
 
     const id = 'aw-' + typeMin + '-' + pos;
 
@@ -276,7 +276,7 @@ function getBattleScreenFormationAlliesSingle(pos) {
             break;
     }
 
-    const npc = game.currentBattle.allies[selector];
+    const npc = game.battle.allies[selector];
 
     let str = '';
     str += '<div id="gw-' + typeMin + '-' + pos + '" class="category" style="display: inline-block"><div class="battlePositionName">' + capitalizeFirstLetter(pos) + '</div>';
@@ -295,7 +295,7 @@ function getBattleCommands(refresh = false) {
     let str = '';
 
     str += '<div class="battle-actionsContainer">';
-    if(game.currentBattle.isEnemyPlaying()) {
+    if(game.battle.isEnemyPlaying()) {
 
     } else {
         str += '<div class="battle-actionAtk">';
@@ -336,7 +336,7 @@ function getBattleCommands(refresh = false) {
 
 function getCurrentPlayerEquippedWeapons() {
     let str = '<div class="battle-weaponIcons">';
-    const current = game.currentBattle.currentPlay;
+    const current = game.battle.currentPlay;
 
     if(current.eqWeaponBoth) str += '<div id="bwpn-' + current.eqWeaponBoth.id + '" class="battle-weaponIcon singleWeaponIconPopup ' + (current.stamina < current.eqWeaponBoth.effort ? 'disabledWeapon' : '') + '" style="background-image: url(\'css/img/weapons/' + current.eqWeaponBoth.icon + '.png\')"></div>';
     else {
@@ -352,8 +352,8 @@ function getCurrentPlayerEquippedWeapons() {
 function getBattleSkills(refresh = false) {
     let str = '';
 
-    if(!game.currentBattle.isEnemyPlaying()) {
-        const currentPlay = game.currentBattle.currentPlay;
+    if(!game.battle.isEnemyPlaying()) {
+        const currentPlay = game.battle.currentPlay;
         currentPlay.skills.forEach(skill => {
             str += '<div id="' + currentPlay.name + '-' + skill.id + '" class="skillSquare treeNode coolBorder ' + (currentPlay.mana < skill.manaCost || !skill.condition.checker() || skill.cooldownCountdown > 0 ? 'disabledSkill' : '') + '" style="background-image: url(\'css/img/skills/' + currentPlay.name + skill.icon + '.png\')">' + (skill.cooldownCountdown > 0 ? '<span class="skillCooldownIndicator">' + skill.cooldownCountdown + '</span>' : '') + '</div>';
         })
@@ -370,7 +370,7 @@ function getBattleConsumables(refresh = false) {
     let str = '';
 
     str += '<div class="battle-consumables">';
-    if(!game.currentBattle.isEnemyPlaying()) game.player.du_inventory.filter(x => x instanceof Consumable).forEach(cons => {
+    if(!game.battle.isEnemyPlaying()) game.player.du_inventory.filter(x => x instanceof Consumable).forEach(cons => {
         str += '<div id="btl-' + cons.id + '" class="inventoryItem" style="' + getIcon(cons) + '; border: 2px solid ' + getRarityColorCode(cons.rarity) +'"></div>'
     });
     str += '</div>';
@@ -387,7 +387,7 @@ function canCastSkillOnSelf(skill) {
 }
 
 function canLaunchSkill(skill) {
-    const battle = game.currentBattle;
+    const battle = game.battle;
     const pos = battle.allies.indexOf(battle.currentPlay) === -1 ? battle.enemies.indexOf(battle.currentPlay) : battle.allies.indexOf(battle.currentPlay);
 
     if(skill.launchPos[pos]) return true;
@@ -498,7 +498,7 @@ function getBattleSkillTooltip(strider, skill) {
 
 function getBattleScreenPlayOrder(refresh = false) {
     let str = '';
-    /*game.currentBattle.order.forEach(elem => {
+    /*game.battle.order.forEach(elem => {
         if(elem) {
             str += '<div class="playOrderSquare coolBorder" style="background-image: url(\'css/img/chars/' + elem.charset + '\')"></div>';
         }

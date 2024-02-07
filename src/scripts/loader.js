@@ -1613,9 +1613,9 @@ const Loader = {
                                     type: Data.TriggerType.ON_DEAL_WEAPON,
                                     behavior: function(){
                                         console.info('ENTARIAN SET ECHO TRIGGERED');
-                                        const params = game.currentBattle.params;
-                                        const caster = game.currentBattle.currentPlay;
-                                        const target = game.currentBattle.target[game.currentBattle.targetTracker];
+                                        const params = game.battle.params;
+                                        const caster = game.battle.currentPlay;
+                                        const target = game.battle.target[game.battle.targetTracker];
 
                                         const allyEffects = [
                                             new Stat({
@@ -3014,14 +3014,14 @@ const Loader = {
                         type: [Data.TriggerType.ON_RECV_DAMAGE, Data.TriggerType.ON_DEAL_DAMAGE],
                         behavior: function(){
                             console.info('BETHEROS LIFE CHANNEL TRIGGERED!');
-                            console.info(game.currentBattle.params);
-                            const params = game.currentBattle.params;
+                            console.info(game.battle.params);
+                            const params = game.battle.params;
 
                             const healAmount = Math.ceil((params.phys_damage + params.magi_damage + params.crit_damage) * this.owner.variables.life_channel_rate);
                             console.log('Healing to all others: ' + healAmount);
 
                             if(healAmount > 0) {
-                                game.currentBattle.allies
+                                game.battle.allies
                                 .filter(x => x.name.toLowerCase() !== "betheros")
                                 .forEach(al => {
                                     al.addBaseStat(new Stat({effect: Data.Effect.HEALTH, theorical: healAmount}));
@@ -3402,26 +3402,26 @@ const Loader = {
                     actions: [
                         new EnemyAction({
                             title: 'regular',
-                            owner: function(){ return what(game.currentBattle.enemies, "mycelial tick") },
+                            owner: function(){ return what(game.battle.enemies, "mycelial tick") },
                             checker: function(){ return this.owner.skills[0].manaCost <= this.owner.mana },
                             behavior: function(){
-                                game.currentBattle.target.push(choose(game.currentBattle.allies));
-                                game.currentBattle.selectedSkill = this.owner.skills[0];
-                                console.log('attacking ' + game.currentBattle.target[0].name + ' with ' + game.currentBattle.selectedSkill.name);
-                                game.currentBattle.executeSkill();
+                                game.battle.target.push(choose(game.battle.allies));
+                                game.battle.selectedSkill = this.owner.skills[0];
+                                console.log('attacking ' + game.battle.target[0].name + ' with ' + game.battle.selectedSkill.name);
+                                game.battle.executeSkill();
                                 
                             }
                         }),
                         new EnemyAction({
                             title: 'block',
-                            owner: function(){ return what(game.currentBattle.enemies, "mycelial tick") },
+                            owner: function(){ return what(game.battle.enemies, "mycelial tick") },
                             checker: function(){ return this.owner.stamina > 0 },
                             behavior: function() {
                                 console.log('blocks');
                                 this.owner.applyBlocking();
                                 this.owner.removeBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 5}));
                                 this.owner.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 5}));
-                                game.currentBattle.finishTurn();
+                                game.battle.finishTurn();
                             }
                         }),
                     ]
@@ -3547,55 +3547,55 @@ const Loader = {
                     actions: [
                         new EnemyAction({
                             title: 'move back',
-                            owner: function(){ return what(game.currentBattle.enemies, "fungaliant") },
+                            owner: function(){ return what(game.battle.enemies, "fungaliant") },
                             checker: function(){ 
                                 return this.owner.getSelfPosInBattle() === Data.FormationPosition.FRONT;
                             },
                             behavior: function(){
                                 console.log(this.title);
-                                game.currentBattle.target.push(game.currentBattle.allies[2]);
-                                game.currentBattle.selectedSkill = this.owner.skills[2];
-                                game.currentBattle.executeSkill();
+                                game.battle.target.push(game.battle.allies[2]);
+                                game.battle.selectedSkill = this.owner.skills[2];
+                                game.battle.executeSkill();
                             }
                         }),
                         new EnemyAction({
                             title: 'weaken striders',
-                            owner: function(){ return what(game.currentBattle.enemies, "fungaliant") },
+                            owner: function(){ return what(game.battle.enemies, "fungaliant") },
                             checker: function(){
                                 return this.owner.skills[1].cooldownCountdown === 0 && this.owner.skills[1].manaCost <= this.owner.mana;
                             },
                             behavior: function(){
                                 console.log(this.title);
-                                game.currentBattle.target.push(
-                                    game.currentBattle.allies[0],
-                                    game.currentBattle.allies[1],
-                                    game.currentBattle.allies[2]
+                                game.battle.target.push(
+                                    game.battle.allies[0],
+                                    game.battle.allies[1],
+                                    game.battle.allies[2]
                                 );
-                                game.currentBattle.selectedSkill = this.owner.skills[1];
-                                game.currentBattle.executeSkill();
+                                game.battle.selectedSkill = this.owner.skills[1];
+                                game.battle.executeSkill();
                             }
                         }),
                         new EnemyAction({
                             title: 'heal enemies',
-                            owner: function(){ return what(game.currentBattle.enemies, "fungaliant") },
+                            owner: function(){ return what(game.battle.enemies, "fungaliant") },
                             checker: function(){
                                 return this.owner.skills[0].manaCost <= this.owner.mana;
                             },
                             behavior: function(){
                                 console.log(this.title);
-                                game.currentBattle.target.push(
+                                game.battle.target.push(
                                     findNPCWithLowestStat(
-                                        game.currentBattle.enemies.filter(x => x.health > 0), 
+                                        game.battle.enemies.filter(x => x.health > 0), 
                                         Data.Effect.HEALTH
                                     )
                                 );
-                                game.currentBattle.selectedSkill = this.owner.skills[0];
-                                game.currentBattle.executeSkill();
+                                game.battle.selectedSkill = this.owner.skills[0];
+                                game.battle.executeSkill();
                             }
                         }),
                         new EnemyAction({
                             title: 'block',
-                            owner: function(){ return what(game.currentBattle.enemies, "fungaliant") },
+                            owner: function(){ return what(game.battle.enemies, "fungaliant") },
                             checker: function(){
                                 return this.owner.stamina > 0;
                             },
@@ -3604,7 +3604,7 @@ const Loader = {
                                 this.owner.applyBlocking();
                                 this.owner.removeBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 5}));
                                 this.owner.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 5}));
-                                game.currentBattle.finishTurn();
+                                game.battle.finishTurn();
                             }
                         })
                     ]
@@ -3725,47 +3725,47 @@ const Loader = {
                     actions: [
                         new EnemyAction({
                             title: 'protecc',
-                            owner: function(){ return what(game.currentBattle.enemies, "gnarly horror") },
+                            owner: function(){ return what(game.battle.enemies, "gnarly horror") },
                             checker: function(){
                                 return this.owner.skills[0].cooldownCountdown === 0 && this.owner.skills[0].manaCost <= this.owner.mana;
                             },
                             behavior: function(){
                                 console.log(this.title);
-                                const lowest = findNPCWithLowestStat(game.currentBattle.enemies.filter(x => x.health > 0), "health");
-                                game.currentBattle.target.push(lowest);
-                                game.currentBattle.selectedSkill = this.owner.skills[0];
-                                game.currentBattle.executeSkill();
+                                const lowest = findNPCWithLowestStat(game.battle.enemies.filter(x => x.health > 0), "health");
+                                game.battle.target.push(lowest);
+                                game.battle.selectedSkill = this.owner.skills[0];
+                                game.battle.executeSkill();
                             }
                         }),
                         new EnemyAction({
                             title: 'stun',
-                            owner: function(){ return what(game.currentBattle.enemies, "gnarly horror") },
+                            owner: function(){ return what(game.battle.enemies, "gnarly horror") },
                             checker: function(){
                                 return this.owner.skills[1].cooldownCountdown === 0 && this.owner.skills[1].manaCost <= this.owner.mana;
                             },
                             behavior: function(){
                                 console.log(this.title);
-                                const lowest = findNPCWithLowestStat(game.currentBattle.allies.filter(x => x.health > 0 && x.getSelfPosInBattle() != Data.FormationPosition.BACK), "resStun");
-                                game.currentBattle.target.push(lowest);
-                                game.currentBattle.selectedSkill = this.owner.skills[1];
-                                game.currentBattle.executeSkill();
+                                const lowest = findNPCWithLowestStat(game.battle.allies.filter(x => x.health > 0 && x.getSelfPosInBattle() != Data.FormationPosition.BACK), "resStun");
+                                game.battle.target.push(lowest);
+                                game.battle.selectedSkill = this.owner.skills[1];
+                                game.battle.executeSkill();
                             }
                         }),
                         new EnemyAction({
                             title: 'move forward',
-                            owner: function(){ return what(game.currentBattle.enemies, "gnarly horror") },
+                            owner: function(){ return what(game.battle.enemies, "gnarly horror") },
                             checker: function(){
                                 return this.owner.getSelfPosInBattle() === Data.FormationPosition.BACK
                             },
                             behavior: function(){
                                 console.log(this.title);
-                                game.currentBattle.selectedSkill = this.owner.skills[2];
-                                game.currentBattle.executeSkill();
+                                game.battle.selectedSkill = this.owner.skills[2];
+                                game.battle.executeSkill();
                             }
                         }),
                         new EnemyAction({
                             title: 'block',
-                            owner: function(){ return what(game.currentBattle.enemies, "gnarly horror") },
+                            owner: function(){ return what(game.battle.enemies, "gnarly horror") },
                             checker: function(){
                                 return this.owner.stamina > 0;
                             },
@@ -3774,7 +3774,7 @@ const Loader = {
                                 this.owner.applyBlocking();
                                 this.owner.removeBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 5}));
                                 this.owner.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 10}));
-                                game.currentBattle.finishTurn();
+                                game.battle.finishTurn();
                             }
                         })
                     ]

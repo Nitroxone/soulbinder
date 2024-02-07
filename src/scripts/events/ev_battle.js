@@ -1,5 +1,5 @@
 function generateBattleCommandsEvents() {
-    const battle = game.currentBattle;
+    const battle = game.battle;
     const current = battle.currentPlay;
     const atk = document.querySelector('.battle-actionAtk');
     const def = document.querySelector('.battle-actionDef');
@@ -64,7 +64,7 @@ function generateBattleCommandsEvents() {
 }
 
 function battleAttackPickTarget() {
-    const battle = game.currentBattle;
+    const battle = game.battle;
     const front = document.querySelector('#b-enemy-front');
     const middle = document.querySelector('#b-enemy-middle');
     const back = document.querySelector('#b-enemy-back');
@@ -115,7 +115,7 @@ function battleAttackPickTarget() {
 }
 
 function battleSkillPickTarget() {
-    const battle = game.currentBattle;
+    const battle = game.battle;
     const skill = battle.selectedSkill;
 
     let selector;
@@ -205,7 +205,7 @@ function battleSkillPickTarget() {
 }
 
 function battleMovePickTarget() {
-    const battle = game.currentBattle;
+    const battle = game.battle;
 
     const back = document.querySelector('#b-hero-back');
     const middle = document.querySelector('#b-hero-middle');
@@ -235,7 +235,7 @@ function battleMovePickTarget() {
 }
 
 function generateBattleSkillsEvents() {
-    const battle = game.currentBattle;
+    const battle = game.battle;
     const current = battle.currentPlay;
     const skills = current.skills;
     skills.forEach(skill => {
@@ -287,7 +287,7 @@ function generateBattleConsumablesEvents() {
 }
 
 function battleCommandsCancelCurrent() {
-    const battle = game.currentBattle;
+    const battle = game.battle;
 
     switch(battle.action) {
         case Data.BattleAction.ATTACK:
@@ -333,7 +333,7 @@ function generateBattleFightersEvents() {
         fighter.addEventListener('mouseleave', e => {
             getBattleSkills(true);
             getBattleConsumables(true);
-            if(!game.currentBattle.isEnemyPlaying()) {
+            if(!game.battle.isEnemyPlaying()) {
                 generateBattleSkillsEvents();
                 generateBattleConsumablesEvents();
             }
@@ -364,7 +364,7 @@ function generateEndBattleScreenEvents() {
     });
 
     const elements = document.querySelectorAll('.battleEnd-loot-single');
-    const loot = game.currentBattle.loot;
+    const loot = game.battle.loot;
 
     loot.forEach(x => {
         if(x.item) console.log(x.item.id);
