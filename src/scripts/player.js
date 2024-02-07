@@ -55,10 +55,9 @@ class Player {
      * - Empty slot = immediate attribution
      * - NPC already in formation to a different slot = swap 
      * - Different NPC = replace
-     * @param {NPC} npc 
-     * @param {Data.FormationPosition} pos 
+     * @param {NPC} npc the NPC to set in the formation
+     * @param {Data.FormationPosition} pos the targeted position
      */
-    // TODO: move refresh calls in here (because of a few cases where refresh calls are unnecessary)
     formationSet(npc, pos) {
         const exists = this.formation.find(x => x === npc);
         const target = getFormationIndexFromFormationPosition(pos);

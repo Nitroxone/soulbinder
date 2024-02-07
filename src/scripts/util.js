@@ -2426,3 +2426,12 @@ function getFormationPositionFromIndex(index) {
         2: Data.FormationPosition.FRONT
     }[index];
 }
+
+/**
+ * Returns an Ephemeral Luck amount based on the provided battle type and the player's modifier
+ * @param {Data.BattleType} type 
+ * @returns {number}
+ */
+function generateEphemeralLuckAmount(type) {
+    return Config.EphemeralLuck.Gains[type.toUpperCase().replace(" ", "_")] * game.player.du_ephemeralLuckGainModifier;
+}
