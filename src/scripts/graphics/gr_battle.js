@@ -79,7 +79,7 @@ function drawEndBattleScreen() {
 
     document.querySelector('.battleEndContainer').innerHTML = str;
 
-    Sounds.Methods.playSound(getBattleTypeSound(battle.type));
+    //Sounds.Methods.playSound(getBattleTypeSound(battle.type));
 }
 
 function drawBattleScreen() {
