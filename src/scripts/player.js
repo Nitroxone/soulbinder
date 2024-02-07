@@ -58,30 +58,6 @@ class Player {
      * @param {NPC} npc 
      * @param {Data.FormationPosition} pos 
      */
-    formationSet(npc, pos) {
-        let found;
-        if(this.formation.includes(npc)) {
-            console.info(npc.name + " already exists in the formation.");
-        }
-        else if(containsByName(this.roster, npc.name)) {
-            switch(pos) {
-                case Data.FormationPosition.BACK:
-                    this.formation[0] = npc;
-                    found = true;
-                    break;
-                case Data.FormationPosition.MIDDLE:
-                    this.formation[1] = npc;
-                    found = true;
-                    break;
-                case Data.FormationPosition.FRONT:
-                    this.formation[2] = npc;
-                    found = true;
-                    break;
-            }
-            //if(found) removeFromArray(this.roster, npc);
-        }
-    }
-
     // TODO: move refresh calls in here (because of a few cases where refresh calls are unnecessary)
     formationSet(npc, pos) {
         const exists = this.formation.find(x => x === npc);
@@ -97,10 +73,14 @@ class Player {
                 const old = this.formation[target];
                 this.formation[index] = old;
                 this.formation[target] = exists;
+
+                getStriderFormationSingle(getFormationPositionFromIndex(index), true);
+                getStriderFormationSingle(getFormationPositionFromIndex(target), true);
             }
 
         } else {
             this.formation[target] = npc;
+            getStriderFormationSingle(pos, true);
         }
     }
 
