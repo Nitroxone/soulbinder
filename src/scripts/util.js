@@ -2390,6 +2390,11 @@ function mergeLoots(loots) {
     return merged;
 }
 
+/**
+ * Returns the Strider located at the provided FormationPosition.
+ * @param {Data.FormationPosition} pos the FormationPosition to look at
+ * @returns {Strider|undefined} a Strider or undefined if none is assigned there
+ */
 function getStriderFromFormationPosition(pos) {
     if(pos === Data.FormationPosition.BACK) return game.player.formation[0];
     if(pos === Data.FormationPosition.MIDDLE) return game.player.formation[1];
@@ -2397,6 +2402,11 @@ function getStriderFromFormationPosition(pos) {
     return undefined;
 }
 
+/**
+ * Returns the formation index that matches the provided FormationPosition.
+ * @param {Data.FormationPosition} pos 
+ * @returns {number|undefined}
+ */
 function getFormationIndexFromFormationPosition(pos) {
     if(pos === Data.FormationPosition.BACK) return 0;
     if(pos === Data.FormationPosition.MIDDLE) return 1;
@@ -2404,6 +2414,11 @@ function getFormationIndexFromFormationPosition(pos) {
     return undefined;
 }
 
+/**
+ * Returns the FormationPosition that matches the provided formation index.
+ * @param {number} index 
+ * @returns {Data.FormationPosition|undefined}
+ */
 function getFormationPositionFromIndex(index) {
     return {
         0: Data.FormationPosition.BACK,
