@@ -6562,6 +6562,21 @@ table.astralForgeShards td {
 .infosPanel-dungeonStats {
     height: 120px;
 }
+.infosPanel-dungeonStats .ip-dungeonstats-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 85%;
+
+    border: 1px solid rgb(50, 50, 50);
+    border-radius: 3px;
+    margin: .5rem;
+    padding: 1rem;
+}
+.infosPanel-dungeonStats .ELstyling {
+    font-size: .65rem;
+}
 .infosPanel-dungeonStats::before {
     content: '';
     width: 100%;
@@ -8065,17 +8080,18 @@ table.astralForgeShards td {
     margin-top: .65rem;
 }
 .ELstyling {
-    background-color: #FA8BFF;
-    background-image: linear-gradient(45deg, #FA8BFF 0%, #2BD2FF 52%, #2BFF88 90%);
-    background-clip: transparent;
+    background-color: #74ebd500;
+    background-image: linear-gradient(180deg, #74ebd582 0%, #9face6 100%);
+
+    background-clip: text;
     color: transparent;
     text-shadow: none;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-family: RobotoSlabBold;
-    background-size: 300% 300%;
+    background-size: 100% 100%;
 
-    animation: ELspin 3s ease infinite;
+    /* animation: ELspin 15s ease infinite forwards; */
 }
 @keyframes ELspin {
     0% {

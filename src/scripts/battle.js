@@ -118,6 +118,8 @@ class Battle {
         game.dungeon.floor.room.battleEnded(this.outcome);
         drawEndBattleScreen();
         generateEndBattleScreenEvents();
+        game.player.du_ephemeralLuck += this.earnedEL;
+        drawDungeonStats(true);
     }
 
     /**

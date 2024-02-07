@@ -128,7 +128,10 @@ function drawDungeonFoundLoot(refresh = false) {
 function drawDungeonStats(refresh = false) {
     let str = '';
 
+    str += '<div class="ip-dungeonstats-wrapper">';
     str += '<div id="dPanelInventory" class="eh-r-inventory dungeonPanelFormat"></div>';
+    str += '<h4 class="ELstyling">' + game.player.du_ephemeralLuck + " Ephemeral Luck";
+    str += '</div>';
 
     if(refresh) {
         document.querySelector('.infosPanel-dungeonStats').innerHTML = str;
