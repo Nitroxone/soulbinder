@@ -124,6 +124,5 @@ function generateStridersFormationSlotEvents(slot) {
         // is equal to what's defined in data... but whatever let's just keep it clean
         const strider = game.all_striders.find(x => x.id === Number(e.dataTransfer.getData("strider")));
         game.player.formationSet(strider, pos);
-        getStriderFormationSingle(pos, true);
     });
 }
