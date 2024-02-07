@@ -135,7 +135,7 @@ function drawDungeonStats(refresh = false) {
 
     if(refresh) {
         document.querySelector('.infosPanel-dungeonStats').innerHTML = str;
-        // Events
+        generateDungeonStatsEvents();
         return;
     }
     return str;
