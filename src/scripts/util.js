@@ -2403,3 +2403,11 @@ function getFormationIndexFromFormationPosition(pos) {
     if(pos === Data.FormationPosition.FRONT) return 2;
     return undefined;
 }
+
+function getFormationPositionFromIndex(index) {
+    return {
+        0: Data.FormationPosition.BACK,
+        1: Data.FormationPosition.MIDDLE,
+        2: Data.FormationPosition.FRONT
+    }[index];
+}
