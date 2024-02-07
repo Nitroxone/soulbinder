@@ -169,7 +169,7 @@ class Battle {
         this.runPopups();
         // SKIP ENEMIES
         if(skipBecauseStunned) {
-            this.runPopups();
+            this.finishTurn();
             return;
         }
         if(this.currentPlay.isDead()) {
