@@ -25,6 +25,7 @@ class Battle {
         this.type = type;
 
         this.loot = [];
+        this.earnedEL = 0;
 
         this.params = null;
         this.resetAttackParams();
@@ -1158,6 +1159,7 @@ class Battle {
         });
 
         this.loot = mergeLoots(loot);
+        this.earnedEL = generateEphemeralLuckAmount(this.type);
         console.log("Total final loot: ", this.loot);
     }
 }

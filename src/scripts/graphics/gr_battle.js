@@ -18,6 +18,7 @@ function drawEndBattleScreen() {
     str += '<div class="titles">';
     str += '<h1>' + battle.outcome + '</h1>';
     str += '<h3>' + game.dungeon.floor.room.type + ' completed</h3>'
+    str += '<h4 class="ELstyling">+ ' + battle.earnedEL + " Ephemeral Luck";
     str += '</div>';
     str += '</div>';
 

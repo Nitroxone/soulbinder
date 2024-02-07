@@ -470,7 +470,7 @@ const Data = Object.freeze({
         GROUP: "group",
         WAVE: "wave",
         SPECIAL: "special",
-        MINI_BOSS: "miniboss",
+        MINI_BOSS: "mini boss",
         BOSS: "boss"
     },
     DungeonBiome: {
@@ -515,7 +515,7 @@ const Data = Object.freeze({
         GROUP: "group",
         WAVE: "wave",
         SPECIAL: "special",
-        MINI_BOSS: "miniboss",
+        MINI_BOSS: "mini boss",
         BOSS: "boss"
     },
     BattleOutcome: {
