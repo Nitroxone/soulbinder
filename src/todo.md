@@ -133,7 +133,7 @@ BLACK MARKET:
 - Improve the logic to implement an amount of items the player might want to buy (for resources)
 
 STRIDERS SCREEN:
-- Implement formation interface
+DONE - Implement formation interface
 - Change the Striders screen (popup -> full section)
 DONE - Add a "bonuses" tooltip to view all bonuses of a Strider
 DONE - Improve the bonuses tooltip with more details (need to add origin of Echoes, and Combat Skills, and hiding these)
