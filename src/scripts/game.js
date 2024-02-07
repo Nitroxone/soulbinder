@@ -229,7 +229,7 @@ class Game {
             addTooltip(this.tabs[i].domWhat, function(tab){return function(){return tab.desc;};}(this.tabs[i]), {offY:-8});
         }
         // SETS THE STARTING TAB
-        this.setTab(this.tabs[2]);
+        this.setTab(this.tabs[4]);
     }
 
     setTab(tab) {
