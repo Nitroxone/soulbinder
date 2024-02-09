@@ -129,8 +129,19 @@ function drawDungeonStats(refresh = false) {
     let str = '';
 
     str += '<div class="ip-dungeonstats-wrapper">';
-    str += '<div id="dPanelInventory" class="eh-r-inventory dungeonPanelFormat"></div>';
-    str += '<h4 class="ELstyling">' + game.player.du_ephemeralLuck + " Ephemeral Luck";
+
+    str += '<div id="dPanelEL" class="ipds-EL">';
+    str += '<h4 class="ELstyling">' + game.player.du_ephemeralLuck + "</h4>";
+    str += '</div>';
+
+    str += '<div id="dPanelInventory" class="eh-r-inventory dungeonPanelFormat ipds-knapsack"></div>';
+
+    str += '<div class="ipds-lifeblood"></div>';
+
+    str += '<div class="ipds-agitator"></div>';
+
+    str += '<div class="ipds-stats"></div>';
+
     str += '</div>';
 
     if(refresh) {

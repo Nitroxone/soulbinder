@@ -30,6 +30,7 @@ function generateExplorationInfosPanelEvents() {
 
 function generateDungeonStatsEvents() {
     const invButton = document.querySelector('#dPanelInventory');
+    const ELrect = document.querySelector('#dPanelEL');
     
     addTooltip(invButton, function(){
         return "Open the knapsack";
@@ -42,6 +43,20 @@ function generateDungeonStatsEvents() {
         spawnTooltip(['knapsack']);
         generateDungeonKnapsackEvents();
     });
+
+    addTooltip(ELrect, function(){
+        let str = "";
+
+        str += '<div style="width: 300px;">';
+        str += 'The impossible space-time of the Vestiges breathes ectoplasm into the horrors that inhabit them; a substance that you accumulate in your Flask after each battle, in the form of <span class="ELstyling">Ephemeral Luck</span>.';
+        str += '<div class="divider"></div>';
+        str += 'This currency can be used to unlock treasure chambers, to enchant altars at which you will rest, and for other uses you will discover.';
+        str += '<div class="divider"></div>';
+        str += 'Bear in mind that this temporary currency only lives within the Vestiges, and ceases to exist outside them.';
+        str += '</div>';
+
+        return str;
+    }, {offY: -8});
 }
 
 function generateDungeonFoundLootEvents() {
