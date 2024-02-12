@@ -2858,6 +2858,15 @@ const Loader = {
                             vars.rootsStage_Carhal = 0;
                             vars.stillTracker = 0;
                         }
+                    }),
+                    new Trigger({
+                        name: "carhal_roots_reset",
+                        type: Data.TriggerType.ON_BATTLE_END,
+                        behavior: function() {
+                            this.owner.variables.stillTracker = 0;
+                            this.owner.variables.rootsStage_Carhal = 0;
+                            this.owner.variables.previousPos = null;
+                        }
                     })
                 ],
                 Data.StriderType.STRIKER,
