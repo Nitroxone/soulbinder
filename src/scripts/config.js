@@ -984,15 +984,6 @@ let Config = {
                 1: {
                     ENTRANCE: { cha: 100 },
                 },
-                /* 2: {
-                    DORMANT_ROOM: 100
-                },
-                3: {
-                    SACRIFICIAL_ALCOVE: 50,
-                    FRACTURED_HOLLOW: 20,
-                    ANTECHAMBER_OF_MARVELS: 0.05,
-                    DESECRATED_ALTAR: 3
-                }, */
                 LAST: {
                     CHASM: { cha: 100 }
                 }
@@ -1004,12 +995,23 @@ let Config = {
                     DORMANT_ROOM: { cha: 70, min: 1 },
                     SACRIFICIAL_ALCOVE: { cha: 30, min: 1, max: 1 },
                 },
+                3: {
+                    DORMANT_ROOM: { cha: 60, min: 1 },
+                    SACRIFICIAL_ALCOVE: { cha: 20, min: 1, max: 1 },
+                    FRACTURED_HOLLOW: { cha: 20, min: 1, max: 1 },
+                },
                 4: {
+                    DORMANT_ROOM: { cha: 60, min: 1 },
+                    SACRIFICIAL_ALCOVE: { cha: 20, min: 1, max: 1 },
+                    FRACTURED_HOLLOW: { cha: 20, min: 1, max: 1 },
+                },
+                5: {
                     //EQUALLY: ["DESECRATED_ALTAR", "ANTECHAMBER_OF_MARVELS", "ETERNITY_WELL"]
                     DESECRATED_ALTAR: { cha: 33, min: 1, max: 2 },
                     ANTECHAMBER_OF_MARVELS: { cha: 33, min: 1, max: 2 },
                     ETERNITY_WELL: { cha: 33, min: 1, max: 1 }
                 }
+
             }
         })
     },
