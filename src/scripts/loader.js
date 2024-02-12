@@ -3822,6 +3822,31 @@ const Loader = {
                 ],
                 type: Data.BattleType.GROUP
             }),
+            new EnemyFormation({
+                name: "neverendingTicks",
+                biome: Data.DungeonBiome.THE_KAULT,
+                levels: [1, 2],
+                formation: [
+                    what(game.all_enemies, "mycelial tick"),
+                    what(game.all_enemies, "mycelial tick"),
+                    what(game.all_enemies, "mycelial tick"),
+                ],
+                type: Data.BattleType.WAVE,
+                params: {
+                    waves: [
+                        [
+                            what(game.all_enemies, "mycelial tick"),
+                            what(game.all_enemies, "mycelial tick"),
+                            what(game.all_enemies, "mycelial tick"),
+                        ],
+                        [
+                            what(game.all_enemies, "mycelial tick"),
+                            what(game.all_enemies, "mycelial tick"),
+                            what(game.all_enemies, "mycelial tick"),
+                        ]
+                    ]
+                }
+            })
         ];  
 
         for(const enemyFormation of enemyFormations) {

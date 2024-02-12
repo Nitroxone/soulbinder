@@ -151,6 +151,13 @@ class Battle {
         else this.finishTurn();
     }
 
+    handleEnd() {
+        if(this.type === Data.BattleType.GROUP) this.end();
+        else if (this.type === Data.BattleType.WAVE) {
+            
+        }
+    }
+
     /**
      * Begins a new turn.
      */
@@ -179,7 +186,7 @@ class Battle {
         if(this.isEnemyPlaying()) {
             this.handleEnemyTurn();
         }
-        if(this.isBattleOver()) this.end();
+        if(this.isBattleOver()) this.handleEnd();
     }
 
     /**

@@ -136,6 +136,11 @@ class DungeonRoom {
                 game.startBattle(this.enemyGroup);
                 game.player.enterCombat();
                 break;
+            case Data.DungeonRoomType.SACRIFICIAL_ALCOVE:
+                this.assignEnemyGroup();
+                game.startBattle(this.enemyGroup);
+                game.player.enterCombat();
+                break;
         }
     }
 
@@ -145,7 +150,7 @@ class DungeonRoom {
     assignEnemyGroup() {
         const biome = game.dungeon.biome;
         let pool = game.all_enemyFormations.filter(x => {
-            return x.biome === biome || x.biome === Data.DungeonBiome.ALL
+            return (x.biome === biome || x.biome === Data.DungeonBiome.ALL) && x.type === translateCombatRoomType(this.type);
         });
         console.log('assigning: ' + choose(pool) + ' to ' + this.type);
         this.enemyGroup = Entity.clone(choose(pool));
@@ -162,6 +167,9 @@ class DungeonRoom {
         }
     }
 
+    /**
+     * Generates loot for this room.
+     */
     generateRoomLoot() {
         this.foundLoot = LootTable.Generators.generateLoot(LootTable.Presets.Dungeon[this.type]);
     }

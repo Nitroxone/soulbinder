@@ -2435,3 +2435,16 @@ function getFormationPositionFromIndex(index) {
 function generateEphemeralLuckAmount(type) {
     return Config.EphemeralLuck.Gains[type.toUpperCase().replace(" ", "_")] * game.player.du_ephemeralLuckGainModifier;
 }
+
+/**
+ * Returns the BattleType value that matches the provided DungeonRoomType.
+ * @param {Data.DungeonRoomType} type 
+ * @returns {Data.BattleType}
+ */
+function translateCombatRoomType(type) {
+    return {
+        "dormant room": Data.BattleType.GROUP,
+        "sacrificial alcove": Data.BattleType.WAVE,
+        "fractured hollow": Data.BattleType.SPECIAL
+    }[type];
+}
