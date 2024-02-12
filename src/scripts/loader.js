@@ -2432,6 +2432,16 @@ const Loader = {
                             this.owner.runTriggers(Data.TriggerType.ON_STAT_CHANGE);
                         }
                     }),
+                    new Trigger({
+                        name: "amarok_darkspawn_reset",
+                        type: Data.TriggerType.ON_BATTLE_END,
+                        behavior: function() {
+                            this.owner.variables.state = "none";
+                            this.owner.variables.previous_health = 0;
+                            this.owner.variables.boost_protection = 0;
+                            this.owner.variables.boost_might = 0;
+                        }
+                    })
                 ],
                 Data.StriderType.TANK,
                 "Darkspawn",
