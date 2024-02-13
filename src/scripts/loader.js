@@ -2599,7 +2599,7 @@ const Loader = {
                                 1: {
                                     regular: [
                                         new Stat({effect: Data.Effect.GUARDED, duration: 2}),
-                                        new Stat({effect: Data.Effect.MAXMANA, theorical: [-20, -25], isPercentage: true, duration: 2})
+                                        new Stat({effect: Data.Effect.MAXMANA, theorical: [20, 25], isPercentage: true, duration: 2})
                                     ],
                                     critical: [
                                         new Stat({effect: Data.Effect.GUARDED, duration: 2, isCritical: true}),
