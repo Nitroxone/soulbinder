@@ -304,10 +304,10 @@ class Game {
     }
 
     startBattle(enemies) {
-        for(let i = 0; i < enemies.formation.length; i++) {
-            enemies.formation[i] = Entity.clone(enemies.formation[i]);
-        }
-        this.battle = new Battle(this.player.formation, enemies.formation, enemies.type);
+        this.battle = new Battle({
+            enemies: enemies.formation,
+            battleParams: enemies
+        });
         this.battle.start();
     }
 

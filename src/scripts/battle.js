@@ -5,9 +5,12 @@
 */
 
 class Battle {
-    constructor(allies, enemies, type) {
-        this.allies = allies;
-        this.enemies = enemies;
+    constructor(props = {}) {
+        this.allies = game.player.formation;
+        this.enemies = getValueFromObject(props, "enemies", []);
+        this.battleParams = getValueFromObject(props, "battleParams", null);
+        this.type = this.battleParams.type;
+        this.setEnemies(this.enemies);
 
         this.order = null;
         this.currentPlay = null;
@@ -22,7 +25,6 @@ class Battle {
         this.movementQueue = [];
         this.beginTurnPopups = false;
 
-        this.type = type;
 
         this.loot = [];
         this.earnedEL = 0;
@@ -146,15 +148,38 @@ class Battle {
         return arrayContains(this.enemies, this.currentPlay);
     }
 
+    /**
+     * Handles the current Enemy's turn.
+     */
     handleEnemyTurn() {
         if(!this.currentPlay.isDead()) this.currentPlay.behavior.play();
         else this.finishTurn();
     }
 
+    /**
+     * Handles the end condition of the battle according to its type.
+     */
     handleEnd() {
         if(this.type === Data.BattleType.GROUP) this.end();
         else if (this.type === Data.BattleType.WAVE) {
-            
+            if(this.battleParams.params.waves.length === 0) this.end();
+            else {
+                this.setEnemies(this.battleParams.params.waves.shift());
+                this.buildBehaviors();
+                this.generateOrder();
+                drawBattleScreen();
+                console.info("NEW WAVE!");
+            }
+        }
+    }
+
+    /**
+     * Sets this Battle's enemies.
+     * @param {Enemy[]} enemies the array of Enemies to attribute.
+     */
+    setEnemies(enemies) {
+        for(let i = 0; i < this.enemies.length; i++) {
+            this.enemies[i] = Entity.clone(enemies[i]);
         }
     }
 
