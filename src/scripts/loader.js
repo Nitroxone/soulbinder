@@ -3058,7 +3058,7 @@ const Loader = {
                 [
                     new Skill(
                         "Inner Fire",
-                        "§Heals§ Betheros. Boosts the target's §Skill damage§ and §Received healing§ if it is an ally; reduces them if it's an enemy.",
+                        "§Heals§ Betheros. Boosts the target's §Skill damage§ and replenishes their §Mana§ if it is an ally; reduces them if it's an enemy.",
                         13,
                         {
                             type: Data.SkillType.FRIENDLY,
@@ -3069,34 +3069,34 @@ const Loader = {
                             effectsCaster: {
                                 1: {
                                     regular: [
-                                        new Stat({effect: Data.Effect.HEALTH, theorical: [0, 8], isPercentage: true, type: Data.StatType.ACTIVE})
+                                        new Stat({effect: Data.Effect.HEALTH, theorical: [5, 12], isPercentage: true, type: Data.StatType.ACTIVE})
                                     ],
                                     critical: [
-                                        new Stat({effect: Data.Effect.HEALTH, theorical: [3, 8], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true})
+                                        new Stat({effect: Data.Effect.HEALTH, theorical: [12, 18], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true})
                                     ]
                                 }
                             },
                             effectsAllies: {
                                 1: {
                                     regular: [
-                                        new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [8, 10], isPercentage: true, duration: 2}),
-                                        new Stat({effect: Data.Effect.MODIF_HEAL_RECV, theorical: [8, 10], isPercentage: true, duration: 2})
+                                        new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [13, 15], isPercentage: true, duration: 2}),
+                                        new Stat({effect: Data.Effect.MANA, theorical: [15, 20], isPercentage: true, type: Data.StatType.ACTIVE})
                                     ],
                                     critical: [
-                                        new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [10, 12], isPercentage: true, duration: 2, isCritical: true}),
-                                        new Stat({effect: Data.Effect.MODIF_HEAL_RECV, theorical: [10, 12], isPercentage: true, duration: 2, isCritical: true})
+                                        new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [20, 22], isPercentage: true, duration: 2, isCritical: true}),
+                                        new Stat({effect: Data.Effect.MANA, theorical: [25, 25], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true})
                                     ]
                                 }
                             },
                             effectsEnemies: {
                                 1: {
                                     regular: [
-                                        new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [-5, -10], isPercentage: true, duration: 1}),
-                                        new Stat({effect: Data.Effect.MODIF_HEAL_RECV, theorical: [-5, -10], isPercentage: true, duration: 2})
+                                        new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [-10, -15], isPercentage: true, duration: 1}),
+                                        new Stat({effect: Data.Effect.MANA, theorical: [-8, -10], isPercentage: true, type: Data.StatType.ACTIVE})
                                     ],
                                     critical: [
-                                        new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [-8, -15], isPercentage: true, duration: 2, isCritical: true}),
-                                        new Stat({effect: Data.Effect.MODIF_HEAL_RECV, theorical: [-8, -15], isPercentage: true, duration: 2, isCritical: true})
+                                        new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [-25, -25], isPercentage: true, duration: 2, isCritical: true}),
+                                        new Stat({effect: Data.Effect.MANA, theorical: [-15, -15], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true})
                                     ]
                                 }
                             }
