@@ -2448,3 +2448,16 @@ function translateCombatRoomType(type) {
         "fractured hollow": Data.BattleType.SPECIAL
     }[type];
 }
+
+/**
+ * Returns a title that matches the provided BattleType.
+ * @param {Data.BattleType} type the Battle type to match
+ * @returns {string} a corresponding title
+ */
+function getBattleTitleFromType(type) {
+    return {
+        "group": "Group fight",
+        "wave": "Wave fight",
+        "special": "Special fight"
+    }[type];
+}
