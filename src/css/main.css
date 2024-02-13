@@ -4023,6 +4023,14 @@ hr.centerFade {
 }
 .striderSkills {
     grid-area: striderSkills;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 1rem;
+}
+.striderSkills > div:not(:first-child) {
+    margin-left: 1rem;
 }
 
 .workshopContainer {

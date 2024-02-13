@@ -128,3 +128,11 @@ function generateStridersFormationSlotEvents(slot) {
         game.player.formationSet(strider, pos);
     });
 }
+
+function generateStriderScreenSkillsEvents(strider) {
+    strider.skills.forEach(skill => {
+        addTooltip(document.querySelector('#strsk-' + strider.id + '-' + skill.id), function(){
+            return getBattleSkillTooltip(strider, skill);
+        }, {offY: -8})
+    })
+}

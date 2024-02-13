@@ -357,7 +357,7 @@ function getBattleSkills(refresh = false) {
         const currentPlay = game.battle.currentPlay;
         currentPlay.skills.forEach(skill => {
             str += '<div id="' + currentPlay.name + '-' + skill.id + '" class="skillSquare treeNode coolBorder ' + (currentPlay.mana < skill.manaCost || !skill.condition.checker() || skill.cooldownCountdown > 0 ? 'disabledSkill' : '') + '" style="background-image: url(\'css/img/skills/' + currentPlay.name + skill.icon + '.png\')">' + (skill.cooldownCountdown > 0 ? '<span class="skillCooldownIndicator">' + skill.cooldownCountdown + '</span>' : '') + '</div>';
-        })
+        });
     }
 
     if(refresh) {

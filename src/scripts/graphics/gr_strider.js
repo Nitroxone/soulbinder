@@ -124,6 +124,7 @@ function spawnStriderPopup(strider, refresh = false) {
     str += '</div>';
 
     str += '<div class="striderSkills">';
+    str += getStriderSkills(strider);
     str += '</div>';
 
     str += '</div>';
@@ -144,6 +145,7 @@ function spawnStriderPopup(strider, refresh = false) {
     if(!refresh) {
         generateStriderScreenEquipmentEvents(strider);
         generateStriderScreenStatsEvents(strider);
+        generateStriderScreenSkillsEvents(strider);
     }
     drawSkillTreeLines(strider);
     bringNodesForward();
@@ -159,6 +161,21 @@ function disableHighlightDrag(e) {
 
 function allowDrop(e) {
     e.preventDefault();
+}
+
+function getStriderSkills(strider, refresh = false) {
+    let str = '';
+
+    strider.skills.forEach(skill => {
+        str += '<div id="strsk-' + strider.id + '-' + skill.id + '" class="skillSquare treeNode coolBorder ' + (strider.mana < skill.manaCost || !skill.condition.checker() || skill.cooldownCountdown > 0 ? 'disabledSkill' : '') + '" style="background-image: url(\'css/img/skills/' + strider.name + skill.icon + '.png\')">' + (skill.cooldownCountdown > 0 ? '<span class="skillCooldownIndicator">' + skill.cooldownCountdown + '</span>' : '') + '</div>';
+    });
+
+    if(refresh) {
+        document.querySelector('.striderSkills').innerHTML = str;
+        generateStriderScreenSkillsEvents(strider);
+        return;
+    }
+    return str;
 }
 
 function getStriderEquipment(strider, refresh = false) {
