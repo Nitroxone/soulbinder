@@ -197,7 +197,7 @@ class Game {
             new Tab('Battle', 'battle', 'Slay your enemies.'),
             new Tab('Exploration', 'exploration', 'Make your way through dungeons.'),
             new Tab('Eons', 'eons', 'Read your collected text fragments.', false, 'right'),
-            new Tab('Achievements', 'achievements', 'Scroll through your unlocked (and yet to be unlocked) achievements.', false, 'right'),
+            new Tab('Trophies', 'trophies', 'Scroll through your unlocked (and yet to be unlocked) trophies.', false, 'right'),
             new Tab('Infos', 'updates', 'Read the game\'s update logs and other things.', true, 'right'),
             new Tab('Settings', 'settings', 'Change the game\'s settings.', true, 'right')
         ];

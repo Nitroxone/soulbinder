@@ -6155,11 +6155,16 @@ table.astralForgeShards td {
     left: 50%;
     transform: translateX(-50%);
 
-    font-family: RobotoSlab;
+    font-family: RobotoSlabBold;
     font-variant: small-caps;
     font-size: 1.05rem;
 
-    text-shadow: 0px 1px 0px #733726,0px 2px 0px #875626,0px 2px 1px #000,0px 2px 3px #000;
+    background-image: linear-gradient(0deg, rgba(88,88,88,1), rgba(222,222,222,1));
+    background-clip: text;
+    color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: none;
 }
 
 .infosPanel-roomHeader {
@@ -6762,7 +6767,6 @@ table.astralForgeShards td {
     background-size: 90%;
     background-position: center;
     background-color: #111;
-
     transition: opacity .5s cubic-bezier(1, 0, 0, 1), border-color .1s ease-in-out, background-size .2s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 .map-roomContainer:hover {
@@ -6812,6 +6816,11 @@ table.astralForgeShards td {
     width: 28px;
     height: 28px;
     position: absolute;
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    transition: all .1s cubic-bezier(0.165, 0.84, 0.44, 1);
 
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
@@ -6871,6 +6880,7 @@ table.astralForgeShards td {
 }
 .map-roomContainer.bonusRoom {
     border-radius: 100%;
+    overflow: hidden;
 }
 .map-roomContainer.combatRoom > .dr-type {
     transform: rotate(-45deg) translateY(-20px);

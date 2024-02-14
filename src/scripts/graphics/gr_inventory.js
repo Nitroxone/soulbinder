@@ -696,7 +696,7 @@ function getDungeonKnapsackCapacity(refresh = false) {
 function getDungeonKnapsackContent(refresh = false) {
     let str = '';
 
-    if(game.player.du_inventory.length === 0) str += '<h4>Empty Knapsack<br><br>(drag and drop any inventory item here to add it to your Knapsack)</h4>';
+    if(game.player.du_inventory.length === 0) str += '<h4>Empty Knapsack<br><br>' + (game.dungeon ? '(click on collected loot from rooms or battles to add them to your Knapsack)' : '(drag and drop any inventory item here to add it to your Knapsack)') + '</h4>';
     else game.player.du_inventory.forEach(it => {
         str += '<div id="kres-' + it.id + '" class="inventoryItem" style="' + getIcon(it) + '; border: 2px solid ' + getRarityColorCode(it.rarity) +'" draggable="true">';
         if(it instanceof Resource) str += '<div id="res-amount-' + it.id + '" class="inventoryItemAmount">' + (it.knapsackAmount > 99 ? '99+' : it.knapsackAmount) + '</div>';

@@ -8,7 +8,7 @@
  * An ActionListener is an object that will listen for a specific action to be triggered by the player. 
  * Each time it is triggered, a counter on this object will be incremented, possibly executing some code.
  * When a counter reaches its maximum, another function can be executed.
- * ActionListeners are used for Achievements and Mastery Pathways progression.
+ * ActionListeners are used for Trophies and Mastery Pathways progression.
  */
 class ActionListener {
     constructor(action, maximum, onIncrement, onMaximum) {
