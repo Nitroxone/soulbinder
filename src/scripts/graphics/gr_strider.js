@@ -167,7 +167,7 @@ function getStriderSkills(strider, refresh = false) {
     let str = '';
 
     strider.skills.forEach(skill => {
-        str += '<div id="strsk-' + strider.id + '-' + skill.id + '" class="skillSquare treeNode coolBorder ' + (strider.mana < skill.manaCost || !skill.condition.checker() || skill.cooldownCountdown > 0 ? 'disabledSkill' : '') + '" style="background-image: url(\'css/img/skills/' + strider.name + skill.icon + '.png\')">' + (skill.cooldownCountdown > 0 ? '<span class="skillCooldownIndicator">' + skill.cooldownCountdown + '</span>' : '') + '</div>';
+        str += '<div id="strsk-' + strider.id + '-' + skill.id + '" class="skillSquare treeNode coolBorder" style="background-image: url(\'css/img/skills/' + strider.name + skill.icon + '.png\')"></div>';
     });
 
     if(refresh) {

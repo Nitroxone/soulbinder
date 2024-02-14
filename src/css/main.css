@@ -6881,6 +6881,22 @@ table.astralForgeShards td {
 .map-roomContainer.bonusRoom {
     border-radius: 100%;
     overflow: hidden;
+    position: hidden;
+    background-image: none;
+}
+.map-roomContainer.bonusRoom::before {
+    width: 88%;
+    height: 88%;
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    background-image: url('img/map_room.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50%;
 }
 .map-roomContainer.combatRoom > .dr-type {
     transform: rotate(-45deg) translateY(-20px);
