@@ -2461,3 +2461,14 @@ function getBattleTitleFromType(type) {
         "special": "Special fight"
     }[type];
 }
+
+/**
+ * Returns the CSS class that matches the provided DungeonRoomType.
+ * @param {Data.DungeonRoomType} type 
+ * @returns {string} a CSS classname
+ */
+function getDungeonMapRoomStyle(type) {
+    if(["entrance", "chasm", "empty room"].includes(type)) return "";
+    if(["dormant room", "sacrificial alcove", "fractured hollow", "boss room"].includes(type)) return " combatRoom";
+    if(["antechamber of marvels", "eternity well", "desecrated altar"].includes(type)) return " bonusRoom";
+}

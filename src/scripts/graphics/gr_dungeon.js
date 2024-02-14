@@ -9,11 +9,11 @@ function drawExplorationScreen() {
     str += '<div id="exploration-mapPanel" class="coolBorder">'
     str += '<div class="exploration-repositionMap"></div>';
     str += '<div class="exploration-mapContainer">';
-    str += '<div class="exploration-map" style="width: ' + (floor.gridSize[1] * 100 + 100) + 'px; height: ' + (floor.gridSize[0] * 100 + 100) + 'px;">';
+    str += '<div class="exploration-map" style="width: ' + (floor.gridSize[1] * 100 + 300) + 'px; height: ' + (floor.gridSize[0] * 100 + 300) + 'px;">';
     floor.getAssignedRooms().forEach(room => {
-        str += '<div id="ch-' + room.id + '" class="map-roomContainer coolBorder' + (room === floor.room ? ' visitedRoom currentRoom' : room.revealed ? ' revealedRoom visitedRoom' : ' hiddenRoom') + '" style="top: ' + room.coordinates[0] * 100 + 'px; left: ' + room.coordinates[1] * 100 + 'px;">';
-        //str += '<div class="dr-type dr-type-' + room.type.replaceAll(' ', '_') + '"></div>';
-        str += '<span style="font-size: 1rem">' + room.coordinates + '</span>';
+        str += '<div id="ch-' + room.id + '" class="map-roomContainer coolBorder' + (room === floor.room ? ' visitedRoom currentRoom' : room.revealed ? ' revealedRoom visitedRoom' : ' hiddenRoom') + getDungeonMapRoomStyle(room.type) + '" style="top: ' + room.coordinates[0] * 150 + 'px; left: ' + room.coordinates[1] * 150 + 'px;">';
+        str += '<div class="dr-type dr-type-' + room.type.replaceAll(' ', '_') + '"></div>';
+        //str += '<span style="font-size: 1rem">' + room.coordinates + '</span>';
         str += '</div>';
     });
     str += '</div>';
@@ -228,7 +228,7 @@ function drawMapConnectors(refresh = false) {
 
     let str = '';
 
-    str += '<svg class="mapConnectorsOverlay" height="' + parent.scrollHeight + '" width="' + parent.offsetWidth + '">';
+    str += '<svg class="mapConnectorsOverlay" height="' + parent.scrollHeight + '" width="' + (parent.offsetWidth*2) + '">';
 
     rooms.forEach(ro => {
         if(!ro.nextRooms) return;

@@ -6752,8 +6752,8 @@ table.astralForgeShards td {
 }
 
 .map-roomContainer {
-    width: 35px;
-    height: 35px;
+    width: 55px;
+    height: 55px;
     border-radius: 3px;
     position: absolute;
 
@@ -6839,9 +6839,41 @@ table.astralForgeShards td {
     background-image: url('img/du_ds_off.svg');
 }
 .map-roomContainer > .dr-type-dormant_room {
-    background-image: url('img/du_dr_off.svg');
+    /* background-image: url('img/du_dr_off.svg'); */
+    background-image: url('img/experiments/dormant_room.png');
 }
 
+.map-roomContainer.combatRoom {
+    transform: rotate(45deg) translate(7px);
+}
+.map-roomContainer.combatRoom.currentRoom {
+    animation-name: currentRoomAnimationRotated;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+@keyframes currentRoomAnimationRotated {
+    25% {
+        border-top-color: cyan;
+        transform: scale(1.05) rotate(45deg) translate(7px);
+    }
+    50% {
+        border-left-color: cyan;
+    }
+    75% {
+        border-bottom-color: cyan;
+        transform: scale(1.05) rotate(45deg) translate(7px);
+    }
+    90% {
+        border-right-color: cyan;
+    }
+}
+.map-roomContainer.bonusRoom {
+    border-radius: 100%;
+}
+.map-roomContainer.combatRoom > .dr-type {
+    transform: rotate(-45deg) translateY(-20px);
+}
 
 .mapConnector {
     transition: all 1s cubic-bezier(1, 0, 0, 1);
