@@ -6756,17 +6756,18 @@ table.astralForgeShards td {
     height: 55px;
     border-radius: 3px;
     position: absolute;
-
     cursor: pointer;
-
     background-image: url('img/map_room.png');
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: 90%;
+    background-position: center;
+    background-color: #111;
 
-    transition: opacity .5s cubic-bezier(1, 0, 0, 1), border-color .1s ease-in-out;
+    transition: opacity .5s cubic-bezier(1, 0, 0, 1), border-color .1s ease-in-out, background-size .2s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 .map-roomContainer:hover {
     border-color: white;
+    background-color: #ddd;
 }
 
 .map-roomContainer.hiddenRoom {
@@ -6782,7 +6783,8 @@ table.astralForgeShards td {
 .map-roomContainer.currentRoom {
     border-color: rgb(50, 50, 50);
     border-width: 2px;
-    
+    background-size: 110%;
+    background-color: #ddd;
     animation-name: currentRoomAnimation;
     animation-duration: 2s;
     animation-iteration-count: infinite;
@@ -6839,8 +6841,7 @@ table.astralForgeShards td {
     background-image: url('img/du_ds_off.svg');
 }
 .map-roomContainer > .dr-type-dormant_room {
-    /* background-image: url('img/du_dr_off.svg'); */
-    background-image: url('img/experiments/dormant_room.png');
+    background-image: url('img/du_dr_off.svg'); 
 }
 
 .map-roomContainer.combatRoom {
