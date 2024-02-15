@@ -14,6 +14,12 @@ class ChatLog {
         this.generateTabEvents();
 
         this.currentTab = Data.ChatlogTabs.EXPLORATION;
+
+        this.messages = {
+            workshop: [],
+            battle: [],
+            exploration: []
+        }
     }
 
     /**
@@ -30,9 +36,9 @@ class ChatLog {
      * @param {Data.ChatlogTabs} target the chatlog channel to close
      */
     closeChannel(target) {
-        if(!Object.values(Data.ChatlogTabs).includes(target)) throw new Error('Attempted to open an invalid chatlog tab : ' + target);
+        if(!Object.values(Data.ChatlogTabs).includes(target)) throw new Error('Attempted to close an invalid chatlog tab : ' + target);
 
-        document.querySelector('#chatlog-' + target).style.display = 'none';
+        this.getChannel(target).style.display = 'none';
         document.querySelector('#chatlogTab-' + this.currentTab).classList.remove('active');
     }
 
@@ -43,7 +49,7 @@ class ChatLog {
     openChannel(target) {
         if(!Object.values(Data.ChatlogTabs).includes(target)) throw new Error('Attempted to open an invalid chatlog tab : ' + target);
 
-        document.querySelector('#chatlog-' + target).style.display = 'flex';
+        this.getChannel(target).style.display = 'flex';
         document.querySelector('#chatlogTab-' + target).classList.add('active');
 
     }
@@ -62,5 +68,18 @@ class ChatLog {
                 this.currentTab = tab;
             })
         })
+    }
+
+    addMessage(target, message) {
+        if(!Object.values(Data.ChatlogTabs).includes(target)) throw new Error('Attempted to add a message to an invalid chatlog tab : ' + target);
+
+        const channel = this.getChannel(target);
+        this.messages[target].push(
+            new ChatLogMessage(message)
+        );
+    }
+
+    getChannel(target) {
+        return document.querySelector('#chatlog-' + target);
     }
 }
