@@ -15,10 +15,23 @@ let Speech = {
                         "The putrescent ossuary greets the striders with an assault on their senses. The air is thick with the stench of decay, a nauseating aroma that clings to their clothing and invades their nostrils. Dim, sickly green light emanates from luminescent fungi growing on the damp walls, casting grotesque, distorted shadows on the ancient bones. Toxic fumes waft through the air, causing them to cough and gasp for breath. Fear pulses in their veins as they hear the eerie echoes of growls and slithering sounds, their imaginations running wild with the grotesque possibilities lurking in the darkness.",
                         "The striders descend into the putrescent ossuary, their bravado waning with each step. The air turns foul, assaulting their senses with a noxious blend of decay and rot. Sinister whispers seem to ride on the currents of toxic fumes, playing tricks on their minds and sowing seeds of doubt. Shadows dance menacingly along the crumbling walls, as if mocking their presence in this macabre realm. Fear creeps up their spines as they strain to identify the source of the low, guttural growls echoing through the darkness, threatening to shatter their resolve. Yet, they press on, their hearts pounding in a symphony of both dread and determination."
                     ],
+                },
+                "smoldering cave": {
+                    "uncleared": [
+                        ""
+                    ]
                 }
             },
             "chasm": {
                 "putrescent ossuary": {
+                    uncleared: [
+                        ""
+                    ],
+                    cleared: [
+                        ""
+                    ]
+                },
+                "smoldering cave": {
                     uncleared: [
                         ""
                     ],
@@ -39,6 +52,17 @@ let Speech = {
                         ""
                     ]
                 },
+                "smoldering cave": {
+                    uncleared: [
+                        ""
+                    ],
+                    engaged: [
+                        ""
+                    ],
+                    cleared: [
+                        ""
+                    ]
+                },
             },
             "eternity well": {
                 "putrescent ossuary": {
@@ -49,6 +73,14 @@ let Speech = {
                         ""
                     ]
                 },
+                "smoldering cave": {
+                    uncleared: [
+                        ""
+                    ],
+                    cleared: [
+                        ""
+                    ]
+                }
             },
             "fractured hollow": {
                 "putrescent ossuary": {
@@ -62,9 +94,31 @@ let Speech = {
                         ""
                     ]
                 },
+                "smoldering cave": {
+                    uncleared: [
+                        ""
+                    ],
+                    engaged: [
+                        ""
+                    ],
+                    cleared: [
+                        ""
+                    ]
+                },
             },
             "sacrificial alcove": {
                 "putrescent ossuary": {
+                    uncleared: [
+                        ""
+                    ],
+                    engaged: [
+                        ""
+                    ],
+                    cleared: [
+                        ""
+                    ]
+                },
+                "smoldering cave": {
                     uncleared: [
                         ""
                     ],
@@ -95,6 +149,17 @@ let Speech = {
                         ""
                     ]
                 },
+                "smoldering cave": {
+                    uncleared: [
+                        ""
+                    ],
+                    engaged: [
+                        ""
+                    ],
+                    cleared: [
+                        ""
+                    ]
+                },
             },
             "empty room": {
                 "putrescent ossuary": {
@@ -105,6 +170,14 @@ let Speech = {
                         ""
                     ]
                 },
+                "smoldering cave": {
+                    uncleared: [
+                        ""
+                    ],
+                    cleared: [
+                        ""
+                    ]
+                }
             },
             "desecrated altar": {
                 "putrescent ossuary": {
@@ -115,6 +188,14 @@ let Speech = {
                         ""
                     ]
                 },
+                "smoldering cave": {
+                    uncleared: [
+                        ""
+                    ],
+                    cleared: [
+                        ""
+                    ]
+                }
             },
             "unknown": [
                 "The striders stand before the foreboding entrance of the unknown room, their hearts pounding in anticipation. The air is heavy with a palpable tension, as if the very walls hold their breath in anticipation of what lies beyond. Their eyes dart back and forth, searching for clues or any hint of what awaits them. Nervous whispers pass between them, a mixture of excitement and trepidation, as they gather their resolve to step into the unknown.",
