@@ -3869,6 +3869,129 @@ const Loader = {
                     ]
                 }),
                 {}
+            ),
+            new Enemy(
+                "Fire Iguana",
+                "Dealing high poison damage and resistance debuffs, they leave a hatchling behind them upon dying.",
+                Data.Charset.FIRE_IGUANA,
+                "Subname",
+                50, 50, 50,
+                10, 10, 85, 10, 10, 10,
+                [0, 0], [5, 0],
+                20, 25,
+                0, 4,
+                [],
+                {},
+                [],
+                Data.MobType.REGULAR,
+                [
+                    new Skill(
+                        "Survival of the Species",
+                        "",
+                        0,
+                        {
+                            type: Data.SkillType.FRIENDLY,
+                            manaCost: 15,
+                            criMultiplier: 10,
+                            targets: { allies: '-123', enemies: '-0' },
+                            launchPos: [true, false, false],
+                            effectsEnemies: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.HEALTH, theorical: [20, 25], isPercentage: true, type: Data.StatType.ACTIVE}),
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.HEALTH, theorical: [30, 30], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true}),
+                                    ]
+                                }
+                            }
+                        }
+                    ),
+                    new Skill(
+                        "Flaming Bile",
+                        "",
+                        0,
+                        {
+                            type: Data.SkillType.OFFENSIVE,
+                            manaCost: 10,
+                            dmgType: Data.SkillDamageType.MAGICAL,
+                            criMultiplier: 10,
+                            accMultiplier: 90,
+                            cooldown: 3,
+                            targets: { allies: '-0', enemies: '-123' },
+                            effectsAllies: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.BLIGHT_CURABLE, theorical: [4, 5], type: Data.StatType.ACTIVE, duration: 2}),
+                                        new Stat({effect: Data.Effect.RESILIENCE, theorical: [-8, -12], duration: 2})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.BLIGHT_CURABLE, theorical: [5, 6], type: Data.StatType.ACTIVE, duration: 2}),
+                                        new Stat({effect: Data.Effect.RESILIENCE, theorical: [-12, -15], duration: 2})
+                                    ]
+                                }
+                            }
+                        }
+                    )
+                ],
+                new EnemyBehavior({
+                    actions: [
+                        new EnemyAction({
+                            title: 'attack striders',
+                            owner: function(){ return what(game.battle.enemies, "fire iguana") },
+                            checker: function(){
+                                return this.owner.skills[1].cooldownCountdown === 0 && this.owner.skills[1].manaCost <= this.owner.mana;
+                            },
+                            behavior: function() {
+                                console.log(this.title);
+                                game.battle.target.push(choose(game.battle.allies.filter(x => x.health > 0)));
+                                game.battle.selectedSkill = this.owner.skills[1];
+                                game.battle.executeSkill();
+                            }
+                        }),
+                        new EnemyAction({
+                            title: 'regen hatchlings',
+                            owner: function() { return what(game.battle.enemies, "fire iguana") },
+                            checker: function() {
+                                const valid = game.battle.enemies.find(x => x.name.toLowerCase() === "fire hatchling" && x.health < x.maxHealth*0.75);
+                                if(valid && this.owner.getSelfPosInBattle() === Data.FormationPosition.FRONT && this.owner.skills[0].manaCost <= this.owner.mana) return true;
+                                return false;
+                            },
+                            behavior: function(){
+                                console.log(this.title);
+                                const tar = game.battle.enemies.find(x => x.name.toLowerCase() === "fire hatchling" && x.health < x.maxHealth*0.75);
+                                game.battle.target.push(tar);
+                                game.battle.selectedSkill = this.owner.skills[0];
+                                game.battle.executeSkill();
+                            }
+                        }),
+                        new EnemyAction({
+                            title: 'move forward',
+                            owner: function(){ return what(game.battle.enemies, "fire iguana") },
+                            checker: function() {
+                                const valid = game.battle.enemies.find(x => x.name.toLowerCase() === "fire hatchling" && x.health < x.maxHealth*0.75);
+                                if(valid && this.owner.getSelfPosInBattle() !== Data.FormationPosition.FRONT) return true;
+                                return false;
+                            },
+                            behavior: function() {
+                                console.log(this.title);
+                                game.battle.move(game.battle.currentPlay, Data.FormationPosition.FRONT, "e");
+                                setTimeout(() => {game.battle.finishTurn();}, 300);
+                            }
+                        }),
+                        new EnemyAction({
+                            title: 'block',
+                            owner: function(){ return what(game.battle.enemies, "fire iguana") },
+                            checker: function(){ return this.owner.stamina > 0 },
+                            behavior: function() {
+                                this.owner.applyBlocking();
+                                this.owner.removeBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 5}));
+                                this.owner.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 5}));
+                                game.battle.finishTurn();
+                            }
+                        })
+                    ]
+                })
             )
         ];
 
@@ -3938,13 +4061,13 @@ const Loader = {
                 }
             }),
             new EnemyFormation({
-                name: "threeFireHatchlings",
+                name: "fireIguanaAndTwoHatchlings",
                 biome: Data.DungeonBiome.UZIEL_JUNGLES,
                 levels: [1, 2],
                 formation: [
                     what(game.all_enemies, "fire hatchling"),
                     what(game.all_enemies, "fire hatchling"),
-                    what(game.all_enemies, "fire hatchling"),
+                    what(game.all_enemies, "fire iguana"),
                 ],
                 type: Data.BattleType.GROUP
             })

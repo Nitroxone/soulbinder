@@ -230,6 +230,8 @@ const Data = Object.freeze({
         ON_ADD_HEALTH: 'ON_ADD_HEALTH',
         ON_ADD_STAMINA: 'ON_ADD_STAMINA',
         ON_ADD_MANA: 'ON_ADD_MANA',
+
+        ON_DEATH: 'ON_DEATH',
     },
     StatType: {
         ACTIVE: "active",

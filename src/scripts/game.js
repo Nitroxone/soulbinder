@@ -443,7 +443,7 @@ class Game {
 
         //console.clear();
 
-        //this.startBattle(Entity.clone(what(game.all_enemyFormations, "gnarlyAndFungaliant")));
+        this.startBattle(Entity.clone(what(game.all_enemyFormations, "fireIguanaAndTwoHatchlings")));
         //this.battle.end();
 
         this.initBlackMarket();
