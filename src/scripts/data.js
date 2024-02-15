@@ -29,6 +29,11 @@ const Data = Object.freeze({
         MYCELIAL_TICK: 'mycelial_tick.png',
         FUNGALIANT: 'fungaliant.png',
         GNARLY_HORROR: 'gnarly_horror.png',
+
+        FIRE_HATCHLING: 'fire_hatchling.png',
+        FIRE_IGUANA: 'fire_iguana.png',
+        VENOMSTRIPE_MAULER: 'venomstripe_mauler.png',
+        ALIENATED_PRIEST: 'alienated_priest.png'
     },
     Color: {
         GREEN: '#4cd137',

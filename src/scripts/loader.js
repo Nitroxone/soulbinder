@@ -3798,6 +3798,77 @@ const Loader = {
                         })
                     ]
                 }),
+            ),
+            new Enemy(
+                "Fire Hatchling",
+                "You better not kill this little dude if a Fire Iguana is around...",
+                Data.Charset.FIRE_HATCHLING,
+                "Subname",
+                25, 35, 35,
+                20, 15, 85, 0, 5, 5,
+                [0, 0], [2, 0],
+                20, 25,
+                0, 4,
+                [],
+                {},
+                [],
+                Data.MobType.LESSER,
+                [
+                    new Skill(
+                        "Burning Bile",
+                        "",
+                        0,
+                        {
+                            type: Data.SkillType.OFFENSIVE,
+                            manaCost: 10,
+                            dmgType: Data.SkillDamageType.MAGICAL,
+                            dmgMultiplier: 100,
+                            criMultiplier: 20,
+                            accMultiplier: 90,
+                            targets: { allies: '-0', enemies: '@123' },
+                            effectsAllies: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.BLIGHT_CURABLE, theorical: [2, 3], type: Data.StatType.ACTIVE, duration: 2}),
+                                        new Stat({effect: Data.Effect.RES_POISON_DMG, theorical: [-2, -3], duration: 2}),
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.BLIGHT_CURABLE, theorical: [3, 4], type: Data.StatType.ACTIVE, duration: 2, isCritical: true}),
+                                        new Stat({effect: Data.Effect.RES_POISON_DMG, theorical: [-3, -4], duration: 2}),
+                                    ]
+                                }
+                            }
+                        }
+                    )
+                ],
+                new EnemyBehavior({
+                    actions: [
+                        new EnemyAction({
+                            title: 'regular',
+                            owner: function(){ return what(game.battle.enemies, "fire hatchling") },
+                            checker: function(){ return this.owner.skills[0].manaCost <= this.owner.mana },
+                            behavior: function(){
+                                game.battle.allies.forEach(ally => {
+                                    game.battle.target.push(ally);
+                                })
+                                game.battle.selectedSkill = this.owner.skills[0];
+                                game.battle.executeSkill();
+                            }
+                        }),
+                        new EnemyAction({
+                            title: 'block',
+                            owner: function(){ return what(game.battle.enemies, "fire hatchling") },
+                            checker: function(){ return this.owner.stamina > 0 },
+                            behavior: function() {
+                                this.owner.applyBlocking();
+                                this.owner.removeBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 5}));
+                                this.owner.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 5}));
+                                game.battle.finishTurn();
+                            }
+                        })
+                    ]
+                }),
+                {}
             )
         ];
 
@@ -3865,6 +3936,17 @@ const Loader = {
                         ]
                     ]
                 }
+            }),
+            new EnemyFormation({
+                name: "threeFireHatchlings",
+                biome: Data.DungeonBiome.UZIEL_JUNGLES,
+                levels: [1, 2],
+                formation: [
+                    what(game.all_enemies, "fire hatchling"),
+                    what(game.all_enemies, "fire hatchling"),
+                    what(game.all_enemies, "fire hatchling"),
+                ],
+                type: Data.BattleType.GROUP
             })
         ];  
 
