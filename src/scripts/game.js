@@ -20,6 +20,7 @@ class Game {
         this.tooltip = new Tooltip();
         this.widget= new Widget();
         this.dialogue = new Dialogue();
+        this.chatlog = null;
 
         this.messages = [];
         this.messagesDOM = null;
@@ -102,7 +103,7 @@ class Game {
     pushCallback(func) {
         this.callbacks.push(func);
     }
-    
+
     addButton(obj) {
         const id = obj.id || ('button-' + this.buttons);
         const str = '<div ' + (obj.style?('style="' + obj.style + '" ') : '') + 'class="button' + (obj.classes?(' ' + obj.classes): '') + '" id="' + id + '">' + (obj.text || '-') + '</div>';
@@ -275,6 +276,7 @@ class Game {
      * Launches the game.
      */
     launch() {
+        this.chatlog = new ChatLog();
         this.inventory = new Inventory();
         this.player = new Player("root", this.inventory);
         this.alchemy = new Alchemy();

@@ -9008,25 +9008,37 @@ table.astralForgeShards td {
 
 #pinInventory, #pinChat {
 
-    width: 15px;
-    height: 15px;
+width: 15px;
 
-    background-image: url('img/pin_off.svg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 80%;
-    border-radius: 3px;
-    cursor: pointer;
+height: 15px;
 
-    padding: .65rem;
-    margin: .5rem 0 0 .5rem;
-    border: 1px solid transparent;
+background-image: url('img/pin_off.svg');
 
-    position: sticky;
-    top: .5rem;
-    left: .5rem;
-    z-index: 2;
-    filter: drop-shadow(0 0 1px #000000) brightness(2);
+background-repeat: no-repeat;
+
+background-position: center;
+
+background-size: 80%;
+
+border-radius: 3px;
+
+cursor: pointer;
+
+padding: .65rem;
+
+margin: .5rem 0 0 .5rem;
+
+border: 1px solid transparent;
+
+position: sticky;
+
+top: .5rem;
+
+left: .5rem;
+
+z-index: 2;
+
+filter: drop-shadow(0 0 1px #000000) brightness(2);
 }
 #pinChat {
     left: initial;
@@ -9074,4 +9086,55 @@ table.astralForgeShards td {
 }
 #repinInventory.noDisplay, #repinChat.noDisplay, #chatTabs.noDisplay {
     display: none;
+}
+
+/* CHATLOG */
+
+#chatlogTabs {
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 25px;
+}
+.chatlogTabSingle {
+    flex: 1;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 100%;
+
+    font-family: RobotoSlab;
+    font-variant: small-caps;
+    font-weight: normal;
+    font-size: 12px;
+    transition: all .1s ease-in-out;
+    border: 3px solid transparent;
+    border-image: url('img/window1.png') 3 stretch;
+    border-left: none;
+    border-top: none;
+    background: url('img/bg4.png');
+    background-size: auto;
+}
+.chatlogTabSingle:last-child {
+    border-right: none;
+}
+.chatlogTabSingle:hover {
+    color: #ddd;
+    cursor: pointer;
+}
+.chatlogTabSingle.active {
+    background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.125) 100%), url('img/bg4.png');
+    color: white;
+}
+.chatlogMessages {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    height: 100%;
 }

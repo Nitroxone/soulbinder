@@ -605,5 +605,10 @@ const Data = Object.freeze({
         TUTORIALS: "tutorials",
         STRIDERS: "striders",
         ARTIFACTS: "artifacts"
+    },
+    ChatlogTabs: {
+        WORKSHOP: "workshop",
+        BATTLE: "battle",
+        EXPLORATION: "exploration"
     }
 }); 
