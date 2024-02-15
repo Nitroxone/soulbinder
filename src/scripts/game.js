@@ -102,16 +102,7 @@ class Game {
     pushCallback(func) {
         this.callbacks.push(func);
     }
-
-    addTextWithTooltip(text, tooltip, classes) {
-        const id = this.texts;
-        const str = '<span class="tooltiped' + (classes?(' ' + classes):'') + '" id="textspan-' + id + '">' + text + '</span>';
-        this.pushCallback(function(id, tooltip){return function(){
-            addTooltip(domWhat('textspan-' + id), function(){return tooltip;}, {offY:-8});
-        }}(id, tooltip));
-        this.texts++;
-        return str;
-    }
+    
     addButton(obj) {
         const id = obj.id || ('button-' + this.buttons);
         const str = '<div ' + (obj.style?('style="' + obj.style + '" ') : '') + 'class="button' + (obj.classes?(' ' + obj.classes): '') + '" id="' + id + '">' + (obj.text || '-') + '</div>';
@@ -133,60 +124,6 @@ class Game {
         triggerAnim(domWhat('middleText'), 'slowFadeOut');
         if(slow) domWhat('middleText').style.animationDuration = '5s';
         else domWhat('middleText').style.animationDuration = '1.5s';
-    }
-
-    message(obj) {
-        let me = {
-            type: undefined,
-            date: undefined,
-            text: undefined,
-            textFunc: undefined,
-            args: undefined,
-            mergeId: undefined,
-            replaceOnly: undefined,
-            bg: undefined,
-            domWhat: undefined,
-        };
-        const scrolled = !(Math.abs(this.messagesWrapDOM.scrollTop - (this.messagesWrapDOM.scrollHeight - this.messagesWrapDOM.offsetHeight)) < 3);
-        const currentDate = new Date();
-        const hours = currentDate.getHours().toString().length == 1 ? '0' + currentDate.getHours() : currentDate.getHours();
-        const minutes = currentDate.getMinutes().toString().length == 1 ? '0' + currentDate.getMinutes() : currentDate.getMinutes();
-        const datetime = hours + ':' + minutes;
-
-        me.type = "normal";
-        me.date = datetime;
-        for(let i in obj) {
-            me[i] = obj[i];
-        };
-        const content = me.text || me.textFunc(me.args);
-        let str = '<div class="messageTimestamp" title="blank">[' + datetime + ']</div>' +
-            '<div class="messageContent' + (me.bg ? ' hasBg" style="background-image: url(\'css/img/' + me.bg + '\')"' : '"') + '>' + '<span class="messageText">' + content + '</span></div>';
-
-        const div = document.createElement('div');
-        div.innerHTML = str;
-        div.className = 'message popInVertical ' + (me.type).replaceAll(' ', 'Message ') + 'Message';
-        this.messagesDOM.appendChild(div);
-        me.domWhat = div;
-        this.messages.push(me);
-        if(this.messages.length > this.MAX_MESSAGES) {
-            const first = this.messagesDOM.firstChild;
-            for(let i = 0; i < this.messages.length; i++) {
-                if(this.messages[i].domWhat == first) {
-                    this.messages.splice(i, 1);
-                    break;
-                }
-            }
-            this.messagesDOM.removeChild(first);
-        }
-        if(!scrolled) this.messagesWrapDOM.scrollTop = this.messagesWrapDOM.scrollHeight - this.messagesWrapDOM.offsetHeight;
-        this.addCallbacks();
-    }
-
-    initMessages() {
-        this.messages = [];
-        this.messagesDOM = domWhat('messagesList');
-        this.messagesWrapDOM = domWhat('messages');
-        this.messagesDOM.innerHTML = '';
     }
 
     initTabs() {
@@ -346,8 +283,6 @@ class Game {
         this.soulbending = new Soulbending();
         this.black_market = new BlackMarket();
 
-        this.initMessages();
-
         // LOADING DATA
         this.loadData();
 
@@ -407,12 +342,6 @@ class Game {
         //drawExplorationHubScreen();
         drawEonScreen();
         drawEmptyBattleScreen();
-
-        this.message({type: Data.LogMessageType.IMPORTANT, text:'This is an important message.'});
-        this.message({type: Data.LogMessageType.REGULAR, text:'This is a regular message.'});
-        this.message({type: Data.LogMessageType.GOOD, text:'This is a positive message.'});
-        this.message({type: Data.LogMessageType.BAD, text:'This is a negative message.'});
-        this.message({type: Data.LogMessageType.TALL, text:'This is a bigger message.'});
 
         this.player.formationSet(what(this.player.roster, "amarok"), Data.FormationPosition.FRONT);
         this.player.formationSet(what(this.player.roster, "carhal"), Data.FormationPosition.MIDDLE);
