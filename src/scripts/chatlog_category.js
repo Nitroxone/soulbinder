@@ -15,14 +15,23 @@ class ChatLogCategory {
         });
     }
 
-    getHtmlId() {
-        return '#chatlogCat-' + this.uid;
+    /**
+     * Returns the HTML ID of this category.
+     * @param {boolean} includeToken whether the include the # token
+     * @returns {string} the HTML ID
+     */
+    getHtmlId(includeToken = true) {
+        return (includeToken ? '#' : '') + 'chatlogCat-' + this.uid;
     }
 
+    /**
+     * Returns the formatted HTML string of this ChatLog category.
+     * @returns {string} an HTML string
+     */
     draw() {
         let str = '';
 
-        str += '<div id="chatlogCat-' + this.uid + '" class="chatlogCategory ' + this.style.className + '">';
+        str += '<div id="' + this.getHtmlId(false) + '" class="chatlogCategory ' + this.style.className + '">';
         str += '<div class="chatlogCategory-title">' + this.title + '</div>';
         str += '</div>';
 

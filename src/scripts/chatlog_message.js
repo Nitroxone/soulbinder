@@ -14,10 +14,23 @@ class ChatLogMessage {
         });
     }
 
+    /**
+     * Returns the HTML ID of this message.
+     * @param {boolean} includeToken whether the include the # token
+     * @returns {string} the HTML ID
+     */
+    getHtmlId(includeToken = true) {
+        return (includeToken ? '#' : '') + 'chatlogMsg-' + this.uid;
+    }
+
+    /**
+     * Returns the formatted HTML string of this ChatLog message.
+     * @returns {string} an HTML string
+     */
     draw() {
         let str = '';
 
-        str += '<div id="chatlogMsg-' + this.uid + '" class="chatlogMessage ' + this.style.className + '">';
+        str += '<div id="' + this.getHtmlId(false) + '" class="chatlogMessage ' + this.style.className + '">';
         str += this.content;
         str += '</div>';
 

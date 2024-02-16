@@ -70,6 +70,12 @@ class ChatLog {
         })
     }
 
+    /**
+     * Adds the data to the targeted channel. (Supposed to be call only through addMessage() or addCategory().)
+     * @param {Data.ChatlogTabs} target the targeted channel
+     * @param {object} message the data to add
+     * @param {ChatLogCategory|string|null} category the category to target
+     */
     add(target, message, category = null) {
         if(!Object.values(Data.ChatlogTabs).includes(target)) throw new Error('Attempted to add a message to an invalid chatlog tab : ' + target);
 
@@ -89,12 +95,24 @@ class ChatLog {
         }
     }
 
+    /**
+     * Adds the message to the targeted channel.
+     * @param {Data.ChatlogTabs} target the targeted channel
+     * @param {object} message the data of the message to add
+     * @param {ChatLogCategory|string|null} category the category to target
+     */
     addMessage(target, message, category = null) {
         this.add(target, { data: message, type: "message" }, category);
     }
 
-    addCategory(target, message, category = null) {
-        this.add(target, { data: message, type: "category" }, category);
+    /**
+     * Adds the category to the targeted channel.
+     * @param {Data.ChatlogTabs} target the targeted channel
+     * @param {object} message the data of the category to add
+     * @param {ChatLogCategory|string|null} category the category to target
+     */
+    addCategory(target, data, category = null) {
+        this.add(target, { data: data, type: "category" }, category);
     }
 
     /**
