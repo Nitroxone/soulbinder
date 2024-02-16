@@ -33,6 +33,8 @@ class ChatLogCategory {
 
         str += '<div id="' + this.getHtmlId(false) + '" class="chatlogCategory ' + this.style.className + '">';
         str += '<div class="chatlogCategory-title">' + this.title + '</div>';
+        str += '<div class="chatlogCategory-content">';
+        str += '</div>';
         str += '</div>';
 
         return str;

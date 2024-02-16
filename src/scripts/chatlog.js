@@ -86,7 +86,7 @@ class ChatLog {
             tar.data.push(
                 obj
             );
-            channel.querySelector(tar.getHtmlId()).innerHTML += obj.draw();
+            channel.querySelector(tar.getHtmlId() + ' .chatlogCategory-content').innerHTML += obj.draw();
         } else {
             this.messages[target].push(
                 obj
