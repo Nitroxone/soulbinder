@@ -606,7 +606,7 @@ const Data = Object.freeze({
         STRIDERS: "striders",
         ARTIFACTS: "artifacts"
     },
-    ChatlogTabs: {
+    ChatlogChannel: {
         WORKSHOP: "workshop",
         BATTLE: "battle",
         EXPLORATION: "exploration"
