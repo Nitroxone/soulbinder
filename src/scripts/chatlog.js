@@ -70,15 +70,38 @@ class ChatLog {
         })
     }
 
-    addMessage(target, message) {
+    add(target, message, category = null) {
         if(!Object.values(Data.ChatlogTabs).includes(target)) throw new Error('Attempted to add a message to an invalid chatlog tab : ' + target);
 
         const channel = this.getChannel(target);
-        this.messages[target].push(
-            new ChatLogMessage(message)
-        );
+        const obj = message.type === "message" ? new ChatLogMessage(message.data) : new ChatLogCategory(message.data);
+        if(category) {
+            const tar = this.messages[target].find(x => x instanceof ChatLogCategory && (x.title === category || x === category));
+            tar.data.push(
+                obj
+            );
+            channel.querySelector(tar.getHtmlId()).innerHTML += obj.draw();
+        } else {
+            this.messages[target].push(
+                obj
+            );
+            channel.innerHTML += obj.draw();
+        }
     }
 
+    addMessage(target, message, category = null) {
+        this.add(target, { data: message, type: "message" }, category);
+    }
+
+    addCategory(target, message, category = null) {
+        this.add(target, { data: message, type: "category" }, category);
+    }
+
+    /**
+     * Returns the provided channel's HTMLelement.
+     * @param {Data.ChatlogTabs} target the channel to retrieve
+     * @returns {HTMLElement|null} the related channel's HTMLElement
+     */
     getChannel(target) {
         return document.querySelector('#chatlog-' + target);
     }

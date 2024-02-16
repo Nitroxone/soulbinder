@@ -379,5 +379,9 @@ class Game {
 
         this.initBlackMarket();
         openAstralForge(game.player.inventory.weapons[0]);
+
+        game.chatlog.addMessage(Data.ChatlogTabs.EXPLORATION, {
+            content: "<h3>Started something...</h3>"
+        });
     }
 }
