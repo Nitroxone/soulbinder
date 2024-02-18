@@ -83,16 +83,16 @@ class ChatLog {
         const obj = message.type === "message" ? new ChatLogMessage(message.data) : new ChatLogCategory(message.data);
         if(category) {
             const tar = this.messages[target].find(x => x instanceof ChatLogCategory && (x.title === category || x === category));
-            tar.data.push(
-                obj
-            );
+            tar.data.push(obj);
+            obj.parent = tar;
+            this.messages[target].push(obj)
             channel.querySelector(tar.getHtmlId() + ' .chatlogCategory-content').innerHTML += obj.draw();
         } else {
-            this.messages[target].push(
-                obj
-            );
+            this.messages[target].push(obj);
             channel.innerHTML += obj.draw();
         }
+
+        return obj;
     }
 
     /**
@@ -102,7 +102,7 @@ class ChatLog {
      * @param {ChatLogCategory|string|null} category the category to target
      */
     addMessage(target, message, category = null) {
-        this.add(target, { data: message, type: "message" }, category);
+        return this.add(target, { data: message, type: "message" }, category);
     }
 
     /**
@@ -112,7 +112,7 @@ class ChatLog {
      * @param {ChatLogCategory|string|null} category the category to target
      */
     addCategory(target, data, category = null) {
-        this.add(target, { data: data, type: "category" }, category);
+        return this.add(target, { data: data, type: "category" }, category);
     }
 
     /**

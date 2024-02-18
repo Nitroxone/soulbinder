@@ -9137,4 +9137,41 @@ filter: drop-shadow(0 0 1px #000000) brightness(2);
     justify-content: flex-start;
 
     height: 100%;
+    padding: 0 .5rem;
+}
+
+.chatlogCategory {
+    padding: .5rem;
+
+    border: 1px solid rgb(80, 80, 80);
+    border-radius: 3px;
+}
+.chatlogCategory:hover {
+    border-color: white;
+}
+.chatlogCategory-title {
+    font-family: RobotoSlabBold;
+    margin-bottom: .5rem;
+}
+.chatlogCategory-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.chatlogMessage {
+    display: grid;
+    grid-template-columns: .1fr 1fr;
+    grid-template-areas: "chatlogMessage-timecode chatlogMessage-content";
+    column-gap: .2rem;
+}
+.chatlogMessage > div {
+    padding: .5rem;
+}
+.chatlogMessage-timecode {
+    grid-area: chatlogMessage-timecode;
+    background-color: rgb(100, 100, 100, .2);
+}
+.chatlogMessage-content {
+    grid-area: chatlogMessage-content;
+    background-color: rgb(100, 100, 100, .2);
 }

@@ -12,6 +12,7 @@ class ChatLogMessage {
         this.style = getValueFromObject(props, "style", {
             className: 'regular'
         });
+        this.timecode = this.setDate();
     }
 
     /**
@@ -23,6 +24,14 @@ class ChatLogMessage {
         return (includeToken ? '#' : '') + 'chatlogMsg-' + this.uid;
     }
 
+    setDate() {
+        const date = new Date();
+        const hours = date.getHours().toString().length === 1 ? '0' + date.getHours() : date.getHours();
+        const minutes = date.getMinutes().toString().length === 1 ? '0' + date.getMinutes() : date.getMinutes();
+        
+        return hours + ':' + minutes;
+    }
+
     /**
      * Returns the formatted HTML string of this ChatLog message.
      * @returns {string} an HTML string
@@ -31,7 +40,8 @@ class ChatLogMessage {
         let str = '';
 
         str += '<div id="' + this.getHtmlId(false) + '" class="chatlogMessage ' + this.style.className + '">';
-        str += this.content;
+        str += '<div class="chatlogMessage-timecode">' + this.timecode + '</div>';
+        str += '<div class="chatlogMessage-content">' + this.content + '</div>';
         str += '</div>';
 
         return str;
