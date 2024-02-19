@@ -88,13 +88,26 @@ class ChatLog {
             this.messages[target].push(obj)
             channel.querySelector(tar.getHtmlId() + ' .chatlogCategory-content').innerHTML += obj.draw();
 
+            tar.notify();
+            this.generateEvents(tar);
         } else {
             this.messages[target].push(obj);
             channel.innerHTML += obj.draw();
         }
-        this.generateEvents(obj);
+        this.generateChannelEvents(target);
+        obj.notify();
 
         return obj;
+    }
+    
+    /**
+     * Generates events for all of the messages within the provided chatlog channel.
+     * @param {Data.ChatlogChannel} target 
+     */
+    generateChannelEvents(target) {
+        this.messages[target].forEach(elem => {
+            this.generateEvents(elem);
+        })
     }
 
     /**
@@ -119,7 +132,7 @@ class ChatLog {
             dom.addEventListener('click', e => {
                 e.stopImmediatePropagation();
                 dom.classList.toggle('chatlogCategory-hidden');
-            })
+            });
         }
         
         for(const event in obj.events) {

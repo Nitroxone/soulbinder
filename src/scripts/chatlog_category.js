@@ -47,4 +47,8 @@ class ChatLogCategory {
 
         return str;
     }
+
+    notify() {
+        
+    }
 }

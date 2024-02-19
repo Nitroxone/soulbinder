@@ -58,4 +58,8 @@ class ChatLogMessage {
 
         return str;
     }
+
+    notify() {
+        
+    }
 }

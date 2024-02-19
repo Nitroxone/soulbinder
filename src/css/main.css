@@ -9098,6 +9098,9 @@ filter: drop-shadow(0 0 1px #000000) brightness(2);
     justify-content: space-evenly;
     align-items: center;
     height: 25px;
+
+    margin-bottom: .5rem;
+    z-index: 2;
 }
 .chatlogTabSingle {
     flex: 1;
@@ -9210,4 +9213,13 @@ filter: drop-shadow(0 0 1px #000000) brightness(2);
 .chatlogMessage-content {
     grid-area: chatlogMessage-content;
     background-color: rgb(100, 100, 100, .2);
+}
+
+.chatlogNotify {
+    animation: chatlogNotifyAnim 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+@keyframes chatlogNotifyAnim {
+    from {
+        background: rgba(125, 125, 125, .4);
+    }
 }
