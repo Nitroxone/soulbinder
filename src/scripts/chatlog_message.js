@@ -24,6 +24,18 @@ class ChatLogMessage {
         return (includeToken ? '#' : '') + 'chatlogMsg-' + this.uid;
     }
 
+    /**
+     * Returns this message's HTML element from the DOM.
+     * @returns {HTMLElement|null}
+     */
+    getDom() {
+        return document.querySelector(this.getHtmlId());
+    }
+
+    /**
+     * Sets this message's timecode to the current date.
+     * @returns {string}
+     */
     setDate() {
         const date = new Date();
         const hours = date.getHours().toString().length === 1 ? '0' + date.getHours() : date.getHours();

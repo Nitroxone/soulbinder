@@ -25,6 +25,14 @@ class ChatLogCategory {
     }
 
     /**
+     * Returns this category's HTML element from the DOM.
+     * @returns {HTMLElement|null}
+     */
+    getDom() {
+        return document.querySelector(this.getHtmlId());
+    }
+
+    /**
      * Returns the formatted HTML string of this ChatLog category.
      * @returns {string} an HTML string
      */

@@ -87,12 +87,44 @@ class ChatLog {
             obj.parent = tar;
             this.messages[target].push(obj)
             channel.querySelector(tar.getHtmlId() + ' .chatlogCategory-content').innerHTML += obj.draw();
+
         } else {
             this.messages[target].push(obj);
             channel.innerHTML += obj.draw();
         }
+        this.generateEvents(obj);
 
         return obj;
+    }
+
+    /**
+     * Generates events related to the provided object (category or message).
+     * @param {ChatLogMessage|ChatLogCategory} obj 
+     */
+    generateEvents(obj) {
+        const dom = obj.getDom();
+
+        if(obj instanceof ChatLogCategory) {
+            // Gotta use an event-based hover because a basic CSS :hover rule can't handle nested elements            
+            dom.addEventListener('mouseover', e => {
+                e.stopImmediatePropagation();
+                dom.classList.add('chatlogCategory-hovered');
+            });
+            dom.addEventListener('mouseout', e => {
+                e.stopImmediatePropagation();
+                dom.classList.remove('chatlogCategory-hovered');
+            });
+
+            // Fold/unfold contents
+            dom.addEventListener('click', e => {
+                e.stopImmediatePropagation();
+                dom.classList.toggle('chatlogCategory-hidden');
+            })
+        }
+        
+        for(const event in obj.events) {
+            obj.events[event]();
+        }
     }
 
     /**

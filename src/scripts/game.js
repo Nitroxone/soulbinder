@@ -386,8 +386,11 @@ class Game {
         game.chatlog.addMessage(Data.ChatlogChannel.EXPLORATION, {
             content: "Started exploring " + this.dungeon.name + " (no legacy, no Agitator, no Lifeblood)"
         }, exploCat);
-        game.chatlog.addCategory(Data.ChatlogChannel.EXPLORATION, {
-            title: 'Subcategory test',
-        }, 'Exploring: ' + this.dungeon.name);
+        game.chatlog.addMessage(Data.ChatlogChannel.EXPLORATION, {
+            content: "Found something strange"
+        }, exploCat);
+        // game.chatlog.addCategory(Data.ChatlogChannel.EXPLORATION, {
+        //     title: 'Subcategory test',
+        // }, 'Exploring: ' + this.dungeon.name);
     }
 }

@@ -9146,8 +9146,17 @@ filter: drop-shadow(0 0 1px #000000) brightness(2);
     border: 1px solid rgb(80, 80, 80);
     border-radius: 3px;
 }
-.chatlogCategory:hover {
+/* .chatlogCategory:hover {
     border-color: white;
+} */
+.chatlogCategory-hovered {
+    border-color: white;
+}
+.chatlogCategory-hidden > .chatlogCategory-title {
+    margin-bottom: 0 !important;
+}
+.chatlogCategory-hidden > .chatlogCategory-content {
+    display: none !important;
 }
 .chatlogCategory-title {
     font-family: RobotoSlabBold;
@@ -9157,15 +9166,23 @@ filter: drop-shadow(0 0 1px #000000) brightness(2);
     display: flex;
     flex-direction: column;
 }
+.chatlogCategory-content > div:not(:first-child) {
+    margin-top: .2rem;
+}
+
+.chatlogMessages > div:not(:first-child) {
+    margin-top: .2rem;
+}
 
 .chatlogMessage {
     display: grid;
     grid-template-columns: .1fr 1fr;
     grid-template-areas: "chatlogMessage-timecode chatlogMessage-content";
-    column-gap: .2rem;
+    column-gap: .1rem;
 }
 .chatlogMessage > div {
     padding: .5rem;
+    border-radius: 3px;
 }
 .chatlogMessage-timecode {
     grid-area: chatlogMessage-timecode;
