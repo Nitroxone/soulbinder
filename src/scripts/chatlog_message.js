@@ -60,6 +60,12 @@ class ChatLogMessage {
     }
 
     notify() {
-        
+        const dom = this.getDom();
+
+        dom.addEventListener('animationend', () => {
+            dom.classList.remove('chatlogNotify');
+            console.log('removed!!!!!!!!!!');
+        });
+        dom.classList.add('chatlogNotify');
     }
 }

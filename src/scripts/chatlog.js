@@ -107,6 +107,7 @@ class ChatLog {
     generateChannelEvents(target) {
         this.messages[target].forEach(elem => {
             this.generateEvents(elem);
+            elem.getDom().classList.remove('chatlogNotify');
         })
     }
 
