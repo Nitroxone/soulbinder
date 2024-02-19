@@ -124,7 +124,7 @@ function getFormattedSoulmark(sm, soulreadingFormat = false, delay = 0) {
 
     let str = '';
 
-    str += '<div id="sm-' + sm.name + (soulreadingFormat ? '-sr' : '') + '" class="swWriteList-single' + (soulreadingFormat ? ' srSlmrkAnim" style="animation-delay: ' + delay + 's;"' : '"') + '><div class="swWriteList-singleHeader"><span>' + capitalizeFirstLetter(sm.name) + '</span>' + eff.getFormatted({cssClass: 'swWriteList-eff', noValue: true, noTheorical: true}) + '</div>';
+    str += '<div id="sm-' + sm.name + (soulreadingFormat ? '-sr' : '') + '" class="swWriteList-single' + (soulreadingFormat ? ' srSlmrkAnim" style="animation-delay: ' + delay + 's;' : game.soulwriting.soulmarks.includes(sm) ? ' selectedSoulmark' : '') + '"><div class="swWriteList-singleHeader"><span>' + capitalizeFirstLetter(sm.name) + '</span>' + eff.getFormatted({cssClass: 'swWriteList-eff', noValue: true, noTheorical: true}) + '</div>';
     if(!soulreadingFormat) {
         str += '<div class="extendedSoulmarkContainer"></div>';
     }

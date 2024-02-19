@@ -94,6 +94,7 @@ class NPC extends Entity {
         this.isGuarded = false;
         this.isGuarding = false;
         this.isBlocking = false;
+        this.dead = false;
         this.guardedBy = null;
         this.guarding = null;
 
@@ -412,7 +413,10 @@ class NPC extends Entity {
             }
             this.runTriggers(Data.TriggerType.ON_REMOVE_HEALTH);
 
-            if(this.health === 0) this.kill();
+            if(this.health === 0) {
+                this.kill();
+                this.runTriggers(Data.TriggerType.ON_DEATH);
+            }
         } else if(eff.effect === Data.Effect.STAMINA) {
             damage = (eff.isPercentage ? this.maxStamina * Math.abs(eff.getValue()) / 100 : Math.abs(eff.getValue()));
             if(damage > 0) this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.GREEN + '">-' + Math.round(damage) + '</p>'));
@@ -923,7 +927,7 @@ class NPC extends Entity {
      * @returns {boolean} whether the NPC is dead
      */
     isDead() {
-        return this.health <= 0;
+        return this.health <= 0 || this.dead;
     }
 
     /**
@@ -1010,6 +1014,7 @@ class NPC extends Entity {
     kill() {
         // Just to make sure
         this.health = 0;
+        this.dead = true;
 
         // Remove the Guarding effects from other affected NPCs
         this.activeEffects.forEach(ae => {
