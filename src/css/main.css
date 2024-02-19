@@ -9152,16 +9152,35 @@ filter: drop-shadow(0 0 1px #000000) brightness(2);
 .chatlogCategory-hovered {
     border-color: white;
 }
+.chatlogCategory-title {
+    font-family: RobotoSlabBold;
+    margin-bottom: .5rem;
+    position: relative;
+}
+.chatlogCategory-title::before {
+    content: '';
+    width: 11px;
+    height: 11px;
+    display: block;
+    position: absolute;
+    right: 0;
+    
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url('img/chevron_on.svg');
+    transform: rotate(90deg);
+}
 .chatlogCategory-hidden > .chatlogCategory-title {
     margin-bottom: 0 !important;
+}
+.chatlogCategory-hidden > .chatlogCategory-title::before {
+    transform: rotate(0deg);
+    background-image: url('img/chevron_off.svg');
 }
 .chatlogCategory-hidden > .chatlogCategory-content {
     display: none !important;
 }
-.chatlogCategory-title {
-    font-family: RobotoSlabBold;
-    margin-bottom: .5rem;
-}
+
 .chatlogCategory-content {
     display: flex;
     flex-direction: column;
