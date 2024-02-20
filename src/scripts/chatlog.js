@@ -95,7 +95,7 @@ class ChatLog {
             channel.querySelector(tar.getHtmlId() + ' .chatlogCategory-content').append(elem);
             elem.outerHTML = obj.draw();
 
-            tar.notify();
+            if(tar.getDom().classList.contains('chatlogCategory-hidden')) tar.notify();
             //this.generateEvents(tar);
         } else {
             this.messages[target].push(obj);
