@@ -54,15 +54,23 @@ class ChatLogCategory {
     notify() {
         const dom = this.getDom();
 
+        const removeListeners = () => {
+            dom.removeEventListener('animationend', removeNotify, true);
+            dom.removeEventListener('animationcancel', removeNotify, true);
+        }
         const removeNotify = () => {
+            removeListeners();
             dom.classList.remove('chatlogNotify');
-            dom.removeEventListener('animationend', removeNotify)
-            dom.removeEventListener('animationcancel', removeNotify)
+            console.log("REMOVED");
         }
 
-        dom.addEventListener('animationend', removeNotify);
-        dom.addEventListener('animationcancel', removeNotify);
+        removeNotify();
+        setTimeout(() => { 
+            dom.classList.add('chatlogNotify');
+            dom.offsetHeight;
+            dom.addEventListener('animationend', removeNotify, true);
+            dom.addEventListener('animationcancel', removeNotify, true);
+        }, 50); // Weird shitass timeout hack (not the first time I'm using this...) 
 
-        dom.classList.add('chatlogNotify');
     }
 }
