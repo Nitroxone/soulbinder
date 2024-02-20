@@ -77,6 +77,10 @@ class ChatLog {
      * @param {ChatLogCategory|string|null} category the category to target
      */
     add(target, message, category = null) {
+        // Why create a new element then add it with .append() to the targeted container instead of just appending to innerHTML?
+        // Well yeah we could do that but that would force us to regenerate events on every element ; not only is it not optimized,
+        // but it also fucks up the whole notification system (erasing the "animationend" listeners makes the notifying CSS class persist forever)
+
         if(!Object.values(Data.ChatlogChannel).includes(target)) throw new Error('Attempted to add a message to an invalid chatlog tab : ' + target);
 
         const channel = this.getChannel(target);
@@ -85,30 +89,25 @@ class ChatLog {
             const tar = this.messages[target].find(x => x instanceof ChatLogCategory && (x.title === category || x === category));
             tar.data.push(obj);
             obj.parent = tar;
-            this.messages[target].push(obj)
-            channel.querySelector(tar.getHtmlId() + ' .chatlogCategory-content').innerHTML += obj.draw();
+            this.messages[target].push(obj);
+
+            const elem = document.createElement('div');
+            channel.querySelector(tar.getHtmlId() + ' .chatlogCategory-content').append(elem);
+            elem.outerHTML = obj.draw();
 
             tar.notify();
-            this.generateEvents(tar);
+            //this.generateEvents(tar);
         } else {
             this.messages[target].push(obj);
-            channel.innerHTML += obj.draw();
+
+            const elem = document.createElement('div');
+            channel.append(elem);
+            elem.outerHTML = obj.draw();
         }
-        this.generateChannelEvents(target);
+        this.generateEvents(obj);
         obj.notify();
 
         return obj;
-    }
-    
-    /**
-     * Generates events for all of the messages within the provided chatlog channel.
-     * @param {Data.ChatlogChannel} target 
-     */
-    generateChannelEvents(target) {
-        this.messages[target].forEach(elem => {
-            this.generateEvents(elem);
-            elem.getDom().classList.remove('chatlogNotify');
-        })
     }
 
     /**

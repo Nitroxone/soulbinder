@@ -48,7 +48,21 @@ class ChatLogCategory {
         return str;
     }
 
+    /**
+     * Notifies this category.
+     */
     notify() {
-        
+        const dom = this.getDom();
+
+        const removeNotify = () => {
+            dom.classList.remove('chatlogNotify');
+            dom.removeEventListener('animationend', removeNotify)
+            dom.removeEventListener('animationcancel', removeNotify)
+        }
+
+        dom.addEventListener('animationend', removeNotify);
+        dom.addEventListener('animationcancel', removeNotify);
+
+        dom.classList.add('chatlogNotify');
     }
 }

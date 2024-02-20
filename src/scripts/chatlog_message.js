@@ -59,13 +59,19 @@ class ChatLogMessage {
         return str;
     }
 
+    /**
+     * Notifies this message.
+     */
     notify() {
         const dom = this.getDom();
 
-        dom.addEventListener('animationend', () => {
+        const removeNotify = () => {
             dom.classList.remove('chatlogNotify');
-            console.log('removed!!!!!!!!!!');
-        });
+        }
+
+        dom.addEventListener('animationend', removeNotify);
+        dom.addEventListener('animationcancel', removeNotify);
+
         dom.classList.add('chatlogNotify');
     }
 }
