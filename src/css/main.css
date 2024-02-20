@@ -9172,6 +9172,8 @@ filter: drop-shadow(0 0 1px #000000) brightness(2);
     background-repeat: no-repeat;
     background-image: url('img/chevron_on.svg');
     transform: rotate(90deg);
+
+    transition: all .1s ease-in-out;
 }
 .chatlogCategory-hidden > .chatlogCategory-title {
     margin-bottom: 0 !important;
