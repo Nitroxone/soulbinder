@@ -3915,7 +3915,7 @@ hr.centerFade {
     font-family: RobotoSlabMed;
 }
 
-.soulsIcon, .goldIcon {
+.soulIcon, .goldIcon {
     height: 16px;
     width: 16px;
 }
@@ -3925,6 +3925,7 @@ hr.centerFade {
 }
 .soulIcon {
     background-image: url(img/soulsicon-small.png);
+    background-size: cover;
 }
 
 .commanderXpBar, .commanderXpBar-fill {

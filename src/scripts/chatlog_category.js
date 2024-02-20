@@ -70,7 +70,6 @@ class ChatLogCategory {
             dom.offsetHeight;
             dom.addEventListener('animationend', removeNotify, true);
             dom.addEventListener('animationcancel', removeNotify, true);
-        }, 50); // Weird shitass timeout hack (not the first time I'm using this...) 
-
+        }, 50); // Weird shitass timeout hack (not the first time I'm using this...)
     }
 }
