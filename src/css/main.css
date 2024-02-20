@@ -9201,6 +9201,8 @@ filter: drop-shadow(0 0 1px #000000) brightness(2);
     grid-template-columns: .1fr 1fr;
     grid-template-areas: "chatlogMessage-timecode chatlogMessage-content";
     column-gap: .1rem;
+
+    border-radius: 3px;
 }
 .chatlogMessage > div {
     padding: .5rem;
@@ -9208,11 +9210,11 @@ filter: drop-shadow(0 0 1px #000000) brightness(2);
 }
 .chatlogMessage-timecode {
     grid-area: chatlogMessage-timecode;
-    background-color: rgb(100, 100, 100, .2);
+    
 }
 .chatlogMessage-content {
     grid-area: chatlogMessage-content;
-    background-color: rgb(100, 100, 100, .2);
+    background-color: rgb(100, 100, 100, .15);
 }
 
 .chatlogNotify {
@@ -9222,4 +9224,20 @@ filter: drop-shadow(0 0 1px #000000) brightness(2);
     from {
         background: rgba(125, 125, 125, .4);
     }
+}
+
+.clgMsg-regular {
+
+}
+.clgMsg-regular {
+    background-color: rgba(100, 100, 100, .2);
+}
+.clgMsg-positive {
+    background-color: rgba(70, 109, 29, .2);
+}
+.clgMsg-negative {
+    background-color: rgba(210, 20, 4, .2)
+}
+.clgMsg-info {
+    background-color: rgba(40, 50, 194, .2);
 }

@@ -10,7 +10,7 @@ class ChatLogMessage {
         this.content = getValueFromObject(props, "content", "Empty message");
         this.events = getValueFromObject(props, "events", []);
         this.style = getValueFromObject(props, "style", {
-            className: 'regular'
+            className: 'clgMsg-regular'
         });
         this.timecode = this.setDate();
     }
