@@ -31,6 +31,8 @@ class Battle {
 
         this.params = null;
         this.resetAttackParams();
+
+        this.chatlogFolder = null;
     }
 
     /**
@@ -106,6 +108,14 @@ class Battle {
         this.runTriggersOnEnemies(Data.TriggerType.ON_BATTLE_START);
         this.beginRound();
         drawBattleScreen();
+
+        this.chatlogFolder = game.chatlog.addCategory(Data.ChatlogChannel.BATTLE, {
+            title: capitalizeFirstLetter(game.dungeon.floor.room.type) + " [" + game.dungeon.floor.room.coordinates[0] + ", " + game.dungeon.floor.room.coordinates[1] + "]"
+        });
+        game.chatlog.addMessage(Data.ChatlogChannel.BATTLE, {
+            content: "Started a fight.",
+            style: { className: "clgMsg-info" }
+        }, this.chatlogFolder);
     }
 
     /**
@@ -122,6 +132,11 @@ class Battle {
         generateEndBattleScreenEvents();
         game.player.du_ephemeralLuck += this.earnedEL;
         drawDungeonStats(true);
+
+        game.chatlog.addMessage(Data.ChatlogChannel.BATTLE, {
+            content: "Victory!",
+            style: { className: "clgMsg-positive" }
+        }, this.chatlogFolder);
     }
 
     /**
