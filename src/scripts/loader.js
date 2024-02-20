@@ -4070,6 +4070,28 @@ const Loader = {
                     what(game.all_enemies, "fire iguana"),
                 ],
                 type: Data.BattleType.GROUP
+            }),
+            new EnemyFormation({
+                name: "iguanasAndFungaliantsAndTicks",
+                biome: Data.DungeonBiome.UZIEL_JUNGLES,
+                levels: [1, 2],
+                formation: [
+                    what(game.all_enemies, "fire iguana"),
+                    what(game.all_enemies, "mycelial tick"),
+                    what(game.all_enemies, "fungaliant"),
+                ],
+                type: Data.BattleType.SPECIAL,
+                params: {
+                    queue: [
+                        what(game.all_enemies, "mycelial tick"),
+                        what(game.all_enemies, "fungaliant"),
+                        what(game.all_enemies, "fire iguana"),
+                        what(game.all_enemies, "fire iguana"),
+                        what(game.all_enemies, "fungaliant"),
+                        what(game.all_enemies, "mycelial tick"),
+                        what(game.all_enemies, "mycelial tick"),
+                    ]
+                }
             })
         ];  
 

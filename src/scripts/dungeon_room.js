@@ -141,6 +141,11 @@ class DungeonRoom {
                 game.startBattle(this.enemyGroup);
                 game.player.enterCombat();
                 break;
+            case Data.DungeonRoomType.FRACTURED_HOLLOW:
+                this.assignEnemyGroup();
+                game.startBattle(this.enemyGroup);
+                game.player.enterCombat();
+                break;
         }
     }
 

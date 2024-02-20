@@ -175,7 +175,7 @@ class Battle {
      * Handles the end condition of the battle according to its type.
      */
     handleEnd() {
-        if(this.type === Data.BattleType.GROUP) this.end();
+        if(this.type === Data.BattleType.GROUP || this.type === Data.BattleType.SPECIAL) this.end();
         else if (this.type === Data.BattleType.WAVE) {
             if(this.battleParams.params.waves.length === 0) this.end();
             else {
@@ -185,6 +185,28 @@ class Battle {
                 drawBattleScreen();
                 console.info("NEW WAVE!");
             }
+        }
+    }
+
+    handleDeath() {
+        if(this.currentPlay instanceof Enemy && this.battleParams.params.queue?.length > 0) {
+            const cloned = Entity.clone(this.battleParams.params.queue.shift());
+            this.enemies[this.enemies.indexOf(this.currentPlay)] = cloned;
+            this.currentPlay = cloned;
+            cloned.behavior.build();
+            this.generateOrder();
+            getFormationBattleEnemies(true);
+            if(!this.beginTurnPopups) this.beginTurnPopups = true;
+
+            game.chatlog.addMessage(Data.ChatlogChannel.BATTLE, {
+                content: cloned.name + " has spawned."
+            }, this.chatlogFolder);
+
+            return false;
+        }
+        else {
+            this.endTurn();
+            return true;
         }
     }
 
@@ -220,8 +242,8 @@ class Battle {
             return;
         }
         if(this.currentPlay.isDead()) {
-            this.endTurn();
-            return
+            const skipBecauseDead = this.handleDeath();
+            if(skipBecauseDead) return;
         }
         if(this.isEnemyPlaying()) {
             this.handleEnemyTurn();
@@ -772,6 +794,8 @@ class Battle {
                 tar.runTriggers(Data.TriggerType.ON_RECV_DODGED);
                 tar.addBattlePopup(new BattlePopup(0, '<p>Dodged!</p>'));
             }
+
+            tar.deathCheck();
         });
         effects = [];
 
@@ -802,10 +826,13 @@ class Battle {
             current.addBattlePopup(new BattlePopup(0, '<div class="popupIcon" style="background-image: url(\'css/img/skills/' + current.name + skill.icon + '.png\');"></div>'));
         }
 
-        if(effects.length > 0) current.applyEffects(skill, current, effects, isCrit);
+        if(effects.length > 0) {
+            current.applyEffects(skill, current, effects, isCrit);
+        }
 
         current.useSkill(skill);
         skill.onCast && skill.onCast();
+        current.deathCheck();
         
         if(this.isEnemyPlaying()) {
             addBattleAttackMessage(current.name, skill.name);

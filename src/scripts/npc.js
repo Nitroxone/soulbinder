@@ -412,11 +412,6 @@ class NPC extends Entity {
                 this.health = Math.max(0, this.health - Math.round(damage));
             }
             this.runTriggers(Data.TriggerType.ON_REMOVE_HEALTH);
-
-            if(this.health === 0) {
-                this.kill();
-                this.runTriggers(Data.TriggerType.ON_DEATH);
-            }
         } else if(eff.effect === Data.Effect.STAMINA) {
             damage = (eff.isPercentage ? this.maxStamina * Math.abs(eff.getValue()) / 100 : Math.abs(eff.getValue()));
             if(damage > 0) this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.GREEN + '">-' + Math.round(damage) + '</p>'));
@@ -652,7 +647,9 @@ class NPC extends Entity {
     nextPopup() {
         const pos = this.getBattleAnimationStringId();
         if(this.popupsQueue.length > 0) this.executePopup(pos, this.popupsQueue[0]);
-        else game.battle.addEndTurnCounter();
+        else {
+            game.battle.addEndTurnCounter();
+        }
     }
 
     /**
@@ -1030,5 +1027,16 @@ class NPC extends Entity {
         })
         // Remove all effects from that NPC
         this.cleanAllBattleEffects();
+
+        game.chatlog.addMessage(Data.ChatlogChannel.BATTLE, {
+            content: this.name + " died!"
+        }, game.battle.chatlogFolder);
+    }
+    
+    deathCheck() {
+        if(this.health === 0) {
+            this.kill();
+            this.runTriggers(Data.TriggerType.ON_DEATH);
+        }
     }
 }
