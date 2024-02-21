@@ -1837,6 +1837,12 @@ const Loader = {
                             effect: Data.Effect.MAXHEALTH,
                             theorical: [10, 10],
                             fixed: true
+                        }),
+                        new Stat({
+                            effect: Data.Effect.DODGE,
+                            theorical: [-3, -3],
+                            fixed: true,
+                            isPercentage: true
                         })
                     ],
                     4: [
@@ -1851,6 +1857,12 @@ const Loader = {
                             fixed: true,
                             isPercentage: true
                         }),
+                        new Stat({
+                            effect: Data.Effect.DODGE,
+                            theorical: [-3, -3],
+                            fixed: true,
+                            isPercentage: true
+                        })
                     ],
                     5: [
                         new Echo(
