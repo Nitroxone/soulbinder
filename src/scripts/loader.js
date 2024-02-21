@@ -61,6 +61,23 @@ const Loader = {
                        [[1, 3], [1, 1], true],
                        [true, true, true],
                        ),
+            new Weapon("Arbrean Spear",
+                       "Spear description",
+                       2,
+                       100,
+                       Data.Rarity.SINGULAR,
+                       Data.WeaponType.SPEAR,
+                       Data.WeaponWeight.HEAVY,
+                       [5, 6],
+                       [1, 2],
+                       [6, 9],
+                       [10, 12],
+                       [8, 9],
+                       [5, 8],
+                       [[1, 1], [1, 1], true],
+                       [[0, 0], [0, 0], true],
+                       [true, true, true]
+                       ),
             new Weapon("Solana's Sword of the Sun",
                        "Solana left this blade behind her; it knew many porters, but never a master. At least, that was until it fell into the hands of Betheros. The golden filaments of the hilt closed around his wrist, hugging it to perfection; like a distant kiss from the woman he once loved, and would never stop loving until his last breath.",
                        12,
@@ -192,6 +209,24 @@ const Loader = {
                       Data.ArmorType.GLOVES,
                       [0, 0],
                       [8, 10],
+                      ),
+            new Armor("Arbrean Chestplate",
+                      "Blablabla",
+                      18,
+                      2,
+                      Data.Rarity.SINGULAR,
+                      Data.ArmorType.CHESTPLATE,
+                      [8, 10],
+                      [2, 3],
+                      ),
+            new Armor("Arbrean Shield",
+                      "Blablabla",
+                      19,
+                      2,
+                      Data.Rarity.SINGULAR,
+                      Data.ArmorType.SHIELD,
+                      [8, 10],
+                      [2, 3],
                       ),
             new Armor("Besieged King",
                       "Lorem ipsum",
@@ -1419,10 +1454,32 @@ const Loader = {
             ),
             new Trinket(
                 "Borri's Phalanges",
-                "Far behind him, amidst the prodigious howls wrenched from the trees by the wind, he discerned the cries of Olmir intertwining with the barks of wolves. \"Let him perish, may he occupy them long enough,\" thought Olmir.",
+                "Far behind him, amidst the prodigious howls wrenched from the trees by the wind, he discerned the cries of Borri intertwining with the barks of wolves. \"Let him perish, may he occupy them long enough,\" thought Olmir.",
                 10,
                 1000,
                 Data.Rarity.REGULAR,
+                [
+                    new Stat({
+                        effect: Data.Effect.PROTECTION,
+                        theorical: [2, 4],
+                        isPercentage: true
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MAXHEALTH,
+                        theorical: [20, 25],
+                    }),
+                    new Stat({
+                        effect: Data.Effect.SPEED,
+                        theorical: [-1, -2],
+                    })
+                ],
+            ),
+            new Trinket(
+                "Saint-Ghore Scales Ring",
+                "Meticulously harvested from the armored brow bones of a Saint-Ghore cobra, these razor-sharp, obsidian-tough scales cling to your finger.",
+                12,
+                1000,
+                Data.Rarity.SINGULAR,
                 [
                     new Stat({
                         effect: Data.Effect.PROTECTION,
@@ -1430,10 +1487,10 @@ const Loader = {
                         isPercentage: true
                     }),
                     new Stat({
-                        effect: Data.Effect.SPEED,
-                        theorical: [-1, -1],
+                        effect: Data.Effect.DAMAGE_REFLECTION,
+                        theorical: [2, 3],
                     })
-                ],
+                ]
             ),
             new Trinket(
                 "Fluttering Stones",
@@ -1752,6 +1809,109 @@ const Loader = {
                         )
                     ]
                 },
+            ),
+            new EquipmentSet(
+                "Arbrean Set",
+                Data.Rarity.SINGULAR,
+                {
+                    base: Data.Effect.HEALTH,
+                    primary: Data.Effect.PROTECTION,
+                    secondary: Data.Effect.MIGHT
+                },
+                "",
+                [
+                    what(game.all_armors, "arbrean chestplate"),
+                    what(game.all_armors, "arbrean shield"),
+                    what(game.all_weapons, "arbrean spear"),
+                    what(game.all_trinkets, "borri's phalanges"),
+                    what(game.all_trinkets, "saint-ghore scales ring")
+                ],
+                {
+                    2: [
+                        new Stat({
+                            effect: Data.Effect.MIGHT,
+                            theorical: [5, 5],
+                            fixed: true,
+                        }),
+                        new Stat({
+                            effect: Data.Effect.MAXHEALTH,
+                            theorical: [10, 10],
+                            fixed: true
+                        })
+                    ],
+                    4: [
+                        new Stat({
+                            effect: Data.Effect.MIGHT,
+                            theorical: [5, 5],
+                            fixed: true
+                        }),
+                        new Stat({
+                            effect: Data.Effect.PROTECTION,
+                            theorical: [3, 3],
+                            fixed: true,
+                            isPercentage: true
+                        }),
+                    ],
+                    5: [
+                        new Echo(
+                            "Sublimation",
+                            "§1% of received damage is converted to a {MIGHT} bonus for two rounds. §2% of the damage you deal is converted to a {PROTECTION} bonus for one round.",
+                            1,
+                            Data.Rarity.PRECIOUS,
+                            [],
+                            "Suffering is only a nervous stimulus... it can be ignored, converted, transformed.",
+                            {
+                                "might_conversion": [50, 50],
+                                "protection_conversion": [10, 10],
+                            },
+                            [
+                                new Trigger({
+                                    name: "sublimation_receiveDamage",
+                                    type: Data.TriggerType.ON_RECV_DAMAGE,
+                                    behavior: function() {
+                                        const recvDmg = game.battle.receivedDamage;
+                                        console.log("Detected that " + this.owner.name + " received " + recvDmg + " damage");
+
+                                        const bonusValue = Math.round(recvDmg * (this.variables.might_conversion/100));
+
+                                        if(bonusValue > 0) {
+                                            const effects = [
+                                                new Stat({
+                                                    effect: Data.Effect.MIGHT,
+                                                    theorical: bonusValue,
+                                                    duration: 2,
+                                                })
+                                            ];
+                                            this.owner.applyEffects(this, this.owner, effects);
+                                        }
+                                    },
+                                }),
+                                new Trigger({
+                                    name: "sublimation_dealDamage",
+                                    type: Data.TriggerType.ON_DEAL_DAMAGE,
+                                    behavior: function() {
+                                        const dealtDmg = game.battle.dealtDamage;
+                                        console.log("Detected that " + this.owner.name + " dealt " + dealtDmg + " damage");
+                                        
+                                        const bonusValue = Math.round(dealtDmg * (this.variables.protection_conversion/100));
+
+                                        if(bonusValue > 0) {
+                                            const effects = [
+                                                new Stat({
+                                                    effect: Data.Effect.PROTECTION,
+                                                    theorical: bonusValue,
+                                                    duration: 1,
+                                                    isPercentage: true
+                                                })
+                                            ];
+                                            this.owner.applyEffects(this, this.owner, effects);
+                                        }
+                                    }
+                                })
+                            ]
+                        )
+                    ]
+                }
             )
         ];
 

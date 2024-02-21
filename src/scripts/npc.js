@@ -370,7 +370,9 @@ class NPC extends Entity {
             damage = Math.max(0, damage - reduction);
         }
 
+        game.battle.receivedDamage = damage;
         this.removeBaseStat(new Stat({effect: Data.Effect.HEALTH, theorical: damage}));
+        this.runTriggers(Data.TriggerType.ON_RECV_DAMAGE);
 
         console.log(this.name + ' received ' + damage + ' damage (' + phys + ' phys, effective ' + phys_damage + ' | ' + magi + ' magi, effective ' + magi_damage + ' | ' + crit + ' critical -> Total ' + damage + ' with ' + this.protection + '% reduction' + (params.ignoresProtection ? ' (BYPASSED PROTECTION)' : ''));
     }

@@ -33,6 +33,9 @@ class Battle {
         this.resetAttackParams();
 
         this.chatlogFolder = null;
+
+        this.dealtDamage = 0;
+        this.receivedDamage = 0;
     }
 
     /**
@@ -432,6 +435,8 @@ class Battle {
      */
     computeAttackParams(target) {
         this.resetAttackParams();
+        this.receivedDamage = 0;
+        this.dealtDamage = 0;
         const weapon = this.selectedWeapon;
         const current = this.currentPlay;
 
@@ -477,6 +482,8 @@ class Battle {
         } else {
             // Missed
         }
+
+        this.dealtDamage = this.params.phys_damage + this.params.magi_damage + this.params.crit_damage;
     }
 
     /**
@@ -486,6 +493,8 @@ class Battle {
      */
     computeSkillParams(target, forceCrit = false) {
         this.resetAttackParams();
+        this.receivedDamage = 0;
+        this.dealtDamage = 0;
         const skill = this.selectedSkill;
         const accessor = skill.level;
         const modifier = (skill.type === Data.SkillType.FRIENDLY) ? 9999 : 0;
@@ -542,6 +551,8 @@ class Battle {
         } else {
             // Missed
         }
+
+        this.dealtDamage = this.params.phys_damage + this.params.magi_damage + this.params.crit_damage;
     }
 
     /**
@@ -582,7 +593,6 @@ class Battle {
                 // Successful hit
                 this.runTriggersOnCurrent(Data.TriggerType.ON_DEAL_DAMAGE);
                 this.runTriggersOnCurrent(Data.TriggerType.ON_DEAL_WEAPON);
-                tar.runTriggers(Data.TriggerType.ON_RECV_DAMAGE);
                 tar.runTriggers(Data.TriggerType.ON_RECV_WEAPON);
 
                 tar.receiveDamage(params);
@@ -740,7 +750,6 @@ class Battle {
                 console.log('Successful hit!');
                 if(params.phys_damage > 0 || params.magi_damage > 0) {
                     this.runTriggersOnCurrent(Data.TriggerType.ON_DEAL_DAMAGE);
-                    tar.runTriggers(Data.TriggerType.ON_RECV_DAMAGE);
                     tar.receiveDamage(params);
                     this.applyDamageReflection(params, tar);
                 }
