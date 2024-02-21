@@ -2469,6 +2469,6 @@ function getBattleTitleFromType(type) {
  */
 function getDungeonMapRoomStyle(type) {
     if(["entrance", "chasm", "empty room"].includes(type)) return "";
-    if(["dormant room", "sacrificial alcove", "fractured hollow", "boss room"].includes(type)) return " combatRoom";
+    if(["dormant room", "sacrificial alcove", "fractured hollow", "the eclipse"].includes(type)) return " combatRoom";
     if(["antechamber of marvels", "eternity well", "desecrated altar"].includes(type)) return " bonusRoom";
 }

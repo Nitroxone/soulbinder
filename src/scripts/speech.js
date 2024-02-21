@@ -40,7 +40,7 @@ let Speech = {
                     ]
                 }
             },
-            "boss room": {
+            "the eclipse": {
                 "putrescent ossuary": {
                     uncleared: [
                         ""
