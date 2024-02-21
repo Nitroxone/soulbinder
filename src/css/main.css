@@ -2539,6 +2539,10 @@ table.statsTable tbody td:nth-child(3) {
 .tooltipSetAttribute:not(:first-child) {
     margin-left: 6px;
 }
+.tooltipSetAttribute:not(:first-child)::before {
+    content: '\2022';
+    padding-right: 6px;
+}
 hr.leftSided {
     height: 8px;
     background-image: linear-gradient(90deg, rgba(255,255,255,0.25), transparent);
