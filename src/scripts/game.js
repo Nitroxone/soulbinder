@@ -358,7 +358,7 @@ class Game {
         what(this.player.roster, "carhal").equipArmor(what(this.player.inventory.armors, 'entarian boots'), true);
         what(this.player.roster, "betheros").equipArmor(what(this.player.inventory.armors, 'drancoran hood'), true);
         what(this.player.roster, "betheros").equipArmor(what(this.player.inventory.armors, 'drancoran mittens'), true);
-        what(this.player.roster, "amarok").equipArmor(what(this.player.inventory.armors, 'arbrean chestplate'), true);
+        what(this.player.roster, "amarok").equipArmor(what(this.player.inventory.armors, 'arbrean helm'), true);
         what(this.player.roster, "amarok").equipArmor(what(this.player.inventory.armors, 'arbrean shield'), true);
 
         what(this.player.roster, "carhal").equipTrinket(what(this.player.inventory.trinkets, 'talisman of fervour'), true);
