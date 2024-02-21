@@ -535,7 +535,7 @@ function getSetTooltip(set) {
         str += '<div class="tooltipSetDetail">';
         str += '<div class="tooltipSetDetailTitle">' + key  + ' item' + (key > 1 ? 's' : '') +'</div>';
         set.bonus[key].forEach(bonus => {
-            if(bonus instanceof Stat) str += bonus.getFormatted({cssClass: "itemEffect tooltipSetDetailBonus", noTheorical: true});
+            if(bonus instanceof Stat) str += bonus.getFormatted({cssClass: "itemEffect tooltipSetDetailBonus", noTheorical: true, defaultColor: true});
             if(bonus instanceof Echo) str += getEchoDetails(bonus, true);
         })
         str += '</div>';
