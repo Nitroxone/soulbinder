@@ -4092,7 +4092,26 @@ const Loader = {
                         what(game.all_enemies, "mycelial tick"),
                     ]
                 }
-            })
+            }),
+            // new EnemyFormation({
+            //     name: "fireHatchlingsForever",
+            //     biome: Data.DungeonBiome.UZIEL_JUNGLES,
+            //     levels: [1, 2],
+            //     formation: [
+            //         what(game.all_enemies, "fire hatchling"),
+            //         what(game.all_enemies, "fire hatchling"),
+            //         what(game.all_enemies, "fire hatchling"),
+            //     ],
+            //     type: Data.BattleType.SPECIAL,
+            //     params: {
+            //         endless: [
+            //             what(game.all_enemies, "fire hatchling")
+            //         ],
+            //         endCondition: function(){
+            //             return false;
+            //         }
+            //     }
+            // })
         ];  
 
         for(const enemyFormation of enemyFormations) {

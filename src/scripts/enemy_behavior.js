@@ -9,9 +9,9 @@ class EnemyBehavior {
         this.actions = getValueFromObject(props, "actions", []);
     }
 
-    build() {
+    build(index = null) {
         this.actions.forEach(ac => {
-            ac.build();
+            ac.build(index);
         });
     }
 

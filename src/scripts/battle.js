@@ -193,7 +193,7 @@ class Battle {
             const cloned = Entity.clone(this.battleParams.params.queue.shift());
             this.enemies[this.enemies.indexOf(this.currentPlay)] = cloned;
             this.currentPlay = cloned;
-            cloned.behavior.build();
+            cloned.behavior.build(this.enemies.indexOf(this.currentPlay));
             this.generateOrder();
             getFormationBattleEnemies(true);
             if(!this.beginTurnPopups) this.beginTurnPopups = true;
@@ -203,6 +203,24 @@ class Battle {
             }, this.chatlogFolder);
 
             return false;
+        } else if(this.currentPlay instanceof Enemy && this.battleParams.params.endless) {
+            if(!this.battleParams.params.endCondition || !this.battleParams.params.endCondition()) {
+                const cloned = Entity.clone(choose(this.battleParams.params.endless));
+                this.enemies[this.enemies.indexOf(this.currentPlay)] = cloned;
+                this.currentPlay = cloned;
+                cloned.behavior.build(this.enemies.indexOf(this.currentPlay));
+                this.generateOrder();
+                getFormationBattleEnemies(true);
+                if(!this.beginTurnPopups) this.beginTurnPopups = true;
+
+                game.chatlog.addMessage(Data.ChatlogChannel.BATTLE, {
+                    content: cloned.name + " has spawned."
+                }, this.chatlogFolder);
+
+                return false;
+            } else if(this.battleParams.params.endCondition()) {
+                return true;
+            }
         }
         else {
             this.endTurn();
@@ -224,7 +242,12 @@ class Battle {
      * Begins a new turn.
      */
     beginTurn() {
+        
         if(this.nextInOrder()) return; // IF A NEW ROUND IS STARTING, CANCEL THE FIRST TURN OR IT WILL BE PLAYED TWICE BY THE SAME FIGHTER.
+        if(this.currentPlay.isDead()) {
+            const skipBecauseDead = this.handleDeath();
+            if(skipBecauseDead) return;
+        }
         console.log("Currently playing: " + this.currentPlay.name);
         const skipBecauseStunned = this.currentPlay.isStunned;
 

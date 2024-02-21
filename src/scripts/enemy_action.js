@@ -13,7 +13,7 @@ class EnemyAction {
         this.behavior = getValueFromObject(props, "behavior", function(){ console.log('Empty enemy action!') });
     }
 
-    build() {
-        this.owner = getEnemyById(this.owner().id);
+    build(index = null) {
+        this.owner = index ? game.battle.enemies[index] : getEnemyById(this.owner().id);
     }
 }
