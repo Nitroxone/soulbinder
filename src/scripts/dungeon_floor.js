@@ -103,13 +103,19 @@ class DungeonFloor {
             // });
             let otherTypes = [];
             for(let i = 0; i < selection.length - types.length; i++) {
-                let result;
+                let result, safeCounter = 0;
                 do {
+                    if(safeCounter >= 10) {
+                        console.log(this.getAssignedRooms());
+                        throw new Error('EREUR CAR Y A LE CACA')
+                    }
+
                     result = this.getRoomType(pool);
                     //result = Data.DungeonRoomType[result];
                     console.log(result);
                     console.log(pool[result]);
                     
+                    safeCounter += 1;
                 } while(pool[result].max && pool[result].max <= otherTypes.filter(x => x === result).length);
                 console.log("max: " + (pool[result].max || 0));
                 console.log("currmax: " + types.filter(x => x === result).length);
@@ -197,6 +203,7 @@ class DungeonFloor {
         })
 
         // Create a path from each starting room
+        let forceTarget = null;
         startingRooms.forEach(room => {
             // Recursivity time!
             this.createPathFromStartingRoom(room);
@@ -208,7 +215,7 @@ class DungeonFloor {
      * @param {DungeonRoom} start the path's starting point
      */
     createPathFromStartingRoom(start) {
-        this.createPathRecursive(start, 1);
+        this.createPathRecursive(start, 1, null);
     }
 
     /**
@@ -216,7 +223,7 @@ class DungeonFloor {
      * @param {*} current the current room
      * @param {*} row the row of the room
      */
-    createPathRecursive(current, row) {
+    createPathRecursive(current, row, forceTarget) {
         current.type = Data.DungeonRoomType.EMPTY;
 
         if(row >= this.ROWS) return;
@@ -225,13 +232,33 @@ class DungeonFloor {
         const pool = this.rooms.filter(x => x.coordinates[0] === row);
         if(pool.length === 0) return; // No more rooms available in the row
 
-        const next = choose(getClosestElements(pool, current.coordinates[1]));
+        let next = null;
+        if(this.config.rows[row+1] && Object.keys(this.config.rows[row+1]).length === 1 && Object.values(this.config.rows[row+1])[0].max === 1) {
+            console.log("Convergence detected on ROW " + row);
+
+            if(!forceTarget) {
+                const potential = pool.find(x => x.type === Data.DungeonRoomType.EMPTY);
+
+                if(potential) {
+                    forceTarget = potential;
+                    console.log("POTENTIAL FOUND ", potential);
+                }
+                else {
+                    forceTarget = choose(pool.filter(x => x.coordinates[1] == Math.round(this.COLS/2)));
+                    console.log("ATTRIBUTED FORCETARGET! ", forceTarget);
+                }
+            }
+            next = forceTarget;
+        } else {
+            next = choose(getClosestElements(pool, current.coordinates[1]))
+        }
+        console.log("Next:", next);
         // Connect the rooms!
         current.nextRooms.push(next)
         next.previousRooms.push(current);
 
         // Continue to next room
-        this.createPathRecursive(next, row + 1);
+        this.createPathRecursive(next, row + 1, forceTarget);
     }
 
     /**

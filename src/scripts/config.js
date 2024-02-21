@@ -1009,8 +1009,13 @@ let Config = {
                     //EQUALLY: ["DESECRATED_ALTAR", "ANTECHAMBER_OF_MARVELS", "ETERNITY_WELL"]
                     DESECRATED_ALTAR: { cha: 33, min: 1, max: 2 },
                     ANTECHAMBER_OF_MARVELS: { cha: 33, min: 1, max: 2 },
+                },
+                6: {
+                    BOSS: { cha: 100, min: 1, max: 1 }
+                },
+                9: {
+                    DORMANT_ROOM: { cha: 100, min: 1 },
                 }
-
             }
         })
     },
