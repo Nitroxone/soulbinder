@@ -184,7 +184,9 @@ class Battle {
     }
 
     handleDeath() {
-        if(this.currentPlay instanceof Enemy && this.battleParams.params.queue?.length > 0) {
+        if(this.currentPlay instanceof Enemy && this.battleParams.params.queue) {
+            if(this.battleParams.params.queue.length === 0) return true;
+
             const cloned = Entity.clone(this.battleParams.params.queue.shift());
             this.enemies[this.enemies.indexOf(this.currentPlay)] = cloned;
             this.currentPlay = cloned;
