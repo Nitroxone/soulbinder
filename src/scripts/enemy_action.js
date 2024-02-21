@@ -14,6 +14,7 @@ class EnemyAction {
     }
 
     build(index = null) {
-        this.owner = index ? game.battle.enemies[index] : getEnemyById(this.owner().id);
+        // Gotta use a != null check because 0 is false in JS rofl
+        this.owner = (typeof index === 'number' && index >= 0) ? game.battle.enemies[index] : getEnemyById(this.owner().id);
     }
 }

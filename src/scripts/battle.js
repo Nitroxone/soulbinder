@@ -45,15 +45,10 @@ class Battle {
      * - Then, everything is brought back to normal by adding the enemies back to the enemies array.
      */
     buildBehaviors() {
-        let temp = [];
         // Prepare enemy AI
-        for(let i = 0; i < this.enemies.length; i += 0) {
-            if(this.enemies.length <= 0) break;
-            if(this.enemies[i].behavior) this.enemies[i].behavior.build();
-            temp.push(this.enemies[i]);
-            this.enemies.shift();
+        for(let i = 0; i < this.enemies.length; i++) {
+            this.enemies[i].behavior.build(i);
         }
-        this.enemies = temp;
     }
 
     /**
