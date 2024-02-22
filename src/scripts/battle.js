@@ -1264,7 +1264,7 @@ class Battle {
         });
 
         this.loot = mergeLoots(loot);
-        this.earnedEL = generateEphemeralLuckAmount(this.type);
+        this.earnedEL = generateEphemeralLuckAmount(this.type, this.battleParams.title);
         console.log("Total final loot: ", this.loot);
     }
 }
