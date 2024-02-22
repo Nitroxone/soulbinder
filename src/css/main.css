@@ -6837,6 +6837,9 @@ table.astralForgeShards td {
     background-image: url('img/du_chasm_off.svg');
 }
 .map-roomContainer > .dr-type-the_eclipse {
+    background-image: url('img/du_miniboss_off.svg');
+}
+.map-roomContainer > .dr-type-throne_pit {
     background-image: url('img/du_boss_off.svg');
 }
 .map-roomContainer > .dr-type-eternity_well {
