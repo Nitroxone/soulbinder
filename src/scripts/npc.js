@@ -737,6 +737,17 @@ class NPC extends Entity {
     }
 
     /**
+     * Returns whether the Skill identified by the provided name can be cast by this NPC.
+     * @param {string} name the Skill's name
+     * @returns {boolean} whether the NPC can use that skill
+     */
+    canUseSkill(name) {
+        const found = this.skills.find(x => x.name.toLowerCase() === name.toLowerCase());
+        if(found && this.mana >= found.manaCost && found.cooldownCountdown <= 0) return true;
+        return false;
+    }
+
+    /**
      * Calls the adequate function that alters a base stat, based on the provided Effect.
      * @param {Stat} eff HEALTH or MANA or STAMINA or MAXHEALTH or MAXMANA or MAXSTAMINA
      */

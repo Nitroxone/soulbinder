@@ -4194,16 +4194,9 @@ const Loader = {
                                 style: {
                                     className: "clgMsg-negative"
                                 }
-                            });
+                            }, game.battle.chatlogFolder);
                         }
                     }),
-                    new Trigger({
-                        name: "theMaw_death",
-                        type: Data.TriggerType.ON_DEATH,
-                        behavior: function() {
-                            game.battle.end();
-                        }
-                    })
                 ],
                 Data.MobType.LESSER_BOSS,
                 [
@@ -4213,7 +4206,7 @@ const Loader = {
                         0,
                         {
                             type: Data.SkillType.OFFENSIVE,
-                            manaCost: 25,
+                            manaCost: 15,
                             cooldown: 1,
                             dmgMultiplier: 120,
                             dmgType: Data.SkillDamageType.PHYSICAL,
@@ -4224,10 +4217,10 @@ const Loader = {
                             effectsAllies: {
                                 1: {
                                     regular: [
-                                        new Stat({effect: Data.Effect.STUN, duration: 2, chance: 80})
+                                        
                                     ],
                                     critical: [
-                                        new Stat({effect: Data.Effect.STUN, duration: 2, chance: 100, isCritical: true})
+                                        new Stat({effect: Data.Effect.STUN, duration: 1, chance: 100, isCritical: true})
                                     ],
                                 }
                             },
@@ -4320,7 +4313,8 @@ const Loader = {
                             title: 'boost allies',
                             owner: function(){ return what(game.battle.enemies, "the maw") },
                             checker: function() {
-                                return !this.owner.variables.mainTarget;
+                                return !this.owner.variables.mainTarget 
+                                        && this.owner.canUseSkill("reptilian regrowth");
                             },
                             behavior: function() {
                                 console.log(this.title);
@@ -4335,7 +4329,8 @@ const Loader = {
                             title: 'move forward',
                             owner: function(){ return what(game.battle.enemies, "the maw") },
                             checker: function() {
-                                return this.owner.getSelfPosInBattle() === Data.FormationPosition.BACK && this.owner.skills[3].cooldownCountdown === 0;
+                                return this.owner.getSelfPosInBattle() === Data.FormationPosition.BACK 
+                                        && this.owner.canUseSkill("apex tracking");
                             },
                             behavior: function() {
                                 console.log(this.title);
@@ -4349,7 +4344,10 @@ const Loader = {
                             title: 'focus target',
                             owner: function(){ return what(game.battle.enemies, "the maw") },
                             checker: function(){
-                                return this.owner.variables.mainTarget && !this.owner.variables.mainTarget.isDead() && this.owner.getSelfPosInBattle() !== Data.FormationPosition.BACK
+                                return this.owner.variables.mainTarget 
+                                        && !this.owner.variables.mainTarget.isDead() 
+                                        && this.owner.getSelfPosInBattle() !== Data.FormationPosition.BACK
+                                        && this.owner.canUseSkill("predator tenacity")
                             },
                             behavior: function() {
                                 console.log(this.title);
@@ -4363,23 +4361,27 @@ const Loader = {
                             title: 'attack others',
                             owner: function(){ return what(game.battle.enemies, "the maw") },
                             checker: function() {
-                                return this.owner.variables.mainTarget && this.owner.variables.mainTarget.isDead() && this.owner.getSelfPosInBattle() !== Data.FormationPosition.BACK
+                                return this.owner.variables.mainTarget 
+                                        && this.owner.variables.mainTarget.isDead() 
+                                        && this.owner.getSelfPosInBattle() !== Data.FormationPosition.BACK
+                                        && this.owner.canUseSkill("ravage")
                             },
                             behavior: function() {
                                 game.battle.allies.filter(x => !x.isDead()).forEach(all => { game.battle.target.push(all) });
                                 game.battle.selectedSkill = this.owner.skills[1];
+                                this.owner.addBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 20}));
                                 game.battle.executeSkill();
                             }
                         }),
                         new EnemyAction({
                             title: 'block',
-                            owner: function(){ return what(game.battle.enemies, "mycelial tick") },
+                            owner: function(){ return what(game.battle.enemies, "the maw") },
                             checker: function(){ return this.owner.stamina > 0 },
                             behavior: function() {
                                 console.log('blocks');
                                 this.owner.applyBlocking();
                                 this.owner.removeBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 5}));
-                                this.owner.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 5}));
+                                this.owner.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 100}));
                                 game.battle.finishTurn();
                             }
                         }),
