@@ -2432,8 +2432,9 @@ function getFormationPositionFromIndex(index) {
  * @param {Data.BattleType} type 
  * @returns {number}
  */
-function generateEphemeralLuckAmount(type) {
-    return Config.EphemeralLuck.Gains[type.toUpperCase().replace(" ", "_")] * game.player.du_ephemeralLuckGainModifier;
+function generateEphemeralLuckAmount(type, title) {
+    const accessor = title || type;
+    return Config.EphemeralLuck.Gains[accessor.toUpperCase().replace(" ", "_")] * game.player.du_ephemeralLuckGainModifier;
 }
 
 /**
@@ -2452,14 +2453,18 @@ function translateCombatRoomType(type) {
 /**
  * Returns a title that matches the provided BattleType.
  * @param {Data.BattleType} type the Battle type to match
+ * @param {Data.BattleType} title the Battle title, which will override the type
  * @returns {string} a corresponding title
  */
-function getBattleTitleFromType(type) {
+function getBattleTitleFromType(type, title = null) {
+    const accessor = title || type;
     return {
         "group": "Group fight",
         "wave": "Wave fight",
-        "special": "Special fight"
-    }[type];
+        "special": "Temporal fight",
+        "miniboss": "Major Foe Fight",
+        "boss": "Major Enemy fight"
+    }[accessor];
 }
 
 /**

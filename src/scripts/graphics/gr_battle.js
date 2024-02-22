@@ -125,7 +125,7 @@ function getBattleGlobalInfo(refresh = false) {
     str += '<div class="battle-attackInfo"></div>';
 
     str += '<div class="battle-combatInfo">'
-    str += '<h1>' + getBattleTitleFromType(game.battle.type) + '</h1>';
+    str += '<h1>' + getBattleTitleFromType(game.battle.type, game.battle.title) + '</h1>';
     str += '<h4>Round ' + game.battle.round + ' — ' + game.battle.currentPlay.name + '\'s Turn</h4>'
     str += '</div>'
 
