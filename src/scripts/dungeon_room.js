@@ -110,6 +110,7 @@ class DungeonRoom {
      */
     engage() {
         this.status = Data.DungeonRoomStatus.ENGAGED;
+        document.querySelector('.infosPanel-roomHeader')?.classList.toggle('engaged');
     }
 
     /**
@@ -121,6 +122,7 @@ class DungeonRoom {
             || this.type === Data.DungeonRoomType.DORMANT_ROOM
             || this.type === Data.DungeonRoomType.FRACTURED_HOLLOW
             || this.type === Data.DungeonRoomType.SACRIFICIAL_ALCOVE
+            || this.type === Data.DungeonRoomType.MINIBOSS
     }
 
     /**

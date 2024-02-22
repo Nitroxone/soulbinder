@@ -6208,7 +6208,7 @@ table.astralForgeShards td {
     background: radial-gradient(circle, rgba(238,149,81,0.25) 0%, rgba(255,255,255,0) 100%);
 }
 .infosPanel-roomHeader.engaged::before {
-    opacity: 0;
+    opacity: 1;
     transition: opacity 2s ease-in-out;
     content: '';
     display: block;
