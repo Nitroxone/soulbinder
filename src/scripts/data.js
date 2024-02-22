@@ -33,7 +33,8 @@ const Data = Object.freeze({
         FIRE_HATCHLING: 'fire_hatchling.png',
         FIRE_IGUANA: 'fire_iguana.png',
         VENOMSTRIPE_MAULER: 'venomstripe_mauler.png',
-        ALIENATED_PRIEST: 'alienated_priest.png'
+        ALIENATED_PRIEST: 'alienated_priest.png',
+        THE_MAW: 'the_maw.png'
     },
     Color: {
         GREEN: '#4cd137',
@@ -516,8 +517,8 @@ const Data = Object.freeze({
         LESSER: "engeance",
         REGULAR: "wretch",
         MAJOR: "archbeast",
-        LESSER_BOSS: "lesser boss",
-        MAJOR_BOSS: "major boss",
+        LESSER_BOSS: "great warden",
+        MAJOR_BOSS: "timelord",
     },
     BattleType: {
         GROUP: "group",
