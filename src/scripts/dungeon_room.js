@@ -95,6 +95,7 @@ class DungeonRoom {
      */
     clear() {
         this.status = Data.DungeonRoomStatus.CLEARED;
+        document.querySelector('.infosPanel-roomHeader')?.classList.remove('engaged');
     }
 
     /**
@@ -110,7 +111,6 @@ class DungeonRoom {
      */
     engage() {
         this.status = Data.DungeonRoomStatus.ENGAGED;
-        document.querySelector('.infosPanel-roomHeader')?.classList.toggle('engaged');
     }
 
     /**
