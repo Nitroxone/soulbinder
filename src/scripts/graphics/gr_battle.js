@@ -414,7 +414,7 @@ function getBattleSkillTooltip(strider, skill) {
     str += '<div class="desc"><h4>' + skill.name + '</h4>';
     str += '<div class="treeNodeTags">';
     str += '<div class="treeNodeType ' + getColorClassFromSkillType(skill.type) + '">' + capitalizeFirstLetter(skill.type) + '</div>';
-    str += '<div class="treeNodeType ' + getColorClassFromDmgType(skill.dmgType) + '">' + capitalizeFirstLetter(skill.dmgType) + '</div>';
+    if(skill.dmgType !== Data.SkillDamageType.NONE) str += '<div class="treeNodeType ' + getColorClassFromDmgType(skill.dmgType) + '">' + capitalizeFirstLetter(skill.dmgType) + '</div>';
     str += '</div>'
     str += '</div>'
     str += '</div>';
