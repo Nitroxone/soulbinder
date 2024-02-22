@@ -91,6 +91,16 @@ function clearCurrentDungeonPanelDesc() {
 function clearCurrentRoom() {
     game.dungeon.floor.room.clear();
     document.querySelector('.infosPanel-roomHeader').classList.add('clearedHeader');
+    document.querySelector('.infosPanel-roomHeader').classList.remove('engagedHeader');
+    document.querySelector('.roomHeader-status').innerHTML = game.dungeon.floor.room.status;
+
+    clearCurrentDungeonPanelDesc();
+    setTimeout(() => {displayTextLetterByLetter(game.dungeon.floor.room.getRoomDescription(), '.infosPanel-roomDesc', 0);}, 10);
+}
+
+function engageCurrentRoom() {
+    game.dungeon.floor.room.engage();
+    document.querySelector('.infosPanel-roomHeader').classList.add('engagedHeader');
     document.querySelector('.roomHeader-status').innerHTML = game.dungeon.floor.room.status;
 
     clearCurrentDungeonPanelDesc();

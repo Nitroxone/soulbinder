@@ -495,7 +495,27 @@ const Loader = {
             game.inventory.resources.push(resource);
         }
     },
+    loadConsumables: loadConsumables = () => {
+        const consumables = [
+            new Consumable(
+                "Uziel Cherry Candies",
+                "These cherry-savory soft candies are filled with a melting caramelized marshmallow center.",
+                14,
+                100,
+                Data.Rarity.PRECIOUS,
+                {
+                    effects: [
+                        new Stat({effect: Data.Effect.HEALTH, theorical: 20, isPercentage: true, alchemicalType: Data.AlchemicalEffectType.RECOVERY}),
+                        new Stat({effect: Data.Effect.MANA, theorical: 20, isPercentage: true, alchemicalType: Data.AlchemicalEffectType.RECOVERY}),
+                    ]
+                }
+            )
+        ];
 
+        for(const consumable of consumables) {
+            game.all_consumables.push(consumable);
+        }
+    },
     loadSigils: loadSigils = () => {
         const sigils = [
             new Sigil("Resilience Sigil",

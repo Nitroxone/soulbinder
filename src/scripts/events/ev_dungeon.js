@@ -153,7 +153,7 @@ function dungeonEnterRoom() {
 
     room.enterRoom();
     if(room.isCombatRoom()) {
-        room.engage();
+        engageCurrentRoom();
         dungeonRefreshRoomStatus();
     }
 }

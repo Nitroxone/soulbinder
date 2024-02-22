@@ -16,9 +16,9 @@ class Consumable extends Item {
      */
     constructor(name, desc, icon, price, rarity, props) {
         super(name, desc, icon, price, rarity);
-        this.effects = getValueFromObject(props, 'effects', null);
-        this.triggers = getValueFromObject(props, 'triggers', null);
-        this.variables = getValueFromObject(props, 'variables', null);
+        this.effects = getValueFromObject(props, 'effects', []);
+        this.triggers = getValueFromObject(props, 'triggers', []);
+        this.variables = getValueFromObject(props, 'variables', {});
         this.toxicity = getValueFromObject(props, 'toxicity', 0);
 
         this.amount = 0;
