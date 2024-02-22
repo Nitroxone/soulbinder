@@ -3995,9 +3995,10 @@ const Loader = {
                             manaCost: 10,
                             dmgType: Data.SkillDamageType.MAGICAL,
                             dmgMultiplier: 100,
-                            criMultiplier: 20,
-                            accMultiplier: 90,
-                            targets: { allies: '-0', enemies: '@123' },
+                            criMultiplier: 15,
+                            accMultiplier: 85,
+                            cooldown: 2,
+                            targets: { allies: '-0', enemies: '@12' },
                             effectsAllies: {
                                 1: {
                                     regular: [
@@ -4011,6 +4012,30 @@ const Loader = {
                                 }
                             }
                         }
+                    ),
+                    new Skill(
+                        "Tail Strike",
+                        "",
+                        0,
+                        {
+                            type: Data.SkillType.OFFENSIVE,
+                            manaCost: 10,
+                            dmgType: Data.SkillDamageType.PHYSICAL,
+                            dmgMultiplier: 90,
+                            criMultiplier: 20,
+                            accMultiplier: 95,
+                            targets: { allies: '-0', enemies: '@23'},
+                            effectsAllies: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.DODGE, theorical: -5, duration: 2}),
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.DODGE, theorical: -7, duration: 2, isCritical: true}),
+                                    ]
+                                }
+                            }
+                        }
                     )
                 ],
                 new EnemyBehavior({
@@ -4018,12 +4043,18 @@ const Loader = {
                         new EnemyAction({
                             title: 'regular',
                             owner: function(){ return what(game.battle.enemies, "fire hatchling") },
-                            checker: function(){ return this.owner.skills[0].manaCost <= this.owner.mana },
+                            checker: function(){ return this.owner.canUseSkill("burning bile") || this.owner.canUseSkill("tail strike") },
                             behavior: function(){
-                                game.battle.allies.forEach(ally => {
-                                    game.battle.target.push(ally);
-                                })
-                                game.battle.selectedSkill = this.owner.skills[0];
+                                if(this.owner.canUseSkill("burning bile")) {
+                                    game.battle.target.push(game.battle.allies[2]);
+                                    game.battle.target.push(game.battle.allies[1]);
+                                    game.battle.selectedSkill = this.owner.skills[0];
+                                } else {
+                                    game.battle.target.push(game.battle.allies[1]);
+                                    game.battle.target.push(game.battle.allies[0]);
+                                    game.battle.selectedSkill = this.owner.skills[1];
+                                }
+
                                 game.battle.executeSkill();
                             }
                         }),
