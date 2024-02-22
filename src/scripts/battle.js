@@ -242,6 +242,10 @@ class Battle {
      * Begins a new turn.
      */
     beginTurn() {
+        if(this.battleParams.params.endCondition && this.battleParams.params.endCondition()) {
+            this.end();
+            return;
+        }
         
         if(this.nextInOrder()) return; // IF A NEW ROUND IS STARTING, CANCEL THE FIRST TURN OR IT WILL BE PLAYED TWICE BY THE SAME FIGHTER.
         if(this.currentPlay.isDead()) {
