@@ -64,6 +64,30 @@ let Speech = {
                     ]
                 },
             },
+            "throne pit": {
+                "putrescent ossuary": {
+                    uncleared: [
+                        ""
+                    ],
+                    engaged: [
+                        ""
+                    ],
+                    cleared: [
+                        ""
+                    ]
+                },
+                "smoldering cave": {
+                    uncleared: [
+                        ""
+                    ],
+                    engaged: [
+                        ""
+                    ],
+                    cleared: [
+                        ""
+                    ]
+                },
+            },
             "eternity well": {
                 "putrescent ossuary": {
                     uncleared: [
