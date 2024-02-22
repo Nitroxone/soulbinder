@@ -4164,6 +4164,227 @@ const Loader = {
                         })
                     ]
                 })
+            ),
+            new Enemy(
+                "The Maw",
+                "O BOI HE BIG AND SCARY",
+                Data.Charset.THE_MAW,
+                "Subname",
+                200, 150, 100,
+                5, 8, 85, 35, 20, 20,
+                [5, 0], [5, 0],
+                80, 50,
+                10, 10,
+                [],
+                {
+                    mainTarget: null
+                },
+                [
+                    new Trigger({
+                        name: "theMaw_setMainTarget",
+                        type: [Data.TriggerType.ON_RECV_DAMAGE],
+                        checker: function() {
+                            return !this.getOwner().variables.mainTarget
+                        },
+                        behavior: function() {
+                            this.getOwner().variables.mainTarget = game.battle.currentPlay;
+                            
+                            game.chatlog.addMessage(Data.ChatlogChannel.BATTLE, {
+                                content: "The Maw has started preying on " + this.getOwner().variables.mainTarget.name + ".",
+                                style: {
+                                    className: "clgMsg-negative"
+                                }
+                            });
+                        }
+                    }),
+                    new Trigger({
+                        name: "theMaw_death",
+                        type: Data.TriggerType.ON_DEATH,
+                        behavior: function() {
+                            game.battle.end();
+                        }
+                    })
+                ],
+                Data.MobType.LESSER_BOSS,
+                [
+                    new Skill(
+                        "Predator Tenacity",
+                        "",
+                        0,
+                        {
+                            type: Data.SkillType.OFFENSIVE,
+                            manaCost: 25,
+                            cooldown: 1,
+                            dmgMultiplier: 120,
+                            dmgType: Data.SkillDamageType.PHYSICAL,
+                            criMultiplier: 20,
+                            accMultiplier: 95,
+                            targets: {allies: '-0', enemies: '-123'},
+                            launchPos: [true, true, false],
+                            effectsAllies: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.STUN, duration: 2, chance: 80})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.STUN, duration: 2, chance: 100, isCritical: true})
+                                    ],
+                                }
+                            },
+                        }
+                    ),
+                    new Skill(
+                        "Ravage",
+                        "",
+                        0,
+                        {
+                            type: Data.SkillType.OFFENSIVE,
+                            manaCost: 20,
+                            cooldown: 1,
+                            dmgMultiplier: 110,
+                            dmgType: Data.SkillDamageType.PHYSICAL,
+                            criMultiplier: 15,
+                            accMultiplier: 85,
+                            targets: {allies: '-0', enemies: '@123'},
+                            launchPos: [true, true, false],
+                            effectsAllies: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.BLEEDING_INCURABLE, duration: 2, type: Data.StatType.ACTIVE, theorical: [5, 6]})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.BLEEDING_INCURABLE, duration: 2, type: Data.StatType.ACTIVE, theorical: 8, isCritical: true})
+                                    ],
+                                }
+                            },
+                        }
+                    ),
+                    new Skill(
+                        "Reptilian Regrowth",
+                        "",
+                        0,
+                        {
+                            type: Data.SkillType.FRIENDLY,
+                            manaCost: 10,
+                            cooldown: 1,
+                            criMultiplier: 15,
+                            accMultiplier: 100,
+                            targets: {allies: '-123', enemies: '-0'},
+                            launchPos: [true, true, true],
+                            effectsEnemies: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.HEALTH, type: Data.StatType.ACTIVE, theorical: [20, 25], isPercentage: true}),
+                                        new Stat({effect: Data.Effect.MODIF_DMG_TOTAL, theorical: [10, 15], isPercentage: true, duration: 2}),
+                                        new Stat({effect: Data.Effect.PROTECTION, theorical: [5, 8], isPercentage: true, duration: 2}),
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.HEALTH, type: Data.StatType.ACTIVE, theorical: [25, 30], isPercentage: true, isCritical: true}),
+                                        new Stat({effect: Data.Effect.MODIF_DMG_TOTAL, theorical: [18, 20], isPercentage: true, duration: 2, isCritical: true}),
+                                        new Stat({effect: Data.Effect.PROTECTION, theorical: 10, isPercentage: true, duration: 2, isCritical: true}),
+                                    ],
+                                }
+                            }
+                        }
+                    ),
+                    new Skill(
+                        "Apex Tracking",
+                        "",
+                        0,
+                        {
+                            type: Data.SkillType.OFFENSIVE,
+                            manaCost: 10,
+                            cooldown: 2,
+                            dmgMultiplier: 130,
+                            dmgType: Data.SkillDamageType.PHYSICAL,
+                            criMultiplier: 20,
+                            accMultiplier: 85,
+                            targets: {allies: '-0', enemies: '@12'},
+                            launchPos: [true, true, false],
+                            effectsCaster: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.FRONT_TWO})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.FRONT_TWO, isCritical: true})
+                                    ],
+                                }
+                            },
+                        }
+                    )
+                ],
+                new EnemyBehavior({
+                    actions: [
+                        new EnemyAction({
+                            title: 'boost allies',
+                            owner: function(){ return what(game.battle.enemies, "the maw") },
+                            checker: function() {
+                                return !this.owner.variables.mainTarget;
+                            },
+                            behavior: function() {
+                                console.log(this.title);
+                                
+                                const tar = choose(game.battle.enemies.filter(x => !x.isDead() && x !== this.owner));
+                                game.battle.target.push(tar);
+                                game.battle.selectedSkill = this.owner.skills[2];
+                                game.battle.executeSkill();
+                            }
+                        }),
+                        new EnemyAction({
+                            title: 'move forward',
+                            owner: function(){ return what(game.battle.enemies, "the maw") },
+                            checker: function() {
+                                return this.owner.getSelfPosInBattle() === Data.FormationPosition.BACK && this.owner.skills[3].cooldownCountdown === 0;
+                            },
+                            behavior: function() {
+                                console.log(this.title);
+
+                                game.battle.allies.forEach(all => game.battle.target.push(all));
+                                game.battle.selectedSkill = this.owner.skills[3];
+                                game.battle.executeSkill();
+                            }
+                        }),
+                        new EnemyAction({
+                            title: 'focus target',
+                            owner: function(){ return what(game.battle.enemies, "the maw") },
+                            checker: function(){
+                                return this.owner.variables.mainTarget && !this.owner.variables.mainTarget.isDead() && this.owner.getSelfPosInBattle() !== Data.FormationPosition.BACK
+                            },
+                            behavior: function() {
+                                console.log(this.title);
+
+                                game.battle.target.push(this.owner.variables.mainTarget);
+                                game.battle.selectedSkill = this.owner.skills[0];
+                                game.battle.executeSkill();
+                            }
+                        }),
+                        new EnemyAction({
+                            title: 'attack others',
+                            owner: function(){ return what(game.battle.enemies, "the maw") },
+                            checker: function() {
+                                return this.owner.variables.mainTarget && this.owner.variables.mainTarget.isDead() && this.owner.getSelfPosInBattle() !== Data.FormationPosition.BACK
+                            },
+                            behavior: function() {
+                                game.battle.allies.filter(x => !x.isDead()).forEach(all => { game.battle.target.push(all) });
+                                game.battle.selectedSkill = this.owner.skills[1];
+                                game.battle.executeSkill();
+                            }
+                        }),
+                        new EnemyAction({
+                            title: 'block',
+                            owner: function(){ return what(game.battle.enemies, "mycelial tick") },
+                            checker: function(){ return this.owner.stamina > 0 },
+                            behavior: function() {
+                                console.log('blocks');
+                                this.owner.applyBlocking();
+                                this.owner.removeBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 5}));
+                                this.owner.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 5}));
+                                game.battle.finishTurn();
+                            }
+                        }),
+                    ]
+                })
             )
         ];
 
@@ -4687,6 +4908,27 @@ const Loader = {
                 config: {
                     floor1: {
                         depth: 1,
+                        miniboss: new EnemyFormation({
+                            name: "theMaw",
+                            biome: Data.DungeonBiome.UZIEL_JUNGLES,
+                            levels: [1],
+                            formation: [
+                                what(game.all_enemies, "fire iguana"),
+                                what(game.all_enemies, "fire hatchling"),
+                                what(game.all_enemies, "the maw"),
+                            ],
+                            type: Data.BattleType.SPECIAL,
+                            title: Data.BattleType.MINI_BOSS,
+                            params: {
+                                endless: [
+                                    what(game.all_enemies, "fire iguana"),
+                                    what(game.all_enemies, "fire hatchling"),
+                                ],
+                                endCondition: function() {
+                                    return game.battle.enemies.find(x => x.name.toLowerCase() === "the maw").isDead();
+                                }
+                            }
+                        })
                     },
                     floor2: {
                         depth: 2,
