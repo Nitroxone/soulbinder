@@ -1015,6 +1015,8 @@ class NPC extends Entity {
         this.health = 0;
         this.dead = true;
 
+        this.runTriggers(Data.TriggerType.ON_DEATH);
+
         // Remove the Guarding effects from other affected NPCs
         this.activeEffects.forEach(ae => {
             if(ae.originObject?.variables?.guarding == this) {
@@ -1038,7 +1040,6 @@ class NPC extends Entity {
     deathCheck() {
         if(this.health === 0) {
             this.kill();
-            this.runTriggers(Data.TriggerType.ON_DEATH);
         }
     }
 }
