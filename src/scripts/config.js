@@ -1023,7 +1023,8 @@ let Config = {
         Gains: {
             GROUP: 500,
             WAVE: 750,
-            SPECIAL: 1250
+            SPECIAL: 1250,
+            MINI_BOSS: 2000,
         },
         Costs: {
             ANTECHAMBER_OF_MARVELS: 1100,
