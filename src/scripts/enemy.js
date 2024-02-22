@@ -39,5 +39,19 @@ class Enemy extends NPC {
         this.behavior = behavior;
         this.drops = drops;
         this.biome = biome;
+
+        this.bindTriggers();
+    }
+
+    /**
+     * Binds this Enemy's triggers' owner property manually.
+     * Since enemies can be cloned, setting the owner to the enemy object would cause an exceeded cloning call stack.
+     */
+    bindTriggers() {
+        this.triggers.forEach(trig => {
+            trig.owner = this.id;
+            trig.getOwner = function(){ return this; }
+            trig.getOwner = trig.getOwner.bind(this);
+        })
     }
 }
