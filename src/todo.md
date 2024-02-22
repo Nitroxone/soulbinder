@@ -13,7 +13,7 @@
 DONE - Revamp the bonus/malus system : instead of directly altering stats, rather store these alterations into an array to better keep track of them.
 
 - Reorganize gr_inventory.js structure (put some stuff into ev_inventory)
-- Split the strider graphics into smaller functions for better refresh efficiency
+DONE - Split the strider graphics into smaller functions for better refresh efficiency
 
 DONE - Actually implement set bonuses
 
@@ -141,7 +141,7 @@ DONE - Improve the bonuses tooltip with more details (need to add origin of Echo
 DONE - Prevent the display of null stats (armors with no Withering, mainly)
 DONE - Display echoes' mechanics in the bonuses tooltip
 DONE - Display the echo's origin object in the bonuses tooltip
-- Add list of skills to the bottom of the screen
+DONE - Add list of skills to the bottom of the screen
 
 GAMEPLAY CHANGES:
 DONE - By default, only allow echoes on Weapons, Shields and Armors. Only relic Helmets/Gauntlets/Boots/Trinkets can receive echoes.
