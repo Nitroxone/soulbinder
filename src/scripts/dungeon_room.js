@@ -146,19 +146,27 @@ class DungeonRoom {
                 game.startBattle(this.enemyGroup);
                 game.player.enterCombat();
                 break;
+            case Data.DungeonRoomType.MINIBOSS:
+                this.assignEnemyGroup(game.dungeon.config["floor" + game.dungeon.floor.depth].miniboss);
+                game.startBattle(this.enemyGroup);
+                game.player.enterCombat();
+                break;
         }
     }
 
     /**
      * Assigns an enemy formation to this room, based on the dungeon's parameters.
      */
-    assignEnemyGroup() {
-        const biome = game.dungeon.biome;
-        let pool = game.all_enemyFormations.filter(x => {
-            return (x.biome === biome || x.biome === Data.DungeonBiome.ALL) && x.type === translateCombatRoomType(this.type);
-        });
-        console.log('assigning: ' + choose(pool) + ' to ' + this.type);
-        this.enemyGroup = Entity.clone(choose(pool));
+    assignEnemyGroup(force = null) {
+        if(!force) {
+            const biome = game.dungeon.biome;
+            let pool = game.all_enemyFormations.filter(x => {
+                return (x.biome === biome || x.biome === Data.DungeonBiome.ALL) && x.type === translateCombatRoomType(this.type);
+            });
+            console.log('assigning: ' + choose(pool) + ' to ' + this.type);
+            force = choose(pool);
+        }
+        this.enemyGroup = Entity.clone(force);
     }
 
     /**
