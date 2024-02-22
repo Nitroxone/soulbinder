@@ -4910,27 +4910,29 @@ const Loader = {
                 config: {
                     floor1: {
                         depth: 1,
-                        miniboss: new EnemyFormation({
-                            name: "theMaw",
-                            biome: Data.DungeonBiome.UZIEL_JUNGLES,
-                            levels: [1],
-                            formation: [
-                                what(game.all_enemies, "fire iguana"),
-                                what(game.all_enemies, "fire hatchling"),
-                                what(game.all_enemies, "the maw"),
-                            ],
-                            type: Data.BattleType.SPECIAL,
-                            title: Data.BattleType.MINI_BOSS,
-                            params: {
-                                endless: [
+                        params: {
+                            miniboss: new EnemyFormation({
+                                name: "theMaw",
+                                biome: Data.DungeonBiome.UZIEL_JUNGLES,
+                                levels: [1],
+                                formation: [
                                     what(game.all_enemies, "fire iguana"),
                                     what(game.all_enemies, "fire hatchling"),
+                                    what(game.all_enemies, "the maw"),
                                 ],
-                                endCondition: function() {
-                                    return game.battle.enemies.find(x => x.name.toLowerCase() === "the maw").isDead();
+                                type: Data.BattleType.SPECIAL,
+                                title: Data.BattleType.MINI_BOSS,
+                                params: {
+                                    endless: [
+                                        what(game.all_enemies, "fire iguana"),
+                                        what(game.all_enemies, "fire hatchling"),
+                                    ],
+                                    endCondition: function() {
+                                        return game.battle.enemies.find(x => x.name.toLowerCase() === "the maw").isDead();
+                                    }
                                 }
-                            }
-                        })
+                            })
+                        }
                     },
                     floor2: {
                         depth: 2,

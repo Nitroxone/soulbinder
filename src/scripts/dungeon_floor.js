@@ -12,6 +12,7 @@ class DungeonFloor {
         this.depth = getValueFromObject(props, "depth", 0);
         this.gridSize = getValueFromObject(props, "gridSize", [10, 7]); // [width, height]
         this.config = getValueFromObject(props, "roomTypes", buildDungeonFloorConfigFromGlobal(this.gridSize[0]));
+        this.params = getValueFromObject(props, "params", {});
         
         this.ROWS = this.gridSize[0];
         this.COLS = this.gridSize[1];

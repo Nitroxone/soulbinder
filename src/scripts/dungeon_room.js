@@ -147,7 +147,7 @@ class DungeonRoom {
                 game.player.enterCombat();
                 break;
             case Data.DungeonRoomType.MINIBOSS:
-                this.assignEnemyGroup(game.dungeon.config["floor" + game.dungeon.floor.depth].miniboss);
+                this.assignEnemyGroup(game.dungeon.floor.params.miniboss);
                 game.startBattle(this.enemyGroup);
                 game.player.enterCombat();
                 break;
