@@ -50,6 +50,9 @@ class Entity {
     static clone(obj) {
         let cloned = Entity.deepCopy(obj);
         cloned.id = Entity.increaseCount();
+
+        if(cloned instanceof Enemy) cloned.bindTriggers();
+
         return cloned;
     }
 
