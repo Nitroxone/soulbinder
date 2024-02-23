@@ -4003,7 +4003,53 @@ const Loader = {
                 0, 4,
                 [],
                 {},
-                [],
+                [
+                    new Trigger({
+                        name: "fireHatchling_death_boostIguanas",
+                        type: Data.TriggerType.ON_DEATH,
+                        checker: function(){
+                            const target = game.battle.enemies.find(x => x.name.toLowerCase() === "fire iguana")
+
+                            return target && !target.getActiveEffect("matriarch rage");
+                        },
+                        behavior: function() {
+                            const tar = choose(game.battle.enemies.filter(x => x.name.toLowerCase() === "fire iguana"));
+
+                            const bonuses = [
+                                new Stat({effect: Data.Effect.MODIF_DMG_TOTAL, theorical: 15, duration: 5, isPercentage: true}),
+                                new Stat({effect: Data.Effect.SPEED, theorical: 3, duration: 5}),
+                                new Stat({effect: Data.Effect.RESILIENCE, theorical: 5, duration: 5}),
+                            ];
+                            bonuses.forEach(bo => {
+                                tar.alter({
+                                    effect: bo,
+                                    action: Data.AlterAction.ADD,
+                                    origin: {
+                                        type: Data.ActiveEffectType.POWER,
+                                        name: "Matriarch Rage",
+                                    }
+                                });
+                            });
+                            tar.addActiveEffect(new ActiveEffect({
+                                name: "Matriarch Rage",
+                                originUser: this.getOwner(),
+                                originObject: Data.ActiveEffectType.POWER,
+                                effects: bonuses,
+                                style: {
+                                    color: Data.Color.PURPLE,
+                                    bold: true
+                                }
+                            }));
+
+                            game.chatlog.addMessage(Data.ChatlogChannel.BATTLE, {
+                                content: this.getOwner().name + "'s death enraged a " + tar.name + "!",
+                                style: {
+                                    className: "clgMsg-negative"
+                                }
+                            }, game.battle.chatlogFolder);
+                        }
+                    })
+                ],
                 Data.MobType.LESSER,
                 [
                     new Skill(
@@ -4121,10 +4167,10 @@ const Loader = {
                             effectsEnemies: {
                                 1: {
                                     regular: [
-                                        new Stat({effect: Data.Effect.HEALTH, theorical: [20, 25], isPercentage: true, type: Data.StatType.ACTIVE}),
+                                        new Stat({effect: Data.Effect.HEALTH, theorical: [50, 60], isPercentage: true, type: Data.StatType.ACTIVE}),
                                     ],
                                     critical: [
-                                        new Stat({effect: Data.Effect.HEALTH, theorical: [30, 30], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true}),
+                                        new Stat({effect: Data.Effect.HEALTH, theorical: [70, 75], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true}),
                                     ]
                                 }
                             }
@@ -4176,7 +4222,7 @@ const Loader = {
                             title: 'regen hatchlings',
                             owner: function() { return what(game.battle.enemies, "fire iguana") },
                             checker: function() {
-                                const valid = game.battle.enemies.find(x => x.name.toLowerCase() === "fire hatchling" && x.health < x.maxHealth*0.75);
+                                const valid = game.battle.enemies.find(x => x.name.toLowerCase() === "fire hatchling" && x.health < x.maxHealth*0.75 && !x.isDead());
                                 if(valid && this.owner.getSelfPosInBattle() === Data.FormationPosition.FRONT && this.owner.skills[0].manaCost <= this.owner.mana) return true;
                                 return false;
                             },
