@@ -4484,6 +4484,85 @@ const Loader = {
                         }),
                     ]
                 })
+            ),
+            new Enemy(
+                "Venomstripe Mauler",
+                "",
+                Data.Charset.VENOMSTRIPE_MAULER,
+                "Subname",
+                125, 100, 80,
+                10, 8, 90, 20, 30, 10, 
+                [0, 0], [5, 0],
+                65, 25,
+                18, 2,
+                [],
+                {},
+                [
+                    new Skill(
+                        "Feline Guard",
+                        "",
+                        0,
+                        {
+                            type: Data.SkillType.FRIENDLY,
+                            manaCost: 10,
+                            cooldown: 3,
+                            criMultiplier: 10,
+                            accMultiplier: 100,
+                            targets: {allies: '-3', enemies: '-0'},
+                            launchPos: [false, true, false],
+                            effectsCaster: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.GUARDING, duration: 2}),
+                                        new Stat({effect: Data.Effect.PROTECTION, theorical: [15, 20], isPercentage: true, duration: 2}),
+                                        new Stat({effect: Data.Effect.RES_STUN, theorical: [15, 20], isPercentage: true, duration: 2})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.GUARDING, duration: 2, isCritical: true}),
+                                        new Stat({effect: Data.Effect.PROTECTION, theorical: 22, isPercentage: true, duration: 2, isCritical: true}),
+                                        new Stat({effect: Data.Effect.RES_STUN, theorical: 22, isPercentage: true, duration: 2, isCritical: true})
+                                    ]
+                                }
+                            },
+                            effectsEnemies: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.GUARDED, duration: 2}),
+                                        new Stat({effect: Data.Effect.MODIF_DMG_TOTAL, theorical: [10, 15], isPercentage: true, duration: 1})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.GUARDED, duration: 2}),
+                                        new Stat({effect: Data.Effect.MODIF_DMG_TOTAL, theorical: 18, isPercentage: true, duration: 1})
+                                    ]
+                                }
+                            },
+                            variables: {
+                                guarded: null,
+                                guarding: null
+                            }
+                        }
+                    ),
+                    new Skill(
+                        "Excoriation",
+                        "",
+                        0,
+                        {
+                            type: Data.SkillType.OFFENSIVE,
+                            manaCost: 20,
+                            cooldown: 2,
+                            dmgMultiplier: 120,
+                            dmgType: Data.SkillDamageType.PHYSICAL,
+                            criMultiplier: 5,
+                            accMultiplier: 90,
+                            targets: {allies: '-1', enemies: '-0'},
+                            launchPos: [true, false, false],
+                        }
+                    )
+                ],
+                Data.MobType.MAJOR,
+                [],
+                new EnemyBehavior(),
+                {}
             )
         ];
 
