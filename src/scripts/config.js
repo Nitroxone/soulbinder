@@ -1046,6 +1046,9 @@ let Config = {
                     9: {
                         DESECRATED_ALTAR: { cha: 33, min: 1, max: 2 },
                         ANTECHAMBER_OF_MARVELS: { cha: 33, min: 1, max: 2 },
+                    },
+                    10: {
+                        CHASM: { cha: 100, min: 1, max: 1}
                     }
                 }
             }

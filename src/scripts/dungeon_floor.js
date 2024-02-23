@@ -239,7 +239,7 @@ class DungeonFloor {
         if(this.config.levels[""+this.depth].rows[row+1] && Object.keys(this.config.levels[""+this.depth].rows[row+1]).length === 1 && Object.values(this.config.levels[""+this.depth].rows[row+1])[0].max === 1) {
             console.log("Convergence detected on ROW " + row);
 
-            if(!forceTarget) {
+            if(!forceTarget || forceTarget.coordinates[0] !== row) {
                 const potential = pool.find(x => x.type === Data.DungeonRoomType.EMPTY);
 
                 if(potential) {
