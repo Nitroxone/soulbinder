@@ -5003,7 +5003,7 @@ const Loader = {
                 desc: "",
                 background: "smoldering-cave.png",
                 biome: Data.DungeonBiome.UZIEL_JUNGLES,
-                maximumDepth: 3,
+                maximumDepth: 2,
                 config: {
                     floor1: {
                         depth: 1,
@@ -5033,9 +5033,6 @@ const Loader = {
                     },
                     floor2: {
                         depth: 2,
-                    },
-                    floor3: {
-                        depth: 3,
                     },
                 },
             }),
