@@ -2322,14 +2322,18 @@ function getDungeonFloorConfig(name) {
 }
 
 /**
- * 
+ * Merges the GLOBAL DungeonFloorConfig
  * @param {string|number} name 
  * @returns 
  */
 function buildDungeonFloorConfigFromGlobal(name) {
     var target = structuredClone(Config.DungeonFloorConfig.GLOBAL);
     var source = structuredClone(getDungeonFloorConfig(name));
+    for(const level in source.levels) {
+        deepMerge(source.levels[level], target.levels.ALL);
+    }
     deepMerge(target, source);
+    delete target.levels.ALL;
     return target;
 }
 
