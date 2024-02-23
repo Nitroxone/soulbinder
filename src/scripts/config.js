@@ -979,42 +979,74 @@ let Config = {
     ],
     DungeonFloorConfig: {
         GLOBAL: new DungeonFloorConfig({
-            STARTING_ROOMS: 4,
-            ROWS: {
-                1: {
-                    ENTRANCE: { cha: 100 },
+            ALL: {
+                STARTING_ROOMS: 4,
+                ROWS: {
+                    1: {
+                        ENTRANCE: { cha: 100 },
+                    },
+                    LAST: {
+                        CHASM: { cha: 100 }
+                    }
                 },
-                LAST: {
-                    CHASM: { cha: 100 }
-                }
-            },
+            }
         }),
         10: new DungeonFloorConfig({
-            ROWS: {
-                2: {
-                    DORMANT_ROOM: { cha: 70, min: 1 },
-                    SACRIFICIAL_ALCOVE: { cha: 30, min: 1, max: 1 },
-                },
-                3: {
-                    DORMANT_ROOM: { cha: 60, min: 1 },
-                    SACRIFICIAL_ALCOVE: { cha: 20, min: 1, max: 1 },
-                    FRACTURED_HOLLOW: { cha: 20, min: 1, max: 1 },
-                },
-                4: {
-                    DORMANT_ROOM: { cha: 60, min: 1 },
-                    SACRIFICIAL_ALCOVE: { cha: 20, min: 1, max: 1 },
-                    FRACTURED_HOLLOW: { cha: 20, min: 1, max: 1 },
-                },
-                5: {
-                    //EQUALLY: ["DESECRATED_ALTAR", "ANTECHAMBER_OF_MARVELS", "ETERNITY_WELL"]
-                    DESECRATED_ALTAR: { cha: 33, min: 1, max: 2 },
-                    ANTECHAMBER_OF_MARVELS: { cha: 33, min: 1, max: 2 },
-                },
-                6: {
-                    MINIBOSS: { cha: 100, min: 1, max: 1 }
-                },
-                9: {
-                    DORMANT_ROOM: { cha: 100, min: 1 },
+            1: {
+                ROWS: {
+                    2: {
+                        DORMANT_ROOM: { cha: 70, min: 1 },
+                        SACRIFICIAL_ALCOVE: { cha: 30, min: 1, max: 1 },
+                    },
+                    3: {
+                        DORMANT_ROOM: { cha: 60, min: 1 },
+                        SACRIFICIAL_ALCOVE: { cha: 20, min: 1, max: 1 },
+                        FRACTURED_HOLLOW: { cha: 20, min: 1, max: 1 },
+                    },
+                    4: {
+                        DORMANT_ROOM: { cha: 60, min: 1 },
+                        SACRIFICIAL_ALCOVE: { cha: 20, min: 1, max: 1 },
+                        FRACTURED_HOLLOW: { cha: 20, min: 1, max: 1 },
+                    },
+                    5: {
+                        DESECRATED_ALTAR: { cha: 33, min: 1, max: 2 },
+                        ANTECHAMBER_OF_MARVELS: { cha: 33, min: 1, max: 2 },
+                    },
+                    6: {
+                        MINIBOSS: { cha: 100, min: 1, max: 1 }
+                    },
+                    9: {
+                        DORMANT_ROOM: { cha: 100, min: 1 },
+                    }
+                }
+            },
+            2: {
+                ROWS: {
+                    2: {
+                        DORMANT_ROOM: { cha: 70, min: 1 },
+                        SACRIFICIAL_ALCOVE: { cha: 30, min: 1, max: 1 },
+                    },
+                    3: {
+                        DORMANT_ROOM: { cha: 60, min: 1 },
+                        SACRIFICIAL_ALCOVE: { cha: 20, min: 1, max: 1 },
+                        FRACTURED_HOLLOW: { cha: 20, min: 1, max: 1 },
+                    },
+                    4: {
+                        DORMANT_ROOM: { cha: 60, min: 1 },
+                        SACRIFICIAL_ALCOVE: { cha: 20, min: 1, max: 1 },
+                        FRACTURED_HOLLOW: { cha: 20, min: 1, max: 1 },
+                    },
+                    5: {
+                        DESECRATED_ALTAR: { cha: 33, min: 1, max: 2 },
+                        ANTECHAMBER_OF_MARVELS: { cha: 33, min: 1, max: 2 },
+                    },
+                    8: {
+                        BOSS: { cha: 100, min: 1, max: 1 }
+                    },
+                    9: {
+                        DESECRATED_ALTAR: { cha: 33, min: 1, max: 2 },
+                        ANTECHAMBER_OF_MARVELS: { cha: 33, min: 1, max: 2 },
+                    }
                 }
             }
         })

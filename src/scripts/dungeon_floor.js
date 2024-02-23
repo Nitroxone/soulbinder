@@ -21,7 +21,8 @@ class DungeonFloor {
         this.connectors = [];
         
         this.generateGrid();
-        this.startingRooms = this.config.startingRooms;
+        console.log(this.config);
+        this.startingRooms = this.config.levels[""+this.depth].startingRooms;
         console.log('starting rooms: ' + this.startingRooms);
         let count = 0;
         do {
@@ -79,13 +80,13 @@ class DungeonFloor {
         const rooms = this.getAssignedRooms();
         let selection, pool;
         if(!this.validateConfig()) return false;
-        for(const row in this.config.rows) {
+        for(const row in this.config.levels[""+this.depth].rows) {
             let types = [];
             let target = row === 'LAST' ? this.ROWS-1 : Number(row) - 1;
 
             selection = rooms.filter(x => x.coordinates[0] === target);
 
-            pool = this.config.rows[row];
+            pool = this.config.levels[""+this.depth].rows[row];
             console.log(pool);  
 
             for(const roomType in pool) {
@@ -144,7 +145,7 @@ class DungeonFloor {
      * @returns {boolean}
      */
     validateConfig() {
-        const cfg = this.config.rows; // Get this floor's rows config
+        const cfg = this.config.levels[""+this.depth].rows; // Get this floor's rows config
         const rooms = this.getAssignedRooms(); // Get the "alive" rooms
 
         for(let i = 0; i < this.ROWS; i++) { // iterate over rows
@@ -207,6 +208,7 @@ class DungeonFloor {
         let forceTarget = null;
         startingRooms.forEach(room => {
             // Recursivity time!
+            console.log(this.config);
             this.createPathFromStartingRoom(room);
         });
     }
@@ -234,7 +236,7 @@ class DungeonFloor {
         if(pool.length === 0) return; // No more rooms available in the row
 
         let next = null;
-        if(this.config.rows[row+1] && Object.keys(this.config.rows[row+1]).length === 1 && Object.values(this.config.rows[row+1])[0].max === 1) {
+        if(this.config.levels[""+this.depth].rows[row+1] && Object.keys(this.config.levels[""+this.depth].rows[row+1]).length === 1 && Object.values(this.config.levels[""+this.depth].rows[row+1])[0].max === 1) {
             console.log("Convergence detected on ROW " + row);
 
             if(!forceTarget) {
