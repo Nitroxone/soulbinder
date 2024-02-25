@@ -674,6 +674,9 @@ class NPC extends Entity {
         }, false);
     }
 
+    getSkill(name) {
+        return this.skills.find(x => x.name.toLowerCase() === name.toLowerCase());
+    }
     
     getBattleFormationStringId() {
         const battle = game.battle;

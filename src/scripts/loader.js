@@ -4497,6 +4497,8 @@ const Loader = {
                 18, 2,
                 [],
                 {},
+                [],
+                Data.MobType.MAJOR,
                 [
                     new Skill(
                         "Feline Guard",
@@ -4508,7 +4510,7 @@ const Loader = {
                             cooldown: 3,
                             criMultiplier: 10,
                             accMultiplier: 100,
-                            targets: {allies: '-3', enemies: '-0'},
+                            targets: {allies: '-23', enemies: '-0'},
                             launchPos: [false, true, false],
                             effectsCaster: {
                                 1: {
@@ -4556,12 +4558,69 @@ const Loader = {
                             accMultiplier: 90,
                             targets: {allies: '-1', enemies: '-0'},
                             launchPos: [true, false, false],
+                            effectsCaster: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.FRONT_ONE})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.FRONT_ONE})
+                                    ]
+                                }
+                            }
                         }
                     )
                 ],
-                Data.MobType.MAJOR,
-                [],
-                new EnemyBehavior(),
+                new EnemyBehavior({
+                    actions: [
+                        new EnemyAction({
+                            title: 'protecc',
+                            owner: function(){ return what(game.battle.enemies, "venomstripe mauler") },
+                            checker: function() {
+                                // Can use skill, is in Front, and has at least one alive ally
+                                return this.owner.canUseSkill("feline guard") && this.owner.getSelfPosInBattle() === Data.FormationPosition.FRONT && game.battle.enemies.some(x => !x.isDead())
+                            },
+                            behavior: function() {
+                                console.log(this.title);
+                                game.battle.enemies.filter(x => !x.isDead() && x !== this.owner).forEach(x => {
+                                    game.battle.target.push(x);
+                                });
+                                game.battle.selectedSkill = this.owner.getSkill("feline guard");
+                                game.battle.executeSkill();
+                            }
+                        }),
+                        new EnemyAction({
+                            title: 'atak',
+                            owner: function(){ return what(game.battle.enemies, "venomstripe mauler") },
+                            checker: function() {
+                                // Can use skill
+                                return this.owner.canUseSkill("excoriation") && game.battle.allies.some(x => !x.isDead());
+                            },
+                            behavior: function() {
+                                console.log(this.title);
+                                
+                                const tar = choose(game.battle.allies.filter(x => !x.isDead()));
+                                game.battle.target.push(tar);
+                                game.battle.selectedSkill = this.owner.getSkill("excoriation");
+                                game.battle.executeSkill();
+                            }
+                        }),
+                        new EnemyAction({
+                            title: 'block',
+                            owner: function(){ return what(game.battle.enemies, "venomstripe mauler") },
+                            checker: function(){
+                                return this.owner.stamina > 0;
+                            },
+                            behavior: function(){
+                                console.log(this.title);
+                                this.owner.applyBlocking();
+                                this.owner.removeBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 5}));
+                                this.owner.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 20}));
+                                game.battle.finishTurn();
+                            }
+                        })
+                    ]
+                }),
                 {}
             )
         ];
@@ -4641,6 +4700,23 @@ const Loader = {
                     what(game.all_enemies, "fire iguana"),
                 ],
                 type: Data.BattleType.GROUP
+            }),
+            new EnemyFormation({
+                name: "venomstripeMaulerAndHatchlings",
+                biome: Data.DungeonBiome.UZIEL_JUNGLES,
+                levels: [1, 2],
+                formation: [
+                    what(game.all_enemies, "fire hatchling"),
+                    what(game.all_enemies, "fire iguana"),
+                    what(game.all_enemies, "venomstripe mauler"),
+                ],
+                type: Data.BattleType.WAVE,
+                params: {
+                    queue: [
+                        what(game.all_enemies, "mycelial tick"),
+                        what(game.all_enemies, "fire hatchling")
+                    ]
+                }
             }),
             new EnemyFormation({
                 name: "iguanasAndFungaliantsAndTicks",
