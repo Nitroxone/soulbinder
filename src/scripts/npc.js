@@ -914,7 +914,23 @@ class NPC extends Entity {
         }
         for(let i = this.activeEffects.length - 1; i >= 0; i--) {
             let ae = this.activeEffects[i];
-            if(ae.effects.length === 0) removeFromArray(this.activeEffects, ae);
+            if(ae.effects.length === 0) {
+                removeFromArray(this.activeEffects, ae);
+
+                if(ae.originObject instanceof Skill) {
+                    const sk = ae.originObject;
+
+                    sk.triggersCaster.forEach(trig => {
+                        removeFromArray(ae.originUser.triggers, trig);
+                    });
+                    sk.triggersAllies.forEach(trig => {
+                        game.battle.allies.forEach(all => removeFromArray(all.triggers, trig));
+                    });
+                    sk.triggersEnemies.forEach(trig => {
+                        game.battle.enemies.forEach(ene => removeFromArray(ene.triggers, trig));
+                    })
+                }
+            }
         }
     }
 

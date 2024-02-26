@@ -866,6 +866,19 @@ class Battle {
         current.useSkill(skill);
         skill.onCast && skill.onCast();
         current.deathCheck();
+
+        // ADD SKILL TRIGGERS
+        if(skill.triggersCaster) skill.triggersCaster.forEach(trig => current.triggers.push(trig));
+        if(skill.triggersEnemies) {
+            this.target.filter(x => x instanceof Enemy).forEach(ene => {
+                skill.triggersEnemies.forEach(trig => ene.triggers.push(trig));
+            });
+        }
+        if(skill.triggersAllies) {
+            this.target.filter(x => x instanceof Strider).forEach(stri => {
+                skill.triggersAllies.forEach(trig => stri.triggers.push(trig));
+            });
+        }
         
         if(this.isEnemyPlaying()) {
             addBattleAttackMessage(current.name, skill.name);

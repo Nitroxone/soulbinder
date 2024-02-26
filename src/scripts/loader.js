@@ -3462,11 +3462,57 @@ const Loader = {
                 [],
                 Data.StriderType.SUPPORT,
                 "Whispers",
-                "Whispers' power description",
-                'quote',
-                1,
+                '<div class="par jus">Each entity that is targeted by one of Haman\'s skills enters a <span class="bold blue">Madness</span> state. Each skill further cast on a same target increases their Madness state by 1, up to 5. Various bonuses and maluses can be applied by consuming the <span class="bold blue">Madness</span> state, through Haman\'s <span class="bold blue">Hallucinate</span> and <span class="bold blue">Quadrate Hour</span> skills.</div><div class="par bulleted"><span class="bold">Madness I</span>: Affects <span class="bold blue">Dodge</span> and <span class="bold blue">Accuracy</span></div><div class="par bulleted"><span class="bold">Madness II<span>: Affects <span class="bold blue">Protection</span></div><div class="par bulleted"><span class="bold">Madness III<span>: Affects <span class="bold blue">Received Heal</span> and <span class="bold  blue">Max. health</span></div><div class="par bulleted"><span class="bold">Madness IV<span>: Affects <span class="bold blue">Bleed and Poison resistance</span> and <span class="bold blue">Block value</span></div><div class="par bulleted"><span class="bold">Madness V<span>: Affects <span class="bold blue">Speed</span> and <span class="bold blue">Total damage</span></div>',
+                '"We are so fragile, compartmentalized in our narrow view of the world; and exposing our minds to new perspectives, to raw and violent realities, is wonderful, and devastating."',
+                0,
                 what(game.all_skillTrees, "amarok"),
-                [],
+                [
+                    new Skill(
+                        "Revelation",
+                        "Reduces the target's §Protection§. While the malus is active, if Haman attacks another target, the effect is canceled and applied to Haman for one round.",
+                        1,
+                        {
+                            type: Data.SkillType.OFFENSIVE,
+                            manaCost: 10,
+                            dmgMultiplier: 95,
+                            criMultiplier: 10,
+                            accMultiplier: 95,
+                            cooldown: 2,
+                            launchPos: [true, true, false],
+                            targets: {allies: '-0', enemies: '-123'},
+                            effectsEnemies: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.PROTECTION, theorical: [-35, -40], isPercentage: true, duration: 2})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.PROTECTION, theorical: -45, isPercentage: true, duration: 2})
+                                    ],
+                                }
+                            },
+                            variables: {
+                                storedTarget: null
+                            },
+                            onCast: function(){
+                                this.variables.storedTarget = game.battle.target[0];
+                                console.log("Stored " + this.variables.storedTarget.name + " as Revelation's catalyst");
+                            },
+                            triggersCaster: [
+                                new Trigger({
+                                    name: "revelationTrigger",
+                                    type: Data.TriggerType.ON_ATTACK,
+                                    checker: function(){
+                                        const tar = game.battle.target[game.battle.targetTracker];
+
+                                        if(tar !== this.getOwner().variables.storedTarget) {
+                                            console.error("-----------DIFFERENT TARGET!!");
+                                        } else console.error("-----------SAME TARGET!!");
+                                    }
+                                })
+                            ]
+                        }
+                    )
+                ],
                 '10% 50%'
             ),
             new Strider(
@@ -3517,7 +3563,7 @@ const Loader = {
                 "Juba Jun",
                 "No one knows anything about Juba Jun and his interests except himself. His thoughts will be the guardians of the truth, and his mouth will never betray.",
                 Data.Charset.JUBA_JUN,
-                "The Greypaw",
+                "The Goldenpaw",
                 100, 100, 100,
                 10, 12, 85, 0, 5, 5,
                 [50, 50], [50, 50],

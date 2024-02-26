@@ -24,11 +24,11 @@ class Skill extends Entity {
         this.effectsEnemies = getValueFromObject(props, "effectsEnemies", null);
         this.effectsTarget = getValueFromObject(props, "effectsTarget", null);
         this.targetIgnoresOtherEffects = getValueFromObject(props, "targetIgnoresOtherEffects", false);
-        this.variables = getValueFromObject(props, "variables", null);
-        this.triggersCaster = getValueFromObject(props, "triggersCaster", null);
-        this.triggersAllies = getValueFromObject(props, "triggersAllies", null);
-        this.triggersEnemies = getValueFromObject(props, "triggersEnemies", null);
-        this.triggersSkill = getValueFromObject(props, "triggersSkill", null);
+        this.variables = getValueFromObject(props, "variables", {});
+        this.triggersCaster = getValueFromObject(props, "triggersCaster", []);
+        this.triggersAllies = getValueFromObject(props, "triggersAllies", []);
+        this.triggersEnemies = getValueFromObject(props, "triggersEnemies", []);
+        this.triggersSkill = getValueFromObject(props, "triggersSkill", []);
         this.condition = getValueFromObject(props, "condition", {checker: function(){return true}, message: ''})
         this.stackable = getValueFromObject(props, "stackable", 1);
         this.ignoresProtection = getValueFromObject(props, "ignoreProtection", false);
@@ -37,6 +37,8 @@ class Skill extends Entity {
         this.cooldownCountdown = 0;
 
         this.level = 1;
+
+        this.bindTriggers();
     }
 
     /**
@@ -109,5 +111,20 @@ class Skill extends Entity {
             }
         }
         return false;
+    }
+
+    bindTriggers() {
+        [
+            this.triggersAllies,
+            this.triggersCaster,
+            this.triggersEnemies,
+            this.triggersSkill
+        ].forEach(cat => {
+            cat.forEach(trig => {
+                trig.owner = this.id;
+                trig.getOwner = function(){ return this };
+                trig.getOwner = trig.getOwner.bind(this);
+            })
+        })
     }
 }
