@@ -4486,6 +4486,52 @@ const Loader = {
                 })
             ),
             new Enemy(
+                "Alienated Jabhra Priest",
+                "",
+                Data.Charset.ALIENATED_PRIEST,
+                "Subname",
+                90, 100, 45,
+                10, 8, 90, 20, 30, 10,
+                [1, 0], [1, 0],
+                25, 15,
+                5, 5,
+                [],
+                {},
+                [],
+                Data.MobType.REGULAR,
+                [
+                    new Skill(
+                        "Targeted Pull",
+                        "",
+                        0,
+                        {
+                            type: Data.SkillType.OFFENSIVE,
+                            manaCost: 10,
+                            cooldown: 2,
+                            criMultiplier: 20,
+                            accMultiplier: 90,
+                            dmgMultiplier: 50,
+                            targets: {allies: '-3', enemies: '-0'},
+                            launchPos: [false, true, true],
+                            effectsAllies: {
+                                1: {
+                                    regular: [
+                                        new Stat({effect: Data.Effect.FRONT_TWO, chance: 100}),
+                                        new Stat({effect: Data.Effect.RESILIENCE, theorical: [-10, -13], duration: 2})
+                                    ],
+                                    critical: [
+                                        new Stat({effect: Data.Effect.FRONT_TWO, chance: 120}),
+                                        new Stat({effect: Data.Effect.RESILIENCE, theorical: [-15, -18], duration: 2})
+                                    ]
+                                }
+                            }
+                        }
+                    )
+                ],
+                new EnemyBehavior({}),
+                {}
+            ),
+            new Enemy(
                 "Venomstripe Mauler",
                 "",
                 Data.Charset.VENOMSTRIPE_MAULER,
