@@ -924,7 +924,7 @@ class NPC extends Entity {
                         removeFromArray(ae.originUser.triggers, trig);
                     });
                     sk.triggersAllies.forEach(trig => {
-                        game.battle.allies.forEach(all => removeFromArray(all.triggers, trig));
+                        removeFromArray(this.triggers, trig)
                     });
                     sk.triggersEnemies.forEach(trig => {
                         game.battle.enemies.forEach(ene => removeFromArray(ene.triggers, trig));
