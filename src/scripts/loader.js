@@ -3477,6 +3477,7 @@ const Loader = {
                             dmgMultiplier: 95,
                             criMultiplier: 10,
                             accMultiplier: 95,
+                            dmgType: Data.SkillDamageType.MAGICAL,
                             cooldown: 2,
                             launchPos: [true, true, false],
                             targets: {allies: '-0', enemies: '-123'},
