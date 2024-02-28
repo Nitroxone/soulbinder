@@ -324,6 +324,8 @@ class Game {
         //this.inventory.enchant(this.inventory.weapons[0], this.inventory.sigils[1]);
         //this.inventory.enchant(this.inventory.armors[0], this.inventory.sigils[0]);
 
+        this.player.addToKnapsack(this.player.inventory.consumables[0]);
+
         this.dungeon = this.all_dungeons.find(x => x.name === 'Smoldering Cave');
         this.startDungeon();
 
