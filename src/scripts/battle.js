@@ -398,7 +398,8 @@ class Battle {
             success_accuracy: false,
             success_dodge: false,
             critical: false,
-            ignoresProtection: false
+            ignoresProtection: false,
+            armorPiercing: 0,
         };
     }
 
@@ -445,7 +446,7 @@ class Battle {
         const current = this.currentPlay;
 
         let accuracyModifiers = 0;
-        let critModifiers = 0;
+        let critModifiers = 0 + current.modifCritWeapon;
 
         if(target.isStunned) {
             accuracyModifiers += current.modifAccuracyStun;
@@ -486,6 +487,7 @@ class Battle {
         } else {
             // Missed
         }
+        this.params.armorPiercing = current.armorPiercing;
 
         this.dealtDamage = this.params.phys_damage + this.params.magi_damage + this.params.crit_damage;
     }

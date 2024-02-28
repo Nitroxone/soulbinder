@@ -78,12 +78,14 @@ class NPC extends Entity {
         this.modifAccuracyStun = 0;
         this.modifAccuracyBleed = 0;
         this.modifAccuracyPoison = 0;
+        this.modifCritWeapon = 0;
         this.modifCritSkill = 0;
         this.modifCritStun = 0;
         this.modifCritBleed = 0;
         this.modifCritPoison = 0;
         this.modifChanceStun = 0;
         this.modifChanceMove = 0;
+        this.armorPiercing = 0;
 
         this.critEffects = critEffects;
         this.variables = variables;
@@ -294,6 +296,9 @@ class NPC extends Entity {
             case Data.Effect.MODIF_ACCURACY_POISON:
                 this.modifAccuracyPoison += effect.getValue() * factor;
                 break;
+            case Data.Effect.MODIF_CRIT_WEAPON:
+                this.modifCritWeapon += effect.getValue() * factor;
+                break;
             case Data.Effect.MODIF_CRIT_SKILL:
                 this.modifCritSkill += effect.getValue() * factor;
                 break;
@@ -312,6 +317,9 @@ class NPC extends Entity {
             case Data.Effect.MODIF_CHANCE_MOVE:
                 this.modifChanceMove += effect.getValue() * factor;
                 break; 
+            case Data.Effect.ARMOR_PIERCING:
+                this.armorPiercing += effect.getValue() * factor;
+                break;
             default:
                 console.info('Tried to add an unknown effect :' + effect.effect + ' on ' + this.name);
                 return;
@@ -364,6 +372,7 @@ class NPC extends Entity {
 
         damage = phys_damage + magi_damage + crit;
         if(!params.ignoresProtection) damage -= Math.round(damage * this.protection / 100);
+        else if(params.armorPiercing > 0) damage -= Math.round(damage * (this.protection/100) * (params.armorPiercing/100))
 
         if(this.isBlocking) {
             let reduction = 0;

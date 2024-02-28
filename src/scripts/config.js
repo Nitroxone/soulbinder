@@ -43,12 +43,15 @@ let Config = {
         MODIF_ACCURACY_STUN: [5, 2, 5],
         MODIF_ACCURACY_BLEED: [5, 2, 5],
         MODIF_ACCURACY_POISON: [5, 2, 5],
+        MODIF_CRIT_WEAPON: [4, 2, 5],
         MODIF_CRIT_SKILL: [4, 2, 5],
         MODIF_CRIT_STUN: [4, 2, 5],
         MODIF_CRIT_BLEED: [4, 2, 5],
         MODIF_CRIT_POISON: [4, 2, 5],
         MODIF_CHANCE_STUN: [4, 3, 5],
         MODIF_CHANCE_MOVE: [4, 3, 5],
+
+        ARMOR_PIERCING: [2, 2, 2],
 
         //------------------------------------------------------
         // ARMOR EFFECTS
@@ -105,6 +108,7 @@ let Config = {
         MODIF_ACCURACY_STUN: true,
         MODIF_ACCURACY_BLEED: true,
         MODIF_ACCURACY_POISON: true,
+        MODIF_CRIT_WEAPON: true,
         MODIF_CRIT_SKILL: true,
         MODIF_CRIT_STUN: true,
         MODIF_CRIT_BLEED: true,
@@ -113,6 +117,7 @@ let Config = {
         MODIF_CHANCE_MOVE: true,
 
         CRIT_LUK: true,
+        ARMOR_PIERCING: true,
     },
     EffectUnvaluable: [
         Data.Effect.BLEED_CURABLE,

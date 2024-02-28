@@ -102,12 +102,15 @@ const Data = Object.freeze({
         MODIF_ACCURACY_STUN: "stun accuracy",
         MODIF_ACCURACY_BLEED: "bleed accuracy",
         MODIF_ACCURACY_POISON: "poison accuracy",
+        MODIF_CRIT_WEAPON: "weapon crit. chance",
         MODIF_CRIT_SKILL: "skill crit. chance",
         MODIF_CRIT_STUN: "stun crit. chance",
         MODIF_CRIT_BLEED: "bleed crit. chance",
         MODIF_CRIT_POISON: "poison crit. chance",
         MODIF_CHANCE_STUN: "stun chance",
         MODIF_CHANCE_MOVE: "move chance",
+
+        ARMOR_PIERCING: "armor piercing",
 
         //------------------------------------------------------
         // ARMOR EFFECTS
