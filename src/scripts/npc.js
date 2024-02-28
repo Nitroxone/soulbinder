@@ -5,30 +5,33 @@
 */
 
 class NPC extends Entity {
-    constructor(name,
-                desc,
-                charset,
-                subname,
-                health,
-                mana,
-                stamina,
-                dodge,
-                speed,
-                accuracy,
-                protection,
-                might,
-                spirit,
-                resBleed,
-                resPoison,
-                resMove,
-                resStun,
-                resilience,
-                warding,
-                critEffects,
-                variables,
-                triggers,
-                skills = [],
-                ) {
+    constructor(props = {}) {
+        const {
+            name = getValueFromObject(props, 'name', "Unnamed Enemy"),
+            desc = getValueFromObject(props, 'desc', ""),
+            charset = getValueFromObject(props, 'charset', ""),
+            subname = getValueFromObject(props, 'subname', ""),
+            health = getValueFromObject(props, 'health', 100),
+            mana = getValueFromObject(props, 'mana', 100),
+            stamina = getValueFromObject(props, 'stamina', 100),
+            dodge = getValueFromObject(props, 'dodge', 0),
+            speed = getValueFromObject(props, 'speed', 0),
+            accuracy = getValueFromObject(props, 'accuracy', 100),
+            protection = getValueFromObject(props, 'protection', 0),
+            might = getValueFromObject(props, 'might', 0),
+            spirit = getValueFromObject(props, 'spirit', 0),
+            resBleed = getValueFromObject(props, 'resBleed', [0, 0]),
+            resPoison = getValueFromObject(props, 'resPoison', [0, 0]),
+            resMove = getValueFromObject(props, "resMove", 0),
+            resStun = getValueFromObject(props, "resStun", 0),
+            resilience = getValueFromObject(props, "resilience", 0),
+            warding = getValueFromObject(props, "warding", 0),
+            critEffects = getValueFromObject(props, "critEffects", []),
+            variables = getValueFromObject(props, "variables", {}),
+            triggers = getValueFromObject(props, "triggers", []),
+            skills = getValueFromObject(props, "skills", [])
+        } = props;
+
         super(name, desc, 0);
 
         this.charset = charset;

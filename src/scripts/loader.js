@@ -2393,46 +2393,127 @@ const Loader = {
     loadStriders: loadStriders = () => {
         const striders = [
             new Strider(
-                "Amarok",
-                "A despicable brood stemming from Ghirgynth's neverending gestation, Amarok betrayed its Father and turned to light upon gaining consciousness, seeking redemption.",
-                Data.Charset.AMAROK,
-                "The Harbinger of Misfortune",
-                100, 100, 100,
-                10, 12, 85, 0, 20, 20,
-                [50, 50], [50, 50],
-                30, 45,
-                0, 0,
-                [new Stat({
-                    effect: Data.Effect.PROTECTION,
-                    theorical: [3, 7],
-                    isPercentage: true,
-                    duration: 2
-                })],
                 {
-                    threshold_weak: 50,
-                    threshold_normal: 30,
-                    state: "none",
-                    previous_health: 0,
-                    boost_protection: 0,
-                    boost_might: 0,
-                    protection_debuff: 30,
-                    might_debuff_rate: 0.25,
-                },
-                [
-                    new Trigger({
-                        name: "amarok_weak",
-                        type: [Data.TriggerType.ON_STAT_CHANGE, Data.TriggerType.ON_ADD_HEALTH, Data.TriggerType.ON_REMOVE_HEALTH],
-                        checker: function() {
-                            const amarok = this.owner;
-                            
-                            return (amarok.health >= ((amarok.variables.threshold_weak * amarok.maxHealth) / 100));
-                        },
-                        behavior: function() {
-                            const amarok = this.owner;
-
-                            if(amarok.variables.state !== 'weak') {
-                                amarok.variables.state = "weak";
+                    name: "Amarok",
+                    desc: "A despicable brood stemming from Ghirgynth's neverending gestation, Amarok betrayed its Father and turned to light upon gaining consciousness, seeking redemption.",
+                    charset: Data.Charset.AMAROK,
+                    subname: "The Harbinger of Misfortune",
+                    health: 100, mana: 100, stamina: 100,
+                    dodge: 10, speed: 12, accuracy: 85, protection: 0,
+                    might: 20, spirit: 20,
+                    resBleed: [0, 0], resPoison: [0, 0],
+                    resMove: 30, resStun: 45,
+                    resilience: 0, warding: 0,
+                    critEffects: [new Stat({
+                        effect: Data.Effect.PROTECTION,
+                        theorical: [3, 7],
+                        isPercentage: true,
+                        duration: 2
+                    })],
+                    variables: {
+                        threshold_weak: 50,
+                        threshold_normal: 30,
+                        state: "none",
+                        previous_health: 0,
+                        boost_protection: 0,
+                        boost_might: 0,
+                        protection_debuff: 30,
+                        might_debuff_rate: 0.25,
+                    },
+                    triggers: [
+                        new Trigger({
+                            name: "amarok_weak",
+                            type: [Data.TriggerType.ON_STAT_CHANGE, Data.TriggerType.ON_ADD_HEALTH, Data.TriggerType.ON_REMOVE_HEALTH],
+                            checker: function() {
+                                const amarok = this.owner;
                                 
+                                return (amarok.health >= ((amarok.variables.threshold_weak * amarok.maxHealth) / 100));
+                            },
+                            behavior: function() {
+                                const amarok = this.owner;
+    
+                                if(amarok.variables.state !== 'weak') {
+                                    amarok.variables.state = "weak";
+                                    
+                                    const bProt = amarok.bonuses.find(x => x.origin.name === 'Darkspawn [BOOSTED]' && x.stat.effect === Data.Effect.PROTECTION);
+                                    const bMight = amarok.bonuses.find(x => x.origin.name === 'Darkspawn [BOOSTED]' && x.stat.effect === Data.Effect.MIGHT);
+                                    if(bProt) amarok.alter({
+                                        uid: bProt.stat.uid,
+                                        action: Data.AlterAction.REMOVE
+                                    });
+                                    if(bMight) amarok.alter({
+                                        uid: bMight.stat.uid,
+                                        action: Data.AlterAction.REMOVE
+                                    });
+    
+                                    amarok.variables.boost_protection = 0;
+                                    amarok.variables.boost_might = 0;
+    
+                                    var might_debuff = -(amarok.might - Math.round(amarok.might - (amarok.might * amarok.variables.might_debuff_rate)));
+    
+                                    const bonuses = [
+                                        new Stat({
+                                            effect: Data.Effect.PROTECTION, 
+                                            theorical: -30, 
+                                            isPercentage: true
+                                        }),
+                                        new Stat({
+                                            effect: Data.Effect.MIGHT,
+                                            theorical: might_debuff,
+                                        })
+                                    ];
+                                    bonuses.forEach(bo => {
+                                        amarok.alter({
+                                            effect: bo,
+                                            action: Data.AlterAction.ADD,
+                                            origin: {
+                                                type: Data.ActiveEffectType.POWER,
+                                                name: 'Darkspawn [WEAK]'
+                                            },
+                                        });
+                                    });
+    
+                                    // add active effect and remove others
+                                    amarok.removeActiveEffect('Darkspawn [BOOSTED]');
+                                    amarok.activeEffects.push(new ActiveEffect({
+                                        name: 'Darkspawn [WEAK]',
+                                        originUser: amarok,
+                                        originObject: Data.ActiveEffectType.POWER,
+                                        effects: bonuses,
+                                        style: {
+                                            color: Data.Color.PURPLE,
+                                            bold: true
+                                        }
+                                    }));
+                                }
+                            }
+                        }),
+                        new Trigger({
+                            name: "amarok_normal",
+                            type: [Data.TriggerType.ON_STAT_CHANGE, Data.TriggerType.ON_ADD_HEALTH, Data.TriggerType.ON_REMOVE_HEALTH],
+                            checker: function(){
+                                const amarok = this.owner;
+                                
+                                return ((amarok.health < ((amarok.variables.threshold_weak * amarok.maxHealth) / 100)) && (amarok.health >= ((amarok.variables.threshold_normal * amarok.maxHealth) / 100)));
+                            },
+                            behavior: function(){
+                                const amarok = this.owner;
+    
+                                if(amarok.variables.state !== 'normal') {
+                                    const bProt = amarok.bonuses.find(x => x.origin.name === 'Darkspawn [WEAK]' && x.stat.effect === Data.Effect.PROTECTION);
+                                    const bMight = amarok.bonuses.find(x => x.origin.name === 'Darkspawn [WEAK]' && x.stat.effect === Data.Effect.MIGHT);
+                                    amarok.alter({
+                                        uid: bProt.stat.uid,
+                                        action: Data.AlterAction.REMOVE
+                                    });
+                                    amarok.alter({
+                                        uid: bMight.stat.uid,
+                                        action: Data.AlterAction.REMOVE
+                                    });
+                                    amarok.variables.state = 'normal';
+                                }
+                                amarok.variables.state = "normal";
+    
                                 const bProt = amarok.bonuses.find(x => x.origin.name === 'Darkspawn [BOOSTED]' && x.stat.effect === Data.Effect.PROTECTION);
                                 const bMight = amarok.bonuses.find(x => x.origin.name === 'Darkspawn [BOOSTED]' && x.stat.effect === Data.Effect.MIGHT);
                                 if(bProt) amarok.alter({
@@ -2443,38 +2524,91 @@ const Loader = {
                                     uid: bMight.stat.uid,
                                     action: Data.AlterAction.REMOVE
                                 });
-
+    
+                                //amarok.protection -= amarok.variables.boost_protection;
+                                //amarok.might -= amarok.variables.boost_might;
+                                
                                 amarok.variables.boost_protection = 0;
                                 amarok.variables.boost_might = 0;
-
-                                var might_debuff = -(amarok.might - Math.round(amarok.might - (amarok.might * amarok.variables.might_debuff_rate)));
-
+    
+                                /*const weak = amarok.getActiveEffect('Darkspawn [WEAK]');
+                                const boosted = amarok.getActiveEffect('Darkspawn [BOOSTED]');
+                                if(weak) removeFromArray(amarok.activeEffects, weak);
+                                if(boosted) removeFromArray(amarok.activeEffects, boosted);*/
+                                amarok.removeActiveEffect('Darkspawn [WEAK]');
+                                amarok.removeActiveEffect('Darkspawn [BOOSTED]');
+                            },
+                        }),
+                        new Trigger({
+                            name: "amarok_boosted",
+                            type: [Data.TriggerType.ON_STAT_CHANGE, Data.TriggerType.ON_ADD_HEALTH, Data.TriggerType.ON_REMOVE_HEALTH],
+                            checker: function(){
+                                const amarok = this.owner;
+    
+                                return (amarok.health < ((amarok.variables.threshold_normal * amarok.maxHealth) / 100));
+                            },
+                            behavior: function(){
+                                const amarok = this.owner;
+    
+                                if(amarok.variables.state === 'weak') {
+                                    const bProt = amarok.bonuses.find(x => x.origin.name === 'Darkspawn [WEAK]' && x.stat.effect === Data.Effect.PROTECTION);
+                                    const bMight = amarok.bonuses.find(x => x.origin.name === 'Darkspawn [WEAK]' && x.stat.effect === Data.Effect.MIGHT);
+                                    amarok.alter({
+                                        uid: bProt.stat.uid,
+                                        action: Data.AlterAction.REMOVE
+                                    });
+                                    amarok.alter({
+                                        uid: bMight.stat.uid,
+                                        action: Data.AlterAction.REMOVE
+                                    });
+                                    amarok.variables.state = 'boost';
+                                }
+    
+                                amarok.previous_health = amarok.health;
+    
+                                const bProt = amarok.bonuses.find(x => x.origin.name === 'Darkspawn [BOOSTED]' && x.stat.effect === Data.Effect.PROTECTION);
+                                const bMight = amarok.bonuses.find(x => x.origin.name === 'Darkspawn [BOOSTED]' && x.stat.effect === Data.Effect.MIGHT);
+                                if(bProt) amarok.alter({
+                                    uid: bProt.stat.uid,
+                                    action: Data.AlterAction.REMOVE
+                                });
+                                if(bMight) amarok.alter({
+                                    uid: bMight.stat.uid,
+                                    action: Data.AlterAction.REMOVE
+                                });
+    
+                                const multiplier = Math.round(amarok.variables.threshold_normal - (amarok.health * 100 / amarok.maxHealth));
+                                amarok.variables.boost_protection = Math.round(2 * multiplier);
+                                amarok.variables.boost_might = Math.round(3 * (multiplier / 2));
+    
                                 const bonuses = [
                                     new Stat({
-                                        effect: Data.Effect.PROTECTION, 
-                                        theorical: -30, 
+                                        effect: Data.Effect.PROTECTION,
+                                        theorical: amarok.variables.boost_protection,
                                         isPercentage: true
                                     }),
                                     new Stat({
                                         effect: Data.Effect.MIGHT,
-                                        theorical: might_debuff,
+                                        theorical: amarok.variables.boost_might,
                                     })
                                 ];
+    
                                 bonuses.forEach(bo => {
                                     amarok.alter({
                                         effect: bo,
                                         action: Data.AlterAction.ADD,
                                         origin: {
                                             type: Data.ActiveEffectType.POWER,
-                                            name: 'Darkspawn [WEAK]'
-                                        },
+                                            name: 'Darkspawn [BOOSTED]'
+                                        }
                                     });
-                                });
-
+                                })
+    
                                 // add active effect and remove others
                                 amarok.removeActiveEffect('Darkspawn [BOOSTED]');
+                                amarok.removeActiveEffect('Darkspawn [WEAK]');
                                 amarok.activeEffects.push(new ActiveEffect({
-                                    name: 'Darkspawn [WEAK]',
+                                    name: 'Darkspawn [BOOSTED]',
                                     originUser: amarok,
                                     originObject: Data.ActiveEffectType.POWER,
                                     effects: bonuses,
@@ -2484,130 +2618,350 @@ const Loader = {
                                     }
                                 }));
                             }
-                        }
-                    }),
-                    new Trigger({
-                        name: "amarok_normal",
-                        type: [Data.TriggerType.ON_STAT_CHANGE, Data.TriggerType.ON_ADD_HEALTH, Data.TriggerType.ON_REMOVE_HEALTH],
-                        checker: function(){
-                            const amarok = this.owner;
-                            
-                            return ((amarok.health < ((amarok.variables.threshold_weak * amarok.maxHealth) / 100)) && (amarok.health >= ((amarok.variables.threshold_normal * amarok.maxHealth) / 100)));
-                        },
-                        behavior: function(){
-                            const amarok = this.owner;
-
-                            if(amarok.variables.state !== 'normal') {
-                                const bProt = amarok.bonuses.find(x => x.origin.name === 'Darkspawn [WEAK]' && x.stat.effect === Data.Effect.PROTECTION);
-                                const bMight = amarok.bonuses.find(x => x.origin.name === 'Darkspawn [WEAK]' && x.stat.effect === Data.Effect.MIGHT);
-                                amarok.alter({
-                                    uid: bProt.stat.uid,
-                                    action: Data.AlterAction.REMOVE
-                                });
-                                amarok.alter({
-                                    uid: bMight.stat.uid,
-                                    action: Data.AlterAction.REMOVE
-                                });
-                                amarok.variables.state = 'normal';
+                        }),
+                        new Trigger({
+                            name: "amarok_ae_giver",
+                            type: Data.TriggerType.ON_BATTLE_START,
+                            behavior: function() {
+                                this.owner.runTriggers(Data.TriggerType.ON_STAT_CHANGE);
                             }
-                            amarok.variables.state = "normal";
-
-                            const bProt = amarok.bonuses.find(x => x.origin.name === 'Darkspawn [BOOSTED]' && x.stat.effect === Data.Effect.PROTECTION);
-                            const bMight = amarok.bonuses.find(x => x.origin.name === 'Darkspawn [BOOSTED]' && x.stat.effect === Data.Effect.MIGHT);
-                            if(bProt) amarok.alter({
-                                uid: bProt.stat.uid,
-                                action: Data.AlterAction.REMOVE
-                            });
-                            if(bMight) amarok.alter({
-                                uid: bMight.stat.uid,
-                                action: Data.AlterAction.REMOVE
-                            });
-
-                            //amarok.protection -= amarok.variables.boost_protection;
-                            //amarok.might -= amarok.variables.boost_might;
-                            
-                            amarok.variables.boost_protection = 0;
-                            amarok.variables.boost_might = 0;
-
-                            /*const weak = amarok.getActiveEffect('Darkspawn [WEAK]');
-                            const boosted = amarok.getActiveEffect('Darkspawn [BOOSTED]');
-                            if(weak) removeFromArray(amarok.activeEffects, weak);
-                            if(boosted) removeFromArray(amarok.activeEffects, boosted);*/
-                            amarok.removeActiveEffect('Darkspawn [WEAK]');
-                            amarok.removeActiveEffect('Darkspawn [BOOSTED]');
-                        },
-                    }),
-                    new Trigger({
-                        name: "amarok_boosted",
-                        type: [Data.TriggerType.ON_STAT_CHANGE, Data.TriggerType.ON_ADD_HEALTH, Data.TriggerType.ON_REMOVE_HEALTH],
-                        checker: function(){
-                            const amarok = this.owner;
-
-                            return (amarok.health < ((amarok.variables.threshold_normal * amarok.maxHealth) / 100));
-                        },
-                        behavior: function(){
-                            const amarok = this.owner;
-
-                            if(amarok.variables.state === 'weak') {
-                                const bProt = amarok.bonuses.find(x => x.origin.name === 'Darkspawn [WEAK]' && x.stat.effect === Data.Effect.PROTECTION);
-                                const bMight = amarok.bonuses.find(x => x.origin.name === 'Darkspawn [WEAK]' && x.stat.effect === Data.Effect.MIGHT);
-                                amarok.alter({
-                                    uid: bProt.stat.uid,
-                                    action: Data.AlterAction.REMOVE
-                                });
-                                amarok.alter({
-                                    uid: bMight.stat.uid,
-                                    action: Data.AlterAction.REMOVE
-                                });
-                                amarok.variables.state = 'boost';
+                        }),
+                        new Trigger({
+                            name: "amarok_darkspawn_reset",
+                            type: Data.TriggerType.ON_BATTLE_END,
+                            behavior: function() {
+                                this.owner.variables.state = "none";
+                                this.owner.variables.previous_health = 0;
+                                this.owner.variables.boost_protection = 0;
+                                this.owner.variables.boost_might = 0;
                             }
-
-                            amarok.previous_health = amarok.health;
-
-                            const bProt = amarok.bonuses.find(x => x.origin.name === 'Darkspawn [BOOSTED]' && x.stat.effect === Data.Effect.PROTECTION);
-                            const bMight = amarok.bonuses.find(x => x.origin.name === 'Darkspawn [BOOSTED]' && x.stat.effect === Data.Effect.MIGHT);
-                            if(bProt) amarok.alter({
-                                uid: bProt.stat.uid,
-                                action: Data.AlterAction.REMOVE
-                            });
-                            if(bMight) amarok.alter({
-                                uid: bMight.stat.uid,
-                                action: Data.AlterAction.REMOVE
-                            });
-
-                            const multiplier = Math.round(amarok.variables.threshold_normal - (amarok.health * 100 / amarok.maxHealth));
-                            amarok.variables.boost_protection = Math.round(2 * multiplier);
-                            amarok.variables.boost_might = Math.round(3 * (multiplier / 2));
-
-                            const bonuses = [
-                                new Stat({
-                                    effect: Data.Effect.PROTECTION,
-                                    theorical: amarok.variables.boost_protection,
-                                    isPercentage: true
-                                }),
-                                new Stat({
-                                    effect: Data.Effect.MIGHT,
-                                    theorical: amarok.variables.boost_might,
-                                })
-                            ];
-
+                        })
+                    ],
+                    striderType: Data.StriderType.TANK,
+                    uniqueName: "Darkspawn",
+                    uniqueDesc: '<div class="par">The lower Amarok\'s health, the higher his protection and damage.</div><div class="par bulleted"><span class="bold blue">Health above 50%</span> : -30% Protection, -25% Might</div><div class="par bulleted"><span class="bold blue">Health between 30% and 50%</span> : regular Protection, regular Might</div><div class="par bulleted"><span class="bold blue">Health below 30%</span> : +2% Protection per 1% Health loss, +3% Might per 2% Health loss</div>',
+                    uniqueQuote: '"For Ghirgynth\'s servants dance with the dead, Amarok\'s flesh slavers over pain."',
+                    uniqueIcon: 0,
+                    skillTree: what(game.all_skillTrees, "amarok"),
+                    skills: [
+                        new Skill(
+                            "Surge",
+                            "Deals light damage to all enemies and reduces their §Dodge§. Boosts Amarok's §Protection§ and reduces his §Might§ and §Spirit§.",
+                            13,
+                            {
+                                type: Data.SkillType.OFFENSIVE,
+                                manaCost: 5,
+                                cooldown: 1,
+                                dmgType: Data.SkillDamageType.PHYSICAL,
+                                dmgMultiplier: 35,
+                                criMultiplier: 5,
+                                accMultiplier: 75,
+                                targets: {allies: '-0', enemies: '@123'},
+                                launchPos: [false, true, true],
+                                effectsCaster: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.PROTECTION, theorical: 5, isPercentage: true, duration: 1}),
+                                            new Stat({effect: Data.Effect.MIGHT, theorical: -5, duration: 2}),
+                                            new Stat({effect: Data.Effect.SPIRIT, theorical: -5, duration: 2}),
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.PROTECTION, theorical: 7, isPercentage: true, duration: 1, isCritical: true}),
+                                            new Stat({effect: Data.Effect.MIGHT, theorical: -7, duration: 2, isCritical: true}),
+                                            new Stat({effect: Data.Effect.SPIRIT, theorical: -7, duration: 2, isCritical: true}),
+                                        ]
+                                    }
+                                },
+                                effectsEnemies: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.DODGE, theorical: -5, isPercentage: true, duration: 2})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.DODGE, theorical: -7, isPercentage: true, duration: 2, isCritical: true})
+                                        ],
+                                    }
+                                }
+                            }
+                        ),
+                        new Skill(
+                            "Exsanguinate",
+                            "Deals damage, applies §Bleeding§ and reduces §Speed§. §Heals§ Amarok.",
+                            14,
+                            {
+                                type: Data.SkillType.OFFENSIVE,
+                                manaCost: 20,
+                                cooldown: 3,
+                                dmgType: Data.SkillDamageType.PHYSICAL,
+                                dmgMultiplier: 150,
+                                criMultiplier: 10,
+                                accMultiplier: 90,
+                                targets: {allies: '-0', enemies: '-1'},
+                                launchPos: [false, false, true],
+                                effectsCaster: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.HEALTH, theorical: [15, 20], isPercentage: true, type: Data.StatType.ACTIVE})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.HEALTH, theorical: [18, 25], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true})
+                                        ]
+                                    }
+                                },
+                                effectsEnemies: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.BLEEDING_CURABLE, theorical: [4, 6], type: Data.StatType.ACTIVE, duration: 2}),
+                                            new Stat({effect: Data.Effect.SPEED, theorical: -5, duration: 2})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.BLEEDING_CURABLE, theorical: [5, 7], type: Data.StatType.ACTIVE, duration: 3, isCritical: true}),
+                                            new Stat({effect: Data.Effect.SPEED, theorical: -7, duration: 2, isCritical: true})
+                                        ]
+                                    }
+                                },
+                                condition: {
+                                    checker: function() {
+                                        const amarok = what(game.player.formation, "amarok");
+                                        return amarok.health <= amarok.variables.threshold_weak * amarok.maxHealth / 100;
+                                    },
+                                    message: "Amarok's §Health§ < 30%"
+                                }
+                            }
+                        ),
+                        new Skill(
+                            "Bloodbound",
+                            "Transfers a part of Amarok's §Health§ to the targeted ally, then applies a §Health regeneration§ bonus to Amarok. Boosts the targeted ally's §Speed§.",
+                            15,
+                            {
+                                type: Data.SkillType.FRIENDLY,
+                                manaCost: 15,
+                                cooldown: 3,
+                                criMultiplier: 10,
+                                accMultiplier: 100,
+                                targets: {allies: '-123', enemies: '-0'},
+                                launchPos: [true, true, false],
+                                effectsCaster: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.HEALTH, theorical: -20, isPercentage: true}),
+                                            new Stat({effect: Data.Effect.HEALTH, theorical: 3, isPercentage: true, type: Data.StatType.ACTIVE, duration: 3, delay: 1})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.HEALTH, theorical: -20, isPercentage: true, isCritical: true}),
+                                            new Stat({effect: Data.Effect.HEALTH, theorical: 4, isPercentage: true, type: Data.StatType.ACTIVE, duration: 3, delay: 1, isCritical: true})
+                                        ]
+                                    }
+                                },
+                                effectsAllies: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.HEALTH, theorical: 20, isPercentage: true, type: Data.StatType.ACTIVE}),
+                                            new Stat({effect: Data.Effect.SPEED, theorical: 2, duration: 1})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.HEALTH, theorical: 30, isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true}),
+                                            new Stat({effect: Data.Effect.SPEED, theorical: 4, duration: 1, isCritical: true})
+                                        ]
+                                    }
+                                }
+                            }
+                        ),
+                        new Skill(
+                            "Intervention",
+                            "§Guards§ an ally and increases his §Max. mana§.",
+                            16,
+                            {
+                                type: Data.SkillType.FRIENDLY,
+                                manaCost: 10,
+                                cooldown: 3,
+                                criMultiplier: 10,
+                                accMultiplier: 100,
+                                targets: {allies: '-123', enemies: '-0'},
+                                launchPos: [false, false, true],
+                                effectsCaster: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.GUARDING, duration: 2})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.GUARDING, duration: 2, isCritical: true})
+                                        ]
+                                    }
+                                },
+                                effectsAllies: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.GUARDED, duration: 2}),
+                                            new Stat({effect: Data.Effect.MAXMANA, theorical: [20, 25], isPercentage: true, duration: 2})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.GUARDED, duration: 2, isCritical: true}),
+                                            new Stat({effect: Data.Effect.MAXMANA, theorical: 30, isPercentage: true, duration: 2, isCritical: true})
+                                        ]
+                                    }
+                                },
+                                variables: {
+                                    guarded: null,
+                                    guarding: null
+                                }
+                            }
+                        ),
+                        new Skill(
+                            "Fulmination",
+                            "§Pulls§ an enemy and decreases their §Resilience§. Increases Amarok's §Might§.",
+                            17,
+                            {
+                                type: Data.SkillType.OFFENSIVE,
+                                manaCost: 10,
+                                cooldown: 2,
+                                dmgType: Data.SkillDamageType.MAGICAL,
+                                dmgMultiplier: 60,
+                                criMultiplier: 10,
+                                accMultiplier: 100,
+                                targets: {allies: '-0', enemies: '-3'},
+                                effectsCaster: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.MIGHT, theorical: [10, 15], duration: 2}),
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.MIGHT, theorical: 17, duration: 2, isCritical: true})
+                                        ]
+                                    }
+                                },
+                                effectsEnemies: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.PULL_TWO, chance: 100}),
+                                            new Stat({effect: Data.Effect.RESILIENCE, theorical: [-10, -15], duration: 2}),
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.PULL_TWO, chance: 130}),
+                                            new Stat({effect: Data.Effect.RESILIENCE, theorical: [-17, -20], duration: 2}),
+                                        ]
+                                    }
+                                }
+                            }
+                        )
+                    ],
+                    customBgPos: '10% 30%'
+                },
+            ),
+            new Strider(
+                {
+                    name: "Brim",
+                    desc: "Cursed by an ancient god for immortality, Brim is a vile highwayman damned to deal immense pain to any creature he encounters to feed the demon that holds his soul.",
+                    charset: Data.Charset.BRIM,
+                    subname: "The Bloodseeker",
+                    health: 100, mana: 100, stamina: 100,
+                    dodge: 10, speed: 10, accuracy: 90, protection: 0,
+                    might: 25, spirit: 25,
+                    resBleed: [0, 0], resPoison: [0, 0],
+                    resMove: 25, resStun: 25,
+                    resilience: 0, warding: 0,
+                    critEffects: [
+                        new Stat({effect: Data.Effect.DODGE, theorical: [3, 7], isPercentage: true})
+                    ],
+                    striderType: Data.StriderType.STRIKER,
+                    uniqueName: "Marked for Death",
+                    uniqueDesc: '<div class="par">Each successful hit from Brim on a enemy marks it with a <span class="bold blue">Black Glyph</span>, which can be stacked up 3 times. Each successful hit on an enemy that is marked with a <span class="bold blue">Black Glyph</span> triggers a Bleeding effect.</div><div class="par bulleted"><span class="bold blue">1 Black Glyph</span>: 2 Bleeding (2 rounds)</div><div class="par bulleted"><span class="bold blue">2 Black Glyphs</span>: 5 Bleeding (2 rounds)</div><div class="par bulleted"><span class="bold blue">3 Black Glyphs</span>: 8 Incurable Bleeding (3 rounds). Next hit removes all of the Black Glyphs on the target.</div>',
+                    uniqueQuote: '"An unnameable force carves a strange symbol on your very skin. You have been marked ; and death cannot be pushed back no more."',
+                    uniqueIcon: 0,
+                    skillTree: what(game.all_skillTrees, "amarok"),
+                    customBgPos: "top"
+                },
+            ),
+            new Strider(
+                {
+                    name: "Naka",
+                    desc: "An exiled swordsmonk living a lonely life of wander, Naka took up arms against the fiercest beasts of Mithor. She is seen by all as a symbol of hope and a banner of light in times of misfortune.",
+                    charset: Data.Charset.NAKA,
+                    subname: "The White Viper",
+                    health: 100, mana: 100, stamina: 100,
+                    dodge: 10, speed: 12, accuracy: 85, protection: 0,
+                    might: 15, spirit: 15,
+                    resBleed: [0, 0], resPoison: [0, 0],
+                    resMove: 30, resStun: 45,
+                    resilience: 0, warding: 0,
+                    critEffects: [
+                        new Stat({effect: Data.Effect.ACCURACY, theorical: [3, 7], isPercentage: true})
+                    ],
+                    striderType: Data.StriderType.SUPPORT,
+                    uniqueName: "Duellist's Stance",
+                    uniqueDesc: '<div class="par jus">Each time Naka attacks, she enters a <span class="bold blue">Backlash</span> state. Next time she is the target of an attack, she will attack too in return.</div><div class="par jus">If a <span class="bold blue">Backlash</span> successfully hits a target, the ally that has the lowest health gets healed with 100% of the <span class="bold blue">Backlash</span>\'s damage value.</div><div class="par bulleted"><span class="bold">When attacking: </span>enters <span class="bold blue">Backlash</span> state (Damage = 50% of Naka\'s <span class="bold blue">Might</span> value, Accuracy = 50%).</div><div class="par bulleted"><span class="bold">On successful backlash</span>: <span class="bold blue">Heals</span> the ally with the lowest health at 100% of the damage dealt by the <span class="bold blue">Backlash</span>.</div>',
+                    uniqueQuote: '"Don\'t be bold, play it safe. Stand still, unlock your knees and have your blade risen. Let the patience do you right : their ambition shall be their weakness."',
+                    uniqueIcon: 0,
+                    skillTree: what(game.all_skillTrees, "amarok"),
+                    customBgPos: "10% 50%"
+                },
+            ),
+            new Strider(
+                {
+                    name: "Carhal",
+                    desc: "Left for dead by a servant of Yzamir, a tree wrapped around Carhal's body and healed his wounds. Having carved a bow from that very tree, he then swore to hunt down the harbingers of Evil, forever.",
+                    charset: Data.Charset.CARHAL,
+                    subname: "The Relentless Scout",
+                    health: 100, mana: 100, stamina: 100,
+                    dodge: 10, speed: 12, accuracy: 85, protection: 0,
+                    might: 25, spirit: 25,
+                    resBleed: [0, 0], resPoison: [0, 0],
+                    resMove: 30, resStun: 45,
+                    resilience: 0, warding: 0,
+                    critEffects: [
+                        new Stat({effect: Data.Effect.MIGHT, theorical: [3, 7], duration: 2})
+                    ],
+                    variables: {
+                        "r_dodge": [5, 10, 15],
+                        "r_wpn_dmg": [10, 15, 25],
+                        "r_might": [10, 20, 35],
+                        "r_speed": [2, 4, 5],
+                        "r_stun_chance": [10, 15, 25],
+                        "r_recv_heal": [10, 15, 30],
+                        "r_accuracy": [5, 10, 20],
+                        "r_spirit": [5, 15, 35],
+                        "r_skill_dmg": [10, 15, 25],
+                        "stillTracker": 0,
+                        "rootsStage_Carhal": 0,
+                        getRootsBonuses: function(pos, tier){
+                            switch(pos) {
+                                case Data.FormationPosition.FRONT:
+                                    return [
+                                        new Stat({effect: Data.Effect.DODGE, theorical: this["r_dodge"][tier-1], isPercentage: true}),
+                                        new Stat({effect: Data.Effect.MODIF_DMG_WEAPON, theorical: this["r_wpn_dmg"][tier-1], isPercentage: true}),
+                                        new Stat({effect: Data.Effect.MIGHT, theorical: this["r_might"][tier-1]}),
+                                    ];
+                                case Data.FormationPosition.MIDDLE:
+                                    return [
+                                        new Stat({effect: Data.Effect.SPEED, theorical: this["r_speed"][tier-1]}),
+                                        new Stat({effect: Data.Effect.MODIF_CHANCE_STUN, theorical: this["r_stun_chance"][tier-1], isPercentage: true}),
+                                        new Stat({effect: Data.Effect.MODIF_HEAL_RECV, theorical: this["r_recv_heal"][tier-1], isPercentage: true}),
+                                    ];
+                                case Data.FormationPosition.BACK:
+                                    return [
+                                        new Stat({effect: Data.Effect.ACCURACY, theorical: this["r_accuracy"][tier-1], isPercentage: true}),
+                                        new Stat({effect: Data.Effect.SPIRIT, theorical: this["r_spirit"][tier-1]}),
+                                        new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: this["r_skill_dmg"][tier-1], isPercentage: true}),
+                                    ];
+                            }
+                        },
+                        addBonusesWithName: function(carhal, bonuses, name){
                             bonuses.forEach(bo => {
-                                amarok.alter({
+                                carhal.alter({
                                     effect: bo,
                                     action: Data.AlterAction.ADD,
                                     origin: {
                                         type: Data.ActiveEffectType.POWER,
-                                        name: 'Darkspawn [BOOSTED]'
+                                        name: name
                                     }
                                 });
-                            })
-
-                            // add active effect and remove others
-                            amarok.removeActiveEffect('Darkspawn [BOOSTED]');
-                            amarok.removeActiveEffect('Darkspawn [WEAK]');
-                            amarok.activeEffects.push(new ActiveEffect({
-                                name: 'Darkspawn [BOOSTED]',
-                                originUser: amarok,
+                            });
+                        },
+                        changeActiveEffect: function(oldName, newName, bonuses, carhal){
+                            carhal.removeActiveEffect(oldName);
+                            carhal.addActiveEffect(new ActiveEffect({
+                                name: newName,
+                                originUser: carhal,
                                 originObject: Data.ActiveEffectType.POWER,
                                 effects: bonuses,
                                 style: {
@@ -2615,994 +2969,672 @@ const Loader = {
                                     bold: true
                                 }
                             }));
-                        }
-                    }),
-                    new Trigger({
-                        name: "amarok_ae_giver",
-                        type: Data.TriggerType.ON_BATTLE_START,
-                        behavior: function() {
-                            this.owner.runTriggers(Data.TriggerType.ON_STAT_CHANGE);
-                        }
-                    }),
-                    new Trigger({
-                        name: "amarok_darkspawn_reset",
-                        type: Data.TriggerType.ON_BATTLE_END,
-                        behavior: function() {
-                            this.owner.variables.state = "none";
-                            this.owner.variables.previous_health = 0;
-                            this.owner.variables.boost_protection = 0;
-                            this.owner.variables.boost_might = 0;
-                        }
-                    })
-                ],
-                Data.StriderType.TANK,
-                "Darkspawn",
-                '<div class="par">The lower Amarok\'s health, the higher his protection and damage.</div><div class="par bulleted"><span class="bold blue">Health above 50%</span> : -30% Protection, -25% Might</div><div class="par bulleted"><span class="bold blue">Health between 30% and 50%</span> : regular Protection, regular Might</div><div class="par bulleted"><span class="bold blue">Health below 30%</span> : +2% Protection per 1% Health loss, +3% Might per 2% Health loss</div>',
-                '"For Ghirgynth\'s servants dance with the dead, Amarok\'s flesh slavers over pain."',
-                0,
-                what(game.all_skillTrees, "amarok"),
-                [
-                    new Skill(
-                        "Surge",
-                        "Deals light damage to all enemies and reduces their §Dodge§. Boosts Amarok's §Protection§ and reduces his §Might§ and §Spirit§.",
-                        13,
-                        {
-                            type: Data.SkillType.OFFENSIVE,
-                            manaCost: 5,
-                            cooldown: 1,
-                            dmgType: Data.SkillDamageType.PHYSICAL,
-                            dmgMultiplier: 35,
-                            criMultiplier: 5,
-                            accMultiplier: 75,
-                            targets: {allies: '-0', enemies: '@123'},
-                            launchPos: [false, true, true],
-                            effectsCaster: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.PROTECTION, theorical: 5, isPercentage: true, duration: 1}),
-                                        new Stat({effect: Data.Effect.MIGHT, theorical: -5, duration: 2}),
-                                        new Stat({effect: Data.Effect.SPIRIT, theorical: -5, duration: 2}),
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.PROTECTION, theorical: 7, isPercentage: true, duration: 1, isCritical: true}),
-                                        new Stat({effect: Data.Effect.MIGHT, theorical: -7, duration: 2, isCritical: true}),
-                                        new Stat({effect: Data.Effect.SPIRIT, theorical: -7, duration: 2, isCritical: true}),
-                                    ]
-                                }
-                            },
-                            effectsEnemies: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.DODGE, theorical: -5, isPercentage: true, duration: 2})
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.DODGE, theorical: -7, isPercentage: true, duration: 2, isCritical: true})
-                                    ],
-                                }
-                            }
-                        }
-                    ),
-                    new Skill(
-                        "Exsanguinate",
-                        "Deals damage, applies §Bleeding§ and reduces §Speed§. §Heals§ Amarok.",
-                        14,
-                        {
-                            type: Data.SkillType.OFFENSIVE,
-                            manaCost: 20,
-                            cooldown: 3,
-                            dmgType: Data.SkillDamageType.PHYSICAL,
-                            dmgMultiplier: 150,
-                            criMultiplier: 10,
-                            accMultiplier: 90,
-                            targets: {allies: '-0', enemies: '-1'},
-                            launchPos: [false, false, true],
-                            effectsCaster: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.HEALTH, theorical: [15, 20], isPercentage: true, type: Data.StatType.ACTIVE})
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.HEALTH, theorical: [18, 25], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true})
-                                    ]
-                                }
-                            },
-                            effectsEnemies: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.BLEEDING_CURABLE, theorical: [4, 6], type: Data.StatType.ACTIVE, duration: 2}),
-                                        new Stat({effect: Data.Effect.SPEED, theorical: -5, duration: 2})
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.BLEEDING_CURABLE, theorical: [5, 7], type: Data.StatType.ACTIVE, duration: 3, isCritical: true}),
-                                        new Stat({effect: Data.Effect.SPEED, theorical: -7, duration: 2, isCritical: true})
-                                    ]
-                                }
-                            },
-                            condition: {
-                                checker: function() {
-                                    const amarok = what(game.player.formation, "amarok");
-                                    return amarok.health <= amarok.variables.threshold_weak * amarok.maxHealth / 100;
-                                },
-                                message: "Amarok's §Health§ < 30%"
-                            }
-                        }
-                    ),
-                    new Skill(
-                        "Bloodbound",
-                        "Transfers a part of Amarok's §Health§ to the targeted ally, then applies a §Health regeneration§ bonus to Amarok. Boosts the targeted ally's §Speed§.",
-                        15,
-                        {
-                            type: Data.SkillType.FRIENDLY,
-                            manaCost: 15,
-                            cooldown: 3,
-                            criMultiplier: 10,
-                            accMultiplier: 100,
-                            targets: {allies: '-123', enemies: '-0'},
-                            launchPos: [true, true, false],
-                            effectsCaster: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.HEALTH, theorical: -20, isPercentage: true}),
-                                        new Stat({effect: Data.Effect.HEALTH, theorical: 3, isPercentage: true, type: Data.StatType.ACTIVE, duration: 3, delay: 1})
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.HEALTH, theorical: -20, isPercentage: true, isCritical: true}),
-                                        new Stat({effect: Data.Effect.HEALTH, theorical: 4, isPercentage: true, type: Data.StatType.ACTIVE, duration: 3, delay: 1, isCritical: true})
-                                    ]
-                                }
-                            },
-                            effectsAllies: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.HEALTH, theorical: 20, isPercentage: true, type: Data.StatType.ACTIVE}),
-                                        new Stat({effect: Data.Effect.SPEED, theorical: 2, duration: 1})
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.HEALTH, theorical: 30, isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true}),
-                                        new Stat({effect: Data.Effect.SPEED, theorical: 4, duration: 1, isCritical: true})
-                                    ]
-                                }
-                            }
-                        }
-                    ),
-                    new Skill(
-                        "Intervention",
-                        "§Guards§ an ally and increases his §Max. mana§.",
-                        16,
-                        {
-                            type: Data.SkillType.FRIENDLY,
-                            manaCost: 10,
-                            cooldown: 3,
-                            criMultiplier: 10,
-                            accMultiplier: 100,
-                            targets: {allies: '-123', enemies: '-0'},
-                            launchPos: [false, false, true],
-                            effectsCaster: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.GUARDING, duration: 2})
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.GUARDING, duration: 2, isCritical: true})
-                                    ]
-                                }
-                            },
-                            effectsAllies: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.GUARDED, duration: 2}),
-                                        new Stat({effect: Data.Effect.MAXMANA, theorical: [20, 25], isPercentage: true, duration: 2})
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.GUARDED, duration: 2, isCritical: true}),
-                                        new Stat({effect: Data.Effect.MAXMANA, theorical: 30, isPercentage: true, duration: 2, isCritical: true})
-                                    ]
-                                }
-                            },
-                            variables: {
-                                guarded: null,
-                                guarding: null
-                            }
-                        }
-                    ),
-                    new Skill(
-                        "Fulmination",
-                        "§Pulls§ an enemy and decreases their §Resilience§. Increases Amarok's §Might§.",
-                        17,
-                        {
-                            type: Data.SkillType.OFFENSIVE,
-                            manaCost: 10,
-                            cooldown: 2,
-                            dmgType: Data.SkillDamageType.MAGICAL,
-                            dmgMultiplier: 60,
-                            criMultiplier: 10,
-                            accMultiplier: 100,
-                            targets: {allies: '-0', enemies: '-3'},
-                            effectsCaster: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.MIGHT, theorical: [10, 15], duration: 2}),
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.MIGHT, theorical: 17, duration: 2, isCritical: true})
-                                    ]
-                                }
-                            },
-                            effectsEnemies: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.PULL_TWO, chance: 100}),
-                                        new Stat({effect: Data.Effect.RESILIENCE, theorical: [-10, -15], duration: 2}),
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.PULL_TWO, chance: 130}),
-                                        new Stat({effect: Data.Effect.RESILIENCE, theorical: [-17, -20], duration: 2}),
-                                    ]
-                                }
-                            }
-                        }
-                    )
-                ],
-                '10% 30%'
-            ),
-            new Strider(
-                "Brim",
-                "Cursed by an ancient god for immortality, Brim is a vile highwayman damned to deal immense pain to any creature he encounters to feed the demon that holds his soul.",
-                Data.Charset.BRIM,
-                "The Bloodseeker",
-                100, 100, 100,
-                10, 10, 90, 0, 25, 25,
-                [25, 0], [25, 0],
-                25, 25,
-                0, 0,
-                [new Stat({effect: Data.Effect.DODGE, theorical: [3, 7]})],
-                {},
-                [],
-                Data.StriderType.STRIKER,
-                "Marked for Death",
-                '<div class="par">Each successful hit from Brim on a enemy marks it with a <span class="bold blue">Black Glyph</span>, which can be stacked up 3 times. Each successful hit on an enemy that is marked with a <span class="bold blue">Black Glyph</span> triggers a Bleeding effect.</div><div class="par bulleted"><span class="bold blue">1 Black Glyph</span>: 2 Bleeding (2 rounds)</div><div class="par bulleted"><span class="bold blue">2 Black Glyphs</span>: 5 Bleeding (2 rounds)</div><div class="par bulleted"><span class="bold blue">3 Black Glyphs</span>: 8 Incurable Bleeding (3 rounds). Next hit removes all of the Black Glyphs on the target.</div>',
-                '"An unnameable force carves a strange symbol on your very skin. You have been marked ; and death cannot be pushed back no more."',
-                0,
-                what(game.all_skillTrees, "amarok"),
-                [],
-                'top'
-            ),
-            new Strider(
-                "Naka",
-                "An exiled swordsmonk living a lonely life of wander, Naka took up arms against the fiercest beasts of Mithor. She is seen by all as a symbol of hope and a banner of light in times of misfortune.",
-                Data.Charset.NAKA,
-                "The Hundred Headed Viper",
-                100, 100, 100,
-                10, 12, 85, 0, 15, 15,
-                [50, 50], [50, 50],
-                30, 45,
-                0, 0,
-                [new Stat({effect: Data.Effect.ACCURACY, theorical: [3, 7], isPercentage: true})],
-                {},
-                [],
-                Data.StriderType.SUPPORT,
-                "Duellist's Stance",
-                '<div class="par jus">Each time Naka attacks, she enters a <span class="bold blue">Backlash</span> state. Next time she is the target of an attack, she will attack too in return.</div><div class="par jus">If a <span class="bold blue">Backlash</span> successfully hits a target, the ally that has the lowest health gets healed with 100% of the <span class="bold blue">Backlash</span>\'s damage value.</div><div class="par bulleted"><span class="bold">When attacking: </span>enters <span class="bold blue">Backlash</span> state (Damage = 50% of Naka\'s <span class="bold blue">Might</span> value, Accuracy = 50%).</div><div class="par bulleted"><span class="bold">On successful backlash</span>: <span class="bold blue">Heals</span> the ally with the lowest health at 100% of the damage dealt by the <span class="bold blue">Backlash</span>.</div>',
-                '"Don\'t be bold, play it safe. Stand still, unlock your knees and have your blade risen. Let the patience do you right : their ambition shall be their weakness."',
-                1,
-                what(game.all_skillTrees, "amarok"),
-                [],
-                '10% 50%'
-            ),
-            new Strider(
-                "Carhal",
-                "Left for dead by a servant of Yzamir, a tree wrapped around Carhal's body and healed his wounds. Having carved a bow from that very tree, he then swore to hunt down the harbingers of Evil, forever.",
-                Data.Charset.CARHAL,
-                "The Relentless Scout",
-                100, 100, 100,
-                10, 12, 85, 0, 25, 25,
-                [50, 50], [50, 50],
-                30, 45,
-                0, 0,
-                [new Stat({effect: Data.Effect.MIGHT, theorical: [3, 7], duration: 2})],
-                {
-                    "r_dodge": [5, 10, 15],
-                    "r_wpn_dmg": [10, 15, 25],
-                    "r_might": [10, 20, 35],
-                    "r_speed": [2, 4, 5],
-                    "r_stun_chance": [10, 15, 25],
-                    "r_recv_heal": [10, 15, 30],
-                    "r_accuracy": [5, 10, 20],
-                    "r_spirit": [5, 15, 35],
-                    "r_skill_dmg": [10, 15, 25],
-                    "stillTracker": 0,
-                    "rootsStage_Carhal": 0,
-                    getRootsBonuses: function(pos, tier){
-                        switch(pos) {
-                            case Data.FormationPosition.FRONT:
-                                return [
-                                    new Stat({effect: Data.Effect.DODGE, theorical: this["r_dodge"][tier-1], isPercentage: true}),
-                                    new Stat({effect: Data.Effect.MODIF_DMG_WEAPON, theorical: this["r_wpn_dmg"][tier-1], isPercentage: true}),
-                                    new Stat({effect: Data.Effect.MIGHT, theorical: this["r_might"][tier-1]}),
-                                ];
-                            case Data.FormationPosition.MIDDLE:
-                                return [
-                                    new Stat({effect: Data.Effect.SPEED, theorical: this["r_speed"][tier-1]}),
-                                    new Stat({effect: Data.Effect.MODIF_CHANCE_STUN, theorical: this["r_stun_chance"][tier-1], isPercentage: true}),
-                                    new Stat({effect: Data.Effect.MODIF_HEAL_RECV, theorical: this["r_recv_heal"][tier-1], isPercentage: true}),
-                                ];
-                            case Data.FormationPosition.BACK:
-                                return [
-                                    new Stat({effect: Data.Effect.ACCURACY, theorical: this["r_accuracy"][tier-1], isPercentage: true}),
-                                    new Stat({effect: Data.Effect.SPIRIT, theorical: this["r_spirit"][tier-1]}),
-                                    new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: this["r_skill_dmg"][tier-1], isPercentage: true}),
-                                ];
-                        }
+                        },
+                        "tier1": "Sentient Roots [SHALLOW]",
+                        "tier2": "Sentient Roots [GROWING]",
+                        "tier3": "Sentient Roots [ENTRENCHED]",
+                        "previousPos": null,
                     },
-                    addBonusesWithName: function(carhal, bonuses, name){
-                        bonuses.forEach(bo => {
-                            carhal.alter({
-                                effect: bo,
-                                action: Data.AlterAction.ADD,
-                                origin: {
-                                    type: Data.ActiveEffectType.POWER,
-                                    name: name
-                                }
-                            });
-                        });
-                    },
-                    changeActiveEffect: function(oldName, newName, bonuses, carhal){
-                        carhal.removeActiveEffect(oldName);
-                        carhal.addActiveEffect(new ActiveEffect({
-                            name: newName,
-                            originUser: carhal,
-                            originObject: Data.ActiveEffectType.POWER,
-                            effects: bonuses,
-                            style: {
-                                color: Data.Color.PURPLE,
-                                bold: true
-                            }
-                        }));
-                    },
-                    "tier1": "Sentient Roots [SHALLOW]",
-                    "tier2": "Sentient Roots [GROWING]",
-                    "tier3": "Sentient Roots [ENTRENCHED]",
-                    "previousPos": null,
-                },
-                [
-                    new Trigger({
-                        name: "carhal_roots",
-                        type: Data.TriggerType.ON_TURN_BEGIN,
-                        behavior: function(){
-                            console.log('CACA');
-                            const carhal = this.owner;
-                            const vars = carhal.variables;
-
-                            // Set current position
-                            vars.previousPos = carhal.getSelfPosInBattle();
-
-                            // Increase the stationary tracker if below 5 (max. value)
-                            vars.stillTracker < 4 && vars.stillTracker++;
-
-                            if(vars.stillTracker == 2 && vars.rootsStage_Carhal === 0) {
-                                // Shallow roots
-                                vars.rootsStage_Carhal++;
-
-                                // Retrieve bonuses according to pos
-                                const pos = carhal.getSelfPosInBattle();
-                                const bonuses = vars.getRootsBonuses(pos, vars.rootsStage_Carhal);
-                                // Apply alterations
-                                vars.addBonusesWithName(carhal, bonuses, vars.tier1);
-                                // Apply ActiveEffect
-                                vars.changeActiveEffect('', vars.tier1, bonuses, carhal);
-                            } else if(vars.stillTracker == 3 && vars.rootsStage_Carhal === 1) {
-                                // Growing roots
-                                vars.rootsStage_Carhal++;
-
-                                // Retrieve bonuses according to pos
-                                const pos = carhal.getSelfPosInBattle();
-                                const bonuses = vars.getRootsBonuses(pos, vars.rootsStage_Carhal);
-
-                                // Remove previous bonuses
-                                carhal.removeAllBonusesWithName(vars.tier1);
-                                // Add new bonuses
-                                vars.addBonusesWithName(carhal, bonuses, vars.tier2);
-                                // Remove old ActiveEffect
-                                vars.changeActiveEffect(vars.tier1, vars.tier2, bonuses, carhal);
-                            } else if(vars.stillTracker === 4 && vars.rootsStage_Carhal === 2) {
-                                // Entrenched roots
-                                vars.rootsStage_Carhal++;
-
-                                // Retrieve bonuses according to pos
-                                const pos = carhal.getSelfPosInBattle();
-                                const bonuses = vars.getRootsBonuses(pos, vars.rootsStage_Carhal);
-
-                                // Remove previous bonuses
-                                carhal.removeAllBonusesWithName(vars.tier2);
-                                // Add new bonuses
-                                vars.addBonusesWithName(carhal, bonuses, vars.tier3);
-                                // Remove old ActiveEffect
-                                vars.changeActiveEffect(vars.tier2, vars.tier3, bonuses, carhal);
-                            }
-                        }
-                    }),
-                    new Trigger({
-                        name: 'carhal_roots_move',
-                        type: Data.TriggerType.ON_RECV_MOVE,
-                        behavior: function(){
-                            const carhal = this.owner;
-                            const vars = carhal.variables;
-                            console.log('Carhal Movement Trigger');
-
-                            const currentTier = vars["tier" + vars.rootsStage_Carhal];
-                            console.log('Current SentientRoots tier : ' + currentTier);
-                            // Add duration to bonuses to make them last 2 rounds
-                            if(currentTier) {
-                                carhal.bonuses.filter(x => x.origin.name === currentTier)?.map(x => x.stat.duration = 2);
-                                carhal.getActiveEffect(currentTier)?.effects.map(x => x.duration = 2);
-
-                                // Retrieve the new NPC on Carhal's ancient position
-                                const npc = getFighterFromPositionAndType(Data.BattleFighterType.HERO, vars.previousPos);
-                                console.log('The NPC on Carhal\'s previous position is now ' + npc.name);
-
-                                // Apply same bonuses to that NPC
-                                let bonuses = vars.getRootsBonuses(vars.previousPos, vars.rootsStage_Carhal);
-                                bonuses.map(x => x.duration = 2);
-                                vars.addBonusesWithName(npc, bonuses, currentTier);
-                                vars.changeActiveEffect('', currentTier, bonuses, npc);
-                            }
-                            // Reset trackers
-                            vars.rootsStage_Carhal = 0;
-                            vars.stillTracker = 0;
-                        }
-                    }),
-                    new Trigger({
-                        name: "carhal_roots_reset",
-                        type: Data.TriggerType.ON_BATTLE_END,
-                        behavior: function() {
-                            this.owner.variables.stillTracker = 0;
-                            this.owner.variables.rootsStage_Carhal = 0;
-                            this.owner.variables.previousPos = null;
-                        }
-                    })
-                ],
-                Data.StriderType.STRIKER,
-                "Sentient Roots",
-                '<div class="par jus">Remaining stationary for two consecutive rounds will trigger <span class="bold blue">Root</span> bonuses, increasing further each round up to 3 Tiers: <span class="bold blue">Shallow Roots</span>, <span class="bold blue">Growing Roots</span> and <span class="bold blue">Entrenched Roots</span>. Bonuses vary according to Carhal\'s position.</div><div class="par bulleted"><span class="bold">Front</span>: Increased <span class="bold blue">Dodge</span>, <span class="bold blue">Might</span> and <span class="bold blue">Weapon Damage</span></div><div class="par bulleted"><span class="bold">Middle</span>: Increased <span class="bold blue">Speed</span>, <span class="bold blue">Stun Chance</span> and <span class="bold blue">Received heal</span></div><div class="par bulleted"><span class="bold">Back:</span> Increased <span class="bold blue">Accuracy</span>, <span class="bold blue">Spirit</span> and <span class="bold blue">Skill damage</span></div><div class="par jus">Once Carhal leaves a position, the <span class="bold blue">Roots</span> bonus will persist for two rounds, and will be also applied to the Strider who arrives on that position.</div>',
-                '"As trees are never the same, Carhal danced, backed and leapt with them, blessed with all the virtues that nature had to offer."',
-                0,
-                what(game.all_skillTrees, "amarok"),
-                [
-                    new Skill(
-                        "Fallback",
-                        "§Moves backwards§ and increases Carhal's §Dodge§.",
-                        13,
-                        {
-                            type: Data.SkillType.FRIENDLY,
-                            manaCost: 5,
-                            criMultiplier: 15,
-                            accMultiplier: 100,
-                            cooldown: 2,
-                            launchPos: [false, true, true],
-                            effectsCaster: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.BACK_ONE}),
-                                        new Stat({effect: Data.Effect.DODGE, theorical: 5, duration: 2, isPercentage: true}),
-                                        new Stat({effect: Data.Effect.ACCURACY, theorical: [5, 8], duration: 2, isPercentage: true})
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.BACK_ONE}),
-                                        new Stat({effect: Data.Effect.DODGE, theorical: 7, duration: 2, isPercentage: true, isCritical: true}),
-                                        new Stat({effect: Data.Effect.ACCURACY, theorical: 10, duration: 2, isPercentage: true})
-                                    ]
+                    triggers: [
+                        new Trigger({
+                            name: "carhal_roots",
+                            type: Data.TriggerType.ON_TURN_BEGIN,
+                            behavior: function(){
+                                console.log('CACA');
+                                const carhal = this.owner;
+                                const vars = carhal.variables;
+    
+                                // Set current position
+                                vars.previousPos = carhal.getSelfPosInBattle();
+    
+                                // Increase the stationary tracker if below 5 (max. value)
+                                vars.stillTracker < 4 && vars.stillTracker++;
+    
+                                if(vars.stillTracker == 2 && vars.rootsStage_Carhal === 0) {
+                                    // Shallow roots
+                                    vars.rootsStage_Carhal++;
+    
+                                    // Retrieve bonuses according to pos
+                                    const pos = carhal.getSelfPosInBattle();
+                                    const bonuses = vars.getRootsBonuses(pos, vars.rootsStage_Carhal);
+                                    // Apply alterations
+                                    vars.addBonusesWithName(carhal, bonuses, vars.tier1);
+                                    // Apply ActiveEffect
+                                    vars.changeActiveEffect('', vars.tier1, bonuses, carhal);
+                                } else if(vars.stillTracker == 3 && vars.rootsStage_Carhal === 1) {
+                                    // Growing roots
+                                    vars.rootsStage_Carhal++;
+    
+                                    // Retrieve bonuses according to pos
+                                    const pos = carhal.getSelfPosInBattle();
+                                    const bonuses = vars.getRootsBonuses(pos, vars.rootsStage_Carhal);
+    
+                                    // Remove previous bonuses
+                                    carhal.removeAllBonusesWithName(vars.tier1);
+                                    // Add new bonuses
+                                    vars.addBonusesWithName(carhal, bonuses, vars.tier2);
+                                    // Remove old ActiveEffect
+                                    vars.changeActiveEffect(vars.tier1, vars.tier2, bonuses, carhal);
+                                } else if(vars.stillTracker === 4 && vars.rootsStage_Carhal === 2) {
+                                    // Entrenched roots
+                                    vars.rootsStage_Carhal++;
+    
+                                    // Retrieve bonuses according to pos
+                                    const pos = carhal.getSelfPosInBattle();
+                                    const bonuses = vars.getRootsBonuses(pos, vars.rootsStage_Carhal);
+    
+                                    // Remove previous bonuses
+                                    carhal.removeAllBonusesWithName(vars.tier2);
+                                    // Add new bonuses
+                                    vars.addBonusesWithName(carhal, bonuses, vars.tier3);
+                                    // Remove old ActiveEffect
+                                    vars.changeActiveEffect(vars.tier2, vars.tier3, bonuses, carhal);
                                 }
                             }
-                        }
-                    ),
-                    new Skill(
-                        "Howling Arrow",
-                        "§Stuns§ an enemy.",
-                        14,
-                        {
-                            type: Data.SkillType.OFFENSIVE,
-                            dmgType: Data.SkillDamageType.MAGICAL,
-                            manaCost: 10,
-                            dmgMultiplier: 100,
-                            criMultiplier: 10,
-                            accMultiplier: 90,
-                            cooldown: 1,
-                            launchPos: [true, true, false],
-                            targets: {allies: '-0', enemies: '-123'},
-                            effectsEnemies: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.STUN, duration: 1})
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.STUN, duration: 2})
-                                    ]
+                        }),
+                        new Trigger({
+                            name: 'carhal_roots_move',
+                            type: Data.TriggerType.ON_RECV_MOVE,
+                            behavior: function(){
+                                const carhal = this.owner;
+                                const vars = carhal.variables;
+                                console.log('Carhal Movement Trigger');
+    
+                                const currentTier = vars["tier" + vars.rootsStage_Carhal];
+                                console.log('Current SentientRoots tier : ' + currentTier);
+                                // Add duration to bonuses to make them last 2 rounds
+                                if(currentTier) {
+                                    carhal.bonuses.filter(x => x.origin.name === currentTier)?.map(x => x.stat.duration = 2);
+                                    carhal.getActiveEffect(currentTier)?.effects.map(x => x.duration = 2);
+    
+                                    // Retrieve the new NPC on Carhal's ancient position
+                                    const npc = getFighterFromPositionAndType(Data.BattleFighterType.HERO, vars.previousPos);
+                                    console.log('The NPC on Carhal\'s previous position is now ' + npc.name);
+    
+                                    // Apply same bonuses to that NPC
+                                    let bonuses = vars.getRootsBonuses(vars.previousPos, vars.rootsStage_Carhal);
+                                    bonuses.map(x => x.duration = 2);
+                                    vars.addBonusesWithName(npc, bonuses, currentTier);
+                                    vars.changeActiveEffect('', currentTier, bonuses, npc);
                                 }
+                                // Reset trackers
+                                vars.rootsStage_Carhal = 0;
+                                vars.stillTracker = 0;
                             }
-                        }
-                    ),
-                    new Skill(
-                        "Grappling Ballista",
-                        "Deals damage that ignores protection. Applies §Bleeding§ to the target. §Pushes back§ the target, then §Pulls it§ after one round.",
-                        16,
-                        {
-                            type: Data.SkillType.OFFENSIVE,
-                            dmgType: Data.SkillDamageType.PHYSICAL,
-                            manaCost: 15,
-                            dmgMultiplier: 90,
-                            criMultiplier: 15,
-                            accMultiplier: 100,
-                            cooldown: 1,
-                            launchPos: [true, true, false],
-                            targets: {allies: '-0', enemies: '-2'},
-                            ignoresProtection: true,
-                            effectsEnemies: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.BLEEDING_CURABLE, theorical: [3, 4], type: Data.StatType.ACTIVE, duration: 2}),
-                                        new Stat({effect: Data.Effect.PUSH_ONE, chance: 150}),
-                                        new Stat({effect: Data.Effect.PULL_ONE, chance: 150, delay: 1, duration: 1})
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.BLEEDING_CURABLE, theorical: 5, type: Data.StatType.ACTIVE, duration: 2, isCritical: true}),
-                                        new Stat({effect: Data.Effect.PUSH_ONE, chance: 150, isCritical: true}),
-                                        new Stat({effect: Data.Effect.PULL_ONE, chance: 150, delay: 1, duration: 1, isCritical: true})
-                                    ]
-                                }
+                        }),
+                        new Trigger({
+                            name: "carhal_roots_reset",
+                            type: Data.TriggerType.ON_BATTLE_END,
+                            behavior: function() {
+                                this.owner.variables.stillTracker = 0;
+                                this.owner.variables.rootsStage_Carhal = 0;
+                                this.owner.variables.previousPos = null;
                             }
-                        }
-                    ),
-                    new Skill(
-                        "Concussive Blast",
-                        "Deals damage to enemies and applies a §Stamina regeneration§ boost to Carhal. Has a chance to §Stun§ Carhal.",
-                        15,
-                        {
-                            type: Data.SkillType.OFFENSIVE,
-                            dmgType: Data.SkillDamageType.MAGICAL,
-                            manaCost: 15,
-                            dmgMultiplier: 120,
-                            criMultiplier: 20,
-                            accMultiplier: 85,
-                            cooldown: 2,
-                            launchPos: [true, false, false],
-                            targets: {allies: '-0', enemies: '@12'},
-                            effectsCaster: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.STUN, duration: 1, chance: 50}),
-                                        new Stat({effect: Data.Effect.STAMINA, duration: 2, theorical: 4, isPercentage: true, type: Data.StatType.ACTIVE})
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.STUN, duration: 1, chance: 45, isCritical: true}),
-                                        new Stat({effect: Data.Effect.STAMINA, duration: 2, theorical: 4, isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true})
-                                    ]
-                                }
-                            }
-                        }
-                    )
-                ],
-                '10% 10%'
-            ),
-            new Strider(
-                "Ifrin",
-                "A fearsome mage, Ifrin was banned from the Order of Rhun upon harnessing the power of Yorll's corrupted magic, and is now on a constant need of enhancing her knowledge of the dark arts.",
-                Data.Charset.IFRIN,
-                "The Prophet of Kaphyst",
-                100, 100, 100,
-                10, 12, 85, 0, 20, 20,
-                [50, 50], [50, 50],
-                30, 45,
-                0, 0,
-                [new Stat({effect: Data.Effect.MAXMANA, theorical: [15, 25]})],
-                {},
-                [],
-                Data.StriderType.TANK,
-                "Witchskin",
-                "Witchskin's power description",
-                'quote',
-                1,
-                what(game.all_skillTrees, "amarok"),
-                [],
-                '10% 70%'
-            ),
-            new Strider(
-                "Betheros",
-                "Betheros has traveled the roads of the world as an itinerant bard, spreading inspiring melodies and wise words. It is said that those who met him were changed forever.",
-                Data.Charset.BETHEROS,
-                "The Bringer of Good Faith",
-                100, 100, 100,
-                10, 12, 85, 0, 15, 15,
-                [50, 50], [50, 50],
-                30, 45,
-                0, 0,
-                [new Stat({effect: Data.Effect.MODIF_HEAL_GIVEN, theorical: [3, 7], isPercentage: true, duration: 2})],
-                {
-                    life_channel_rate: 0.10,
-                },
-                [
-                    new Trigger({
-                        name: 'betheros_lifechannel',
-                        type: [Data.TriggerType.ON_RECV_DAMAGE, Data.TriggerType.ON_DEAL_DAMAGE],
-                        behavior: function(){
-                            console.info('BETHEROS LIFE CHANNEL TRIGGERED!');
-                            console.info(game.battle.params);
-                            const params = game.battle.params;
-
-                            const healAmount = Math.ceil((params.phys_damage + params.magi_damage + params.crit_damage) * this.owner.variables.life_channel_rate);
-                            console.log('Healing to all others: ' + healAmount);
-
-                            if(healAmount > 0) {
-                                game.battle.allies
-                                .filter(x => x.name.toLowerCase() !== "betheros")
-                                .forEach(al => {
-                                    al.addBaseStat(new Stat({effect: Data.Effect.HEALTH, theorical: healAmount}));
-                                });
-                            }
-                        }
-                    })
-                ],
-                Data.StriderType.SUPPORT,
-                "Life Channel",
-                '<div class="par">Each time Betheros deals or takes damage, the rest of the team is healed 10% of the damage amount.</div>',
-                '"Through the pain, you shall heal. And through healing, you shall embrace inner peace."',
-                0,
-                what(game.all_skillTrees, "amarok"),
-                [
-                    new Skill(
-                        "Inner Fire",
-                        "§Heals§ Betheros. Boosts the target's §Skill damage§ and replenishes their §Mana§ if it is an ally; reduces them if it's an enemy.",
-                        13,
-                        {
-                            type: Data.SkillType.FRIENDLY,
-                            manaCost: 5,
-                            critMultiplier: 20,
-                            accMultiplier: 85,
-                            targets: {allies: '-123', enemies: '-123'},
-                            effectsCaster: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.HEALTH, theorical: [5, 12], isPercentage: true, type: Data.StatType.ACTIVE})
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.HEALTH, theorical: [12, 18], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true})
-                                    ]
-                                }
-                            },
-                            effectsAllies: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [13, 15], isPercentage: true, duration: 2}),
-                                        new Stat({effect: Data.Effect.MANA, theorical: [15, 20], isPercentage: true, type: Data.StatType.ACTIVE})
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [20, 22], isPercentage: true, duration: 2, isCritical: true}),
-                                        new Stat({effect: Data.Effect.MANA, theorical: [25, 25], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true})
-                                    ]
-                                }
-                            },
-                            effectsEnemies: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [-10, -15], isPercentage: true, duration: 1}),
-                                        new Stat({effect: Data.Effect.MANA, theorical: [-8, -10], isPercentage: true, type: Data.StatType.ACTIVE})
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [-25, -25], isPercentage: true, duration: 2, isCritical: true}),
-                                        new Stat({effect: Data.Effect.MANA, theorical: [-15, -15], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true})
-                                    ]
-                                }
-                            }
-                        }
-                    ),
-                    new Skill(
-                        "Ardas Garin",
-                        "Applies §Shield§ to all allies.",
-                        14,
-                        {
-                            type: Data.SkillType.FRIENDLY,
-                            manaCost: 20,
-                            critMultiplier: 15,
-                            accMultiplier: 100,
-                            targets: {allies: '@123', enemies: '-0'},
-                            cooldown: 3,
-                            launchPos: [true, false, false],
-                            effectsAllies: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.SHIELD, theorical: [20, 25], duration: 3})
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.SHIELD, theorical: [25, 30], duration: 4, isCritical: true})
-                                    ]
-                                }
-                            },
-                        }
-                    ),
-                    new Skill(
-                        "Banishment",
-                        "§Pushes back§ an enemy. §Heals§ Betheros.",
-                        15,
-                        {
-                            type: Data.SkillType.OFFENSIVE,
-                            manaCost: 5,
-                            dmgType: Data.SkillDamageType.MAGICAL,
-                            dmgMultiplier: 20,
-                            criMultiplier: 10,
-                            accMultiplier: 85,
-                            targets: {allies: '-0', enemies: '-12'},
-                            cooldown: 1,
-                            launchPos: [true, true, false],
-                            effectsCaster: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.HEALTH, theorical: [3, 6], isPercentage: true, type: Data.StatType.ACTIVE})
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.HEALTH, theorical: [5, 8], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true})
-                                    ]
-                                }
-                            },
-                            effectsEnemies: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.PUSH_ONE})
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.PUSH_ONE})
-                                    ]
-                                }
-                            }
-                        }
-                    ),
-                    new Skill(
-                        "Arcane Mending",
-                        "§Heals§ the targeted ally. Increases Betheros' §Given healing§.",
-                        16,
-                        {
-                            type: Data.SkillType.FRIENDLY,
-                            manaCost: 10,
-                            criMultiplier: 15,
-                            targets: {allies: '-123', enemies: '-0'},
-                            effectsCaster: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.MODIF_HEAL_GIVEN, theorical: [5, 10], isPercentage: true, duration: 2})
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.MODIF_HEAL_GIVEN, theorical: [10, 15], isPercentage: true, duration: 2})
-                                    ]
-                                }
-                            },
-                            effectsAllies: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.HEALTH, theorical: [10, 15], isPercentage: true, type: Data.StatType.ACTIVE})
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.HEALTH, theorical: [15, 20], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true})
-                                    ]
-                                }
-                            }
-                        }
-                    ),
-                    new Skill(
-                        "Dazzling Truth",
-                        "Replenishes Betheros' §Mana§ and boosts his §Accuracy§. Reduces the targets' §Dodge§.",
-                        17,
-                        {
-                            type: Data.SkillType.OFFENSIVE,
-                            dmgType: Data.SkillDamageType.MAGICAL,
-                            manaCost: 20,
-                            dmgMultiplier: 90,
-                            accMultiplier: 90,
-                            criMultiplier: 10,
-                            targets: {allies: '-0', enemies: '@23'},
-                            cooldown: 2,
-                            effectsCaster: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.MANA, theorical: [10, 15], isPercentage: true, type: Data.StatType.ACTIVE, duration: 2}),
-                                        new Stat({effect: Data.Effect.ACCURACY, theorical: 10, isPercentage: true, duration: 3})
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.MANA, theorical: [15, 20], isPercentage: true, type: Data.StatType.ACTIVE, duration: 2, isCritical: true}),
-                                        new Stat({effect: Data.Effect.ACCURACY, theorical: 15, isPercentage: true, duration: 3, isCritical: true})
-                                    ]
-                                }
-                            },
-                            effectsEnemies: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.DODGE, theorical: [-5, -8], isPercentage: true, duration: 3})
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.DODGE, theorical: [-8, -12], isPercentage: true, duration: 3, isCritical: true})
-                                    ]
-                                }
-                            }
-                        }
-                    )
-                ],
-                '10% 30%'
-            ),
-            new Strider(
-                "Arazoth",
-                "A bastion for the weak, the unbreakable lion shepherd Arazoth rejected the gods long ago. Through a thousand battles, he has never bled - and death itself avoids to mention his name.",
-                Data.Charset.ARAZOTH,
-                "The Shepherd",
-                100, 100, 100,
-                10, 12, 85, 0, 5, 5,
-                [50, 50], [50, 50],
-                30, 45,
-                0, 0,
-                [new Stat({effect: Data.Effect.PROTECTION, theorical: [3, 7], isPercentage: true})],
-                {},
-                [],
-                Data.StriderType.TANK,
-                "Sherpherd's Ward",
-                "Sherpherd's Ward's power description",
-                'quote',
-                1,
-                what(game.all_skillTrees, "amarok"),
-                [],
-                '10% 30%'
-            ),
-            new Strider(
-                "Haman",
-                "A crack in reality allowed Haman to see beyond the sane world. A part of his soul has entered this breach, from which he now draws his unspeakable powers.",
-                Data.Charset.HAMAN,
-                "The Witness",
-                100, 100, 100,
-                10, 12, 85, 0, 5, 5,
-                [50, 50], [50, 50],
-                30, 45,
-                0, 0,
-                [new Stat({effect: Data.Effect.WARDING, theorical: [3, 7]})],
-                {},
-                [],
-                Data.StriderType.SUPPORT,
-                "Whispers",
-                '<div class="par jus">Each entity that is targeted by one of Haman\'s skills enters a <span class="bold blue">Madness</span> state. Each skill further cast on a same target increases their Madness state by 1, up to 5. Various bonuses and maluses can be applied by consuming the <span class="bold blue">Madness</span> state, through Haman\'s <span class="bold blue">Hallucinate</span> and <span class="bold blue">Quadrate Hour</span> skills.</div><div class="par bulleted"><span class="bold">Madness I</span>: Affects <span class="bold blue">Dodge</span> and <span class="bold blue">Accuracy</span></div><div class="par bulleted"><span class="bold">Madness II<span>: Affects <span class="bold blue">Protection</span></div><div class="par bulleted"><span class="bold">Madness III<span>: Affects <span class="bold blue">Received Heal</span> and <span class="bold  blue">Max. health</span></div><div class="par bulleted"><span class="bold">Madness IV<span>: Affects <span class="bold blue">Bleed and Poison resistance</span> and <span class="bold blue">Block value</span></div><div class="par bulleted"><span class="bold">Madness V<span>: Affects <span class="bold blue">Speed</span> and <span class="bold blue">Total damage</span></div>',
-                '"We are so fragile, compartmentalized in our narrow view of the world; and exposing our minds to new perspectives, to raw and violent realities, is wonderful, and devastating."',
-                0,
-                what(game.all_skillTrees, "amarok"),
-                [
-                    new Skill(
-                        "Revelation",
-                        "Reduces the target's §Protection§. While the malus is active, if Haman attacks another target, the effect is canceled and applied to Haman for one round.",
-                        1,
-                        {
-                            type: Data.SkillType.OFFENSIVE,
-                            manaCost: 10,
-                            dmgMultiplier: 95,
-                            criMultiplier: 10,
-                            accMultiplier: 95,
-                            dmgType: Data.SkillDamageType.MAGICAL,
-                            cooldown: 2,
-                            launchPos: [true, true, false],
-                            targets: {allies: '-0', enemies: '-123'},
-                            effectsEnemies: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.PROTECTION, theorical: [-35, -40], isPercentage: true, duration: 2})
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.PROTECTION, theorical: -45, isPercentage: true, duration: 2})
-                                    ],
-                                }
-                            },
-                            variables: {
-                                storedTarget: null
-                            },
-                            onCast: function(){
-                                this.variables.storedTarget = game.battle.target[0];
-                                console.log("Stored " + this.variables.storedTarget.name + " as Revelation's catalyst");
-                            },
-                            triggersCaster: [
-                                new Trigger({
-                                    name: "revelationTrigger",
-                                    type: Data.TriggerType.ON_ATTACK,
-                                    checker: function(){
-                                        const tar = game.battle.target[game.battle.targetTracker];
-
-                                        if(tar !== this.getOwner().variables.storedTarget) {
-                                            console.error("-----------DIFFERENT TARGET!!");
-                                        } else console.error("-----------SAME TARGET!!");
+                        })
+                    ],
+                    type: Data.StriderType.STRIKER,
+                    uniqueName: "Sentient Roots",
+                    uniqueDesc: '<div class="par jus">Remaining stationary for two consecutive rounds will trigger <span class="bold blue">Root</span> bonuses, increasing further each round up to 3 Tiers: <span class="bold blue">Shallow Roots</span>, <span class="bold blue">Growing Roots</span> and <span class="bold blue">Entrenched Roots</span>. Bonuses vary according to Carhal\'s position.</div><div class="par bulleted"><span class="bold">Front</span>: Increased <span class="bold blue">Dodge</span>, <span class="bold blue">Might</span> and <span class="bold blue">Weapon Damage</span></div><div class="par bulleted"><span class="bold">Middle</span>: Increased <span class="bold blue">Speed</span>, <span class="bold blue">Stun Chance</span> and <span class="bold blue">Received heal</span></div><div class="par bulleted"><span class="bold">Back:</span> Increased <span class="bold blue">Accuracy</span>, <span class="bold blue">Spirit</span> and <span class="bold blue">Skill damage</span></div><div class="par jus">Once Carhal leaves a position, the <span class="bold blue">Roots</span> bonus will persist for two rounds, and will be also applied to the Strider who arrives on that position.</div>',
+                    uniqueQuote: '"As trees are never the same, Carhal danced, backed and leapt with them, blessed with all the virtues that nature had to offer."',
+                    uniqueIcon: 0,
+                    skillTree: what(game.all_skillTrees, "amarok"),
+                    skills: [
+                        new Skill(
+                            "Fallback",
+                            "§Moves backwards§ and increases Carhal's §Dodge§.",
+                            13,
+                            {
+                                type: Data.SkillType.FRIENDLY,
+                                manaCost: 5,
+                                criMultiplier: 15,
+                                accMultiplier: 100,
+                                cooldown: 2,
+                                launchPos: [false, true, true],
+                                effectsCaster: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.BACK_ONE}),
+                                            new Stat({effect: Data.Effect.DODGE, theorical: 5, duration: 2, isPercentage: true}),
+                                            new Stat({effect: Data.Effect.ACCURACY, theorical: [5, 8], duration: 2, isPercentage: true})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.BACK_ONE}),
+                                            new Stat({effect: Data.Effect.DODGE, theorical: 7, duration: 2, isPercentage: true, isCritical: true}),
+                                            new Stat({effect: Data.Effect.ACCURACY, theorical: 10, duration: 2, isPercentage: true})
+                                        ]
                                     }
-                                })
-                            ]
-                        }
-                    )
-                ],
-                '10% 50%'
+                                }
+                            }
+                        ),
+                        new Skill(
+                            "Howling Arrow",
+                            "§Stuns§ an enemy.",
+                            14,
+                            {
+                                type: Data.SkillType.OFFENSIVE,
+                                dmgType: Data.SkillDamageType.MAGICAL,
+                                manaCost: 10,
+                                dmgMultiplier: 100,
+                                criMultiplier: 10,
+                                accMultiplier: 90,
+                                cooldown: 1,
+                                launchPos: [true, true, false],
+                                targets: {allies: '-0', enemies: '-123'},
+                                effectsEnemies: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.STUN, duration: 1})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.STUN, duration: 2})
+                                        ]
+                                    }
+                                }
+                            }
+                        ),
+                        new Skill(
+                            "Grappling Ballista",
+                            "Deals damage that ignores protection. Applies §Bleeding§ to the target. §Pushes back§ the target, then §Pulls it§ after one round.",
+                            16,
+                            {
+                                type: Data.SkillType.OFFENSIVE,
+                                dmgType: Data.SkillDamageType.PHYSICAL,
+                                manaCost: 15,
+                                dmgMultiplier: 90,
+                                criMultiplier: 15,
+                                accMultiplier: 100,
+                                cooldown: 1,
+                                launchPos: [true, true, false],
+                                targets: {allies: '-0', enemies: '-2'},
+                                ignoresProtection: true,
+                                effectsEnemies: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.BLEEDING_CURABLE, theorical: [3, 4], type: Data.StatType.ACTIVE, duration: 2}),
+                                            new Stat({effect: Data.Effect.PUSH_ONE, chance: 150}),
+                                            new Stat({effect: Data.Effect.PULL_ONE, chance: 150, delay: 1, duration: 1})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.BLEEDING_CURABLE, theorical: 5, type: Data.StatType.ACTIVE, duration: 2, isCritical: true}),
+                                            new Stat({effect: Data.Effect.PUSH_ONE, chance: 150, isCritical: true}),
+                                            new Stat({effect: Data.Effect.PULL_ONE, chance: 150, delay: 1, duration: 1, isCritical: true})
+                                        ]
+                                    }
+                                }
+                            }
+                        ),
+                        new Skill(
+                            "Concussive Blast",
+                            "Deals damage to enemies and applies a §Stamina regeneration§ boost to Carhal. Has a chance to §Stun§ Carhal.",
+                            15,
+                            {
+                                type: Data.SkillType.OFFENSIVE,
+                                dmgType: Data.SkillDamageType.MAGICAL,
+                                manaCost: 15,
+                                dmgMultiplier: 120,
+                                criMultiplier: 20,
+                                accMultiplier: 85,
+                                cooldown: 2,
+                                launchPos: [true, false, false],
+                                targets: {allies: '-0', enemies: '@12'},
+                                effectsCaster: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.STUN, duration: 1, chance: 50}),
+                                            new Stat({effect: Data.Effect.STAMINA, duration: 2, theorical: 4, isPercentage: true, type: Data.StatType.ACTIVE})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.STUN, duration: 1, chance: 45, isCritical: true}),
+                                            new Stat({effect: Data.Effect.STAMINA, duration: 2, theorical: 4, isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true})
+                                        ]
+                                    }
+                                }
+                            }
+                        )
+                    ],
+                    customBgPos: '10% 10%'
+                },
             ),
             new Strider(
-                "Zurij",
-                "Can you hear that laughter hooting at dawn? Enjoy your last sunset. For after death, honor withers, distinctions fade; and comes eternal suffering.",
-                Data.Charset.ZURIJ,
-                "The One Who Laughs At Death",
-                100, 100, 100,
-                10, 12, 85, 0, 5, 5,
-                [50, 50], [50, 50],
-                30, 45,
-                0, 0,
-                [new Stat({effect: Data.Effect.WARDING, theorical: [3, 7]})],
-                {},
-                [],
-                Data.StriderType.STRIKER,
-                "Bend Death",
-                "Bend Death's power description",
-                'quote',
-                1,
-                what(game.all_skillTrees, "amarok"),
-                [],
-                '10% 20%'
+                {
+                    name: "Ifrin",
+                    desc: "A fearsome mage, Ifrin was banned from the Order of Rhun upon harnessing the power of Yorll's corrupted magic, and is now on a constant need of enhancing her knowledge of the dark arts.",
+                    charset: Data.Charset.IFRIN,
+                    subname: "The Prophet of Kaphyst",
+                    health: 100, mana: 100, stamina: 100,
+                    dodge: 10, speed: 12, accuracy: 85, protection: 0,
+                    might: 20, spirit: 20,
+                    resBleed: [0, 0], resPoison: [0, 0],
+                    resMove: 30, resStun: 45,
+                    resilience: 0, warding: 0,
+                    critEffects: [
+                        new Stat({effect: Data.Effect.MAXMANA, theorical: [15, 25]})
+                    ],
+                    type: Data.StriderType.TANK,
+                    uniqueName: "Witchskin",
+                    uniqueDesc: "Witchskin's power description",
+                    uniqueQuote: 'quote',
+                    uniqueIcon: 1,
+                    skillTree: what(game.all_skillTrees, "amarok"),
+                    customBgPos: '10% 70%'
+                },
             ),
             new Strider(
-                "Mirai",
-                "Lorem ipsum",
-                Data.Charset.MIRAI,
-                "The Time Twister",
-                100, 100, 100,
-                10, 12, 85, 0, 5, 5,
-                [50, 50], [50, 50],
-                30, 45,
-                0, 0,
-                [new Stat({effect: Data.Effect.WARDING, theorical: [3, 7]})],
-                {},
-                [],
-                Data.StriderType.SUPPORT,
-                "Timecracks",
-                "Timecracks' power description",
-                'quote',
-                1,
-                what(game.all_skillTrees, "amarok"),
-                [],
-                '10% 20%'
+                {
+                    name: "Betheros",
+                    desc: "Betheros has traveled the roads of the world as an itinerant bard, spreading inspiring melodies and wise words. It is said that those who met him were changed forever.",
+                    charset: Data.Charset.BETHEROS,
+                    subname: "The Bringer of Good Faith",
+                    health: 100, mana: 100, stamina: 100,
+                    dodge: 10, speed: 12, accuracy: 85, protection: 0,
+                    might: 15, spirit: 15,
+                    resBleed: [0, 0], resPoison: [0, 0],
+                    resMove: 30, resStun: 45,
+                    resilience: 0, warding: 0,
+                    critEffects: [
+                        new Stat({effect: Data.Effect.MODIF_HEAL_GIVEN, theorical: [3, 7], isPercentage: true, duration: 2})
+                    ],
+                    variables: {
+                        life_channel_rate: 0.10,
+                    },
+                    triggers: [
+                        new Trigger({
+                            name: 'betheros_lifechannel',
+                            type: [Data.TriggerType.ON_RECV_DAMAGE, Data.TriggerType.ON_DEAL_DAMAGE],
+                            behavior: function(){
+                                console.info('BETHEROS LIFE CHANNEL TRIGGERED!');
+                                console.info(game.battle.params);
+                                const params = game.battle.params;
+    
+                                const healAmount = Math.ceil((params.phys_damage + params.magi_damage + params.crit_damage) * this.owner.variables.life_channel_rate);
+                                console.log('Healing to all others: ' + healAmount);
+    
+                                if(healAmount > 0) {
+                                    game.battle.allies
+                                    .filter(x => x.name.toLowerCase() !== "betheros")
+                                    .forEach(al => {
+                                        al.addBaseStat(new Stat({effect: Data.Effect.HEALTH, theorical: healAmount}));
+                                    });
+                                }
+                            }
+                        })
+                    ],
+                    skills: [
+                        new Skill(
+                            "Inner Fire",
+                            "§Heals§ Betheros. Boosts the target's §Skill damage§ and replenishes their §Mana§ if it is an ally; reduces them if it's an enemy.",
+                            13,
+                            {
+                                type: Data.SkillType.FRIENDLY,
+                                manaCost: 5,
+                                critMultiplier: 20,
+                                accMultiplier: 85,
+                                targets: {allies: '-123', enemies: '-123'},
+                                effectsCaster: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.HEALTH, theorical: [5, 12], isPercentage: true, type: Data.StatType.ACTIVE})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.HEALTH, theorical: [12, 18], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true})
+                                        ]
+                                    }
+                                },
+                                effectsAllies: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [13, 15], isPercentage: true, duration: 2}),
+                                            new Stat({effect: Data.Effect.MANA, theorical: [15, 20], isPercentage: true, type: Data.StatType.ACTIVE})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [20, 22], isPercentage: true, duration: 2, isCritical: true}),
+                                            new Stat({effect: Data.Effect.MANA, theorical: [25, 25], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true})
+                                        ]
+                                    }
+                                },
+                                effectsEnemies: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [-10, -15], isPercentage: true, duration: 1}),
+                                            new Stat({effect: Data.Effect.MANA, theorical: [-8, -10], isPercentage: true, type: Data.StatType.ACTIVE})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [-25, -25], isPercentage: true, duration: 2, isCritical: true}),
+                                            new Stat({effect: Data.Effect.MANA, theorical: [-15, -15], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true})
+                                        ]
+                                    }
+                                }
+                            }
+                        ),
+                        new Skill(
+                            "Ardas Garin",
+                            "Applies §Shield§ to all allies.",
+                            14,
+                            {
+                                type: Data.SkillType.FRIENDLY,
+                                manaCost: 20,
+                                critMultiplier: 15,
+                                accMultiplier: 100,
+                                targets: {allies: '@123', enemies: '-0'},
+                                cooldown: 3,
+                                launchPos: [true, false, false],
+                                effectsAllies: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.SHIELD, theorical: [20, 25], duration: 3})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.SHIELD, theorical: [25, 30], duration: 4, isCritical: true})
+                                        ]
+                                    }
+                                },
+                            }
+                        ),
+                        new Skill(
+                            "Banishment",
+                            "§Pushes back§ an enemy. §Heals§ Betheros.",
+                            15,
+                            {
+                                type: Data.SkillType.OFFENSIVE,
+                                manaCost: 5,
+                                dmgType: Data.SkillDamageType.MAGICAL,
+                                dmgMultiplier: 20,
+                                criMultiplier: 10,
+                                accMultiplier: 85,
+                                targets: {allies: '-0', enemies: '-12'},
+                                cooldown: 1,
+                                launchPos: [true, true, false],
+                                effectsCaster: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.HEALTH, theorical: [3, 6], isPercentage: true, type: Data.StatType.ACTIVE})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.HEALTH, theorical: [5, 8], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true})
+                                        ]
+                                    }
+                                },
+                                effectsEnemies: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.PUSH_ONE})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.PUSH_ONE})
+                                        ]
+                                    }
+                                }
+                            }
+                        ),
+                        new Skill(
+                            "Arcane Mending",
+                            "§Heals§ the targeted ally. Increases Betheros' §Given healing§.",
+                            16,
+                            {
+                                type: Data.SkillType.FRIENDLY,
+                                manaCost: 10,
+                                criMultiplier: 15,
+                                targets: {allies: '-123', enemies: '-0'},
+                                effectsCaster: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.MODIF_HEAL_GIVEN, theorical: [5, 10], isPercentage: true, duration: 2})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.MODIF_HEAL_GIVEN, theorical: [10, 15], isPercentage: true, duration: 2})
+                                        ]
+                                    }
+                                },
+                                effectsAllies: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.HEALTH, theorical: [10, 15], isPercentage: true, type: Data.StatType.ACTIVE})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.HEALTH, theorical: [15, 20], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true})
+                                        ]
+                                    }
+                                }
+                            }
+                        ),
+                        new Skill(
+                            "Dazzling Truth",
+                            "Replenishes Betheros' §Mana§ and boosts his §Accuracy§. Reduces the targets' §Dodge§.",
+                            17,
+                            {
+                                type: Data.SkillType.OFFENSIVE,
+                                dmgType: Data.SkillDamageType.MAGICAL,
+                                manaCost: 20,
+                                dmgMultiplier: 90,
+                                accMultiplier: 90,
+                                criMultiplier: 10,
+                                targets: {allies: '-0', enemies: '@23'},
+                                cooldown: 2,
+                                effectsCaster: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.MANA, theorical: [10, 15], isPercentage: true, type: Data.StatType.ACTIVE, duration: 2}),
+                                            new Stat({effect: Data.Effect.ACCURACY, theorical: 10, isPercentage: true, duration: 3})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.MANA, theorical: [15, 20], isPercentage: true, type: Data.StatType.ACTIVE, duration: 2, isCritical: true}),
+                                            new Stat({effect: Data.Effect.ACCURACY, theorical: 15, isPercentage: true, duration: 3, isCritical: true})
+                                        ]
+                                    }
+                                },
+                                effectsEnemies: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.DODGE, theorical: [-5, -8], isPercentage: true, duration: 3})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.DODGE, theorical: [-8, -12], isPercentage: true, duration: 3, isCritical: true})
+                                        ]
+                                    }
+                                }
+                            }
+                        )
+                    ],
+                    type: Data.StriderType.SUPPORT,
+                    uniqueName: "Life Channel",
+                    uniqueDesc: '<div class="par">Each time Betheros deals or takes damage, the rest of the team is healed 10% of the damage amount.</div>',
+                    uniqueQuote: '"Through the pain, you shall heal. And through healing, you shall embrace inner peace."',
+                    uniqueIcon: 0,
+                    skillTree: what(game.all_skillTrees, "amarok"),
+                    customBgPos: '10% 30%'
+                },
             ),
             new Strider(
-                "Juba Jun",
-                "No one knows anything about Juba Jun and his interests except himself. His thoughts will be the guardians of the truth, and his mouth will never betray.",
-                Data.Charset.JUBA_JUN,
-                "The Goldenpaw",
-                100, 100, 100,
-                10, 12, 85, 0, 5, 5,
-                [50, 50], [50, 50],
-                30, 45,
-                0, 0,
-                [new Stat({effect: Data.Effect.WARDING, theorical: [3, 7]})],
-                {},
-                [],
-                Data.StriderType.TANK,
-                "Will of the Dragon",
-                "Will of the Dragon' power description",
-                'quote',
-                1,
-                what(game.all_skillTrees, "amarok"),
-                [],
-                '10% 50%'
+                {
+                    name: "Arazoth",
+                    desc: "A bastion for the weak, the unbreakable lion shepherd Arazoth rejected the gods long ago. Through a thousand battles, he has never bled - and death itself avoids to mention his name.",
+                    charset: Data.Charset.ARAZOTH,
+                    subname: "The Shepherd",
+                    health: 100, mana: 100, stamina: 100,
+                    dodge: 10, speed: 12, accuracy: 85, protection: 0,
+                    might: 5, spirit: 5,
+                    resBleed: [0, 0], resPoison: [0, 0],
+                    resMove: 30, resStun: 45,
+                    resilience: 0, warding: 0,
+                    critEffects: [
+                        new Stat({effect: Data.Effect.PROTECTION, theorical: [3, 7], isPercentage: true})
+                    ],
+                    type: Data.StriderType.TANK,
+                    uniqueName: "Shepherd's Ward",
+                    uniqueDesc: "Shepherd's Ward power description",
+                    uniqueQuote: 'quote',
+                    uniqueIcon: 1,
+                    skillTree: what(game.all_skillTrees, "amarok"),
+                    customBgPos: '10% 30%'
+                },
             ),
             new Strider(
-                "Khej",
-                "A childhood friend of Naka, the belief that she was dead drove Khej to madness and regret. He now dances in the darkness, appearing and disappearing, leaving sharp blades in his wake.",
-                Data.Charset.KHEJ,
-                "The Betrayed",
-                100, 100, 100,
-                10, 12, 85, 0, 5, 5,
-                [0, 0], [0, 0],
-                30, 45,
-                0, 0,
-                [new Stat({effect: Data.Effect.MODIF_DMG_WEAPON, theorical: 5})],
-                {},
-                [],
-                Data.StriderType.STRIKER,
-                "Revenge of the Fallen",
-                "Revenge of the Fallen power description",
-                "quote",
-                0,
-                what(game.all_skillTrees, "amarok"),
-                [],
-                '10% 50%'
+                {
+                    name: "Haman",
+                    desc: "A crack in reality allowed Haman to see beyond the sane world. A part of his soul has entered this breach, from which he now draws his unspeakable powers.",
+                    charset: Data.Charset.HAMAN,
+                    subname: "The Witness",
+                    health: 100, mana: 100, stamina: 100,
+                    dodge: 10, speed: 12, accuracy: 85, protection: 0,
+                    might: 5, spirit: 5,
+                    resBleed: [0, 0], resPoison: [0, 0],
+                    resMove: 30, resStun: 45,
+                    resilience: 0, warding: 0,
+                    critEffects: [
+                        new Stat({effect: Data.Effect.WARDING, theorical: [3, 7]})
+                    ],
+                    type: Data.StriderType.SUPPORT,
+                    uniqueName: "Whispers",
+                    uniqueDesc: '<div class="par jus">Each entity that is targeted by one of Haman\'s skills enters a <span class="bold blue">Madness</span> state. Each skill further cast on a same target increases their Madness state by 1, up to 5. Various bonuses and maluses can be applied by consuming the <span class="bold blue">Madness</span> state, through Haman\'s <span class="bold blue">Hallucinate</span> and <span class="bold blue">Quadrate Hour</span> skills.</div><div class="par bulleted"><span class="bold">Madness I</span>: Affects <span class="bold blue">Dodge</span> and <span class="bold blue">Accuracy</span></div><div class="par bulleted"><span class="bold">Madness II<span>: Affects <span class="bold blue">Protection</span></div><div class="par bulleted"><span class="bold">Madness III<span>: Affects <span class="bold blue">Received Heal</span> and <span class="bold  blue">Max. health</span></div><div class="par bulleted"><span class="bold">Madness IV<span>: Affects <span class="bold blue">Bleed and Poison resistance</span> and <span class="bold blue">Block value</span></div><div class="par bulleted"><span class="bold">Madness V<span>: Affects <span class="bold blue">Speed</span> and <span class="bold blue">Total damage</span></div>',
+                    uniqueQuote: '"We are so fragile, compartmentalized in our narrow view of the world; and exposing our minds to new perspectives, to raw and violent realities, is wonderful, and devastating."',
+                    uniqueIcon: 0,
+                    skillTree: what(game.all_skillTrees, "amarok"),
+                    customBgPos: '10% 50%',
+                    skills: [
+                        new Skill(
+                            "Revelation",
+                            "Reduces the target's §Protection§. While the malus is active, if Haman attacks another target, the effect is canceled and applied to Haman for one round.",
+                            1,
+                            {
+                                type: Data.SkillType.OFFENSIVE,
+                                manaCost: 10,
+                                dmgMultiplier: 95,
+                                criMultiplier: 10,
+                                accMultiplier: 95,
+                                dmgType: Data.SkillDamageType.MAGICAL,
+                                cooldown: 2,
+                                launchPos: [true, true, false],
+                                targets: {allies: '-0', enemies: '-123'},
+                                effectsEnemies: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.PROTECTION, theorical: [-35, -40], isPercentage: true, duration: 2})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.PROTECTION, theorical: -45, isPercentage: true, duration: 2})
+                                        ],
+                                    }
+                                },
+                                variables: {
+                                    storedTarget: null
+                                },
+                                onCast: function(){
+                                    this.variables.storedTarget = game.battle.target[0];
+                                    console.log("Stored " + this.variables.storedTarget.name + " as Revelation's catalyst");
+                                },
+                                triggersCaster: [
+                                    new Trigger({
+                                        name: "revelationTrigger",
+                                        type: Data.TriggerType.ON_ATTACK,
+                                        checker: function(){
+                                            const tar = game.battle.target[game.battle.targetTracker];
+    
+                                            if(tar !== this.getOwner().variables.storedTarget) {
+                                                console.error("-----------DIFFERENT TARGET!!");
+                                            } else console.error("-----------SAME TARGET!!");
+                                        }
+                                    })
+                                ]
+                            }
+                        )
+                    ],
+                },
+            ),
+            new Strider(
+                {
+                    name: "Zurij",
+                    desc: "Can you hear that laughter hooting at dawn? Enjoy your last sunset. For after death, honor withers, distinctions fade; and comes eternal suffering.",
+                    charset: Data.Charset.ZURIJ,
+                    subname: "The One Who Laughs At Death",
+                    health: 100, mana: 100, stamina: 100,
+                    dodge: 10, speed: 12, accuracy: 85, protection: 0,
+                    might: 5, spirit: 5,
+                    resBleed: [0, 0], resPoison: [0, 0],
+                    resMove: 30, resStun: 45,
+                    resilience: 0, warding: 0,
+                    critEffects: [
+                        new Stat({effect: Data.Effect.PROTECTION, theorical: [3, 7], isPercentage: true})
+                    ],
+                    type: Data.StriderType.STRIKER,
+                    uniqueName: "Bend Death",
+                    uniqueDesc: "Bend Death power description",
+                    uniqueQuote: 'quote',
+                    uniqueIcon: 1,
+                    skillTree: what(game.all_skillTrees, "amarok"),
+                    customBgPos: '10% 20%'
+                },
+            ),
+            new Strider(
+                {
+                    name: "Mirai",
+                    desc: "Lorem ipsum",
+                    charset: Data.Charset.MIRAI,
+                    subname: "The Time Twister",
+                    health: 100, mana: 100, stamina: 100,
+                    dodge: 10, speed: 12, accuracy: 85, protection: 0,
+                    might: 5, spirit: 5,
+                    resBleed: [0, 0], resPoison: [0, 0],
+                    resMove: 30, resStun: 45,
+                    resilience: 0, warding: 0,
+                    critEffects: [
+                        new Stat({effect: Data.Effect.PROTECTION, theorical: [3, 7], isPercentage: true})
+                    ],
+                    type: Data.StriderType.SUPPORT,
+                    uniqueName: "Timecracks",
+                    uniqueDesc: "Timecracks power description",
+                    uniqueQuote: 'quote',
+                    uniqueIcon: 1,
+                    skillTree: what(game.all_skillTrees, "amarok"),
+                    customBgPos: '10% 20%'
+                },
+            ),
+            new Strider(
+                {
+                    name: "Juba Jun",
+                    desc: "No one knows anything about Juba Jun and his interests except himself. His thoughts will be the guardians of the truth, and his mouth will never betray.",
+                    charset: Data.Charset.JUBA_JUN,
+                    subname: "The Goldenpaw",
+                    health: 100, mana: 100, stamina: 100,
+                    dodge: 10, speed: 12, accuracy: 85, protection: 0,
+                    might: 5, spirit: 5,
+                    resBleed: [0, 0], resPoison: [0, 0],
+                    resMove: 30, resStun: 45,
+                    resilience: 0, warding: 0,
+                    critEffects: [
+                        new Stat({effect: Data.Effect.PROTECTION, theorical: [3, 7], isPercentage: true})
+                    ],
+                    type: Data.StriderType.TANK,
+                    uniqueName: "Will of the Dragon",
+                    uniqueDesc: "Will of the Dragon power description",
+                    uniqueQuote: 'quote',
+                    uniqueIcon: 1,
+                    skillTree: what(game.all_skillTrees, "amarok"),
+                    customBgPos: '10% 50%'
+                },
+            ),
+            new Strider(
+                {
+                    name: "Khej",
+                    desc: "A childhood friend of Naka, the belief that she was dead drove Khej to madness and regret. He now dances in the darkness, appearing and disappearing, leaving sharp blades in his wake.",
+                    charset: Data.Charset.KHEJ,
+                    subname: "The Betrayed",
+                    health: 100, mana: 100, stamina: 100,
+                    dodge: 10, speed: 12, accuracy: 85, protection: 0,
+                    might: 5, spirit: 5,
+                    resBleed: [0, 0], resPoison: [0, 0],
+                    resMove: 30, resStun: 45,
+                    resilience: 0, warding: 0,
+                    critEffects: [
+                        new Stat({effect: Data.Effect.PROTECTION, theorical: [3, 7], isPercentage: true})
+                    ],
+                    type: Data.StriderType.STRIKER,
+                    uniqueName: "Revenge of the Fallen",
+                    uniqueDesc: "Revenge of the Fallen power description",
+                    uniqueQuote: 'quote',
+                    uniqueIcon: 1,
+                    skillTree: what(game.all_skillTrees, "amarok"),
+                    customBgPos: '10% 50%'
+                },
             )
         ];
 
@@ -3617,1104 +3649,1103 @@ const Loader = {
     loadEnemies: loadEnemies = () => {
         const enemies = [
             new Enemy(
-                "Mycelial Tick",
-                "This monster is weak, but it's swift (high Speed and Dodge) and applies poison.",
-                Data.Charset.MYCELIAL_TICK,
-                "Subname",
-                35, 35, 35,
-                20, 15, 85, 0, 5, 5,
-                [0, 0], [2, 0],
-                20, 25,
-                0, 4,
-                [],
-                {},
-                [],
-                Data.MobType.LESSER,
-                [
-                    new Skill(
-                        "Fungal scratch",
-                        "",
-                        0,
-                        {
-                            type: Data.SkillType.OFFENSIVE,
-                            manaCost: 10,
-                            dmgType: Data.SkillDamageType.PHYSICAL,
-                            dmgMultiplier: 100,
-                            criMultiplier: 20,
-                            accMultiplier: 90,
-                            targets: {allies: '-0', enemies: '-123'},
-                            effectsAllies: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.BLIGHT_CURABLE, theorical: [2, 4], type: Data.StatType.ACTIVE, duration: 2})
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.BLIGHT_CURABLE, theorical: [4, 6], type: Data.StatType.ACTIVE, duration: 2})
-                                    ]
+                {
+                    name: "Mycelial Tick",
+                    desc: "This monster is weak, but it's swift (high Speed and Dodge) and applies poison.",
+                    charset: Data.Charset.MYCELIAL_TICK,
+                    subname: "Subname",
+                    health: 35, mana: 35, stamina: 35,
+                    dodge: 20, speed: 15, accuracy: 85, protection: 0,
+                    might: 5, spirit: 5,
+                    resBleed: [0, 0], resPoison: [2, 0],
+                    resMove: 20, resStun: 25,
+                    resilience: 0, warding: 4,
+                    mobType: Data.MobType.LESSER,
+                    skills: [
+                        new Skill(
+                            "Fungal scratch",
+                            "",
+                            0,
+                            {
+                                type: Data.SkillType.OFFENSIVE,
+                                manaCost: 10,
+                                dmgType: Data.SkillDamageType.PHYSICAL,
+                                dmgMultiplier: 100,
+                                criMultiplier: 20,
+                                accMultiplier: 90,
+                                targets: {allies: '-0', enemies: '-123'},
+                                effectsAllies: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.BLIGHT_CURABLE, theorical: [2, 4], type: Data.StatType.ACTIVE, duration: 2})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.BLIGHT_CURABLE, theorical: [4, 6], type: Data.StatType.ACTIVE, duration: 2})
+                                        ]
+                                    }
                                 }
                             }
-                        }
-                    )
-                ],
-                new EnemyBehavior({
-                    actions: [
-                        new EnemyAction({
-                            title: 'regular',
-                            owner: function(){ return what(game.battle.enemies, "mycelial tick") },
-                            checker: function(){ return this.owner.skills[0].manaCost <= this.owner.mana },
-                            behavior: function(){
-                                game.battle.target.push(choose(game.battle.allies));
-                                game.battle.selectedSkill = this.owner.skills[0];
-                                console.log('attacking ' + game.battle.target[0].name + ' with ' + game.battle.selectedSkill.name);
-                                game.battle.executeSkill();
-                                
+                        )
+                    ],
+                    behavior: new EnemyBehavior({
+                        actions: [
+                            new EnemyAction({
+                                title: 'regular',
+                                owner: function(){ return what(game.battle.enemies, "mycelial tick") },
+                                checker: function(){ return this.owner.skills[0].manaCost <= this.owner.mana },
+                                behavior: function(){
+                                    game.battle.target.push(choose(game.battle.allies));
+                                    game.battle.selectedSkill = this.owner.skills[0];
+                                    console.log('attacking ' + game.battle.target[0].name + ' with ' + game.battle.selectedSkill.name);
+                                    game.battle.executeSkill();
+                                    
+                                }
+                            }),
+                            new EnemyAction({
+                                title: 'block',
+                                owner: function(){ return what(game.battle.enemies, "mycelial tick") },
+                                checker: function(){ return this.owner.stamina > 0 },
+                                behavior: function() {
+                                    console.log('blocks');
+                                    this.owner.applyBlocking();
+                                    this.owner.removeBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 5}));
+                                    this.owner.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 5}));
+                                    game.battle.finishTurn();
+                                }
+                            }),
+                        ]
+                    }),
+                    drops: {
+                        resource: new LootParams({
+                            pool: {
+                                "dark stone": 100,
+                                "decaying petals": 100,
+                                "silver essence": 100,
+                                "minor time shard": [35, 2],
+                                "reminder": [90, [2, 5]],
                             }
                         }),
-                        new EnemyAction({
-                            title: 'block',
-                            owner: function(){ return what(game.battle.enemies, "mycelial tick") },
-                            checker: function(){ return this.owner.stamina > 0 },
-                            behavior: function() {
-                                console.log('blocks');
-                                this.owner.applyBlocking();
-                                this.owner.removeBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 5}));
-                                this.owner.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 5}));
-                                game.battle.finishTurn();
+                        trinket: new LootParams({
+                            pool: {
+                                "goodsight doll": 100,
+                                "omen insignia": 100
                             }
                         }),
-                    ]
-                }),
+                        gold: [0, 20]
+                    }
+                },
+            ),
+            new Enemy(
                 {
-                    resource: new LootParams({
-                        pool: {
-                            "dark stone": 100,
-                            "decaying petals": 100,
-                            "silver essence": 100,
-                            "minor time shard": [35, 2],
-                            "reminder": [90, [2, 5]],
-                        }
+                    name: "Fungaliant",
+                    desc: "Very resistant to poison damage, this monster heals others and reduces your resistances.",
+                    charset: Data.Charset.FUNGALIANT,
+                    subname: "Subname",
+                    health: 50, mana: 50, stamina: 50,
+                    dodge: 10, speed: 10, accuracy: 85, protection: 10,
+                    might: 10, spirit: 10,
+                    resBleed: [0, 0], resPoison: [5, 0],
+                    resMove: 20, resStun: 25,
+                    resilience: 0, warding: 4,
+                    mobType: Data.MobType.REGULAR,
+                    skills: [
+                        new Skill(
+                            "Spores of Abundance",
+                            "",
+                            0,
+                            {
+                                type: Data.SkillType.FRIENDLY,
+                                manaCost: 20,
+                                criMultiplier: 15,
+                                targets: {allies: '-123', enemies: '-0'},
+                                effectsEnemies: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.HEALTH, theorical: [15, 20], isPercentage: true, type: Data.StatType.ACTIVE}),
+                                            new Stat({effect: Data.Effect.MODIF_CRIT_SKILL, theorical: [10, 15], isPercentage: true, duration: 2}),
+                                            new Stat({effect: Data.Effect.MANA, theorical: [20, 25], isPercentage: true, type: Data.StatType.ACTIVE, duration: 2}),
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.HEALTH, theorical: [20, 25], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true}),
+                                            new Stat({effect: Data.Effect.MODIF_CRIT_SKILL, theorical: [15, 20], isPercentage: true, duration: 2, isCritical: true}),
+                                            new Stat({effect: Data.Effect.MANA, theorical: [20, 25], isPercentage: true, type: Data.StatType.ACTIVE, duration: 2, isCritical: true}),
+                                        ]
+                                    }
+                                }
+                            }
+                        ),
+                        new Skill(
+                            "Debilitating Roots",
+                            "",
+                            0,
+                            {
+                                type: Data.SkillType.OFFENSIVE,
+                                manaCost: 10,
+                                dmgType: Data.SkillDamageType.MAGICAL,
+                                dmgMultiplier: 80,
+                                criMultiplier: 20,
+                                accMultiplier: 90,
+                                cooldown: 2,
+                                launchPos: [false, true, true],
+                                targets: {allies: '-0', enemies: '@123'},
+                                effectsAllies: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.RES_POISON_DMG, theorical: [-5, -10], duration: 2}),
+                                            new Stat({effect: Data.Effect.WARDING, theorical: [-8, -10], duration: 2}),
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.RES_POISON_DMG, theorical: [-5, -10], duration: 2, isCritical: true}),
+                                            new Stat({effect: Data.Effect.WARDING, theorical: [-8, -10], duration: 2, isCritical: true}),
+                                        ]
+                                    }
+                                }
+                            }
+                        ),
+                        new Skill(
+                            "Repositioning",
+                            "",
+                            0,
+                            {
+                                type: Data.SkillType.BOTH,
+                                manaCost: 0,
+                                criMultiplier: 15,
+                                accMultiplier: 100,
+                                dmgMultiplier: 110,
+                                dmgType: Data.SkillDamageType.PHYSICAL,
+                                launchPos: [true, false, false],
+                                targets: {allies: '-1', enemies: '-1'},
+                                effectsCaster: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.BACK_ONE}),
+                                            new Stat({effect: Data.Effect.PROTECTION, theorical: 8, duration: 2, isPercentage: true}),
+                                            new Stat({effect: Data.Effect.MANA, theorical: 15, isPercentage: true, type: Data.StatType.ACTIVE})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.BACK_TWO}),
+                                            new Stat({effect: Data.Effect.PROTECTION, theorical: 5, duration: 2, isPercentage: true, isCritical: true}),
+                                            new Stat({effect: Data.Effect.MANA, theorical: 20, isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true}),
+                                        ]
+                                    }
+                                }
+                            }
+                        )
+                    ],
+                    behavior: new EnemyBehavior({
+                        actions: [
+                            new EnemyAction({
+                                title: 'move back',
+                                owner: function(){ return what(game.battle.enemies, "fungaliant") },
+                                checker: function(){ 
+                                    return this.owner.getSelfPosInBattle() === Data.FormationPosition.FRONT;
+                                },
+                                behavior: function(){
+                                    console.log(this.title);
+                                    game.battle.target.push(game.battle.allies[2]);
+                                    game.battle.selectedSkill = this.owner.skills[2];
+                                    game.battle.executeSkill();
+                                }
+                            }),
+                            new EnemyAction({
+                                title: 'weaken striders',
+                                owner: function(){ return what(game.battle.enemies, "fungaliant") },
+                                checker: function(){
+                                    return this.owner.skills[1].cooldownCountdown === 0 && this.owner.skills[1].manaCost <= this.owner.mana;
+                                },
+                                behavior: function(){
+                                    console.log(this.title);
+                                    game.battle.target.push(
+                                        game.battle.allies[0],
+                                        game.battle.allies[1],
+                                        game.battle.allies[2]
+                                    );
+                                    game.battle.selectedSkill = this.owner.skills[1];
+                                    game.battle.executeSkill();
+                                }
+                            }),
+                            new EnemyAction({
+                                title: 'heal enemies',
+                                owner: function(){ return what(game.battle.enemies, "fungaliant") },
+                                checker: function(){
+                                    return this.owner.skills[0].manaCost <= this.owner.mana;
+                                },
+                                behavior: function(){
+                                    console.log(this.title);
+                                    game.battle.target.push(
+                                        findNPCWithLowestStat(
+                                            game.battle.enemies.filter(x => x.health > 0), 
+                                            Data.Effect.HEALTH
+                                        )
+                                    );
+                                    game.battle.selectedSkill = this.owner.skills[0];
+                                    game.battle.executeSkill();
+                                }
+                            }),
+                            new EnemyAction({
+                                title: 'block',
+                                owner: function(){ return what(game.battle.enemies, "fungaliant") },
+                                checker: function(){
+                                    return this.owner.stamina > 0;
+                                },
+                                behavior: function(){
+                                    console.log(this.title);
+                                    this.owner.applyBlocking();
+                                    this.owner.removeBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 5}));
+                                    this.owner.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 5}));
+                                    game.battle.finishTurn();
+                                }
+                            })
+                        ]
                     }),
-                    trinket: new LootParams({
-                        pool: {
-                            "goodsight doll": 100,
-                            "omen insignia": 100
-                        }
+                },
+            ),
+            new Enemy(
+                {
+                    name: "Gnarly Horror",
+                    desc: "Be aware of their high Stun power ; they also don't hesitate to Guard their allies while also increasing their Protection.",
+                    charset: Data.Charset.GNARLY_HORROR,
+                    subname: "Subname",
+                    health: 120, mana: 120, stamina: 120,
+                    dodge: 5, speed: 8, accuracy: 85, protection: 35,
+                    might: 20, spirit: 20,
+                    resBleed: [2, 0], resPoison: [5, 0],
+                    resMove: 80, resStun: 50,
+                    resilience: 10, warding: 10,
+                    mobType: Data.MobType.MAJOR,
+                    skills: [
+                        new Skill(
+                            "Armored Bark",
+                            "",
+                            0,
+                            {
+                                type: Data.SkillType.FRIENDLY,
+                                manaCost: 10,
+                                cooldown: 3,
+                                criMultiplier: 10,
+                                accMultiplier: 100,
+                                targets: {allies: '-123', enemies: '-0'},
+                                launchPos: [true, true, true],
+                                effectsCaster: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.GUARDING, duration: 2}),
+                                            new Stat({effect: Data.Effect.PROTECTION, theorical: [15, 20], isPercentage: true, duration: 2}),
+                                            new Stat({effect: Data.Effect.RES_STUN, theorical: [15, 20], isPercentage: true, duration: 2})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.GUARDING, duration: 2, isCritical: true}),
+                                            new Stat({effect: Data.Effect.PROTECTION, theorical: 22, isPercentage: true, duration: 2, isCritical: true}),
+                                            new Stat({effect: Data.Effect.RES_STUN, theorical: 22, isPercentage: true, duration: 2, isCritical: true})
+                                        ]
+                                    }
+                                },
+                                effectsEnemies: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.GUARDED, duration: 2}),
+                                            new Stat({effect: Data.Effect.MODIF_DMG_TOTAL, theorical: [10, 15], isPercentage: true, duration: 1})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.GUARDED, duration: 2}),
+                                            new Stat({effect: Data.Effect.MODIF_DMG_TOTAL, theorical: 18, isPercentage: true, duration: 1})
+                                        ]
+                                    }
+                                },
+                                variables: {
+                                    guarded: null,
+                                    guarding: null
+                                }
+                            }
+                        ),
+                        new Skill(
+                            "Sprawling Crush",
+                            "",
+                            0,
+                            {
+                                type: Data.SkillType.OFFENSIVE,
+                                manaCost: 20,
+                                cooldown: 2,
+                                dmgMultiplier: 120,
+                                dmgType: Data.SkillDamageType.PHYSICAL,
+                                criMultiplier: 5,
+                                accMultiplier: 90,
+                                targets: {allies: '-12', enemies: '-0'},
+                                launchPos: [true, true, false],
+                                effectsAllies: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.STUN, duration: 2, chance: 100}),
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.STUN, duration: 2, chance: 100}),
+                                            new Stat({effect: Data.Effect.BACK_ONE, chance: 100})
+                                        ]
+                                    }
+                                }
+                            }
+                        ),
+                        new Skill(
+                            "Advance",
+                            "",
+                            0,
+                            {
+                                type: Data.SkillType.FRIENDLY,
+                                manaCost: 0,
+                                criMultiplier: 15,
+                                launch: [true, false, false],
+                                effectsCaster: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.FRONT_TWO}),
+                                            new Stat({effect: Data.Effect.WARDING, theorical: [10, 15], duration: 1}),
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.FRONT_TWO}),
+                                            new Stat({effect: Data.Effect.WARDING, theorical: 18, duration: 2}),
+                                            new Stat({effect: Data.Effect.RES_STUN, theorical: 10, duration: 1})
+                                        ]
+                                    }
+                                }
+                            }
+                        )
+                    ],
+                    behavior: new EnemyBehavior({
+                        actions: [
+                            new EnemyAction({
+                                title: 'protecc',
+                                owner: function(){ return what(game.battle.enemies, "gnarly horror") },
+                                checker: function(){
+                                    return this.owner.skills[0].cooldownCountdown === 0 && this.owner.skills[0].manaCost <= this.owner.mana;
+                                },
+                                behavior: function(){
+                                    console.log(this.title);
+                                    const lowest = findNPCWithLowestStat(game.battle.enemies.filter(x => x.health > 0), "health");
+                                    game.battle.target.push(lowest);
+                                    game.battle.selectedSkill = this.owner.skills[0];
+                                    game.battle.executeSkill();
+                                }
+                            }),
+                            new EnemyAction({
+                                title: 'stun',
+                                owner: function(){ return what(game.battle.enemies, "gnarly horror") },
+                                checker: function(){
+                                    return this.owner.skills[1].cooldownCountdown === 0 && this.owner.skills[1].manaCost <= this.owner.mana;
+                                },
+                                behavior: function(){
+                                    console.log(this.title);
+                                    const lowest = findNPCWithLowestStat(game.battle.allies.filter(x => x.health > 0 && x.getSelfPosInBattle() != Data.FormationPosition.BACK), "resStun");
+                                    game.battle.target.push(lowest);
+                                    game.battle.selectedSkill = this.owner.skills[1];
+                                    game.battle.executeSkill();
+                                }
+                            }),
+                            new EnemyAction({
+                                title: 'move forward',
+                                owner: function(){ return what(game.battle.enemies, "gnarly horror") },
+                                checker: function(){
+                                    return this.owner.getSelfPosInBattle() === Data.FormationPosition.BACK
+                                },
+                                behavior: function(){
+                                    console.log(this.title);
+                                    game.battle.selectedSkill = this.owner.skills[2];
+                                    game.battle.executeSkill();
+                                }
+                            }),
+                            new EnemyAction({
+                                title: 'block',
+                                owner: function(){ return what(game.battle.enemies, "gnarly horror") },
+                                checker: function(){
+                                    return this.owner.stamina > 0;
+                                },
+                                behavior: function(){
+                                    console.log(this.title);
+                                    this.owner.applyBlocking();
+                                    this.owner.removeBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 5}));
+                                    this.owner.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 10}));
+                                    game.battle.finishTurn();
+                                }
+                            })
+                        ]
                     }),
-                    gold: [0, 20]
+                },
+            ),
+            new Enemy(
+                {
+                    name: "Fire Hatchling",
+                    desc: "You better not kill this little dude if a Fire Iguana is around...",
+                    charset: Data.Charset.FIRE_HATCHLING,
+                    subname: "Subname",
+                    health: 25, mana: 35, stamina: 35,
+                    dodge: 20, speed: 15, accuracy: 85, protection: 0,
+                    might: 5, spirit: 5,
+                    resBleed: [0, 0], resPoison: [2, 0],
+                    resMove: 20, resStun: 25,
+                    resilience: 0, warding: 4,
+                    triggers: [
+                        new Trigger({
+                            name: "fireHatchling_death_boostIguanas",
+                            type: Data.TriggerType.ON_DEATH,
+                            checker: function(){
+                                const target = game.battle.enemies.find(x => x.name.toLowerCase() === "fire iguana")
+    
+                                return target && !target.getActiveEffect("matriarch rage");
+                            },
+                            behavior: function() {
+                                const tar = choose(game.battle.enemies.filter(x => x.name.toLowerCase() === "fire iguana"));
+    
+                                const bonuses = [
+                                    new Stat({effect: Data.Effect.MODIF_DMG_TOTAL, theorical: 15, duration: 5, isPercentage: true}),
+                                    new Stat({effect: Data.Effect.SPEED, theorical: 3, duration: 5}),
+                                    new Stat({effect: Data.Effect.RESILIENCE, theorical: 5, duration: 5}),
+                                ];
+                                bonuses.forEach(bo => {
+                                    tar.alter({
+                                        effect: bo,
+                                        action: Data.AlterAction.ADD,
+                                        origin: {
+                                            type: Data.ActiveEffectType.POWER,
+                                            name: "Matriarch Rage",
+                                        }
+                                    });
+                                });
+                                tar.addActiveEffect(new ActiveEffect({
+                                    name: "Matriarch Rage",
+                                    originUser: this.getOwner(),
+                                    originObject: Data.ActiveEffectType.POWER,
+                                    effects: bonuses,
+                                    style: {
+                                        color: Data.Color.PURPLE,
+                                        bold: true
+                                    }
+                                }));
+    
+                                game.chatlog.addMessage(Data.ChatlogChannel.BATTLE, {
+                                    content: this.getOwner().name + "'s death enraged a " + tar.name + "!",
+                                    style: {
+                                        className: "clgMsg-negative"
+                                    }
+                                }, game.battle.chatlogFolder);
+                            }
+                        })
+                    ],
+                    mobType: Data.MobType.LESSER,
+                    skills: [
+                        new Skill(
+                            "Burning Bile",
+                            "",
+                            0,
+                            {
+                                type: Data.SkillType.OFFENSIVE,
+                                manaCost: 10,
+                                dmgType: Data.SkillDamageType.MAGICAL,
+                                dmgMultiplier: 100,
+                                criMultiplier: 15,
+                                accMultiplier: 85,
+                                cooldown: 2,
+                                targets: { allies: '-0', enemies: '@12' },
+                                effectsAllies: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.BLIGHT_CURABLE, theorical: [2, 3], type: Data.StatType.ACTIVE, duration: 2}),
+                                            new Stat({effect: Data.Effect.RES_POISON_DMG, theorical: [-2, -3], duration: 2}),
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.BLIGHT_CURABLE, theorical: [3, 4], type: Data.StatType.ACTIVE, duration: 2, isCritical: true}),
+                                            new Stat({effect: Data.Effect.RES_POISON_DMG, theorical: [-3, -4], duration: 2}),
+                                        ]
+                                    }
+                                }
+                            }
+                        ),
+                        new Skill(
+                            "Tail Strike",
+                            "",
+                            0,
+                            {
+                                type: Data.SkillType.OFFENSIVE,
+                                manaCost: 10,
+                                dmgType: Data.SkillDamageType.PHYSICAL,
+                                dmgMultiplier: 90,
+                                criMultiplier: 20,
+                                accMultiplier: 95,
+                                targets: { allies: '-0', enemies: '@23'},
+                                effectsAllies: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.DODGE, theorical: -5, duration: 2}),
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.DODGE, theorical: -7, duration: 2, isCritical: true}),
+                                        ]
+                                    }
+                                }
+                            }
+                        )
+                    ],
+                    behavior: new EnemyBehavior({
+                        actions: [
+                            new EnemyAction({
+                                title: 'regular',
+                                owner: function(){ return what(game.battle.enemies, "fire hatchling") },
+                                checker: function(){ return this.owner.canUseSkill("burning bile") || this.owner.canUseSkill("tail strike") },
+                                behavior: function(){
+                                    if(this.owner.canUseSkill("burning bile")) {
+                                        game.battle.target.push(game.battle.allies[2]);
+                                        game.battle.target.push(game.battle.allies[1]);
+                                        game.battle.selectedSkill = this.owner.skills[0];
+                                    } else {
+                                        game.battle.target.push(game.battle.allies[1]);
+                                        game.battle.target.push(game.battle.allies[0]);
+                                        game.battle.selectedSkill = this.owner.skills[1];
+                                    }
+    
+                                    game.battle.executeSkill();
+                                }
+                            }),
+                            new EnemyAction({
+                                title: 'block',
+                                owner: function(){ return what(game.battle.enemies, "fire hatchling") },
+                                checker: function(){ return this.owner.stamina > 0 },
+                                behavior: function() {
+                                    this.owner.applyBlocking();
+                                    this.owner.removeBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 5}));
+                                    this.owner.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 5}));
+                                    game.battle.finishTurn();
+                                }
+                            })
+                        ]
+                    }),
+                },
+            ),
+            new Enemy(
+                {
+                    name: "Fire Iguana",
+                    desc: "Dealing high poison damage and resistance debuffs, they leave a hatchling behind them upon dying.",
+                    charset: Data.Charset.FIRE_IGUANA,
+                    subname: "Subname",
+                    health: 50, mana: 50, stamina: 50,
+                    dodge: 10, speed: 10, accuracy: 85, protection: 10,
+                    might: 10, spirit: 10,
+                    resBleed: [0, 0], resPoison: [5, 0],
+                    resMove: 20, resStun: 25,
+                    resilience: 0, warding: 4,
+                    mobType: Data.MobType.REGULAR,
+                    skills: [
+                        new Skill(
+                            "Survival of the Species",
+                            "",
+                            0,
+                            {
+                                type: Data.SkillType.FRIENDLY,
+                                manaCost: 15,
+                                criMultiplier: 10,
+                                targets: { allies: '-123', enemies: '-0' },
+                                launchPos: [true, false, false],
+                                effectsEnemies: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.HEALTH, theorical: [50, 60], isPercentage: true, type: Data.StatType.ACTIVE}),
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.HEALTH, theorical: [70, 75], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true}),
+                                        ]
+                                    }
+                                }
+                            }
+                        ),
+                        new Skill(
+                            "Flaming Bile",
+                            "",
+                            0,
+                            {
+                                type: Data.SkillType.OFFENSIVE,
+                                manaCost: 10,
+                                dmgType: Data.SkillDamageType.MAGICAL,
+                                criMultiplier: 10,
+                                accMultiplier: 90,
+                                cooldown: 3,
+                                targets: { allies: '-0', enemies: '-123' },
+                                effectsAllies: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.BLIGHT_CURABLE, theorical: [4, 5], type: Data.StatType.ACTIVE, duration: 2}),
+                                            new Stat({effect: Data.Effect.RESILIENCE, theorical: [-8, -12], duration: 2})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.BLIGHT_CURABLE, theorical: [5, 6], type: Data.StatType.ACTIVE, duration: 2}),
+                                            new Stat({effect: Data.Effect.RESILIENCE, theorical: [-12, -15], duration: 2})
+                                        ]
+                                    }
+                                }
+                            }
+                        )
+                    ],
+                    behavior: new EnemyBehavior({
+                        actions: [
+                            new EnemyAction({
+                                title: 'attack striders',
+                                owner: function(){ return what(game.battle.enemies, "fire iguana") },
+                                checker: function(){
+                                    return this.owner.skills[1].cooldownCountdown === 0 && this.owner.skills[1].manaCost <= this.owner.mana;
+                                },
+                                behavior: function() {
+                                    console.log(this.title);
+                                    game.battle.target.push(choose(game.battle.allies.filter(x => x.health > 0)));
+                                    game.battle.selectedSkill = this.owner.skills[1];
+                                    game.battle.executeSkill();
+                                }
+                            }),
+                            new EnemyAction({
+                                title: 'regen hatchlings',
+                                owner: function() { return what(game.battle.enemies, "fire iguana") },
+                                checker: function() {
+                                    const valid = game.battle.enemies.find(x => x.name.toLowerCase() === "fire hatchling" && x.health < x.maxHealth*0.75 && !x.isDead());
+                                    if(valid && this.owner.getSelfPosInBattle() === Data.FormationPosition.FRONT && this.owner.skills[0].manaCost <= this.owner.mana) return true;
+                                    return false;
+                                },
+                                behavior: function(){
+                                    console.log(this.title);
+                                    const tar = game.battle.enemies.find(x => x.name.toLowerCase() === "fire hatchling" && x.health < x.maxHealth*0.75);
+                                    game.battle.target.push(tar);
+                                    game.battle.selectedSkill = this.owner.skills[0];
+                                    game.battle.executeSkill();
+                                }
+                            }),
+                            new EnemyAction({
+                                title: 'move forward',
+                                owner: function(){ return what(game.battle.enemies, "fire iguana") },
+                                checker: function() {
+                                    const valid = game.battle.enemies.find(x => x.name.toLowerCase() === "fire hatchling" && x.health < x.maxHealth*0.75);
+                                    if(valid && this.owner.getSelfPosInBattle() !== Data.FormationPosition.FRONT) return true;
+                                    return false;
+                                },
+                                behavior: function() {
+                                    console.log(this.title);
+                                    game.battle.move(game.battle.currentPlay, Data.FormationPosition.FRONT, "e");
+                                    setTimeout(() => {game.battle.finishTurn();}, 300);
+                                }
+                            }),
+                            new EnemyAction({
+                                title: 'block',
+                                owner: function(){ return what(game.battle.enemies, "fire iguana") },
+                                checker: function(){ return this.owner.stamina > 0 },
+                                behavior: function() {
+                                    this.owner.applyBlocking();
+                                    this.owner.removeBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 5}));
+                                    this.owner.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 5}));
+                                    game.battle.finishTurn();
+                                }
+                            })
+                        ]
+                    })
                 }
             ),
             new Enemy(
-                "Fungaliant",
-                "Very resistant to poison damage, this monster heals others and reduces your resistances.",
-                Data.Charset.FUNGALIANT,
-                "Subname",
-                50, 50, 50,
-                10, 10, 85, 10, 10, 10,
-                [0, 0], [5, 0],
-                20, 25,
-                0, 4,
-                [],
-                {},
-                [],
-                Data.MobType.REGULAR,
-                [
-                    new Skill(
-                        "Spores of Abundance",
-                        "",
-                        0,
-                        {
-                            type: Data.SkillType.FRIENDLY,
-                            manaCost: 20,
-                            criMultiplier: 15,
-                            targets: {allies: '-123', enemies: '-0'},
-                            effectsEnemies: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.HEALTH, theorical: [15, 20], isPercentage: true, type: Data.StatType.ACTIVE}),
-                                        new Stat({effect: Data.Effect.MODIF_CRIT_SKILL, theorical: [10, 15], isPercentage: true, duration: 2}),
-                                        new Stat({effect: Data.Effect.MANA, theorical: [20, 25], isPercentage: true, type: Data.StatType.ACTIVE, duration: 2}),
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.HEALTH, theorical: [20, 25], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true}),
-                                        new Stat({effect: Data.Effect.MODIF_CRIT_SKILL, theorical: [15, 20], isPercentage: true, duration: 2, isCritical: true}),
-                                        new Stat({effect: Data.Effect.MANA, theorical: [20, 25], isPercentage: true, type: Data.StatType.ACTIVE, duration: 2, isCritical: true}),
-                                    ]
-                                }
-                            }
-                        }
-                    ),
-                    new Skill(
-                        "Debilitating Roots",
-                        "",
-                        0,
-                        {
-                            type: Data.SkillType.OFFENSIVE,
-                            manaCost: 10,
-                            dmgType: Data.SkillDamageType.MAGICAL,
-                            dmgMultiplier: 80,
-                            criMultiplier: 20,
-                            accMultiplier: 90,
-                            cooldown: 2,
-                            launchPos: [false, true, true],
-                            targets: {allies: '-0', enemies: '@123'},
-                            effectsAllies: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.RES_POISON_DMG, theorical: [-5, -10], duration: 2}),
-                                        new Stat({effect: Data.Effect.WARDING, theorical: [-8, -10], duration: 2}),
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.RES_POISON_DMG, theorical: [-5, -10], duration: 2, isCritical: true}),
-                                        new Stat({effect: Data.Effect.WARDING, theorical: [-8, -10], duration: 2, isCritical: true}),
-                                    ]
-                                }
-                            }
-                        }
-                    ),
-                    new Skill(
-                        "Repositioning",
-                        "",
-                        0,
-                        {
-                            type: Data.SkillType.BOTH,
-                            manaCost: 0,
-                            criMultiplier: 15,
-                            accMultiplier: 100,
-                            dmgMultiplier: 110,
-                            dmgType: Data.SkillDamageType.PHYSICAL,
-                            launchPos: [true, false, false],
-                            targets: {allies: '-1', enemies: '-1'},
-                            effectsCaster: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.BACK_ONE}),
-                                        new Stat({effect: Data.Effect.PROTECTION, theorical: 8, duration: 2, isPercentage: true}),
-                                        new Stat({effect: Data.Effect.MANA, theorical: 15, isPercentage: true, type: Data.StatType.ACTIVE})
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.BACK_TWO}),
-                                        new Stat({effect: Data.Effect.PROTECTION, theorical: 5, duration: 2, isPercentage: true, isCritical: true}),
-                                        new Stat({effect: Data.Effect.MANA, theorical: 20, isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true}),
-                                    ]
-                                }
-                            }
-                        }
-                    )
-                ],
-                new EnemyBehavior({
-                    actions: [
-                        new EnemyAction({
-                            title: 'move back',
-                            owner: function(){ return what(game.battle.enemies, "fungaliant") },
-                            checker: function(){ 
-                                return this.owner.getSelfPosInBattle() === Data.FormationPosition.FRONT;
-                            },
-                            behavior: function(){
-                                console.log(this.title);
-                                game.battle.target.push(game.battle.allies[2]);
-                                game.battle.selectedSkill = this.owner.skills[2];
-                                game.battle.executeSkill();
-                            }
-                        }),
-                        new EnemyAction({
-                            title: 'weaken striders',
-                            owner: function(){ return what(game.battle.enemies, "fungaliant") },
-                            checker: function(){
-                                return this.owner.skills[1].cooldownCountdown === 0 && this.owner.skills[1].manaCost <= this.owner.mana;
-                            },
-                            behavior: function(){
-                                console.log(this.title);
-                                game.battle.target.push(
-                                    game.battle.allies[0],
-                                    game.battle.allies[1],
-                                    game.battle.allies[2]
-                                );
-                                game.battle.selectedSkill = this.owner.skills[1];
-                                game.battle.executeSkill();
-                            }
-                        }),
-                        new EnemyAction({
-                            title: 'heal enemies',
-                            owner: function(){ return what(game.battle.enemies, "fungaliant") },
-                            checker: function(){
-                                return this.owner.skills[0].manaCost <= this.owner.mana;
-                            },
-                            behavior: function(){
-                                console.log(this.title);
-                                game.battle.target.push(
-                                    findNPCWithLowestStat(
-                                        game.battle.enemies.filter(x => x.health > 0), 
-                                        Data.Effect.HEALTH
-                                    )
-                                );
-                                game.battle.selectedSkill = this.owner.skills[0];
-                                game.battle.executeSkill();
-                            }
-                        }),
-                        new EnemyAction({
-                            title: 'block',
-                            owner: function(){ return what(game.battle.enemies, "fungaliant") },
-                            checker: function(){
-                                return this.owner.stamina > 0;
-                            },
-                            behavior: function(){
-                                console.log(this.title);
-                                this.owner.applyBlocking();
-                                this.owner.removeBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 5}));
-                                this.owner.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 5}));
-                                game.battle.finishTurn();
-                            }
-                        })
-                    ]
-                }),
-            ),
-            new Enemy(
-                "Gnarly Horror",
-                "Be aware of their high Stun power ; they also don't hesitate to Guard their allies while also increasing their Protection.",
-                Data.Charset.GNARLY_HORROR,
-                "Subname",
-                120, 120, 120,
-                5, 8, 85, 35, 20, 20,
-                [2, 0], [5, 0],
-                80, 50,
-                10, 10,
-                [],
-                {},
-                [],
-                Data.MobType.MAJOR,
-                [
-                    new Skill(
-                        "Armored Bark",
-                        "",
-                        0,
-                        {
-                            type: Data.SkillType.FRIENDLY,
-                            manaCost: 10,
-                            cooldown: 3,
-                            criMultiplier: 10,
-                            accMultiplier: 100,
-                            targets: {allies: '-123', enemies: '-0'},
-                            launchPos: [true, true, true],
-                            effectsCaster: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.GUARDING, duration: 2}),
-                                        new Stat({effect: Data.Effect.PROTECTION, theorical: [15, 20], isPercentage: true, duration: 2}),
-                                        new Stat({effect: Data.Effect.RES_STUN, theorical: [15, 20], isPercentage: true, duration: 2})
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.GUARDING, duration: 2, isCritical: true}),
-                                        new Stat({effect: Data.Effect.PROTECTION, theorical: 22, isPercentage: true, duration: 2, isCritical: true}),
-                                        new Stat({effect: Data.Effect.RES_STUN, theorical: 22, isPercentage: true, duration: 2, isCritical: true})
-                                    ]
-                                }
-                            },
-                            effectsEnemies: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.GUARDED, duration: 2}),
-                                        new Stat({effect: Data.Effect.MODIF_DMG_TOTAL, theorical: [10, 15], isPercentage: true, duration: 1})
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.GUARDED, duration: 2}),
-                                        new Stat({effect: Data.Effect.MODIF_DMG_TOTAL, theorical: 18, isPercentage: true, duration: 1})
-                                    ]
-                                }
-                            },
-                            variables: {
-                                guarded: null,
-                                guarding: null
-                            }
-                        }
-                    ),
-                    new Skill(
-                        "Sprawling Crush",
-                        "",
-                        0,
-                        {
-                            type: Data.SkillType.OFFENSIVE,
-                            manaCost: 20,
-                            cooldown: 2,
-                            dmgMultiplier: 120,
-                            dmgType: Data.SkillDamageType.PHYSICAL,
-                            criMultiplier: 5,
-                            accMultiplier: 90,
-                            targets: {allies: '-12', enemies: '-0'},
-                            launchPos: [true, true, false],
-                            effectsAllies: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.STUN, duration: 2, chance: 100}),
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.STUN, duration: 2, chance: 100}),
-                                        new Stat({effect: Data.Effect.BACK_ONE, chance: 100})
-                                    ]
-                                }
-                            }
-                        }
-                    ),
-                    new Skill(
-                        "Advance",
-                        "",
-                        0,
-                        {
-                            type: Data.SkillType.FRIENDLY,
-                            manaCost: 0,
-                            criMultiplier: 15,
-                            launch: [true, false, false],
-                            effectsCaster: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.FRONT_TWO}),
-                                        new Stat({effect: Data.Effect.WARDING, theorical: [10, 15], duration: 1}),
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.FRONT_TWO}),
-                                        new Stat({effect: Data.Effect.WARDING, theorical: 18, duration: 2}),
-                                        new Stat({effect: Data.Effect.RES_STUN, theorical: 10, duration: 1})
-                                    ]
-                                }
-                            }
-                        }
-                    )
-                ],
-                new EnemyBehavior({
-                    actions: [
-                        new EnemyAction({
-                            title: 'protecc',
-                            owner: function(){ return what(game.battle.enemies, "gnarly horror") },
-                            checker: function(){
-                                return this.owner.skills[0].cooldownCountdown === 0 && this.owner.skills[0].manaCost <= this.owner.mana;
-                            },
-                            behavior: function(){
-                                console.log(this.title);
-                                const lowest = findNPCWithLowestStat(game.battle.enemies.filter(x => x.health > 0), "health");
-                                game.battle.target.push(lowest);
-                                game.battle.selectedSkill = this.owner.skills[0];
-                                game.battle.executeSkill();
-                            }
-                        }),
-                        new EnemyAction({
-                            title: 'stun',
-                            owner: function(){ return what(game.battle.enemies, "gnarly horror") },
-                            checker: function(){
-                                return this.owner.skills[1].cooldownCountdown === 0 && this.owner.skills[1].manaCost <= this.owner.mana;
-                            },
-                            behavior: function(){
-                                console.log(this.title);
-                                const lowest = findNPCWithLowestStat(game.battle.allies.filter(x => x.health > 0 && x.getSelfPosInBattle() != Data.FormationPosition.BACK), "resStun");
-                                game.battle.target.push(lowest);
-                                game.battle.selectedSkill = this.owner.skills[1];
-                                game.battle.executeSkill();
-                            }
-                        }),
-                        new EnemyAction({
-                            title: 'move forward',
-                            owner: function(){ return what(game.battle.enemies, "gnarly horror") },
-                            checker: function(){
-                                return this.owner.getSelfPosInBattle() === Data.FormationPosition.BACK
-                            },
-                            behavior: function(){
-                                console.log(this.title);
-                                game.battle.selectedSkill = this.owner.skills[2];
-                                game.battle.executeSkill();
-                            }
-                        }),
-                        new EnemyAction({
-                            title: 'block',
-                            owner: function(){ return what(game.battle.enemies, "gnarly horror") },
-                            checker: function(){
-                                return this.owner.stamina > 0;
-                            },
-                            behavior: function(){
-                                console.log(this.title);
-                                this.owner.applyBlocking();
-                                this.owner.removeBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 5}));
-                                this.owner.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 10}));
-                                game.battle.finishTurn();
-                            }
-                        })
-                    ]
-                }),
-            ),
-            new Enemy(
-                "Fire Hatchling",
-                "You better not kill this little dude if a Fire Iguana is around...",
-                Data.Charset.FIRE_HATCHLING,
-                "Subname",
-                25, 35, 35,
-                20, 15, 85, 0, 5, 5,
-                [0, 0], [2, 0],
-                20, 25,
-                0, 4,
-                [],
-                {},
-                [
-                    new Trigger({
-                        name: "fireHatchling_death_boostIguanas",
-                        type: Data.TriggerType.ON_DEATH,
-                        checker: function(){
-                            const target = game.battle.enemies.find(x => x.name.toLowerCase() === "fire iguana")
-
-                            return target && !target.getActiveEffect("matriarch rage");
-                        },
-                        behavior: function() {
-                            const tar = choose(game.battle.enemies.filter(x => x.name.toLowerCase() === "fire iguana"));
-
-                            const bonuses = [
-                                new Stat({effect: Data.Effect.MODIF_DMG_TOTAL, theorical: 15, duration: 5, isPercentage: true}),
-                                new Stat({effect: Data.Effect.SPEED, theorical: 3, duration: 5}),
-                                new Stat({effect: Data.Effect.RESILIENCE, theorical: 5, duration: 5}),
-                            ];
-                            bonuses.forEach(bo => {
-                                tar.alter({
-                                    effect: bo,
-                                    action: Data.AlterAction.ADD,
-                                    origin: {
-                                        type: Data.ActiveEffectType.POWER,
-                                        name: "Matriarch Rage",
-                                    }
-                                });
-                            });
-                            tar.addActiveEffect(new ActiveEffect({
-                                name: "Matriarch Rage",
-                                originUser: this.getOwner(),
-                                originObject: Data.ActiveEffectType.POWER,
-                                effects: bonuses,
-                                style: {
-                                    color: Data.Color.PURPLE,
-                                    bold: true
-                                }
-                            }));
-
-                            game.chatlog.addMessage(Data.ChatlogChannel.BATTLE, {
-                                content: this.getOwner().name + "'s death enraged a " + tar.name + "!",
-                                style: {
-                                    className: "clgMsg-negative"
-                                }
-                            }, game.battle.chatlogFolder);
-                        }
-                    })
-                ],
-                Data.MobType.LESSER,
-                [
-                    new Skill(
-                        "Burning Bile",
-                        "",
-                        0,
-                        {
-                            type: Data.SkillType.OFFENSIVE,
-                            manaCost: 10,
-                            dmgType: Data.SkillDamageType.MAGICAL,
-                            dmgMultiplier: 100,
-                            criMultiplier: 15,
-                            accMultiplier: 85,
-                            cooldown: 2,
-                            targets: { allies: '-0', enemies: '@12' },
-                            effectsAllies: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.BLIGHT_CURABLE, theorical: [2, 3], type: Data.StatType.ACTIVE, duration: 2}),
-                                        new Stat({effect: Data.Effect.RES_POISON_DMG, theorical: [-2, -3], duration: 2}),
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.BLIGHT_CURABLE, theorical: [3, 4], type: Data.StatType.ACTIVE, duration: 2, isCritical: true}),
-                                        new Stat({effect: Data.Effect.RES_POISON_DMG, theorical: [-3, -4], duration: 2}),
-                                    ]
-                                }
-                            }
-                        }
-                    ),
-                    new Skill(
-                        "Tail Strike",
-                        "",
-                        0,
-                        {
-                            type: Data.SkillType.OFFENSIVE,
-                            manaCost: 10,
-                            dmgType: Data.SkillDamageType.PHYSICAL,
-                            dmgMultiplier: 90,
-                            criMultiplier: 20,
-                            accMultiplier: 95,
-                            targets: { allies: '-0', enemies: '@23'},
-                            effectsAllies: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.DODGE, theorical: -5, duration: 2}),
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.DODGE, theorical: -7, duration: 2, isCritical: true}),
-                                    ]
-                                }
-                            }
-                        }
-                    )
-                ],
-                new EnemyBehavior({
-                    actions: [
-                        new EnemyAction({
-                            title: 'regular',
-                            owner: function(){ return what(game.battle.enemies, "fire hatchling") },
-                            checker: function(){ return this.owner.canUseSkill("burning bile") || this.owner.canUseSkill("tail strike") },
-                            behavior: function(){
-                                if(this.owner.canUseSkill("burning bile")) {
-                                    game.battle.target.push(game.battle.allies[2]);
-                                    game.battle.target.push(game.battle.allies[1]);
-                                    game.battle.selectedSkill = this.owner.skills[0];
-                                } else {
-                                    game.battle.target.push(game.battle.allies[1]);
-                                    game.battle.target.push(game.battle.allies[0]);
-                                    game.battle.selectedSkill = this.owner.skills[1];
-                                }
-
-                                game.battle.executeSkill();
-                            }
-                        }),
-                        new EnemyAction({
-                            title: 'block',
-                            owner: function(){ return what(game.battle.enemies, "fire hatchling") },
-                            checker: function(){ return this.owner.stamina > 0 },
-                            behavior: function() {
-                                this.owner.applyBlocking();
-                                this.owner.removeBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 5}));
-                                this.owner.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 5}));
-                                game.battle.finishTurn();
-                            }
-                        })
-                    ]
-                }),
-                {}
-            ),
-            new Enemy(
-                "Fire Iguana",
-                "Dealing high poison damage and resistance debuffs, they leave a hatchling behind them upon dying.",
-                Data.Charset.FIRE_IGUANA,
-                "Subname",
-                50, 50, 50,
-                10, 10, 85, 10, 10, 10,
-                [0, 0], [5, 0],
-                20, 25,
-                0, 4,
-                [],
-                {},
-                [],
-                Data.MobType.REGULAR,
-                [
-                    new Skill(
-                        "Survival of the Species",
-                        "",
-                        0,
-                        {
-                            type: Data.SkillType.FRIENDLY,
-                            manaCost: 15,
-                            criMultiplier: 10,
-                            targets: { allies: '-123', enemies: '-0' },
-                            launchPos: [true, false, false],
-                            effectsEnemies: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.HEALTH, theorical: [50, 60], isPercentage: true, type: Data.StatType.ACTIVE}),
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.HEALTH, theorical: [70, 75], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true}),
-                                    ]
-                                }
-                            }
-                        }
-                    ),
-                    new Skill(
-                        "Flaming Bile",
-                        "",
-                        0,
-                        {
-                            type: Data.SkillType.OFFENSIVE,
-                            manaCost: 10,
-                            dmgType: Data.SkillDamageType.MAGICAL,
-                            criMultiplier: 10,
-                            accMultiplier: 90,
-                            cooldown: 3,
-                            targets: { allies: '-0', enemies: '-123' },
-                            effectsAllies: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.BLIGHT_CURABLE, theorical: [4, 5], type: Data.StatType.ACTIVE, duration: 2}),
-                                        new Stat({effect: Data.Effect.RESILIENCE, theorical: [-8, -12], duration: 2})
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.BLIGHT_CURABLE, theorical: [5, 6], type: Data.StatType.ACTIVE, duration: 2}),
-                                        new Stat({effect: Data.Effect.RESILIENCE, theorical: [-12, -15], duration: 2})
-                                    ]
-                                }
-                            }
-                        }
-                    )
-                ],
-                new EnemyBehavior({
-                    actions: [
-                        new EnemyAction({
-                            title: 'attack striders',
-                            owner: function(){ return what(game.battle.enemies, "fire iguana") },
-                            checker: function(){
-                                return this.owner.skills[1].cooldownCountdown === 0 && this.owner.skills[1].manaCost <= this.owner.mana;
-                            },
-                            behavior: function() {
-                                console.log(this.title);
-                                game.battle.target.push(choose(game.battle.allies.filter(x => x.health > 0)));
-                                game.battle.selectedSkill = this.owner.skills[1];
-                                game.battle.executeSkill();
-                            }
-                        }),
-                        new EnemyAction({
-                            title: 'regen hatchlings',
-                            owner: function() { return what(game.battle.enemies, "fire iguana") },
-                            checker: function() {
-                                const valid = game.battle.enemies.find(x => x.name.toLowerCase() === "fire hatchling" && x.health < x.maxHealth*0.75 && !x.isDead());
-                                if(valid && this.owner.getSelfPosInBattle() === Data.FormationPosition.FRONT && this.owner.skills[0].manaCost <= this.owner.mana) return true;
-                                return false;
-                            },
-                            behavior: function(){
-                                console.log(this.title);
-                                const tar = game.battle.enemies.find(x => x.name.toLowerCase() === "fire hatchling" && x.health < x.maxHealth*0.75);
-                                game.battle.target.push(tar);
-                                game.battle.selectedSkill = this.owner.skills[0];
-                                game.battle.executeSkill();
-                            }
-                        }),
-                        new EnemyAction({
-                            title: 'move forward',
-                            owner: function(){ return what(game.battle.enemies, "fire iguana") },
-                            checker: function() {
-                                const valid = game.battle.enemies.find(x => x.name.toLowerCase() === "fire hatchling" && x.health < x.maxHealth*0.75);
-                                if(valid && this.owner.getSelfPosInBattle() !== Data.FormationPosition.FRONT) return true;
-                                return false;
-                            },
-                            behavior: function() {
-                                console.log(this.title);
-                                game.battle.move(game.battle.currentPlay, Data.FormationPosition.FRONT, "e");
-                                setTimeout(() => {game.battle.finishTurn();}, 300);
-                            }
-                        }),
-                        new EnemyAction({
-                            title: 'block',
-                            owner: function(){ return what(game.battle.enemies, "fire iguana") },
-                            checker: function(){ return this.owner.stamina > 0 },
-                            behavior: function() {
-                                this.owner.applyBlocking();
-                                this.owner.removeBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 5}));
-                                this.owner.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 5}));
-                                game.battle.finishTurn();
-                            }
-                        })
-                    ]
-                })
-            ),
-            new Enemy(
-                "The Maw",
-                "O BOI HE BIG AND SCARY",
-                Data.Charset.THE_MAW,
-                "Subname",
-                200, 150, 100,
-                5, 8, 85, 35, 20, 20,
-                [5, 0], [5, 0],
-                80, 50,
-                10, 10,
-                [],
                 {
-                    mainTarget: null
+                    name: "The Maw",
+                    desc: "As an abnormally large Carmine Alligator, he'll wait for you to attack first, only to never stop mauling the first striker.",
+                    charset: Data.Charset.THE_MAW,
+                    subname: "Subname",
+                    health: 200, mana: 150, stamina: 100,
+                    dodge: 5, speed: 8, accuracy: 85, protection: 35,
+                    might: 20, spirit: 20,
+                    resBleed: [5, 0], resPoison: [5, 0],
+                    resMove: 80, resStun: 50,
+                    resilience: 10, warding: 10,
+                    mobType: Data.MobType.LESSER_BOSS,
+                    variables: {
+                        mainTarget: null
+                    },
+                    triggers: [
+                        new Trigger({
+                            name: "theMaw_setMainTarget",
+                            type: [Data.TriggerType.ON_RECV_DAMAGE],
+                            checker: function() {
+                                return !this.getOwner().variables.mainTarget
+                            },
+                            behavior: function() {
+                                this.getOwner().variables.mainTarget = game.battle.currentPlay;
+                                
+                                game.chatlog.addMessage(Data.ChatlogChannel.BATTLE, {
+                                    content: "The Maw has started preying on " + this.getOwner().variables.mainTarget.name + ".",
+                                    style: {
+                                        className: "clgMsg-negative"
+                                    }
+                                }, game.battle.chatlogFolder);
+                            }
+                        }),
+                    ],
+                    skills: [
+                        new Skill(
+                            "Predator Tenacity",
+                            "",
+                            0,
+                            {
+                                type: Data.SkillType.OFFENSIVE,
+                                manaCost: 15,
+                                cooldown: 1,
+                                dmgMultiplier: 120,
+                                dmgType: Data.SkillDamageType.PHYSICAL,
+                                criMultiplier: 20,
+                                accMultiplier: 95,
+                                targets: {allies: '-0', enemies: '-123'},
+                                launchPos: [true, true, false],
+                                effectsAllies: {
+                                    1: {
+                                        regular: [
+                                            
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.STUN, duration: 1, chance: 100, isCritical: true})
+                                        ],
+                                    }
+                                },
+                            }
+                        ),
+                        new Skill(
+                            "Ravage",
+                            "",
+                            0,
+                            {
+                                type: Data.SkillType.OFFENSIVE,
+                                manaCost: 20,
+                                cooldown: 1,
+                                dmgMultiplier: 110,
+                                dmgType: Data.SkillDamageType.PHYSICAL,
+                                criMultiplier: 15,
+                                accMultiplier: 85,
+                                targets: {allies: '-0', enemies: '@123'},
+                                launchPos: [true, true, false],
+                                effectsAllies: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.BLEEDING_INCURABLE, duration: 2, type: Data.StatType.ACTIVE, theorical: [5, 6]})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.BLEEDING_INCURABLE, duration: 2, type: Data.StatType.ACTIVE, theorical: 8, isCritical: true})
+                                        ],
+                                    }
+                                },
+                            }
+                        ),
+                        new Skill(
+                            "Reptilian Regrowth",
+                            "",
+                            0,
+                            {
+                                type: Data.SkillType.FRIENDLY,
+                                manaCost: 10,
+                                cooldown: 1,
+                                criMultiplier: 15,
+                                accMultiplier: 100,
+                                targets: {allies: '-123', enemies: '-0'},
+                                launchPos: [true, true, true],
+                                effectsEnemies: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.HEALTH, type: Data.StatType.ACTIVE, theorical: [20, 25], isPercentage: true}),
+                                            new Stat({effect: Data.Effect.MODIF_DMG_TOTAL, theorical: [10, 15], isPercentage: true, duration: 2}),
+                                            new Stat({effect: Data.Effect.PROTECTION, theorical: [5, 8], isPercentage: true, duration: 2}),
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.HEALTH, type: Data.StatType.ACTIVE, theorical: [25, 30], isPercentage: true, isCritical: true}),
+                                            new Stat({effect: Data.Effect.MODIF_DMG_TOTAL, theorical: [18, 20], isPercentage: true, duration: 2, isCritical: true}),
+                                            new Stat({effect: Data.Effect.PROTECTION, theorical: 10, isPercentage: true, duration: 2, isCritical: true}),
+                                        ],
+                                    }
+                                }
+                            }
+                        ),
+                        new Skill(
+                            "Apex Tracking",
+                            "",
+                            0,
+                            {
+                                type: Data.SkillType.OFFENSIVE,
+                                manaCost: 10,
+                                cooldown: 2,
+                                dmgMultiplier: 130,
+                                dmgType: Data.SkillDamageType.PHYSICAL,
+                                criMultiplier: 20,
+                                accMultiplier: 85,
+                                targets: {allies: '-0', enemies: '@12'},
+                                launchPos: [true, true, false],
+                                effectsCaster: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.FRONT_TWO})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.FRONT_TWO, isCritical: true})
+                                        ],
+                                    }
+                                },
+                            }
+                        )
+                    ],
+                    behavior: new EnemyBehavior({
+                        actions: [
+                            new EnemyAction({
+                                title: 'boost allies',
+                                owner: function(){ return what(game.battle.enemies, "the maw") },
+                                checker: function() {
+                                    return !this.owner.variables.mainTarget 
+                                            && this.owner.canUseSkill("reptilian regrowth");
+                                },
+                                behavior: function() {
+                                    console.log(this.title);
+                                    
+                                    const tar = choose(game.battle.enemies.filter(x => !x.isDead() && x !== this.owner));
+                                    game.battle.target.push(tar);
+                                    game.battle.selectedSkill = this.owner.skills[2];
+                                    game.battle.executeSkill();
+                                }
+                            }),
+                            new EnemyAction({
+                                title: 'move forward',
+                                owner: function(){ return what(game.battle.enemies, "the maw") },
+                                checker: function() {
+                                    return this.owner.getSelfPosInBattle() === Data.FormationPosition.BACK 
+                                            && this.owner.canUseSkill("apex tracking");
+                                },
+                                behavior: function() {
+                                    console.log(this.title);
+    
+                                    game.battle.allies.forEach(all => game.battle.target.push(all));
+                                    game.battle.selectedSkill = this.owner.skills[3];
+                                    game.battle.executeSkill();
+                                }
+                            }),
+                            new EnemyAction({
+                                title: 'focus target',
+                                owner: function(){ return what(game.battle.enemies, "the maw") },
+                                checker: function(){
+                                    return this.owner.variables.mainTarget 
+                                            && !this.owner.variables.mainTarget.isDead() 
+                                            && this.owner.getSelfPosInBattle() !== Data.FormationPosition.BACK
+                                            && this.owner.canUseSkill("predator tenacity")
+                                },
+                                behavior: function() {
+                                    console.log(this.title);
+    
+                                    game.battle.target.push(this.owner.variables.mainTarget);
+                                    game.battle.selectedSkill = this.owner.skills[0];
+                                    game.battle.executeSkill();
+                                }
+                            }),
+                            new EnemyAction({
+                                title: 'attack others',
+                                owner: function(){ return what(game.battle.enemies, "the maw") },
+                                checker: function() {
+                                    return this.owner.variables.mainTarget 
+                                            && this.owner.variables.mainTarget.isDead() 
+                                            && this.owner.getSelfPosInBattle() !== Data.FormationPosition.BACK
+                                            && this.owner.canUseSkill("ravage")
+                                },
+                                behavior: function() {
+                                    game.battle.allies.filter(x => !x.isDead()).forEach(all => { game.battle.target.push(all) });
+                                    game.battle.selectedSkill = this.owner.skills[1];
+                                    this.owner.addBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 20}));
+                                    game.battle.executeSkill();
+                                }
+                            }),
+                            new EnemyAction({
+                                title: 'block',
+                                owner: function(){ return what(game.battle.enemies, "the maw") },
+                                checker: function(){ return this.owner.stamina > 0 },
+                                behavior: function() {
+                                    console.log('blocks');
+                                    this.owner.applyBlocking();
+                                    this.owner.removeBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 5}));
+                                    this.owner.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 100}));
+                                    game.battle.finishTurn();
+                                }
+                            }),
+                        ]
+                    })
+                }
+            ),
+            new Enemy(
+                {
+                    name: "Jabhra Priest",
+                    desc: "",
+                    charset: Data.Charset.ALIENATED_PRIEST,
+                    subname: "Subname",
+                    health: 90, mana: 100, stamina: 45,
+                    dodge: 10, speed: 8, accuracy: 90, protection: 20,
+                    might: 30, spirit: 10,
+                    resBleed: [1, 0], resPoison: [1, 0],
+                    resMove: 25, resStun: 15,
+                    resilience: 5, warding: 5,
+                    mobType: Data.MobType.REGULAR,
+                    skills: [
+                        new Skill(
+                            "Targeted Pull",
+                            "",
+                            0,
+                            {
+                                type: Data.SkillType.OFFENSIVE,
+                                manaCost: 10,
+                                cooldown: 2,
+                                criMultiplier: 20,
+                                accMultiplier: 90,
+                                dmgMultiplier: 50,
+                                targets: {allies: '-3', enemies: '-0'},
+                                launchPos: [false, true, true],
+                                effectsAllies: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.FRONT_TWO, chance: 100}),
+                                            new Stat({effect: Data.Effect.RESILIENCE, theorical: [-10, -13], duration: 2})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.FRONT_TWO, chance: 120}),
+                                            new Stat({effect: Data.Effect.RESILIENCE, theorical: [-15, -18], duration: 2})
+                                        ]
+                                    }
+                                }
+                            }
+                        )
+                    ],
                 },
-                [
-                    new Trigger({
-                        name: "theMaw_setMainTarget",
-                        type: [Data.TriggerType.ON_RECV_DAMAGE],
-                        checker: function() {
-                            return !this.getOwner().variables.mainTarget
-                        },
-                        behavior: function() {
-                            this.getOwner().variables.mainTarget = game.battle.currentPlay;
-                            
-                            game.chatlog.addMessage(Data.ChatlogChannel.BATTLE, {
-                                content: "The Maw has started preying on " + this.getOwner().variables.mainTarget.name + ".",
-                                style: {
-                                    className: "clgMsg-negative"
+            ),
+            new Enemy(
+                {
+                    name: "Venomstripe Mauler",
+                    desc: "",
+                    charset: Data.Charset.VENOMSTRIPE_MAULER,
+                    subname: "Subname",
+                    health: 120, mana: 100, stamina: 80,
+                    dodge: 10, speed: 8, accuracy: 90, protection: 20,
+                    might: 30, spirit: 10,
+                    resBleed: [0, 0], resPoison: [5, 0],
+                    resMove: 65, resStun: 25,
+                    resilience: 18, warding: 2,
+                    mobType: Data.MobType.MAJOR,
+                    skills: [
+                        new Skill(
+                            "Feline Guard",
+                            "",
+                            0,
+                            {
+                                type: Data.SkillType.FRIENDLY,
+                                manaCost: 10,
+                                cooldown: 3,
+                                criMultiplier: 10,
+                                accMultiplier: 100,
+                                targets: {allies: '-23', enemies: '-0'},
+                                launchPos: [false, true, false],
+                                effectsCaster: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.GUARDING, duration: 2}),
+                                            new Stat({effect: Data.Effect.PROTECTION, theorical: [15, 20], isPercentage: true, duration: 2}),
+                                            new Stat({effect: Data.Effect.RES_STUN, theorical: [15, 20], isPercentage: true, duration: 2})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.GUARDING, duration: 2, isCritical: true}),
+                                            new Stat({effect: Data.Effect.PROTECTION, theorical: 22, isPercentage: true, duration: 2, isCritical: true}),
+                                            new Stat({effect: Data.Effect.RES_STUN, theorical: 22, isPercentage: true, duration: 2, isCritical: true})
+                                        ]
+                                    }
+                                },
+                                effectsEnemies: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.GUARDED, duration: 2}),
+                                            new Stat({effect: Data.Effect.MODIF_DMG_TOTAL, theorical: [10, 15], isPercentage: true, duration: 1})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.GUARDED, duration: 2}),
+                                            new Stat({effect: Data.Effect.MODIF_DMG_TOTAL, theorical: 18, isPercentage: true, duration: 1})
+                                        ]
+                                    }
+                                },
+                                variables: {
+                                    guarded: null,
+                                    guarding: null
                                 }
-                            }, game.battle.chatlogFolder);
-                        }
+                            }
+                        ),
+                        new Skill(
+                            "Excoriation",
+                            "",
+                            0,
+                            {
+                                type: Data.SkillType.OFFENSIVE,
+                                manaCost: 20,
+                                cooldown: 2,
+                                dmgMultiplier: 120,
+                                dmgType: Data.SkillDamageType.PHYSICAL,
+                                criMultiplier: 5,
+                                accMultiplier: 90,
+                                targets: {allies: '-1', enemies: '-0'},
+                                launchPos: [true, false, false],
+                                effectsCaster: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.FRONT_ONE})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.FRONT_ONE})
+                                        ]
+                                    }
+                                }
+                            }
+                        )
+                    ],
+                    behavior: new EnemyBehavior({
+                        actions: [
+                            new EnemyAction({
+                                title: 'protecc',
+                                owner: function(){ return what(game.battle.enemies, "venomstripe mauler") },
+                                checker: function() {
+                                    // Can use skill, is in Front, and has at least one alive ally
+                                    return this.owner.canUseSkill("feline guard") && this.owner.getSelfPosInBattle() === Data.FormationPosition.FRONT && game.battle.enemies.some(x => !x.isDead())
+                                },
+                                behavior: function() {
+                                    console.log(this.title);
+                                    game.battle.enemies.filter(x => !x.isDead() && x !== this.owner).forEach(x => {
+                                        game.battle.target.push(x);
+                                    });
+                                    game.battle.selectedSkill = this.owner.getSkill("feline guard");
+                                    game.battle.executeSkill();
+                                }
+                            }),
+                            new EnemyAction({
+                                title: 'atak',
+                                owner: function(){ return what(game.battle.enemies, "venomstripe mauler") },
+                                checker: function() {
+                                    // Can use skill
+                                    return this.owner.canUseSkill("excoriation") && game.battle.allies.some(x => !x.isDead());
+                                },
+                                behavior: function() {
+                                    console.log(this.title);
+                                    
+                                    const tar = choose(game.battle.allies.filter(x => !x.isDead()));
+                                    game.battle.target.push(tar);
+                                    game.battle.selectedSkill = this.owner.getSkill("excoriation");
+                                    game.battle.executeSkill();
+                                }
+                            }),
+                            new EnemyAction({
+                                title: 'block',
+                                owner: function(){ return what(game.battle.enemies, "venomstripe mauler") },
+                                checker: function(){
+                                    return this.owner.stamina > 0;
+                                },
+                                behavior: function(){
+                                    console.log(this.title);
+                                    this.owner.applyBlocking();
+                                    this.owner.removeBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 5}));
+                                    this.owner.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 20}));
+                                    game.battle.finishTurn();
+                                }
+                            })
+                        ]
                     }),
-                ],
-                Data.MobType.LESSER_BOSS,
-                [
-                    new Skill(
-                        "Predator Tenacity",
-                        "",
-                        0,
-                        {
-                            type: Data.SkillType.OFFENSIVE,
-                            manaCost: 15,
-                            cooldown: 1,
-                            dmgMultiplier: 120,
-                            dmgType: Data.SkillDamageType.PHYSICAL,
-                            criMultiplier: 20,
-                            accMultiplier: 95,
-                            targets: {allies: '-0', enemies: '-123'},
-                            launchPos: [true, true, false],
-                            effectsAllies: {
-                                1: {
-                                    regular: [
-                                        
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.STUN, duration: 1, chance: 100, isCritical: true})
-                                    ],
-                                }
-                            },
-                        }
-                    ),
-                    new Skill(
-                        "Ravage",
-                        "",
-                        0,
-                        {
-                            type: Data.SkillType.OFFENSIVE,
-                            manaCost: 20,
-                            cooldown: 1,
-                            dmgMultiplier: 110,
-                            dmgType: Data.SkillDamageType.PHYSICAL,
-                            criMultiplier: 15,
-                            accMultiplier: 85,
-                            targets: {allies: '-0', enemies: '@123'},
-                            launchPos: [true, true, false],
-                            effectsAllies: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.BLEEDING_INCURABLE, duration: 2, type: Data.StatType.ACTIVE, theorical: [5, 6]})
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.BLEEDING_INCURABLE, duration: 2, type: Data.StatType.ACTIVE, theorical: 8, isCritical: true})
-                                    ],
-                                }
-                            },
-                        }
-                    ),
-                    new Skill(
-                        "Reptilian Regrowth",
-                        "",
-                        0,
-                        {
-                            type: Data.SkillType.FRIENDLY,
-                            manaCost: 10,
-                            cooldown: 1,
-                            criMultiplier: 15,
-                            accMultiplier: 100,
-                            targets: {allies: '-123', enemies: '-0'},
-                            launchPos: [true, true, true],
-                            effectsEnemies: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.HEALTH, type: Data.StatType.ACTIVE, theorical: [20, 25], isPercentage: true}),
-                                        new Stat({effect: Data.Effect.MODIF_DMG_TOTAL, theorical: [10, 15], isPercentage: true, duration: 2}),
-                                        new Stat({effect: Data.Effect.PROTECTION, theorical: [5, 8], isPercentage: true, duration: 2}),
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.HEALTH, type: Data.StatType.ACTIVE, theorical: [25, 30], isPercentage: true, isCritical: true}),
-                                        new Stat({effect: Data.Effect.MODIF_DMG_TOTAL, theorical: [18, 20], isPercentage: true, duration: 2, isCritical: true}),
-                                        new Stat({effect: Data.Effect.PROTECTION, theorical: 10, isPercentage: true, duration: 2, isCritical: true}),
-                                    ],
-                                }
-                            }
-                        }
-                    ),
-                    new Skill(
-                        "Apex Tracking",
-                        "",
-                        0,
-                        {
-                            type: Data.SkillType.OFFENSIVE,
-                            manaCost: 10,
-                            cooldown: 2,
-                            dmgMultiplier: 130,
-                            dmgType: Data.SkillDamageType.PHYSICAL,
-                            criMultiplier: 20,
-                            accMultiplier: 85,
-                            targets: {allies: '-0', enemies: '@12'},
-                            launchPos: [true, true, false],
-                            effectsCaster: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.FRONT_TWO})
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.FRONT_TWO, isCritical: true})
-                                    ],
-                                }
-                            },
-                        }
-                    )
-                ],
-                new EnemyBehavior({
-                    actions: [
-                        new EnemyAction({
-                            title: 'boost allies',
-                            owner: function(){ return what(game.battle.enemies, "the maw") },
-                            checker: function() {
-                                return !this.owner.variables.mainTarget 
-                                        && this.owner.canUseSkill("reptilian regrowth");
-                            },
-                            behavior: function() {
-                                console.log(this.title);
-                                
-                                const tar = choose(game.battle.enemies.filter(x => !x.isDead() && x !== this.owner));
-                                game.battle.target.push(tar);
-                                game.battle.selectedSkill = this.owner.skills[2];
-                                game.battle.executeSkill();
-                            }
-                        }),
-                        new EnemyAction({
-                            title: 'move forward',
-                            owner: function(){ return what(game.battle.enemies, "the maw") },
-                            checker: function() {
-                                return this.owner.getSelfPosInBattle() === Data.FormationPosition.BACK 
-                                        && this.owner.canUseSkill("apex tracking");
-                            },
-                            behavior: function() {
-                                console.log(this.title);
-
-                                game.battle.allies.forEach(all => game.battle.target.push(all));
-                                game.battle.selectedSkill = this.owner.skills[3];
-                                game.battle.executeSkill();
-                            }
-                        }),
-                        new EnemyAction({
-                            title: 'focus target',
-                            owner: function(){ return what(game.battle.enemies, "the maw") },
-                            checker: function(){
-                                return this.owner.variables.mainTarget 
-                                        && !this.owner.variables.mainTarget.isDead() 
-                                        && this.owner.getSelfPosInBattle() !== Data.FormationPosition.BACK
-                                        && this.owner.canUseSkill("predator tenacity")
-                            },
-                            behavior: function() {
-                                console.log(this.title);
-
-                                game.battle.target.push(this.owner.variables.mainTarget);
-                                game.battle.selectedSkill = this.owner.skills[0];
-                                game.battle.executeSkill();
-                            }
-                        }),
-                        new EnemyAction({
-                            title: 'attack others',
-                            owner: function(){ return what(game.battle.enemies, "the maw") },
-                            checker: function() {
-                                return this.owner.variables.mainTarget 
-                                        && this.owner.variables.mainTarget.isDead() 
-                                        && this.owner.getSelfPosInBattle() !== Data.FormationPosition.BACK
-                                        && this.owner.canUseSkill("ravage")
-                            },
-                            behavior: function() {
-                                game.battle.allies.filter(x => !x.isDead()).forEach(all => { game.battle.target.push(all) });
-                                game.battle.selectedSkill = this.owner.skills[1];
-                                this.owner.addBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 20}));
-                                game.battle.executeSkill();
-                            }
-                        }),
-                        new EnemyAction({
-                            title: 'block',
-                            owner: function(){ return what(game.battle.enemies, "the maw") },
-                            checker: function(){ return this.owner.stamina > 0 },
-                            behavior: function() {
-                                console.log('blocks');
-                                this.owner.applyBlocking();
-                                this.owner.removeBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 5}));
-                                this.owner.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 100}));
-                                game.battle.finishTurn();
-                            }
-                        }),
-                    ]
-                })
-            ),
-            new Enemy(
-                "Alienated Jabhra Priest",
-                "",
-                Data.Charset.ALIENATED_PRIEST,
-                "Subname",
-                90, 100, 45,
-                10, 8, 90, 20, 30, 10,
-                [1, 0], [1, 0],
-                25, 15,
-                5, 5,
-                [],
-                {},
-                [],
-                Data.MobType.REGULAR,
-                [
-                    new Skill(
-                        "Targeted Pull",
-                        "",
-                        0,
-                        {
-                            type: Data.SkillType.OFFENSIVE,
-                            manaCost: 10,
-                            cooldown: 2,
-                            criMultiplier: 20,
-                            accMultiplier: 90,
-                            dmgMultiplier: 50,
-                            targets: {allies: '-3', enemies: '-0'},
-                            launchPos: [false, true, true],
-                            effectsAllies: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.FRONT_TWO, chance: 100}),
-                                        new Stat({effect: Data.Effect.RESILIENCE, theorical: [-10, -13], duration: 2})
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.FRONT_TWO, chance: 120}),
-                                        new Stat({effect: Data.Effect.RESILIENCE, theorical: [-15, -18], duration: 2})
-                                    ]
-                                }
-                            }
-                        }
-                    )
-                ],
-                new EnemyBehavior({}),
-                {}
-            ),
-            new Enemy(
-                "Venomstripe Mauler",
-                "",
-                Data.Charset.VENOMSTRIPE_MAULER,
-                "Subname",
-                125, 100, 80,
-                10, 8, 90, 20, 30, 10, 
-                [0, 0], [5, 0],
-                65, 25,
-                18, 2,
-                [],
-                {},
-                [],
-                Data.MobType.MAJOR,
-                [
-                    new Skill(
-                        "Feline Guard",
-                        "",
-                        0,
-                        {
-                            type: Data.SkillType.FRIENDLY,
-                            manaCost: 10,
-                            cooldown: 3,
-                            criMultiplier: 10,
-                            accMultiplier: 100,
-                            targets: {allies: '-23', enemies: '-0'},
-                            launchPos: [false, true, false],
-                            effectsCaster: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.GUARDING, duration: 2}),
-                                        new Stat({effect: Data.Effect.PROTECTION, theorical: [15, 20], isPercentage: true, duration: 2}),
-                                        new Stat({effect: Data.Effect.RES_STUN, theorical: [15, 20], isPercentage: true, duration: 2})
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.GUARDING, duration: 2, isCritical: true}),
-                                        new Stat({effect: Data.Effect.PROTECTION, theorical: 22, isPercentage: true, duration: 2, isCritical: true}),
-                                        new Stat({effect: Data.Effect.RES_STUN, theorical: 22, isPercentage: true, duration: 2, isCritical: true})
-                                    ]
-                                }
-                            },
-                            effectsEnemies: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.GUARDED, duration: 2}),
-                                        new Stat({effect: Data.Effect.MODIF_DMG_TOTAL, theorical: [10, 15], isPercentage: true, duration: 1})
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.GUARDED, duration: 2}),
-                                        new Stat({effect: Data.Effect.MODIF_DMG_TOTAL, theorical: 18, isPercentage: true, duration: 1})
-                                    ]
-                                }
-                            },
-                            variables: {
-                                guarded: null,
-                                guarding: null
-                            }
-                        }
-                    ),
-                    new Skill(
-                        "Excoriation",
-                        "",
-                        0,
-                        {
-                            type: Data.SkillType.OFFENSIVE,
-                            manaCost: 20,
-                            cooldown: 2,
-                            dmgMultiplier: 120,
-                            dmgType: Data.SkillDamageType.PHYSICAL,
-                            criMultiplier: 5,
-                            accMultiplier: 90,
-                            targets: {allies: '-1', enemies: '-0'},
-                            launchPos: [true, false, false],
-                            effectsCaster: {
-                                1: {
-                                    regular: [
-                                        new Stat({effect: Data.Effect.FRONT_ONE})
-                                    ],
-                                    critical: [
-                                        new Stat({effect: Data.Effect.FRONT_ONE})
-                                    ]
-                                }
-                            }
-                        }
-                    )
-                ],
-                new EnemyBehavior({
-                    actions: [
-                        new EnemyAction({
-                            title: 'protecc',
-                            owner: function(){ return what(game.battle.enemies, "venomstripe mauler") },
-                            checker: function() {
-                                // Can use skill, is in Front, and has at least one alive ally
-                                return this.owner.canUseSkill("feline guard") && this.owner.getSelfPosInBattle() === Data.FormationPosition.FRONT && game.battle.enemies.some(x => !x.isDead())
-                            },
-                            behavior: function() {
-                                console.log(this.title);
-                                game.battle.enemies.filter(x => !x.isDead() && x !== this.owner).forEach(x => {
-                                    game.battle.target.push(x);
-                                });
-                                game.battle.selectedSkill = this.owner.getSkill("feline guard");
-                                game.battle.executeSkill();
-                            }
-                        }),
-                        new EnemyAction({
-                            title: 'atak',
-                            owner: function(){ return what(game.battle.enemies, "venomstripe mauler") },
-                            checker: function() {
-                                // Can use skill
-                                return this.owner.canUseSkill("excoriation") && game.battle.allies.some(x => !x.isDead());
-                            },
-                            behavior: function() {
-                                console.log(this.title);
-                                
-                                const tar = choose(game.battle.allies.filter(x => !x.isDead()));
-                                game.battle.target.push(tar);
-                                game.battle.selectedSkill = this.owner.getSkill("excoriation");
-                                game.battle.executeSkill();
-                            }
-                        }),
-                        new EnemyAction({
-                            title: 'block',
-                            owner: function(){ return what(game.battle.enemies, "venomstripe mauler") },
-                            checker: function(){
-                                return this.owner.stamina > 0;
-                            },
-                            behavior: function(){
-                                console.log(this.title);
-                                this.owner.applyBlocking();
-                                this.owner.removeBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 5}));
-                                this.owner.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 20}));
-                                game.battle.finishTurn();
-                            }
-                        })
-                    ]
-                }),
-                {}
+                }
             )
         ];
 

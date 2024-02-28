@@ -5,38 +5,16 @@
 */
 
 class Strider extends NPC {
-    constructor(name,
-                desc,
-                charset,
-                subname,
-                health,
-                mana,
-                stamina,
-                dodge,
-                speed,
-                accuracy,
-                protection,
-                might,
-                spirit,
-                resBleed,
-                resPoison,
-                resMove,
-                resStun,
-                resilience,
-                warding,
-                critEffects,
-                variables,
-                triggers,
-                striderType,
-                uniqueName,
-                uniqueDesc,
-                uniqueQuote,
-                uniqueIcon,
-                skillTree,
-                startingSkills = [],
-                customBgPos = ''
-                ) {
-        super(name, desc, charset, subname, health, mana, stamina, dodge, speed, accuracy, protection, might, spirit, resBleed, resPoison, resMove, resStun, resilience, warding, critEffects, variables, triggers, startingSkills);
+    constructor(props = {}) {
+        super(props);
+
+        this.skillTree = getValueFromObject(props, "skillTree", null);
+        this.uniqueName = getValueFromObject(props, "uniqueName", "Unnamed Strider");
+        this.uniqueDesc = getValueFromObject(props, "uniqueDesc", "");
+        this.uniqueQuote = getValueFromObject(props, "uniqueQuote", "");
+        this.uniqueIcon = getValueFromObject(props, "uniqueIcon", 0);
+        this.striderType = getValueFromObject(props, "striderType", Data.StriderType.STRIKER);
+        this.customBgPos = getValueFromObject(props, "customBgPos", "0 0");
         
         this.eqWeaponBoth = null;
         this.eqWeaponLeft = null;
@@ -56,22 +34,13 @@ class Strider extends NPC {
         this.trinketSlots = 3;
         this.trinketSlotsFree = 3;
 
-        this.skillTree = skillTree;
-
-        this.uniqueName = uniqueName;
-        this.uniqueDesc = uniqueDesc;
-        this.uniqueQuote = uniqueQuote;
-        this.uniqueIcon = uniqueIcon;
 
         this.level = new Level("Level", 1, 20, 1, 1000, 0);
         this.skillPoints = 3;
 
-        this.skillTree = skillTree;
-        this.striderType = striderType;
 
         this.unlocked = false;
 
-        this.customBgPos = customBgPos;
 
         this.popupsQueue = [];
 
