@@ -3511,10 +3511,21 @@ const Loader = {
                                             new Stat({effect: Data.Effect.PROTECTION, theorical: [-35, -40], isPercentage: true, duration: 2})
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.PROTECTION, theorical: -45, isPercentage: true, duration: 2})
+                                            new Stat({effect: Data.Effect.PROTECTION, theorical: -45, isPercentage: true, duration: 2, isCritical: true})
                                         ],
                                     }
                                 },
+                                effectsCaster: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.HAMAN_REVELATION_MARKED, duration: 2}),
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.HAMAN_REVELATION_MARKED, duration: 2, isCritical: true}),
+                                        ],
+                                    }
+                                },
+                                applyCasterEffectsOnlyOnHit: true,
                                 variables: {
                                     storedTarget: null
                                 },
@@ -4173,10 +4184,10 @@ const Loader = {
                                 effectsAllies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.DODGE, theorical: -5, duration: 2}),
+                                            new Stat({effect: Data.Effect.DODGE, theorical: -5, isPercentage: true, duration: 2}),
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.DODGE, theorical: -7, duration: 2, isCritical: true}),
+                                            new Stat({effect: Data.Effect.DODGE, theorical: -7, isPercentage: true, duration: 2, isCritical: true}),
                                         ]
                                     }
                                 }

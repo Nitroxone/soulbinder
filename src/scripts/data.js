@@ -186,6 +186,10 @@ const Data = Object.freeze({
         REMOVES_PROTECTION_DEBUFFS: "removes Protection debuffs",
         REMOVES_WARDING_DEBUFFS: "removes Warding debuffs",
         REMOVES_RESILIENCE_DEBUFFS: "removes Resilience debuffs",
+
+        // ----- STRIDER EFFECTS -----
+        // HAMAN
+        HAMAN_REVELATION_MARKED: "Revealing"
     },
     TriggerType: {
         ON_STAT_CHANGE: 'ON_STAT_CHANGE',
