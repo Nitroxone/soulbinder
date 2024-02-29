@@ -935,21 +935,7 @@ class NPC extends Entity {
         for(let i = this.activeEffects.length - 1; i >= 0; i--) {
             let ae = this.activeEffects[i];
             if(ae.effects.length === 0) {
-                removeFromArray(this.activeEffects, ae);
-
-                if(ae.originObject instanceof Skill) {
-                    const sk = ae.originObject;
-
-                    sk.triggersCaster.forEach(trig => {
-                        removeFromArray(ae.originUser.triggers, trig);
-                    });
-                    sk.triggersAllies.forEach(trig => {
-                        removeFromArray(this.triggers, trig)
-                    });
-                    sk.triggersEnemies.forEach(trig => {
-                        game.battle.enemies.forEach(ene => removeFromArray(ene.triggers, trig));
-                    })
-                }
+                this.removeActiveEffect(ae);
             }
         }
     }
@@ -1009,7 +995,38 @@ class NPC extends Entity {
      * @param {string} name the ActiveEffect's name to remove
      */
     removeActiveEffect(name) {
-        removeFromArray(this.activeEffects, this.getActiveEffect(name));
+        const tar = name instanceof ActiveEffect ? name : this.getActiveEffect(name);
+        removeFromArray(this.activeEffects, tar);
+
+        if(tar) {
+            this.cleanEffectsFromActiveEffect(tar);
+            this.cleanTriggersFromActiveEffect(tar);
+        }
+    }
+
+    cleanTriggersFromActiveEffect(ae) {
+        if(ae.originObject instanceof Skill) {
+            const sk = ae.originObject;
+
+            // If origin user = this, remove all triggers
+            // Otherwise just remove them from this
+            if(ae.originUser === this) {
+                sk.triggersCaster.forEach(trig => {
+                    removeFromArray(ae.originUser.triggers, trig);
+                });
+                sk.triggersAllies.forEach(trig => {
+                    removeFromArray(this.triggers, trig)
+                });
+                sk.triggersEnemies.forEach(trig => {
+                    game.battle.enemies.forEach(ene => removeFromArray(ene.triggers, trig));
+                })
+            } else {
+                this.triggers.filter(x => x && typeof x.owner === 'number' && x.getOwner() === sk).forEach(trig => {
+                    console.error(`Removed triggers ${trig.name} from ${this.name}`);
+                    removeFromArray(this.triggers, trig);
+                })
+            }
+        }
     }
 
     /**
@@ -1037,6 +1054,15 @@ class NPC extends Entity {
         });
     }
 
+    cleanEffectsFromActiveEffect(ae) {
+        ae.effects.forEach(eff => {
+            if(eff.type === Data.StatType.PASSIVE && !isShieldEffect(eff) && !isBleedingOrPoisoning(eff) && !isBaseStatChange(eff, true) && !isStunOrGuardRelatedEffect(eff) && !isMovementEffect(eff.effect)) {
+                console.log('Attempting to remove ' + eff.effect + ' from ' + this.name);
+                this.alter({action: Data.AlterAction.REMOVE, uid: eff.uid});
+            }
+        });
+    }
+
     /**
      * Removes all of the Battle Effects (Skill effects, Stun, Guard, ActiveEffects...) from this NPC.
      */
@@ -1047,12 +1073,7 @@ class NPC extends Entity {
         this.shield = 0;
 
         this.activeEffects.forEach(ae => {
-            ae.effects.forEach(eff => {
-                if(eff.type === Data.StatType.PASSIVE && !isShieldEffect(eff) && !isBleedingOrPoisoning(eff) && !isBaseStatChange(eff, true) && !isStunOrGuardRelatedEffect(eff) && !isMovementEffect(eff.effect)) {
-                    console.log('Attempting to remove ' + eff.effect + ' from ' + this.name);
-                    this.alter({action: Data.AlterAction.REMOVE, uid: eff.uid});
-                }
-            });
+            this.cleanEffectsFromActiveEffect(ae);
         });
         this.activeEffects = [];
     }
