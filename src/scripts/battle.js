@@ -742,6 +742,8 @@ class Battle {
                 // - Skill doesn't contain a guard shattering effect
                 if(tar.isGuarded
                     &&
+                    skill.effectsEnemies
+                    &&
                     !skill.effectsEnemies[skill.level][accessor].some(x => x.effect === Data.Effect.SHATTERS_GUARD)) {
                     console.error('PROCESSING GUARD...');
                     const allyCheck = this.allies.includes(current) && this.allies.includes(tar);
