@@ -371,9 +371,17 @@ class NPC extends Entity {
         magi_damage = magi === 0 ? 0 : Math.max(0, magi - this.warding);
 
         damage = phys_damage + magi_damage + crit;
-        if(!params.ignoresProtection) damage -= Math.round(damage * this.protection / 100);
-        else if(params.armorPiercing > 0) damage -= Math.round(damage * (this.protection/100) * (params.armorPiercing/100))
 
+        if(!params.ignoreProtection) {
+            if(params.armorPiercing > 0) {
+                let effectiveProtection = this.protection - (this.protection * params.armorPiercing/100);
+                damage -= Math.round(damage * effectiveProtection / 100);
+            } else {
+                damage -= Math.round(damage * this.protection/100);
+            }
+        }
+
+        // By default, blocking reduces 20% of damage, hence the 0.2
         if(this.isBlocking) {
             let reduction = 0;
             if(this instanceof Strider) reduction += this.getTotalBlockValue();

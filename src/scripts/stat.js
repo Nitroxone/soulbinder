@@ -10,7 +10,7 @@
  * If the Theorical Value is a number, the Stat value will always be the same.
  * If the Theorical Value is an array (max. size 2), the Stat value will be a randomly generated number between these two bounds,
  * returned every time the getValue() method is called.
- * It is possible to freeze the Stat value using the fix() method.
+ * It is possible to freeze the Stat value using the fix() method, or by setting "fixed: true" in the props.
  * @author ntrx
  */
 
