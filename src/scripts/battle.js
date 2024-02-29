@@ -837,28 +837,30 @@ class Battle {
         // CASTER EFFECTS
         
         if(skill.effectsCaster) {
-            effects = [];
-            accessor = (isCrit ? 'critical' : 'regular');
-            skill.effectsCaster[skill.level][accessor].forEach(eff => {
-                if(!isMovementEffect(eff.effect) || (isMovementEffect(eff.effect) && eff.duration > 0)) {
-                    if(eff.effect === Data.Effect.STUN) {
-                        if(Math.random() * 100 > current.modifChanceStun + eff.chance - current.resStun) {
-                            current.addBattlePopup(new BattlePopup(0, '<p>Resisted!</p>'));
-                            return;
+            if(!skill.applyCasterEffectsOnlyOnHit || (skill.applyCasterEffectsOnlyOnHit && this.params.success_accuracy && !this.params.success_dodge)) {
+                effects = [];
+                accessor = (isCrit ? 'critical' : 'regular');
+                skill.effectsCaster[skill.level][accessor].forEach(eff => {
+                    if(!isMovementEffect(eff.effect) || (isMovementEffect(eff.effect) && eff.duration > 0)) {
+                        if(eff.effect === Data.Effect.STUN) {
+                            if(Math.random() * 100 > current.modifChanceStun + eff.chance - current.resStun) {
+                                current.addBattlePopup(new BattlePopup(0, '<p>Resisted!</p>'));
+                                return;
+                            }
                         }
+                        if(eff.effect === Data.Effect.GUARDED) {
+                            skill.variables.guarded = tar;
+                            skill.variables.guarding = current;
+                        }
+                        let newEff = Entity.clone(eff);
+                        newEff.fix();
+                        effects.push(newEff);
                     }
-                    if(eff.effect === Data.Effect.GUARDED) {
-                        skill.variables.guarded = tar;
-                        skill.variables.guarding = current;
-                    }
-                    let newEff = Entity.clone(eff);
-                    newEff.fix();
-                    effects.push(newEff);
-                }
-                // Moving
-                else if(eff.delay === 0) this.applyCasterMovement(eff);
-            });
-            current.addBattlePopup(new BattlePopup(0, '<div class="popupIcon" style="background-image: url(\'css/img/skills/' + current.name + skill.icon + '.png\');"></div>'));
+                    // Moving
+                    else if(eff.delay === 0) this.applyCasterMovement(eff);
+                });
+                current.addBattlePopup(new BattlePopup(0, '<div class="popupIcon" style="background-image: url(\'css/img/skills/' + current.name + skill.icon + '.png\');"></div>'));
+            }
         }
 
         if(effects.length > 0) {
