@@ -1059,7 +1059,7 @@ class NPC extends Entity {
         ae.effects.forEach(eff => {
             if(eff.type === Data.StatType.PASSIVE && !isShieldEffect(eff) && !isBleedingOrPoisoning(eff) && !isBaseStatChange(eff, true) && !isStunOrGuardRelatedEffect(eff) && !isMovementEffect(eff.effect)) {
                 console.log('Attempting to remove ' + eff.effect + ' from ' + this.name);
-                this.alter({action: Data.AlterAction.REMOVE, uid: eff.uid});
+                if(this.bonuses.find(x => x.stat.uid === eff.uid)) this.alter({action: Data.AlterAction.REMOVE, uid: eff.uid});
             }
         });
     }
