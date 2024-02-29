@@ -3547,6 +3547,34 @@ const Loader = {
                                     })
                                 ]
                             }
+                        ),
+                        new Skill(
+                            "Obey!",
+                            "§Shatters guard§ of the target and §Pulls§ it by one position.",
+                            2,
+                            {
+                                type: Data.SkillType.OFFENSIVE,
+                                dmgType: Data.SkillDamageType.MAGICAL,
+                                dmgMultiplier: 45,
+                                criMultiplier: 15,
+                                accMultiplier: 100,
+                                cooldown: 2,
+                                launchPos: [true, true, false],
+                                targets: {allies: '-0', enemies: '-23'},
+                                manaCost: 15,
+                                effectsEnemies: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.SHATTERS_GUARD}),
+                                            new Stat({effect: Data.Effect.PULL_TWO, chance: 100})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.SHATTERS_GUARD, isCritical: true}),
+                                            new Stat({effect: Data.Effect.PULL_TWO, chance: 100, isCritical: true})
+                                        ]
+                                    }
+                                }
+                            }
                         )
                     ],
                 },

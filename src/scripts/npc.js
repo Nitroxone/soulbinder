@@ -801,6 +801,7 @@ class NPC extends Entity {
                 else if(eff.effect === Data.Effect.STUN) this.applyStun()
                 else if(eff.effect === Data.Effect.GUARDED) this.applyGuarded(originUser);
                 else if(eff.effect === Data.Effect.GUARDING) this.applyGuarding(skill.variables.guarded);
+                else if(eff.effect === Data.Effect.SHATTERS_GUARD && this.isGuarded) this.removeGuarded();
                 else if(!isBleedingOrPoisoning(eff)) this.alter({
                     effect: eff,
                     action: Data.AlterAction.ADD,

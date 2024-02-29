@@ -181,6 +181,7 @@ const Data = Object.freeze({
         STUN: "stuns the target",
         GUARDING: "Guarding",
         GUARDED: "Guarded",
+        SHATTERS_GUARD: "shatters guard",
 
         // CONSUMABLES EFFECTS:
         REMOVES_PROTECTION_DEBUFFS: "removes Protection debuffs",

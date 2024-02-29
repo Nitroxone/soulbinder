@@ -736,9 +736,13 @@ class Battle {
             this.computeSkillParams(tar, isCrit);
             let params = this.params;
             if(params.success_accuracy && !params.success_dodge) {
+                accessor = (params.critical ? 'critical' : 'regular');
                 // Guard checks - allow guard only if
                 // - Is a single target enemy attack
-                if(tar.isGuarded) {
+                // - Skill doesn't contain a guard shattering effect
+                if(tar.isGuarded
+                    &&
+                    !skill.effectsEnemies[skill.level][accessor].some(x => x.effect === Data.Effect.SHATTERS_GUARD)) {
                     console.error('PROCESSING GUARD...');
                     const allyCheck = this.allies.includes(current) && this.allies.includes(tar);
                     const enemCheck = this.enemies.includes(current) && this.enemies.includes(tar);
@@ -761,7 +765,6 @@ class Battle {
                 }
 
                 // Handle critical triggers and critical effects
-                accessor = (params.critical ? 'critical' : 'regular');
                 if(params.critical) {
                     console.log('Critical blow!');
                     tarDom.classList.add('criticalHit');
