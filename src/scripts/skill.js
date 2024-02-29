@@ -33,6 +33,8 @@ class Skill extends Entity {
         this.stackable = getValueFromObject(props, "stackable", 1);
         this.ignoresProtection = getValueFromObject(props, "ignoreProtection", false);
         this.onCast = getValueFromObject(props, "onCast", null);
+        this.applyCasterEffectsOnlyOnHit = getValueFromObject(props, "applyCasterEffectsOnlyOnHit", false);
+        this.removeEffectsCasterWhenFinished = getValueFromObject(props, "removeEffectsCasterWhenFinished", false);
 
         this.cooldownCountdown = 0;
 
