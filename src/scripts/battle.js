@@ -909,13 +909,23 @@ class Battle {
         } else this.runPopups();
     }
 
+    /**
+     * Executes the skill logic from the provided Skill, on the provided target, at the provided execution time.
+     * @param {Skill} skill the Skill to retrieve the logic from
+     * @param {NPC} target the target to apply the logic to
+     * @param {Data.SkillLogicExecution} type the logic's execution time
+     */
     callSkillLogic(skill, target, type) {
         if(this.allies.includes(target)) {
             if(skill.logicAllies && skill.logicAllies[type]) skill.logicAllies[type](target);
         }
-        else if(this.enemies.includes(target)) {
+        if(this.enemies.includes(target)) {
             if(skill.logicEnemies && skill.logicEnemies[type]) skill.logicEnemies[type](target);
         }
+        
+        if(skill.logicCaster && skill.logicCaster[type]) skill.logicCaster[type](this.current);
+
+        if(skill.logicAny && skill.logicAny[type]) skill.logicAny[type](this.target[this.targetTracker]);
     }
 
     /**
