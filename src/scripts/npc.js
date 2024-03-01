@@ -1109,9 +1109,23 @@ class NPC extends Entity {
         }, game.battle.chatlogFolder);
     }
     
+    /**
+     * Checks whether this NPC is dead
+     */
     deathCheck() {
         if(this.health === 0) {
             this.kill();
         }
+    }
+
+    /**
+     * Adds a getOwner() method to this NPC's skills to retrieve the NPC object they're bound to
+     */
+    bindSkills() {
+        this.skills.forEach(skill => {
+            skill.owner = this.id;
+            skill.getOwner = function(){ return this };
+            skill.getOwner = skill.getOwner.bind(this);
+        })
     }
 }
