@@ -3485,13 +3485,51 @@ const Loader = {
                     ],
                     type: Data.StriderType.SUPPORT,
                     uniqueName: "Whispers",
-                    uniqueDesc: '<div class="par jus">Each entity that is targeted by one of Haman\'s skills enters a <span class="bold blue">Madness</span> state. Each skill further cast on a same target increases their Madness state by 1, up to 5. Various bonuses and maluses can be applied by consuming the <span class="bold blue">Madness</span> state, through Haman\'s <span class="bold blue">Beyond</span> skill.</div><div class="par bulleted"><span class="bold">Madness I</span>: Affects <span class="bold blue">Dodge</span> and <span class="bold blue">Accuracy</span></div><div class="par bulleted"><span class="bold">Madness II<span>: Affects <span class="bold blue">Protection</span></div><div class="par bulleted"><span class="bold">Madness III<span>: Affects <span class="bold blue">Received Heal</span> and <span class="bold  blue">Max. health</span></div><div class="par bulleted"><span class="bold">Madness IV<span>: Affects <span class="bold blue">Bleed and Poison resistance</span> and <span class="bold blue">Block value</span></div><div class="par bulleted"><span class="bold">Madness V<span>: Affects <span class="bold blue">Speed</span> and <span class="bold blue">Total damage</span></div>',
+                    uniqueDesc: '<div class="par jus">Each entity that is targeted by one of Haman\'s skills enters a <span class="bold blue">Madness</span> state. Each skill further cast on a same target increases their Madness state by 1, up to 5. Various bonuses and maluses can be applied by consuming the <span class="bold blue">Madness</span> state, through Haman\'s <span class="bold blue">Beyond</span> skill.</div><div class="par bulleted"><span class="bold">Madness I</span>: Affects <span class="bold blue">Dodge</span> and <span class="bold blue">Accuracy</span></div><div class="par bulleted"><span class="bold">Madness II</span>: Affects <span class="bold blue">Protection</span></div><div class="par bulleted"><span class="bold">Madness III</span>: Affects <span class="bold blue">Received Heal</span> and <span class="bold  blue">Max. health</span></div><div class="par bulleted"><span class="bold">Madness IV</span>: Affects <span class="bold blue">Bleed and Poison resistance</span> and <span class="bold blue">Block value</span></div><div class="par bulleted"><span class="bold">Madness V</span>: Affects <span class="bold blue">Speed</span> and <span class="bold blue">Total damage</span></div>',
                     uniqueQuote: '"We are so fragile, compartmentalized in our narrow view of the world; and exposing our minds to new perspectives, to raw and violent realities, is wonderful, and devastating."',
                     uniqueIcon: 0,
                     skillTree: what(game.all_skillTrees, "amarok"),
                     customBgPos: '10% 50%',
                     variables: {
-
+                        whispersDodge: [10, -15],
+                        whispersAccuracy: [15, -20],
+                        whispersProtection: [20, -15],
+                        whispersReceivedHeal: [35, -40],
+                        whispersMaxhealth: [25, -20],
+                        whispersBleedAndPoison: [10, -10],
+                        whispersBlock: [45, -75],
+                        whispersSpeed: [5, -5],
+                        whispersTotalDamage: [35, -50],
+                        getMadnessEffects: function(stage, type) {
+                            const accessor = type === "ally" ? 0 : 1;
+                            switch(stage) {
+                                case 1:
+                                    return [
+                                        new Stat({effect: Data.Effect.DODGE, theorical: this.whispersDodge[accessor], isPercentage: true, duration: 2}),
+                                        new Stat({effect: Data.Effect.ACCURACY, theorical: this.whispersAccuracy[accessor], isPercentage: true, duration: 2}),
+                                    ];
+                                case 2:
+                                    return [
+                                        new Stat({effect: Data.Effect.PROTECTION, theorical: this.whispersProtection[accessor], isPercentage: true, duration: 2}),
+                                    ];
+                                case 3:
+                                    return [
+                                        new Stat({effect: Data.Effect.MODIF_HEAL_RECV, theorical: this.whispersReceivedHeal[accessor], isPercentage: true, duration: 2}),
+                                        new Stat({effect: Data.Effect.MAXHEALTH, theorical: this.whispersMaxhealth[accessor], isPercentage: true, duration: 2}),
+                                    ];
+                                case 4:
+                                    return [
+                                        new Stat({effect: Data.Effect.RES_BLEED_DMG, theorical: this.whispersBleedAndPoison[accessor], duration: 2}),
+                                        new Stat({effect: Data.Effect.RES_POISON_DMG, theorical: this.whispersBleedAndPoison[accessor], duration: 2}),
+                                        new Stat({effect: Data.Effect.MODIF_BLOCK, theorical: this.whispersBlock[accessor], isPercentage: true, duration: 2}),
+                                    ];
+                                case 5:
+                                    return [
+                                        new Stat({effect: Data.Effect.SPEED, theorical: this.whispersSpeed[accessor], duration: 2}),
+                                        new Stat({effect: Data.Effect.MODIF_DMG_TOTAL, theorical: this.whispersTotalDamage[accessor], isPercentage: true, duration: 2}),
+                                    ]
+                            }
+                        }
                     },
                     triggers: [
                         new Trigger({
@@ -3555,19 +3593,23 @@ const Loader = {
                                         ]
                                     }
                                 },
-                                onCast: function() {
-                                    const tar = game.battle.target[game.battle.targetTracker];
-                                    console.log(tar.name + " was the target of BEYOND");
-                                },
-                                logicEnemies: {
-                                    PRE_DAMAGE: function(enemy) {
-                                        console.log("DETECTED BEYOND TARGET:", enemy);
+                                logicAny: {
+                                    PRE_DAMAGE: function(tar) {
+                                        console.log("DETECTED BEYOND TARGET:", tar);
                                         
-                                        const madness = enemy.variables.madness;
+                                        const madness = tar.variables.madness;
                                         if(madness && madness > 0) {
-                                            console.log(this);
+                                            const sk = this;
+                                            const haman = sk.getOwner();
+                                            const accessor = game.battle.allies.includes(tar) ? "ally" : "enemy";
+                                            
+                                            const effects = haman.variables.getMadnessEffects(madness, accessor);
+
+                                            tar.applyEffects(sk, haman, effects, false);
+
+                                            tar.variables.madness = 0;
                                         } else {
-                                            console.error(enemy.name + " has no Madness state or it's equal to 0! Skipping");
+                                            console.error(tar.name + " has no Madness state or it's equal to 0! Skipping");
                                         }
                                     }
                                 }
@@ -3764,6 +3806,7 @@ const Loader = {
             strider.triggers.forEach(tr => {
                 tr.owner = strider;
             })
+            strider.bindSkills();
         }
     },
 
