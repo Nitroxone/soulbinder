@@ -29,9 +29,10 @@ class Skill extends Entity {
         this.triggersAllies = getValueFromObject(props, "triggersAllies", []);
         this.triggersEnemies = getValueFromObject(props, "triggersEnemies", []);
         this.triggersSkill = getValueFromObject(props, "triggersSkill", []);
-        this.logicCaster = getValueFromObject(props, "logicCaster", null)
-        this.logicAllies = getValueFromObject(props, "logicAllies", null)
-        this.logicEnemies = getValueFromObject(props, "logicEnemies", null)
+        this.logicCaster = getValueFromObject(props, "logicCaster", null);
+        this.logicAllies = getValueFromObject(props, "logicAllies", null);
+        this.logicEnemies = getValueFromObject(props, "logicEnemies", null);
+        this.logicAny = getValueFromObject(props, "logicAny", null);
         this.condition = getValueFromObject(props, "condition", {checker: function(){return true}, message: ''})
         this.stackable = getValueFromObject(props, "stackable", 1);
         this.ignoresProtection = getValueFromObject(props, "ignoreProtection", false);
@@ -144,7 +145,8 @@ class Skill extends Entity {
         [
             this.logicAllies,
             this.logicCaster,
-            this.logicEnemies
+            this.logicEnemies,
+            this.logicAny,
         ].forEach(cat => {
             for(const type in cat) {
                 console.log("BOUND " + type + " from " + this.name);
