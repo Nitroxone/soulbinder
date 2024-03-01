@@ -3665,8 +3665,19 @@ const Loader = {
                                             const tar = game.battle.target[game.battle.targetTracker];
     
                                             if(tar !== this.getOwner().variables.storedTarget) {
-                                                console.error("-----------DIFFERENT TARGET!!");
-                                            } else console.error("-----------SAME TARGET!!");
+                                                const sk = this.getOwner();
+                                                const haman = sk.getOwner();
+
+                                                haman.applyEffects(sk, haman, sk.variables.storedTarget.getActiveEffect("revelation").effects, false);
+                                                sk.variables.storedTarget.removeActiveEffect("revelation");
+
+                                                game.chatlog.addMessage(Data.ChatlogChannel.BATTLE, {
+                                                    content: "Haman broke the seal of Revelation!",
+                                                    style: {
+                                                        className: "clgMsg-negative"
+                                                    }
+                                                }, game.battle.chatlogFolder);
+                                            }
                                         }
                                     })
                                 ]
