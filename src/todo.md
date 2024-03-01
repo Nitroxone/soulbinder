@@ -65,7 +65,8 @@ DONE - Remove Guard when a mob dies
 - Add a function to manage stacks (for echoes, inner powers...)
 DONE - Fix incorrect event target refresh when swapping weapons
 DONE - Make Attack button select your first light weapon / your heavy weapon
-- Implement different battle types (Wave, Special...)
+DONE - Implement different battle types (Wave, Special...)
+DONE - Maybe add a "logic" function for allies/enemies/caster?
 
 ASTRAL FORGE:
 - Create GUI -- ONGOING
