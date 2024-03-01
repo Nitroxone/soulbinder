@@ -3485,12 +3485,94 @@ const Loader = {
                     ],
                     type: Data.StriderType.SUPPORT,
                     uniqueName: "Whispers",
-                    uniqueDesc: '<div class="par jus">Each entity that is targeted by one of Haman\'s skills enters a <span class="bold blue">Madness</span> state. Each skill further cast on a same target increases their Madness state by 1, up to 5. Various bonuses and maluses can be applied by consuming the <span class="bold blue">Madness</span> state, through Haman\'s <span class="bold blue">Hallucinate</span> and <span class="bold blue">Quadrate Hour</span> skills.</div><div class="par bulleted"><span class="bold">Madness I</span>: Affects <span class="bold blue">Dodge</span> and <span class="bold blue">Accuracy</span></div><div class="par bulleted"><span class="bold">Madness II<span>: Affects <span class="bold blue">Protection</span></div><div class="par bulleted"><span class="bold">Madness III<span>: Affects <span class="bold blue">Received Heal</span> and <span class="bold  blue">Max. health</span></div><div class="par bulleted"><span class="bold">Madness IV<span>: Affects <span class="bold blue">Bleed and Poison resistance</span> and <span class="bold blue">Block value</span></div><div class="par bulleted"><span class="bold">Madness V<span>: Affects <span class="bold blue">Speed</span> and <span class="bold blue">Total damage</span></div>',
+                    uniqueDesc: '<div class="par jus">Each entity that is targeted by one of Haman\'s skills enters a <span class="bold blue">Madness</span> state. Each skill further cast on a same target increases their Madness state by 1, up to 5. Various bonuses and maluses can be applied by consuming the <span class="bold blue">Madness</span> state, through Haman\'s <span class="bold blue">Beyond</span> skill.</div><div class="par bulleted"><span class="bold">Madness I</span>: Affects <span class="bold blue">Dodge</span> and <span class="bold blue">Accuracy</span></div><div class="par bulleted"><span class="bold">Madness II<span>: Affects <span class="bold blue">Protection</span></div><div class="par bulleted"><span class="bold">Madness III<span>: Affects <span class="bold blue">Received Heal</span> and <span class="bold  blue">Max. health</span></div><div class="par bulleted"><span class="bold">Madness IV<span>: Affects <span class="bold blue">Bleed and Poison resistance</span> and <span class="bold blue">Block value</span></div><div class="par bulleted"><span class="bold">Madness V<span>: Affects <span class="bold blue">Speed</span> and <span class="bold blue">Total damage</span></div>',
                     uniqueQuote: '"We are so fragile, compartmentalized in our narrow view of the world; and exposing our minds to new perspectives, to raw and violent realities, is wonderful, and devastating."',
                     uniqueIcon: 0,
                     skillTree: what(game.all_skillTrees, "amarok"),
                     customBgPos: '10% 50%',
+                    variables: {
+
+                    },
+                    triggers: [
+                        new Trigger({
+                            name: "haman_applyMadness",
+                            type: [Data.TriggerType.ON_DEAL_SKILL],
+                            behavior: function() {
+                                const tar = game.battle.target[game.battle.targetTracker];
+
+                                if(tar.variables.hasOwnProperty("madness")) {
+                                    if(tar.variables.madness < 5) tar.variables.madness++;
+                                } else {
+                                    tar.variables.madness = 1;
+                                }
+
+                                console.log(tar.name + "'s madness: " + tar.variables.madness);
+                            }
+                        })
+                    ],
                     skills: [
+                        new Skill(
+                            "Beyond",
+                            "Consumes the target's §Madness§ states. If it's an ally, regenerates their §Mana§ and applies a bonus according to their §Madness§. If it's an enemy, §Heals§ them and applies a malus according to their §Madness§. Applies a §Mana regeneration§ bonus to Haman.",
+                            4,
+                            {
+                                type: Data.SkillType.FRIENDLY,
+                                manaCost: 10,
+                                criMultiplier: 15,
+                                accMultiplier: 100,
+                                targets: {allies: '-123', enemies: '-123'},
+                                effectsAllies: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.HAMAN_MADNESS_CONSUME}),
+                                            new Stat({effect: Data.Effect.MANA, theorical: [15, 20], isPercentage: true, type: Data.StatType.ACTIVE}),
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.HAMAN_MADNESS_CONSUME}),
+                                            new Stat({effect: Data.Effect.MANA, theorical: 25, isPercentage: true, type: Data.StatType.ACTIVE}),
+                                        ]
+                                    }
+                                },
+                                effectsEnemies: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.HAMAN_MADNESS_CONSUME}),
+                                            new Stat({effect: Data.Effect.HEALTH, theorical: [5, 10], isPercentage: true, type: Data.StatType.ACTIVE}),
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.HAMAN_MADNESS_CONSUME}),
+                                            new Stat({effect: Data.Effect.HEALTH, theorical: 5, isPercentage: true, type: Data.StatType.ACTIVE}),
+                                        ]
+                                    }
+                                },
+                                effectsCaster: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.MANA, theorical: [5, 8], isPercentage: true, type: Data.StatType.ACTIVE, duration: 3}),
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.MANA, theorical: 10, isPercentage: true, type: Data.StatType.ACTIVE, duration: 3}),
+                                        ]
+                                    }
+                                },
+                                onCast: function() {
+                                    const tar = game.battle.target[game.battle.targetTracker];
+                                    console.log(tar.name + " was the target of BEYOND");
+                                },
+                                logicEnemies: {
+                                    PRE_DAMAGE: function(enemy) {
+                                        console.log("DETECTED BEYOND TARGET:", enemy);
+                                        
+                                        const madness = enemy.variables.madness;
+                                        if(madness && madness > 0) {
+                                            console.log(this);
+                                        } else {
+                                            console.error(enemy.name + " has no Madness state or it's equal to 0! Skipping");
+                                        }
+                                    }
+                                }
+                            }
+                        ),
                         new Skill(
                             "Revelation",
                             "Reduces the target's §Protection§. While the malus is active, if Haman attacks another target, the effect is canceled and applied to Haman for one round.",
