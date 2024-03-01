@@ -190,7 +190,8 @@ const Data = Object.freeze({
 
         // ----- STRIDER EFFECTS -----
         // HAMAN
-        HAMAN_REVELATION_MARKED: "Revealing"
+        HAMAN_REVELATION_MARKED: "Revealing",
+        HAMAN_MADNESS_CONSUME: "Consumes Madness"
     },
     TriggerType: {
         ON_STAT_CHANGE: 'ON_STAT_CHANGE',
@@ -199,6 +200,8 @@ const Data = Object.freeze({
         ON_USE_WEAPON: 'ON_USE_WEAPON',
         ON_DEAL_WEAPON: 'ON_DEAL_WEAPON',
         ON_RECV_WEAPON: 'ON_RECV_WEAPON',
+        ON_DEAL_SKILL: 'ON_DEAL_SKILL',
+        ON_RECV_SKILL: 'ON_RECV_SKILL',
         ON_DEAL_DAMAGE: 'ON_DEAL_DAMAGE',
         ON_RECV_DAMAGE: 'ON_RECV_DAMAGE',
         ON_DEAL_MISSED: 'ON_DEAL_MISSED',
@@ -303,6 +306,12 @@ const Data = Object.freeze({
         OFFENSIVE: "offensive",
         FRIENDLY: "friendly",
         BOTH: "both",
+    },
+    SkillLogicExecution: {
+        PRE_DAMAGE: "PRE_DAMAGE",
+        PRE_ALLIES_EFFECTS: "PRE_ALLIES_EFFECTS",
+        PRE_ENEMIES_EFFECTS: "PRE_ENEMIES_EFFECTS",
+        PRE_CASTER_EFFECTS: "PRE_CASTER_EFFECTS",
     },
     BattleAction: {
         ATTACK: "attack",
