@@ -29,6 +29,9 @@ class Skill extends Entity {
         this.triggersAllies = getValueFromObject(props, "triggersAllies", []);
         this.triggersEnemies = getValueFromObject(props, "triggersEnemies", []);
         this.triggersSkill = getValueFromObject(props, "triggersSkill", []);
+        this.logicCaster = getValueFromObject(props, "logicCaster", null)
+        this.logicAllies = getValueFromObject(props, "logicAllies", null)
+        this.logicEnemies = getValueFromObject(props, "logicEnemies", null)
         this.condition = getValueFromObject(props, "condition", {checker: function(){return true}, message: ''})
         this.stackable = getValueFromObject(props, "stackable", 1);
         this.ignoresProtection = getValueFromObject(props, "ignoreProtection", false);
@@ -41,6 +44,7 @@ class Skill extends Entity {
         this.level = 1;
 
         this.bindTriggers();
+        this.bindLogic();
     }
 
     /**
@@ -115,6 +119,9 @@ class Skill extends Entity {
         return false;
     }
 
+    /**
+     * Adds a getOwner() method to this Skill's trigger to retrieve the Skill object they're bound to
+     */
     bindTriggers() {
         [
             this.triggersAllies,
@@ -127,6 +134,22 @@ class Skill extends Entity {
                 trig.getOwner = function(){ return this };
                 trig.getOwner = trig.getOwner.bind(this);
             })
+        })
+    }
+
+    /**
+     * Binds this Skill's context to each logic behavior to allow retrieving this Skill using "this"
+     */
+    bindLogic() {
+        [
+            this.logicAllies,
+            this.logicCaster,
+            this.logicEnemies
+        ].forEach(cat => {
+            for(const type in cat) {
+                console.log("BOUND " + type + " from " + this.name);
+                cat[type] = cat[type].bind(this);
+            }
         })
     }
 }
