@@ -724,6 +724,7 @@ class Battle {
         const isCrit = this.params.critical;
 
         this.runTriggersOnCurrent(Data.TriggerType.ON_ATTACK);
+
         this.target.forEach(tar => {
             const tarDom = document.querySelector('#' + tar.getBattleFormationStringId());
             tarDom.classList.add('npcBattleTargeted');
@@ -760,6 +761,14 @@ class Battle {
 
                 // Successful hit
                 console.log('Successful hit!');
+
+                // Call logic execution (before/after)
+                this.callSkillLogic(skill, tar, Data.SkillLogicExecution.PRE_DAMAGE);
+                
+                // Fire triggers
+                this.runTriggersOnCurrent(Data.TriggerType.ON_DEAL_SKILL);
+                tar.runTriggers(Data.TriggerType.ON_RECV_SKILL);
+
                 if(params.phys_damage > 0 || params.magi_damage > 0) {
                     this.runTriggersOnCurrent(Data.TriggerType.ON_DEAL_DAMAGE);
                     tar.receiveDamage(params);
@@ -779,6 +788,7 @@ class Battle {
                 effects = [];
                 if(skill.effectsAllies || skill.effectsEnemies) {
                     if(skill.effectsAllies && arrayContains(this.allies, tar)) {
+                        this.callSkillLogic(skill, tar, Data.SkillLogicExecution.PRE_ALLIES_EFFECTS);
                         skill.effectsAllies[skill.level][accessor].forEach(eff => {
                             if(!isMovementEffect(eff.effect)) {
                                 if(eff.effect === Data.Effect.GUARDED) {
@@ -792,6 +802,7 @@ class Battle {
                         });
                     }
                     if(skill.effectsEnemies && arrayContains(this.enemies, tar)) {
+                        this.callSkillLogic(skill, tar, Data.SkillLogicExecution.PRE_ENEMIES_EFFECTS);
                         skill.effectsEnemies[skill.level][accessor].forEach(eff => {
                             if(!isMovementEffect(eff.effect) || (isMovementEffect(eff.effect) && eff.delay > 0)) {
                                 if(eff.effect === Data.Effect.STUN) {
@@ -842,6 +853,7 @@ class Battle {
         // CASTER EFFECTS
         
         if(skill.effectsCaster) {
+            this.callSkillLogic(skill, current, Data.SkillLogicExecution.PRE_CASTER_EFFECTS);
             if(!skill.applyCasterEffectsOnlyOnHit || (skill.applyCasterEffectsOnlyOnHit && this.params.success_accuracy && !this.params.success_dodge)) {
                 effects = [];
                 accessor = (isCrit ? 'critical' : 'regular');
@@ -895,6 +907,15 @@ class Battle {
                 this.runPopups();
             }, 1500);
         } else this.runPopups();
+    }
+
+    callSkillLogic(skill, target, type) {
+        if(this.allies.includes(target)) {
+            if(skill.logicAllies && skill.logicAllies[type]) skill.logicAllies[type](target);
+        }
+        else if(this.enemies.includes(target)) {
+            if(skill.logicEnemies && skill.logicEnemies[type]) skill.logicEnemies[type](target);
+        }
     }
 
     /**
