@@ -2481,3 +2481,18 @@ function getDungeonMapRoomStyle(type) {
     if(["dormant room", "sacrificial alcove", "fractured hollow", "the eclipse", "throne pit"].includes(type)) return " combatRoom";
     if(["antechamber of marvels", "eternity well", "desecrated altar"].includes(type)) return " bonusRoom";
 }
+
+function getDungeonELlockTitle(roomType) {
+    if(roomType === Data.DungeonRoomType.ANTECHAMBER_OF_MARVELS) {
+        return choose([
+            "Without luck, meagre gains",
+            "No gold without toil",
+        ]);
+    }
+    if(roomType === Data.DungeonRoomType.DESECRATED_ALTAR) {
+        return choose([
+            "Rekindle the flame",
+            "The idol must be blessed again"
+        ])
+    }
+}

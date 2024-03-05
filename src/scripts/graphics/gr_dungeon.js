@@ -284,3 +284,24 @@ function bringRoomsForward() {
         single.style.zIndex = '1';
     });
 }
+
+function drawDungeonELlock() {
+    const identifier = game.dungeon.floor.room.type.toUpperCase().replaceAll(' ', '_');
+
+    let str = '';
+
+    str += '<div class="dungeonELlock-wrapper">';
+    str += '<h2>' + getDungeonELlockTitle(game.dungeon.floor.room.type) + '</h2>';
+
+    str += '<div class="dungeonELlock-nums">';
+    str += '<div class="numEL num-less">-</div>';
+    str += '<input type="number" id="ephemeralLuckUnlockerCount" class="ELstyling" value="' + Config.EphemeralLuck.Costs[identifier] + '" min="' + Config.EphemeralLuck.Costs[identifier] + '" max="' + game.player.du_ephemeralLuck + '">';
+    str += '<div class="numEL num-more">+</div>';
+    str += '</div>';
+    str += '<div class="divider" style="margin-top: 0;"></div>';
+
+    str += '<div class="dungeonELlock-button">Pour</div>';
+    str += '</div>';
+
+    document.querySelector('.infosPanel-actionResult').innerHTML = str;
+}

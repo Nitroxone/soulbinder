@@ -132,7 +132,8 @@ class DungeonFloor {
 
             types = shuffle(types);
             for(let i = 0; i < selection.length; i++) {
-                selection[i].type = types[i];
+                //selection[i].type = types[i];
+                selection[i].setType(types[i]);
                 console.log(`Room ${selection[i].coordinates} was given type ${types[i]}`);
             }
 

@@ -19,9 +19,16 @@ class DungeonRoom {
         this.desc = '';
         this.actionDesc = '';
 
+        this.isUnlocked = true;
+
         this.foundLoot = null;
 
         this.enemyGroup = null;
+    }
+
+    setType(type) {
+        this.type = type;
+        this.isUnlocked = ![Data.DungeonRoomType.ANTECHAMBER_OF_MARVELS, Data.DungeonRoomType.DESECRATED_ALTAR].includes(type);
     }
 
     /**

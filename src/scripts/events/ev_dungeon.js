@@ -206,7 +206,11 @@ function dungeonScoutEvent() {
 function dungeonSearchEvent() {
     const search = document.querySelector('.roomActions-action.search');
     const currentRoom = game.dungeon.floor.room;
-    if(!currentRoom.isCleared()) {
+
+    if(!currentRoom.isUnlocked) {
+        drawDungeonELlock();
+    }
+    else if(!currentRoom.isCleared()) {
         currentRoom.generateRoomLoot();
         drawDungeonFoundLoot(true);
         generateDungeonFoundLootEvents();
