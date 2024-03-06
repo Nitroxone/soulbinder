@@ -233,8 +233,10 @@ function generateDungeonELlockEvents() {
         game.player.du_ephemeralLuck -= amount;
         const nums = document.querySelector('#dPanelEL .ELstyling');
         animateNumber(nums, game.player.du_ephemeralLuck, 2000, 'decrease');
+
+        const quantaCanv = document.querySelector('#dPanelELcanvas');
         Quanta.burst({
-            canvas: document.querySelector('#dPanelELcanvas'),
+            canvas: quantaCanv,
             color: Data.Color.BLUE,
             amount: 200,
             particleSize: 2.5,
@@ -244,8 +246,38 @@ function generateDungeonELlockEvents() {
                 x: () => { return (-2 + Math.random() * 5) },
                 y: () => { return (-6 + Math.random() * 10) }
             },
+            // start: {
+            //     x: () => { return quantaCanv.width/2 },
+            //     y: () => { return quantaCanv.height }
+            // },
             delay: () => { return getRandomNumber(0, 100) }
         });
+
+        const imgDiv = document.createElement('div');
+        const imgDivBeneath = document.createElement('div');
+        imgDiv.className = "dungeonELlock-img";
+        imgDivBeneath.className = "dungeonELlock-img-beneath";
+
+        document.querySelector('.infosPanel-actionResult').append(imgDivBeneath);
+        document.querySelector('.infosPanel-actionResult').append(imgDiv);
+
+        const transitioner = () => {
+            document.querySelector('.dungeonELlock-wrapper').remove();
+
+            imgDiv.classList.add('dungeonELlock-img-fadeOut');
+            imgDivBeneath.classList.add('dungeonELlock-img-fadeOut');
+
+            imgDiv.removeEventListener('animationend', transitioner);
+            imgDiv.addEventListener('animationend', () => {
+                imgDiv.remove();
+                imgDivBeneath.remove();
+
+                game.dungeon.floor.room.isUnlocked = true;
+                dungeonSearchEvent();
+            })
+        }
+        imgDivBeneath.addEventListener('animationend', transitioner);
+
     })
 }
 

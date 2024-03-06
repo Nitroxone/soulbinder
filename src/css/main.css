@@ -6652,6 +6652,8 @@ table.astralForgeShards td {
     overflow-y: scroll;
 
     box-shadow: inset 0 -37px 25px 0px black;
+
+    position: relative;
 }
 .lootQuantity {
     font-family: RobotoSlabBold;
@@ -9278,6 +9280,13 @@ filter: drop-shadow(0 0 1px #000000) brightness(2);
     font-variant: small-caps;
 
     animation: ELlockSlideIn 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+    background-image: linear-gradient(0deg, rgba(88, 88, 88, .8), rgba(222, 222, 222, 1));
+    background-clip: text;
+    color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: none;
 }
 .dungeonELlock-nums {
     width: 100%;
@@ -9328,7 +9337,7 @@ filter: drop-shadow(0 0 1px #000000) brightness(2);
     font-size: 1.6rem;
     text-align: center;
 
-    animation: ELlockSlideIn 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+    animation: ELlockPopIn 1s cubic-bezier(0.165, 0.84, 0.44, 1);
 
     cursor:default;
 }
@@ -9363,6 +9372,8 @@ input[type=number] {
     animation: ELspin 15s ease infinite, ELlockSlideIn 1.5s cubic-bezier(0.165, 0.84, 0.44, 1);
 
     transition: all .1s ease-in-out;
+
+    border-top: none;
 }
 .dungeonELlock-button:hover {
     border-color: #74ebd5;
@@ -9374,5 +9385,67 @@ input[type=number] {
     from {
         opacity: 0;
         transform: translateY(20px);
+    }
+}
+@keyframes ELlockPopIn {
+    from {
+        opacity: 0;
+        transform: scale(.8);
+    }
+}
+
+.dungeonELlock-img {
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+
+    background: url('img/treasureRoomOverlay.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    top: 0; bottom: 0; left: 0; right: 0;
+
+    z-index: 5;
+
+    animation: ELlockSlideInOverlay 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation-fill-mode: forwards;
+}
+@keyframes ELlockSlideInOverlay {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+        background-position: top;
+    }
+}
+
+.dungeonELlock-img-beneath {
+    position: absolute;
+
+    width: 100%;
+    height: 0%;
+
+    z-index: 4;
+
+    bottom: 0; left: 0; right: 0;
+
+    background-color: white;
+
+    animation: dungeonELlockUnlock 2s cubic-bezier(0.165, 0.84, 0.44, 1);
+    animation-fill-mode: forwards;
+}
+@keyframes dungeonELlockUnlock {
+    to {
+        height: 100%;
+    }
+}
+.dungeonELlock-img-fadeOut {
+    animation: ELlockOverlayFadeOut 2s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+@keyframes ELlockOverlayFadeOut {
+    to {
+        background-size: 50%;
+        opacity: 0;
     }
 }
