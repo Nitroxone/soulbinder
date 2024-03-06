@@ -2496,3 +2496,37 @@ function getDungeonELlockTitle(roomType) {
         ])
     }
 }
+
+function animateNumber(html, targetValue, duration, animationType) {
+    const element = html;
+    const startValue = animationType === 'increase' ? 0 : Number(element.textContent);
+    const easing = t => t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+
+    let startTime;
+
+    function animate(timestamp) {
+        if (!startTime) startTime = timestamp;
+        const progress = (timestamp - startTime) / duration;
+
+        if (progress < 1) {
+            const easedProgress = easing(progress);
+            let currentValue;
+            
+            if (animationType === 'increase') {
+                currentValue = Math.round(startValue + (targetValue - startValue) * easedProgress);
+            } else {
+                currentValue = Math.round(startValue - (startValue - targetValue) * easedProgress);
+            }
+
+            // Update HTML element with the current value
+            element.textContent = currentValue;
+            requestAnimationFrame(animate);
+        } else {
+            // Animation complete
+            // Update HTML element with the target value
+            element.textContent = targetValue;
+        }
+    }
+
+    requestAnimationFrame(animate);
+}

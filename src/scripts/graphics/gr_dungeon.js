@@ -142,6 +142,7 @@ function drawDungeonStats(refresh = false) {
 
     str += '<div id="dPanelEL" class="ipds-EL">';
     str += '<h4 class="ELstyling">' + game.player.du_ephemeralLuck + "</h4>";
+    str += '<canvas id="dPanelELcanvas"></canvas>';
     str += '</div>';
 
     str += '<div id="dPanelInventory" class="eh-r-inventory dungeonPanelFormat ipds-knapsack"></div>';
@@ -286,8 +287,6 @@ function bringRoomsForward() {
 }
 
 function drawDungeonELlock() {
-    const identifier = game.dungeon.floor.room.type.toUpperCase().replaceAll(' ', '_');
-
     let str = '';
 
     str += '<div class="dungeonELlock-wrapper">';

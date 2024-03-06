@@ -230,7 +230,22 @@ function generateDungeonELlockEvents() {
         total.value = amount;
     });
     pour.addEventListener('click', () => {
-        console.log("Pouring...");
+        game.player.du_ephemeralLuck -= amount;
+        const nums = document.querySelector('#dPanelEL .ELstyling');
+        animateNumber(nums, game.player.du_ephemeralLuck, 2000, 'decrease');
+        Quanta.burst({
+            canvas: document.querySelector('#dPanelELcanvas'),
+            color: Data.Color.BLUE,
+            amount: 200,
+            particleSize: 2.5,
+            duration: 4000,
+            fadeAwayRate: 0,
+            speed: {
+                x: () => { return (-2 + Math.random() * 5) },
+                y: () => { return (-6 + Math.random() * 10) }
+            },
+            delay: () => { return getRandomNumber(0, 100) }
+        });
     })
 }
 
