@@ -9432,8 +9432,9 @@ input[type=number] {
 
     background-color: white;
 
-    animation: dungeonELlockUnlock 2s cubic-bezier(0.165, 0.84, 0.44, 1);
+    /* animation: dungeonELlockUnlock 2s cubic-bezier(0.165, 0.84, 0.44, 1);*/
     animation-fill-mode: forwards;
+    transition: height 2s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 @keyframes dungeonELlockUnlock {
     to {
@@ -9441,7 +9442,7 @@ input[type=number] {
     }
 }
 .dungeonELlock-img-fadeOut {
-    animation: ELlockOverlayFadeOut 2s cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation: ELlockOverlayFadeOut 1s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
 }
 @keyframes ELlockOverlayFadeOut {
     to {

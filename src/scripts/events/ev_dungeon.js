@@ -260,14 +260,15 @@ function generateDungeonELlockEvents() {
 
         document.querySelector('.infosPanel-actionResult').append(imgDivBeneath);
         document.querySelector('.infosPanel-actionResult').append(imgDiv);
+        document.querySelector('.dungeonELlock-wrapper').remove();
 
         const transitioner = () => {
-            document.querySelector('.dungeonELlock-wrapper').remove();
 
             imgDiv.classList.add('dungeonELlock-img-fadeOut');
+            imgDiv.style.animationDelay = ".5s";
             imgDivBeneath.classList.add('dungeonELlock-img-fadeOut');
 
-            imgDiv.removeEventListener('animationend', transitioner);
+            imgDiv.removeEventListener('transitionend', initAnim);
             imgDiv.addEventListener('animationend', () => {
                 imgDiv.remove();
                 imgDivBeneath.remove();
@@ -276,7 +277,11 @@ function generateDungeonELlockEvents() {
                 dungeonSearchEvent();
             })
         }
-        imgDivBeneath.addEventListener('animationend', transitioner);
+        const initAnim = () => {
+            imgDivBeneath.addEventListener('transitionend', transitioner);
+            imgDivBeneath.style.height = "100%"; // ! This value could be modified later on for a dynamic animation
+        }
+        setTimeout(() => { initAnim() }, 500);
 
     })
 }
