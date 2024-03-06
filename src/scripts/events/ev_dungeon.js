@@ -203,12 +203,44 @@ function dungeonScoutEvent() {
     }
 }
 
+function generateDungeonELlockEvents() {
+    const identifier = game.dungeon.floor.room.type.toUpperCase().replaceAll(' ', '_');
+
+    const less = document.querySelector('.numEL.num-less');
+    const more = document.querySelector('.numEL.num-more');
+    const total = document.querySelector('#ephemeralLuckUnlockerCount');
+    const pour = document.querySelector('.dungeonELlock-button');
+
+    const min = Config.EphemeralLuck.Costs[identifier];
+    var amount = min;
+    total.value = amount;
+
+    less.addEventListener('click', e => {
+        if(e.shiftKey) amount = Math.max(min, amount - 100);
+        else if(e.ctrlKey) amount = Math.max(min, amount - 1000);
+        else amount = Math.max(min, amount - 10);
+
+        total.value = amount;
+    });
+    more.addEventListener('click', e => {
+        if(e.shiftKey) amount = Math.min(amount + 100, game.player.du_ephemeralLuck);
+        else if(e.ctrlKey) amount = Math.min(amount + 1000, game.player.du_ephemeralLuck);
+        else amount = Math.min(amount + 10, game.player.du_ephemeralLuck);
+
+        total.value = amount;
+    });
+    pour.addEventListener('click', () => {
+        console.log("Pouring...");
+    })
+}
+
 function dungeonSearchEvent() {
     const search = document.querySelector('.roomActions-action.search');
     const currentRoom = game.dungeon.floor.room;
 
     if(!currentRoom.isUnlocked) {
         drawDungeonELlock();
+        generateDungeonELlockEvents();
     }
     else if(!currentRoom.isCleared()) {
         currentRoom.generateRoomLoot();

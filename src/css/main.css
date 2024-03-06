@@ -9267,6 +9267,8 @@ filter: drop-shadow(0 0 1px #000000) brightness(2);
     margin: 1rem 0;
     color: #bbb;
     font-variant: small-caps;
+
+    animation: ELlockSlideIn 1s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 .dungeonELlock-nums {
     width: 100%;
@@ -9276,7 +9278,7 @@ filter: drop-shadow(0 0 1px #000000) brightness(2);
 }
 .numEL {
     font-size: 1.6rem;
-    border: 1px solid rgba(125, 125, 125, .4);
+    border: 1px solid transparent;
     border-radius: 3px;
     color: rgba(125, 125, 125, .4);
 
@@ -9292,21 +9294,34 @@ filter: drop-shadow(0 0 1px #000000) brightness(2);
     cursor: pointer;
     border-color: rgb(125, 125, 125);
 }
+.numEL.num-less {
+    animation: ELlockSlideLeft 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.numEL.num-more {
+    animation: ELlockSlideRight 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+@keyframes ELlockSlideLeft {
+    from {
+        opacity: 0;
+        transform: translate(-20px);
+    }
+}
+@keyframes ELlockSlideRight {
+    from {
+        opacity: 0;
+        transform: translate(20px);
+    }
+}
 #ephemeralLuckUnlockerCount {
     width: 100%;
 
     border: none;
     font-size: 1.6rem;
     text-align: center;
-}
-#ephemeralLuckUnlockerCount::after {
-    content: '';
-    display: block;
-    width: 100%;
-    height: 1px;
-    position: relative;
-    top: 1px;
-    background: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,0.5), rgba(0,0,0,0));
+
+    animation: ELlockSlideIn 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+    cursor:default;
 }
 #ephemeralLuckUnlockerCount:focus {
     outline: none;
@@ -9321,4 +9336,34 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+.dungeonELlock-button {
+
+    padding: .65rem 1.85rem;
+    border-radius: 0 0 3px 3px;
+    font-family: RobotoSlabBold;
+    font-size:.9rem;
+    font-variant: small-caps;
+
+    background: linear-gradient(0deg, transparent 50%, rgba(0, 0, 0, 1) 100%), url('img/darkBorders.png'), url('img/bg3.png');
+    background-size: 80%, 100% 100%, auto;
+    box-shadow: inset 0px 0px 20px 5px rgba(159, 172, 230, 0.2);
+    border: 1px solid transparent;
+
+    animation: ELspin 15s ease infinite, ELlockSlideIn 1.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+    transition: all .1s ease-in-out;
+}
+.dungeonELlock-button:hover {
+    border-color: #74ebd5;
+    cursor: pointer;
+    background: linear-gradient(0deg, transparent 0%, rgba(0, 0, 0, 1) 10%), url('img/darkBorders.png'), url('img/bg3.png');
+}
+
+@keyframes ELlockSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
 }

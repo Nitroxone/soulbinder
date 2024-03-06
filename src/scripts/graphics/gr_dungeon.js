@@ -295,10 +295,10 @@ function drawDungeonELlock() {
 
     str += '<div class="dungeonELlock-nums">';
     str += '<div class="numEL num-less">-</div>';
-    str += '<input type="number" id="ephemeralLuckUnlockerCount" class="ELstyling" value="' + Config.EphemeralLuck.Costs[identifier] + '" min="' + Config.EphemeralLuck.Costs[identifier] + '" max="' + game.player.du_ephemeralLuck + '">';
+    str += '<input type="number" id="ephemeralLuckUnlockerCount" class="ELstyling" readonly>';
     str += '<div class="numEL num-more">+</div>';
     str += '</div>';
-    str += '<div class="divider" style="margin-top: 0;"></div>';
+    str += '<div class="divider" style="margin-top: 0; margin-bottom: 0;"></div>';
 
     str += '<div class="dungeonELlock-button">Pour</div>';
     str += '</div>';
