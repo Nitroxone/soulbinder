@@ -264,8 +264,8 @@ function generateDungeonELlockEvents() {
 
         const transitioner = () => {
 
+            //imgDiv.style.animationDelay = ".5s";
             imgDiv.classList.add('dungeonELlock-img-fadeOut');
-            imgDiv.style.animationDelay = ".5s";
             imgDivBeneath.classList.add('dungeonELlock-img-fadeOut');
 
             imgDiv.removeEventListener('transitionend', initAnim);

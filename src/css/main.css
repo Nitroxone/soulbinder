@@ -9401,7 +9401,7 @@ input[type=number] {
     height: 100%;
 
     background: url('img/treasureRoomOverlay.png');
-    background-size: cover;
+    background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
 
@@ -9442,11 +9442,14 @@ input[type=number] {
     }
 }
 .dungeonELlock-img-fadeOut {
-    animation: ELlockOverlayFadeOut 1s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
+    animation: ELlockOverlayFadeOut 1s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+.dungeonELlock-img-fadeOutQuicker {
+    animation: ELlockOverlayFadeOut .5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 }
 @keyframes ELlockOverlayFadeOut {
     to {
-        background-size: 50%;
+        background-size: 250%;
         opacity: 0;
     }
 }
