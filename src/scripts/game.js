@@ -382,35 +382,11 @@ class Game {
         this.initBlackMarket();
         openAstralForge(game.player.inventory.weapons[0]);
 
-        const exploCat = game.chatlog.addCategory(Data.ChatlogChannel.EXPLORATION, {
+        game.dungeon.chatlogFolder = game.chatlog.addCategory(Data.ChatlogChannel.EXPLORATION, {
             title: 'Exploring: ' + this.dungeon.name
         });
         game.chatlog.addMessage(Data.ChatlogChannel.EXPLORATION, {
             content: "Started exploring " + this.dungeon.name + " (no legacy, no Agitator, no Lifeblood)"
-        }, exploCat);
-        game.chatlog.addMessage(Data.ChatlogChannel.EXPLORATION, {
-            content: "Found something strange"
-        }, exploCat);
-        game.chatlog.addMessage(Data.ChatlogChannel.EXPLORATION, {
-            content: "Jai chier parterre mais sa pu",
-            style: {
-                className: "clgMsg-negative"
-            }
-        });
-        game.chatlog.addMessage(Data.ChatlogChannel.EXPLORATION, {
-            content: "Jai bouser sur le tapigue mais sa senbon",
-            style: {
-                className: "clgMsg-positive"
-            }
-        });
-        game.chatlog.addMessage(Data.ChatlogChannel.EXPLORATION, {
-            content: "Alor pour info jai peter sur le tapis",
-            style: {
-                className: "clgMsg-info"
-            }
-        });
-        // game.chatlog.addCategory(Data.ChatlogChannel.EXPLORATION, {
-        //     title: 'Subcategory test',
-        // }, 'Exploring: ' + this.dungeon.name);
+        }, game.dungeon.chatlogFolder);
     }
 }

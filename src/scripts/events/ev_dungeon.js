@@ -275,6 +275,10 @@ function generateDungeonELlockEvents() {
 
                 game.dungeon.floor.room.isUnlocked = true;
                 dungeonSearchEvent();
+
+                game.chatlog.addMessage(Data.ChatlogChannel.EXPLORATION, {
+                    content: "Poured " + amount + " Ephemeral Luck to unlock a " + game.dungeon.floor.room.type
+                }, game.dungeon.chatlogFolder);
             })
         }
         const initAnim = () => {
