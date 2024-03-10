@@ -6052,7 +6052,7 @@ table.astralForgeShards td {
 /* ------------- DUNGEONS ------------- */
 
 .explorationContainer {
-    width: 1000px;
+    width: 100%;
     margin: 0 auto;
     display: flex;
     flex-direction: row;
@@ -6072,7 +6072,7 @@ table.astralForgeShards td {
 
 .mapCornerTl, .mapCornerTr, .mapCornerBl, .mapCornerBr {
     position: absolute;
-    width: 10%;
+    width: 50px;
 }
 .mapCornerTl {
     top: 0;
@@ -6135,7 +6135,7 @@ table.astralForgeShards td {
 }
 
 #exploration-infosPanel {
-    width: 40%;
+    width: 350px;
     height: 700px;
 
     background-image: url('img/bg4.png');
