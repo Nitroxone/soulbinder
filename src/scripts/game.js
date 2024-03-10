@@ -252,6 +252,11 @@ class Game {
     startDungeon() {
         game.dungeon.init();
         drawExplorationScreen();
+        this.changeExplorationSectionWallpaper();
+    }
+
+    changeExplorationSectionWallpaper() {
+        document.querySelector('#explorationDiv').style.backgroundImage = 'url(css/img/bg/' + this.dungeon.background + ')';
     }
 
     endDungeon() {
