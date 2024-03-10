@@ -195,4 +195,40 @@ class DungeonRoom {
     generateRoomLoot() {
         this.foundLoot = LootTable.Generators.generateLoot(LootTable.Presets.Dungeon[this.type]);
     }
+
+
+    regenerateStriders(EL) {
+        const req = Config.EphemeralLuck.Costs.DESECRATED_ALTAR;
+        
+        if(EL >= req) {
+            const baseMod = 0.25; // The min. amount regenerates 25% of hea/sta/man
+            const extraRegen = Math.floor(EL/50) * 0.01; // Above that amount, every 50EL regenerates an extra 1%
+            const total = baseMod + extraRegen;
+            let addExtra = false;
+            
+            if(EL >= (req + req*0.20)) {
+                // Pouring at least 120% of the required amount applies bonuses to Striders for the next fight
+                addExtra = true;
+            }
+
+            game.player.formation.forEach(stri => {
+                stri.applyEffect(new Stat({effect: Data.Effect.HEALTH, theorical: stri.maxHealth*total}));
+                stri.applyEffect(new Stat({effect: Data.Effect.STAMINA, theorical: stri.maxStamina*total}));
+                stri.applyEffect(new Stat({effect: Data.Effect.MANA, theorical: stri.maxMana*total}));
+                if(addExtra) {
+                    switch(stri.striderType) {
+                        case Data.StriderType.STRIKER:
+                            stri.applyEffect(new Stat({effect: Data.Effect.MODIF_DMG_TOTAL, theorical: 5, isPercentage: true}));
+                            break;
+                        case Data.StriderType.SUPPORT:
+                            stri.applyEffect(new Stat({effect: Data.Effect.SPEED, theorical: 2}));
+                            break;
+                        case Data.StriderType.TANK:
+                            stri.applyEffect(new Stat({effect: Data.Effect.PROTECTION, theorical: 5, isPercentage: true}));
+                            break;
+                    }
+                }
+            });
+        }
+    }
 }
