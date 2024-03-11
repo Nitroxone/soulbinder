@@ -43,15 +43,13 @@ function displayCurrentEon(eon, pageNum = 1) {
 
     // PAGINATION
     if(unlocked > 1) {
+        const hasNext = eon.fragments[pageNum]?.unlocked;
+        const hasPrev = eon.fragments[pageNum-2]?.unlocked;
+
         str += '<div class="ep-controls">';
-        if(eon.fragments.indexOf(frag) === 0) { // FIRST
-            str += '<div class="ep-controls-next"></div>';
-        } else if(eon.fragments.indexOf(frag) === eon.fragments.length-1) { // LAST
-            str += '<div class="ep-controls-prev"></div>';
-        } else {
-            str += '<div class="ep-controls-prev"></div>';
-            str += '<div class="ep-controls-next"></div>';
-        }
+        if(hasPrev) str += '<div class="ep-controls-prev"></div>';
+        if(hasNext) str += '<div class="ep-controls-next"></div>';
+
         str += '</div>';
     }
 
