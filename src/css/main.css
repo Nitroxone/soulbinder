@@ -7860,6 +7860,42 @@ table.astralForgeShards td {
 
     width: 388px;
     background: url('img/paper.png');
+
+    position: relative;
+}
+.ep-controls {
+    position: absolute;
+
+    width: 100%;
+    height: 30px;
+    bottom: 10px;
+}
+.ep-controls > div {
+    width: 35px;
+    height: 35px;
+    background-image: url('./img/chevron_black.svg');
+    background-size: 65%;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    position: absolute;
+
+    background-color: #C2B5AB;
+    border-radius: 100%;
+    border: 1px solid #3e3e3e75;
+
+    bottom: -15px;
+}
+.ep-controls > div:hover {
+    border-color: #3e3e3e;
+    cursor: pointer;
+}
+.ep-controls-next {
+    right: -12px;
+}
+.ep-controls-prev {
+    left: -12px;
+    transform: scaleX(-1);
 }
 .emptyEonPageContainer {
     width: 100%;
