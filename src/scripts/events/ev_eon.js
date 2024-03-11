@@ -14,8 +14,8 @@ function generateEonsEvents() {
         title.addEventListener('click', e => {
             undisplayCurrentEon();
             title.classList.toggle('active');
-            game.selectedEon = getUnlockedEonFromTitle(title.textContent);
-            displayCurrentEon(true);
+            const selectedEon = getUnlockedEonFromTitle(title.textContent);
+            displayCurrentEon(selectedEon);
         });
     });
 
@@ -42,5 +42,17 @@ function generateEonsEvents() {
         else eonCategories.forEach(cat => {
             cat.parentNode.style.display = 'block';
         })
+    })
+}
+
+function generateEonsPaginationEvents(eon, pageNum) {
+    const prev = document.querySelector('.ep-controls-prev');
+    const next = document.querySelector('.ep-controls-next');
+
+    prev?.addEventListener('click', () => {
+        displayCurrentEon(eon, pageNum-1);
+    });
+    next?.addEventListener('click', () => {
+        displayCurrentEon(eon, pageNum+1);
     })
 }

@@ -24,30 +24,39 @@ function undisplayCurrentEon() {
     getEmptyEonsPage(true);
 }
 
-function displayCurrentEon(refresh = false) {
+function displayCurrentEon(eon, pageNum = 1) {
     let str = '';
-    const eon = game.selectedEon;
     const unlocked = eon.fragments.filter(x => x.unlocked).length;
     const total = eon.fragments.length;
+    const frag = eon.fragments[pageNum-1];
     
     str += '<div class="eonPageContainer">';
     str += '<div class="ep-title">' + eon.title + '</div>';
 
     str += '<div class="ep-subTitle">';
     str += '<h2 class="ep-author">' + (eon.author ? 'by ' + eon.author : '') + '</h2>';
-    str += '<h2 class="ep-progress">' + unlocked + ' / ' + total + '</h2>';
+    str += '<h2 class="ep-progress">' + pageNum + ' / ' + total + '</h2>';
     str += '</div>';
 
-    eon.fragments.forEach(frag => {
-        if(frag.unlocked) str += '<div class="ep-part">' + frag.text + '</div>';
-    });
+    if(frag.unlocked) str += '<div class="ep-part">' + frag.text + '</div>';
     str += '</div>';
 
-    if(refresh) {
-        document.querySelector('.eonsPage').innerHTML = str;
-        return;
+    // PAGINATION
+    if(unlocked > 1) {
+        str += '<div class="ep-controls">';
+        if(eon.fragments.indexOf(frag) === 0) { // FIRST
+            str += '<div class="ep-controls-next"></div>';
+        } else if(eon.fragments.indexOf(frag) === eon.fragments.length-1) { // LAST
+            str += '<div class="ep-controls-prev"></div>';
+        } else {
+            str += '<div class="ep-controls-prev"></div>';
+            str += '<div class="ep-controls-next"></div>';
+        }
+        str += '</div>';
     }
-    return str;
+
+    document.querySelector('.eonsPage').innerHTML = str;
+    if(unlocked > 1) generateEonsPaginationEvents(eon, pageNum);
 }
 
 function getEonsSelectors(refresh = false) {
