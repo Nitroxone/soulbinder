@@ -2497,7 +2497,7 @@ function getDungeonELlockTitle(roomType) {
     }
 }
 
-function animateNumber(html, targetValue, duration, animationType) {
+function animateNumber(html, targetValue, duration, animationType, prefix = '', suffix = '') {
     const element = html;
     const startValue = animationType === 'increase' ? 0 : Number(element.textContent);
     const easing = t => t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
@@ -2519,12 +2519,12 @@ function animateNumber(html, targetValue, duration, animationType) {
             }
 
             // Update HTML element with the current value
-            element.textContent = currentValue;
+            element.textContent = prefix + currentValue + suffix;
             requestAnimationFrame(animate);
         } else {
             // Animation complete
             // Update HTML element with the target value
-            element.textContent = targetValue;
+            element.textContent = prefix + targetValue + suffix;
         }
     }
 
