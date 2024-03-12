@@ -466,7 +466,7 @@ function getBattleSkillTooltip(strider, skill) {
     str += '<div class="skillRangeDisplay">';
 
     str += '<div class="skillRangeDisplay-launch">';
-    str += '<div class="skillRangeDisplay-launch-pos">' + getRangeString(skill.launchPos) + '</div>';
+    str += '<div class="skillRangeDisplay-launch-pos">' + getRangeString(skill.launchPos, null, true) + '</div>';
     str += '<div class="skillRangeDisplay-launch-str">Launch</div>';
     str += '</div>';
 

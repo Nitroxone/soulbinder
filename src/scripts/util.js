@@ -316,7 +316,7 @@ function computeChance(chance) {
  * @param {array} compare - a comparison array that modifies the range array. TRUE enables, FALSE leaves unchanged, NULL disables.
  * @returns {string} - a string that contains literal, translated values of the range array.
  */
-function getRangeString(range, compare) {
+function getRangeString(range, compare, invert = false) {
     // compare : TRUE enables. FALSE leaves unchanged. NULL disables.
     let str = '';
     let newrange = range.slice();
@@ -325,10 +325,14 @@ function getRangeString(range, compare) {
             compare[i] ? newrange[i] = true : (compare[i] == null) ? newrange[i] = false : '';
         }
     }
-    if(newrange[0]) str += 'Front, ';
-    if(newrange[1]) str += 'Middle, ';
-    if(newrange[2]) str += 'Back, ';
-    str !== '' ? str = str.slice(0, -2) : str = 'None';
+    if(newrange[0] && newrange[1] && newrange[2]) {
+        str = 'Any';
+    } else {
+        if(newrange[0]) str += (invert ? 'Back, ' : 'Front, ');
+        if(newrange[1]) str += 'Middle, ';
+        if(newrange[2]) str += (invert ? 'Front, ' : 'Back, ');
+        str !== '' ? str = str.slice(0, -2) : str = 'None';
+    }
     return str;
 }
 
@@ -341,17 +345,21 @@ function getTargetString(range) {
     const selector = (range.charAt(0) === '-' ? ', ' : ' + ');
     const targets = range.substring(1);
     let result = '';
-    for(let i = 0; i < targets.length; i++) {
-        switch(targets.charAt(i)) {
-            case '1':
-                result += 'Front' + selector;
-                break;
-            case '2':
-                result += 'Middle' + selector;
-                break;
-            case '3':
-                result += 'Back' + selector;
-                break;
+    if(targets == '123') {
+        result = 'Any' + selector;
+    } else {
+        for(let i = 0; i < targets.length; i++) {
+            switch(targets.charAt(i)) {
+                case '1':
+                    result += 'Front' + selector;
+                    break;
+                case '2':
+                    result += 'Middle' + selector;
+                    break;
+                case '3':
+                    result += 'Back' + selector;
+                    break;
+            }
         }
     }
     result !== '' ? result = result.substring(0, (result.length - selector.length)) : result = 'None';
