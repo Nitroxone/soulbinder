@@ -3710,6 +3710,14 @@ const Loader = {
                                     }
                                 }
                             }
+                        ),
+                        new Skill(
+                            "Knit the Flesh",
+                            "§Heals§ the targeted ally according to the total amount of §Madness§ states among allies and enemies. Does not consume §Madness§.",
+                            3,
+                            {
+                                
+                            }
                         )
                     ],
                 },
