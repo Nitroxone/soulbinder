@@ -9491,3 +9491,59 @@ input[type=number] {
         opacity: 0;
     }
 }
+
+.dungeonRegen-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.dungeonRegen-single {
+    
+    width: 75%;
+    margin: 0 auto;
+    margin-top: 1rem;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 2.5fr;
+    gap: 0 0;
+    grid-template-areas: 
+        "drs-striName"
+        "drs-striGauges";
+}
+
+.drs-striName {
+    grid-area: drs-striName;
+
+    font-family: RobotoSlab;
+    font-variant: small-caps;
+    font-size: 1.05rem;
+    background-image: linear-gradient(0deg, rgba(88, 88, 88, 1), rgba(222, 222, 222, 1));
+    background-clip: text;
+    color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: none;
+}
+.drs-striGauges {
+    grid-area: drs-striGauges;
+}
+.drs-striGauges .statGauge {
+    height: 100%;
+    flex: 1;
+
+    transition: width 1s cubic-bezier(0.075, 0.82, 0.165, 1)
+}
+.drs-striGauges .gaugeProgress {
+    margin-top: 2px;
+    width: 200px;
+}
+.dungeonRegenGauge {
+    display: flex;
+    flex-direction: row;
+}
+.dungeonRegenGaugeIndicator {
+    font-family: 'RobotoSlab';
+    font-size: 13px;
+    margin-left: 1rem;
+}

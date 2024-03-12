@@ -274,7 +274,8 @@ function generateDungeonELlockEvents() {
                 imgDivBeneath.remove();
 
                 game.dungeon.floor.room.isUnlocked = true;
-                dungeonSearchEvent();
+
+                dungeonSearchEvent(amount);
 
                 game.chatlog.addMessage(Data.ChatlogChannel.EXPLORATION, {
                     content: "Poured " + amount + " Ephemeral Luck to unlock a " + game.dungeon.floor.room.type
@@ -290,7 +291,7 @@ function generateDungeonELlockEvents() {
     })
 }
 
-function dungeonSearchEvent() {
+function dungeonSearchEvent(EL = 0) {
     const search = document.querySelector('.roomActions-action.search');
     const currentRoom = game.dungeon.floor.room;
 
@@ -299,28 +300,45 @@ function dungeonSearchEvent() {
         generateDungeonELlockEvents();
     }
     else if(!currentRoom.isCleared()) {
-        currentRoom.generateRoomLoot();
-        drawDungeonFoundLoot(true);
-        generateDungeonFoundLootEvents();
+        
+        if(currentRoom.isLootable()) dungeonLootEvent(EL);
+        else if(currentRoom.type === Data.DungeonRoomType.DESECRATED_ALTAR) dungeonRegenerateEvent(EL);
 
-        let quantadelay = 0;
-        document.querySelectorAll('.revealingLootCanvas.roomLootCanvas').forEach(cv => {
-            setTimeout(() => {
-                let params = getQuantaBurstParamsFromRarity(cv.classList[1]);
-
-                Quanta.burst({
-                    canvas: cv,
-                    color: params.color,
-                    amount: params.amount,
-                    particleSize: params.particleSize
-                });
-            }, quantadelay);
-            quantadelay += 250;
-        })
         clearCurrentRoom();
 
         dungeonActionApplySearchedStyle(search);
     }
+}
+
+function dungeonRegenerateEvent(EL = 0) {
+    const currentRoom = game.dungeon.floor.room;
+
+    const results = currentRoom.regenerateStriders(EL);
+
+    drawDungeonRegenerate(results);
+}
+
+function dungeonLootEvent(EL) {
+    const currentRoom = game.dungeon.floor.room;
+
+    currentRoom.generateRoomLoot();
+    drawDungeonFoundLoot(true);
+    generateDungeonFoundLootEvents();
+
+    let quantadelay = 0;
+    document.querySelectorAll('.revealingLootCanvas.roomLootCanvas').forEach(cv => {
+        setTimeout(() => {
+            let params = getQuantaBurstParamsFromRarity(cv.classList[1]);
+
+            Quanta.burst({
+                canvas: cv,
+                color: params.color,
+                amount: params.amount,
+                particleSize: params.particleSize
+            });
+        }, quantadelay);
+        quantadelay += 250;
+    });
 }
 
 function generateMapRoomsEvents() {

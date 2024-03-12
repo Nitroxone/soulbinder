@@ -63,6 +63,13 @@ class DungeonRoom {
                 || this.type === Data.DungeonRoomType.ETERNITY_WELL;
     }
 
+    isLootable() {
+        return this.type === Data.DungeonRoomType.ANTECHAMBER_OF_MARVELS
+                || this.type === Data.DungeonRoomType.EMPTY
+                || this.type === Data.DungeonRoomType.ENTRANCE
+                || this.type === Data.DungeonRoomType.ETERNITY_WELL
+    }
+
     /**
      * Returns this room's actions.
      * @returns {Data.DungeonRoomAction[]}
@@ -199,6 +206,7 @@ class DungeonRoom {
 
     regenerateStriders(EL) {
         const req = Config.EphemeralLuck.Costs.DESECRATED_ALTAR;
+        const results = {};
         
         if(EL >= req) {
             const baseMod = 0.25; // The min. amount regenerates 25% of hea/sta/man
@@ -212,23 +220,38 @@ class DungeonRoom {
             }
 
             game.player.formation.forEach(stri => {
-                stri.applyEffect(new Stat({effect: Data.Effect.HEALTH, theorical: stri.maxHealth*total}));
-                stri.applyEffect(new Stat({effect: Data.Effect.STAMINA, theorical: stri.maxStamina*total}));
-                stri.applyEffect(new Stat({effect: Data.Effect.MANA, theorical: stri.maxMana*total}));
-                if(addExtra) {
-                    switch(stri.striderType) {
-                        case Data.StriderType.STRIKER:
-                            stri.applyEffect(new Stat({effect: Data.Effect.MODIF_DMG_TOTAL, theorical: 5, isPercentage: true}));
-                            break;
-                        case Data.StriderType.SUPPORT:
-                            stri.applyEffect(new Stat({effect: Data.Effect.SPEED, theorical: 2}));
-                            break;
-                        case Data.StriderType.TANK:
-                            stri.applyEffect(new Stat({effect: Data.Effect.PROTECTION, theorical: 5, isPercentage: true}));
-                            break;
-                    }
+                results[stri.name] = {
+                    // [OLD, NEW]
+                    health: [stri.health, Math.round(stri.maxHealth*total)],
+                    stamina: [stri.stamina, Math.round(stri.maxStamina*total)],
+                    mana: [stri.mana, Math.round(stri.maxMana*total)],
                 }
+                stri.addBaseStat(new Stat({effect: Data.Effect.HEALTH, theorical: Math.round(stri.maxHealth*total)}), false, true);
+                stri.addBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: Math.round(stri.maxStamina*total)}), false, true);
+                stri.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: Math.round(stri.maxMana*total)}), false, true);
+                // if(addExtra) {
+                //     let stat;
+                //     switch(stri.striderType) {
+                //         case Data.StriderType.STRIKER:
+                //             stat = new Stat({effect: Data.Effect.MODIF_DMG_TOTAL, theorical: 5, isPercentage: true});
+                //             stri.applyEffect(stat);
+                //             results[stri.name].extra = stat; 
+                //             break;
+                //         case Data.StriderType.SUPPORT:
+                //             stat = new Stat({effect: Data.Effect.SPEED, theorical: 2});
+                //             stri.applyEffect(stat);
+                //             results[stri.name].extra = stat;
+                //             break;
+                //         case Data.StriderType.TANK:
+                //             stat = new Stat({effect: Data.Effect.PROTECTION, theorical: 5, isPercentage: true});
+                //             stri.applyEffect(stat);
+                //             results[stri.name].extra = stat;
+                //             break;
+                //     }
+                // }
             });
         }
+
+        return results;
     }
 }

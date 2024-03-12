@@ -304,3 +304,68 @@ function drawDungeonELlock() {
 
     document.querySelector('.infosPanel-actionResult').innerHTML = str;
 }
+
+function drawDungeonRegenerate(results) {
+    let str = '';
+
+    str += '<div class="dungeonRegen-wrapper">'
+    for(const result in results) {
+        const stri = game.player.formation.find(x => x.name === result);
+        const health = results[result].health;
+        const stamina = results[result].stamina;
+        const mana = results[result].mana;
+        
+        str += '<div class="dungeonRegen-single">';
+        str += '<div class="drs-striName">' + stri.name + '</div>';
+        str += '<div class="drs-striGauges">'
+        if(health) {
+            str += '<div class="dungeonRegenGauge">';
+            str += '<div class="gaugeProgress">';
+            str += '<div id="dunregHealth-' + stri.id + '" class="statGauge health" style="width:' + Math.round((health[0]*100)/stri.maxHealth) + '%"></div>';
+            str += '</div>';
+            str += '<div id="dunregIndicHealth-' + stri.id + '" class="dungeonRegenGaugeIndicator" style="color: ' + Data.Color.RED + '">0</div>';
+            str += '</div>';
+        }
+        if(stamina) {
+            str += '<div class="dungeonRegenGauge">';
+            str += '<div class="gaugeProgress">';
+            str += '<div id="dunregStamina-' + stri.id + '" class="statGauge stamina" style="width:' + Math.round((stamina[0]*100)/stri.maxStamina) + '%"></div>';
+            str += '</div>';
+            str += '<div id="dunregIndicStamina-' + stri.id + '" class="dungeonRegenGaugeIndicator" style="color: ' + Data.Color.GREEN + '">0</div>';
+            str += '</div>';
+        }
+        if(mana) {
+            str += '<div class="dungeonRegenGauge">';
+            str += '<div class="gaugeProgress">';
+            str += '<div id="dunregMana-' + stri.id + '" class="statGauge mana" style="width:' + Math.round((mana[0]*100)/stri.maxMana) + '%"></div>';
+            str += '</div>';
+            str += '<div id="dunregIndicMana-' + stri.id + '" class="dungeonRegenGaugeIndicator" style="color: ' + Data.Color.BLUE + '">0</div>';
+            str += '</div>';
+        }
+        str += '</div>';
+        str += '</div>';
+    }
+
+    document.querySelector('.infosPanel-actionResult').innerHTML = str;
+
+    setTimeout(() => {
+        game.player.formation.forEach(stri => {
+            const health = results[stri.name].health[1];
+            const hGauge = document.querySelector('#dunregHealth-' + stri.id);
+            const hIndic = document.querySelector('#dunregIndicHealth-' + stri.id);
+            const stamina = results[stri.name].stamina[1];
+            const sGauge = document.querySelector('#dunregStamina-' + stri.id);
+            const sIndic = document.querySelector('#dunregIndicStamina-' + stri.id);
+            const mana = results[stri.name].mana[1];
+            const mGauge = document.querySelector('#dunregMana-' + stri.id);
+            const mIndic = document.querySelector('#dunregIndicMana-' + stri.id);
+
+            hGauge.style.width = Math.round((stri.health*100)/stri.maxHealth) + '%';
+            sGauge.style.width = Math.round((stri.stamina*100)/stri.maxStamina) + '%';
+            mGauge.style.width = Math.round((stri.mana*100)/stri.maxMana) + '%';
+            animateNumber(hIndic, health, 2000, 'increase', (health > 0 ? '+' : health < 0 ? '-' : ''));
+            animateNumber(sIndic, stamina, 2000, 'increase', (stamina > 0 ? '+' : stamina < 0 ? '-' : ''));
+            animateNumber(mIndic, mana, 2000, 'increase', (mana > 0 ? '+' : mana < 0 ? '-' : ''));
+        });
+    }, 100);
+}
