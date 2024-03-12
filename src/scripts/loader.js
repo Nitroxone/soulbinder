@@ -1147,7 +1147,7 @@ const Loader = {
             ),
             new Trinket(
                 "Talisman of Fervour",
-                "\"My guard? Do you think I care a whit about my guard, Sarv? Why should I bother honing my guard when I can floor anyone with a single blow?\" - Cialto, Champion Swordsman",
+                "\"My guard? Do you think I care a whit about my guard? Why should I bother honing my guard when I can floor anyone with a single blow?\" - Cialto, Champion Swordsman",
                 18,
                 10,
                 Data.Rarity.SINGULAR,
