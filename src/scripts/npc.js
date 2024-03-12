@@ -452,7 +452,7 @@ class NPC extends Entity {
      * Adds the provided effect's value to either Health, Mana, or Stamina.
      * @param {Stat} eff the effect to add
      */
-    addBaseStat(eff, originUser = false) {
+    addBaseStat(eff, originUser = false, ignoreTriggers = false) {
         let amount = 0;
         if(eff.effect === Data.Effect.HEALTH) {
             if(eff.isPercentage) amount = this.maxHealth * eff.getValue() / 100;
@@ -462,15 +462,19 @@ class NPC extends Entity {
             if(originUser) {
                 console.info('ORIGIN USER DETECTED!!!! ' + originUser.name + ' on ' + this.name);
                 amount += amount * originUser.modifHealGiven / 100;
-                originUser.runTriggers(Data.TriggerType.ON_DEAL_HEAL);
-                this.runTriggers(Data.TriggerType.ON_RECV_HEAL);
+                if(!ignoreTriggers) {
+                    originUser.runTriggers(Data.TriggerType.ON_DEAL_HEAL);
+                    this.runTriggers(Data.TriggerType.ON_RECV_HEAL);
+                }
             }
 
             this.health = Math.min(this.maxHealth, this.health + Math.round(amount));
             if(amount > 0) {
                 this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.RED + '">+ ' + Math.round(amount) + '</p>'));
-                this.runTriggers(Data.TriggerType.ON_ADD_HEALTH);
-                this.runTriggers(Data.TriggerType.ON_RECV_HEAL);
+                if(!ignoreTriggers) {
+                    this.runTriggers(Data.TriggerType.ON_ADD_HEALTH);
+                    this.runTriggers(Data.TriggerType.ON_RECV_HEAL);
+                }
             }
             
         } else if(eff.effect === Data.Effect.MANA) {
@@ -480,7 +484,7 @@ class NPC extends Entity {
             this.mana = Math.min(this.maxMana, this.mana + Math.round(amount));
             if(amount > 0) {
                 this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.BLUE + '">+ ' + Math.round(amount) + '</p>'));
-                this.runTriggers(Data.TriggerType.ON_ADD_MANA);
+                if(!ignoreTriggers) this.runTriggers(Data.TriggerType.ON_ADD_MANA);
             }
         } else if(eff.effect === Data.Effect.STAMINA) {
             if(eff.isPercentage) amount = this.maxStamina * eff.getValue() / 100;
@@ -489,7 +493,7 @@ class NPC extends Entity {
             this.stamina = Math.min(this.maxStamina, this.stamina + Math.round(amount));
             if(amount > 0) {
                 this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.GREEN + '">+ ' + Math.round(amount) + '</p>'));
-                this.runTriggers(Data.TriggerType.ON_ADD_STAMINA);
+                if(!ignoreTriggers) this.runTriggers(Data.TriggerType.ON_ADD_STAMINA);
             }
         }
         console.log('ADDING ' + Math.round(amount) + ' ' + eff.effect + ' TO ' + this.name);
