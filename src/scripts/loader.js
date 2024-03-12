@@ -1164,7 +1164,7 @@ const Loader = {
                 ],
             ),
             new Trinket(
-                "Trapped Nebulae",
+                "Trapped Nebula",
                 "A shifting storm howls in this sphere; warm and golden, cold and black, it twirls, revealing temporal fragments dating back to the earliest ages of Mithor.",
                 23,
                 10,
