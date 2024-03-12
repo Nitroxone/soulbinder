@@ -3716,7 +3716,22 @@ const Loader = {
                             "§Heals§ the targeted ally according to the total amount of §Madness§ states among allies and enemies. Does not consume §Madness§.",
                             3,
                             {
-                                
+                                type: Data.SkillType.FRIENDLY,
+                                criMultiplier: 15,
+                                accMultiplier: 100,
+                                cooldown: 1,
+                                targets: {allies: '-123', enemies: '-0'},
+                                manaCost: 15,
+                                effectsAllies: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.HAMAN_HEAL_FROM_TOTAL_MADNESS, theorical: [6, 8], isPercentage: true, type: Data.StatType.ACTIVE})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.HAMAN_HEAL_FROM_TOTAL_MADNESS, theorical: 10, isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true})
+                                        ]
+                                    }
+                                }
                             }
                         )
                     ],

@@ -191,7 +191,8 @@ const Data = Object.freeze({
         // ----- STRIDER EFFECTS -----
         // HAMAN
         HAMAN_REVELATION_MARKED: "Revealing",
-        HAMAN_MADNESS_CONSUME: "Consumes Madness"
+        HAMAN_MADNESS_CONSUME: "Consumes Madness",
+        HAMAN_HEAL_FROM_TOTAL_MADNESS: "Health per global Madness stack"
     },
     TriggerType: {
         ON_STAT_CHANGE: 'ON_STAT_CHANGE',
