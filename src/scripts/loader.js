@@ -2740,7 +2740,7 @@ const Loader = {
                                 criMultiplier: 10,
                                 accMultiplier: 100,
                                 targets: {allies: '-123', enemies: '-0'},
-                                launchPos: [true, true, false],
+                                launchPos: [false, true, true],
                                 effectsCaster: {
                                     1: {
                                         regular: [
