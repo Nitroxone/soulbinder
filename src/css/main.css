@@ -7332,7 +7332,7 @@ table.astralForgeShards td {
     border-image: url(img/window1-tiny.png) 7 stretch;
 
     position: absolute;
-    top: 50%;
+    bottom: 50%;
     padding: 0.75em;
     right: 1rem;
     z-index:200;
@@ -7340,7 +7340,7 @@ table.astralForgeShards td {
 
 .battle-toxicityLevel {
     position: absolute;
-    top: 0%;
+    bottom: 0%;
     right: 1rem;
     z-index: 200;
 

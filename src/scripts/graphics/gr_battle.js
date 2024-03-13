@@ -559,15 +559,16 @@ function getBattleFighterStats(fighter) {
     str += '</tr>';
     str += '</tbody></table>';
 
+    str += '<div class="battle-activeEffects framed">';
+    str += getBattleFighterActiveEffects(fighter);
+    str += '</div>';
+
     if(fighter instanceof Strider) {
         str += '<div class="battle-toxicityLevel">';
         str += getBattleFighterToxicityLevel(fighter);
         str += '</div>';
     }
 
-    str += '<div class="battle-activeEffects framed">';
-    str += getBattleFighterActiveEffects(fighter);
-    str += '</div>'
 
     return str;
 }
