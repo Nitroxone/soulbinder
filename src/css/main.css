@@ -2261,6 +2261,10 @@ table.statsTable tbody td:nth-child(3) {
     font-variant: small-caps;
     color: #1abc9c;
     text-shadow: 1px 1px 4px #000000;
+
+    position: absolute;
+    right: 0;
+    bottom: 20px;
 }
 .gaugeIndicator {
     font-size: 11px;
