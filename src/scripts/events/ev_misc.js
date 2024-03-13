@@ -148,44 +148,36 @@ function spawnTooltip(item, fromExisting = null) {
 }
 
 function addTooltip(element, func, object) {
-    // adds a tooltip to an element.
-    // when the mouse hovers over the element, a tooltip is displayed, populated by the func (which must return an HTML code string).
     const t = new Tooltip();
-    AddEvent(element, 'mouseover', function(element, func, tooltip, object) {
-        return function(e) {
-            tooltip.func = func;
-            tooltip.parent = element;
-            tooltip.popup(object);
 
-            tooltip.update();
-            tooltip.update();
-            tooltip.update();
-            if(game.particlesTooltipCanvasItem) getTooltipParticlesCanvas(game.particlesTooltipCanvasItem);
-        };
-    }(element, func, t, object || {}));
-    AddEvent(element, 'mouseout', function(element, func, tooltip) {
-        return function(e) {
-            tooltip.close();
+    element.addEventListener('mouseover', () => {
+        t.func = func;
+        t.parent = element;
+        t.popup(object);
 
-            tooltip.update();
-            tooltip.update();
-            tooltip.update();
+        t.update();
+        t.update();
+        t.update();
+        if(game.particlesTooltipCanvasItem) getTooltipParticlesCanvas(game.particlesTooltipCanvasItem);
+    });
+    element.addEventListener('mouseout', () => {
+        t.close();
 
-            if(game.particlesTooltipCanvasInterval) clearInterval(game.particlesTooltipCanvasInterval);
-            if(game.particlesTooltipCanvasItem) game.particlesTooltipCanvasItem = null;
-        };
-    }(element, func, t));
-    AddEvent(element, 'DOMNodeRemoved', function(element, func, tooltip) {
-        return function(e) {
-            tooltip.close();
+        t.update();
+        t.update();
+        t.update();
 
-            tooltip.update();
-            tooltip.update();
-            tooltip.update();
+        if(game.particlesTooltipCanvasInterval) clearInterval(game.particlesTooltipCanvasInterval);
+        if(game.particlesTooltipCanvasItem) game.particlesTooltipCanvasItem = null;
+    })
+    element.addEventListener('DOMNodeRemoved', () => {
+        t.close();
 
-            if(game.particlesTooltipCanvasInterval) clearInterval(game.particlesTooltipCanvasInterval);
-            if(game.particlesTooltipCanvasItem) game.particlesTooltipCanvasItem = null;
-        };
-    }(element, func, t));
+        t.update();
+        t.update();
+        t.update();
 
+        if(game.particlesTooltipCanvasInterval) clearInterval(game.particlesTooltipCanvasInterval);
+        if(game.particlesTooltipCanvasItem) game.particlesTooltipCanvasItem = null;
+    })
 }

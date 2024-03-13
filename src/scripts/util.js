@@ -27,26 +27,6 @@ function domWhat(what) {
 }
 
 /**
- * Adds an event listener to the specified element.
- * @param {HTMLElement} html_element the HTMLElement the event will be attached to
- * @param {string} element_name the type of event (such as 'click')
- * @param {Function} element_func the function that is called by the event
- */
-function AddEvent(html_element, element_name, element_func) {
-    html_element.addEventListener(element_name, element_func, false);
-}
-
-/**
- * Adds a hover event to the specified element.
- * @param {HTMLElement} html_element the HTMLElement the event will be attached to
- * @param {string} class_name the function that is called by the event
- */
-function AddHover(html_element, class_name) {
-    AddEvent(html_element, 'mouseover', function(class_name){return function(e){e.name.classList.add(class_name);};}(class_name));
-    AddEvent(html_element, 'mouseout', function(class_name){return function(e){e.name.classList.remove(class_name);};}(class_name));
-}
-
-/**
  * Adds the CSS rule
  * @param {string} sheet
  * @param {string} selector
