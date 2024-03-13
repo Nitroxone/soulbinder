@@ -10,7 +10,6 @@ class Tooltip {
         this.domWhatAnchor = domWhat('tooltipAnchor');
         this.offX = 0;
         this.offY = 0;
-        this.timer = 0;
         this.func = 0;
         this.parent = 0;
         this.anchor = 'top';
@@ -27,9 +26,7 @@ class Tooltip {
         me.linked = 0;
         me.anchor = 'top';
         me.behavior = 'fade';
-        if(me.closing) me.timer = 0; // reset timer
         me.closing = false;
-        me.domWhatAnchor.style.opacity = '0';
         me.domWhatAnchor.style.display = 'block';
         for(const i in obj) {me[i] = obj[i];}
         me.refresh();
@@ -37,10 +34,8 @@ class Tooltip {
 
     update() {
         const self = this;
-        const time = 3 // how many frames to open/close
-        if(self.timer < time) self.timer++;
         const parentExists = domWhat(self.parent.id);
-        if(self.timer == time && (self.closing || !parentExists)) {
+        if((self.closing || !parentExists)) {
             self.domWhatAnchor.style.display = 'none';
             self.domWhat.innerHTML = '';
             self.func = 0;
@@ -51,9 +46,6 @@ class Tooltip {
         }
         else if(parentExists) {// tooltip is active and focused on an element
             // position and scale tooltip
-            let t = (self.timer / time);
-            if(self.closing) t = 1 - t;
-            t = (3 * Math.pow(t, 2) - 2 * Math.pow(t, 3));
             let x1=0, x2=0, y1=0, y2=0, s1=0, s2=1;
             let bounds = self.parent.getBoundingClientRect();
 
@@ -75,8 +67,7 @@ class Tooltip {
             let styleTop = '';
             let styleLeft = '';
 
-            for(let step = 0; step < 3 ; step++) {// awkward way of doing this
-                // pure CSS didn't go well.
+            for(let step = 0; step < 3 ; step++) {
                 if(anchor == 'top') {
                     x1 = (bounds.left + bounds.right) / 2; x2 = x1 + offX;
                     y1 = bounds.top; y2 = y1 + offY;
@@ -133,14 +124,10 @@ class Tooltip {
             self.domWhat.style.top = styleTop;
             self.domWhat.style.left = styleLeft;
 
-            const x = Math.round(t * x2 + (1 - t) * x1);
-            const y = Math.round(t * y2 + (1 - t) * y1);
+            var t = 1;
+            const x = Math.round(x2);
+            const y = Math.round(y2);
 
-            let s = 1, o = 1;
-            if(behavior == 'pop') s = (t * s2 + (1 - t) * s1);
-            if(behavior == 'fade') o = t;
-            self.domWhatAnchor.style.transform = 'scale(' + s + ')';
-            self.domWhatAnchor.style.opacity = String(o);
             self.domWhatAnchor.style.left = x + 'px';
             self.domWhatAnchor.style.top = y + 'px';
             if(self.closeOnMouseUp && Game.mouseUp) self.close();
