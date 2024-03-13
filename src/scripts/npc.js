@@ -112,6 +112,8 @@ class NPC extends Entity {
 
         // Initializing empty bonuses
         this.bonuses = [];
+
+        this.baseShield = 0;
     }
 
     /**
@@ -346,6 +348,7 @@ class NPC extends Entity {
      */
     addShield(amount) {
         this.shield = Math.min(this.maxHealth, this.shield+amount);
+        this.baseShield = this.shield;
         if(amount > 0) this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.TURQUOISE + '">+ ' + Math.round(amount) + '</p>'));
     }
 

@@ -190,7 +190,7 @@ function getFighterFrame(fighter, type, pos) {
         str += '<div id="b-' + type + '-' + pos + '" class="battleFighter' + (isCurrentPlay ? ' currentPlayFrame' : '') + '" style="background-image: linear-gradient(transparent 0%, rgba(0, 0, 0, 1) 70%), url(\'css/img/chars/' + fighter.charset + '\'); ' + (fighter.health === 0 ? ' filter: grayscale(100%);' : '') + '">';
         str += '<div class="battle-shieldContainer">' + getBattleShieldAmount(fighter) + '</div>';
         str += '<div class="battle-specialEffectsContainer">' + getSpecialEffects(fighter) + '</div>';
-        str += '<div class="gaugeProgress"><div class="statGauge health" style="width:'+ Math.round((fighter.health*100)/fighter.maxHealth) +'%"><span class="gaugeIndicator">'+ fighter.health + '/' + fighter.maxHealth +'</span></div></div>';
+        str += '<div class="gaugeProgress"><div class="statGauge health" style="width:'+ Math.round((fighter.health*100)/fighter.maxHealth) +'%">' + getFighterHealthGaugeIndicator(fighter) + '</div>' + (fighter.shield > 0 ? '<div class="statGauge shield" style="width:'+ Math.round((fighter.shield*100)/fighter.baseShield) +'%"></div>' : '') + '</div>';
         str += '<div class="gaugeProgress"><div class="statGauge stamina" style="width:'+ Math.round((fighter.stamina*100)/fighter.maxStamina) +'%"><span class="gaugeIndicator">'+ fighter.stamina + '/' + fighter.maxStamina +'</span></div></div>';
         str += '<div class="gaugeProgress"><div class="statGauge mana" style="width:'+ Math.round((fighter.mana*100)/fighter.maxMana) +'%"><span class="gaugeIndicator">'+ fighter.mana + '/' + fighter.maxMana +'</span></div></div>';
         str += '</div>';
@@ -198,6 +198,19 @@ function getFighterFrame(fighter, type, pos) {
     str += '<div class="playOrderIndicator' + (isCurrentPlay ? ' currentPlayIndicator' : '') + '">' + playOrder + '</div>';
     str += '</div>';
 
+    return str;
+}
+
+function getFighterHealthGaugeIndicator(fighter) {
+    let str = '';
+
+    if(fighter.shield > 0) {
+        str += '<div style="width: 100%; position: absolute; display: flex; justify-content: space-between; padding: 1px 2px;">';
+        str += '<span class="shieldIndicator">' + fighter.shield + '</span>';
+        str += '<span>' + fighter.health + '/' + fighter.maxHealth + '</span>';
+        str += '</div>'
+    } else str += '<span class="gaugeIndicator">' + fighter.health + '/' + fighter.maxHealth + '</span>'
+    
     return str;
 }
 

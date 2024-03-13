@@ -33,36 +33,35 @@ class Tooltip {
     }
 
     update() {
-        const self = this;
-        const parentExists = domWhat(self.parent.id);
-        if((self.closing || !parentExists)) {
-            self.domWhatAnchor.style.display = 'none';
-            self.domWhat.innerHTML = '';
-            self.func = 0;
-            self.parent = 0;
-            self.anchor = 'top';
-            self.behavior = 'fade';
-            self.linked = 0;
+        const parentExists = domWhat(this.parent.id);
+        if((this.closing || !parentExists)) {
+            this.domWhatAnchor.style.display = 'none';
+            this.domWhat.innerHTML = '';
+            this.func = 0;
+            this.parent = 0;
+            this.anchor = 'top';
+            this.behavior = 'fade';
+            this.linked = 0;
         }
         else if(parentExists) {// tooltip is active and focused on an element
             // position and scale tooltip
             let x1=0, x2=0, y1=0, y2=0, s1=0, s2=1;
-            let bounds = self.parent.getBoundingClientRect();
+            let bounds = this.parent.getBoundingClientRect();
 
             //measure and fit in screen
             const dimensions = {
-                top: self.domWhat.offsetTop,
-                right: self.domWhat.offsetLeft + self.domWhat.offsetWidth,
-                bottom: self.domWhat.offsetTop + self.domWhat.offsetHeight,
-                left: self.domWhat.offsetLeft,
-                width: self.domWhat.offsetWidth,
-                height: self.domWhat.offsetHeight
+                top: this.domWhat.offsetTop,
+                right: this.domWhat.offsetLeft + this.domWhat.offsetWidth,
+                bottom: this.domWhat.offsetTop + this.domWhat.offsetHeight,
+                left: this.domWhat.offsetLeft,
+                width: this.domWhat.offsetWidth,
+                height: this.domWhat.offsetHeight
             }
 
-            let anchor = self.anchor;
-            let behavior = self.behavior;
-            let offX = self.offX;
-            let offY = self.offY;
+            let anchor = this.anchor;
+            let behavior = this.behavior;
+            let offX = this.offX;
+            let offY = this.offY;
             let styleTransform = '';
             let styleTop = '';
             let styleLeft = '';
@@ -120,17 +119,17 @@ class Tooltip {
                     }
                 }
             }
-            self.domWhat.style.transform = styleTransform;
-            self.domWhat.style.top = styleTop;
-            self.domWhat.style.left = styleLeft;
+            this.domWhat.style.transform = styleTransform;
+            this.domWhat.style.top = styleTop;
+            this.domWhat.style.left = styleLeft;
 
             var t = 1;
             const x = Math.round(x2);
             const y = Math.round(y2);
 
-            self.domWhatAnchor.style.left = x + 'px';
-            self.domWhatAnchor.style.top = y + 'px';
-            if(self.closeOnMouseUp && Game.mouseUp) self.close();
+            this.domWhatAnchor.style.left = x + 'px';
+            this.domWhatAnchor.style.top = y + 'px';
+            if(this.closeOnMouseUp && Game.mouseUp) this.close();
         }
     }
 
@@ -142,7 +141,6 @@ class Tooltip {
     }
 
     close() {
-        this.timer = 0;
         this.closing = true;
     }
 }

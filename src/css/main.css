@@ -2252,6 +2252,16 @@ table.statsTable tbody td:nth-child(3) {
 .soulmark {
     background: linear-gradient(0deg, rgba(65,9,94,1) 23%, rgba(101,0,153,1) 100%);
 }
+.shield {
+    background: #1abc9c;
+    height: 3px !important;
+}
+.shieldIndicator {
+    font-family: RobotoSlabBold;
+    font-variant: small-caps;
+    color: #1abc9c;
+    text-shadow: 1px 1px 4px #000000;
+}
 .gaugeIndicator {
     font-size: 11px;
     text-shadow: 1px 1px 1px #000;
@@ -8125,7 +8135,7 @@ table.astralForgeShards td {
 }
 
 .battle-shieldContainer {
-    display: flex;
+    display: none;
     flex-direction: row;
     height: 16px;
 }
