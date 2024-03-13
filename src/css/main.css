@@ -7667,6 +7667,9 @@ table.astralForgeShards td {
     flex-wrap: wrap;
     min-height: 16px;
 }
+.battle-specialEffectsContainer:empty {
+    display: none;
+}
 .battle-specialEffectsContainer .specialEffect:not(:last-child) {
     margin-right: 0.35rem;
 }
