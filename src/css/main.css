@@ -7664,10 +7664,18 @@ table.astralForgeShards td {
 
 .battle-specialEffectsContainer {
     display: flex;
-    height: 16px;
+    flex-wrap: wrap;
+    min-height: 16px;
 }
-.battle-specialEffectsContainer .specialEffect:not(:first-child) {
-    margin-left: 0.5rem;
+.battle-specialEffectsContainer .specialEffect:not(:last-child) {
+    margin-right: 0.35rem;
+}
+.battle-specialEffectsContainer .specialEffect {
+    flex: 0 0 auto;
+}
+
+#battle-fighters-allies, #battle-fighters-enemies {
+    display: flex;
 }
 
 .specialEffect {
