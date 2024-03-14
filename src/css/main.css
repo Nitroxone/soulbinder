@@ -958,8 +958,9 @@ a:active, .tooltiped:active {
     white-space: nowrap;
 
     animation-name: tooltipSlideIn;
-    animation-duration: 0.25s;
+    animation-duration: 0.5s;
     animation-delay: 0;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
 
     overflow: hidden;
 }
@@ -7730,6 +7731,19 @@ table.astralForgeShards td {
         opacity: 0.75;
     }
 }
+
+.specialEffect.b-b_madness {
+    background: url('img/badges/haman_madness.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    margin:0;
+
+    transition: all .1s ease-in-out;
+
+    filter: invert(1) brightness(5);
+}
+
 
 .specialEffect.b-b_block {
     background: url('img/blocking_icon.png');
