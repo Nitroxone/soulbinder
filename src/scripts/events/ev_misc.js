@@ -182,5 +182,7 @@ function addTooltip(element, func, object, tooltipProps) {
             }
         });
     });
-    observer.observe(document.body, { childList: true, subtree: true });
+
+    const target = element.parentNode || document.body;
+    observer.observe(target, { childList: true, subtree: true });
 }
