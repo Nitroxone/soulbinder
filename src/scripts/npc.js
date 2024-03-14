@@ -583,8 +583,9 @@ class NPC extends Entity {
                 return str;
             }
         });
+        console.log("stun uid",badge.uid);
         this.addBadge(badge);
-        addFighterBadge(this.getBattleFormationStringId(), badge);
+        //addFighterBadge(this.getBattleFormationStringId(), badge);
         this.addBattlePopup(new BattlePopup(0, '<p>Stunned!</p>'));
     }
 
@@ -626,7 +627,7 @@ class NPC extends Entity {
             }
         });
         this.addBadge(badge);
-        addFighterBadge(this.getBattleFormationStringId(), badge);
+        //addFighterBadge(this.getBattleFormationStringId(), badge);
         this.addBattlePopup(new BattlePopup(0, '<p>Blocks!</p>'));
     }
 
@@ -658,7 +659,7 @@ class NPC extends Entity {
             }
         });
         this.addBadge(badge);
-        addFighterBadge(this.getBattleFormationStringId(), badge);
+        //addFighterBadge(this.getBattleFormationStringId(), badge);
     }
 
     /**

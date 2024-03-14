@@ -3531,26 +3531,28 @@ const Loader = {
                             }
                         },
                         updateMadness(target, value) {
-                            if(target.variables.hasOwnProperty("madness")) {
+                            if(target.variables.hasOwnProperty("madness") && value !== 0) {
                                 if(target.variables.madness < 5) target.variables.madness = Math.min(5, target.variables.madness+value);
                             } else {
                                 target.variables.madness = value;
                             }
 
-                            target.badges.filter(x => x.name.startsWith("madness")).forEach(badge => {
+                            target.badges.filter(x => x.name.toLowerCase().startsWith("madness")).forEach(badge => {
                                 target.removeBadge(badge.name);
                             });
-                            target.addBadge(new BattleBadge({
-                                name: "Madness " + romanize(value),
+                            if(target.variables.madness > 0) target.addBadge(new BattleBadge({
+                                name: "Madness " + romanize(target.variables.madness),
                                 css: "madness",
                                 tooltip: function(){
                                     let str = '';
 
-                                    str += "Madness " + romanize(value);
+                                    str += "Madness " + romanize(target.variables.madness);
 
                                     return str;
                                 }
-                            }))
+                            }));
+
+                            console.log(target.name + " madness updated with " + value + ", now " + target.variables.madness);
                         }
                     },
                     triggers: [
@@ -3560,7 +3562,7 @@ const Loader = {
                             behavior: function() {
                                 const tar = game.battle.target[game.battle.targetTracker];
 
-                                
+                                if(game.battle.selectedSkill.name.toLowerCase() === "beyond") return; // Skip for Beyond
                                 this.owner.variables.updateMadness(tar, 1);
 
                                 console.log(tar.name + "'s madness: " + tar.variables.madness);
@@ -3626,7 +3628,7 @@ const Loader = {
 
                                             tar.applyEffects(sk, haman, effects, false);
 
-                                            tar.variables.madness = 0;
+                                            haman.variables.updateMadness(tar, 0);
                                         } else {
                                             console.error(tar.name + " has no Madness state or it's equal to 0! Skipping");
                                         }
