@@ -597,7 +597,7 @@ class NPC extends Entity {
     }
 
     getBadge(badgeName) {
-        return this.badges.find(x => x.name === badgeName);
+        return this.badges.find(x => x.name.toLowerCase() === badgeName.toLowerCase());
     }
 
     /**
