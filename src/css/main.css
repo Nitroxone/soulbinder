@@ -403,6 +403,10 @@ a:active, .tooltiped:active {
     text-align: center;
     position: relative;
 }
+.framedSmaller {
+    border: 4px solid transparent !important;
+    border-image: url(img/window1.png) 3 stretch !important;
+}
 .framed.simple::before, .framed.simple::after {
     content: '';
     display: none;

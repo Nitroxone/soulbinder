@@ -147,8 +147,8 @@ function spawnTooltip(item, fromExisting = null) {
     return tooltip;
 }
 
-function addTooltip(element, func, object) {
-    const t = new Tooltip();
+function addTooltip(element, func, object, tooltipProps) {
+    const t = new Tooltip(tooltipProps);
 
     element.addEventListener('mouseover', () => {
         t.func = func;

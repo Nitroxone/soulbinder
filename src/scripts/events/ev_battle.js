@@ -436,7 +436,7 @@ function generateBattleBadgesEvents(type) {
 
             console.log('Badge:::', badgeObj);
 
-            addTooltip(badge, badgeObj.tooltip, {offY: -8});
+            addTooltip(badge, badgeObj.tooltip, {offY: -8}, { css: ["framedSmaller"] });
         })
     })
 }

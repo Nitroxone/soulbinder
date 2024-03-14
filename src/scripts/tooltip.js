@@ -5,7 +5,9 @@
 */
 
 class Tooltip {
-    constructor() {
+    static DEFAULT_CSS = "tooltip framed bgRegularDark";
+
+    constructor(props = {}) {
         this.domWhat = domWhat('tooltip');
         this.domWhatAnchor = domWhat('tooltipAnchor');
         this.offX = 0;
@@ -17,9 +19,19 @@ class Tooltip {
         this.linked = 0;
         this.closing = true;
         this.text = '';
+
+        this.css = getValueFromObject(props, "css", []);
+        this.css.forEach(token => {
+            this.domWhat.classList.add(token);
+        })
     }
 
     popup(obj) {
+        this.domWhat.className = Tooltip.DEFAULT_CSS;
+        this.css.forEach(token => {
+            this.domWhat.classList.add(token);
+        });
+        
         let me = this;
         me.offX = 0;
         me.offY = 0;
