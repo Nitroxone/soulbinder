@@ -5,7 +5,7 @@
 */
 
 class Tooltip {
-    static DEFAULT_CSS = "tooltip framed bgRegularDark";
+    static DEFAULT_CSS = "tooltip framed bgRegularDark framedSmaller";
 
     constructor(props = {}) {
         this.domWhat = domWhat('tooltip');

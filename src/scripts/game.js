@@ -333,10 +333,10 @@ class Game {
         this.dungeon = this.all_dungeons.find(x => x.name === 'Smoldering Cave');
         this.startDungeon();
 
-        // Config.Soulwriting.forEach(sw => {
-        //     sw.unlocked = true;
-        //     sw.studied = sw.researchTotal;
-        // });
+        Config.Soulwriting.forEach(sw => {
+            sw.unlocked = true;
+            sw.studied = sw.researchTotal;
+        });
 
         unlockAllEons();
         unlockAllEonFragments();

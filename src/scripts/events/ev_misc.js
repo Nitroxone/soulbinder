@@ -5,7 +5,7 @@
  */
 function spawnTooltip(item, fromExisting = null) {
     //console.log(item);
-    const base = '<div id="floating-' + item.id +'" class="tooltip framed bgDark tooltipSpawn"><div id="close-' + item.id + '" class="closeWindowButton selectorClose">X</div>';
+    const base = '<div id="floating-' + item.id +'" class="tooltip framed bgDark tooltipSpawn framedSmaller"><div id="close-' + item.id + '" class="closeWindowButton selectorClose">X</div>';
 
     const tooltip = document.createElement('div');
     if(item instanceof Weapon) tooltip.innerHTML = base + getWeaponTooltip(item, null, true) + '</div>';
@@ -153,31 +153,37 @@ function addTooltip(element, func, object, tooltipProps) {
     element.addEventListener('mouseover', () => {
         t.func = func;
         t.parent = element;
-        t.popup(object);
 
+        t.popup(object);
         t.update();
-        t.update();
-        t.update();
+
         if(game.particlesTooltipCanvasItem) getTooltipParticlesCanvas(game.particlesTooltipCanvasItem);
     });
     element.addEventListener('mouseout', () => {
         t.close();
-
-        t.update();
-        t.update();
         t.update();
 
         if(game.particlesTooltipCanvasInterval) clearInterval(game.particlesTooltipCanvasInterval);
         if(game.particlesTooltipCanvasItem) game.particlesTooltipCanvasItem = null;
     })
-    element.addEventListener('DOMNodeRemoved', () => {
-        t.close();
+    // element.addEventListener('DOMNodeRemoved', () => {
+    //     t.close();
+    //     t.update();
 
-        t.update();
-        t.update();
-        t.update();
+    //     if(game.particlesTooltipCanvasInterval) clearInterval(game.particlesTooltipCanvasInterval);
+    //     if(game.particlesTooltipCanvasItem) game.particlesTooltipCanvasItem = null;
+    // })
+    const observer = new MutationObserver(mutationList => {
+        mutationList.filter(m => m.type === 'childList').forEach(m => {
+            m.removedNodes.forEach(() => {
+                console.log("TOOLTIP SHOULD BE REMOVED!");
+                t.close();
+                t.update();
 
-        if(game.particlesTooltipCanvasInterval) clearInterval(game.particlesTooltipCanvasInterval);
-        if(game.particlesTooltipCanvasItem) game.particlesTooltipCanvasItem = null;
-    })
+                if(game.particlesTooltipCanvasInterval) clearInterval(game.particlesTooltipCanvasInterval);
+                if(game.particlesTooltipCanvasItem) game.particlesTooltipCanvasItem = null;
+            });
+        });
+    });
+    observer.observe(element, {childList: true, subtree: true});
 }
