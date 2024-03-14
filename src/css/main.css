@@ -7699,7 +7699,7 @@ table.astralForgeShards td {
     width: 16px;
     height: 16px;
 }
-.specialEffect.stun {
+.specialEffect.b-b_Stun {
     transform: rotate(45deg);
     animation-name: stunAnimation;
     animation-duration: 1s;
@@ -7727,7 +7727,7 @@ table.astralForgeShards td {
     }
 }
 
-.specialEffect.block {
+.specialEffect.b-b_Block {
     background: url('img/blocking_icon.png');
     background-size: cover;
     background-repeat: no-repeat;
@@ -7747,11 +7747,11 @@ table.astralForgeShards td {
     }
 }
 
-.specialEffect.block:hover, .specialEffect.guarded:hover {
+.specialEffect.b-b_Block:hover, .specialEffect.b-b_Guarded:hover {
     filter: brightness(120%);
 }
 
-.specialEffect.guarded {
+.specialEffect.b-b_Guarded {
     background: url('img/guarded_icon.png');
     background-size: cover;
     background-repeat: no-repeat;
