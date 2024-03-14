@@ -343,7 +343,8 @@ const Data = Object.freeze({
     },
     BattleFighterType: {
         HERO: "Hero",
-        ENEMY: "Enemy"
+        ENEMY: "Enemy",
+        ANY: "any"
     },
     AnimMoveType: {
         LEFT_ONE: 'LEFT_ONE',

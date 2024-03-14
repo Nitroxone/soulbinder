@@ -114,6 +114,8 @@ class NPC extends Entity {
         this.bonuses = [];
 
         this.baseShield = 0;
+
+        this.badges = [];
     }
 
     /**
@@ -570,7 +572,32 @@ class NPC extends Entity {
      */
     applyStun() {
         this.isStunned = true;
-        addSpecialEffect(this.getBattleFormationStringId(), Data.Effect.STUN);
+        const badge = new BattleBadge({
+            name: "stun",
+            css: "b-b_Stun",
+            tooltip: function(){
+                let str = '';
+
+                str += 'Stunned! The next turn will be skipped.';
+
+                return str;
+            }
+        });
+        this.addBadge(badge);
+        addFighterBadge(this.getBattleFormationStringId(), badge);
+        this.addBattlePopup(new BattlePopup(0, '<p>Stunned!</p>'));
+    }
+
+    addBadge(badge) {
+        this.badges.push(badge);
+    }
+
+    removeBadge(badgeName) {
+        removeFromArray(this.badges, this.getBadge(badgeName));
+    }
+
+    getBadge(badgeName) {
+        return this.badges.find(x => x.name === badgeName);
     }
 
     /**
@@ -578,7 +605,8 @@ class NPC extends Entity {
      */
     removeStun() {
         this.isStunned = false;
-        removeSpecialEffect(this.getBattleFormationStringId(), Data.Effect.STUN);
+        removeFighterBadge(this.getBadge("stun").uid);
+        this.removeBadge("stun");
     }
 
     /**
@@ -586,7 +614,19 @@ class NPC extends Entity {
      */
     applyBlocking() {
         this.isBlocking = true;
-        addSpecialEffect(this.getBattleFormationStringId(), Data.Effect.BLOCK);
+        const badge = new BattleBadge({
+            name: "block",
+            css: "b-b_Block",
+            tooltip: function(){
+                let str = '';
+
+                str += 'Blocking! Reducing damage by 20% until the next turn.';
+
+                return str;
+            }
+        });
+        this.addBadge(badge);
+        addFighterBadge(this.getBattleFormationStringId(), badge);
         this.addBattlePopup(new BattlePopup(0, '<p>Blocks!</p>'));
     }
 
@@ -595,7 +635,8 @@ class NPC extends Entity {
      */
     removeBlocking() {
         this.isBlocking = false;
-        removeSpecialEffect(this.getBattleFormationStringId(), Data.Effect.BLOCK);
+        removeFighterBadge(this.getBadge("block").uid);
+        this.removeBadge("block");
     }
 
     /**
@@ -605,7 +646,19 @@ class NPC extends Entity {
     applyGuarded(npc) {
         this.isGuarded = true;
         this.guardedBy = npc;
-        addSpecialEffect(this.getBattleFormationStringId(), Data.Effect.GUARDED);
+        const badge = new BattleBadge({
+            name: "guarded",
+            css: "b-b_Guarded",
+            tooltip: function(){
+                let str = '';
+
+                str += 'Guarded! All single targeted attacks will be redirected.';
+
+                return str;
+            }
+        });
+        this.addBadge(badge);
+        addFighterBadge(this.getBattleFormationStringId(), badge);
     }
 
     /**
@@ -614,7 +667,8 @@ class NPC extends Entity {
     removeGuarded() {
         this.isGuarded = false;
         this.guardedBy = null;
-        removeSpecialEffect(this.getBattleFormationStringId(), Data.Effect.GUARDED);
+        removeFighterBadge(this.getBadge("guarded").uid);
+        this.removeBadge("guarded");
     }
 
     /**
@@ -624,6 +678,17 @@ class NPC extends Entity {
     applyGuarding(npc) {
         this.isGuarding = true;
         this.guarding = npc;
+        this.addBadge(new BattleBadge({
+            name: "guarding",
+            css: "b-b_Guarding",
+            tooltip: function(){
+                let str = '';
+
+                str += 'Guarding! Redirects some single target attacks to themselves instead of another target.';
+
+                return str;
+            }
+        }));
     }
 
     /**
@@ -632,6 +697,7 @@ class NPC extends Entity {
     removeGuarding() {
         this.isGuarding = false;
         this.guarding = null;
+        this.removeBadge("guarding");
     }
 
     /**
@@ -1084,6 +1150,7 @@ class NPC extends Entity {
             this.cleanEffectsFromActiveEffect(ae);
         });
         this.activeEffects = [];
+        this.badges = [];
     }
 
     /**

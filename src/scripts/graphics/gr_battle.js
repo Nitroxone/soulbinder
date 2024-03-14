@@ -112,6 +112,7 @@ function drawBattleScreen() {
         generateBattleConsumablesEvents();
     }
     generateBattleFightersEvents();
+    generateBattleBadgesEvents(Data.BattleFighterType.ANY);
 }
 
 function getBattleGlobalInfo(refresh = false) {
@@ -151,6 +152,7 @@ function getFormationBattleAllies(refresh = false) {
 
     if(refresh) {
         document.querySelector('#battle-fighters-allies').innerHTML = str;
+        generateBattleBadgesEvents(Data.BattleFighterType.HERO);
         return;
     }
     return str;
@@ -169,6 +171,7 @@ function getFormationBattleEnemies(refresh = false) {
 
     if(refresh) {
         document.querySelector('#battle-fighters-enemies').innerHTML = str;
+        generateBattleBadgesEvents(Data.BattleFighterType.ENEMY);
         return;
     }
     return str;
@@ -189,7 +192,7 @@ function getFighterFrame(fighter, type, pos) {
     if(fighter) {
         str += '<div id="b-' + type + '-' + pos + '" class="battleFighter' + (isCurrentPlay ? ' currentPlayFrame' : '') + '" style="background-image: linear-gradient(transparent 0%, rgba(0, 0, 0, 1) 70%), url(\'css/img/chars/' + fighter.charset + '\'); ' + (fighter.health === 0 ? ' filter: grayscale(100%);' : '') + '">';
         str += '<div class="battle-shieldContainer">' + getBattleShieldAmount(fighter) + '</div>';
-        str += '<div class="battle-specialEffectsContainer"' + (fighter.shield > 0 ? ' style="width: 80%"' : '') + '>' + getSpecialEffects(fighter) + '</div>';
+        str += '<div class="battle-specialEffectsContainer"' + (fighter.shield > 0 ? ' style="width: 80%"' : '') + '>' + getFighterBadges(fighter) + '</div>';
         str += '<div class="gaugeProgress">' + (fighter.shield > 0 ? '<div class="statGauge shield" style="width:'+ Math.round((fighter.shield*100)/fighter.baseShield) +'%"></div>' : '') + '<div class="statGauge health" style="width:'+ Math.round((fighter.health*100)/fighter.maxHealth) +'%">' + getFighterHealthGaugeIndicator(fighter) + '</div></div>';
         str += '<div class="gaugeProgress"><div class="statGauge stamina" style="width:'+ Math.round((fighter.stamina*100)/fighter.maxStamina) +'%"><span class="gaugeIndicator">'+ fighter.stamina + '/' + fighter.maxStamina +'</span></div></div>';
         str += '<div class="gaugeProgress"><div class="statGauge mana" style="width:'+ Math.round((fighter.mana*100)/fighter.maxMana) +'%"><span class="gaugeIndicator">'+ fighter.mana + '/' + fighter.maxMana +'</span></div></div>';
@@ -222,58 +225,28 @@ function getBattleShieldAmount(fighter) {
     return str;
 }
 
-function getSpecialEffects(fighter) {
+function getFighterBadges(fighter) {
     let str = '';
 
-    if(fighter.isStunned) str += '<div class="specialEffect stun"></div>';
-    if(fighter.isBlocking) str += '<div class="specialEffect block"></div>';
-    if(fighter.isGuarded) str += '<div class="specialEffect guarded"></div>';
-    if(fighter.isGuarding) str += '<div class="specialEffect guarding"></div>';
+    fighter.badges.forEach(badge => {
+        str += '<div id="battlebadge-' + badge.uid + '" class="specialEffect' + (badge.css !== '' ? ' ' + badge.css : '') + '"></div>';
+    });
 
     return str;
 }
 
-function addSpecialEffect(pos, type) {
+function addFighterBadge(pos, badge) {
     let str = '';
-    switch(type) {
-        case Data.Effect.STUN:
-            type = 'stun';
-            break;
-        case Data.Effect.BLOCK:
-            type = 'block';
-            break;
-        case Data.Effect.GUARDING:
-            type = 'guarding';
-            break;
-        case Data.Effect.GUARDED:
-            type = 'guarded';
-            break;
-    }
-    str += '<div class="specialEffect ' + type.toLowerCase() + '"></div>';
+
+    str += '<div id="battlebadge-' + badge.uid + '" class="specialEffect' + (badge.css !== '' ? ' ' + badge.css : '') + '"></div>';
 
     console.log('Added: ' + str + ' to :' + pos);
-    if(!document.querySelector('.battle-specialEffectsContainer')) document.
+    if(!document.querySelector('.battle-specialEffectsContainer')) // DO nothing
     document.querySelector('#' + pos).querySelector('.battle-specialEffectsContainer').innerHTML += str;
 }
 
-function removeSpecialEffect(pos, type) {
-    switch(type) {
-        case Data.Effect.STUN:
-            type = 'stun';
-            break;
-        case Data.Effect.BLOCK:
-            type = 'block';
-            break;
-        case Data.Effect.GUARDING:
-            type = 'guarding';
-            break;
-        case Data.Effect.GUARDED:
-            type = 'guarded';
-            break;
-    }
-    let identifier = '.specialEffect.' + type;
-
-    document.querySelector('#' + pos)?.querySelector(identifier)?.remove();
+function removeFighterBadge(badgeUid) {
+    document.querySelector('#battlebadge-' + badgeUid)?.remove();
 }
 
 function getBattleScreenFormationAlliesSingle(pos) {
