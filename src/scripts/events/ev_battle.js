@@ -413,3 +413,30 @@ function generateEndBattleScreenEvents() {
         });
     })
 }
+
+function generateBattleBadgesEvents(type) {
+    let selector = type === Data.BattleFighterType.HERO
+                    ? 'allies'
+                    : type === Data.BattleFighterType.ENEMY
+                    ? 'enemies'
+                    : null;
+
+    const fighters = selector 
+                        ? document.querySelectorAll('#battle-fighters-' + selector + ' .battleFighter')
+                        : document.querySelectorAll('.battleFighter');
+
+
+    fighters.forEach(fighter => {
+        const fighterObj = getFighterFromPosition(fighter.id);
+        const badges = fighter.querySelectorAll('.specialEffect');
+
+        badges.forEach(badge => {
+            const uid = badge.id.split('-')[1];
+            const badgeObj = fighterObj.badges.find(x => x.uid = uid);
+
+            console.log('Badge:::', badgeObj);
+
+            addTooltip(badge, badgeObj.tooltip, {offY: -8});
+        })
+    })
+}
