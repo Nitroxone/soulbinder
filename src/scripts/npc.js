@@ -574,7 +574,7 @@ class NPC extends Entity {
         this.isStunned = true;
         const badge = new BattleBadge({
             name: "stun",
-            css: "b-b_Stun",
+            css: "stun",
             tooltip: function(){
                 let str = '';
 
@@ -616,7 +616,7 @@ class NPC extends Entity {
         this.isBlocking = true;
         const badge = new BattleBadge({
             name: "block",
-            css: "b-b_Block",
+            css: "block",
             tooltip: function(){
                 let str = '';
 
@@ -648,7 +648,7 @@ class NPC extends Entity {
         this.guardedBy = npc;
         const badge = new BattleBadge({
             name: "guarded",
-            css: "b-b_Guarded",
+            css: "guarded",
             tooltip: function(){
                 let str = '';
 
@@ -680,7 +680,7 @@ class NPC extends Entity {
         this.guarding = npc;
         this.addBadge(new BattleBadge({
             name: "guarding",
-            css: "b-b_Guarding",
+            css: "guarding",
             tooltip: function(){
                 let str = '';
 

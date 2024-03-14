@@ -229,7 +229,7 @@ function getFighterBadges(fighter) {
     let str = '';
 
     fighter.badges.forEach(badge => {
-        str += '<div id="battlebadge-' + badge.uid + '" class="specialEffect' + (badge.css !== '' ? ' ' + badge.css : '') + '"></div>';
+        str += badge.getHtml();
     });
 
     return str;
@@ -238,7 +238,7 @@ function getFighterBadges(fighter) {
 function addFighterBadge(pos, badge) {
     let str = '';
 
-    str += '<div id="battlebadge-' + badge.uid + '" class="specialEffect' + (badge.css !== '' ? ' ' + badge.css : '') + '"></div>';
+    str += badge.getHtml();
 
     console.log('Added: ' + str + ' to :' + pos);
     if(!document.querySelector('.battle-specialEffectsContainer')) // DO nothing

@@ -17,4 +17,8 @@ class BattleBadge {
         this.css = css;
         this.tooltip = tooltip;
     }
+
+    getHtml() {
+        return '<div id="battlebadge-' + this.uid + '" class="specialEffect' + (this.css !== '' ? ' b-b_' + this.css : '') + '"></div>';
+    }
 }
