@@ -432,7 +432,7 @@ function generateBattleBadgesEvents(type) {
 
         badges.forEach(badge => {
             const uid = badge.id.split('-')[1];
-            const badgeObj = fighterObj.badges.find(x => x.uid = uid);
+            const badgeObj = fighterObj.badges.find(x => x.uid === uid);
 
             console.log('Badge:::', badgeObj);
 
