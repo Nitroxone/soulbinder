@@ -171,7 +171,6 @@ function addTooltip(element, func, object, tooltipProps) {
             if (mutation.removedNodes && mutation.removedNodes.length > 0) {
                 mutation.removedNodes.forEach(removedNode => {
                     if (removedNode === element || element.contains(removedNode)) {
-                        console.log("TOOLTIP SHOULD BE REMOVED!");
                         t.close();
                         t.update();
 

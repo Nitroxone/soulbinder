@@ -3529,6 +3529,28 @@ const Loader = {
                                         new Stat({effect: Data.Effect.MODIF_DMG_TOTAL, theorical: this.whispersTotalDamage[accessor], isPercentage: true, duration: 2}),
                                     ]
                             }
+                        },
+                        updateMadness(target, value) {
+                            if(target.variables.hasOwnProperty("madness")) {
+                                if(target.variables.madness < 5) target.variables.madness = Math.min(5, target.variables.madness+value);
+                            } else {
+                                target.variables.madness = value;
+                            }
+
+                            target.badges.filter(x => x.name.startsWith("madness")).forEach(badge => {
+                                target.removeBadge(badge.name);
+                            });
+                            target.addBadge(new BattleBadge({
+                                name: "Madness " + romanize(value),
+                                css: "madness",
+                                tooltip: function(){
+                                    let str = '';
+
+                                    str += "Madness " + romanize(value);
+
+                                    return str;
+                                }
+                            }))
                         }
                     },
                     triggers: [
@@ -3538,11 +3560,8 @@ const Loader = {
                             behavior: function() {
                                 const tar = game.battle.target[game.battle.targetTracker];
 
-                                if(tar.variables.hasOwnProperty("madness")) {
-                                    if(tar.variables.madness < 5) tar.variables.madness++;
-                                } else {
-                                    tar.variables.madness = 1;
-                                }
+                                
+                                this.owner.variables.updateMadness(tar, 1);
 
                                 console.log(tar.name + "'s madness: " + tar.variables.madness);
                             }
