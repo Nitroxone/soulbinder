@@ -165,25 +165,22 @@ function addTooltip(element, func, object, tooltipProps) {
 
         if(game.particlesTooltipCanvasInterval) clearInterval(game.particlesTooltipCanvasInterval);
         if(game.particlesTooltipCanvasItem) game.particlesTooltipCanvasItem = null;
-    })
-    // element.addEventListener('DOMNodeRemoved', () => {
-    //     t.close();
-    //     t.update();
-
-    //     if(game.particlesTooltipCanvasInterval) clearInterval(game.particlesTooltipCanvasInterval);
-    //     if(game.particlesTooltipCanvasItem) game.particlesTooltipCanvasItem = null;
-    // })
+    });
     const observer = new MutationObserver(mutationList => {
-        mutationList.filter(m => m.type === 'childList').forEach(m => {
-            m.removedNodes.forEach(() => {
-                console.log("TOOLTIP SHOULD BE REMOVED!");
-                t.close();
-                t.update();
+        mutationList.forEach(mutation => {
+            if (mutation.removedNodes && mutation.removedNodes.length > 0) {
+                mutation.removedNodes.forEach(removedNode => {
+                    if (removedNode === element || element.contains(removedNode)) {
+                        console.log("TOOLTIP SHOULD BE REMOVED!");
+                        t.close();
+                        t.update();
 
-                if(game.particlesTooltipCanvasInterval) clearInterval(game.particlesTooltipCanvasInterval);
-                if(game.particlesTooltipCanvasItem) game.particlesTooltipCanvasItem = null;
-            });
+                        if (game.particlesTooltipCanvasInterval) clearInterval(game.particlesTooltipCanvasInterval);
+                        if (game.particlesTooltipCanvasItem) game.particlesTooltipCanvasItem = null;
+                    }
+                });
+            }
         });
     });
-    observer.observe(element, {childList: true, subtree: true});
+    observer.observe(document.body, { childList: true, subtree: true });
 }
