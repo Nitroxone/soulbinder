@@ -2756,13 +2756,22 @@ const Loader = {
                                 effectsAllies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.HEALTH, theorical: 20, isPercentage: true, type: Data.StatType.ACTIVE}),
+                                            new Stat({effect: Data.Effect.DUMMY, theorical: 20, isPercentage: true, displayed: "°% of Amarok's ^Health^"}),
                                             new Stat({effect: Data.Effect.SPEED, theorical: 2, duration: 1})
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.HEALTH, theorical: 30, isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true}),
+                                            new Stat({effect: Data.Effect.DUMMY, theorical: 20, isPercentage: true, displayed: "°% of Amarok's ^Health^", isCritical: true}),
                                             new Stat({effect: Data.Effect.SPEED, theorical: 4, duration: 1, isCritical: true})
                                         ]
+                                    }
+                                },
+                                logicAllies: {
+                                    PRE_ALLIES_EFFECTS: function(tar) {
+                                        const amarok = this.getOwner();
+
+                                        const val = amarok.maxHealth * 0.2;
+
+                                        tar.addBaseStat(new Stat({effect: Data.Effect.HEALTH, theorical: val}));
                                     }
                                 }
                             }
