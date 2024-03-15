@@ -45,6 +45,7 @@ class Stat {
         this.ignoreShield = getValueFromObject(props, "ignoreShield", false);
         this.alchemicalType = getValueFromObject(props, "alchemicalType", null);
         this.disabled = getValueFromObject(props, "disabled", false);
+        this.displayed = getValueFromObject(props, "displayed", null);
 
         this.value = null;
 
@@ -189,7 +190,7 @@ class Stat {
                 str += (this.theorical[1] > 0 ? '' : this.theorical[1] < 0 ? '- ' : '') + '</span>' + (this.theorical[1] === 0 ? this.theorical[0] : Math.abs(this.theorical[1])) + (this.isPercentage ? '%' : '');
             }
             str += ' ' 
-            + (noName ? '' : capitalizeFirstLetter(this.effect))
+            + (noName ? '' : this.displayed ? this.processDisplayed() : capitalizeFirstLetter(this.effect))
             + (includeChance && this.effect === Data.Effect.STUN || isMovementEffect(this.effect) ? '<span style="color: grey"> (' + this.chance + '% base)' : '')
             + (this.duration > 0 && !isMovementEffect(this.effect) ? '<span style="color: #ddd"> (' + this.duration + ' round' + (this.duration > 1 ? 's' : '') + ')</span>' : '')
             + (this.delay > 0 ? '<span style="color: #ddd"> [in ' + this.delay + ' round' + (this.delay > 1 ? 's' : '') + ']</span>' : '');
@@ -210,7 +211,7 @@ class Stat {
             + (this.getValue() == 0 ? '' : !noValue ? Math.abs(this.getValue()) : '') 
             + (this.isPercentage && !noValue ? '%' : '') 
             + ' ' 
-            + (noName ? '' : capitalizeFirstLetter(this.effect))
+            + (noName ? '' : this.displayed ? this.processDisplayed() : capitalizeFirstLetter(this.effect))
             if(!noTheorical) {
                 str += '<span class="theoricalval">[' 
                 + this.theorical[0] 
@@ -225,4 +226,40 @@ class Stat {
 
         return str;
     }
+
+    /**
+     * Processes the "displayed" string by replacing its tokens with the appropriate values.
+     * - § Turquoise coloration
+     * - $ Orange coloration
+     * - ^ Green coloration
+     * - ~ Red coloration
+     * - ° Prints this Stat's value
+     * @returns {string}
+     */
+    processDisplayed() {
+        if(!this.displayed) return;
+
+        const blueRegex = /§(.*?)§/g;
+        const orangeRegex = /\$(.*?)\$/g;
+        const greenRegex = /\^(.*?)\^/g;
+        const redRegex = /~(.*?)~/g;
+        const valRegex = /°/g;
+
+        let replaced = this.displayed;
+
+        replaced = replaced.replace(blueRegex, '<span style="color: ' + Data.Color.PURPLE + '; font-family: RobotoBold;">$1</span>');
+        replaced = replaced.replace(orangeRegex, '<span style="color: ' + Data.Color.ORANGE + ';">$1</span>');
+        replaced = replaced.replace(greenRegex, '<span style="color: ' + Data.Color.GREEN + ';">$1</span>');
+        replaced = replaced.replace(redRegex, '<span style="color: ' + Data.Color.RED + ';">$1</span>');
+        replaced = replaced.replace(valRegex, this.getValue());
+
+        return replaced;
+    }
+
+    // SPECIAL DISPLAY TOKENS
+    // § blue
+    // $ orange
+    // ^ green
+    // ~ red
+    // ° display effect's value
 }
