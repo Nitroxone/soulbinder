@@ -235,24 +235,32 @@ class Stat {
      * - $ Orange coloration
      * - ^ Green coloration
      * - ~ Red coloration
+     * - * Bold
+     * - _ Underlined
      * - ° Prints this Stat's value
      * @returns {string}
      */
     processDisplayed() {
         if(!this.displayed) return;
 
-        const blueRegex = /§(.*?)§/g;
+        const purpleRegex = /§(.*?)§/g;
         const orangeRegex = /\$(.*?)\$/g;
         const greenRegex = /\^(.*?)\^/g;
         const redRegex = /~(.*?)~/g;
+        const blueRegex = /\|(.*?)\|/g;
+        const boldRegex = /\*(.*?)\*/g;
+        const underlinedRegex = /_(.*?)_/g;
         const valRegex = /°/g;
 
         let replaced = this.displayed;
 
-        replaced = replaced.replace(blueRegex, '<span style="color: ' + Data.Color.PURPLE + '; font-family: RobotoBold;">$1</span>');
+        replaced = replaced.replace(purpleRegex, '<span style="color: ' + Data.Color.PURPLE + ';">$1</span>');
         replaced = replaced.replace(orangeRegex, '<span style="color: ' + Data.Color.ORANGE + ';">$1</span>');
         replaced = replaced.replace(greenRegex, '<span style="color: ' + Data.Color.GREEN + ';">$1</span>');
         replaced = replaced.replace(redRegex, '<span style="color: ' + Data.Color.RED + ';">$1</span>');
+        replaced = replaced.replace(blueRegex, '<span style="color: ' + Data.Color.TURQUOISE + ';">$1</span>');
+        replaced = replaced.replace(boldRegex, '<span style="font-family: RobotoBold;">$1</span>');
+        replaced = replaced.replace(underlinedRegex, '<span style="text-decoration:underline;">$1</span>');
         replaced = replaced.replace(valRegex, this.getValue());
 
         return replaced;
