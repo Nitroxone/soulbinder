@@ -38,6 +38,9 @@ class Skill extends Entity {
         this.ignoresProtection = getValueFromObject(props, "ignoreProtection", false);
         this.onCast = getValueFromObject(props, "onCast", null);
         this.applyCasterEffectsOnlyOnHit = getValueFromObject(props, "applyCasterEffectsOnlyOnHit", false);
+        this.applyCasterTriggersOnlyOnHit = getValueFromObject(props, "applyCasterTriggersOnlyOnHit", false);
+        this.applyAlliesTriggersOnlyOnHit = getValueFromObject(props, "applyAlliesTriggersOnlyOnHit", false);
+        this.applyEnemiesTriggersOnlyOnHit = getValueFromObject(props, "applyEnemiesTriggersOnlyOnHit", false);
         this.removeEffectsCasterWhenFinished = getValueFromObject(props, "removeEffectsCasterWhenFinished", false);
 
         this.cooldownCountdown = 0;

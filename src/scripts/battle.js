@@ -854,7 +854,7 @@ class Battle {
         
         if(skill.effectsCaster) {
             this.callSkillLogic(skill, current, Data.SkillLogicExecution.PRE_CASTER_EFFECTS);
-            if(!skill.applyCasterEffectsOnlyOnHit || (skill.applyCasterEffectsOnlyOnHit && this.params.success_accuracy && !this.params.success_dodge)) {
+            if(!skill.applyCasterEffectsOnlyOnHit || (skill.applyCasterEffectsOnlyOnHit && this.hitSuccess())) {
                 effects = [];
                 accessor = (isCrit ? 'critical' : 'regular');
                 skill.effectsCaster[skill.level][accessor].forEach(eff => {
@@ -889,13 +889,15 @@ class Battle {
         current.deathCheck();
 
         // ADD SKILL TRIGGERS
-        if(skill.triggersCaster) skill.triggersCaster.forEach(trig => current.triggers.push(trig));
-        if(skill.triggersEnemies) {
+        if(skill.triggersCaster && (!skill.applyCasterTriggersOnlyOnHit || (skill.applyCasterTriggersOnlyOnHit && this.hitSuccess()))) {
+            skill.triggersCaster.forEach(trig => current.triggers.push(trig));
+        }
+        if(skill.triggersEnemies && (!skill.applyEnemiesTriggersOnlyOnHit || (skill.applyEnemiesTriggersOnlyOnHit && this.hitSuccess()))) {
             this.target.filter(x => x instanceof Enemy).forEach(ene => {
                 skill.triggersEnemies.forEach(trig => ene.triggers.push(trig));
             });
         }
-        if(skill.triggersAllies) {
+        if(skill.triggersAllies && (!skill.applyAlliesTriggersOnlyOnHit || (skill.applyAlliesTriggersOnlyOnHit && this.hitSuccess()))) {
             this.target.filter(x => x instanceof Strider).forEach(stri => {
                 skill.triggersAllies.forEach(trig => stri.triggers.push(trig));
             });
@@ -907,6 +909,10 @@ class Battle {
                 this.runPopups();
             }, 1500);
         } else this.runPopups();
+    }
+
+    hitSuccess() {
+        return this.params.success_accuracy && !this.params.success_dodge;
     }
 
     /**
