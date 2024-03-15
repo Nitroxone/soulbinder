@@ -3745,7 +3745,7 @@ const Loader = {
                         ),
                         new Skill(
                             "Ethereal Stitching",
-                            "§Heals§ the targeted ally and regenerates their §Mana§ according to the total amount of §Madness§ states among allies and enemies. Does not consume §Madness§.",
+                            "§Heals§ the targeted ally and regenerates their §Mana§ according to the total amount of §Madness§ states among allies and enemies.",
                             3,
                             {
                                 type: Data.SkillType.FRIENDLY,
@@ -3757,12 +3757,12 @@ const Loader = {
                                 effectsAllies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.DUMMY, theorical: [6, 8], isPercentage: true, displayed: "° ^Health^ per global §Madness§ state"}),
-                                            new Stat({effect: Data.Effect.DUMMY, theorical: [8, 10], isPercentage: true, displayed: "° ^Mana^ per global §Madness§ state"})
+                                            new Stat({effect: Data.Effect.DUMMY, theorical: [6, 8], isPercentage: true, displayed: "^° Health^ per global §Madness§ state"}),
+                                            new Stat({effect: Data.Effect.DUMMY, theorical: [8, 10], isPercentage: true, displayed: "^° Mana^ per global §Madness§ state"})
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.DUMMY, theorical: 10, isPercentage: true, displayed: "° ^Health^ per global §Madness§ state", isCritical: true}),
-                                            new Stat({effect: Data.Effect.DUMMY, theorical: 12, isPercentage: true, displayed: "° ^Mana^ per global §Madness§ state", isCritical: true})
+                                            new Stat({effect: Data.Effect.DUMMY, theorical: 10, isPercentage: true, displayed: "^° Health^ per global §Madness§ state", isCritical: true}),
+                                            new Stat({effect: Data.Effect.DUMMY, theorical: 12, isPercentage: true, displayed: "^° Mana^ per global §Madness§ state", isCritical: true})
                                         ]
                                     }
                                 },
@@ -3782,6 +3782,43 @@ const Loader = {
                                         tar.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: mana}));
                                     }
                                 }
+                            }
+                        ),
+                        new Skill(
+                            "Clairvoyance",
+                            "Boosts the target's §Dodge§ for one round, and reduces it next round.",
+                            5,
+                            {
+                                type: Data.SkillType.BOTH,
+                                criMultiplier: 10,
+                                accMultiplier: 90,
+                                cooldown: 2,
+                                targets: {allies: '-12', enemies: '-23'},
+                                manaCost: 15,
+                                effectsAllies: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.DODGE, theorical: 50, duration: 1, isPercentage: true}),
+                                            new Stat({effect: Data.Effect.DODGE, theorical: -35, duration: 1, isPercentage: true, delay: 1})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.DODGE, theorical: 55, duration: 1, isPercentage: true}),
+                                            new Stat({effect: Data.Effect.DODGE, theorical: -20, duration: 1, isPercentage: true, delay: 1})
+                                        ],
+                                    }
+                                },
+                                effectsEnemies: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.DODGE, theorical: 50, duration: 1, isPercentage: true}),
+                                            new Stat({effect: Data.Effect.DODGE, theorical: -35, duration: 1, isPercentage: true, delay: 1})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.DODGE, theorical: 55, duration: 1, isPercentage: true}),
+                                            new Stat({effect: Data.Effect.DODGE, theorical: -20, duration: 1, isPercentage: true, delay: 1})
+                                        ],
+                                    }
+                                },
                             }
                         )
                     ],
