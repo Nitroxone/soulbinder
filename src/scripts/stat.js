@@ -151,7 +151,7 @@ class Stat {
         const noName = getValueFromObject(props, "noName", false);
         const allowUnvaluableColor = getValueFromObject(props, "allowUnvaluableColor", false);
 
-        if(defaultColor) {
+        if(defaultColor && !this.displayed) {
             if(this.getValue() > 0) {
                 if(this.effect !== Data.Effect.EFFORT && this.effect !== Data.Effect.BLEEDING_CURABLE && this.effect !== Data.Effect.BLEEDING_INCURABLE) color = Data.Color.GREEN;
                 else color = Data.Color.RED;
@@ -183,14 +183,16 @@ class Stat {
             + (hidden ? 'display: none;': '') 
             + '">'
             + '<span style="font-weight: normal;">';
-            if(this.theorical[0] === this.theorical[1]) str += (this.getValue() > 0 ? '' : this.getValue() < 0 ? '- ' : '') + '</span>' + (this.getValue() === 0 ? '' : Math.abs(this.getValue())) + (this.isPercentage ? '%' : '');
-            else {
-                str += (this.theorical[0] > 0 ? '' : this.theorical[0] < 0 ? '- ' : '') + '</span>' + (this.theorical[0] === 0 ? this.theorical[0] : Math.abs(this.theorical[0])) + (this.isPercentage ? '%' : '');
-                str += ' to ';
-                str += (this.theorical[1] > 0 ? '' : this.theorical[1] < 0 ? '- ' : '') + '</span>' + (this.theorical[1] === 0 ? this.theorical[0] : Math.abs(this.theorical[1])) + (this.isPercentage ? '%' : '');
+            if(!this.displayed) {
+                if(this.theorical[0] === this.theorical[1]) str += (this.getValue() > 0 ? '' : this.getValue() < 0 ? '- ' : '') + '</span>' + (this.getValue() === 0 ? '' : Math.abs(this.getValue())) + (this.isPercentage ? '%' : '');
+                else {
+                    str += (this.theorical[0] > 0 ? '' : this.theorical[0] < 0 ? '- ' : '') + '</span>' + (this.theorical[0] === 0 ? this.theorical[0] : Math.abs(this.theorical[0])) + (this.isPercentage ? '%' : '');
+                    str += ' to ';
+                    str += (this.theorical[1] > 0 ? '' : this.theorical[1] < 0 ? '- ' : '') + '</span>' + (this.theorical[1] === 0 ? this.theorical[0] : Math.abs(this.theorical[1])) + (this.isPercentage ? '%' : '');
+                }
+                str += ' ' 
             }
-            str += ' ' 
-            + (noName ? '' : this.displayed ? this.processDisplayed() : capitalizeFirstLetter(this.effect))
+            str += (noName ? '' : this.displayed ? this.processDisplayed() : capitalizeFirstLetter(this.effect))
             + (includeChance && this.effect === Data.Effect.STUN || isMovementEffect(this.effect) ? '<span style="color: grey"> (' + this.chance + '% base)' : '')
             + (this.duration > 0 && !isMovementEffect(this.effect) ? '<span style="color: #ddd"> (' + this.duration + ' round' + (this.duration > 1 ? 's' : '') + ')</span>' : '')
             + (this.delay > 0 ? '<span style="color: #ddd"> [in ' + this.delay + ' round' + (this.delay > 1 ? 's' : '') + ']</span>' : '');
