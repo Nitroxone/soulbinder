@@ -5055,9 +5055,17 @@ const Loader = {
                 ],
                 type: Data.BattleType.WAVE,
                 params: {
-                    queue: [
-                        what(game.all_enemies, "mycelial tick"),
-                        what(game.all_enemies, "fire hatchling")
+                    waves: [
+                        [
+                            what(game.all_enemies, "fire hatchling"),
+                            what(game.all_enemies, "fire hatchling"),
+                            what(game.all_enemies, "fire iguana"),
+                        ],
+                        [
+                            what(game.all_enemies, "mycelial tick"),
+                            what(game.all_enemies, "mycelial tick"),
+                            what(game.all_enemies, "mycelial tick"),
+                        ]
                     ]
                 }
             }),

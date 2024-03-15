@@ -7743,7 +7743,7 @@ table.astralForgeShards td {
     transition: all .1s ease-in-out;
 
     filter: invert(0);
-    animation: hamanMadnessBadgeAnim 1s ease infinite forwards;
+    animation: hamanMadnessBadgeAnim 2s ease infinite forwards;
 }
 @keyframes hamanMadnessBadgeAnim {
     50% {
