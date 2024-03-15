@@ -184,13 +184,7 @@ class Stat {
             + '">'
             + '<span style="font-weight: normal;">';
             if(!this.displayed) {
-                if(this.theorical[0] === this.theorical[1]) str += (this.getValue() > 0 ? '' : this.getValue() < 0 ? '- ' : '') + '</span>' + (this.getValue() === 0 ? '' : Math.abs(this.getValue())) + (this.isPercentage ? '%' : '');
-                else {
-                    str += (this.theorical[0] > 0 ? '' : this.theorical[0] < 0 ? '- ' : '') + '</span>' + (this.theorical[0] === 0 ? this.theorical[0] : Math.abs(this.theorical[0])) + (this.isPercentage ? '%' : '');
-                    str += ' to ';
-                    str += (this.theorical[1] > 0 ? '' : this.theorical[1] < 0 ? '- ' : '') + '</span>' + (this.theorical[1] === 0 ? this.theorical[0] : Math.abs(this.theorical[1])) + (this.isPercentage ? '%' : '');
-                }
-                str += ' ' 
+                str += this.getStatSkillValue();
             }
             str += (noName ? '' : this.displayed ? this.processDisplayed() : capitalizeFirstLetter(this.effect))
             + (includeChance && this.effect === Data.Effect.STUN || isMovementEffect(this.effect) ? '<span style="color: grey"> (' + this.chance + '% base)' : '')
@@ -230,6 +224,24 @@ class Stat {
     }
 
     /**
+     * Returns a string that contains the formatted value of this Stat in the Skill format
+     * @returns {string}
+     */
+    getStatSkillValue() {
+        let str = '';
+
+        if(this.theorical[0] === this.theorical[1]) str += (this.getValue() > 0 ? '' : this.getValue() < 0 ? '- ' : '') + '</span>' + (this.getValue() === 0 ? '' : Math.abs(this.getValue())) + (this.isPercentage ? '%' : '');
+        else {
+            str += (this.theorical[0] > 0 ? '' : this.theorical[0] < 0 ? '- ' : '') + '</span>' + (this.theorical[0] === 0 ? this.theorical[0] : Math.abs(this.theorical[0])) + (this.isPercentage ? '%' : '');
+            str += ' to ';
+            str += (this.theorical[1] > 0 ? '' : this.theorical[1] < 0 ? '- ' : '') + '</span>' + (this.theorical[1] === 0 ? this.theorical[0] : Math.abs(this.theorical[1])) + (this.isPercentage ? '%' : '');
+        }
+        str += ' '
+
+        return str;
+    }
+
+    /**
      * Processes the "displayed" string by replacing its tokens with the appropriate values.
      * - § Turquoise coloration
      * - $ Orange coloration
@@ -261,7 +273,7 @@ class Stat {
         replaced = replaced.replace(blueRegex, '<span style="color: ' + Data.Color.TURQUOISE + ';">$1</span>');
         replaced = replaced.replace(boldRegex, '<span style="font-family: RobotoBold;">$1</span>');
         replaced = replaced.replace(underlinedRegex, '<span style="text-decoration:underline;">$1</span>');
-        replaced = replaced.replace(valRegex, this.getValue());
+        replaced = replaced.replace(valRegex, this.getStatSkillValue());
 
         return replaced;
     }

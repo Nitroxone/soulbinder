@@ -2756,11 +2756,11 @@ const Loader = {
                                 effectsAllies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.DUMMY, theorical: 20, isPercentage: true, displayed: "°% of Amarok's ^Health^"}),
+                                            new Stat({effect: Data.Effect.DUMMY, theorical: 20, isPercentage: true, displayed: "° of Amarok's ^Health^"}),
                                             new Stat({effect: Data.Effect.SPEED, theorical: 2, duration: 1})
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.DUMMY, theorical: 20, isPercentage: true, displayed: "°% of Amarok's ^Health^", isCritical: true}),
+                                            new Stat({effect: Data.Effect.DUMMY, theorical: 20, isPercentage: true, displayed: "° of Amarok's ^Health^", isCritical: true}),
                                             new Stat({effect: Data.Effect.SPEED, theorical: 4, duration: 1, isCritical: true})
                                         ]
                                     }
@@ -3757,12 +3757,12 @@ const Loader = {
                                 effectsAllies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.DUMMY, theorical: [6, 8], isPercentage: true, displayed: "°% ^Health^ per global §Madness§ state"}),
-                                            new Stat({effect: Data.Effect.DUMMY, theorical: [8, 10], isPercentage: true, displayed: "°% ^Mana^ per global §Madness§ state"})
+                                            new Stat({effect: Data.Effect.DUMMY, theorical: [6, 8], isPercentage: true, displayed: "° ^Health^ per global §Madness§ state"}),
+                                            new Stat({effect: Data.Effect.DUMMY, theorical: [8, 10], isPercentage: true, displayed: "° ^Mana^ per global §Madness§ state"})
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.DUMMY, theorical: 10, isPercentage: true, displayed: "°% ^Health^ per global §Madness§ state", isCritical: true}),
-                                            new Stat({effect: Data.Effect.DUMMY, theorical: 12, isPercentage: true, displayed: "°% ^Mana^ per global §Madness§ state", isCritical: true})
+                                            new Stat({effect: Data.Effect.DUMMY, theorical: 10, isPercentage: true, displayed: "° ^Health^ per global §Madness§ state", isCritical: true}),
+                                            new Stat({effect: Data.Effect.DUMMY, theorical: 12, isPercentage: true, displayed: "° ^Mana^ per global §Madness§ state", isCritical: true})
                                         ]
                                     }
                                 },
