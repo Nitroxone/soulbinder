@@ -31,7 +31,7 @@ function addSkillTreeTooltips(strider) {
     // power node
     addTooltip(document.querySelector('#' + trimWhitespacesInsideString(strider.name) + '-0'), function(){
         return getPowerNodeTooltip(strider);
-    }, {offY: -8});
+    }, {offY: -8}, { css: ["framedSmaller2"] });
     document.querySelector('#' + trimWhitespacesInsideString(strider.name) + '-0').addEventListener('contextmenu', e => {
         e.preventDefault();
         e.stopImmediatePropagation();
