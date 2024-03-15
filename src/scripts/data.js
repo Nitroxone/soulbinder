@@ -59,6 +59,9 @@ const Data = Object.freeze({
         GOLD: 'yellow',
     },
     Effect: {
+        // The "dummy" effect is mostly used in Skills (maybe Echoes at some point)
+        // It's when you wanna describe a complex mechanic (health transfer, stack consumption)
+        // Then you wanna use the "dummy" effect and use a special Stat attribute named "display" which will contain the description
         DUMMY: "dummy",
 
         //------------------------------------------------------
