@@ -3680,6 +3680,7 @@ const Loader = {
                                     }
                                 },
                                 applyCasterEffectsOnlyOnHit: true,
+                                applyCasterTriggersOnlyOnHit: true,
                                 variables: {
                                     storedTarget: null
                                 },
@@ -3697,9 +3698,10 @@ const Loader = {
                                             if(tar !== this.getOwner().variables.storedTarget) {
                                                 const sk = this.getOwner();
                                                 const haman = sk.getOwner();
+                                                const ae = sk.variables.storedTarget.getActiveEffect("revelation") || sk.variables.storedTarget.getActiveEffect("revelation (critical)");
 
-                                                haman.applyEffects(sk, haman, sk.variables.storedTarget.getActiveEffect("revelation").effects, false);
-                                                sk.variables.storedTarget.removeActiveEffect("revelation");
+                                                haman.applyEffects(sk, haman, ae.effects, false);
+                                                sk.variables.storedTarget.removeActiveEffect(ae.name);
 
                                                 game.chatlog.addMessage(Data.ChatlogChannel.BATTLE, {
                                                     content: "Haman broke the seal of Revelation!",
@@ -3742,8 +3744,8 @@ const Loader = {
                             }
                         ),
                         new Skill(
-                            "Knit the Flesh",
-                            "§Heals§ the targeted ally according to the total amount of §Madness§ states among allies and enemies. Does not consume §Madness§.",
+                            "Ethereal Stitching",
+                            "§Heals§ the targeted ally and regenerates their §Mana§ according to the total amount of §Madness§ states among allies and enemies. Does not consume §Madness§.",
                             3,
                             {
                                 type: Data.SkillType.FRIENDLY,
@@ -3755,11 +3757,29 @@ const Loader = {
                                 effectsAllies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.HAMAN_HEAL_FROM_TOTAL_MADNESS, theorical: [6, 8], isPercentage: true, type: Data.StatType.ACTIVE})
+                                            new Stat({effect: Data.Effect.DUMMY, theorical: [6, 8], isPercentage: true, displayed: "°% ^Health^ per global §Madness§ state"}),
+                                            new Stat({effect: Data.Effect.DUMMY, theorical: [8, 10], isPercentage: true, displayed: "°% ^Mana^ per global §Madness§ state"})
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.HAMAN_HEAL_FROM_TOTAL_MADNESS, theorical: 10, isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true})
+                                            new Stat({effect: Data.Effect.DUMMY, theorical: 10, isPercentage: true, displayed: "°% ^Health^ per global §Madness§ state", isCritical: true}),
+                                            new Stat({effect: Data.Effect.DUMMY, theorical: 12, isPercentage: true, displayed: "°% ^Mana^ per global §Madness§ state", isCritical: true})
                                         ]
+                                    }
+                                },
+                                logicAllies: {
+                                    PRE_DAMAGE: function(tar){
+                                        let totalMadness = 0;
+                                        game.battle.order.forEach(npc => {
+                                            if(npc.variables.hasOwnProperty("madness") && npc.variables.madness > 0) totalMadness++; 
+                                        });
+
+                                        const baseHeal = game.battle.params.critical ? 10 : getRandomNumber(6, 8);
+                                        const baseMana = game.battle.params.critical ? 12 : getRandomNumber(8, 10);
+                                        const heal = baseHeal * totalMadness;
+                                        const mana = baseMana * totalMadness;
+
+                                        tar.addBaseStat(new Stat({effect: Data.Effect.HEALTH, theorical: heal}));
+                                        tar.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: mana}));
                                     }
                                 }
                             }
