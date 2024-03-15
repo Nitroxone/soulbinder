@@ -606,7 +606,7 @@ class NPC extends Entity {
      */
     removeStun() {
         this.isStunned = false;
-        removeFighterBadge(this.getBadge("stun").uid);
+        removeFighterBadge(this.getBadge("stun")?.uid);
         this.removeBadge("stun");
     }
 
@@ -636,7 +636,7 @@ class NPC extends Entity {
      */
     removeBlocking() {
         this.isBlocking = false;
-        removeFighterBadge(this.getBadge("block").uid);
+        removeFighterBadge(this.getBadge("block")?.uid);
         this.removeBadge("block");
     }
 
@@ -668,7 +668,7 @@ class NPC extends Entity {
     removeGuarded() {
         this.isGuarded = false;
         this.guardedBy = null;
-        removeFighterBadge(this.getBadge("guarded").uid);
+        removeFighterBadge(this.getBadge("guarded")?.uid);
         this.removeBadge("guarded");
     }
 
