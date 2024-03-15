@@ -3583,11 +3583,11 @@ const Loader = {
                                 effectsAllies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.HAMAN_MADNESS_CONSUME}),
+                                            new Stat({effect: Data.Effect.DUMMY, displayed: "$Consumes$ §Madness§"}),
                                             new Stat({effect: Data.Effect.MANA, theorical: [15, 20], isPercentage: true, type: Data.StatType.ACTIVE}),
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.HAMAN_MADNESS_CONSUME}),
+                                            new Stat({effect: Data.Effect.DUMMY, displayed: "$Consumes$ §Madness§"}),
                                             new Stat({effect: Data.Effect.MANA, theorical: 25, isPercentage: true, type: Data.StatType.ACTIVE}),
                                         ]
                                     }
@@ -3595,11 +3595,11 @@ const Loader = {
                                 effectsEnemies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.HAMAN_MADNESS_CONSUME}),
+                                            new Stat({effect: Data.Effect.DUMMY, displayed: "$Consumes$ §Madness§"}),
                                             new Stat({effect: Data.Effect.HEALTH, theorical: [5, 10], isPercentage: true, type: Data.StatType.ACTIVE}),
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.HAMAN_MADNESS_CONSUME}),
+                                            new Stat({effect: Data.Effect.DUMMY, displayed: "$Consumes$ §Madness§"}),
                                             new Stat({effect: Data.Effect.HEALTH, theorical: 5, isPercentage: true, type: Data.StatType.ACTIVE}),
                                         ]
                                     }
