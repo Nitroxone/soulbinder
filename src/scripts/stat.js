@@ -186,7 +186,8 @@ class Stat {
             if(!this.displayed) {
                 str += this.getStatSkillValue();
             }
-            str += (noName ? '' : this.displayed ? this.processDisplayed() : capitalizeFirstLetter(this.effect))
+            str += '</span>'
+            + (noName ? '' : this.displayed ? this.processDisplayed() : capitalizeFirstLetter(this.effect))
             + (includeChance && this.effect === Data.Effect.STUN || isMovementEffect(this.effect) ? '<span style="color: grey"> (' + this.chance + '% base)' : '')
             + (this.duration > 0 && !isMovementEffect(this.effect) ? '<span style="color: #ddd"> (' + this.duration + ' round' + (this.duration > 1 ? 's' : '') + ')</span>' : '')
             + (this.delay > 0 ? '<span style="color: #ddd"> [in ' + this.delay + ' round' + (this.delay > 1 ? 's' : '') + ']</span>' : '');
@@ -230,11 +231,11 @@ class Stat {
     getStatSkillValue() {
         let str = '';
 
-        if(this.theorical[0] === this.theorical[1]) str += (this.getValue() > 0 ? '' : this.getValue() < 0 ? '- ' : '') + '</span>' + (this.getValue() === 0 ? '' : Math.abs(this.getValue())) + (this.isPercentage ? '%' : '');
+        if(this.theorical[0] === this.theorical[1]) str += (this.getValue() > 0 ? '' : this.getValue() < 0 ? '- ' : '') + (this.getValue() === 0 ? '' : Math.abs(this.getValue())) + (this.isPercentage ? '%' : '');
         else {
-            str += (this.theorical[0] > 0 ? '' : this.theorical[0] < 0 ? '- ' : '') + '</span>' + (this.theorical[0] === 0 ? this.theorical[0] : Math.abs(this.theorical[0])) + (this.isPercentage ? '%' : '');
+            str += (this.theorical[0] > 0 ? '' : this.theorical[0] < 0 ? '- ' : '') + (this.theorical[0] === 0 ? this.theorical[0] : Math.abs(this.theorical[0])) + (this.isPercentage ? '%' : '');
             str += ' to ';
-            str += (this.theorical[1] > 0 ? '' : this.theorical[1] < 0 ? '- ' : '') + '</span>' + (this.theorical[1] === 0 ? this.theorical[0] : Math.abs(this.theorical[1])) + (this.isPercentage ? '%' : '');
+            str += (this.theorical[1] > 0 ? '' : this.theorical[1] < 0 ? '- ' : '') + (this.theorical[1] === 0 ? this.theorical[0] : Math.abs(this.theorical[1])) + (this.isPercentage ? '%' : '');
         }
         str += ' '
 
