@@ -7734,7 +7734,7 @@ table.astralForgeShards td {
 }
 
 .specialEffect.b-b_madness {
-    background: url('img/badges/haman_madness.svg');
+    background: url('img/badges/haman_madness.png');
     background-size: cover;
     background-repeat: no-repeat;
 
@@ -7742,7 +7742,13 @@ table.astralForgeShards td {
 
     transition: all .1s ease-in-out;
 
-    filter: invert(1) brightness(5);
+    filter: invert(0);
+    animation: hamanMadnessBadgeAnim 1s ease infinite forwards;
+}
+@keyframes hamanMadnessBadgeAnim {
+    50% {
+        filter: invert(1);
+    }
 }
 
 
