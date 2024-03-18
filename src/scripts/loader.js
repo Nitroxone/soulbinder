@@ -4987,7 +4987,7 @@ const Loader = {
                                 owner: function(){ return what(game.battle.enemies, "venomstripe mauler") },
                                 checker: function() {
                                     // Can use skill, is in Front, and has at least one alive ally
-                                    return this.owner.canUseSkill("feline guard") && this.owner.getSelfPosInBattle() === Data.FormationPosition.FRONT && game.battle.enemies.some(x => !x.isDead())
+                                    return this.owner.canUseSkill("feline guard") && this.owner.getSelfPosInBattle() === Data.FormationPosition.FRONT && game.battle.enemies.some(x => !x.isDead() && x !== this.owner)
                                 },
                                 behavior: function() {
                                     console.log(this.title);
