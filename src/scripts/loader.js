@@ -3154,19 +3154,19 @@ const Loader = {
                                 accMultiplier: 100,
                                 cooldown: 1,
                                 launchPos: [true, true, false],
-                                targets: {allies: '-0', enemies: '-2'},
+                                targets: {allies: '-0', enemies: '-12'},
                                 ignoresProtection: true,
                                 effectsEnemies: {
                                     1: {
                                         regular: [
                                             new Stat({effect: Data.Effect.BLEEDING_CURABLE, theorical: [3, 4], type: Data.StatType.ACTIVE, duration: 2}),
                                             new Stat({effect: Data.Effect.PUSH_ONE, chance: 150}),
-                                            new Stat({effect: Data.Effect.PULL_ONE, chance: 150, delay: 1, duration: 1})
+                                            new Stat({effect: Data.Effect.PULL_ONE, chance: 150, delay: 2, duration: 1})
                                         ],
                                         critical: [
                                             new Stat({effect: Data.Effect.BLEEDING_CURABLE, theorical: 5, type: Data.StatType.ACTIVE, duration: 2, isCritical: true}),
                                             new Stat({effect: Data.Effect.PUSH_ONE, chance: 150, isCritical: true}),
-                                            new Stat({effect: Data.Effect.PULL_ONE, chance: 150, delay: 1, duration: 1, isCritical: true})
+                                            new Stat({effect: Data.Effect.PULL_ONE, chance: 150, delay: 2, duration: 1, isCritical: true})
                                         ]
                                     }
                                 }
@@ -4987,7 +4987,7 @@ const Loader = {
                                 owner: function(){ return what(game.battle.enemies, "venomstripe mauler") },
                                 checker: function() {
                                     // Can use skill, is in Front, and has at least one alive ally
-                                    return this.owner.canUseSkill("feline guard") && this.owner.getSelfPosInBattle() === Data.FormationPosition.FRONT && game.battle.enemies.some(x => !x.isDead())
+                                    return this.owner.canUseSkill("feline guard") && this.owner.getSelfPosInBattle() === Data.FormationPosition.FRONT && game.battle.enemies.some(x => !x.isDead() && x !== this.owner)
                                 },
                                 behavior: function() {
                                     console.log(this.title);

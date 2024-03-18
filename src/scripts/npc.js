@@ -869,20 +869,7 @@ class NPC extends Entity {
      */
     applyEffects(skill, originUser, effects, critical = false) {
         effects.forEach(eff => {
-            if(eff.delay === 0) {
-                if(isBaseStatChange(eff)) this.alterBaseStat(eff, originUser, skill);
-                else if(eff.effect === Data.Effect.SHIELD) this.addShield(eff.getValue());
-                else if(eff.effect === Data.Effect.STUN) this.applyStun()
-                else if(eff.effect === Data.Effect.GUARDED) this.applyGuarded(originUser);
-                else if(eff.effect === Data.Effect.GUARDING) this.applyGuarding(skill.variables.guarded);
-                else if(eff.effect === Data.Effect.SHATTERS_GUARD && this.isGuarded) this.removeGuarded();
-                else if(!isBleedingOrPoisoning(eff)) this.alter({
-                    effect: eff,
-                    action: Data.AlterAction.ADD,
-                    origin: skill
-                });
-                else this.applyEffect(eff);
-            }
+            if(eff.delay === 0) this.applySkillEffect(skill, originUser, eff);
         });
         for(let i = effects.length - 1; i >= 0; i--) {
             if(effects[i].duration === 0 && effects[i].delay === 0) removeFromArray(effects, effects[i]);
@@ -899,6 +886,26 @@ class NPC extends Entity {
                 italic: critical
             }
         }));
+    }
+
+    applySkillEffect(skill, originUser, eff) {
+        if(isBaseStatChange(eff)) this.alterBaseStat(eff, originUser, skill);
+        else if(eff.effect === Data.Effect.SHIELD) this.addShield(eff.getValue());
+        else if(eff.effect === Data.Effect.STUN) this.applyStun()
+        else if(eff.effect === Data.Effect.GUARDED) this.applyGuarded(originUser);
+        else if(eff.effect === Data.Effect.GUARDING) this.applyGuarding(skill.variables.guarded);
+        else if(eff.effect === Data.Effect.SHATTERS_GUARD && this.isGuarded) this.removeGuarded();
+        else if(isMovementEffect(eff.effect)) {
+            console.error("APPLIED ", eff.effect, " on ", this.name);
+            game.battle.applyCasterMovement({effect: convertMovementToCasterType(eff).effect});
+        }
+        else if(!isBleedingOrPoisoning(eff)) this.alter({
+            effect: eff,
+            action: Data.AlterAction.ADD,
+            origin: skill
+        });
+        else this.applyEffect(eff);
+        eff.applied = true;
     }
 
     /**
@@ -965,19 +972,29 @@ class NPC extends Entity {
             // If effect is ACTIVE, call addEffect
             ae.effects.forEach(eff => {
                 if(eff.delay > 0) eff.delay--;
-                if(eff.type === Data.StatType.ACTIVE && eff.delay === 0) {
-                    if(isBaseStatChange(eff)) this.alterBaseStat(eff);
-                    else if(isBleedingOrPoisoning(eff)) {
-                        this.receiveBleedOrPoison(eff);
+                if(eff.delay === 0) {
+                    if(eff.type === Data.StatType.ACTIVE) {
+                        if(isBaseStatChange(eff)) this.alterBaseStat(eff);
+                        else if(isBleedingOrPoisoning(eff)) {
+                            this.receiveBleedOrPoison(eff);
+                        }
+                        else this.applyEffect(eff);
+                    } else {
+                        if(!eff.applied) {
+                            this.applySkillEffect(ae.originObject, ae.originUser, eff);
+                            if(isMovementEffect(eff.effect)) {
+                                removeFromArray(ae.effects, eff);
+                            }
+                            eff.duration++;
+                        }
                     }
-                    else this.applyEffect(eff);
                 }
             });
 
             for(let j = ae.effects.length - 1; j >= 0; j--) {
                 let eff = ae.effects[j];
                 console.log(eff);
-                if(eff.duration === 1) {
+                if(eff.duration === 1 && eff.delay === 0) {
                     eff.duration = 0;
                     removeFromArray(ae.effects, eff);
                     if(eff.effect === Data.Effect.STUN) this.removeStun();
@@ -989,9 +1006,10 @@ class NPC extends Entity {
                         this.removeGuarding();
                         ae.originObject.variables.guarding = null;
                     }
-                    else if(isMovementEffect(eff.effect)) {
-                        game.battle.applyCasterMovement({effect: convertMovementToCasterType(eff).effect});
-                    }
+                    // else if(isMovementEffect(eff.effect)) {
+                    //     console.error("APPLIED ", eff.effect, " on ", this.name);
+                    //     game.battle.applyCasterMovement({effect: convertMovementToCasterType(eff).effect});
+                    // }
                     else {
                         if(isShieldEffect(eff)) this.removeShield(eff.getValue())
                         else if(eff.type === Data.StatType.PASSIVE || (!isBaseStatChange(eff, true) && !isBleedingOrPoisoning(eff))) {
