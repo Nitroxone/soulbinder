@@ -3154,7 +3154,7 @@ const Loader = {
                                 accMultiplier: 100,
                                 cooldown: 1,
                                 launchPos: [true, true, false],
-                                targets: {allies: '-0', enemies: '-2'},
+                                targets: {allies: '-0', enemies: '-12'},
                                 ignoresProtection: true,
                                 effectsEnemies: {
                                     1: {

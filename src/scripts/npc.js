@@ -895,6 +895,10 @@ class NPC extends Entity {
         else if(eff.effect === Data.Effect.GUARDED) this.applyGuarded(originUser);
         else if(eff.effect === Data.Effect.GUARDING) this.applyGuarding(skill.variables.guarded);
         else if(eff.effect === Data.Effect.SHATTERS_GUARD && this.isGuarded) this.removeGuarded();
+        else if(isMovementEffect(eff.effect)) {
+            console.error("APPLIED ", eff.effect, " on ", this.name);
+            game.battle.applyCasterMovement({effect: convertMovementToCasterType(eff).effect});
+        }
         else if(!isBleedingOrPoisoning(eff)) this.alter({
             effect: eff,
             action: Data.AlterAction.ADD,
@@ -978,6 +982,9 @@ class NPC extends Entity {
                     } else {
                         if(!eff.applied) {
                             this.applySkillEffect(ae.originObject, ae.originUser, eff);
+                            if(isMovementEffect(eff.effect)) {
+                                removeFromArray(ae.effects, eff);
+                            }
                             eff.duration++;
                         }
                     }
@@ -987,7 +994,7 @@ class NPC extends Entity {
             for(let j = ae.effects.length - 1; j >= 0; j--) {
                 let eff = ae.effects[j];
                 console.log(eff);
-                if(eff.duration === 1) {
+                if(eff.duration === 1 && eff.delay === 0) {
                     eff.duration = 0;
                     removeFromArray(ae.effects, eff);
                     if(eff.effect === Data.Effect.STUN) this.removeStun();
@@ -999,9 +1006,10 @@ class NPC extends Entity {
                         this.removeGuarding();
                         ae.originObject.variables.guarding = null;
                     }
-                    else if(isMovementEffect(eff.effect)) {
-                        game.battle.applyCasterMovement({effect: convertMovementToCasterType(eff).effect});
-                    }
+                    // else if(isMovementEffect(eff.effect)) {
+                    //     console.error("APPLIED ", eff.effect, " on ", this.name);
+                    //     game.battle.applyCasterMovement({effect: convertMovementToCasterType(eff).effect});
+                    // }
                     else {
                         if(isShieldEffect(eff)) this.removeShield(eff.getValue())
                         else if(eff.type === Data.StatType.PASSIVE || (!isBaseStatChange(eff, true) && !isBleedingOrPoisoning(eff))) {
