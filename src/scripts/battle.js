@@ -790,42 +790,48 @@ class Battle {
                     if(skill.effectsAllies && arrayContains(this.allies, tar)) {
                         this.callSkillLogic(skill, tar, Data.SkillLogicExecution.PRE_ALLIES_EFFECTS);
                         skill.effectsAllies[skill.level][accessor].forEach(eff => {
-                            if(!isMovementEffect(eff.effect)) {
-                                if(eff.effect === Data.Effect.GUARDED) {
-                                    skill.variables.guarded = tar;
-                                    skill.variables.guarding = current;
-                                }
-                                let newEff = Entity.clone(eff);
-                                newEff.fix();
-                                effects.push(newEff);
-                            }
+                            // if(!isMovementEffect(eff.effect)) {
+                            //     if(eff.effect === Data.Effect.GUARDED) {
+                            //         skill.variables.guarded = tar;
+                            //         skill.variables.guarding = current;
+                            //     }
+                            //     let newEff = Entity.clone(eff);
+                            //     newEff.fix();
+                            //     effects.push(newEff);
+                            // }
+                            let newEff = Entity.clone(eff);
+                            newEff.fix();
+                            effects.push(newEff);
                         });
                     }
                     if(skill.effectsEnemies && arrayContains(this.enemies, tar)) {
                         this.callSkillLogic(skill, tar, Data.SkillLogicExecution.PRE_ENEMIES_EFFECTS);
                         skill.effectsEnemies[skill.level][accessor].forEach(eff => {
-                            if(!isMovementEffect(eff.effect) || (isMovementEffect(eff.effect) && eff.delay > 0)) {
-                                if(eff.effect === Data.Effect.STUN) {
-                                    if(Math.random() * 100 > current.modifChanceStun + eff.chance - tar.resStun) {
-                                        tar.addBattlePopup(new BattlePopup(0, '<p>Resisted!</p>'));
-                                        return;
-                                    }
-                                }
-                                if(eff.effect === Data.Effect.GUARDED) {
-                                    skill.variables.guarded = tar;
-                                    skill.variables.guarding = current;
-                                }
-                                let newEff = Entity.clone(eff);
-                                newEff.fix();
-                                effects.push(newEff);
-                            } else {
-                                // Moving
-                                if((Math.random() * 100 < current.modifChanceMove + eff.chance - tar.resMove) && eff.delay === 0) {
-                                    this.applyEnemyMovement(eff, tar);
-                                    current.runTriggers(Data.TriggerType.ON_DEAL_MOVE);
-                                }
-                                else tar.addBattlePopup(new BattlePopup(0, '<p>Evaded!</p>'));
-                            }
+                            let newEff = Entity.clone(eff);
+                            newEff.fix();
+                            effects.push(newEff);
+                            // if(!isMovementEffect(eff.effect) || (isMovementEffect(eff.effect) && eff.delay > 0)) {
+                            //     if(eff.effect === Data.Effect.STUN) {
+                            //         if(Math.random() * 100 > current.modifChanceStun + eff.chance - tar.resStun) {
+                            //             tar.addBattlePopup(new BattlePopup(0, '<p>Resisted!</p>'));
+                            //             return;
+                            //         }
+                            //     }
+                            //     if(eff.effect === Data.Effect.GUARDED) {
+                            //         skill.variables.guarded = tar;
+                            //         skill.variables.guarding = current;
+                            //     }
+                            //     let newEff = Entity.clone(eff);
+                            //     newEff.fix();
+                            //     effects.push(newEff);
+                            // } else {
+                            //     // Moving
+                            //     if((Math.random() * 100 < current.modifChanceMove + eff.chance - tar.resMove) && eff.delay === 0) {
+                            //         this.applyEnemyMovement(eff, tar);
+                            //         current.runTriggers(Data.TriggerType.ON_DEAL_MOVE);
+                            //     }
+                            //     else tar.addBattlePopup(new BattlePopup(0, '<p>Evaded!</p>'));
+                            // }
                         });
                     }
                     if(!this.isEnemyPlaying()) tar.addBattlePopup(new BattlePopup(0, '<div class="popupIcon" style="background-image: url(\'css/img/skills/' + current.name + skill.icon + '.png\');"></div>'));
@@ -858,23 +864,26 @@ class Battle {
                 effects = [];
                 accessor = (isCrit ? 'critical' : 'regular');
                 skill.effectsCaster[skill.level][accessor].forEach(eff => {
-                    if(!isMovementEffect(eff.effect) || (isMovementEffect(eff.effect) && eff.duration > 0)) {
-                        if(eff.effect === Data.Effect.STUN) {
-                            if(Math.random() * 100 > current.modifChanceStun + eff.chance - current.resStun) {
-                                current.addBattlePopup(new BattlePopup(0, '<p>Resisted!</p>'));
-                                return;
-                            }
-                        }
-                        if(eff.effect === Data.Effect.GUARDED) {
-                            skill.variables.guarded = tar;
-                            skill.variables.guarding = current;
-                        }
-                        let newEff = Entity.clone(eff);
-                        newEff.fix();
-                        effects.push(newEff);
-                    }
-                    // Moving
-                    else if(eff.delay === 0) this.applyCasterMovement(eff);
+                    let newEff = Entity.clone(eff);
+                    newEff.fix();
+                    effects.push(newEff);
+                    // if(!isMovementEffect(eff.effect) || (isMovementEffect(eff.effect) && eff.duration > 0)) {
+                    //     if(eff.effect === Data.Effect.STUN) {
+                    //         if(Math.random() * 100 > current.modifChanceStun + eff.chance - current.resStun) {
+                    //             current.addBattlePopup(new BattlePopup(0, '<p>Resisted!</p>'));
+                    //             return;
+                    //         }
+                    //     }
+                    //     if(eff.effect === Data.Effect.GUARDED) {
+                    //         skill.variables.guarded = tar;
+                    //         skill.variables.guarding = current;
+                    //     }
+                    //     let newEff = Entity.clone(eff);
+                    //     newEff.fix();
+                    //     effects.push(newEff);
+                    // }
+                    // // Moving
+                    // else if(eff.delay === 0) this.applyCasterMovement(eff);
                 });
                 current.addBattlePopup(new BattlePopup(0, '<div class="popupIcon" style="background-image: url(\'css/img/skills/' + current.name + skill.icon + '.png\');"></div>'));
             }

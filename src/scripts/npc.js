@@ -888,16 +888,37 @@ class NPC extends Entity {
         }));
     }
 
+    /**
+     * 
+     * @param {Skill} skill 
+     * @param {NPC} originUser 
+     * @param {Stat} eff 
+     */
     applySkillEffect(skill, originUser, eff) {
         if(isBaseStatChange(eff)) this.alterBaseStat(eff, originUser, skill);
         else if(eff.effect === Data.Effect.SHIELD) this.addShield(eff.getValue());
-        else if(eff.effect === Data.Effect.STUN) this.applyStun()
-        else if(eff.effect === Data.Effect.GUARDED) this.applyGuarded(originUser);
+        else if(eff.effect === Data.Effect.STUN) {
+            if(Math.random() * 100 > originUser.modifChanceStun + eff.chance - this.resStun) {
+                this.addBattlePopup(new BattlePopup(0, '<p>Resisted!</p>'));
+            } else {
+                this.applyStun();
+            }
+        }
+        else if(eff.effect === Data.Effect.GUARDED) {
+            skill.variables.guarded = this;
+            skill.variables.guarding = originUser;
+            this.applyGuarded(originUser);
+        }
         else if(eff.effect === Data.Effect.GUARDING) this.applyGuarding(skill.variables.guarded);
         else if(eff.effect === Data.Effect.SHATTERS_GUARD && this.isGuarded) this.removeGuarded();
         else if(isMovementEffect(eff.effect)) {
-            console.error("APPLIED ", eff.effect, " on ", this.name);
-            game.battle.applyCasterMovement({effect: convertMovementToCasterType(eff).effect});
+            if((Math.random() * 100 < originUser.modifChanceMove + eff.chance - this.resMove) && eff.delay === 0) {
+                game.battle.applyCasterMovement({effect: convertMovementToCasterType(eff).effect});
+                originUser.runTriggers(Data.TriggerType.ON_DEAL_MOVE);
+                console.error("APPLIED ", eff.effect, " on ", this.name);
+            } else {
+                this.addBattlePopup(new BattlePopup(0, '<p>Evaded!</p>'));
+            }
         }
         else if(!isBleedingOrPoisoning(eff)) this.alter({
             effect: eff,
