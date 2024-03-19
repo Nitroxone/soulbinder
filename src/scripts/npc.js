@@ -914,7 +914,8 @@ class NPC extends Entity {
         else if(eff.effect === Data.Effect.SHATTERS_GUARD && this.isGuarded) this.removeGuarded();
         else if(isMovementEffect(eff.effect)) {
             if((Math.random() * 100 < originUser.modifChanceMove + eff.chance - this.resMove) && eff.delay === 0) {
-                game.battle.applyCasterMovement({effect: convertMovementToCasterType(eff).effect});
+                if(originUser === this) game.battle.applyCasterMovement({effect: convertMovementToCasterType(eff).effect});
+                else game.battle.applyEnemyMovement(eff, this);
                 originUser.runTriggers(Data.TriggerType.ON_DEAL_MOVE);
                 console.error("APPLIED ", eff.effect, " on ", this.name);
             } else {
