@@ -505,7 +505,7 @@ class Battle {
         this.dealtDamage = 0;
         const skill = this.selectedSkill;
         const accessor = skill.level;
-        const modifier = (skill.type === Data.SkillType.FRIENDLY) ? 9999 : 0;
+        const modifier = (target instanceof Strider && [Data.SkillType.BOTH, Data.SkillType.FRIENDLY].includes(skill.type)) ? 9999 : 0;
         const current = this.currentPlay;
 
         let accuracyModifiers = 0;
