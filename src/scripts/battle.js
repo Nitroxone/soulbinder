@@ -36,6 +36,8 @@ class Battle {
 
         this.dealtDamage = 0;
         this.receivedDamage = 0;
+
+        this.skipBecauseStunned = false;
     }
 
     /**
@@ -246,14 +248,14 @@ class Battle {
             this.end();
             return;
         }
-        
+        this.skipBecauseStunned = false;
         if(this.nextInOrder()) return; // IF A NEW ROUND IS STARTING, CANCEL THE FIRST TURN OR IT WILL BE PLAYED TWICE BY THE SAME FIGHTER.
         if(this.currentPlay.isDead()) {
             const skipBecauseDead = this.handleDeath();
             if(skipBecauseDead) return;
         }
         console.log("Currently playing: " + this.currentPlay.name);
-        const skipBecauseStunned = this.currentPlay.isStunned;
+        this.skipBecauseStunned = this.currentPlay.isStunned;
 
         this.currentPlay.runTriggers(Data.TriggerType.ON_TURN_BEGIN);
         this.currentPlay.executeActiveEffects();
@@ -264,7 +266,7 @@ class Battle {
         this.beginTurnPopups = false;
         this.runPopups();
         // SKIP ENEMIES
-        if(skipBecauseStunned) {
+        if(this.skipBecauseStunned) {
             this.finishTurn();
             return;
         }
