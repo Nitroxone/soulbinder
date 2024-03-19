@@ -237,7 +237,7 @@ class Stat {
             str += ' to ';
             str += (this.theorical[1] > 0 ? '' : this.theorical[1] < 0 ? '- ' : '') + (this.theorical[1] === 0 ? this.theorical[0] : Math.abs(this.theorical[1])) + (this.isPercentage ? '%' : '');
         }
-        str += ' '
+        if(str !== '') str += ' ';
 
         return str;
     }
