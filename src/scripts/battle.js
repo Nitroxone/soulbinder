@@ -1125,11 +1125,6 @@ class Battle {
         } else {
             throw new Error('No move NPC type was provided.');
         }
-        if(this.currentPlay.name === 'Fungaliant' && this.currentPlay.getSelfPosInBattle() === Data.FormationPosition.FRONT) {
-            console.log('--------------------AFTER MOVEMENTS EXECUTION');
-            console.error(this.allies);
-            debugger
-        }
     }
 
     /**
