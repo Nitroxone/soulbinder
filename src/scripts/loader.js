@@ -2899,12 +2899,37 @@ const Loader = {
                         new Stat({effect: Data.Effect.ACCURACY, theorical: [3, 7], isPercentage: true})
                     ],
                     variables: {
-                        backlash_might: 0.5,
-                        backlash_accuracy: 0.5,
+                        backlash_might: 0.8,
+                        backlash_spirit: 0,
+                        backlash_accuracy: 0.8,
                         backlash_active: false,
                         backlash_duration: 2,
+                        backlash_armorPiercing: 0,
                         canUseBacklash: function(naka){
                             return this.backlash_active && !naka.isStunned;
+                        },
+                        backlashAccuracyTest: function(naka, target) {
+                            const accuracy = Math.round(naka.accuracy * this.backlash_accuracy);
+
+                            if(Math.random()*100 < accuracy) {
+                                if(Math.random()*100 > target.dodge) {
+                                    return true;
+                                }
+                            }
+                            return false;
+                        },
+                        computeBacklashValue: function(naka) {
+                            const might = Math.round(naka.might * this.backlash_might);
+                            const spirit = Math.round(naka.spirit * this.backlash_spirit);
+                            const armorPiercing = Math.round(naka.armorPiercing * this.backlash_armorPiercing);
+
+                            return {
+                                phys_damage: might,
+                                magi_damage: spirit,
+                                crit_damage: 0,
+                                ignoreProtection: false,
+                                armorPiercing: armorPiercing
+                            }
                         }
                     },
                     triggers: [
@@ -2924,12 +2949,20 @@ const Loader = {
                             },
                             behavior: function() {
                                 console.log("Backlashed!!!!!!!!------------------");
+
+                                const naka = this.owner;
+                                const target = game.battle.currentPlay;
+
+                                if(naka.variables.backlashAccuracyTest(naka, target)) {
+                                    console.log("Successful backlash!---------------------------------------");
+                                    target.receiveDamage(naka.variables.computeBacklashValue(naka));
+                                } else console.error("Backlash failed!-----------------------------------------");
                             }
                         })
                     ],
                     striderType: Data.StriderType.SUPPORT,
                     uniqueName: "Duellist's Stance",
-                    uniqueDesc: '<div class="par jus">Each time Naka attacks, she enters a <span class="bold blue">Backlash</span> state for 2 rounds. While in <span class="bold blue">Backlash</span> state, the next time she is the target of an attack, she will attack too in return.</div><div class="par jus">If a <span class="bold blue">Backlash</span> successfully hits a target, the ally that has the lowest health gets healed with 100% of the <span class="bold blue">Backlash</span>\'s damage value.</div><div class="par bulleted"><span class="bold">When attacking: </span>enters <span class="bold blue">Backlash</span> state (Damage = 50% of Naka\'s <span class="bold blue">Might</span> value, Accuracy = 50%).</div><div class="par bulleted"><span class="bold">On successful backlash</span>: <span class="bold blue">Heals</span> the ally with the lowest health at 100% of the damage dealt by the <span class="bold blue">Backlash</span>.</div>',
+                    uniqueDesc: '<div class="par jus">Each time Naka attacks, she enters a <span class="bold blue">Backlash</span> state for 2 rounds. While in <span class="bold blue">Backlash</span> state, when she is the target of an attack, she attacks too in return.</div><div class="par jus">If a <span class="bold blue">Backlash</span> successfully hits a target, the ally that has the lowest health gets healed with 100% of the <span class="bold blue">Backlash</span>\'s damage value.</div><div class="par bulleted"><span class="bold">When attacking: </span>enters <span class="bold blue">Backlash</span> state (Damage = 80% of Naka\'s <span class="bold blue">Might</span> value, Accuracy = 80%).</div><div class="par bulleted"><span class="bold">On successful backlash</span>: <span class="bold blue">Heals</span> the ally with the lowest health at 100% of the damage dealt by the <span class="bold blue">Backlash</span>.</div>',
                     uniqueQuote: '"Don\'t be bold, play it safe. Stand still, unlock your knees and have your blade risen. Let the patience do you right : their ambition shall be their weakness."',
                     uniqueIcon: 0,
                     skillTree: what(game.all_skillTrees, "amarok"),
