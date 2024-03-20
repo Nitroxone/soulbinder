@@ -2896,9 +2896,38 @@ const Loader = {
                     critEffects: [
                         new Stat({effect: Data.Effect.ACCURACY, theorical: [3, 7], isPercentage: true})
                     ],
+                    variables: {
+                        backlash_might: 0.5,
+                        backlash_accuracy: 0.5,
+                        backlash_active: false,
+                        backlash_duration: 2,
+                        canUseBacklash: function(naka){
+                            return this.backlash_active && !naka.isStunned;
+                        }
+                    },
+                    triggers: [
+                        new Trigger({
+                            name: "naka_activateBacklash",
+                            type: Data.TriggerType.ON_DEAL_ATTACK,
+                            behavior: function(){
+                                console.log("Backlash activated!");
+                                this.owner.variables.backlash_active = true;
+                            }
+                        }),
+                        new Trigger({
+                            name: "naka_backlashHit",
+                            type: Data.TriggerType.ON_RECV_ATTACK,
+                            checker: function(){
+                                return this.owner.variables.canUseBacklash(this.owner);
+                            },
+                            behavior: function() {
+                                console.log("Backlashed!!!!!!!!------------------");
+                            }
+                        })
+                    ],
                     striderType: Data.StriderType.SUPPORT,
                     uniqueName: "Duellist's Stance",
-                    uniqueDesc: '<div class="par jus">Each time Naka attacks, she enters a <span class="bold blue">Backlash</span> state. Next time she is the target of an attack, she will attack too in return.</div><div class="par jus">If a <span class="bold blue">Backlash</span> successfully hits a target, the ally that has the lowest health gets healed with 100% of the <span class="bold blue">Backlash</span>\'s damage value.</div><div class="par bulleted"><span class="bold">When attacking: </span>enters <span class="bold blue">Backlash</span> state (Damage = 50% of Naka\'s <span class="bold blue">Might</span> value, Accuracy = 50%).</div><div class="par bulleted"><span class="bold">On successful backlash</span>: <span class="bold blue">Heals</span> the ally with the lowest health at 100% of the damage dealt by the <span class="bold blue">Backlash</span>.</div>',
+                    uniqueDesc: '<div class="par jus">Each time Naka attacks, she enters a <span class="bold blue">Backlash</span> state for 2 rounds. While in <span class="bold blue">Backlash</span> state, the next time she is the target of an attack, she will attack too in return.</div><div class="par jus">If a <span class="bold blue">Backlash</span> successfully hits a target, the ally that has the lowest health gets healed with 100% of the <span class="bold blue">Backlash</span>\'s damage value.</div><div class="par bulleted"><span class="bold">When attacking: </span>enters <span class="bold blue">Backlash</span> state (Damage = 50% of Naka\'s <span class="bold blue">Might</span> value, Accuracy = 50%).</div><div class="par bulleted"><span class="bold">On successful backlash</span>: <span class="bold blue">Heals</span> the ally with the lowest health at 100% of the damage dealt by the <span class="bold blue">Backlash</span>.</div>',
                     uniqueQuote: '"Don\'t be bold, play it safe. Stand still, unlock your knees and have your blade risen. Let the patience do you right : their ambition shall be their weakness."',
                     uniqueIcon: 0,
                     skillTree: what(game.all_skillTrees, "amarok"),
@@ -3691,7 +3720,7 @@ const Loader = {
                                 triggersCaster: [
                                     new Trigger({
                                         name: "revelationTrigger",
-                                        type: Data.TriggerType.ON_ATTACK,
+                                        type: Data.TriggerType.ON_DEAL_ATTACK,
                                         checker: function(){
                                             const tar = game.battle.target[game.battle.targetTracker];
     

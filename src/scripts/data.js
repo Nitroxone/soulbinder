@@ -201,7 +201,8 @@ const Data = Object.freeze({
     },
     TriggerType: {
         ON_STAT_CHANGE: 'ON_STAT_CHANGE',
-        ON_ATTACK: 'ON_ATTACK',
+        ON_DEAL_ATTACK: 'ON_DEAL_ATTACK',
+        ON_RECV_ATTACK: 'ON_RECV_ATTACK',
         ON_USE_SKILL: 'ON_USE_SKILL',
         ON_USE_WEAPON: 'ON_USE_WEAPON',
         ON_DEAL_WEAPON: 'ON_DEAL_WEAPON',

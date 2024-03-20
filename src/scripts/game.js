@@ -353,17 +353,17 @@ class Game {
 
         this.player.formationSet(what(this.player.roster, "amarok"), Data.FormationPosition.FRONT);
         this.player.formationSet(what(this.player.roster, "carhal"), Data.FormationPosition.MIDDLE);
-        this.player.formationSet(what(this.player.roster, "haman"), Data.FormationPosition.BACK);
+        this.player.formationSet(what(this.player.roster, "naka"), Data.FormationPosition.BACK);
 
         // Equipping
         what(this.player.roster, "carhal").equipWeapon(what(this.player.inventory.weapons, 'entarian axe'), '', true);
         what(this.player.roster, "amarok").equipWeapon(what(this.player.inventory.weapons, 'arbrean spear'), '', true);
-        what(this.player.roster, "haman").equipWeapon(what(this.player.inventory.weapons, 'drancoran staff'), '', true);
+        what(this.player.roster, "naka").equipWeapon(what(this.player.inventory.weapons, 'drancoran staff'), '', true);
 
         what(this.player.roster, "carhal").equipArmor(what(this.player.inventory.armors, 'entarian chestplate'), true);
         what(this.player.roster, "carhal").equipArmor(what(this.player.inventory.armors, 'entarian boots'), true);
-        what(this.player.roster, "haman").equipArmor(what(this.player.inventory.armors, 'drancoran hood'), true);
-        what(this.player.roster, "haman").equipArmor(what(this.player.inventory.armors, 'drancoran mittens'), true);
+        what(this.player.roster, "naka").equipArmor(what(this.player.inventory.armors, 'drancoran hood'), true);
+        what(this.player.roster, "naka").equipArmor(what(this.player.inventory.armors, 'drancoran mittens'), true);
         what(this.player.roster, "amarok").equipArmor(what(this.player.inventory.armors, 'arbrean helm'), true);
         what(this.player.roster, "amarok").equipArmor(what(this.player.inventory.armors, 'arbrean shield'), true);
 
@@ -372,8 +372,8 @@ class Game {
         what(this.player.roster, "carhal").equipTrinket(what(this.player.inventory.trinkets, 'molars of the jailor'), true);
         what(this.player.roster, "amarok").equipTrinket(what(this.player.inventory.trinkets, 'borri\'s phalanges'), true);
         what(this.player.roster, "amarok").equipTrinket(what(this.player.inventory.trinkets, 'saint-ghore scales ring'), true);
-        what(this.player.roster, "haman").equipTrinket(what(this.player.inventory.trinkets, 'haste ring'), true);
-        what(this.player.roster, "haman").equipTrinket(what(this.player.inventory.trinkets, 'engraved moonhorn'), true);
+        what(this.player.roster, "naka").equipTrinket(what(this.player.inventory.trinkets, 'haste ring'), true);
+        what(this.player.roster, "naka").equipTrinket(what(this.player.inventory.trinkets, 'engraved moonhorn'), true);
 
         what(this.player.roster, "amarok").level.addLevel(30);
         what(this.player.roster, "amarok").skillPoints = 100;

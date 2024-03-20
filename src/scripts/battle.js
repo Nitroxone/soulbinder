@@ -573,11 +573,14 @@ class Battle {
         const weapon = this.selectedWeapon;
         const current = this.currentPlay;
 
-        this.runTriggersOnCurrent(Data.TriggerType.ON_ATTACK);
+        this.runTriggersOnCurrent(Data.TriggerType.ON_DEAL_ATTACK);
+
         this.target.forEach(tar => {
             const tarDom = document.querySelector('#' + tar.getBattleFormationStringId());
             tarDom.classList.add('npcBattleTargeted');
             if(tar.isDead()) return;
+
+            tar.runTriggers(Data.TriggerType.ON_RECV_ATTACK);
 
             this.computeAttackParams(tar);
             let params = this.params;
@@ -725,7 +728,7 @@ class Battle {
         this.computeSkillParams(this.target[0]);
         const isCrit = this.params.critical;
 
-        this.runTriggersOnCurrent(Data.TriggerType.ON_ATTACK);
+        this.runTriggersOnCurrent(Data.TriggerType.ON_DEAL_ATTACK);
 
         this.target.forEach(tar => {
             const tarDom = document.querySelector('#' + tar.getBattleFormationStringId());
@@ -735,6 +738,8 @@ class Battle {
                 console.error(tar.name + ' is dead! Ignoring');
                 return;
             }
+
+            tar.runTriggers(Data.TriggerType.ON_RECV_ATTACK);
 
             this.computeSkillParams(tar, isCrit);
             let params = this.params;
