@@ -135,6 +135,8 @@ class NPC extends Entity {
 
         if(!action) ERROR('Undefined alteration action.');
 
+        if(this.name.toLowerCase() === "carhal") console.trace()
+
         if(action === Data.AlterAction.ADD) {
             const bonus = new Bonus(effect, origin, variables);
 
@@ -991,6 +993,8 @@ class NPC extends Entity {
         for(let i = 0; i < this.activeEffects.length; i++) {
             let ae = this.activeEffects[i];
             console.log(ae);
+
+            if(ae.immutable) continue;
             
             // If effect is ACTIVE, call addEffect
             ae.effects.forEach(eff => {

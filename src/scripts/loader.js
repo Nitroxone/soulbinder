@@ -2483,7 +2483,8 @@ const Loader = {
                                         style: {
                                             color: Data.Color.PURPLE,
                                             bold: true
-                                        }
+                                        },
+                                        immutable: true
                                     }));
                                 }
                             }
@@ -2615,7 +2616,8 @@ const Loader = {
                                     style: {
                                         color: Data.Color.PURPLE,
                                         bold: true
-                                    }
+                                    },
+                                    immutable: true
                                 }));
                             }
                         }),
@@ -3005,7 +3007,8 @@ const Loader = {
                                 style: {
                                     color: Data.Color.PURPLE,
                                     bold: true
-                                }
+                                },
+                                immutable: true
                             }));
                         },
                         "tier1": "Sentient Roots [SHALLOW]",
