@@ -2905,6 +2905,7 @@ const Loader = {
                         backlash_active: false,
                         backlash_duration: 2,
                         backlash_armorPiercing: 0,
+                        backlash_countdown: 0,
                         canUseBacklash: function(naka){
                             return this.backlash_active && !naka.isStunned;
                         },
@@ -2930,6 +2931,15 @@ const Loader = {
                                 ignoreProtection: false,
                                 armorPiercing: armorPiercing
                             }
+                        },
+                        getBacklashTooltip: function(naka) {
+                            let str = '';
+
+                            str += 'Backlash activated!';
+                            str += '<br>';
+                            str += naka.variables.backlash_countdown + " round(s) left!";
+
+                            return str;
                         }
                     },
                     triggers: [
@@ -2938,14 +2948,65 @@ const Loader = {
                             type: Data.TriggerType.ON_DEAL_ATTACK,
                             behavior: function(){
                                 console.log("Backlash activated!");
-                                this.owner.variables.backlash_active = true;
+                                const naka = this.owner;
+                                naka.variables.backlash_active = true;
+                                naka.variables.backlash_countdown = naka.variables.backlash_duration+1;
+                                naka.removeBadge("backlash");
+                                naka.addBadge(new BattleBadge({
+                                    name: "backlash",
+                                    css: "backlash",
+                                    tooltip: function(){
+                                        return naka.variables.getBacklashTooltip(naka);
+                                    }
+                                }))
+
+                                // naka.alter({
+                                //     effect: backlash,
+                                //     action: Data.AlterAction.ADD,
+                                //     origin: {
+                                //         type: Data.ActiveEffectType.POWER,
+                                //         name: "Duellist's Stance"
+                                //     }
+                                // })
+                                // naka.addActiveEffect(new ActiveEffect({
+                                //     name: "Duellist's Stance",
+                                //     originUser: naka,
+                                //     originObject: Data.ActiveEffectType.POWER,
+                                //     effects: [
+                                //         backlash
+                                //     ],
+                                //     style: {
+                                //         color: Data.Color.PURPLE,
+                                //         bold: true,
+                                //     },
+                                // }))
+                                // naka.applyEffects({name: "Duellist's Stance"}, naka, [
+                                //     new Stat({effect: Data.Effect.DUMMY, displayed: "_$Backlash$_", duration: 2})
+                                // ]);
+                            }
+                        }),
+                        new Trigger({
+                            name: "naka_deactivateBacklash",
+                            type: Data.TriggerType.ON_TURN_END,
+                            behavior: function(){
+                                // console.log("Backlash deactivated!");
+                                // this.owner.variables.backlash_active = false;
+                                const naka = this.owner;
+                                naka.variables.backlash_countdown = Math.max(0, naka.variables.backlash_countdown-1);
+
+                                if(naka.variables.backlash_countdown === 0) {
+                                    console.log("Backlash deactivated!");
+                                    this.owner.variables.backlash_active = false;
+                                    naka.removeBadge("backlash");
+                                }
+
                             }
                         }),
                         new Trigger({
                             name: "naka_backlashHit",
                             type: Data.TriggerType.ON_RECV_ATTACK,
                             checker: function(){
-                                return this.owner.variables.canUseBacklash(this.owner);
+                                return this.owner.variables.canUseBacklash(this.owner) && game.battle.currentPlay instanceof Enemy;
                             },
                             behavior: function() {
                                 console.log("Backlashed!!!!!!!!------------------");

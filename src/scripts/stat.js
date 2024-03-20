@@ -46,6 +46,7 @@ class Stat {
         this.alchemicalType = getValueFromObject(props, "alchemicalType", null);
         this.disabled = getValueFromObject(props, "disabled", false);
         this.displayed = getValueFromObject(props, "displayed", null);
+        this.applied = getValueFromObject(props, "applied", false);
 
         this.value = null;
 

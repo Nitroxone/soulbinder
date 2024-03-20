@@ -12,6 +12,7 @@ class ActiveEffect {
         this.effects = getValueFromObject(props, "effects", null);
         this.style = getValueFromObject(props, "style", null);
         this.immutable = getValueFromObject(props, "immutable", false);
+        this.onEnd = getValueFromObject(props, "onEnd", null);
 
         this.duration = [];
         for(let i = 0; i < this.effects.length; i++) {
