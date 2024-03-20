@@ -135,8 +135,6 @@ class NPC extends Entity {
 
         if(!action) ERROR('Undefined alteration action.');
 
-        if(this.name.toLowerCase() === "carhal") console.trace()
-
         if(action === Data.AlterAction.ADD) {
             const bonus = new Bonus(effect, origin, variables);
 
