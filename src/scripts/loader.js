@@ -3022,11 +3022,87 @@ const Loader = {
                         })
                     ],
                     striderType: Data.StriderType.SUPPORT,
-                    uniqueName: "Duellist's Stance",
+                    uniqueName: "Duellist Stance",
                     uniqueDesc: '<div class="par jus">Each time Naka attacks, she enters a <span class="bold blue">Backlash</span> state for 2 rounds. While in <span class="bold blue">Backlash</span> state, when she is the target of an attack, she attacks too in return.</div><div class="par jus">If a <span class="bold blue">Backlash</span> successfully hits a target, the ally that has the lowest health gets healed with 100% of the <span class="bold blue">Backlash</span>\'s damage value.</div><div class="par bulleted"><span class="bold">When attacking: </span>enters <span class="bold blue">Backlash</span> state (Damage = 80% of Naka\'s <span class="bold blue">Might</span> value, Accuracy = 80%).</div><div class="par bulleted"><span class="bold">On successful backlash</span>: <span class="bold blue">Heals</span> the ally with the lowest health at 100% of the damage dealt by the <span class="bold blue">Backlash</span>.</div>',
                     uniqueQuote: '"Don\'t be bold, play it safe. Stand still, unlock your knees and have your blade risen. Let the patience do you right : their ambition shall be their weakness."',
                     uniqueIcon: 0,
                     skillTree: what(game.all_skillTrees, "amarok"),
+                    skills: [
+                        new Skill(
+                            "Razorfangs",
+                            "§Moves forward§ and reduces the targets' §Stun resistance§.",
+                            1,
+                            {
+                                type: Data.SkillType.OFFENSIVE,
+                                manaCost: 10,
+                                cooldown: 1,
+                                dmgType: Data.SkillDamageType.PHYSICAL,
+                                dmgMultiplier: 90,
+                                criMultiplier: 15,
+                                accMultiplier: 85,
+                                targets: {allies: '-0', enemies: '@12'},
+                                launchPos: [true, true, false],
+                                effectsCaster: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.FRONT_ONE})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.FRONT_ONE})
+                                        ]
+                                    }
+                                },
+                                effectsEnemies: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.RES_STUN, theorical: [-15, -20], isPercentage: true, duration: 2})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.RES_STUN, theorical: -30, isPercentage: true, duration: 2})
+                                        ]
+                                    }
+                                }
+                            }
+                        ),
+                        new Skill(
+                            "Terrification",
+                            "§Stuns§ the targets and applies §Poison§ on them. §Moves backwards§.",
+                            3,
+                            {
+                                type: Data.SkillType.OFFENSIVE,
+                                manaCost: 15,
+                                cooldown: 3,
+                                dmgType: Data.SkillDamageType.MAGICAL,
+                                dmgMultiplier: 65,
+                                criMultiplier: 15,
+                                accMultiplier: 90,
+                                targets: {allies: '-0', enemies: '@123'},
+                                launchPos: [false, false, true],
+                                effectsCaster: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.BACK_TWO})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.BACK_TWO})
+                                        ]
+                                    }
+                                },
+                                effectsEnemies: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.STUN, duration: 2, chance: 90}),
+                                            new Stat({effect: Data.Effect.BLIGHT_CURABLE, duration: 2, theorical: [4, 6], type: Data.StatType.ACTIVE})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.STUN, duration: 2, chance: 105}),
+                                            new Stat({effect: Data.Effect.BLIGHT_CURABLE, duration: 2, theorical: 7, type: Data.StatType.ACTIVE})
+                                        ],
+                                    }
+                                }
+                            }
+                        )
+                    ],
                     customBgPos: "10% 50%"
                 },
             ),
