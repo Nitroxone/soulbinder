@@ -434,8 +434,6 @@ function generateBattleBadgesEvents(type) {
             const uid = badge.id.split('-')[1];
             const badgeObj = fighterObj.badges.find(x => x.uid === uid);
 
-            console.log('Badge:::', badgeObj);
-
             addTooltip(badge, badgeObj.tooltip, {offY: -8}, { css: ["framedSmaller"] });
         })
     })
