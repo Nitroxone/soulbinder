@@ -7776,7 +7776,10 @@ table.astralForgeShards td {
     }
 }
 
-.specialEffect.b-b_block:hover, .specialEffect.b-b_guarded:hover, .specialEffect.b-b_guarding:hover {
+.specialEffect.b-b_block:hover, 
+.specialEffect.b-b_guarded:hover, 
+.specialEffect.b-b_guarding:hover,
+.specialEffect.b-b_backlash:hover {
     filter: brightness(120%);
 }
 
@@ -7791,6 +7794,15 @@ table.astralForgeShards td {
 }
 .specialEffect.b-b_guarding {
     background: url('img/badges/guarding.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    margin: 0;
+
+    transition: all .1s ease-in-out;
+}
+.specialEffect.b-b_backlash {
+    background: url('img/badges/naka_backlash.png');
     background-size: cover;
     background-repeat: no-repeat;
 
