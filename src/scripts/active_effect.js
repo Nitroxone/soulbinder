@@ -11,6 +11,7 @@ class ActiveEffect {
         this.originObject = getValueFromObject(props, "originObject", null);
         this.effects = getValueFromObject(props, "effects", null);
         this.style = getValueFromObject(props, "style", null);
+        this.immutable = getValueFromObject(props, "immutable", false);
 
         this.duration = [];
         for(let i = 0; i < this.effects.length; i++) {
