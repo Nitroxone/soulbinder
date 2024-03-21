@@ -316,6 +316,7 @@ const Data = Object.freeze({
     },
     SkillLogicExecution: {
         PRE_DAMAGE: "PRE_DAMAGE",
+        POST_DAMAGE: "POST_DAMAGE",
         PRE_ALLIES_EFFECTS: "PRE_ALLIES_EFFECTS",
         PRE_ENEMIES_EFFECTS: "PRE_ENEMIES_EFFECTS",
         PRE_CASTER_EFFECTS: "PRE_CASTER_EFFECTS",

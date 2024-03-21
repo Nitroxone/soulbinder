@@ -791,6 +791,8 @@ class Battle {
                     tar.runTriggers(Data.TriggerType.ON_RECV_CRITICAL);
                 }
 
+                this.callSkillLogic(skill, tar, Data.SkillLogicExecution.POST_DAMAGE);
+
                 // Applying effects
                 effects = [];
                 if(skill.effectsAllies || skill.effectsEnemies) {
