@@ -2906,6 +2906,7 @@ const Loader = {
                         backlash_duration: 2,
                         backlash_armorPiercing: 0,
                         backlash_countdown: 0,
+                        backlash_success: false,
                         canUseBacklash: function(naka){
                             return this.backlash_active && !naka.isStunned;
                         },
@@ -2992,6 +2993,7 @@ const Loader = {
                                 // console.log("Backlash deactivated!");
                                 // this.owner.variables.backlash_active = false;
                                 const naka = this.owner;
+                                naka.variables.backlash_success = false;
                                 naka.variables.backlash_countdown = Math.max(0, naka.variables.backlash_countdown-1);
 
                                 if(naka.variables.backlash_countdown === 0) {
@@ -3016,6 +3018,7 @@ const Loader = {
 
                                 if(naka.variables.backlashAccuracyTest(naka, target)) {
                                     console.log("Successful backlash!---------------------------------------");
+                                    naka.variables.backlash_success = true;
                                     target.receiveDamage(naka.variables.computeBacklashValue(naka));
                                 } else console.error("Backlash failed!-----------------------------------------");
                             }
@@ -3168,12 +3171,14 @@ const Loader = {
                                             new Stat({effect: Data.Effect.FRONT_ONE}),
                                             new Stat({effect: Data.Effect.DUMMY, theorical: 10, isPercentage: true, duration: 2, displayed: "+° *|Backlash|* Damage"}),
                                             new Stat({effect: Data.Effect.DUMMY, theorical: 10, isPercentage: true, duration: 2, displayed: "+° *|Backlash|* Accuracy"}),
+                                            new Stat({effect: Data.Effect.DUMMY, theorical: 10, isPercentage: true, duration: 2, displayed: "^° Mana^ on *|Backlash|* hit"}),
                                         ],
                                         critical: [
                                             new Stat({effect: Data.Effect.GUARDING, duration: 2}),
                                             new Stat({effect: Data.Effect.FRONT_ONE}),
                                             new Stat({effect: Data.Effect.DUMMY, theorical: 10, isPercentage: true, duration: 2, displayed: "+° *|Backlash|* Damage"}),
                                             new Stat({effect: Data.Effect.DUMMY, theorical: 10, isPercentage: true, duration: 2, displayed: "+° *|Backlash|* Accuracy"}),
+                                            new Stat({effect: Data.Effect.DUMMY, theorical: 10, isPercentage: true, duration: 2, displayed: "^° Mana^ on *|Backlash|* hit"}),
                                         ]
                                     }
                                 },
@@ -3181,9 +3186,43 @@ const Loader = {
                                     1: {
                                         regular: [
                                             new Stat({effect: Data.Effect.GUARDED, duration: 2})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.GUARDED, duration: 2})
                                         ]
                                     }
-                                }
+                                },
+                                variables: {
+                                    guarded: null,
+                                    guarding: null
+                                },
+                                onCast: function(){
+                                    const naka = this.getOwner();
+                                    naka.variables.backlash_might += 0.1;
+                                    naka.variables.backlash_accuracy += 0.1;
+                                },
+                                onEnd: {
+                                    caster: function(){
+                                        console.log("ENDING");
+                                        const naka = this.getOwner();
+                                        naka.variables.backlash_might -= 0.1;
+                                        naka.variables.backlash_accuracy -= 0.1;
+                                    },
+                                },
+                                triggersCaster: [
+                                    new Trigger({
+                                        name: "naka_provocationBacklashRegenMana",
+                                        type: Data.TriggerType.ON_RECV_ATTACK,
+                                        behavior: function(){
+                                            const sk = this.getOwner();
+                                            const naka = sk.getOwner();
+                                            if(naka.variables.backlash_success) {
+                                                sk.variables.guarded?.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 10, isPercentage: true}), naka);
+                                                naka.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 10, isPercentage: true}), naka);
+                                            }
+                                        }
+                                    })
+                                ]
                             }
                         )
                     ],
