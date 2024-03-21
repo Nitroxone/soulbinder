@@ -162,6 +162,12 @@ class Stat {
             } else {
                 color = Data.Color.ORANGE;
             }
+
+            if(isBleedingEffect(this)) color = Data.Color.RED;
+            else if(isPoisoningEffect(this)) {
+                console.log("YESSAI");
+                color = Data.Color.DARK_GREEN;
+            }
         }
         if(allowOverloadedStyling) {
             if(this.fixed && this.getValue() > this.theorical[1] && this.getValue() > 0) {
