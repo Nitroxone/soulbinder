@@ -3101,6 +3101,53 @@ const Loader = {
                                     }
                                 }
                             }
+                        ),
+                        new Skill(
+                            "Viper's Hook",
+                            "§Moves backwards§ and regenerates Naka's §Stamina§. On kill, §Heals§ all allies.",
+                            2,
+                            {
+                                type: Data.SkillType.OFFENSIVE,
+                                manaCost: 10,
+                                cooldown: 1,
+                                dmgType: Data.SkillDamageType.PHYSICAL,
+                                dmgMultiplier: 75,
+                                criMultiplier: 10,
+                                accMultiplier: 100,
+                                targets: {allies: '-0', enemies: '-12'},
+                                launchPos: [false, true, true],
+                                effectsCaster: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.BACK_ONE}),
+                                            new Stat({effect: Data.Effect.STAMINA, theorical: [8, 10], isPercentage: true, type: Data.StatType.ACTIVE})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.BACK_ONE}),
+                                            new Stat({effect: Data.Effect.STAMINA, theorical: 12, isPercentage: true, type: Data.StatType.ACTIVE})
+                                        ],
+                                    }
+                                },
+                                effectsAllies: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.DUMMY, theorical: [10, 12], isPercentage: true, displayed: "$On kill:$ ^Heals^ °"})
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.DUMMY, theorical: [10, 12], isPercentage: true, displayed: "$On kill:$ ^Heals^ °"})
+                                        ]
+                                    }
+                                },
+                                logicEnemies: {
+                                    POST_DAMAGE: function(tar) {
+                                        if(tar.isDead()) {
+                                            game.battle.allies.filter(x => !x.isDead()).forEach(ally => {
+                                                ally.addBaseStat(new Stat({effect: Data.Effect.HEALTH, theorical: [10, 12], isPercentage: true}), this.getOwner());
+                                            })
+                                        }
+                                    }
+                                }
+                            }
                         )
                     ],
                     customBgPos: "10% 50%"
