@@ -251,10 +251,11 @@ class Stat {
 
     /**
      * Processes the "displayed" string by replacing its tokens with the appropriate values.
-     * - § Turquoise coloration
+     * - § Purple coloration
      * - $ Orange coloration
      * - ^ Green coloration
      * - ~ Red coloration
+     * - | Blue coloration
      * - * Bold
      * - _ Underlined
      * - ° Prints this Stat's value
@@ -278,7 +279,7 @@ class Stat {
         replaced = replaced.replace(orangeRegex, '<span style="color: ' + Data.Color.ORANGE + ';">$1</span>');
         replaced = replaced.replace(greenRegex, '<span style="color: ' + Data.Color.GREEN + ';">$1</span>');
         replaced = replaced.replace(redRegex, '<span style="color: ' + Data.Color.RED + ';">$1</span>');
-        replaced = replaced.replace(blueRegex, '<span style="color: ' + Data.Color.TURQUOISE + ';">$1</span>');
+        replaced = replaced.replace(blueRegex, '<span style="color: ' + Data.Color.LIGHT_BLUE + ';">$1</span>');
         replaced = replaced.replace(boldRegex, '<span style="font-family: RobotoBold;">$1</span>');
         replaced = replaced.replace(underlinedRegex, '<span style="text-decoration:underline;">$1</span>');
         replaced = replaced.replace(valRegex, this.getStatSkillValue());

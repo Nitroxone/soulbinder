@@ -41,6 +41,7 @@ const Data = Object.freeze({
         DARK_GREEN: '#7FFF00',
         RED: '#e84118',
         BLUE: '#0097e6',
+        LIGHT_BLUE: '#7393B3',
         CRITICAL_EFF: '#ece2b6',
         TURQUOISE: '#1abc9c',
         ORANGE: '#ccaa08',
