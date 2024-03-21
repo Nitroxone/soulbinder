@@ -326,7 +326,8 @@ function getTargetString(range) {
     const targets = range.substring(1);
     let result = '';
     if(targets == '123') {
-        result = 'Any' + selector;
+        if(range.charAt(0) === '-') result = 'Any' + selector;
+        else result = 'All' + selector;
     } else {
         for(let i = 0; i < targets.length; i++) {
             switch(targets.charAt(i)) {
