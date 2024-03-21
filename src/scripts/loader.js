@@ -3166,14 +3166,14 @@ const Loader = {
                                         regular: [
                                             new Stat({effect: Data.Effect.GUARDING, duration: 2}),
                                             new Stat({effect: Data.Effect.FRONT_ONE}),
-                                            new Stat({effect: Data.Effect.DUMMY, theorical: 10, isPercentage: true, displayed: "° *|Backlash|* Damage"}),
-                                            new Stat({effect: Data.Effect.DUMMY, theorical: 10, isPercentage: true, displayed: "° *|Backlash|* Accuracy"}),
+                                            new Stat({effect: Data.Effect.DUMMY, theorical: 10, isPercentage: true, duration: 2, displayed: "+° *|Backlash|* Damage"}),
+                                            new Stat({effect: Data.Effect.DUMMY, theorical: 10, isPercentage: true, duration: 2, displayed: "+° *|Backlash|* Accuracy"}),
                                         ],
                                         critical: [
                                             new Stat({effect: Data.Effect.GUARDING, duration: 2}),
                                             new Stat({effect: Data.Effect.FRONT_ONE}),
-                                            new Stat({effect: Data.Effect.DUMMY, theorical: 10, isPercentage: true, displayed: "° *|Backlash|* Damage"}),
-                                            new Stat({effect: Data.Effect.DUMMY, theorical: 10, isPercentage: true, displayed: "° *|Backlash|* Accuracy"}),
+                                            new Stat({effect: Data.Effect.DUMMY, theorical: 10, isPercentage: true, duration: 2, displayed: "+° *|Backlash|* Damage"}),
+                                            new Stat({effect: Data.Effect.DUMMY, theorical: 10, isPercentage: true, duration: 2, displayed: "+° *|Backlash|* Accuracy"}),
                                         ]
                                     }
                                 },
