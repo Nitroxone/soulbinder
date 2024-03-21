@@ -1127,6 +1127,14 @@ class NPC extends Entity {
         if(ae.originObject instanceof Skill) {
             const sk = ae.originObject;
 
+            if(sk.onEnd) {
+                sk.onEnd.any && sk.onEnd.any();
+                if(ae.originUser === this) sk.onEnd.caster && sk.onEnd.caster();
+
+                if(this instanceof Enemy) sk.onEnd.enemies && sk.onEnd.enemies();
+                else if(this instanceof Strider) sk.onEnd.allies && sk.onEnd.allies();
+            }
+
             // If origin user = this, remove all triggers
             // Otherwise just remove them from this
             if(ae.originUser === this) {

@@ -37,6 +37,7 @@ class Skill extends Entity {
         this.stackable = getValueFromObject(props, "stackable", 1);
         this.ignoresProtection = getValueFromObject(props, "ignoreProtection", false);
         this.onCast = getValueFromObject(props, "onCast", null);
+        this.onEnd = getValueFromObject(props, "onEnd", null);
         this.applyCasterEffectsOnlyOnHit = getValueFromObject(props, "applyCasterEffectsOnlyOnHit", false);
         this.applyCasterTriggersOnlyOnHit = getValueFromObject(props, "applyCasterTriggersOnlyOnHit", false);
         this.applyAlliesTriggersOnlyOnHit = getValueFromObject(props, "applyAlliesTriggersOnlyOnHit", false);
@@ -150,6 +151,7 @@ class Skill extends Entity {
             this.logicCaster,
             this.logicEnemies,
             this.logicAny,
+            this.onEnd
         ].forEach(cat => {
             for(const type in cat) {
                 console.log("BOUND " + type + " from " + this.name);
