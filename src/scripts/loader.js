@@ -3148,6 +3148,43 @@ const Loader = {
                                     }
                                 }
                             }
+                        ),
+                        new Skill(
+                            "Provocation",
+                            "§Guards§ the targeted ally, and §Moves forward§. Increases §Backlash§'s damage and accuracy. While the effect is active, successful §Backlash§ hits regenerate the guarded ally's and Naka's §Mana§.",
+                            4,
+                            {
+                                type: Data.SkillType.FRIENDLY,
+                                manaCost: 15,
+                                cooldown: 2,
+                                criMultiplier: 10,
+                                accMultiplier: 100,
+                                targets: {allies: '-123', enemies: '-0'},
+                                launchPos: [true, true, true],
+                                effectsCaster: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.GUARDING, duration: 2}),
+                                            new Stat({effect: Data.Effect.FRONT_ONE}),
+                                            new Stat({effect: Data.Effect.DUMMY, theorical: 10, isPercentage: true, displayed: "° *|Backlash|* Damage"}),
+                                            new Stat({effect: Data.Effect.DUMMY, theorical: 10, isPercentage: true, displayed: "° *|Backlash|* Accuracy"}),
+                                        ],
+                                        critical: [
+                                            new Stat({effect: Data.Effect.GUARDING, duration: 2}),
+                                            new Stat({effect: Data.Effect.FRONT_ONE}),
+                                            new Stat({effect: Data.Effect.DUMMY, theorical: 10, isPercentage: true, displayed: "° *|Backlash|* Damage"}),
+                                            new Stat({effect: Data.Effect.DUMMY, theorical: 10, isPercentage: true, displayed: "° *|Backlash|* Accuracy"}),
+                                        ]
+                                    }
+                                },
+                                effectsAllies: {
+                                    1: {
+                                        regular: [
+                                            new Stat({effect: Data.Effect.GUARDED, duration: 2})
+                                        ]
+                                    }
+                                }
+                            }
                         )
                     ],
                     customBgPos: "10% 50%"
