@@ -713,6 +713,28 @@ class Battle {
         if(final > 0) this.currentPlay.removeBaseStat(new Stat({effect: Data.Effect.HEALTH, theorical: final}));
     }
 
+    canApplyGuard(tar, skill, accessor) {
+        if(tar.isGuarded) {
+            if(this.currentPlay instanceof Strider && tar instanceof Enemy) {
+                if(skill.effectsEnemies && !skill.effectsEnemies[skill.level][accessor].some(x => x.effect === Data.Effect.SHATTERS_GUARD)) {
+                    return true;
+                }
+            } else if(this.currentPlay instanceof Enemy && tar instanceof Strider) {
+                if(skill.effectsAllies && !skill.effectsAllies[skill.level][accessor].some(x => x.effect === Data.Effect.SHATTERS_GUARD)) {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+
+        return tar.isGuarded
+                &&
+                (this.currentPlay instanceof Strider && tar instanceof Enemy && skill.effectsEnemies || this.currentPlay instanceof Enemy && tar instanceof Strider && skill.effectsAllies )
+                &&
+                !skill.effectsEnemies[skill.level][accessor].some(x => x.effect === Data.Effect.SHATTERS_GUARD)
+    }
+
     /**
      * Executes all of the effects and damage of the selected Skill on the selected target(s).
      */
@@ -748,16 +770,12 @@ class Battle {
                 // Guard checks - allow guard only if
                 // - Is a single target enemy attack
                 // - Skill doesn't contain a guard shattering effect
-                if(tar.isGuarded
-                    &&
-                    skill.effectsEnemies
-                    &&
-                    !skill.effectsEnemies[skill.level][accessor].some(x => x.effect === Data.Effect.SHATTERS_GUARD)) {
+                if(this.canApplyGuard(tar, skill, accessor)) {
                     console.error('PROCESSING GUARD...');
                     const allyCheck = this.allies.includes(current) && this.allies.includes(tar);
                     const enemCheck = this.enemies.includes(current) && this.enemies.includes(tar);
 
-                    if(!(this.target.length > 1 || allyCheck || enemCheck)) {
+                    if(!((this.target.length > 1 && this.target.includes(tar.guardedBy)) || allyCheck || enemCheck)) {
                         tar = tar.guardedBy;
                         console.error('APPLIED GUARD');
                     }
