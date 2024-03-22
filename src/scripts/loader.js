@@ -669,9 +669,18 @@ const Loader = {
                 ],
                 "Venom coursing through your veins like a malevolent river.",
                 {
-                    "health_regen": [2, 4]
+                    "health_regen": [3, 5]
                 },
-                [],
+                [
+                    new Trigger({
+                        name: "snakebite_trigger",
+                        type: Data.TriggerType.ON_DEAL_POISON,
+                        behavior: function(){
+                            console.log("SNAKEBITE ECHO TRIGGERED");
+                            this.owner.addBaseStat(new Stat({effect: Data.Effect.HEALTH, theorical: this.variables.health_regen, isPercentage: true}));
+                        }
+                    })
+                ],
                 Data.EchoType.WEAPON
             ),
             new Echo(
