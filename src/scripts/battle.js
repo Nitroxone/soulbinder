@@ -638,6 +638,8 @@ class Battle {
                             italic: false
                         }
                     }));
+                    tar.runTriggers(Data.TriggerType.ON_RECV_BLEEDING);
+                    this.currentPlay.runTriggers(Data.TriggerType.ON_DEAL_BLEEDING);
                 }
                 if(weapon.poison[0] > 0 && (weapon.poison[0] - tar.resPoison[0]) > 0) {
                     tar.addActiveEffect(new ActiveEffect({
@@ -658,6 +660,8 @@ class Battle {
                             italic: false
                         }
                     }));
+                    tar.runTriggers(Data.TriggerType.ON_RECV_POISON);
+                    this.currentPlay.runTriggers(Data.TriggerType.ON_DEAL_POISON);
                 }
 
                 if(tar.stamina <= 0 && tar.shield <= 0) {

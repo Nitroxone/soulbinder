@@ -923,11 +923,19 @@ class NPC extends Entity {
                 this.addBattlePopup(new BattlePopup(0, '<p>Evaded!</p>'));
             }
         }
-        else if(!isBleedingOrPoisoning(eff)) this.alter({
-            effect: eff,
-            action: Data.AlterAction.ADD,
-            origin: skill
-        });
+        else if(!isBleedingOrPoisoning(eff)) {
+            this.alter({
+                effect: eff,
+                action: Data.AlterAction.ADD,
+                origin: skill
+            })
+        } else if(isPoisoningEffect(eff)) {
+            this.runTriggers(Data.TriggerType.ON_RECV_POISON);
+            originUser.runTriggers(Data.TriggerType.ON_DEAL_POISON);
+        } else if(isBleedingEffect(eff)) {
+            this.runTriggers(Data.TriggerType.ON_RECV_BLEEDING);
+            originUser.runTriggers(Data.TriggerType.ON_DEAL_BLEEDING);
+        }
         else this.applyEffect(eff);
         eff.applied = true;
     }
@@ -1003,6 +1011,13 @@ class NPC extends Entity {
                         if(isBaseStatChange(eff)) this.alterBaseStat(eff);
                         else if(isBleedingOrPoisoning(eff)) {
                             this.receiveBleedOrPoison(eff);
+                            if(isBleedingEffect(eff)) {
+                                this.runTriggers(Data.TriggerType.ON_RECV_BLEEDING_TICK);
+                                ae.originUser.runTriggers(Data.TriggerType.ON_DEAL_BLEEDING_TICK);
+                            } else if(isPoisoningEffect(eff)) {
+                                this.runTriggers(Data.TriggerType.ON_RECV_POISON_TICK);
+                                ae.originUser.runTriggers(Data.TriggerType.ON_DEAL_POISON_TICK);
+                            }
                         }
                         else this.applyEffect(eff);
                     } else {
