@@ -3020,6 +3020,13 @@ const Loader = {
                                     console.log("Successful backlash!---------------------------------------");
                                     naka.variables.backlash_success = true;
                                     target.receiveDamage(naka.variables.computeBacklashValue(naka));
+
+                                    // Heal ally with lowest health
+                                    const lowest = game.battle.allies.reduce((min, current) => {
+                                        return current.health < min.health ? current : min;
+                                    }, game.battle.allies[0]);
+
+                                    lowest.addBaseStat(new Stat({effect: Data.Effect.HEALTH, theorical: game.battle.receivedDamage}), naka);
                                 } else console.error("Backlash failed!-----------------------------------------");
                             }
                         })
