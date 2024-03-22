@@ -2652,7 +2652,7 @@ const Loader = {
                             13,
                             {
                                 type: Data.SkillType.OFFENSIVE,
-                                manaCost: 5,
+                                manaCost: 3,
                                 cooldown: 1,
                                 dmgType: Data.SkillDamageType.PHYSICAL,
                                 dmgMultiplier: 35,
@@ -2692,7 +2692,7 @@ const Loader = {
                             14,
                             {
                                 type: Data.SkillType.OFFENSIVE,
-                                manaCost: 20,
+                                manaCost: 7,
                                 cooldown: 3,
                                 dmgType: Data.SkillDamageType.PHYSICAL,
                                 dmgMultiplier: 150,
@@ -2737,7 +2737,7 @@ const Loader = {
                             15,
                             {
                                 type: Data.SkillType.FRIENDLY,
-                                manaCost: 15,
+                                manaCost: 5,
                                 cooldown: 3,
                                 criMultiplier: 10,
                                 accMultiplier: 100,
@@ -2784,7 +2784,7 @@ const Loader = {
                             16,
                             {
                                 type: Data.SkillType.FRIENDLY,
-                                manaCost: 10,
+                                manaCost: 5,
                                 cooldown: 3,
                                 criMultiplier: 10,
                                 accMultiplier: 100,
@@ -2824,7 +2824,7 @@ const Loader = {
                             17,
                             {
                                 type: Data.SkillType.OFFENSIVE,
-                                manaCost: 10,
+                                manaCost: 4,
                                 cooldown: 2,
                                 dmgType: Data.SkillDamageType.MAGICAL,
                                 dmgMultiplier: 60,
@@ -3044,7 +3044,7 @@ const Loader = {
                             1,
                             {
                                 type: Data.SkillType.OFFENSIVE,
-                                manaCost: 10,
+                                manaCost: 3,
                                 cooldown: 1,
                                 dmgType: Data.SkillDamageType.PHYSICAL,
                                 dmgMultiplier: 90,
@@ -3080,7 +3080,7 @@ const Loader = {
                             3,
                             {
                                 type: Data.SkillType.OFFENSIVE,
-                                manaCost: 15,
+                                manaCost: 5,
                                 cooldown: 3,
                                 dmgType: Data.SkillDamageType.MAGICAL,
                                 dmgMultiplier: 65,
@@ -3118,7 +3118,7 @@ const Loader = {
                             2,
                             {
                                 type: Data.SkillType.OFFENSIVE,
-                                manaCost: 10,
+                                manaCost: 5,
                                 cooldown: 1,
                                 dmgType: Data.SkillDamageType.PHYSICAL,
                                 dmgMultiplier: 75,
@@ -3165,7 +3165,7 @@ const Loader = {
                             4,
                             {
                                 type: Data.SkillType.FRIENDLY,
-                                manaCost: 15,
+                                manaCost: 4,
                                 cooldown: 2,
                                 criMultiplier: 10,
                                 accMultiplier: 100,
@@ -3426,7 +3426,7 @@ const Loader = {
                             13,
                             {
                                 type: Data.SkillType.FRIENDLY,
-                                manaCost: 5,
+                                manaCost: 3,
                                 criMultiplier: 15,
                                 accMultiplier: 100,
                                 cooldown: 2,
@@ -3454,7 +3454,7 @@ const Loader = {
                             {
                                 type: Data.SkillType.OFFENSIVE,
                                 dmgType: Data.SkillDamageType.MAGICAL,
-                                manaCost: 10,
+                                manaCost: 5,
                                 dmgMultiplier: 100,
                                 criMultiplier: 10,
                                 accMultiplier: 90,
@@ -3480,7 +3480,7 @@ const Loader = {
                             {
                                 type: Data.SkillType.OFFENSIVE,
                                 dmgType: Data.SkillDamageType.PHYSICAL,
-                                manaCost: 15,
+                                manaCost: 5,
                                 dmgMultiplier: 90,
                                 criMultiplier: 15,
                                 accMultiplier: 100,
@@ -3511,7 +3511,7 @@ const Loader = {
                             {
                                 type: Data.SkillType.OFFENSIVE,
                                 dmgType: Data.SkillDamageType.MAGICAL,
-                                manaCost: 15,
+                                manaCost: 7,
                                 dmgMultiplier: 120,
                                 criMultiplier: 20,
                                 accMultiplier: 85,
@@ -3607,7 +3607,7 @@ const Loader = {
                             13,
                             {
                                 type: Data.SkillType.FRIENDLY,
-                                manaCost: 5,
+                                manaCost: 3,
                                 critMultiplier: 20,
                                 accMultiplier: 85,
                                 targets: {allies: '-123', enemies: '-123'},
@@ -3653,7 +3653,7 @@ const Loader = {
                             14,
                             {
                                 type: Data.SkillType.FRIENDLY,
-                                manaCost: 20,
+                                manaCost: 7,
                                 critMultiplier: 15,
                                 accMultiplier: 100,
                                 targets: {allies: '@123', enemies: '-0'},
@@ -3677,7 +3677,7 @@ const Loader = {
                             15,
                             {
                                 type: Data.SkillType.OFFENSIVE,
-                                manaCost: 5,
+                                manaCost: 3,
                                 dmgType: Data.SkillDamageType.MAGICAL,
                                 dmgMultiplier: 20,
                                 criMultiplier: 10,
@@ -3713,7 +3713,7 @@ const Loader = {
                             16,
                             {
                                 type: Data.SkillType.FRIENDLY,
-                                manaCost: 10,
+                                manaCost: 4,
                                 criMultiplier: 15,
                                 targets: {allies: '-123', enemies: '-0'},
                                 effectsCaster: {
@@ -3745,7 +3745,7 @@ const Loader = {
                             {
                                 type: Data.SkillType.OFFENSIVE,
                                 dmgType: Data.SkillDamageType.MAGICAL,
-                                manaCost: 20,
+                                manaCost: 6,
                                 dmgMultiplier: 90,
                                 accMultiplier: 90,
                                 criMultiplier: 10,
@@ -3917,7 +3917,7 @@ const Loader = {
                             4,
                             {
                                 type: Data.SkillType.FRIENDLY,
-                                manaCost: 10,
+                                manaCost: 3,
                                 criMultiplier: 15,
                                 accMultiplier: 100,
                                 targets: {allies: '-123', enemies: '-123'},
@@ -3983,7 +3983,7 @@ const Loader = {
                             1,
                             {
                                 type: Data.SkillType.OFFENSIVE,
-                                manaCost: 10,
+                                manaCost: 4,
                                 dmgMultiplier: 95,
                                 criMultiplier: 10,
                                 accMultiplier: 95,
@@ -4060,7 +4060,7 @@ const Loader = {
                                 cooldown: 2,
                                 launchPos: [true, true, false],
                                 targets: {allies: '-0', enemies: '-23'},
-                                manaCost: 15,
+                                manaCost: 6,
                                 effectsEnemies: {
                                     1: {
                                         regular: [
@@ -4085,7 +4085,7 @@ const Loader = {
                                 accMultiplier: 100,
                                 cooldown: 1,
                                 targets: {allies: '-123', enemies: '-0'},
-                                manaCost: 15,
+                                manaCost: 5,
                                 effectsAllies: {
                                     1: {
                                         regular: [
@@ -4126,7 +4126,7 @@ const Loader = {
                                 accMultiplier: 90,
                                 cooldown: 2,
                                 targets: {allies: '-12', enemies: '-23'},
-                                manaCost: 15,
+                                manaCost: 4,
                                 effectsAllies: {
                                     1: {
                                         regular: [
