@@ -874,7 +874,7 @@ const Loader = {
                     "stun_accuracy_bonus": [10, 20]
                 },
                 [],
-                Data.EchoType.TRINKET
+                Data.EchoType.ARMOR
             ),
             new Echo(
                 "Corrosive Blades",
@@ -912,7 +912,7 @@ const Loader = {
                     "given_heal_bonus": [1, 3],
                 },
                 [],
-                Data.EchoType.TRINKET
+                Data.EchoType.ARMOR
             ),
             new Echo(
                 "Erode Away",
