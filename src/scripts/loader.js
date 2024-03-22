@@ -837,15 +837,30 @@ const Loader = {
             ),
             new Echo(
                 "Relentless",
-                "Each critical hit generates a shield whose value equals §1% of your {MAXHEALTH} (stackable).",
+                "Each critical hit generates a shield which value equals §1% of your {MAXHEALTH} (stackable).",
                 1,
                 Data.Rarity.SINGULAR,
                 [],
                 "When facing an insurmountable foe, the only defense is a relentless attack that leaves no room for their counteroffensive.",
                 {
-                    "shield_bonus": [2, 4],
+                    "shield_bonus": [4, 5],
                 },
-                [],
+                [
+                    new Trigger({
+                        name: "relentless_Trigger",
+                        type: Data.TriggerType.ON_DEAL_CRITICAL,
+                        behavior: function(){
+                            console.log("RELENTLESS ECHO TRIGGERED");
+                            this.owner.applyEffects(
+                                this, 
+                                this.owner,
+                                [
+                                    new Stat({effect: Data.Effect.SHIELD, theorical: this.variables.shield_bonus, duration: 2})
+                                ]
+                            );
+                        }
+                    })
+                ],
                 Data.EchoType.ARMOR
             ),
             new Echo(
