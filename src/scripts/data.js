@@ -54,7 +54,7 @@ const Data = Object.freeze({
         GRAND: '#ff00ff',
         MYTHIC: '#ffaa00',
         RELIC: '#fb3e8d',
-        
+
         OVERLOADED: '#6ebe55',
         OVERLOAD: '#0097e6',
 
@@ -189,6 +189,8 @@ const Data = Object.freeze({
         GUARDING: "Guarding",
         GUARDED: "Guarded",
         SHATTERS_GUARD: "shatters guard",
+        CURES_BLEEDING: "cures bleeding",
+        CURES_POISONING: "cures poisoning",
 
         // CONSUMABLES EFFECTS:
         REMOVES_PROTECTION_DEBUFFS: "removes Protection debuffs",
@@ -242,7 +244,7 @@ const Data = Object.freeze({
         ON_ROUND_END: 'ON_ROUND_END',
         ON_BATTLE_START: 'ON_BATTLE_START',
         ON_BATTLE_END: 'ON_BATTLE_END',
-        
+
         ON_BLOCK_BEGIN: 'ON_BLOCK',
         ON_BLOCK: 'ON_BLOCK',
         ON_BLOCK_END: 'ON_BLOCK_END',
@@ -481,7 +483,7 @@ const Data = Object.freeze({
     //------------------------------------------------------
     DungeonNames: {
         PUTRESCENT_OSSUARY: "putrescent ossuary",
-    },  
+    },
     DungeonRoomType: {
         UNASSIGNED: "unassigned",
         ENTRANCE: "entrance",

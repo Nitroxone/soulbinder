@@ -11,118 +11,118 @@ const Loader = {
     loadWeapons: loadWeapons = () => {
         const weapons = [
             new Weapon("Highsteel Sword",
-                       "Swift and quite light. Effective in the hands of a swords master.",
-                       3,
-                       10,
-                       Data.Rarity.REGULAR,
-                       Data.WeaponType.SWORD,
-                       Data.WeaponWeight.LIGHT,
-                       [8, 13],
-                       [0, 0],
-                       [1, 3],
-                       [1, 3],
-                       [4, 6],
-                       [2, 3],
-                       [[1, 3], [1, 1], true],
-                       [[0, 0], [0, 0], true],
-                       [true, true, false],
-                       ),
+                "Swift and quite light. Effective in the hands of a swords master.",
+                3,
+                10,
+                Data.Rarity.REGULAR,
+                Data.WeaponType.SWORD,
+                Data.WeaponWeight.LIGHT,
+                [8, 13],
+                [0, 0],
+                [1, 3],
+                [1, 3],
+                [4, 6],
+                [2, 3],
+                [[1, 3], [1, 1], true],
+                [[0, 0], [0, 0], true],
+                [true, true, false],
+            ),
             new Weapon("Entarian Axe",
-                       "Axe description",
-                       4,
-                       10,
-                       Data.Rarity.REGULAR,
-                       Data.WeaponType.AXE,
-                       Data.WeaponWeight.HEAVY,
-                       [15, 18],
-                       [1, 3],
-                       [2, 5],
-                       [7, 9],
-                       [8, 9],
-                       [5, 8],
-                       [[2, 4], [1, 1], true],
-                       [[0, 0], [0, 0], true],
-                       [true, true, false],
-                       ),
+                "Axe description",
+                4,
+                10,
+                Data.Rarity.REGULAR,
+                Data.WeaponType.AXE,
+                Data.WeaponWeight.HEAVY,
+                [15, 18],
+                [1, 3],
+                [2, 5],
+                [7, 9],
+                [8, 9],
+                [5, 8],
+                [[2, 4], [1, 1], true],
+                [[0, 0], [0, 0], true],
+                [true, true, false],
+            ),
             new Weapon("Drancoran Staff",
-                       "Staff description",
-                       1,
-                       10,
-                       Data.Rarity.SINGULAR,
-                       Data.WeaponType.STAFF,
-                       Data.WeaponWeight.LIGHT,
-                       [2, 4],
-                       [11, 17],
-                       [3, 5],
-                       [5, 7],
-                       [8, 11],
-                       [4, 6],
-                       [[0, 0], [0, 0], true],
-                       [[1, 3], [1, 1], true],
-                       [true, true, true],
-                       ),
+                "Staff description",
+                1,
+                10,
+                Data.Rarity.SINGULAR,
+                Data.WeaponType.STAFF,
+                Data.WeaponWeight.LIGHT,
+                [2, 4],
+                [11, 17],
+                [3, 5],
+                [5, 7],
+                [8, 11],
+                [4, 6],
+                [[0, 0], [0, 0], true],
+                [[1, 3], [1, 1], true],
+                [true, true, true],
+            ),
             new Weapon("Arbrean Spear",
-                       "Spear description",
-                       2,
-                       100,
-                       Data.Rarity.SINGULAR,
-                       Data.WeaponType.SPEAR,
-                       Data.WeaponWeight.HEAVY,
-                       [5, 6],
-                       [1, 2],
-                       [6, 9],
-                       [10, 12],
-                       [8, 9],
-                       [5, 8],
-                       [[1, 1], [1, 1], true],
-                       [[0, 0], [0, 0], true],
-                       [true, true, true]
-                       ),
+                "Spear description",
+                2,
+                100,
+                Data.Rarity.SINGULAR,
+                Data.WeaponType.SPEAR,
+                Data.WeaponWeight.HEAVY,
+                [5, 6],
+                [1, 2],
+                [6, 9],
+                [10, 12],
+                [8, 9],
+                [5, 8],
+                [[1, 1], [1, 1], true],
+                [[0, 0], [0, 0], true],
+                [true, true, true]
+            ),
             new Weapon("Solana's Sword of the Sun",
-                       "Solana left this blade behind her; it knew many porters, but never a master. At least, that was until it fell into the hands of Betheros. The golden filaments of the hilt closed around his wrist, hugging it to perfection; like a distant kiss from the woman he once loved, and would never stop loving until his last breath.",
-                       12,
-                       10,
-                       Data.Rarity.MYTHIC,
-                       Data.WeaponType.SWORD,
-                       Data.WeaponWeight.LIGHT,
-                       [13, 18],
-                       [24, 26],
-                       [11, 14],
-                       [10, 12],
-                       [15, 18],
-                       [16, 18],
-                       [[5, 8], [1, 3], true],
-                       [[0, 0], [0, 0], true],
-                       [true, true, false],
-                       3,
-                       new Echo(
-                        "Solana's Tulips",
-                        "Each non-critical hit with this weapon gives a §1% {CRIT_LUK} bonus to its bearer, for one round. Each critical hit with this weapon regenerates §2% of its bearer's {MAXMANA} and generates §3 {SHIELD} points.",
-                        1,
-                        Data.Rarity.MYTHIC,
-                        [
-                            new Stat({
-                                effect: Data.Effect.MODIF_HEAL_GIVEN,
-                                theorical: [8, 12],
-                                isPercentage: true
-                            }),
-                            new Stat({
-                                effect: Data.Effect.MODIF_CRIT_SKILL,
-                                theorical: [4, 6],
-                                isPercentage: true
-                            }),
-                        ],
-                        "Everything seemed to draw her back to him: the scent of tulips, the red of strawberries, the shine of gold.",
-                        {
-                            "bonus_critical_luck": [10, 15],
-                            "mana_regen": [4, 6],
-                            "shield": [20, 26]
-                        },
-                        [],
-                       ))
+                "Solana left this blade behind her; it knew many porters, but never a master. At least, that was until it fell into the hands of Betheros. The golden filaments of the hilt closed around his wrist, hugging it to perfection; like a distant kiss from the woman he once loved, and would never stop loving until his last breath.",
+                12,
+                10,
+                Data.Rarity.MYTHIC,
+                Data.WeaponType.SWORD,
+                Data.WeaponWeight.LIGHT,
+                [13, 18],
+                [24, 26],
+                [11, 14],
+                [10, 12],
+                [15, 18],
+                [16, 18],
+                [[5, 8], [1, 3], true],
+                [[0, 0], [0, 0], true],
+                [true, true, false],
+                3,
+                new Echo(
+                    "Solana's Tulips",
+                    "Each non-critical hit with this weapon gives a §1% {CRIT_LUK} bonus to its bearer, for one round. Each critical hit with this weapon regenerates §2% of its bearer's {MAXMANA} and generates §3 {SHIELD} points.",
+                    1,
+                    Data.Rarity.MYTHIC,
+                    [
+                        new Stat({
+                            effect: Data.Effect.MODIF_HEAL_GIVEN,
+                            theorical: [8, 12],
+                            isPercentage: true
+                        }),
+                        new Stat({
+                            effect: Data.Effect.MODIF_CRIT_SKILL,
+                            theorical: [4, 6],
+                            isPercentage: true
+                        }),
+                    ],
+                    "Everything seemed to draw her back to him: the scent of tulips, the red of strawberries, the shine of gold.",
+                    {
+                        "bonus_critical_luck": [10, 15],
+                        "mana_regen": [4, 6],
+                        "shield": [20, 26]
+                    },
+                    [],
+                ))
         ];
 
-        for(const weapon of weapons) {
+        for (const weapon of weapons) {
             game.all_weapons.push(weapon);
         }
     },
@@ -130,140 +130,140 @@ const Loader = {
     loadArmors: loadArmors = () => {
         const armors = [
             new Armor("Highsteel Helmet",
-                      "A fair protection.",
-                      26,
-                      10,
-                      Data.Rarity.REGULAR,
-                      Data.ArmorType.HELMET,
-                      [3, 6],
-                      [0, 0],
-                      ),
+                "A fair protection.",
+                26,
+                10,
+                Data.Rarity.REGULAR,
+                Data.ArmorType.HELMET,
+                [3, 6],
+                [0, 0],
+            ),
             new Armor("Highsteel Armor",
-                      "A fair protection.",
-                      2,
-                      10,
-                      Data.Rarity.REGULAR,
-                      Data.ArmorType.CHESTPLATE,
-                      [8, 12],
-                      [0, 0],
-                      ),
+                "A fair protection.",
+                2,
+                10,
+                Data.Rarity.REGULAR,
+                Data.ArmorType.CHESTPLATE,
+                [8, 12],
+                [0, 0],
+            ),
             new Armor("Highsteel Bracers",
-                      "A fair protection.",
-                      9,
-                      10,
-                      Data.Rarity.REGULAR,
-                      Data.ArmorType.GLOVES,
-                      [8, 12],
-                      [0, 0],
-                      ),
+                "A fair protection.",
+                9,
+                10,
+                Data.Rarity.REGULAR,
+                Data.ArmorType.GLOVES,
+                [8, 12],
+                [0, 0],
+            ),
             new Armor("Highsteel Boots",
-                      "A fair protection.",
-                      8,
-                      10,
-                      Data.Rarity.REGULAR,
-                      Data.ArmorType.BOOTS,
-                      [8, 12],
-                      [0, 0],
-                      ),
+                "A fair protection.",
+                8,
+                10,
+                Data.Rarity.REGULAR,
+                Data.ArmorType.BOOTS,
+                [8, 12],
+                [0, 0],
+            ),
             new Armor("Highsteel Shield",
-                      "A fair protection.",
-                      15,
-                      10,
-                      Data.Rarity.REGULAR,
-                      Data.ArmorType.SHIELD,
-                      [8, 12],
-                      [0, 0],
-                      ),
+                "A fair protection.",
+                15,
+                10,
+                Data.Rarity.REGULAR,
+                Data.ArmorType.SHIELD,
+                [8, 12],
+                [0, 0],
+            ),
             new Armor("Entarian Chestplate",
-                      "A fair protection.",
-                      4,
-                      10,
-                      Data.Rarity.REGULAR,
-                      Data.ArmorType.CHESTPLATE,
-                      [6, 10],
-                      [1, 2],
-                      ),
+                "A fair protection.",
+                4,
+                10,
+                Data.Rarity.REGULAR,
+                Data.ArmorType.CHESTPLATE,
+                [6, 10],
+                [1, 2],
+            ),
             new Armor("Entarian Boots",
-                      "A fair protection.",
-                      5,
-                      10,
-                      Data.Rarity.REGULAR,
-                      Data.ArmorType.BOOTS,
-                      [5, 8],
-                      [2, 3],
-                      ),
+                "A fair protection.",
+                5,
+                10,
+                Data.Rarity.REGULAR,
+                Data.ArmorType.BOOTS,
+                [5, 8],
+                [2, 3],
+            ),
             new Armor("Drancoran Hood",
-                      "A fair protection.",
-                      12,
-                      10,
-                      Data.Rarity.REGULAR,
-                      Data.ArmorType.HELMET,
-                      [0, 0],
-                      [10, 12],
-                      ),
+                "A fair protection.",
+                12,
+                10,
+                Data.Rarity.REGULAR,
+                Data.ArmorType.HELMET,
+                [0, 0],
+                [10, 12],
+            ),
             new Armor("Drancoran Mittens",
-                      "A fair protection.",
-                      6,
-                      10,
-                      Data.Rarity.REGULAR,
-                      Data.ArmorType.GLOVES,
-                      [0, 0],
-                      [8, 10],
-                      ),
+                "A fair protection.",
+                6,
+                10,
+                Data.Rarity.REGULAR,
+                Data.ArmorType.GLOVES,
+                [0, 0],
+                [8, 10],
+            ),
             new Armor("Arbrean Helm",
-                      "Blablabla",
-                      18,
-                      2,
-                      Data.Rarity.SINGULAR,
-                      Data.ArmorType.HELMET,
-                      [8, 10],
-                      [2, 3],
-                      ),
+                "Blablabla",
+                18,
+                2,
+                Data.Rarity.SINGULAR,
+                Data.ArmorType.HELMET,
+                [8, 10],
+                [2, 3],
+            ),
             new Armor("Arbrean Shield",
-                      "Blablabla",
-                      19,
-                      2,
-                      Data.Rarity.SINGULAR,
-                      Data.ArmorType.SHIELD,
-                      [8, 10],
-                      [2, 3],
-                      ),
+                "Blablabla",
+                19,
+                2,
+                Data.Rarity.SINGULAR,
+                Data.ArmorType.SHIELD,
+                [8, 10],
+                [2, 3],
+            ),
             new Armor("Besieged King",
-                      "Lorem ipsum",
-                      45,
-                      100000,
-                      Data.Rarity.RELIC,
-                      Data.ArmorType.HELMET,
-                      [120, 130],
-                      [55, 60],
-                      2,
-                      new Echo(
-                        "Wartime Efforts",
-                        "Guarding an ally boosts them with a §1% {MODIF_DMG_TOTAL} for 1 round, and yourself with §2% {PROTECTION} for one round. While guarding, any friendly skill will boost the targets with §3% {REGEN_STAMINA} for one round, and any offensive skill will apply a §4% {DODGE} debuff to the targets for two rounds.",
-                        1,
-                        Data.Rarity.RELIC,
-                        [
-                            new Stat({
-                                effect: Data.Effect.PROTECTION,
-                                theorical: [4, 8],
-                                isPercentage: true
-                            }),
-                            new Stat({
-                                effect: Data.Effect.MODIF_BLOCK,
-                                theorical: [25, 30],
-                                isPercentage: true
-                            })
-                        ],
-                        "Lorem ipsum",
-                        {
-                            "bonus_total_damage": [50, 55],
-                            "bonus_protection": [25, 30],
-                            "bonus_stamina_regen": [5, 10],
-                            "debuff_dodge": [6, 10]
-                        },
-                        [],
-                      )
-                      ),
+                "Lorem ipsum",
+                45,
+                100000,
+                Data.Rarity.RELIC,
+                Data.ArmorType.HELMET,
+                [120, 130],
+                [55, 60],
+                2,
+                new Echo(
+                    "Wartime Efforts",
+                    "Guarding an ally boosts them with a §1% {MODIF_DMG_TOTAL} for 1 round, and yourself with §2% {PROTECTION} for one round. While guarding, any friendly skill will boost the targets with §3% {REGEN_STAMINA} for one round, and any offensive skill will apply a §4% {DODGE} debuff to the targets for two rounds.",
+                    1,
+                    Data.Rarity.RELIC,
+                    [
+                        new Stat({
+                            effect: Data.Effect.PROTECTION,
+                            theorical: [4, 8],
+                            isPercentage: true
+                        }),
+                        new Stat({
+                            effect: Data.Effect.MODIF_BLOCK,
+                            theorical: [25, 30],
+                            isPercentage: true
+                        })
+                    ],
+                    "Lorem ipsum",
+                    {
+                        "bonus_total_damage": [50, 55],
+                        "bonus_protection": [25, 30],
+                        "bonus_stamina_regen": [5, 10],
+                        "debuff_dodge": [6, 10]
+                    },
+                    [],
+                )
+            ),
             new Armor(
                 "Solana's Shield of the Sun",
                 "Lorem ipsum",
@@ -297,7 +297,7 @@ const Loader = {
             ),
         ];
 
-        for(const armor of armors) {
+        for (const armor of armors) {
             game.all_armors.push(armor);
         }
     },
@@ -347,15 +347,15 @@ const Loader = {
                 Data.Rarity.REGULAR,
                 {
                     passive: {
-                        effect: new Stat({effect: Data.Effect.PROTECTION, theorical: 2, isPercentage: true, alchemicalType: Data.AlchemicalEffectType.PASSIVE}),
+                        effect: new Stat({ effect: Data.Effect.PROTECTION, theorical: 2, isPercentage: true, alchemicalType: Data.AlchemicalEffectType.PASSIVE }),
                         toxicity: 5,
                     },
                     recovery: {
-                        effect: new Stat({effect: Data.Effect.MANA, theorical: 4, isPercentage: true, alchemicalType: Data.AlchemicalEffectType.RECOVERY}),
+                        effect: new Stat({ effect: Data.Effect.MANA, theorical: 4, isPercentage: true, alchemicalType: Data.AlchemicalEffectType.RECOVERY }),
                         toxicity: 20
                     },
                     special: {
-                        effect: new Stat({effect: Data.Effect.REMOVES_PROTECTION_DEBUFFS, alchemicalType: Data.AlchemicalEffectType.SPECIAL}),
+                        effect: new Stat({ effect: Data.Effect.REMOVES_PROTECTION_DEBUFFS, alchemicalType: Data.AlchemicalEffectType.SPECIAL }),
                         toxicity: 50
                     }
                 }
@@ -368,15 +368,15 @@ const Loader = {
                 Data.Rarity.REGULAR,
                 {
                     passive: {
-                        effect: new Stat({effect: Data.Effect.MIGHT, theorical: 2, alchemicalType: Data.AlchemicalEffectType.PASSIVE}),
+                        effect: new Stat({ effect: Data.Effect.MIGHT, theorical: 2, alchemicalType: Data.AlchemicalEffectType.PASSIVE }),
                         toxicity: 5,
                     },
                     recovery: {
-                        effect: new Stat({effect: Data.Effect.STAMINA, theorical: 4, isPercentage: true, alchemicalType: Data.AlchemicalEffectType.RECOVERY}),
+                        effect: new Stat({ effect: Data.Effect.STAMINA, theorical: 4, isPercentage: true, alchemicalType: Data.AlchemicalEffectType.RECOVERY }),
                         toxicity: 20
                     },
                     special: {
-                        effect: new Stat({effect: Data.Effect.REMOVES_WARDING_DEBUFFS, alchemicalType: Data.AlchemicalEffectType.SPECIAL}),
+                        effect: new Stat({ effect: Data.Effect.REMOVES_WARDING_DEBUFFS, alchemicalType: Data.AlchemicalEffectType.SPECIAL }),
                         toxicity: 50
                     }
                 }
@@ -389,15 +389,15 @@ const Loader = {
                 Data.Rarity.SINGULAR,
                 {
                     passive: {
-                        effect: new Stat({effect: Data.Effect.WARDING, theorical: 2, alchemicalType: Data.AlchemicalEffectType.PASSIVE}),
+                        effect: new Stat({ effect: Data.Effect.WARDING, theorical: 2, alchemicalType: Data.AlchemicalEffectType.PASSIVE }),
                         toxicity: 5,
                     },
                     recovery: {
-                        effect: new Stat({effect: Data.Effect.HEALTH, theorical: 4, isPercentage: true, alchemicalType: Data.AlchemicalEffectType.RECOVERY}),
+                        effect: new Stat({ effect: Data.Effect.HEALTH, theorical: 4, isPercentage: true, alchemicalType: Data.AlchemicalEffectType.RECOVERY }),
                         toxicity: 20
                     },
                     special: {
-                        effect: new Stat({effect: Data.Effect.REMOVES_RESILIENCE_DEBUFFS, alchemicalType: Data.AlchemicalEffectType.SPECIAL}),
+                        effect: new Stat({ effect: Data.Effect.REMOVES_RESILIENCE_DEBUFFS, alchemicalType: Data.AlchemicalEffectType.SPECIAL }),
                         toxicity: 50
                     }
                 }
@@ -490,7 +490,7 @@ const Loader = {
             )
         ];
 
-        for(const resource of resources) {
+        for (const resource of resources) {
             game.all_resources.push(resource);
             game.inventory.resources.push(resource);
         }
@@ -505,112 +505,112 @@ const Loader = {
                 Data.Rarity.PRECIOUS,
                 {
                     effects: [
-                        new Stat({effect: Data.Effect.HEALTH, theorical: 20, isPercentage: true, alchemicalType: Data.AlchemicalEffectType.RECOVERY}),
-                        new Stat({effect: Data.Effect.MANA, theorical: 20, isPercentage: true, alchemicalType: Data.AlchemicalEffectType.RECOVERY}),
+                        new Stat({ effect: Data.Effect.HEALTH, theorical: 20, isPercentage: true, alchemicalType: Data.AlchemicalEffectType.RECOVERY }),
+                        new Stat({ effect: Data.Effect.MANA, theorical: 20, isPercentage: true, alchemicalType: Data.AlchemicalEffectType.RECOVERY }),
                     ]
                 }
             )
         ];
 
-        for(const consumable of consumables) {
+        for (const consumable of consumables) {
             game.all_consumables.push(consumable);
         }
     },
     loadSigils: loadSigils = () => {
         const sigils = [
             new Sigil("Resilience Sigil",
-                     "The indecipherable carvings on the sigil strenghten your very flesh and the hardiness of your armor.",
-                     1,
-                     10,
-                     Data.Rarity.PRECIOUS,
-                     {
-                        type: Data.SigilType.ARMOR,
-                        effects: [
-                            new Stat({
-                                effect: Data.Effect.RESILIENCE,
-                                theorical: [3, 5]
-                            })
-                        ],
-                        critical: [
-                            new Stat({
-                                effect: Data.Effect.RESILIENCE,
-                                theorical: [1, 2],
-                                isCritical: true
-                            })
-                        ],
-                        corrupt: [
-                            new Stat({
-                                effect: Data.Effect.WARDING,
-                                theorical: [-1, -3],
-                                isCorrupt: true
-                            })
-                        ]
-                     }
+                "The indecipherable carvings on the sigil strenghten your very flesh and the hardiness of your armor.",
+                1,
+                10,
+                Data.Rarity.PRECIOUS,
+                {
+                    type: Data.SigilType.ARMOR,
+                    effects: [
+                        new Stat({
+                            effect: Data.Effect.RESILIENCE,
+                            theorical: [3, 5]
+                        })
+                    ],
+                    critical: [
+                        new Stat({
+                            effect: Data.Effect.RESILIENCE,
+                            theorical: [1, 2],
+                            isCritical: true
+                        })
+                    ],
+                    corrupt: [
+                        new Stat({
+                            effect: Data.Effect.WARDING,
+                            theorical: [-1, -3],
+                            isCorrupt: true
+                        })
+                    ]
+                }
             ),
             new Sigil("Sharpness Sigil",
-                     "From the stone emanates a singular power, that flows through the metal to your muscles, and floods your whole being with a supernatural strength.",
-                     13,
-                     10,
-                     Data.Rarity.SINGULAR,
-                     {
-                        type: Data.SigilType.WEAPON,
-                        effects: [
-                            new Stat({
-                                effect: Data.Effect.SHARPNESS,
-                                theorical: [3, 6]
-                            })
-                        ],
-                        critical: [
-                            new Stat({
-                                effect: Data.Effect.CRIT_LUK,
-                                theorical: [1, 3],
-                                isCritical: true,
-                                isPercentage: true
-                            })
-                        ],
-                        corrupt: [
-                            new Stat({
-                                effect: Data.Effect.WITHERING,
-                                theorical: [-1, -3],
-                                isCorrupt: true
-                            })
-                        ]
-                     }
+                "From the stone emanates a singular power, that flows through the metal to your muscles, and floods your whole being with a supernatural strength.",
+                13,
+                10,
+                Data.Rarity.SINGULAR,
+                {
+                    type: Data.SigilType.WEAPON,
+                    effects: [
+                        new Stat({
+                            effect: Data.Effect.SHARPNESS,
+                            theorical: [3, 6]
+                        })
+                    ],
+                    critical: [
+                        new Stat({
+                            effect: Data.Effect.CRIT_LUK,
+                            theorical: [1, 3],
+                            isCritical: true,
+                            isPercentage: true
+                        })
+                    ],
+                    corrupt: [
+                        new Stat({
+                            effect: Data.Effect.WITHERING,
+                            theorical: [-1, -3],
+                            isCorrupt: true
+                        })
+                    ]
+                }
             ),
             new Sigil("Withering Sigil",
-                     "The wounds burn with a terrible heat or biting cold. Bodies crumble and die at its touch.",
-                     25,
-                     10,
-                     Data.Rarity.PRECIOUS,
-                     {
-                        type: Data.SigilType.WEAPON,
-                        effects: [
-                            new Stat({
-                                effect: Data.Effect.WITHERING,
-                                theorical: [3, 6]
-                            })
-                        ],
-                        critical: [
-                            new Stat({
-                                effect: Data.Effect.BLOCK,
-                                theorical: [1, 2],
-                                isCritical: true
-                            })
-                        ],
-                        corrupt: [
-                            new Stat({
-                                effect: Data.Effect.SHARPNESS,
-                                theorical: [-1, -3],
-                                isCorrupt: true
-                            })
-                        ]
-                     }
+                "The wounds burn with a terrible heat or biting cold. Bodies crumble and die at its touch.",
+                25,
+                10,
+                Data.Rarity.PRECIOUS,
+                {
+                    type: Data.SigilType.WEAPON,
+                    effects: [
+                        new Stat({
+                            effect: Data.Effect.WITHERING,
+                            theorical: [3, 6]
+                        })
+                    ],
+                    critical: [
+                        new Stat({
+                            effect: Data.Effect.BLOCK,
+                            theorical: [1, 2],
+                            isCritical: true
+                        })
+                    ],
+                    corrupt: [
+                        new Stat({
+                            effect: Data.Effect.SHARPNESS,
+                            theorical: [-1, -3],
+                            isCorrupt: true
+                        })
+                    ]
+                }
             ),
 
-                     
+
         ];
 
-        for(const sigil of sigils) {
+        for (const sigil of sigils) {
             game.all_sigils.push(sigil);
         }
     },
@@ -645,7 +645,7 @@ const Loader = {
             ),
         ]
 
-        for(const recipe of recipes) {
+        for (const recipe of recipes) {
             game.all_recipes.push(recipe);
         }
     },
@@ -675,9 +675,9 @@ const Loader = {
                     new Trigger({
                         name: "snakebite_trigger",
                         type: Data.TriggerType.ON_DEAL_POISON,
-                        behavior: function(){
+                        behavior: function() {
                             console.log("SNAKEBITE ECHO TRIGGERED");
-                            this.owner.addBaseStat(new Stat({effect: Data.Effect.HEALTH, theorical: this.variables.health_regen, isPercentage: true}));
+                            this.owner.addBaseStat(new Stat({ effect: Data.Effect.HEALTH, theorical: this.variables.health_regen, isPercentage: true }));
                         }
                     })
                 ],
@@ -849,13 +849,13 @@ const Loader = {
                     new Trigger({
                         name: "relentless_Trigger",
                         type: Data.TriggerType.ON_DEAL_CRITICAL,
-                        behavior: function(){
+                        behavior: function() {
                             console.log("RELENTLESS ECHO TRIGGERED");
                             this.owner.applyEffects(
-                                this, 
+                                this,
                                 this.owner,
                                 [
-                                    new Stat({effect: Data.Effect.SHIELD, theorical: this.variables.shield_bonus, duration: 2})
+                                    new Stat({ effect: Data.Effect.SHIELD, theorical: this.variables.shield_bonus, duration: 2 })
                                 ]
                             );
                         }
@@ -929,7 +929,7 @@ const Loader = {
             )
         ];
 
-        for(const echo of echoes) {
+        for (const echo of echoes) {
             game.all_echoes.push(echo);
         }
     },
@@ -982,7 +982,7 @@ const Loader = {
             )
         ];
 
-        for(const sigilCorruptEffect of sigilCorruptEffects) {
+        for (const sigilCorruptEffect of sigilCorruptEffects) {
             game.all_sigilCorruptEffects.push(sigilCorruptEffect);
         }
     },
@@ -1579,7 +1579,7 @@ const Loader = {
             )
         ];
 
-        for(const trinket of trinkets) {
+        for (const trinket of trinkets) {
             game.all_trinkets.push(trinket);
         }
     },
@@ -1632,7 +1632,7 @@ const Loader = {
                                 new Trigger({
                                     name: "swift-as-steel_dealDodge",
                                     type: Data.TriggerType.ON_DEAL_DODGED,
-                                    behavior: function(){
+                                    behavior: function() {
                                         console.info('SWIFT AS STEEL BUFF TRIGGERED');
 
                                         const effects = [
@@ -1649,7 +1649,7 @@ const Loader = {
                                 new Trigger({
                                     name: "swift-as-steel_recvDodge",
                                     type: Data.TriggerType.ON_RECV_DODGED,
-                                    behavior: function(){
+                                    behavior: function() {
                                         console.info('SWIFT AS STEEL BUFF TRIGGERED');
 
                                         this.owner.addBaseStat(new Stat({
@@ -1712,7 +1712,7 @@ const Loader = {
                                 new Trigger({
                                     name: 'rebalancing_set',
                                     type: Data.TriggerType.ON_DEAL_WEAPON,
-                                    behavior: function(){
+                                    behavior: function() {
                                         console.info('ENTARIAN SET ECHO TRIGGERED');
                                         const params = game.battle.params;
                                         const caster = game.battle.currentPlay;
@@ -1734,7 +1734,7 @@ const Loader = {
                                             })
                                         ]
 
-                                        if(params.critical) allyEffects.push(new Stat({
+                                        if (params.critical) allyEffects.push(new Stat({
                                             effect: Data.Effect.STAMINA,
                                             theorical: this.variables.stamina_regen,
                                             duration: 2,
@@ -1800,7 +1800,7 @@ const Loader = {
                                 new Trigger({
                                     name: "altruism_manageStacks",
                                     type: Data.TriggerType.ON_DEAL_HEAL,
-                                    behavior: function(){
+                                    behavior: function() {
                                         console.info('ALTRUISM - MANAGE STACKS');
                                         const target = getcTarget();
                                         const caster = getcPlayer();
@@ -1816,17 +1816,17 @@ const Loader = {
                                                 })
                                             ],
                                         );
-                                        
-                                        if(this.variables.stacks < 3) this.variables.stacks++;
+
+                                        if (this.variables.stacks < 3) this.variables.stacks++;
                                     }
                                 }),
                                 new Trigger({
                                     name: "altruism_applyEffect",
                                     type: Data.TriggerType.ON_DEAL_HEAL,
-                                    checker: function(){
+                                    checker: function() {
                                         return this.variables.stacks >= 3;
                                     },
-                                    behavior: function(){
+                                    behavior: function() {
                                         console.info('ALTRUISM - APPLY EFFECTS');
                                         const caster = getcPlayer();
                                         const effects = [
@@ -1928,9 +1928,9 @@ const Loader = {
                                         const recvDmg = game.battle.receivedDamage;
                                         console.log("Detected that " + this.owner.name + " received " + recvDmg + " damage");
 
-                                        const bonusValue = Math.round(recvDmg * (this.variables.might_conversion/100));
+                                        const bonusValue = Math.round(recvDmg * (this.variables.might_conversion / 100));
 
-                                        if(bonusValue > 0) {
+                                        if (bonusValue > 0) {
                                             const effects = [
                                                 new Stat({
                                                     effect: Data.Effect.MIGHT,
@@ -1948,10 +1948,10 @@ const Loader = {
                                     behavior: function() {
                                         const dealtDmg = game.battle.dealtDamage;
                                         console.log("Detected that " + this.owner.name + " dealt " + dealtDmg + " damage");
-                                        
-                                        const bonusValue = Math.round(dealtDmg * (this.variables.protection_conversion/100));
 
-                                        if(bonusValue > 0) {
+                                        const bonusValue = Math.round(dealtDmg * (this.variables.protection_conversion / 100));
+
+                                        if (bonusValue > 0) {
                                             const effects = [
                                                 new Stat({
                                                     effect: Data.Effect.PROTECTION,
@@ -1971,15 +1971,15 @@ const Loader = {
             )
         ];
 
-        for(const equipmentSet of equipmentSets) {
+        for (const equipmentSet of equipmentSets) {
             equipmentSet.items.forEach(item => {
                 item.set = equipmentSet.name;
             })
-            for(let key in equipmentSet.bonus) {
+            for (let key in equipmentSet.bonus) {
                 equipmentSet.bonus[key].forEach(bonus => {
                     bonus.fix();
-                    if(bonus instanceof Echo) {
-                        bonus.parent = {name: equipmentSet.name, rarity: equipmentSet.rarity};
+                    if (bonus instanceof Echo) {
+                        bonus.parent = { name: equipmentSet.name, rarity: equipmentSet.rarity };
                         bonus.triggers.forEach(trig => {
                             trig.behavior = trig.behavior.bind(bonus);
                             trig.checker = trig.checker.bind(bonus);
@@ -2408,12 +2408,12 @@ const Loader = {
             )
         ];
 
-        for(const skillTree of skillTrees) {
+        for (const skillTree of skillTrees) {
             skillTree.builder();
             game.all_skillTrees.push(skillTree);
         }
     },
-    
+
     loadStriders: loadStriders = () => {
         const striders = [
             new Strider(
@@ -2450,35 +2450,35 @@ const Loader = {
                             type: [Data.TriggerType.ON_STAT_CHANGE, Data.TriggerType.ON_ADD_HEALTH, Data.TriggerType.ON_REMOVE_HEALTH],
                             checker: function() {
                                 const amarok = this.owner;
-                                
+
                                 return (amarok.health >= ((amarok.variables.threshold_weak * amarok.maxHealth) / 100));
                             },
                             behavior: function() {
                                 const amarok = this.owner;
-    
-                                if(amarok.variables.state !== 'weak') {
+
+                                if (amarok.variables.state !== 'weak') {
                                     amarok.variables.state = "weak";
-                                    
+
                                     const bProt = amarok.bonuses.find(x => x.origin.name === 'Darkspawn [BOOSTED]' && x.stat.effect === Data.Effect.PROTECTION);
                                     const bMight = amarok.bonuses.find(x => x.origin.name === 'Darkspawn [BOOSTED]' && x.stat.effect === Data.Effect.MIGHT);
-                                    if(bProt) amarok.alter({
+                                    if (bProt) amarok.alter({
                                         uid: bProt.stat.uid,
                                         action: Data.AlterAction.REMOVE
                                     });
-                                    if(bMight) amarok.alter({
+                                    if (bMight) amarok.alter({
                                         uid: bMight.stat.uid,
                                         action: Data.AlterAction.REMOVE
                                     });
-    
+
                                     amarok.variables.boost_protection = 0;
                                     amarok.variables.boost_might = 0;
-    
+
                                     var might_debuff = -(amarok.might - Math.round(amarok.might - (amarok.might * amarok.variables.might_debuff_rate)));
-    
+
                                     const bonuses = [
                                         new Stat({
-                                            effect: Data.Effect.PROTECTION, 
-                                            theorical: -30, 
+                                            effect: Data.Effect.PROTECTION,
+                                            theorical: -30,
                                             isPercentage: true
                                         }),
                                         new Stat({
@@ -2496,7 +2496,7 @@ const Loader = {
                                             },
                                         });
                                     });
-    
+
                                     // add active effect and remove others
                                     amarok.removeActiveEffect('Darkspawn [BOOSTED]');
                                     amarok.activeEffects.push(new ActiveEffect({
@@ -2516,15 +2516,15 @@ const Loader = {
                         new Trigger({
                             name: "amarok_normal",
                             type: [Data.TriggerType.ON_STAT_CHANGE, Data.TriggerType.ON_ADD_HEALTH, Data.TriggerType.ON_REMOVE_HEALTH],
-                            checker: function(){
+                            checker: function() {
                                 const amarok = this.owner;
-                                
+
                                 return ((amarok.health < ((amarok.variables.threshold_weak * amarok.maxHealth) / 100)) && (amarok.health >= ((amarok.variables.threshold_normal * amarok.maxHealth) / 100)));
                             },
-                            behavior: function(){
+                            behavior: function() {
                                 const amarok = this.owner;
-    
-                                if(amarok.variables.state !== 'normal') {
+
+                                if (amarok.variables.state !== 'normal') {
                                     const bProt = amarok.bonuses.find(x => x.origin.name === 'Darkspawn [WEAK]' && x.stat.effect === Data.Effect.PROTECTION);
                                     const bMight = amarok.bonuses.find(x => x.origin.name === 'Darkspawn [WEAK]' && x.stat.effect === Data.Effect.MIGHT);
                                     amarok.alter({
@@ -2538,24 +2538,24 @@ const Loader = {
                                     amarok.variables.state = 'normal';
                                 }
                                 amarok.variables.state = "normal";
-    
+
                                 const bProt = amarok.bonuses.find(x => x.origin.name === 'Darkspawn [BOOSTED]' && x.stat.effect === Data.Effect.PROTECTION);
                                 const bMight = amarok.bonuses.find(x => x.origin.name === 'Darkspawn [BOOSTED]' && x.stat.effect === Data.Effect.MIGHT);
-                                if(bProt) amarok.alter({
+                                if (bProt) amarok.alter({
                                     uid: bProt.stat.uid,
                                     action: Data.AlterAction.REMOVE
                                 });
-                                if(bMight) amarok.alter({
+                                if (bMight) amarok.alter({
                                     uid: bMight.stat.uid,
                                     action: Data.AlterAction.REMOVE
                                 });
-    
+
                                 //amarok.protection -= amarok.variables.boost_protection;
                                 //amarok.might -= amarok.variables.boost_might;
-                                
+
                                 amarok.variables.boost_protection = 0;
                                 amarok.variables.boost_might = 0;
-    
+
                                 /*const weak = amarok.getActiveEffect('Darkspawn [WEAK]');
                                 const boosted = amarok.getActiveEffect('Darkspawn [BOOSTED]');
                                 if(weak) removeFromArray(amarok.activeEffects, weak);
@@ -2567,15 +2567,15 @@ const Loader = {
                         new Trigger({
                             name: "amarok_boosted",
                             type: [Data.TriggerType.ON_STAT_CHANGE, Data.TriggerType.ON_ADD_HEALTH, Data.TriggerType.ON_REMOVE_HEALTH],
-                            checker: function(){
+                            checker: function() {
                                 const amarok = this.owner;
-    
+
                                 return (amarok.health < ((amarok.variables.threshold_normal * amarok.maxHealth) / 100));
                             },
-                            behavior: function(){
+                            behavior: function() {
                                 const amarok = this.owner;
-    
-                                if(amarok.variables.state === 'weak') {
+
+                                if (amarok.variables.state === 'weak') {
                                     const bProt = amarok.bonuses.find(x => x.origin.name === 'Darkspawn [WEAK]' && x.stat.effect === Data.Effect.PROTECTION);
                                     const bMight = amarok.bonuses.find(x => x.origin.name === 'Darkspawn [WEAK]' && x.stat.effect === Data.Effect.MIGHT);
                                     amarok.alter({
@@ -2588,24 +2588,24 @@ const Loader = {
                                     });
                                     amarok.variables.state = 'boost';
                                 }
-    
+
                                 amarok.previous_health = amarok.health;
-    
+
                                 const bProt = amarok.bonuses.find(x => x.origin.name === 'Darkspawn [BOOSTED]' && x.stat.effect === Data.Effect.PROTECTION);
                                 const bMight = amarok.bonuses.find(x => x.origin.name === 'Darkspawn [BOOSTED]' && x.stat.effect === Data.Effect.MIGHT);
-                                if(bProt) amarok.alter({
+                                if (bProt) amarok.alter({
                                     uid: bProt.stat.uid,
                                     action: Data.AlterAction.REMOVE
                                 });
-                                if(bMight) amarok.alter({
+                                if (bMight) amarok.alter({
                                     uid: bMight.stat.uid,
                                     action: Data.AlterAction.REMOVE
                                 });
-    
+
                                 const multiplier = Math.round(amarok.variables.threshold_normal - (amarok.health * 100 / amarok.maxHealth));
                                 amarok.variables.boost_protection = Math.round(2 * multiplier);
                                 amarok.variables.boost_might = Math.round(3 * (multiplier / 2));
-    
+
                                 const bonuses = [
                                     new Stat({
                                         effect: Data.Effect.PROTECTION,
@@ -2617,7 +2617,7 @@ const Loader = {
                                         theorical: amarok.variables.boost_might,
                                     })
                                 ];
-    
+
                                 bonuses.forEach(bo => {
                                     amarok.alter({
                                         effect: bo,
@@ -2628,7 +2628,7 @@ const Loader = {
                                         }
                                     });
                                 })
-    
+
                                 // add active effect and remove others
                                 amarok.removeActiveEffect('Darkspawn [BOOSTED]');
                                 amarok.removeActiveEffect('Darkspawn [WEAK]');
@@ -2682,29 +2682,29 @@ const Loader = {
                                 dmgMultiplier: 35,
                                 criMultiplier: 5,
                                 accMultiplier: 75,
-                                targets: {allies: '-0', enemies: '@123'},
+                                targets: { allies: '-0', enemies: '@123' },
                                 launchPos: [false, true, true],
                                 effectsCaster: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.PROTECTION, theorical: 5, isPercentage: true, duration: 1}),
-                                            new Stat({effect: Data.Effect.MIGHT, theorical: -5, duration: 2}),
-                                            new Stat({effect: Data.Effect.SPIRIT, theorical: -5, duration: 2}),
+                                            new Stat({ effect: Data.Effect.PROTECTION, theorical: 5, isPercentage: true, duration: 1 }),
+                                            new Stat({ effect: Data.Effect.MIGHT, theorical: -5, duration: 2 }),
+                                            new Stat({ effect: Data.Effect.SPIRIT, theorical: -5, duration: 2 }),
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.PROTECTION, theorical: 7, isPercentage: true, duration: 1, isCritical: true}),
-                                            new Stat({effect: Data.Effect.MIGHT, theorical: -7, duration: 2, isCritical: true}),
-                                            new Stat({effect: Data.Effect.SPIRIT, theorical: -7, duration: 2, isCritical: true}),
+                                            new Stat({ effect: Data.Effect.PROTECTION, theorical: 7, isPercentage: true, duration: 1, isCritical: true }),
+                                            new Stat({ effect: Data.Effect.MIGHT, theorical: -7, duration: 2, isCritical: true }),
+                                            new Stat({ effect: Data.Effect.SPIRIT, theorical: -7, duration: 2, isCritical: true }),
                                         ]
                                     }
                                 },
                                 effectsEnemies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.DODGE, theorical: -5, isPercentage: true, duration: 2})
+                                            new Stat({ effect: Data.Effect.DODGE, theorical: -5, isPercentage: true, duration: 2 })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.DODGE, theorical: -7, isPercentage: true, duration: 2, isCritical: true})
+                                            new Stat({ effect: Data.Effect.DODGE, theorical: -7, isPercentage: true, duration: 2, isCritical: true })
                                         ],
                                     }
                                 }
@@ -2722,27 +2722,27 @@ const Loader = {
                                 dmgMultiplier: 150,
                                 criMultiplier: 10,
                                 accMultiplier: 90,
-                                targets: {allies: '-0', enemies: '-1'},
+                                targets: { allies: '-0', enemies: '-1' },
                                 launchPos: [false, false, true],
                                 effectsCaster: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.HEALTH, theorical: [15, 20], isPercentage: true, type: Data.StatType.ACTIVE})
+                                            new Stat({ effect: Data.Effect.HEALTH, theorical: [15, 20], isPercentage: true, type: Data.StatType.ACTIVE })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.HEALTH, theorical: [18, 25], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true})
+                                            new Stat({ effect: Data.Effect.HEALTH, theorical: [18, 25], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true })
                                         ]
                                     }
                                 },
                                 effectsEnemies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.BLEEDING_CURABLE, theorical: [4, 6], type: Data.StatType.ACTIVE, duration: 2}),
-                                            new Stat({effect: Data.Effect.SPEED, theorical: -5, duration: 2})
+                                            new Stat({ effect: Data.Effect.BLEEDING_CURABLE, theorical: [4, 6], type: Data.StatType.ACTIVE, duration: 2 }),
+                                            new Stat({ effect: Data.Effect.SPEED, theorical: -5, duration: 2 })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.BLEEDING_CURABLE, theorical: [5, 7], type: Data.StatType.ACTIVE, duration: 3, isCritical: true}),
-                                            new Stat({effect: Data.Effect.SPEED, theorical: -7, duration: 2, isCritical: true})
+                                            new Stat({ effect: Data.Effect.BLEEDING_CURABLE, theorical: [5, 7], type: Data.StatType.ACTIVE, duration: 3, isCritical: true }),
+                                            new Stat({ effect: Data.Effect.SPEED, theorical: -7, duration: 2, isCritical: true })
                                         ]
                                     }
                                 },
@@ -2765,29 +2765,29 @@ const Loader = {
                                 cooldown: 3,
                                 criMultiplier: 10,
                                 accMultiplier: 100,
-                                targets: {allies: '-123', enemies: '-0'},
+                                targets: { allies: '-123', enemies: '-0' },
                                 launchPos: [false, true, true],
                                 effectsCaster: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.HEALTH, theorical: -20, isPercentage: true}),
-                                            new Stat({effect: Data.Effect.HEALTH, theorical: 3, isPercentage: true, type: Data.StatType.ACTIVE, duration: 3, delay: 1})
+                                            new Stat({ effect: Data.Effect.HEALTH, theorical: -20, isPercentage: true }),
+                                            new Stat({ effect: Data.Effect.HEALTH, theorical: 3, isPercentage: true, type: Data.StatType.ACTIVE, duration: 3, delay: 1 })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.HEALTH, theorical: -20, isPercentage: true, isCritical: true}),
-                                            new Stat({effect: Data.Effect.HEALTH, theorical: 4, isPercentage: true, type: Data.StatType.ACTIVE, duration: 3, delay: 1, isCritical: true})
+                                            new Stat({ effect: Data.Effect.HEALTH, theorical: -20, isPercentage: true, isCritical: true }),
+                                            new Stat({ effect: Data.Effect.HEALTH, theorical: 4, isPercentage: true, type: Data.StatType.ACTIVE, duration: 3, delay: 1, isCritical: true })
                                         ]
                                     }
                                 },
                                 effectsAllies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.DUMMY, theorical: 20, isPercentage: true, displayed: "° of Amarok's ^Health^"}),
-                                            new Stat({effect: Data.Effect.SPEED, theorical: 2, duration: 1})
+                                            new Stat({ effect: Data.Effect.DUMMY, theorical: 20, isPercentage: true, displayed: "° of Amarok's ^Health^" }),
+                                            new Stat({ effect: Data.Effect.SPEED, theorical: 2, duration: 1 })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.DUMMY, theorical: 20, isPercentage: true, displayed: "° of Amarok's ^Health^", isCritical: true}),
-                                            new Stat({effect: Data.Effect.SPEED, theorical: 4, duration: 1, isCritical: true})
+                                            new Stat({ effect: Data.Effect.DUMMY, theorical: 20, isPercentage: true, displayed: "° of Amarok's ^Health^", isCritical: true }),
+                                            new Stat({ effect: Data.Effect.SPEED, theorical: 4, duration: 1, isCritical: true })
                                         ]
                                     }
                                 },
@@ -2797,7 +2797,7 @@ const Loader = {
 
                                         const val = amarok.maxHealth * 0.2;
 
-                                        tar.addBaseStat(new Stat({effect: Data.Effect.HEALTH, theorical: val}));
+                                        tar.addBaseStat(new Stat({ effect: Data.Effect.HEALTH, theorical: val }));
                                     }
                                 }
                             }
@@ -2812,27 +2812,27 @@ const Loader = {
                                 cooldown: 3,
                                 criMultiplier: 10,
                                 accMultiplier: 100,
-                                targets: {allies: '-123', enemies: '-0'},
+                                targets: { allies: '-123', enemies: '-0' },
                                 launchPos: [false, false, true],
                                 effectsCaster: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.GUARDING, duration: 2})
+                                            new Stat({ effect: Data.Effect.GUARDING, duration: 2 })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.GUARDING, duration: 2, isCritical: true})
+                                            new Stat({ effect: Data.Effect.GUARDING, duration: 2, isCritical: true })
                                         ]
                                     }
                                 },
                                 effectsAllies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.GUARDED, duration: 2}),
-                                            new Stat({effect: Data.Effect.MAXMANA, theorical: [20, 25], isPercentage: true, duration: 2})
+                                            new Stat({ effect: Data.Effect.GUARDED, duration: 2 }),
+                                            new Stat({ effect: Data.Effect.MAXMANA, theorical: [20, 25], isPercentage: true, duration: 2 })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.GUARDED, duration: 2, isCritical: true}),
-                                            new Stat({effect: Data.Effect.MAXMANA, theorical: 30, isPercentage: true, duration: 2, isCritical: true})
+                                            new Stat({ effect: Data.Effect.GUARDED, duration: 2, isCritical: true }),
+                                            new Stat({ effect: Data.Effect.MAXMANA, theorical: 30, isPercentage: true, duration: 2, isCritical: true })
                                         ]
                                     }
                                 },
@@ -2854,26 +2854,26 @@ const Loader = {
                                 dmgMultiplier: 60,
                                 criMultiplier: 10,
                                 accMultiplier: 100,
-                                targets: {allies: '-0', enemies: '-3'},
+                                targets: { allies: '-0', enemies: '-3' },
                                 effectsCaster: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.MIGHT, theorical: [10, 15], duration: 2}),
+                                            new Stat({ effect: Data.Effect.MIGHT, theorical: [10, 15], duration: 2 }),
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.MIGHT, theorical: 17, duration: 2, isCritical: true})
+                                            new Stat({ effect: Data.Effect.MIGHT, theorical: 17, duration: 2, isCritical: true })
                                         ]
                                     }
                                 },
                                 effectsEnemies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.PULL_TWO, chance: 100}),
-                                            new Stat({effect: Data.Effect.RESILIENCE, theorical: [-10, -15], duration: 2}),
+                                            new Stat({ effect: Data.Effect.PULL_TWO, chance: 100 }),
+                                            new Stat({ effect: Data.Effect.RESILIENCE, theorical: [-10, -15], duration: 2 }),
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.PULL_TWO, chance: 130}),
-                                            new Stat({effect: Data.Effect.RESILIENCE, theorical: [-17, -20], duration: 2}),
+                                            new Stat({ effect: Data.Effect.PULL_TWO, chance: 130 }),
+                                            new Stat({ effect: Data.Effect.RESILIENCE, theorical: [-17, -20], duration: 2 }),
                                         ]
                                     }
                                 }
@@ -2896,7 +2896,7 @@ const Loader = {
                     resMove: 25, resStun: 25,
                     resilience: 0, warding: 0,
                     critEffects: [
-                        new Stat({effect: Data.Effect.DODGE, theorical: [3, 7], isPercentage: true})
+                        new Stat({ effect: Data.Effect.DODGE, theorical: [3, 7], isPercentage: true })
                     ],
                     striderType: Data.StriderType.STRIKER,
                     uniqueName: "Marked for Death",
@@ -2920,7 +2920,7 @@ const Loader = {
                     resMove: 30, resStun: 45,
                     resilience: 0, warding: 0,
                     critEffects: [
-                        new Stat({effect: Data.Effect.ACCURACY, theorical: [3, 7], isPercentage: true})
+                        new Stat({ effect: Data.Effect.ACCURACY, theorical: [3, 7], isPercentage: true })
                     ],
                     variables: {
                         backlash_might: 0.8,
@@ -2931,14 +2931,14 @@ const Loader = {
                         backlash_armorPiercing: 0,
                         backlash_countdown: 0,
                         backlash_success: false,
-                        canUseBacklash: function(naka){
+                        canUseBacklash: function(naka) {
                             return this.backlash_active && !naka.isStunned;
                         },
                         backlashAccuracyTest: function(naka, target) {
                             const accuracy = Math.round(naka.accuracy * this.backlash_accuracy);
 
-                            if(Math.random()*100 < accuracy) {
-                                if(Math.random()*100 > target.dodge) {
+                            if (Math.random() * 100 < accuracy) {
+                                if (Math.random() * 100 > target.dodge) {
                                     return true;
                                 }
                             }
@@ -2971,16 +2971,16 @@ const Loader = {
                         new Trigger({
                             name: "naka_activateBacklash",
                             type: Data.TriggerType.ON_DEAL_ATTACK,
-                            behavior: function(){
+                            behavior: function() {
                                 console.log("Backlash activated!");
                                 const naka = this.owner;
                                 naka.variables.backlash_active = true;
-                                naka.variables.backlash_countdown = naka.variables.backlash_duration+1;
+                                naka.variables.backlash_countdown = naka.variables.backlash_duration + 1;
                                 naka.removeBadge("backlash");
                                 naka.addBadge(new BattleBadge({
                                     name: "backlash",
                                     css: "backlash",
-                                    tooltip: function(){
+                                    tooltip: function() {
                                         return naka.variables.getBacklashTooltip(naka);
                                     }
                                 }))
@@ -3013,14 +3013,14 @@ const Loader = {
                         new Trigger({
                             name: "naka_deactivateBacklash",
                             type: Data.TriggerType.ON_TURN_END,
-                            behavior: function(){
+                            behavior: function() {
                                 // console.log("Backlash deactivated!");
                                 // this.owner.variables.backlash_active = false;
                                 const naka = this.owner;
                                 naka.variables.backlash_success = false;
-                                naka.variables.backlash_countdown = Math.max(0, naka.variables.backlash_countdown-1);
+                                naka.variables.backlash_countdown = Math.max(0, naka.variables.backlash_countdown - 1);
 
-                                if(naka.variables.backlash_countdown === 0) {
+                                if (naka.variables.backlash_countdown === 0) {
                                     console.log("Backlash deactivated!");
                                     this.owner.variables.backlash_active = false;
                                     naka.removeBadge("backlash");
@@ -3031,7 +3031,7 @@ const Loader = {
                         new Trigger({
                             name: "naka_backlashHit",
                             type: Data.TriggerType.ON_RECV_ATTACK,
-                            checker: function(){
+                            checker: function() {
                                 return this.owner.variables.canUseBacklash(this.owner) && game.battle.currentPlay instanceof Enemy;
                             },
                             behavior: function() {
@@ -3040,7 +3040,7 @@ const Loader = {
                                 const naka = this.owner;
                                 const target = game.battle.currentPlay;
 
-                                if(naka.variables.backlashAccuracyTest(naka, target)) {
+                                if (naka.variables.backlashAccuracyTest(naka, target)) {
                                     console.log("Successful backlash!---------------------------------------");
                                     naka.variables.backlash_success = true;
                                     target.receiveDamage(naka.variables.computeBacklashValue(naka));
@@ -3050,7 +3050,7 @@ const Loader = {
                                         return current.health < min.health ? current : min;
                                     }, game.battle.allies[0]);
 
-                                    lowest.addBaseStat(new Stat({effect: Data.Effect.HEALTH, theorical: game.battle.receivedDamage}), naka);
+                                    lowest.addBaseStat(new Stat({ effect: Data.Effect.HEALTH, theorical: game.battle.receivedDamage }), naka);
                                 } else console.error("Backlash failed!-----------------------------------------");
                             }
                         })
@@ -3074,25 +3074,25 @@ const Loader = {
                                 dmgMultiplier: 90,
                                 criMultiplier: 15,
                                 accMultiplier: 85,
-                                targets: {allies: '-0', enemies: '@12'},
+                                targets: { allies: '-0', enemies: '@12' },
                                 launchPos: [true, true, false],
                                 effectsCaster: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.FRONT_ONE})
+                                            new Stat({ effect: Data.Effect.FRONT_ONE })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.FRONT_ONE})
+                                            new Stat({ effect: Data.Effect.FRONT_ONE })
                                         ]
                                     }
                                 },
                                 effectsEnemies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.RES_STUN, theorical: [-15, -20], isPercentage: true, duration: 2})
+                                            new Stat({ effect: Data.Effect.RES_STUN, theorical: [-15, -20], isPercentage: true, duration: 2 })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.RES_STUN, theorical: -30, isPercentage: true, duration: 2})
+                                            new Stat({ effect: Data.Effect.RES_STUN, theorical: -30, isPercentage: true, duration: 2 })
                                         ]
                                     }
                                 }
@@ -3110,27 +3110,27 @@ const Loader = {
                                 dmgMultiplier: 65,
                                 criMultiplier: 15,
                                 accMultiplier: 90,
-                                targets: {allies: '-0', enemies: '@123'},
+                                targets: { allies: '-0', enemies: '@123' },
                                 launchPos: [false, false, true],
                                 effectsCaster: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.BACK_TWO})
+                                            new Stat({ effect: Data.Effect.BACK_TWO })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.BACK_TWO})
+                                            new Stat({ effect: Data.Effect.BACK_TWO })
                                         ]
                                     }
                                 },
                                 effectsEnemies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.STUN, duration: 2, chance: 90}),
-                                            new Stat({effect: Data.Effect.BLIGHT_CURABLE, duration: 2, theorical: [4, 6], type: Data.StatType.ACTIVE})
+                                            new Stat({ effect: Data.Effect.STUN, duration: 2, chance: 90 }),
+                                            new Stat({ effect: Data.Effect.BLIGHT_CURABLE, duration: 2, theorical: [4, 6], type: Data.StatType.ACTIVE })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.STUN, duration: 2, chance: 105}),
-                                            new Stat({effect: Data.Effect.BLIGHT_CURABLE, duration: 2, theorical: 7, type: Data.StatType.ACTIVE})
+                                            new Stat({ effect: Data.Effect.STUN, duration: 2, chance: 105 }),
+                                            new Stat({ effect: Data.Effect.BLIGHT_CURABLE, duration: 2, theorical: 7, type: Data.StatType.ACTIVE })
                                         ],
                                     }
                                 }
@@ -3148,35 +3148,35 @@ const Loader = {
                                 dmgMultiplier: 75,
                                 criMultiplier: 10,
                                 accMultiplier: 100,
-                                targets: {allies: '-0', enemies: '-12'},
+                                targets: { allies: '-0', enemies: '-12' },
                                 launchPos: [false, true, true],
                                 effectsCaster: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.BACK_ONE}),
-                                            new Stat({effect: Data.Effect.STAMINA, theorical: [8, 10], isPercentage: true, type: Data.StatType.ACTIVE})
+                                            new Stat({ effect: Data.Effect.BACK_ONE }),
+                                            new Stat({ effect: Data.Effect.STAMINA, theorical: [8, 10], isPercentage: true, type: Data.StatType.ACTIVE })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.BACK_ONE}),
-                                            new Stat({effect: Data.Effect.STAMINA, theorical: 12, isPercentage: true, type: Data.StatType.ACTIVE})
+                                            new Stat({ effect: Data.Effect.BACK_ONE }),
+                                            new Stat({ effect: Data.Effect.STAMINA, theorical: 12, isPercentage: true, type: Data.StatType.ACTIVE })
                                         ],
                                     }
                                 },
                                 effectsAllies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.DUMMY, theorical: [10, 12], isPercentage: true, displayed: "$On kill:$ ^Heals^ °"})
+                                            new Stat({ effect: Data.Effect.DUMMY, theorical: [10, 12], isPercentage: true, displayed: "$On kill:$ ^Heals^ °" })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.DUMMY, theorical: [10, 12], isPercentage: true, displayed: "$On kill:$ ^Heals^ °"})
+                                            new Stat({ effect: Data.Effect.DUMMY, theorical: [10, 12], isPercentage: true, displayed: "$On kill:$ ^Heals^ °" })
                                         ]
                                     }
                                 },
                                 logicEnemies: {
                                     POST_DAMAGE: function(tar) {
-                                        if(tar.isDead()) {
+                                        if (tar.isDead()) {
                                             game.battle.allies.filter(x => !x.isDead()).forEach(ally => {
-                                                ally.addBaseStat(new Stat({effect: Data.Effect.HEALTH, theorical: [10, 12], isPercentage: true}), this.getOwner());
+                                                ally.addBaseStat(new Stat({ effect: Data.Effect.HEALTH, theorical: [10, 12], isPercentage: true }), this.getOwner());
                                             })
                                         }
                                     }
@@ -3193,33 +3193,33 @@ const Loader = {
                                 cooldown: 2,
                                 criMultiplier: 10,
                                 accMultiplier: 100,
-                                targets: {allies: '-123', enemies: '-0'},
+                                targets: { allies: '-123', enemies: '-0' },
                                 launchPos: [true, true, true],
                                 effectsCaster: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.GUARDING, duration: 2}),
-                                            new Stat({effect: Data.Effect.FRONT_ONE}),
-                                            new Stat({effect: Data.Effect.DUMMY, theorical: 10, isPercentage: true, duration: 2, displayed: "+° *|Backlash|* Damage"}),
-                                            new Stat({effect: Data.Effect.DUMMY, theorical: 10, isPercentage: true, duration: 2, displayed: "+° *|Backlash|* Accuracy"}),
-                                            new Stat({effect: Data.Effect.DUMMY, theorical: 10, isPercentage: true, duration: 2, displayed: "^° Mana^ on *|Backlash|* hit"}),
+                                            new Stat({ effect: Data.Effect.GUARDING, duration: 2 }),
+                                            new Stat({ effect: Data.Effect.FRONT_ONE }),
+                                            new Stat({ effect: Data.Effect.DUMMY, theorical: 10, isPercentage: true, duration: 2, displayed: "+° *|Backlash|* Damage" }),
+                                            new Stat({ effect: Data.Effect.DUMMY, theorical: 10, isPercentage: true, duration: 2, displayed: "+° *|Backlash|* Accuracy" }),
+                                            new Stat({ effect: Data.Effect.DUMMY, theorical: 10, isPercentage: true, duration: 2, displayed: "^° Mana^ on *|Backlash|* hit" }),
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.GUARDING, duration: 2}),
-                                            new Stat({effect: Data.Effect.FRONT_ONE}),
-                                            new Stat({effect: Data.Effect.DUMMY, theorical: 10, isPercentage: true, duration: 2, displayed: "+° *|Backlash|* Damage"}),
-                                            new Stat({effect: Data.Effect.DUMMY, theorical: 10, isPercentage: true, duration: 2, displayed: "+° *|Backlash|* Accuracy"}),
-                                            new Stat({effect: Data.Effect.DUMMY, theorical: 10, isPercentage: true, duration: 2, displayed: "^° Mana^ on *|Backlash|* hit"}),
+                                            new Stat({ effect: Data.Effect.GUARDING, duration: 2 }),
+                                            new Stat({ effect: Data.Effect.FRONT_ONE }),
+                                            new Stat({ effect: Data.Effect.DUMMY, theorical: 10, isPercentage: true, duration: 2, displayed: "+° *|Backlash|* Damage" }),
+                                            new Stat({ effect: Data.Effect.DUMMY, theorical: 10, isPercentage: true, duration: 2, displayed: "+° *|Backlash|* Accuracy" }),
+                                            new Stat({ effect: Data.Effect.DUMMY, theorical: 10, isPercentage: true, duration: 2, displayed: "^° Mana^ on *|Backlash|* hit" }),
                                         ]
                                     }
                                 },
                                 effectsAllies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.GUARDED, duration: 2})
+                                            new Stat({ effect: Data.Effect.GUARDED, duration: 2 })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.GUARDED, duration: 2})
+                                            new Stat({ effect: Data.Effect.GUARDED, duration: 2 })
                                         ]
                                     }
                                 },
@@ -3227,13 +3227,13 @@ const Loader = {
                                     guarded: null,
                                     guarding: null
                                 },
-                                onCast: function(){
+                                onCast: function() {
                                     const naka = this.getOwner();
                                     naka.variables.backlash_might += 0.1;
                                     naka.variables.backlash_accuracy += 0.1;
                                 },
                                 onEnd: {
-                                    caster: function(){
+                                    caster: function() {
                                         console.log("ENDING");
                                         const naka = this.getOwner();
                                         naka.variables.backlash_might -= 0.1;
@@ -3244,16 +3244,42 @@ const Loader = {
                                     new Trigger({
                                         name: "naka_provocationBacklashRegenMana",
                                         type: Data.TriggerType.ON_RECV_ATTACK,
-                                        behavior: function(){
+                                        behavior: function() {
                                             const sk = this.getOwner();
                                             const naka = sk.getOwner();
-                                            if(naka.variables.backlash_success) {
-                                                sk.variables.guarded?.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 10, isPercentage: true}), naka);
-                                                naka.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 10, isPercentage: true}), naka);
+                                            if (naka.variables.backlash_success) {
+                                                sk.variables.guarded?.addBaseStat(new Stat({ effect: Data.Effect.MANA, theorical: 10, isPercentage: true }), naka);
+                                                naka.addBaseStat(new Stat({ effect: Data.Effect.MANA, theorical: 10, isPercentage: true }), naka);
                                             }
                                         }
                                     })
                                 ]
+                            }
+                        ),
+                        new Skill(
+                            "Cauterize",
+                            "Cures §Bleeding§ and §Poisoning§ on the target, and generate §Shield§ points that equal the combined values of the cleaned maluses. Applies a §Speed§ malus.",
+                            {
+                                manaCost: 4,
+                                type: Data.SkillType.FRIENDLY,
+                                dmgType: Data.SkillDamageType.PHYSICAL,
+                                dmgMultiplier: 5,
+                                criMultiplier: 10,
+                                accMultiplier: 100,
+                                launchPos: [true, true, true],
+                                target: { allies: '-123', enemies: '-0' },
+                                effectsAllies: {
+                                    1: {
+                                        regular: [
+                                            new Stat({ effect: Data.Effect.CURES_POISONING }),
+                                            new Stat({ effect: Data.Effect.CURES_BLEEDING }),
+                                        ],
+                                        critical: [
+                                            new Stat({ effect: Data.Effect.CURES_POISONING, isCritical: true }),
+                                            new Stat({ effect: Data.Effect.CURES_BLEEDING, isCritical: true }),
+                                        ],
+                                    }
+                                }
                             }
                         )
                     ],
@@ -3273,7 +3299,7 @@ const Loader = {
                     resMove: 30, resStun: 45,
                     resilience: 0, warding: 0,
                     critEffects: [
-                        new Stat({effect: Data.Effect.MIGHT, theorical: [3, 7], duration: 2})
+                        new Stat({ effect: Data.Effect.MIGHT, theorical: [3, 7], duration: 2 })
                     ],
                     variables: {
                         "r_dodge": [5, 10, 15],
@@ -3287,29 +3313,29 @@ const Loader = {
                         "r_skill_dmg": [10, 15, 25],
                         "stillTracker": 0,
                         "rootsStage_Carhal": 0,
-                        getRootsBonuses: function(pos, tier){
-                            switch(pos) {
+                        getRootsBonuses: function(pos, tier) {
+                            switch (pos) {
                                 case Data.FormationPosition.FRONT:
                                     return [
-                                        new Stat({effect: Data.Effect.DODGE, theorical: this["r_dodge"][tier-1], isPercentage: true}),
-                                        new Stat({effect: Data.Effect.MODIF_DMG_WEAPON, theorical: this["r_wpn_dmg"][tier-1], isPercentage: true}),
-                                        new Stat({effect: Data.Effect.MIGHT, theorical: this["r_might"][tier-1]}),
+                                        new Stat({ effect: Data.Effect.DODGE, theorical: this["r_dodge"][tier - 1], isPercentage: true }),
+                                        new Stat({ effect: Data.Effect.MODIF_DMG_WEAPON, theorical: this["r_wpn_dmg"][tier - 1], isPercentage: true }),
+                                        new Stat({ effect: Data.Effect.MIGHT, theorical: this["r_might"][tier - 1] }),
                                     ];
                                 case Data.FormationPosition.MIDDLE:
                                     return [
-                                        new Stat({effect: Data.Effect.SPEED, theorical: this["r_speed"][tier-1]}),
-                                        new Stat({effect: Data.Effect.MODIF_CHANCE_STUN, theorical: this["r_stun_chance"][tier-1], isPercentage: true}),
-                                        new Stat({effect: Data.Effect.MODIF_HEAL_RECV, theorical: this["r_recv_heal"][tier-1], isPercentage: true}),
+                                        new Stat({ effect: Data.Effect.SPEED, theorical: this["r_speed"][tier - 1] }),
+                                        new Stat({ effect: Data.Effect.MODIF_CHANCE_STUN, theorical: this["r_stun_chance"][tier - 1], isPercentage: true }),
+                                        new Stat({ effect: Data.Effect.MODIF_HEAL_RECV, theorical: this["r_recv_heal"][tier - 1], isPercentage: true }),
                                     ];
                                 case Data.FormationPosition.BACK:
                                     return [
-                                        new Stat({effect: Data.Effect.ACCURACY, theorical: this["r_accuracy"][tier-1], isPercentage: true}),
-                                        new Stat({effect: Data.Effect.SPIRIT, theorical: this["r_spirit"][tier-1]}),
-                                        new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: this["r_skill_dmg"][tier-1], isPercentage: true}),
+                                        new Stat({ effect: Data.Effect.ACCURACY, theorical: this["r_accuracy"][tier - 1], isPercentage: true }),
+                                        new Stat({ effect: Data.Effect.SPIRIT, theorical: this["r_spirit"][tier - 1] }),
+                                        new Stat({ effect: Data.Effect.MODIF_DMG_SKILL, theorical: this["r_skill_dmg"][tier - 1], isPercentage: true }),
                                     ];
                             }
                         },
-                        addBonusesWithName: function(carhal, bonuses, name){
+                        addBonusesWithName: function(carhal, bonuses, name) {
                             bonuses.forEach(bo => {
                                 carhal.alter({
                                     effect: bo,
@@ -3321,7 +3347,7 @@ const Loader = {
                                 });
                             });
                         },
-                        changeActiveEffect: function(oldName, newName, bonuses, carhal){
+                        changeActiveEffect: function(oldName, newName, bonuses, carhal) {
                             carhal.removeActiveEffect(oldName);
                             carhal.addActiveEffect(new ActiveEffect({
                                 name: newName,
@@ -3344,21 +3370,21 @@ const Loader = {
                         new Trigger({
                             name: "carhal_roots",
                             type: Data.TriggerType.ON_TURN_BEGIN,
-                            behavior: function(){
+                            behavior: function() {
                                 console.log('CACA');
                                 const carhal = this.owner;
                                 const vars = carhal.variables;
-    
+
                                 // Set current position
                                 vars.previousPos = carhal.getSelfPosInBattle();
-    
+
                                 // Increase the stationary tracker if below 5 (max. value)
                                 vars.stillTracker < 4 && vars.stillTracker++;
-    
-                                if(vars.stillTracker == 2 && vars.rootsStage_Carhal === 0) {
+
+                                if (vars.stillTracker == 2 && vars.rootsStage_Carhal === 0) {
                                     // Shallow roots
                                     vars.rootsStage_Carhal++;
-    
+
                                     // Retrieve bonuses according to pos
                                     const pos = carhal.getSelfPosInBattle();
                                     const bonuses = vars.getRootsBonuses(pos, vars.rootsStage_Carhal);
@@ -3366,28 +3392,28 @@ const Loader = {
                                     vars.addBonusesWithName(carhal, bonuses, vars.tier1);
                                     // Apply ActiveEffect
                                     vars.changeActiveEffect('', vars.tier1, bonuses, carhal);
-                                } else if(vars.stillTracker == 3 && vars.rootsStage_Carhal === 1) {
+                                } else if (vars.stillTracker == 3 && vars.rootsStage_Carhal === 1) {
                                     // Growing roots
                                     vars.rootsStage_Carhal++;
-    
+
                                     // Retrieve bonuses according to pos
                                     const pos = carhal.getSelfPosInBattle();
                                     const bonuses = vars.getRootsBonuses(pos, vars.rootsStage_Carhal);
-    
+
                                     // Remove previous bonuses
                                     carhal.removeAllBonusesWithName(vars.tier1);
                                     // Add new bonuses
                                     vars.addBonusesWithName(carhal, bonuses, vars.tier2);
                                     // Remove old ActiveEffect
                                     vars.changeActiveEffect(vars.tier1, vars.tier2, bonuses, carhal);
-                                } else if(vars.stillTracker === 4 && vars.rootsStage_Carhal === 2) {
+                                } else if (vars.stillTracker === 4 && vars.rootsStage_Carhal === 2) {
                                     // Entrenched roots
                                     vars.rootsStage_Carhal++;
-    
+
                                     // Retrieve bonuses according to pos
                                     const pos = carhal.getSelfPosInBattle();
                                     const bonuses = vars.getRootsBonuses(pos, vars.rootsStage_Carhal);
-    
+
                                     // Remove previous bonuses
                                     carhal.removeAllBonusesWithName(vars.tier2);
                                     // Add new bonuses
@@ -3400,22 +3426,22 @@ const Loader = {
                         new Trigger({
                             name: 'carhal_roots_move',
                             type: Data.TriggerType.ON_RECV_MOVE,
-                            behavior: function(){
+                            behavior: function() {
                                 const carhal = this.owner;
                                 const vars = carhal.variables;
                                 console.log('Carhal Movement Trigger');
-    
+
                                 const currentTier = vars["tier" + vars.rootsStage_Carhal];
                                 console.log('Current SentientRoots tier : ' + currentTier);
                                 // Add duration to bonuses to make them last 2 rounds
-                                if(currentTier) {
+                                if (currentTier) {
                                     carhal.bonuses.filter(x => x.origin.name === currentTier)?.map(x => x.stat.duration = 2);
                                     carhal.getActiveEffect(currentTier)?.effects.map(x => x.duration = 2);
-    
+
                                     // Retrieve the new NPC on Carhal's ancient position
                                     const npc = getFighterFromPositionAndType(Data.BattleFighterType.HERO, vars.previousPos);
                                     console.log('The NPC on Carhal\'s previous position is now ' + npc.name);
-    
+
                                     // Apply same bonuses to that NPC
                                     let bonuses = vars.getRootsBonuses(vars.previousPos, vars.rootsStage_Carhal);
                                     bonuses.map(x => x.duration = 2);
@@ -3458,14 +3484,14 @@ const Loader = {
                                 effectsCaster: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.BACK_ONE}),
-                                            new Stat({effect: Data.Effect.DODGE, theorical: 5, duration: 2, isPercentage: true}),
-                                            new Stat({effect: Data.Effect.ACCURACY, theorical: [5, 8], duration: 2, isPercentage: true})
+                                            new Stat({ effect: Data.Effect.BACK_ONE }),
+                                            new Stat({ effect: Data.Effect.DODGE, theorical: 5, duration: 2, isPercentage: true }),
+                                            new Stat({ effect: Data.Effect.ACCURACY, theorical: [5, 8], duration: 2, isPercentage: true })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.BACK_ONE}),
-                                            new Stat({effect: Data.Effect.DODGE, theorical: 7, duration: 2, isPercentage: true, isCritical: true}),
-                                            new Stat({effect: Data.Effect.ACCURACY, theorical: 10, duration: 2, isPercentage: true})
+                                            new Stat({ effect: Data.Effect.BACK_ONE }),
+                                            new Stat({ effect: Data.Effect.DODGE, theorical: 7, duration: 2, isPercentage: true, isCritical: true }),
+                                            new Stat({ effect: Data.Effect.ACCURACY, theorical: 10, duration: 2, isPercentage: true })
                                         ]
                                     }
                                 }
@@ -3484,14 +3510,14 @@ const Loader = {
                                 accMultiplier: 90,
                                 cooldown: 1,
                                 launchPos: [true, true, false],
-                                targets: {allies: '-0', enemies: '-123'},
+                                targets: { allies: '-0', enemies: '-123' },
                                 effectsEnemies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.STUN, duration: 1})
+                                            new Stat({ effect: Data.Effect.STUN, duration: 1 })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.STUN, duration: 2})
+                                            new Stat({ effect: Data.Effect.STUN, duration: 2 })
                                         ]
                                     }
                                 }
@@ -3510,19 +3536,19 @@ const Loader = {
                                 accMultiplier: 100,
                                 cooldown: 1,
                                 launchPos: [true, true, false],
-                                targets: {allies: '-0', enemies: '-12'},
+                                targets: { allies: '-0', enemies: '-12' },
                                 ignoresProtection: true,
                                 effectsEnemies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.BLEEDING_CURABLE, theorical: [3, 4], type: Data.StatType.ACTIVE, duration: 2}),
-                                            new Stat({effect: Data.Effect.PUSH_ONE, chance: 150}),
-                                            new Stat({effect: Data.Effect.PULL_ONE, chance: 150, delay: 2, duration: 1})
+                                            new Stat({ effect: Data.Effect.BLEEDING_CURABLE, theorical: [3, 4], type: Data.StatType.ACTIVE, duration: 2 }),
+                                            new Stat({ effect: Data.Effect.PUSH_ONE, chance: 150 }),
+                                            new Stat({ effect: Data.Effect.PULL_ONE, chance: 150, delay: 2, duration: 1 })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.BLEEDING_CURABLE, theorical: 5, type: Data.StatType.ACTIVE, duration: 2, isCritical: true}),
-                                            new Stat({effect: Data.Effect.PUSH_ONE, chance: 150, isCritical: true}),
-                                            new Stat({effect: Data.Effect.PULL_ONE, chance: 150, delay: 2, duration: 1, isCritical: true})
+                                            new Stat({ effect: Data.Effect.BLEEDING_CURABLE, theorical: 5, type: Data.StatType.ACTIVE, duration: 2, isCritical: true }),
+                                            new Stat({ effect: Data.Effect.PUSH_ONE, chance: 150, isCritical: true }),
+                                            new Stat({ effect: Data.Effect.PULL_ONE, chance: 150, delay: 2, duration: 1, isCritical: true })
                                         ]
                                     }
                                 }
@@ -3541,16 +3567,16 @@ const Loader = {
                                 accMultiplier: 85,
                                 cooldown: 2,
                                 launchPos: [true, false, false],
-                                targets: {allies: '-0', enemies: '@12'},
+                                targets: { allies: '-0', enemies: '@12' },
                                 effectsCaster: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.STUN, duration: 1, chance: 50}),
-                                            new Stat({effect: Data.Effect.STAMINA, duration: 2, theorical: 4, isPercentage: true, type: Data.StatType.ACTIVE})
+                                            new Stat({ effect: Data.Effect.STUN, duration: 1, chance: 50 }),
+                                            new Stat({ effect: Data.Effect.STAMINA, duration: 2, theorical: 4, isPercentage: true, type: Data.StatType.ACTIVE })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.STUN, duration: 1, chance: 45, isCritical: true}),
-                                            new Stat({effect: Data.Effect.STAMINA, duration: 2, theorical: 4, isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true})
+                                            new Stat({ effect: Data.Effect.STUN, duration: 1, chance: 45, isCritical: true }),
+                                            new Stat({ effect: Data.Effect.STAMINA, duration: 2, theorical: 4, isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true })
                                         ]
                                     }
                                 }
@@ -3573,7 +3599,7 @@ const Loader = {
                     resMove: 30, resStun: 45,
                     resilience: 0, warding: 0,
                     critEffects: [
-                        new Stat({effect: Data.Effect.MAXMANA, theorical: [15, 25]})
+                        new Stat({ effect: Data.Effect.MAXMANA, theorical: [15, 25] })
                     ],
                     type: Data.StriderType.TANK,
                     uniqueName: "Witchskin",
@@ -3597,7 +3623,7 @@ const Loader = {
                     resMove: 30, resStun: 45,
                     resilience: 0, warding: 0,
                     critEffects: [
-                        new Stat({effect: Data.Effect.MODIF_HEAL_GIVEN, theorical: [3, 7], isPercentage: true, duration: 2})
+                        new Stat({ effect: Data.Effect.MODIF_HEAL_GIVEN, theorical: [3, 7], isPercentage: true, duration: 2 })
                     ],
                     variables: {
                         life_channel_rate: 0.10,
@@ -3606,20 +3632,20 @@ const Loader = {
                         new Trigger({
                             name: 'betheros_lifechannel',
                             type: [Data.TriggerType.ON_RECV_DAMAGE, Data.TriggerType.ON_DEAL_DAMAGE],
-                            behavior: function(){
+                            behavior: function() {
                                 console.info('BETHEROS LIFE CHANNEL TRIGGERED!');
                                 console.info(game.battle.params);
                                 const params = game.battle.params;
-    
+
                                 const healAmount = Math.ceil((params.phys_damage + params.magi_damage + params.crit_damage) * this.owner.variables.life_channel_rate);
                                 console.log('Healing to all others: ' + healAmount);
-    
-                                if(healAmount > 0) {
+
+                                if (healAmount > 0) {
                                     game.battle.allies
-                                    .filter(x => x.name.toLowerCase() !== "betheros")
-                                    .forEach(al => {
-                                        al.addBaseStat(new Stat({effect: Data.Effect.HEALTH, theorical: healAmount}));
-                                    });
+                                        .filter(x => x.name.toLowerCase() !== "betheros")
+                                        .forEach(al => {
+                                            al.addBaseStat(new Stat({ effect: Data.Effect.HEALTH, theorical: healAmount }));
+                                        });
                                 }
                             }
                         })
@@ -3634,38 +3660,38 @@ const Loader = {
                                 manaCost: 3,
                                 critMultiplier: 20,
                                 accMultiplier: 85,
-                                targets: {allies: '-123', enemies: '-123'},
+                                targets: { allies: '-123', enemies: '-123' },
                                 effectsCaster: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.HEALTH, theorical: [5, 12], isPercentage: true, type: Data.StatType.ACTIVE})
+                                            new Stat({ effect: Data.Effect.HEALTH, theorical: [5, 12], isPercentage: true, type: Data.StatType.ACTIVE })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.HEALTH, theorical: [12, 18], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true})
+                                            new Stat({ effect: Data.Effect.HEALTH, theorical: [12, 18], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true })
                                         ]
                                     }
                                 },
                                 effectsAllies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [13, 15], isPercentage: true, duration: 2}),
-                                            new Stat({effect: Data.Effect.MANA, theorical: [15, 20], isPercentage: true, type: Data.StatType.ACTIVE})
+                                            new Stat({ effect: Data.Effect.MODIF_DMG_SKILL, theorical: [13, 15], isPercentage: true, duration: 2 }),
+                                            new Stat({ effect: Data.Effect.MANA, theorical: [15, 20], isPercentage: true, type: Data.StatType.ACTIVE })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [20, 22], isPercentage: true, duration: 2, isCritical: true}),
-                                            new Stat({effect: Data.Effect.MANA, theorical: [25, 25], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true})
+                                            new Stat({ effect: Data.Effect.MODIF_DMG_SKILL, theorical: [20, 22], isPercentage: true, duration: 2, isCritical: true }),
+                                            new Stat({ effect: Data.Effect.MANA, theorical: [25, 25], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true })
                                         ]
                                     }
                                 },
                                 effectsEnemies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [-10, -15], isPercentage: true, duration: 1}),
-                                            new Stat({effect: Data.Effect.MANA, theorical: [-8, -10], isPercentage: true, type: Data.StatType.ACTIVE})
+                                            new Stat({ effect: Data.Effect.MODIF_DMG_SKILL, theorical: [-10, -15], isPercentage: true, duration: 1 }),
+                                            new Stat({ effect: Data.Effect.MANA, theorical: [-8, -10], isPercentage: true, type: Data.StatType.ACTIVE })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.MODIF_DMG_SKILL, theorical: [-25, -25], isPercentage: true, duration: 2, isCritical: true}),
-                                            new Stat({effect: Data.Effect.MANA, theorical: [-15, -15], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true})
+                                            new Stat({ effect: Data.Effect.MODIF_DMG_SKILL, theorical: [-25, -25], isPercentage: true, duration: 2, isCritical: true }),
+                                            new Stat({ effect: Data.Effect.MANA, theorical: [-15, -15], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true })
                                         ]
                                     }
                                 }
@@ -3680,16 +3706,16 @@ const Loader = {
                                 manaCost: 7,
                                 critMultiplier: 15,
                                 accMultiplier: 100,
-                                targets: {allies: '@123', enemies: '-0'},
+                                targets: { allies: '@123', enemies: '-0' },
                                 cooldown: 3,
                                 launchPos: [true, false, false],
                                 effectsAllies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.SHIELD, theorical: [20, 25], duration: 3})
+                                            new Stat({ effect: Data.Effect.SHIELD, theorical: [20, 25], duration: 3 })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.SHIELD, theorical: [25, 30], duration: 4, isCritical: true})
+                                            new Stat({ effect: Data.Effect.SHIELD, theorical: [25, 30], duration: 4, isCritical: true })
                                         ]
                                     }
                                 },
@@ -3706,26 +3732,26 @@ const Loader = {
                                 dmgMultiplier: 20,
                                 criMultiplier: 10,
                                 accMultiplier: 85,
-                                targets: {allies: '-0', enemies: '-12'},
+                                targets: { allies: '-0', enemies: '-12' },
                                 cooldown: 1,
                                 launchPos: [true, true, false],
                                 effectsCaster: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.HEALTH, theorical: [3, 6], isPercentage: true, type: Data.StatType.ACTIVE})
+                                            new Stat({ effect: Data.Effect.HEALTH, theorical: [3, 6], isPercentage: true, type: Data.StatType.ACTIVE })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.HEALTH, theorical: [5, 8], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true})
+                                            new Stat({ effect: Data.Effect.HEALTH, theorical: [5, 8], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true })
                                         ]
                                     }
                                 },
                                 effectsEnemies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.PUSH_ONE})
+                                            new Stat({ effect: Data.Effect.PUSH_ONE })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.PUSH_ONE})
+                                            new Stat({ effect: Data.Effect.PUSH_ONE })
                                         ]
                                     }
                                 }
@@ -3739,24 +3765,24 @@ const Loader = {
                                 type: Data.SkillType.FRIENDLY,
                                 manaCost: 4,
                                 criMultiplier: 15,
-                                targets: {allies: '-123', enemies: '-0'},
+                                targets: { allies: '-123', enemies: '-0' },
                                 effectsCaster: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.MODIF_HEAL_GIVEN, theorical: [5, 10], isPercentage: true, duration: 2})
+                                            new Stat({ effect: Data.Effect.MODIF_HEAL_GIVEN, theorical: [5, 10], isPercentage: true, duration: 2 })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.MODIF_HEAL_GIVEN, theorical: [10, 15], isPercentage: true, duration: 2})
+                                            new Stat({ effect: Data.Effect.MODIF_HEAL_GIVEN, theorical: [10, 15], isPercentage: true, duration: 2 })
                                         ]
                                     }
                                 },
                                 effectsAllies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.HEALTH, theorical: [10, 15], isPercentage: true, type: Data.StatType.ACTIVE})
+                                            new Stat({ effect: Data.Effect.HEALTH, theorical: [10, 15], isPercentage: true, type: Data.StatType.ACTIVE })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.HEALTH, theorical: [15, 20], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true})
+                                            new Stat({ effect: Data.Effect.HEALTH, theorical: [15, 20], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true })
                                         ]
                                     }
                                 }
@@ -3773,27 +3799,27 @@ const Loader = {
                                 dmgMultiplier: 90,
                                 accMultiplier: 90,
                                 criMultiplier: 10,
-                                targets: {allies: '-0', enemies: '@23'},
+                                targets: { allies: '-0', enemies: '@23' },
                                 cooldown: 2,
                                 effectsCaster: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.MANA, theorical: [10, 15], isPercentage: true, type: Data.StatType.ACTIVE, duration: 2}),
-                                            new Stat({effect: Data.Effect.ACCURACY, theorical: 10, isPercentage: true, duration: 3})
+                                            new Stat({ effect: Data.Effect.MANA, theorical: [10, 15], isPercentage: true, type: Data.StatType.ACTIVE, duration: 2 }),
+                                            new Stat({ effect: Data.Effect.ACCURACY, theorical: 10, isPercentage: true, duration: 3 })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.MANA, theorical: [15, 20], isPercentage: true, type: Data.StatType.ACTIVE, duration: 2, isCritical: true}),
-                                            new Stat({effect: Data.Effect.ACCURACY, theorical: 15, isPercentage: true, duration: 3, isCritical: true})
+                                            new Stat({ effect: Data.Effect.MANA, theorical: [15, 20], isPercentage: true, type: Data.StatType.ACTIVE, duration: 2, isCritical: true }),
+                                            new Stat({ effect: Data.Effect.ACCURACY, theorical: 15, isPercentage: true, duration: 3, isCritical: true })
                                         ]
                                     }
                                 },
                                 effectsEnemies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.DODGE, theorical: [-5, -8], isPercentage: true, duration: 3})
+                                            new Stat({ effect: Data.Effect.DODGE, theorical: [-5, -8], isPercentage: true, duration: 3 })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.DODGE, theorical: [-8, -12], isPercentage: true, duration: 3, isCritical: true})
+                                            new Stat({ effect: Data.Effect.DODGE, theorical: [-8, -12], isPercentage: true, duration: 3, isCritical: true })
                                         ]
                                     }
                                 }
@@ -3822,7 +3848,7 @@ const Loader = {
                     resMove: 30, resStun: 45,
                     resilience: 0, warding: 0,
                     critEffects: [
-                        new Stat({effect: Data.Effect.PROTECTION, theorical: [3, 7], isPercentage: true})
+                        new Stat({ effect: Data.Effect.PROTECTION, theorical: [3, 7], isPercentage: true })
                     ],
                     type: Data.StriderType.TANK,
                     uniqueName: "Shepherd's Ward",
@@ -3846,7 +3872,7 @@ const Loader = {
                     resMove: 30, resStun: 45,
                     resilience: 0, warding: 0,
                     critEffects: [
-                        new Stat({effect: Data.Effect.WARDING, theorical: [3, 7]})
+                        new Stat({ effect: Data.Effect.WARDING, theorical: [3, 7] })
                     ],
                     type: Data.StriderType.SUPPORT,
                     uniqueName: "Whispers",
@@ -3867,37 +3893,37 @@ const Loader = {
                         whispersTotalDamage: [35, -50],
                         getMadnessEffects: function(stage, type) {
                             const accessor = type === "ally" ? 0 : 1;
-                            switch(stage) {
+                            switch (stage) {
                                 case 1:
                                     return [
-                                        new Stat({effect: Data.Effect.DODGE, theorical: this.whispersDodge[accessor], isPercentage: true, duration: 2}),
-                                        new Stat({effect: Data.Effect.ACCURACY, theorical: this.whispersAccuracy[accessor], isPercentage: true, duration: 2}),
+                                        new Stat({ effect: Data.Effect.DODGE, theorical: this.whispersDodge[accessor], isPercentage: true, duration: 2 }),
+                                        new Stat({ effect: Data.Effect.ACCURACY, theorical: this.whispersAccuracy[accessor], isPercentage: true, duration: 2 }),
                                     ];
                                 case 2:
                                     return [
-                                        new Stat({effect: Data.Effect.PROTECTION, theorical: this.whispersProtection[accessor], isPercentage: true, duration: 2}),
+                                        new Stat({ effect: Data.Effect.PROTECTION, theorical: this.whispersProtection[accessor], isPercentage: true, duration: 2 }),
                                     ];
                                 case 3:
                                     return [
-                                        new Stat({effect: Data.Effect.MODIF_HEAL_RECV, theorical: this.whispersReceivedHeal[accessor], isPercentage: true, duration: 2}),
-                                        new Stat({effect: Data.Effect.MAXHEALTH, theorical: this.whispersMaxhealth[accessor], isPercentage: true, duration: 2}),
+                                        new Stat({ effect: Data.Effect.MODIF_HEAL_RECV, theorical: this.whispersReceivedHeal[accessor], isPercentage: true, duration: 2 }),
+                                        new Stat({ effect: Data.Effect.MAXHEALTH, theorical: this.whispersMaxhealth[accessor], isPercentage: true, duration: 2 }),
                                     ];
                                 case 4:
                                     return [
-                                        new Stat({effect: Data.Effect.RES_BLEED_DMG, theorical: this.whispersBleedAndPoison[accessor], duration: 2}),
-                                        new Stat({effect: Data.Effect.RES_POISON_DMG, theorical: this.whispersBleedAndPoison[accessor], duration: 2}),
-                                        new Stat({effect: Data.Effect.MODIF_BLOCK, theorical: this.whispersBlock[accessor], isPercentage: true, duration: 2}),
+                                        new Stat({ effect: Data.Effect.RES_BLEED_DMG, theorical: this.whispersBleedAndPoison[accessor], duration: 2 }),
+                                        new Stat({ effect: Data.Effect.RES_POISON_DMG, theorical: this.whispersBleedAndPoison[accessor], duration: 2 }),
+                                        new Stat({ effect: Data.Effect.MODIF_BLOCK, theorical: this.whispersBlock[accessor], isPercentage: true, duration: 2 }),
                                     ];
                                 case 5:
                                     return [
-                                        new Stat({effect: Data.Effect.SPEED, theorical: this.whispersSpeed[accessor], duration: 2}),
-                                        new Stat({effect: Data.Effect.MODIF_DMG_TOTAL, theorical: this.whispersTotalDamage[accessor], isPercentage: true, duration: 2}),
+                                        new Stat({ effect: Data.Effect.SPEED, theorical: this.whispersSpeed[accessor], duration: 2 }),
+                                        new Stat({ effect: Data.Effect.MODIF_DMG_TOTAL, theorical: this.whispersTotalDamage[accessor], isPercentage: true, duration: 2 }),
                                     ]
                             }
                         },
                         updateMadness(target, value) {
-                            if(target.variables.hasOwnProperty("madness") && value !== 0) {
-                                if(target.variables.madness < 5) target.variables.madness = Math.min(5, target.variables.madness+value);
+                            if (target.variables.hasOwnProperty("madness") && value !== 0) {
+                                if (target.variables.madness < 5) target.variables.madness = Math.min(5, target.variables.madness + value);
                             } else {
                                 target.variables.madness = value;
                             }
@@ -3905,10 +3931,10 @@ const Loader = {
                             target.badges.filter(x => x.name.toLowerCase().startsWith("madness")).forEach(badge => {
                                 target.removeBadge(badge.name);
                             });
-                            if(target.variables.madness > 0) target.addBadge(new BattleBadge({
+                            if (target.variables.madness > 0) target.addBadge(new BattleBadge({
                                 name: "Madness " + romanize(target.variables.madness),
                                 css: "madness",
-                                tooltip: function(){
+                                tooltip: function() {
                                     let str = '';
 
                                     str += "Madness " + romanize(target.variables.madness);
@@ -3927,7 +3953,7 @@ const Loader = {
                             behavior: function() {
                                 const tar = game.battle.target[game.battle.targetTracker];
 
-                                if(game.battle.selectedSkill.name.toLowerCase() === "beyond") return; // Skip for Beyond
+                                if (game.battle.selectedSkill.name.toLowerCase() === "beyond") return; // Skip for Beyond
                                 this.owner.variables.updateMadness(tar, 1);
 
                                 console.log(tar.name + "'s madness: " + tar.variables.madness);
@@ -3944,51 +3970,51 @@ const Loader = {
                                 manaCost: 3,
                                 criMultiplier: 15,
                                 accMultiplier: 100,
-                                targets: {allies: '-123', enemies: '-123'},
+                                targets: { allies: '-123', enemies: '-123' },
                                 effectsAllies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.DUMMY, displayed: "$Consumes$ §Madness§"}),
-                                            new Stat({effect: Data.Effect.MANA, theorical: [15, 20], isPercentage: true, type: Data.StatType.ACTIVE}),
+                                            new Stat({ effect: Data.Effect.DUMMY, displayed: "$Consumes$ §Madness§" }),
+                                            new Stat({ effect: Data.Effect.MANA, theorical: [15, 20], isPercentage: true, type: Data.StatType.ACTIVE }),
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.DUMMY, displayed: "$Consumes$ §Madness§"}),
-                                            new Stat({effect: Data.Effect.MANA, theorical: 25, isPercentage: true, type: Data.StatType.ACTIVE}),
+                                            new Stat({ effect: Data.Effect.DUMMY, displayed: "$Consumes$ §Madness§" }),
+                                            new Stat({ effect: Data.Effect.MANA, theorical: 25, isPercentage: true, type: Data.StatType.ACTIVE }),
                                         ]
                                     }
                                 },
                                 effectsEnemies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.DUMMY, displayed: "$Consumes$ §Madness§"}),
-                                            new Stat({effect: Data.Effect.HEALTH, theorical: [5, 10], isPercentage: true, type: Data.StatType.ACTIVE}),
+                                            new Stat({ effect: Data.Effect.DUMMY, displayed: "$Consumes$ §Madness§" }),
+                                            new Stat({ effect: Data.Effect.HEALTH, theorical: [5, 10], isPercentage: true, type: Data.StatType.ACTIVE }),
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.DUMMY, displayed: "$Consumes$ §Madness§"}),
-                                            new Stat({effect: Data.Effect.HEALTH, theorical: 5, isPercentage: true, type: Data.StatType.ACTIVE}),
+                                            new Stat({ effect: Data.Effect.DUMMY, displayed: "$Consumes$ §Madness§" }),
+                                            new Stat({ effect: Data.Effect.HEALTH, theorical: 5, isPercentage: true, type: Data.StatType.ACTIVE }),
                                         ]
                                     }
                                 },
                                 effectsCaster: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.MANA, theorical: [5, 8], isPercentage: true, type: Data.StatType.ACTIVE, duration: 3}),
+                                            new Stat({ effect: Data.Effect.MANA, theorical: [5, 8], isPercentage: true, type: Data.StatType.ACTIVE, duration: 3 }),
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.MANA, theorical: 10, isPercentage: true, type: Data.StatType.ACTIVE, duration: 3}),
+                                            new Stat({ effect: Data.Effect.MANA, theorical: 10, isPercentage: true, type: Data.StatType.ACTIVE, duration: 3 }),
                                         ]
                                     }
                                 },
                                 logicAny: {
                                     PRE_DAMAGE: function(tar) {
                                         console.log("DETECTED BEYOND TARGET:", tar);
-                                        
+
                                         const madness = tar.variables.madness;
-                                        if(madness && madness > 0) {
+                                        if (madness && madness > 0) {
                                             const sk = this;
                                             const haman = sk.getOwner();
                                             const accessor = game.battle.allies.includes(tar) ? "ally" : "enemy";
-                                            
+
                                             const effects = haman.variables.getMadnessEffects(madness, accessor);
 
                                             tar.applyEffects(sk, haman, effects, false);
@@ -4014,24 +4040,24 @@ const Loader = {
                                 dmgType: Data.SkillDamageType.MAGICAL,
                                 cooldown: 2,
                                 launchPos: [true, true, false],
-                                targets: {allies: '-0', enemies: '-123'},
+                                targets: { allies: '-0', enemies: '-123' },
                                 effectsEnemies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.PROTECTION, theorical: [-35, -40], isPercentage: true, duration: 2})
+                                            new Stat({ effect: Data.Effect.PROTECTION, theorical: [-35, -40], isPercentage: true, duration: 2 })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.PROTECTION, theorical: -45, isPercentage: true, duration: 2, isCritical: true})
+                                            new Stat({ effect: Data.Effect.PROTECTION, theorical: -45, isPercentage: true, duration: 2, isCritical: true })
                                         ],
                                     }
                                 },
                                 effectsCaster: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.HAMAN_REVELATION_MARKED, duration: 2}),
+                                            new Stat({ effect: Data.Effect.HAMAN_REVELATION_MARKED, duration: 2 }),
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.HAMAN_REVELATION_MARKED, duration: 2, isCritical: true}),
+                                            new Stat({ effect: Data.Effect.HAMAN_REVELATION_MARKED, duration: 2, isCritical: true }),
                                         ],
                                     }
                                 },
@@ -4040,7 +4066,7 @@ const Loader = {
                                 variables: {
                                     storedTarget: null
                                 },
-                                onCast: function(){
+                                onCast: function() {
                                     this.variables.storedTarget = game.battle.target[0];
                                     console.log("Stored " + this.variables.storedTarget.name + " as Revelation's catalyst");
                                 },
@@ -4048,10 +4074,10 @@ const Loader = {
                                     new Trigger({
                                         name: "revelationTrigger",
                                         type: Data.TriggerType.ON_DEAL_ATTACK,
-                                        checker: function(){
+                                        checker: function() {
                                             const tar = game.battle.target[game.battle.targetTracker];
-    
-                                            if(tar !== this.getOwner().variables.storedTarget) {
+
+                                            if (tar !== this.getOwner().variables.storedTarget) {
                                                 const sk = this.getOwner();
                                                 const haman = sk.getOwner();
                                                 const ae = sk.variables.storedTarget.getActiveEffect("revelation") || sk.variables.storedTarget.getActiveEffect("revelation (critical)");
@@ -4083,17 +4109,17 @@ const Loader = {
                                 accMultiplier: 100,
                                 cooldown: 2,
                                 launchPos: [true, true, false],
-                                targets: {allies: '-0', enemies: '-23'},
+                                targets: { allies: '-0', enemies: '-23' },
                                 manaCost: 6,
                                 effectsEnemies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.SHATTERS_GUARD}),
-                                            new Stat({effect: Data.Effect.PULL_TWO, chance: 100})
+                                            new Stat({ effect: Data.Effect.SHATTERS_GUARD }),
+                                            new Stat({ effect: Data.Effect.PULL_TWO, chance: 100 })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.SHATTERS_GUARD, isCritical: true}),
-                                            new Stat({effect: Data.Effect.PULL_TWO, chance: 100, isCritical: true})
+                                            new Stat({ effect: Data.Effect.SHATTERS_GUARD, isCritical: true }),
+                                            new Stat({ effect: Data.Effect.PULL_TWO, chance: 100, isCritical: true })
                                         ]
                                     }
                                 }
@@ -4108,25 +4134,25 @@ const Loader = {
                                 criMultiplier: 15,
                                 accMultiplier: 100,
                                 cooldown: 1,
-                                targets: {allies: '-123', enemies: '-0'},
+                                targets: { allies: '-123', enemies: '-0' },
                                 manaCost: 5,
                                 effectsAllies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.DUMMY, theorical: [6, 8], isPercentage: true, displayed: "^° Health^ per global §Madness§ state"}),
-                                            new Stat({effect: Data.Effect.DUMMY, theorical: [8, 10], isPercentage: true, displayed: "^° Mana^ per global §Madness§ state"})
+                                            new Stat({ effect: Data.Effect.DUMMY, theorical: [6, 8], isPercentage: true, displayed: "^° Health^ per global §Madness§ state" }),
+                                            new Stat({ effect: Data.Effect.DUMMY, theorical: [8, 10], isPercentage: true, displayed: "^° Mana^ per global §Madness§ state" })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.DUMMY, theorical: 10, isPercentage: true, displayed: "^° Health^ per global §Madness§ state", isCritical: true}),
-                                            new Stat({effect: Data.Effect.DUMMY, theorical: 12, isPercentage: true, displayed: "^° Mana^ per global §Madness§ state", isCritical: true})
+                                            new Stat({ effect: Data.Effect.DUMMY, theorical: 10, isPercentage: true, displayed: "^° Health^ per global §Madness§ state", isCritical: true }),
+                                            new Stat({ effect: Data.Effect.DUMMY, theorical: 12, isPercentage: true, displayed: "^° Mana^ per global §Madness§ state", isCritical: true })
                                         ]
                                     }
                                 },
                                 logicAllies: {
-                                    PRE_DAMAGE: function(tar){
+                                    PRE_DAMAGE: function(tar) {
                                         let totalMadness = 0;
                                         game.battle.order.forEach(npc => {
-                                            if(npc.variables.hasOwnProperty("madness") && npc.variables.madness > 0) totalMadness++; 
+                                            if (npc.variables.hasOwnProperty("madness") && npc.variables.madness > 0) totalMadness++;
                                         });
 
                                         const baseHeal = game.battle.params.critical ? 10 : getRandomNumber(6, 8);
@@ -4134,8 +4160,8 @@ const Loader = {
                                         const heal = baseHeal * totalMadness;
                                         const mana = baseMana * totalMadness;
 
-                                        tar.addBaseStat(new Stat({effect: Data.Effect.HEALTH, theorical: heal}));
-                                        tar.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: mana}));
+                                        tar.addBaseStat(new Stat({ effect: Data.Effect.HEALTH, theorical: heal }));
+                                        tar.addBaseStat(new Stat({ effect: Data.Effect.MANA, theorical: mana }));
                                     }
                                 }
                             }
@@ -4149,29 +4175,29 @@ const Loader = {
                                 criMultiplier: 10,
                                 accMultiplier: 90,
                                 cooldown: 2,
-                                targets: {allies: '-12', enemies: '-23'},
+                                targets: { allies: '-12', enemies: '-23' },
                                 manaCost: 4,
                                 effectsAllies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.DODGE, theorical: 50, duration: 1, isPercentage: true}),
-                                            new Stat({effect: Data.Effect.DODGE, theorical: -35, duration: 1, isPercentage: true, delay: 1})
+                                            new Stat({ effect: Data.Effect.DODGE, theorical: 50, duration: 1, isPercentage: true }),
+                                            new Stat({ effect: Data.Effect.DODGE, theorical: -35, duration: 1, isPercentage: true, delay: 1 })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.DODGE, theorical: 55, duration: 1, isPercentage: true}),
-                                            new Stat({effect: Data.Effect.DODGE, theorical: -20, duration: 1, isPercentage: true, delay: 1})
+                                            new Stat({ effect: Data.Effect.DODGE, theorical: 55, duration: 1, isPercentage: true }),
+                                            new Stat({ effect: Data.Effect.DODGE, theorical: -20, duration: 1, isPercentage: true, delay: 1 })
                                         ],
                                     }
                                 },
                                 effectsEnemies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.DODGE, theorical: 50, duration: 1, isPercentage: true}),
-                                            new Stat({effect: Data.Effect.DODGE, theorical: -35, duration: 1, isPercentage: true, delay: 1})
+                                            new Stat({ effect: Data.Effect.DODGE, theorical: 50, duration: 1, isPercentage: true }),
+                                            new Stat({ effect: Data.Effect.DODGE, theorical: -35, duration: 1, isPercentage: true, delay: 1 })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.DODGE, theorical: 55, duration: 1, isPercentage: true}),
-                                            new Stat({effect: Data.Effect.DODGE, theorical: -20, duration: 1, isPercentage: true, delay: 1})
+                                            new Stat({ effect: Data.Effect.DODGE, theorical: 55, duration: 1, isPercentage: true }),
+                                            new Stat({ effect: Data.Effect.DODGE, theorical: -20, duration: 1, isPercentage: true, delay: 1 })
                                         ],
                                     }
                                 },
@@ -4193,7 +4219,7 @@ const Loader = {
                     resMove: 30, resStun: 45,
                     resilience: 0, warding: 0,
                     critEffects: [
-                        new Stat({effect: Data.Effect.PROTECTION, theorical: [3, 7], isPercentage: true})
+                        new Stat({ effect: Data.Effect.PROTECTION, theorical: [3, 7], isPercentage: true })
                     ],
                     type: Data.StriderType.STRIKER,
                     uniqueName: "Bend Death",
@@ -4217,7 +4243,7 @@ const Loader = {
                     resMove: 30, resStun: 45,
                     resilience: 0, warding: 0,
                     critEffects: [
-                        new Stat({effect: Data.Effect.PROTECTION, theorical: [3, 7], isPercentage: true})
+                        new Stat({ effect: Data.Effect.PROTECTION, theorical: [3, 7], isPercentage: true })
                     ],
                     type: Data.StriderType.SUPPORT,
                     uniqueName: "Timecracks",
@@ -4241,7 +4267,7 @@ const Loader = {
                     resMove: 30, resStun: 45,
                     resilience: 0, warding: 0,
                     critEffects: [
-                        new Stat({effect: Data.Effect.PROTECTION, theorical: [3, 7], isPercentage: true})
+                        new Stat({ effect: Data.Effect.PROTECTION, theorical: [3, 7], isPercentage: true })
                     ],
                     type: Data.StriderType.TANK,
                     uniqueName: "Will of the Dragon",
@@ -4265,7 +4291,7 @@ const Loader = {
                     resMove: 30, resStun: 45,
                     resilience: 0, warding: 0,
                     critEffects: [
-                        new Stat({effect: Data.Effect.PROTECTION, theorical: [3, 7], isPercentage: true})
+                        new Stat({ effect: Data.Effect.PROTECTION, theorical: [3, 7], isPercentage: true })
                     ],
                     type: Data.StriderType.STRIKER,
                     uniqueName: "Revenge of the Fallen",
@@ -4278,7 +4304,7 @@ const Loader = {
             )
         ];
 
-        for(const strider of striders) {
+        for (const strider of striders) {
             game.all_striders.push(strider);
             strider.triggers.forEach(tr => {
                 tr.owner = strider;
@@ -4314,14 +4340,14 @@ const Loader = {
                                 dmgMultiplier: 100,
                                 criMultiplier: 20,
                                 accMultiplier: 90,
-                                targets: {allies: '-0', enemies: '-123'},
+                                targets: { allies: '-0', enemies: '-123' },
                                 effectsAllies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.BLIGHT_CURABLE, theorical: [2, 4], type: Data.StatType.ACTIVE, duration: 2})
+                                            new Stat({ effect: Data.Effect.BLIGHT_CURABLE, theorical: [2, 4], type: Data.StatType.ACTIVE, duration: 2 })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.BLIGHT_CURABLE, theorical: [4, 6], type: Data.StatType.ACTIVE, duration: 2})
+                                            new Stat({ effect: Data.Effect.BLIGHT_CURABLE, theorical: [4, 6], type: Data.StatType.ACTIVE, duration: 2 })
                                         ]
                                     }
                                 }
@@ -4332,25 +4358,25 @@ const Loader = {
                         actions: [
                             new EnemyAction({
                                 title: 'regular',
-                                owner: function(){ return what(game.battle.enemies, "mycelial tick") },
-                                checker: function(){ return this.owner.skills[0].manaCost <= this.owner.mana },
-                                behavior: function(){
+                                owner: function() { return what(game.battle.enemies, "mycelial tick") },
+                                checker: function() { return this.owner.skills[0].manaCost <= this.owner.mana },
+                                behavior: function() {
                                     game.battle.target.push(choose(game.battle.allies));
                                     game.battle.selectedSkill = this.owner.skills[0];
                                     console.log('attacking ' + game.battle.target[0].name + ' with ' + game.battle.selectedSkill.name);
                                     game.battle.executeSkill();
-                                    
+
                                 }
                             }),
                             new EnemyAction({
                                 title: 'block',
-                                owner: function(){ return what(game.battle.enemies, "mycelial tick") },
-                                checker: function(){ return this.owner.stamina > 0 },
+                                owner: function() { return what(game.battle.enemies, "mycelial tick") },
+                                checker: function() { return this.owner.stamina > 0 },
                                 behavior: function() {
                                     console.log('blocks');
                                     this.owner.applyBlocking();
-                                    this.owner.removeBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 5}));
-                                    this.owner.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 5}));
+                                    this.owner.removeBaseStat(new Stat({ effect: Data.Effect.STAMINA, theorical: 5 }));
+                                    this.owner.addBaseStat(new Stat({ effect: Data.Effect.MANA, theorical: 5 }));
                                     game.battle.finishTurn();
                                 }
                             }),
@@ -4398,18 +4424,18 @@ const Loader = {
                                 type: Data.SkillType.FRIENDLY,
                                 manaCost: 20,
                                 criMultiplier: 15,
-                                targets: {allies: '-123', enemies: '-0'},
+                                targets: { allies: '-123', enemies: '-0' },
                                 effectsEnemies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.HEALTH, theorical: [15, 20], isPercentage: true, type: Data.StatType.ACTIVE}),
-                                            new Stat({effect: Data.Effect.MODIF_CRIT_SKILL, theorical: [10, 15], isPercentage: true, duration: 2}),
-                                            new Stat({effect: Data.Effect.MANA, theorical: [20, 25], isPercentage: true, type: Data.StatType.ACTIVE, duration: 2}),
+                                            new Stat({ effect: Data.Effect.HEALTH, theorical: [15, 20], isPercentage: true, type: Data.StatType.ACTIVE }),
+                                            new Stat({ effect: Data.Effect.MODIF_CRIT_SKILL, theorical: [10, 15], isPercentage: true, duration: 2 }),
+                                            new Stat({ effect: Data.Effect.MANA, theorical: [20, 25], isPercentage: true, type: Data.StatType.ACTIVE, duration: 2 }),
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.HEALTH, theorical: [20, 25], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true}),
-                                            new Stat({effect: Data.Effect.MODIF_CRIT_SKILL, theorical: [15, 20], isPercentage: true, duration: 2, isCritical: true}),
-                                            new Stat({effect: Data.Effect.MANA, theorical: [20, 25], isPercentage: true, type: Data.StatType.ACTIVE, duration: 2, isCritical: true}),
+                                            new Stat({ effect: Data.Effect.HEALTH, theorical: [20, 25], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true }),
+                                            new Stat({ effect: Data.Effect.MODIF_CRIT_SKILL, theorical: [15, 20], isPercentage: true, duration: 2, isCritical: true }),
+                                            new Stat({ effect: Data.Effect.MANA, theorical: [20, 25], isPercentage: true, type: Data.StatType.ACTIVE, duration: 2, isCritical: true }),
                                         ]
                                     }
                                 }
@@ -4428,16 +4454,16 @@ const Loader = {
                                 accMultiplier: 90,
                                 cooldown: 2,
                                 launchPos: [false, true, true],
-                                targets: {allies: '-0', enemies: '@123'},
+                                targets: { allies: '-0', enemies: '@123' },
                                 effectsAllies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.RES_POISON_DMG, theorical: [-5, -10], duration: 2}),
-                                            new Stat({effect: Data.Effect.WARDING, theorical: [-8, -10], duration: 2}),
+                                            new Stat({ effect: Data.Effect.RES_POISON_DMG, theorical: [-5, -10], duration: 2 }),
+                                            new Stat({ effect: Data.Effect.WARDING, theorical: [-8, -10], duration: 2 }),
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.RES_POISON_DMG, theorical: [-5, -10], duration: 2, isCritical: true}),
-                                            new Stat({effect: Data.Effect.WARDING, theorical: [-8, -10], duration: 2, isCritical: true}),
+                                            new Stat({ effect: Data.Effect.RES_POISON_DMG, theorical: [-5, -10], duration: 2, isCritical: true }),
+                                            new Stat({ effect: Data.Effect.WARDING, theorical: [-8, -10], duration: 2, isCritical: true }),
                                         ]
                                     }
                                 }
@@ -4455,18 +4481,18 @@ const Loader = {
                                 dmgMultiplier: 110,
                                 dmgType: Data.SkillDamageType.PHYSICAL,
                                 launchPos: [true, false, false],
-                                targets: {allies: '-1', enemies: '-1'},
+                                targets: { allies: '-1', enemies: '-1' },
                                 effectsCaster: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.BACK_ONE}),
-                                            new Stat({effect: Data.Effect.PROTECTION, theorical: 8, duration: 2, isPercentage: true}),
-                                            new Stat({effect: Data.Effect.MANA, theorical: 15, isPercentage: true, type: Data.StatType.ACTIVE})
+                                            new Stat({ effect: Data.Effect.BACK_ONE }),
+                                            new Stat({ effect: Data.Effect.PROTECTION, theorical: 8, duration: 2, isPercentage: true }),
+                                            new Stat({ effect: Data.Effect.MANA, theorical: 15, isPercentage: true, type: Data.StatType.ACTIVE })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.BACK_TWO}),
-                                            new Stat({effect: Data.Effect.PROTECTION, theorical: 5, duration: 2, isPercentage: true, isCritical: true}),
-                                            new Stat({effect: Data.Effect.MANA, theorical: 20, isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true}),
+                                            new Stat({ effect: Data.Effect.BACK_TWO }),
+                                            new Stat({ effect: Data.Effect.PROTECTION, theorical: 5, duration: 2, isPercentage: true, isCritical: true }),
+                                            new Stat({ effect: Data.Effect.MANA, theorical: 20, isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true }),
                                         ]
                                     }
                                 }
@@ -4477,11 +4503,11 @@ const Loader = {
                         actions: [
                             new EnemyAction({
                                 title: 'move back',
-                                owner: function(){ return what(game.battle.enemies, "fungaliant") },
-                                checker: function(){ 
+                                owner: function() { return what(game.battle.enemies, "fungaliant") },
+                                checker: function() {
                                     return this.owner.getSelfPosInBattle() === Data.FormationPosition.FRONT;
                                 },
-                                behavior: function(){
+                                behavior: function() {
                                     console.log(this.title);
                                     game.battle.target.push(game.battle.allies[2]);
                                     game.battle.selectedSkill = this.owner.skills[2];
@@ -4490,11 +4516,11 @@ const Loader = {
                             }),
                             new EnemyAction({
                                 title: 'weaken striders',
-                                owner: function(){ return what(game.battle.enemies, "fungaliant") },
-                                checker: function(){
+                                owner: function() { return what(game.battle.enemies, "fungaliant") },
+                                checker: function() {
                                     return this.owner.skills[1].cooldownCountdown === 0 && this.owner.skills[1].manaCost <= this.owner.mana;
                                 },
-                                behavior: function(){
+                                behavior: function() {
                                     console.log(this.title);
                                     game.battle.target.push(
                                         game.battle.allies[0],
@@ -4507,15 +4533,15 @@ const Loader = {
                             }),
                             new EnemyAction({
                                 title: 'heal enemies',
-                                owner: function(){ return what(game.battle.enemies, "fungaliant") },
-                                checker: function(){
+                                owner: function() { return what(game.battle.enemies, "fungaliant") },
+                                checker: function() {
                                     return this.owner.skills[0].manaCost <= this.owner.mana;
                                 },
-                                behavior: function(){
+                                behavior: function() {
                                     console.log(this.title);
                                     game.battle.target.push(
                                         findNPCWithLowestStat(
-                                            game.battle.enemies.filter(x => x.health > 0), 
+                                            game.battle.enemies.filter(x => x.health > 0),
                                             Data.Effect.HEALTH
                                         )
                                     );
@@ -4525,15 +4551,15 @@ const Loader = {
                             }),
                             new EnemyAction({
                                 title: 'block',
-                                owner: function(){ return what(game.battle.enemies, "fungaliant") },
-                                checker: function(){
+                                owner: function() { return what(game.battle.enemies, "fungaliant") },
+                                checker: function() {
                                     return this.owner.stamina > 0;
                                 },
-                                behavior: function(){
+                                behavior: function() {
                                     console.log(this.title);
                                     this.owner.applyBlocking();
-                                    this.owner.removeBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 5}));
-                                    this.owner.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 5}));
+                                    this.owner.removeBaseStat(new Stat({ effect: Data.Effect.STAMINA, theorical: 5 }));
+                                    this.owner.addBaseStat(new Stat({ effect: Data.Effect.MANA, theorical: 5 }));
                                     game.battle.finishTurn();
                                 }
                             })
@@ -4565,31 +4591,31 @@ const Loader = {
                                 cooldown: 3,
                                 criMultiplier: 10,
                                 accMultiplier: 100,
-                                targets: {allies: '-123', enemies: '-0'},
+                                targets: { allies: '-123', enemies: '-0' },
                                 launchPos: [true, true, true],
                                 effectsCaster: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.GUARDING, duration: 2}),
-                                            new Stat({effect: Data.Effect.PROTECTION, theorical: [15, 20], isPercentage: true, duration: 2}),
-                                            new Stat({effect: Data.Effect.RES_STUN, theorical: [15, 20], isPercentage: true, duration: 2})
+                                            new Stat({ effect: Data.Effect.GUARDING, duration: 2 }),
+                                            new Stat({ effect: Data.Effect.PROTECTION, theorical: [15, 20], isPercentage: true, duration: 2 }),
+                                            new Stat({ effect: Data.Effect.RES_STUN, theorical: [15, 20], isPercentage: true, duration: 2 })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.GUARDING, duration: 2, isCritical: true}),
-                                            new Stat({effect: Data.Effect.PROTECTION, theorical: 22, isPercentage: true, duration: 2, isCritical: true}),
-                                            new Stat({effect: Data.Effect.RES_STUN, theorical: 22, isPercentage: true, duration: 2, isCritical: true})
+                                            new Stat({ effect: Data.Effect.GUARDING, duration: 2, isCritical: true }),
+                                            new Stat({ effect: Data.Effect.PROTECTION, theorical: 22, isPercentage: true, duration: 2, isCritical: true }),
+                                            new Stat({ effect: Data.Effect.RES_STUN, theorical: 22, isPercentage: true, duration: 2, isCritical: true })
                                         ]
                                     }
                                 },
                                 effectsEnemies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.GUARDED, duration: 2}),
-                                            new Stat({effect: Data.Effect.MODIF_DMG_TOTAL, theorical: [10, 15], isPercentage: true, duration: 1})
+                                            new Stat({ effect: Data.Effect.GUARDED, duration: 2 }),
+                                            new Stat({ effect: Data.Effect.MODIF_DMG_TOTAL, theorical: [10, 15], isPercentage: true, duration: 1 })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.GUARDED, duration: 2}),
-                                            new Stat({effect: Data.Effect.MODIF_DMG_TOTAL, theorical: 18, isPercentage: true, duration: 1})
+                                            new Stat({ effect: Data.Effect.GUARDED, duration: 2 }),
+                                            new Stat({ effect: Data.Effect.MODIF_DMG_TOTAL, theorical: 18, isPercentage: true, duration: 1 })
                                         ]
                                     }
                                 },
@@ -4611,16 +4637,16 @@ const Loader = {
                                 dmgType: Data.SkillDamageType.PHYSICAL,
                                 criMultiplier: 5,
                                 accMultiplier: 90,
-                                targets: {allies: '-12', enemies: '-0'},
+                                targets: { allies: '-12', enemies: '-0' },
                                 launchPos: [true, true, false],
                                 effectsAllies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.STUN, duration: 2, chance: 100}),
+                                            new Stat({ effect: Data.Effect.STUN, duration: 2, chance: 100 }),
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.STUN, duration: 2, chance: 100}),
-                                            new Stat({effect: Data.Effect.BACK_ONE, chance: 100})
+                                            new Stat({ effect: Data.Effect.STUN, duration: 2, chance: 100 }),
+                                            new Stat({ effect: Data.Effect.BACK_ONE, chance: 100 })
                                         ]
                                     }
                                 }
@@ -4638,13 +4664,13 @@ const Loader = {
                                 effectsCaster: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.FRONT_TWO}),
-                                            new Stat({effect: Data.Effect.WARDING, theorical: [10, 15], duration: 1}),
+                                            new Stat({ effect: Data.Effect.FRONT_TWO }),
+                                            new Stat({ effect: Data.Effect.WARDING, theorical: [10, 15], duration: 1 }),
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.FRONT_TWO}),
-                                            new Stat({effect: Data.Effect.WARDING, theorical: 18, duration: 2}),
-                                            new Stat({effect: Data.Effect.RES_STUN, theorical: 10, duration: 1})
+                                            new Stat({ effect: Data.Effect.FRONT_TWO }),
+                                            new Stat({ effect: Data.Effect.WARDING, theorical: 18, duration: 2 }),
+                                            new Stat({ effect: Data.Effect.RES_STUN, theorical: 10, duration: 1 })
                                         ]
                                     }
                                 }
@@ -4655,11 +4681,11 @@ const Loader = {
                         actions: [
                             new EnemyAction({
                                 title: 'protecc',
-                                owner: function(){ return what(game.battle.enemies, "gnarly horror") },
-                                checker: function(){
+                                owner: function() { return what(game.battle.enemies, "gnarly horror") },
+                                checker: function() {
                                     return this.owner.skills[0].cooldownCountdown === 0 && this.owner.skills[0].manaCost <= this.owner.mana;
                                 },
-                                behavior: function(){
+                                behavior: function() {
                                     console.log(this.title);
                                     const lowest = findNPCWithLowestStat(game.battle.enemies.filter(x => x.health > 0), "health");
                                     game.battle.target.push(lowest);
@@ -4669,11 +4695,11 @@ const Loader = {
                             }),
                             new EnemyAction({
                                 title: 'stun',
-                                owner: function(){ return what(game.battle.enemies, "gnarly horror") },
-                                checker: function(){
+                                owner: function() { return what(game.battle.enemies, "gnarly horror") },
+                                checker: function() {
                                     return this.owner.skills[1].cooldownCountdown === 0 && this.owner.skills[1].manaCost <= this.owner.mana;
                                 },
-                                behavior: function(){
+                                behavior: function() {
                                     console.log(this.title);
                                     const lowest = findNPCWithLowestStat(game.battle.allies.filter(x => x.health > 0 && x.getSelfPosInBattle() != Data.FormationPosition.BACK), "resStun");
                                     game.battle.target.push(lowest);
@@ -4683,11 +4709,11 @@ const Loader = {
                             }),
                             new EnemyAction({
                                 title: 'move forward',
-                                owner: function(){ return what(game.battle.enemies, "gnarly horror") },
-                                checker: function(){
+                                owner: function() { return what(game.battle.enemies, "gnarly horror") },
+                                checker: function() {
                                     return this.owner.getSelfPosInBattle() === Data.FormationPosition.BACK
                                 },
-                                behavior: function(){
+                                behavior: function() {
                                     console.log(this.title);
                                     game.battle.selectedSkill = this.owner.skills[2];
                                     game.battle.executeSkill();
@@ -4695,15 +4721,15 @@ const Loader = {
                             }),
                             new EnemyAction({
                                 title: 'block',
-                                owner: function(){ return what(game.battle.enemies, "gnarly horror") },
-                                checker: function(){
+                                owner: function() { return what(game.battle.enemies, "gnarly horror") },
+                                checker: function() {
                                     return this.owner.stamina > 0;
                                 },
-                                behavior: function(){
+                                behavior: function() {
                                     console.log(this.title);
                                     this.owner.applyBlocking();
-                                    this.owner.removeBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 5}));
-                                    this.owner.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 10}));
+                                    this.owner.removeBaseStat(new Stat({ effect: Data.Effect.STAMINA, theorical: 5 }));
+                                    this.owner.addBaseStat(new Stat({ effect: Data.Effect.MANA, theorical: 10 }));
                                     game.battle.finishTurn();
                                 }
                             })
@@ -4727,18 +4753,18 @@ const Loader = {
                         new Trigger({
                             name: "fireHatchling_death_boostIguanas",
                             type: Data.TriggerType.ON_DEATH,
-                            checker: function(){
+                            checker: function() {
                                 const target = game.battle.enemies.find(x => x.name.toLowerCase() === "fire iguana")
-    
+
                                 return target && !target.getActiveEffect("matriarch rage");
                             },
                             behavior: function() {
                                 const tar = choose(game.battle.enemies.filter(x => x.name.toLowerCase() === "fire iguana"));
-    
+
                                 const bonuses = [
-                                    new Stat({effect: Data.Effect.MODIF_DMG_TOTAL, theorical: 15, duration: 5, isPercentage: true}),
-                                    new Stat({effect: Data.Effect.SPEED, theorical: 3, duration: 5}),
-                                    new Stat({effect: Data.Effect.RESILIENCE, theorical: 5, duration: 5}),
+                                    new Stat({ effect: Data.Effect.MODIF_DMG_TOTAL, theorical: 15, duration: 5, isPercentage: true }),
+                                    new Stat({ effect: Data.Effect.SPEED, theorical: 3, duration: 5 }),
+                                    new Stat({ effect: Data.Effect.RESILIENCE, theorical: 5, duration: 5 }),
                                 ];
                                 bonuses.forEach(bo => {
                                     tar.alter({
@@ -4760,7 +4786,7 @@ const Loader = {
                                         bold: true
                                     }
                                 }));
-    
+
                                 game.chatlog.addMessage(Data.ChatlogChannel.BATTLE, {
                                     content: this.getOwner().name + "'s death enraged a " + tar.name + "!",
                                     style: {
@@ -4788,12 +4814,12 @@ const Loader = {
                                 effectsAllies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.BLIGHT_CURABLE, theorical: [2, 3], type: Data.StatType.ACTIVE, duration: 2}),
-                                            new Stat({effect: Data.Effect.RES_POISON_DMG, theorical: [-2, -3], duration: 2}),
+                                            new Stat({ effect: Data.Effect.BLIGHT_CURABLE, theorical: [2, 3], type: Data.StatType.ACTIVE, duration: 2 }),
+                                            new Stat({ effect: Data.Effect.RES_POISON_DMG, theorical: [-2, -3], duration: 2 }),
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.BLIGHT_CURABLE, theorical: [3, 4], type: Data.StatType.ACTIVE, duration: 2, isCritical: true}),
-                                            new Stat({effect: Data.Effect.RES_POISON_DMG, theorical: [-3, -4], duration: 2}),
+                                            new Stat({ effect: Data.Effect.BLIGHT_CURABLE, theorical: [3, 4], type: Data.StatType.ACTIVE, duration: 2, isCritical: true }),
+                                            new Stat({ effect: Data.Effect.RES_POISON_DMG, theorical: [-3, -4], duration: 2 }),
                                         ]
                                     }
                                 }
@@ -4810,14 +4836,14 @@ const Loader = {
                                 dmgMultiplier: 90,
                                 criMultiplier: 20,
                                 accMultiplier: 95,
-                                targets: { allies: '-0', enemies: '@23'},
+                                targets: { allies: '-0', enemies: '@23' },
                                 effectsAllies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.DODGE, theorical: -5, isPercentage: true, duration: 2}),
+                                            new Stat({ effect: Data.Effect.DODGE, theorical: -5, isPercentage: true, duration: 2 }),
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.DODGE, theorical: -7, isPercentage: true, duration: 2, isCritical: true}),
+                                            new Stat({ effect: Data.Effect.DODGE, theorical: -7, isPercentage: true, duration: 2, isCritical: true }),
                                         ]
                                     }
                                 }
@@ -4828,10 +4854,10 @@ const Loader = {
                         actions: [
                             new EnemyAction({
                                 title: 'regular',
-                                owner: function(){ return what(game.battle.enemies, "fire hatchling") },
-                                checker: function(){ return this.owner.canUseSkill("burning bile") || this.owner.canUseSkill("tail strike") },
-                                behavior: function(){
-                                    if(this.owner.canUseSkill("burning bile")) {
+                                owner: function() { return what(game.battle.enemies, "fire hatchling") },
+                                checker: function() { return this.owner.canUseSkill("burning bile") || this.owner.canUseSkill("tail strike") },
+                                behavior: function() {
+                                    if (this.owner.canUseSkill("burning bile")) {
                                         game.battle.target.push(game.battle.allies[2]);
                                         game.battle.target.push(game.battle.allies[1]);
                                         game.battle.selectedSkill = this.owner.skills[0];
@@ -4840,18 +4866,18 @@ const Loader = {
                                         game.battle.target.push(game.battle.allies[0]);
                                         game.battle.selectedSkill = this.owner.skills[1];
                                     }
-    
+
                                     game.battle.executeSkill();
                                 }
                             }),
                             new EnemyAction({
                                 title: 'block',
-                                owner: function(){ return what(game.battle.enemies, "fire hatchling") },
-                                checker: function(){ return this.owner.stamina > 0 },
+                                owner: function() { return what(game.battle.enemies, "fire hatchling") },
+                                checker: function() { return this.owner.stamina > 0 },
                                 behavior: function() {
                                     this.owner.applyBlocking();
-                                    this.owner.removeBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 5}));
-                                    this.owner.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 5}));
+                                    this.owner.removeBaseStat(new Stat({ effect: Data.Effect.STAMINA, theorical: 5 }));
+                                    this.owner.addBaseStat(new Stat({ effect: Data.Effect.MANA, theorical: 5 }));
                                     game.battle.finishTurn();
                                 }
                             })
@@ -4886,10 +4912,10 @@ const Loader = {
                                 effectsEnemies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.HEALTH, theorical: [50, 60], isPercentage: true, type: Data.StatType.ACTIVE}),
+                                            new Stat({ effect: Data.Effect.HEALTH, theorical: [50, 60], isPercentage: true, type: Data.StatType.ACTIVE }),
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.HEALTH, theorical: [70, 75], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true}),
+                                            new Stat({ effect: Data.Effect.HEALTH, theorical: [70, 75], isPercentage: true, type: Data.StatType.ACTIVE, isCritical: true }),
                                         ]
                                     }
                                 }
@@ -4910,12 +4936,12 @@ const Loader = {
                                 effectsAllies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.BLIGHT_CURABLE, theorical: [4, 5], type: Data.StatType.ACTIVE, duration: 2}),
-                                            new Stat({effect: Data.Effect.RESILIENCE, theorical: [-8, -12], duration: 2})
+                                            new Stat({ effect: Data.Effect.BLIGHT_CURABLE, theorical: [4, 5], type: Data.StatType.ACTIVE, duration: 2 }),
+                                            new Stat({ effect: Data.Effect.RESILIENCE, theorical: [-8, -12], duration: 2 })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.BLIGHT_CURABLE, theorical: [5, 6], type: Data.StatType.ACTIVE, duration: 2}),
-                                            new Stat({effect: Data.Effect.RESILIENCE, theorical: [-12, -15], duration: 2})
+                                            new Stat({ effect: Data.Effect.BLIGHT_CURABLE, theorical: [5, 6], type: Data.StatType.ACTIVE, duration: 2 }),
+                                            new Stat({ effect: Data.Effect.RESILIENCE, theorical: [-12, -15], duration: 2 })
                                         ]
                                     }
                                 }
@@ -4926,8 +4952,8 @@ const Loader = {
                         actions: [
                             new EnemyAction({
                                 title: 'attack striders',
-                                owner: function(){ return what(game.battle.enemies, "fire iguana") },
-                                checker: function(){
+                                owner: function() { return what(game.battle.enemies, "fire iguana") },
+                                checker: function() {
                                     return this.owner.skills[1].cooldownCountdown === 0 && this.owner.skills[1].manaCost <= this.owner.mana;
                                 },
                                 behavior: function() {
@@ -4941,13 +4967,13 @@ const Loader = {
                                 title: 'regen hatchlings',
                                 owner: function() { return what(game.battle.enemies, "fire iguana") },
                                 checker: function() {
-                                    const valid = game.battle.enemies.find(x => x.name.toLowerCase() === "fire hatchling" && x.health < x.maxHealth*0.75 && !x.isDead());
-                                    if(valid && this.owner.getSelfPosInBattle() === Data.FormationPosition.FRONT && this.owner.skills[0].manaCost <= this.owner.mana) return true;
+                                    const valid = game.battle.enemies.find(x => x.name.toLowerCase() === "fire hatchling" && x.health < x.maxHealth * 0.75 && !x.isDead());
+                                    if (valid && this.owner.getSelfPosInBattle() === Data.FormationPosition.FRONT && this.owner.skills[0].manaCost <= this.owner.mana) return true;
                                     return false;
                                 },
-                                behavior: function(){
+                                behavior: function() {
                                     console.log(this.title);
-                                    const tar = game.battle.enemies.find(x => x.name.toLowerCase() === "fire hatchling" && x.health < x.maxHealth*0.75);
+                                    const tar = game.battle.enemies.find(x => x.name.toLowerCase() === "fire hatchling" && x.health < x.maxHealth * 0.75);
                                     game.battle.target.push(tar);
                                     game.battle.selectedSkill = this.owner.skills[0];
                                     game.battle.executeSkill();
@@ -4955,26 +4981,26 @@ const Loader = {
                             }),
                             new EnemyAction({
                                 title: 'move forward',
-                                owner: function(){ return what(game.battle.enemies, "fire iguana") },
+                                owner: function() { return what(game.battle.enemies, "fire iguana") },
                                 checker: function() {
-                                    const valid = game.battle.enemies.find(x => x.name.toLowerCase() === "fire hatchling" && x.health < x.maxHealth*0.75);
-                                    if(valid && this.owner.getSelfPosInBattle() !== Data.FormationPosition.FRONT) return true;
+                                    const valid = game.battle.enemies.find(x => x.name.toLowerCase() === "fire hatchling" && x.health < x.maxHealth * 0.75);
+                                    if (valid && this.owner.getSelfPosInBattle() !== Data.FormationPosition.FRONT) return true;
                                     return false;
                                 },
                                 behavior: function() {
                                     console.log(this.title);
                                     game.battle.move(game.battle.currentPlay, Data.FormationPosition.FRONT, "e");
-                                    setTimeout(() => {game.battle.finishTurn();}, 300);
+                                    setTimeout(() => { game.battle.finishTurn(); }, 300);
                                 }
                             }),
                             new EnemyAction({
                                 title: 'block',
-                                owner: function(){ return what(game.battle.enemies, "fire iguana") },
-                                checker: function(){ return this.owner.stamina > 0 },
+                                owner: function() { return what(game.battle.enemies, "fire iguana") },
+                                checker: function() { return this.owner.stamina > 0 },
                                 behavior: function() {
                                     this.owner.applyBlocking();
-                                    this.owner.removeBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 5}));
-                                    this.owner.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 5}));
+                                    this.owner.removeBaseStat(new Stat({ effect: Data.Effect.STAMINA, theorical: 5 }));
+                                    this.owner.addBaseStat(new Stat({ effect: Data.Effect.MANA, theorical: 5 }));
                                     game.battle.finishTurn();
                                 }
                             })
@@ -5007,7 +5033,7 @@ const Loader = {
                             },
                             behavior: function() {
                                 this.getOwner().variables.mainTarget = game.battle.currentPlay;
-                                
+
                                 game.chatlog.addMessage(Data.ChatlogChannel.BATTLE, {
                                     content: "The Maw has started preying on " + this.getOwner().variables.mainTarget.name + ".",
                                     style: {
@@ -5030,15 +5056,15 @@ const Loader = {
                                 dmgType: Data.SkillDamageType.PHYSICAL,
                                 criMultiplier: 20,
                                 accMultiplier: 95,
-                                targets: {allies: '-0', enemies: '-123'},
+                                targets: { allies: '-0', enemies: '-123' },
                                 launchPos: [true, true, false],
                                 effectsAllies: {
                                     1: {
                                         regular: [
-                                            
+
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.STUN, duration: 1, chance: 100, isCritical: true})
+                                            new Stat({ effect: Data.Effect.STUN, duration: 1, chance: 100, isCritical: true })
                                         ],
                                     }
                                 },
@@ -5056,15 +5082,15 @@ const Loader = {
                                 dmgType: Data.SkillDamageType.PHYSICAL,
                                 criMultiplier: 15,
                                 accMultiplier: 85,
-                                targets: {allies: '-0', enemies: '@123'},
+                                targets: { allies: '-0', enemies: '@123' },
                                 launchPos: [true, true, false],
                                 effectsAllies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.BLEEDING_INCURABLE, duration: 2, type: Data.StatType.ACTIVE, theorical: [5, 6]})
+                                            new Stat({ effect: Data.Effect.BLEEDING_INCURABLE, duration: 2, type: Data.StatType.ACTIVE, theorical: [5, 6] })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.BLEEDING_INCURABLE, duration: 2, type: Data.StatType.ACTIVE, theorical: 8, isCritical: true})
+                                            new Stat({ effect: Data.Effect.BLEEDING_INCURABLE, duration: 2, type: Data.StatType.ACTIVE, theorical: 8, isCritical: true })
                                         ],
                                     }
                                 },
@@ -5080,19 +5106,19 @@ const Loader = {
                                 cooldown: 1,
                                 criMultiplier: 15,
                                 accMultiplier: 100,
-                                targets: {allies: '-123', enemies: '-0'},
+                                targets: { allies: '-123', enemies: '-0' },
                                 launchPos: [true, true, true],
                                 effectsEnemies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.HEALTH, type: Data.StatType.ACTIVE, theorical: [20, 25], isPercentage: true}),
-                                            new Stat({effect: Data.Effect.MODIF_DMG_TOTAL, theorical: [10, 15], isPercentage: true, duration: 2}),
-                                            new Stat({effect: Data.Effect.PROTECTION, theorical: [5, 8], isPercentage: true, duration: 2}),
+                                            new Stat({ effect: Data.Effect.HEALTH, type: Data.StatType.ACTIVE, theorical: [20, 25], isPercentage: true }),
+                                            new Stat({ effect: Data.Effect.MODIF_DMG_TOTAL, theorical: [10, 15], isPercentage: true, duration: 2 }),
+                                            new Stat({ effect: Data.Effect.PROTECTION, theorical: [5, 8], isPercentage: true, duration: 2 }),
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.HEALTH, type: Data.StatType.ACTIVE, theorical: [25, 30], isPercentage: true, isCritical: true}),
-                                            new Stat({effect: Data.Effect.MODIF_DMG_TOTAL, theorical: [18, 20], isPercentage: true, duration: 2, isCritical: true}),
-                                            new Stat({effect: Data.Effect.PROTECTION, theorical: 10, isPercentage: true, duration: 2, isCritical: true}),
+                                            new Stat({ effect: Data.Effect.HEALTH, type: Data.StatType.ACTIVE, theorical: [25, 30], isPercentage: true, isCritical: true }),
+                                            new Stat({ effect: Data.Effect.MODIF_DMG_TOTAL, theorical: [18, 20], isPercentage: true, duration: 2, isCritical: true }),
+                                            new Stat({ effect: Data.Effect.PROTECTION, theorical: 10, isPercentage: true, duration: 2, isCritical: true }),
                                         ],
                                     }
                                 }
@@ -5110,15 +5136,15 @@ const Loader = {
                                 dmgType: Data.SkillDamageType.PHYSICAL,
                                 criMultiplier: 20,
                                 accMultiplier: 85,
-                                targets: {allies: '-0', enemies: '@12'},
+                                targets: { allies: '-0', enemies: '@12' },
                                 launchPos: [true, true, false],
                                 effectsCaster: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.FRONT_TWO})
+                                            new Stat({ effect: Data.Effect.FRONT_TWO })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.FRONT_TWO, isCritical: true})
+                                            new Stat({ effect: Data.Effect.FRONT_TWO, isCritical: true })
                                         ],
                                     }
                                 },
@@ -5129,14 +5155,14 @@ const Loader = {
                         actions: [
                             new EnemyAction({
                                 title: 'boost allies',
-                                owner: function(){ return what(game.battle.enemies, "the maw") },
+                                owner: function() { return what(game.battle.enemies, "the maw") },
                                 checker: function() {
-                                    return !this.owner.variables.mainTarget 
-                                            && this.owner.canUseSkill("reptilian regrowth");
+                                    return !this.owner.variables.mainTarget
+                                        && this.owner.canUseSkill("reptilian regrowth");
                                 },
                                 behavior: function() {
                                     console.log(this.title);
-                                    
+
                                     const tar = choose(game.battle.enemies.filter(x => !x.isDead() && x !== this.owner));
                                     game.battle.target.push(tar);
                                     game.battle.selectedSkill = this.owner.skills[2];
@@ -5145,14 +5171,14 @@ const Loader = {
                             }),
                             new EnemyAction({
                                 title: 'move forward',
-                                owner: function(){ return what(game.battle.enemies, "the maw") },
+                                owner: function() { return what(game.battle.enemies, "the maw") },
                                 checker: function() {
-                                    return this.owner.getSelfPosInBattle() === Data.FormationPosition.BACK 
-                                            && this.owner.canUseSkill("apex tracking");
+                                    return this.owner.getSelfPosInBattle() === Data.FormationPosition.BACK
+                                        && this.owner.canUseSkill("apex tracking");
                                 },
                                 behavior: function() {
                                     console.log(this.title);
-    
+
                                     game.battle.allies.forEach(all => game.battle.target.push(all));
                                     game.battle.selectedSkill = this.owner.skills[3];
                                     game.battle.executeSkill();
@@ -5160,16 +5186,16 @@ const Loader = {
                             }),
                             new EnemyAction({
                                 title: 'focus target',
-                                owner: function(){ return what(game.battle.enemies, "the maw") },
-                                checker: function(){
-                                    return this.owner.variables.mainTarget 
-                                            && !this.owner.variables.mainTarget.isDead() 
-                                            && this.owner.getSelfPosInBattle() !== Data.FormationPosition.BACK
-                                            && this.owner.canUseSkill("predator tenacity")
+                                owner: function() { return what(game.battle.enemies, "the maw") },
+                                checker: function() {
+                                    return this.owner.variables.mainTarget
+                                        && !this.owner.variables.mainTarget.isDead()
+                                        && this.owner.getSelfPosInBattle() !== Data.FormationPosition.BACK
+                                        && this.owner.canUseSkill("predator tenacity")
                                 },
                                 behavior: function() {
                                     console.log(this.title);
-    
+
                                     game.battle.target.push(this.owner.variables.mainTarget);
                                     game.battle.selectedSkill = this.owner.skills[0];
                                     game.battle.executeSkill();
@@ -5177,29 +5203,29 @@ const Loader = {
                             }),
                             new EnemyAction({
                                 title: 'attack others',
-                                owner: function(){ return what(game.battle.enemies, "the maw") },
+                                owner: function() { return what(game.battle.enemies, "the maw") },
                                 checker: function() {
-                                    return this.owner.variables.mainTarget 
-                                            && this.owner.variables.mainTarget.isDead() 
-                                            && this.owner.getSelfPosInBattle() !== Data.FormationPosition.BACK
-                                            && this.owner.canUseSkill("ravage")
+                                    return this.owner.variables.mainTarget
+                                        && this.owner.variables.mainTarget.isDead()
+                                        && this.owner.getSelfPosInBattle() !== Data.FormationPosition.BACK
+                                        && this.owner.canUseSkill("ravage")
                                 },
                                 behavior: function() {
                                     game.battle.allies.filter(x => !x.isDead()).forEach(all => { game.battle.target.push(all) });
                                     game.battle.selectedSkill = this.owner.skills[1];
-                                    this.owner.addBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 20}));
+                                    this.owner.addBaseStat(new Stat({ effect: Data.Effect.STAMINA, theorical: 20 }));
                                     game.battle.executeSkill();
                                 }
                             }),
                             new EnemyAction({
                                 title: 'block',
-                                owner: function(){ return what(game.battle.enemies, "the maw") },
-                                checker: function(){ return this.owner.stamina > 0 },
+                                owner: function() { return what(game.battle.enemies, "the maw") },
+                                checker: function() { return this.owner.stamina > 0 },
                                 behavior: function() {
                                     console.log('blocks');
                                     this.owner.applyBlocking();
-                                    this.owner.removeBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 5}));
-                                    this.owner.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 100}));
+                                    this.owner.removeBaseStat(new Stat({ effect: Data.Effect.STAMINA, theorical: 5 }));
+                                    this.owner.addBaseStat(new Stat({ effect: Data.Effect.MANA, theorical: 100 }));
                                     game.battle.finishTurn();
                                 }
                             }),
@@ -5232,17 +5258,17 @@ const Loader = {
                                 criMultiplier: 20,
                                 accMultiplier: 90,
                                 dmgMultiplier: 50,
-                                targets: {allies: '-3', enemies: '-0'},
+                                targets: { allies: '-3', enemies: '-0' },
                                 launchPos: [false, true, true],
                                 effectsAllies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.FRONT_TWO, chance: 100}),
-                                            new Stat({effect: Data.Effect.RESILIENCE, theorical: [-10, -13], duration: 2})
+                                            new Stat({ effect: Data.Effect.FRONT_TWO, chance: 100 }),
+                                            new Stat({ effect: Data.Effect.RESILIENCE, theorical: [-10, -13], duration: 2 })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.FRONT_TWO, chance: 120}),
-                                            new Stat({effect: Data.Effect.RESILIENCE, theorical: [-15, -18], duration: 2})
+                                            new Stat({ effect: Data.Effect.FRONT_TWO, chance: 120 }),
+                                            new Stat({ effect: Data.Effect.RESILIENCE, theorical: [-15, -18], duration: 2 })
                                         ]
                                     }
                                 }
@@ -5275,31 +5301,31 @@ const Loader = {
                                 cooldown: 3,
                                 criMultiplier: 10,
                                 accMultiplier: 100,
-                                targets: {allies: '-23', enemies: '-0'},
+                                targets: { allies: '-23', enemies: '-0' },
                                 launchPos: [false, true, false],
                                 effectsCaster: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.GUARDING, duration: 2}),
-                                            new Stat({effect: Data.Effect.PROTECTION, theorical: [15, 20], isPercentage: true, duration: 2}),
-                                            new Stat({effect: Data.Effect.RES_STUN, theorical: [15, 20], isPercentage: true, duration: 2})
+                                            new Stat({ effect: Data.Effect.GUARDING, duration: 2 }),
+                                            new Stat({ effect: Data.Effect.PROTECTION, theorical: [15, 20], isPercentage: true, duration: 2 }),
+                                            new Stat({ effect: Data.Effect.RES_STUN, theorical: [15, 20], isPercentage: true, duration: 2 })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.GUARDING, duration: 2, isCritical: true}),
-                                            new Stat({effect: Data.Effect.PROTECTION, theorical: 22, isPercentage: true, duration: 2, isCritical: true}),
-                                            new Stat({effect: Data.Effect.RES_STUN, theorical: 22, isPercentage: true, duration: 2, isCritical: true})
+                                            new Stat({ effect: Data.Effect.GUARDING, duration: 2, isCritical: true }),
+                                            new Stat({ effect: Data.Effect.PROTECTION, theorical: 22, isPercentage: true, duration: 2, isCritical: true }),
+                                            new Stat({ effect: Data.Effect.RES_STUN, theorical: 22, isPercentage: true, duration: 2, isCritical: true })
                                         ]
                                     }
                                 },
                                 effectsEnemies: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.GUARDED, duration: 2}),
-                                            new Stat({effect: Data.Effect.MODIF_DMG_TOTAL, theorical: [10, 15], isPercentage: true, duration: 1})
+                                            new Stat({ effect: Data.Effect.GUARDED, duration: 2 }),
+                                            new Stat({ effect: Data.Effect.MODIF_DMG_TOTAL, theorical: [10, 15], isPercentage: true, duration: 1 })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.GUARDED, duration: 2}),
-                                            new Stat({effect: Data.Effect.MODIF_DMG_TOTAL, theorical: 18, isPercentage: true, duration: 1})
+                                            new Stat({ effect: Data.Effect.GUARDED, duration: 2 }),
+                                            new Stat({ effect: Data.Effect.MODIF_DMG_TOTAL, theorical: 18, isPercentage: true, duration: 1 })
                                         ]
                                     }
                                 },
@@ -5321,15 +5347,15 @@ const Loader = {
                                 dmgType: Data.SkillDamageType.PHYSICAL,
                                 criMultiplier: 5,
                                 accMultiplier: 90,
-                                targets: {allies: '-1', enemies: '-0'},
+                                targets: { allies: '-1', enemies: '-0' },
                                 launchPos: [true, false, false],
                                 effectsCaster: {
                                     1: {
                                         regular: [
-                                            new Stat({effect: Data.Effect.FRONT_ONE})
+                                            new Stat({ effect: Data.Effect.FRONT_ONE })
                                         ],
                                         critical: [
-                                            new Stat({effect: Data.Effect.FRONT_ONE})
+                                            new Stat({ effect: Data.Effect.FRONT_ONE })
                                         ]
                                     }
                                 }
@@ -5340,7 +5366,7 @@ const Loader = {
                         actions: [
                             new EnemyAction({
                                 title: 'protecc',
-                                owner: function(){ return what(game.battle.enemies, "venomstripe mauler") },
+                                owner: function() { return what(game.battle.enemies, "venomstripe mauler") },
                                 checker: function() {
                                     // Can use skill, is in Front, and has at least one alive ally
                                     return this.owner.canUseSkill("feline guard") && this.owner.getSelfPosInBattle() === Data.FormationPosition.FRONT && game.battle.enemies.some(x => !x.isDead() && x !== this.owner)
@@ -5356,14 +5382,14 @@ const Loader = {
                             }),
                             new EnemyAction({
                                 title: 'atak',
-                                owner: function(){ return what(game.battle.enemies, "venomstripe mauler") },
+                                owner: function() { return what(game.battle.enemies, "venomstripe mauler") },
                                 checker: function() {
                                     // Can use skill
                                     return this.owner.canUseSkill("excoriation") && game.battle.allies.some(x => !x.isDead());
                                 },
                                 behavior: function() {
                                     console.log(this.title);
-                                    
+
                                     const tar = choose(game.battle.allies.filter(x => !x.isDead()));
                                     game.battle.target.push(tar);
                                     game.battle.selectedSkill = this.owner.getSkill("excoriation");
@@ -5372,15 +5398,15 @@ const Loader = {
                             }),
                             new EnemyAction({
                                 title: 'block',
-                                owner: function(){ return what(game.battle.enemies, "venomstripe mauler") },
-                                checker: function(){
+                                owner: function() { return what(game.battle.enemies, "venomstripe mauler") },
+                                checker: function() {
                                     return this.owner.stamina > 0;
                                 },
-                                behavior: function(){
+                                behavior: function() {
                                     console.log(this.title);
                                     this.owner.applyBlocking();
-                                    this.owner.removeBaseStat(new Stat({effect: Data.Effect.STAMINA, theorical: 5}));
-                                    this.owner.addBaseStat(new Stat({effect: Data.Effect.MANA, theorical: 20}));
+                                    this.owner.removeBaseStat(new Stat({ effect: Data.Effect.STAMINA, theorical: 5 }));
+                                    this.owner.addBaseStat(new Stat({ effect: Data.Effect.MANA, theorical: 20 }));
                                     game.battle.finishTurn();
                                 }
                             })
@@ -5390,7 +5416,7 @@ const Loader = {
             )
         ];
 
-        for(const enemy of enemies) {
+        for (const enemy of enemies) {
             game.all_enemies.push(enemy);
         }
     },
@@ -5402,8 +5428,8 @@ const Loader = {
                 biome: Data.DungeonBiome.THE_KAULT,
                 levels: [1, 2],
                 formation: [
-                    what(game.all_enemies, "mycelial tick"), 
-                    what(game.all_enemies, "mycelial tick"), 
+                    what(game.all_enemies, "mycelial tick"),
+                    what(game.all_enemies, "mycelial tick"),
                     what(game.all_enemies, "mycelial tick")
                 ],
                 type: Data.BattleType.GROUP
@@ -5413,8 +5439,8 @@ const Loader = {
                 biome: Data.DungeonBiome.THE_KAULT,
                 levels: [2, 3, 4],
                 formation: [
-                    what(game.all_enemies, "fungaliant"), 
-                    what(game.all_enemies, "fungaliant"), 
+                    what(game.all_enemies, "fungaliant"),
+                    what(game.all_enemies, "fungaliant"),
                     what(game.all_enemies, "mycelial tick")
                 ],
                 type: Data.BattleType.GROUP
@@ -5424,8 +5450,8 @@ const Loader = {
                 biome: Data.DungeonBiome.THE_KAULT,
                 levels: [4, 5],
                 formation: [
-                    what(game.all_enemies, "fungaliant"), 
-                    what(game.all_enemies, "fungaliant"), 
+                    what(game.all_enemies, "fungaliant"),
+                    what(game.all_enemies, "fungaliant"),
                     what(game.all_enemies, "gnarly horror")
                 ],
                 type: Data.BattleType.GROUP
@@ -5532,9 +5558,9 @@ const Loader = {
             //         }
             //     }
             // })
-        ];  
+        ];
 
-        for(const enemyFormation of enemyFormations) {
+        for (const enemyFormation of enemyFormations) {
             game.all_enemyFormations.push(enemyFormation);
         }
     },
@@ -5556,10 +5582,10 @@ const Loader = {
                                 new ActionListener(
                                     Data.Action.RECEIVE_HIT,
                                     25,
-                                    function(){
+                                    function() {
                                         console.log("that hurts while blocking!");
                                     },
-                                    function(){
+                                    function() {
                                         console.log("maxed out block!");
                                     }
                                 ),
@@ -5578,10 +5604,10 @@ const Loader = {
                                 new ActionListener(
                                     Data.Action.RECEIVE_HIT_WHILE_GUARDING,
                                     25,
-                                    function(){
+                                    function() {
                                         console.log("that hurts while guarding!");
                                     },
-                                    function(){
+                                    function() {
                                         console.log("maxed out guard!");
                                     }
                                 ),
@@ -5598,10 +5624,10 @@ const Loader = {
                                 new ActionListener(
                                     Data.Action.BEGIN_GUARD,
                                     25,
-                                    function(){
+                                    function() {
                                         console.log("i'll guard ya!");
                                     },
-                                    function(){
+                                    function() {
                                         console.log("maxed out guard start!");
                                     }
                                 ),
@@ -5613,7 +5639,7 @@ const Loader = {
             ),
         ];
 
-        for(const masteryPathway of masteryPathways) {
+        for (const masteryPathway of masteryPathways) {
             game.all_masteryPathways.push(masteryPathway);
         }
     },
@@ -5832,7 +5858,7 @@ const Loader = {
             }),
         ];
 
-        for(const eon of eons) {
+        for (const eon of eons) {
             game.all_eons.push(eon);
         }
     },
@@ -5961,7 +5987,7 @@ const Loader = {
                     },
                 },
             }),
-            
+
 
             new Dungeon({
                 name: "Wreck of the Stormbreaker",
@@ -5983,7 +6009,7 @@ const Loader = {
             }),
         ];
 
-        for(const dungeon of dungeons) {
+        for (const dungeon of dungeons) {
             game.all_dungeons.push(dungeon);
         }
     }
