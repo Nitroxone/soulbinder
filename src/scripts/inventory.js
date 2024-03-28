@@ -27,38 +27,38 @@ class Inventory {
      * @param {number} amount the amount of times the item should be added
      */
     addItem(item, amount = 1, noClone = false) {
-        if(!item) throw new Error('Tried to add a null object to the inventory.');
+        if (!item) throw new Error('Tried to add a null object to the inventory.');
 
         let array = null;
-        if(item instanceof Weapon) array = {items: this.weapons};
-        else if(item instanceof Armor) array = {items: this.armors};
-        else if(item instanceof Sigil) array = {items: this.sigils};
-        else if(item instanceof Recipe) array = {items: this.recipes};
-        else if(item instanceof Resource) {
+        if (item instanceof Weapon) array = { items: this.weapons };
+        else if (item instanceof Armor) array = { items: this.armors };
+        else if (item instanceof Sigil) array = { items: this.sigils };
+        else if (item instanceof Recipe) array = { items: this.recipes };
+        else if (item instanceof Resource) {
             what(this.resources, item.name).amount += amount;
             console.log('Inventory : +' + amount + ' ' + item.name);
             return;
         }
-        else if(item instanceof Consumable) array = {items: this.consumables}
-        else if(item instanceof Trinket) array = {items: this.trinkets};
+        else if (item instanceof Consumable) array = { items: this.consumables }
+        else if (item instanceof Trinket) array = { items: this.trinkets };
         else throw new Error('Unsupported type for item cloning.');
 
         let cloned;
-        if(!noClone) {
-            for(let i = 0; i < amount; i++) {
+        if (!noClone) {
+            for (let i = 0; i < amount; i++) {
                 cloned = Entity.clone(item);
-                if(cloned instanceof Weapon || cloned instanceof Armor || cloned instanceof Trinket) {
+                if (cloned instanceof Weapon || cloned instanceof Armor || cloned instanceof Trinket) {
                     cloned.generateStats();
                     cloned.addEcho();
                 };
-                if(cloned instanceof Sigil) cloned.generateStats();
+                if (cloned instanceof Sigil) cloned.generateStats();
             }
         } else {
             cloned = item;
         }
         array.items.push(cloned);
 
-        if(canReceiveAstralForge(cloned) && !noClone) cloned.setAstralForgeItem();
+        if (canReceiveAstralForge(cloned) && !noClone) cloned.setAstralForgeItem();
 
         console.log('Inventory : +' + amount + ' ' + item.name);
     }
@@ -68,19 +68,19 @@ class Inventory {
      * @param {Item} item the Item object to remove
      */
     removeItem(item) {
-        if(!item) throw new Error('Tried to remove a null object from the inventory.');
+        if (!item) throw new Error('Tried to remove a null object from the inventory.');
 
         let array = null;
-        if(item instanceof Weapon) array = {items: this.weapons};
-        else if(item instanceof Armor) array = {items: this.armors};
-        else if(item instanceof Sigil) array = {items: this.sigils};
-        else if(item instanceof Resource) array = {items: this.resources};
-        else if(item instanceof Consumable) array = {items: this.consumables};
-        else if(item instanceof Recipe) array = {items: this.recipes};
-        else if(item instanceof Trinket) array = {items: this.trinkets};
+        if (item instanceof Weapon) array = { items: this.weapons };
+        else if (item instanceof Armor) array = { items: this.armors };
+        else if (item instanceof Sigil) array = { items: this.sigils };
+        else if (item instanceof Resource) array = { items: this.resources };
+        else if (item instanceof Consumable) array = { items: this.consumables };
+        else if (item instanceof Recipe) array = { items: this.recipes };
+        else if (item instanceof Trinket) array = { items: this.trinkets };
         else throw new Error('Unsupported type for item removal.');
 
-        if(removeFromArray(array.items, item)) console.log('Inventory : Removed ' + item.name);
+        if (removeFromArray(array.items, item)) console.log('Inventory : Removed ' + item.name);
         else ERROR('Failed to remove ' + item.name + ' from the inventory.');
     }
 
@@ -91,34 +91,34 @@ class Inventory {
     getItemFromId(type, id) {
         let array = null;
 
-        switch(type) {
+        switch (type) {
             case Data.ItemType.WEAPON:
-                array = {items: this.weapons};
+                array = { items: this.weapons };
                 break;
             case Data.ItemType.ARMOR:
-                array = {items: this.armors};
+                array = { items: this.armors };
                 break;
             case Data.ItemType.SIGIL:
-                array = {items: this.sigils};
+                array = { items: this.sigils };
                 break;
             case Data.ItemType.RECIPE:
-                array = {items: this.recipes};
+                array = { items: this.recipes };
                 break;
             case Data.ItemType.RESOURCE:
-                array = {items: this.resources};
+                array = { items: this.resources };
                 break;
             case Data.ItemType.TRINKET:
-                array = {items: this.trinkets};
+                array = { items: this.trinkets };
                 break;
             case Data.ItemType.CONSUMABLE:
-                array = {items: this.consumables};
+                array = { items: this.consumables };
                 break;
             default:
                 throw new Error('Unsupported type for item search.');
         }
 
-        for(let i = 0; i < array.items.length; i++) {
-            if(array.items[i].id == id) return array.items[i];
+        for (let i = 0; i < array.items.length; i++) {
+            if (array.items[i].id == id) return array.items[i];
         }
         throw new Error("Could not find Item with ID " + id);
     }
@@ -149,21 +149,21 @@ class Inventory {
      * @param {Sigil} sigil the Sigil to remove
      */
     disenchant(item, sigil) {
-        if(item.sigil.name === sigil.name) {
+        if (item.sigil.name === sigil.name) {
             sigil.effects.forEach(effect => {
-                if(!effect.disabled) {
+                if (!effect.disabled) {
                     item.addEffect(effect, true);
                     item.removeAlteration(effect);
                 }
             });
-            if(sigil.isCritical) {
+            if (sigil.isCritical) {
                 sigil.critical.forEach(effect => {
-                    if(!effect.disabled) item.addEffect(effect, true);
+                    if (!effect.disabled) item.addEffect(effect, true);
                 });
             }
-            if(sigil.isCorrupt) {
+            if (sigil.isCorrupt) {
                 sigil.corrupt.forEach(effect => {
-                    if(!effect.disabled) item.addEffect(effect, true);
+                    if (!effect.disabled) item.addEffect(effect, true);
                 });
             }
             item.unbindSigil(sigil);
@@ -181,21 +181,21 @@ class Inventory {
      */
     enchant(item, sigil) {
         sigil.effects.forEach(effect => {
-            if(isEffectAllowedOnObject(effect.effect, item)) {
+            if (isEffectAllowedOnObject(effect.effect, item)) {
                 item.addEffect(effect);
                 item.addAlteration(effect);
             }
             else effect.disable();
         });
-        if(sigil.isCritical) {
+        if (sigil.isCritical) {
             sigil.critical.forEach(effect => {
-                if(filterCritCorr(item, effect.effect, true)) item.addEffect(effect);
+                if (filterCritCorr(item, effect.effect, true)) item.addEffect(effect);
                 else effect.disable();
             });
         }
-        if(sigil.isCorrupt) {
+        if (sigil.isCorrupt) {
             sigil.corrupt.forEach(effect => {
-                if(filterCritCorr(item, effect.effect, true)) item.addEffect(effect);
+                if (filterCritCorr(item, effect.effect, true)) item.addEffect(effect);
                 else effect.disable();
             });
         }
@@ -210,9 +210,9 @@ class Inventory {
      * @returns whether enough ingredients are possessed to execute the Recipe
      */
     checkForIngredients(recipe) {
-        for(const ingredient of recipe.ingredients) {
+        for (const ingredient of recipe.ingredients) {
             //console.log(ingredient.ingredient.name + " : " + getResourceAmount(this.resources, ingredient.ingredient.name) + "/" + ingredient.amount);
-            if(ingredient.amount > getResourceAmount(this.resources, ingredient.ingredient.name)) {
+            if (ingredient.amount > getResourceAmount(this.resources, ingredient.ingredient.name)) {
                 console.log("Not enough " + ingredient.ingredient.name + ".");
                 return false;
             }
@@ -225,7 +225,7 @@ class Inventory {
      * @param {Recipe} recipe 
      */
     removeIngredients(recipe) {
-        for(const ingredient of recipe.ingredients) {
+        for (const ingredient of recipe.ingredients) {
             this.removeResource(ingredient.ingredient, ingredient.amount);
             console.log("Inventory: -" + ingredient.amount + " " + ingredient.ingredient.name);
         }
@@ -238,18 +238,18 @@ class Inventory {
      * @param {boolean} forceCritAndCorrupt enables forced critical and corrupt results 
      */
     craft(recipe, forceCritAndCorrupt = false) {
-        if(this.checkForIngredients(recipe)) {
+        if (this.checkForIngredients(recipe)) {
             // Creating a duplicate of the crafting result
             let result = Entity.clone(recipe.result);
 
             // Checking for crit chances
-            if(computeChance(game.player.criticalFactor ) || forceCritAndCorrupt) {
-                if(result instanceof Sigil) result.setCritical();
+            if (computeChance(game.player.criticalFactor) || forceCritAndCorrupt) {
+                if (result instanceof Sigil) result.setCritical();
             }
 
             // Checking for corrupt chances
-            if(computeChance(game.player.corruptionFactor ) || forceCritAndCorrupt) {
-                if(result instanceof Sigil) result.setCorrupt();
+            if (computeChance(game.player.corruptionFactor) || forceCritAndCorrupt) {
+                if (result instanceof Sigil) result.setCorrupt();
             }
 
             // Removing ingredients
@@ -267,7 +267,7 @@ class Inventory {
      * @param {Item} item the item which stats should be recast
      */
     recast(item) {
-        if(hasResource(this.resources, "reminder")) {
+        if (hasResource(this.resources, "reminder")) {
             item.generateStats();
             this.removeResource(what(this.resources, "reminder"));
         } else {
@@ -280,8 +280,8 @@ class Inventory {
      * @param {Item} item the item which should be uncorrupted
      */
     uncorrupt(item) {
-        if(hasResource(this.resources, "starblossom")) {
-            if(!item.isAltered) {
+        if (hasResource(this.resources, "starblossom")) {
+            if (!item.isAltered) {
                 item.uncorrupt();
                 this.removeResource(what(this.resources, "starblossom"));
             } else {
@@ -297,7 +297,7 @@ class Inventory {
      * @param {Sigil} sigil the Sigil which stats should be maximized
      */
     maximizeSigil(sigil) {
-        if(hasResource(this.resources, "time stream catalyst")) {
+        if (hasResource(this.resources, "time stream catalyst")) {
             sigil.maximize();
             this.removeResource(what(this.resources, "time stream catalyst"));
         } else {
@@ -311,11 +311,11 @@ class Inventory {
      * @param {boolean} forceCorrupt forces corrupt effects on the sigil
      */
     amplifySigil(sigil, forceCorrupt = false) {
-        if(hasResource(this.resources, "pearl of wrath")) {
-            if(sigil.isMaximized()) {
+        if (hasResource(this.resources, "pearl of wrath")) {
+            if (sigil.isMaximized()) {
                 sigil.amplify();
                 // Checking for corrupt chances
-                if(computeChance(game.player.corruptionFactor ) || forceCorrupt) {
+                if (computeChance(game.player.corruptionFactor) || forceCorrupt) {
                     console.log("This sigil has been corrupted.");
                     // Creates the corrupt effect
                     let effect = Entity.clone(choose(game.all_sigilCorruptEffects));
@@ -338,11 +338,15 @@ class Inventory {
     getTimeShards() {
         let timeShards = [];
         this.resources.forEach(res => {
-            if(res instanceof TimeShard) timeShards.push(res);
+            if (res instanceof TimeShard) timeShards.push(res);
         });
         return timeShards;
     }
 
+    /**
+     * Returns all of the Comet Ores owned by the player.
+     * @returns {Resource[]} an array of Comet Ores
+     */
     getCometOres() {
         let cometOres = [];
         let names = [
@@ -351,7 +355,7 @@ class Inventory {
             "irradiant comet ore"
         ]
         this.resources.forEach(res => {
-            if(names.includes(res.name.toLowerCase())) cometOres.push(res);
+            if (names.includes(res.name.toLowerCase())) cometOres.push(res);
         });
         return cometOres;
     }
