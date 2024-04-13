@@ -3259,6 +3259,7 @@ const Loader = {
                         new Skill(
                             "Cauterize",
                             "Cures §Bleeding§ and §Poisoning§ on the target, and generate §Shield§ points that equal the combined values of the cleaned maluses. Applies a §Speed§ malus.",
+                            5,
                             {
                                 manaCost: 4,
                                 type: Data.SkillType.FRIENDLY,
