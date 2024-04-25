@@ -372,6 +372,9 @@ class NPC extends Entity {
         const crit = params.crit_damage;
         let damage, phys_damage, magi_damage;
 
+        if(phys > 0) this.runTriggers(Data.TriggerType.ON_RECV_SHARPNESS);
+        if(magi > 0) this.runTriggers(Data.TriggerType.ON_RECV_WITHERING)
+
         phys_damage = phys === 0 ? 0 : Math.max(0, phys - this.resilience);
         magi_damage = magi === 0 ? 0 : Math.max(0, magi - this.warding);
 

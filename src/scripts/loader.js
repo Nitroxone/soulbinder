@@ -926,6 +926,37 @@ const Loader = {
                 },
                 [],
                 Data.EchoType.WEAPON,
+            ),
+            new Echo(
+                "Momentum Redistribution",
+                "Convert §1% of all raw {WITHERING} damage you receive into {SHIELD} that lasts two rounds.",
+                1,
+                Data.Rarity.PRECIOUS,
+                [],
+                "It's not about taking damage ; it's about absorbing it.",
+                {
+                    "damage_conversion": [3, 5],
+                },
+                [
+                    new Trigger({
+                        name: "momentum-redistribution_Trigger",
+                        type: Data.TriggerType.ON_RECV_WITHERING,
+                        behavior: function() {
+                            console.log("Momentum Redistribution Echo Triggered!");
+
+                            const value = Math.round(game.battle.params.magi_damage * (this.variables.damage_conversion/100));
+
+                            this.owner.applyEffects(
+                                this,
+                                this.owner,
+                                [
+                                    new Stat({ effect: Data.Effect.SHIELD, theorical: value, duration: 2 })
+                                ]
+                            );
+                        }
+                    })
+                ],
+                Data.EchoType.ARMOR
             )
         ];
 
@@ -3259,6 +3290,7 @@ const Loader = {
                         new Skill(
                             "Cauterize",
                             "Cures §Bleeding§ and §Poisoning§ on the target, and generate §Shield§ points that equal the combined values of the cleaned maluses. Applies a §Speed§ malus.",
+                            5,
                             {
                                 manaCost: 4,
                                 type: Data.SkillType.FRIENDLY,
