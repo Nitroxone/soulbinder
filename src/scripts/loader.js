@@ -929,7 +929,7 @@ const Loader = {
             ),
             new Echo(
                 "Momentum Redistribution",
-                "Convert §1% of all raw {WITHERING} damage you receive into {SHIELD} that lasts two rounds.",
+                "Convert §1% of all raw {WITHERING} damage you receive into {SHIELD} points that last two rounds.",
                 1,
                 Data.Rarity.PRECIOUS,
                 [],
@@ -5267,6 +5267,63 @@ const Loader = {
             ),
             new Enemy(
                 {
+                    name: "Ghorra",
+                    desc: "That's one hungry motherfucker.",
+                    charset: Data.Charset.GHORRA,
+                    subname: "The Mudcrawler",
+                    health: 150, mana: 200, stamina: 120,
+                    dodge: 8, speed: 10, accuracy: 90, protection: 20,
+                    might: 40, spirit: 15,
+                    resBleed: [2, 0], resPoison: [1, 0],
+                    resMove: 85, resStun: 55,
+                    resilience: 15, warding: 8,
+                    mobType: Data.MobType.MAJOR_BOSS,
+                    variables: {
+                        states: [
+                            "famined",
+                            "festering",
+                            "fed"
+                        ],
+                        state: "famined",
+                        stateCountdown: 3,
+                    },
+                    triggers: [
+                        new Trigger({
+                            name: "ghorra_stateTracker",
+                            type: Data.TriggerType.ON_TURN_BEGIN,
+                            behavior: function() {
+                                const ghorra = this.getOwner();
+                                const states = ghorra.variables.states;
+                                const state = ghorra.variables.state;
+                                const countdown = ghorra.variables.stateCountdown;
+
+                                if(state !== "fed") {
+                                    if(countdown > 0) countdown--;
+                                    else {
+                                        countdown = 3;
+                                        state = states[states.indexOf(state)+1];
+                                    }
+
+                                    console.warn(`Ghorra is now ${state}. ${countdown} turns until next state.`);
+                                }
+                            }
+                        }),
+                        new Trigger({
+                            name: "ghorra_attackReaction",
+                            type: Data.TriggerType.ON_RECV_ATTACK,
+                            checker: function(){
+                                return this.getOwner().variables.state !== "fed";
+                            },
+                            behavior: function(){
+                                console.log("Ghorra's SPECIAL TRIGGER OF DEATH has been FIRED my dudes");
+
+                            }
+                        })
+                    ]
+                }
+            ),
+            new Enemy(
+                {
                     name: "Jabhra Priest",
                     desc: "",
                     charset: Data.Charset.ALIENATED_PRIEST,
@@ -6016,6 +6073,29 @@ const Loader = {
                     },
                     floor2: {
                         depth: 2,
+                        params: {
+                            boss: new EnemyFormation({
+                                name: "ghorra",
+                                biome: Data.DungeonBiome.UZIEL_JUNGLES,
+                                levels: [2],
+                                formation: [
+                                    what(game.all_enemies, "ghorra"),
+                                    what(game.all_enemies, "venomstripe mauler"),
+                                    what(game.all_enemies, "fire iguana"),
+                                ],
+                                type: Data.BattleType.SPECIAL,
+                                title: Data.BattleType.BOSS,
+                                params: {
+                                    endless: [
+                                        what(game.all_enemies, "fire iguana"),
+                                        what(game.all_enemies, "jabra priest")
+                                    ],
+                                    endCondition: function(){
+                                        return game.battle.enemies.find(x => x.name.toLowerCase() === "ghorra").isDead();
+                                    }
+                                }
+                            })
+                        }
                     },
                 },
             }),

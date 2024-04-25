@@ -34,7 +34,8 @@ const Data = Object.freeze({
         FIRE_IGUANA: 'fire_iguana.png',
         VENOMSTRIPE_MAULER: 'venomstripe_mauler.png',
         ALIENATED_PRIEST: 'alienated_priest.png',
-        THE_MAW: 'the_maw.png'
+        THE_MAW: 'the_maw.png',
+        GHORRA: 'ghorra.png'
     },
     Color: {
         GREEN: '#4cd137',
