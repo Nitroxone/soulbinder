@@ -5290,7 +5290,7 @@ const Loader = {
                     triggers: [
                         new Trigger({
                             name: "ghorra_stateTracker",
-                            type: Data.TriggerType.ON_TURN_BEGIN,
+                            type: Data.TriggerType.ON_DEAL_ATTACK,
                             behavior: function() {
                                 const ghorra = this.getOwner();
                                 const states = ghorra.variables.states;
@@ -5316,9 +5316,33 @@ const Loader = {
                             },
                             behavior: function(){
                                 console.log("Ghorra's SPECIAL TRIGGER OF DEATH has been FIRED my dudes");
-
+                                
                             }
                         })
+                    ],
+                    skills: [
+                        new Skill(
+                            "Carnivorous Feast",
+                            "",
+                            0,
+                            {
+                                type: Data.SkillType.OFFENSIVE,
+                                manaCost: 15,
+                                cooldown: 1,
+                                dmgMultiplier: 100,
+                                dmgType: Data.SkillDamageType.PHYSICAL,
+                                criMultiplier: 20,
+                                accMultiplier: 95,
+                                targets: {allies: '-0', enemies: '-123'},
+                                launchPos: [true, true, false],
+                                effectsAllies: {
+                                    1: {
+                                        regular: [],
+                                        critical: []
+                                    }
+                                }
+                            }
+                        )
                     ]
                 }
             ),
