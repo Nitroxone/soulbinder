@@ -131,6 +131,7 @@ class ChatLog {
             // Fold/unfold contents
             dom.addEventListener('click', e => {
                 e.stopImmediatePropagation();
+                Sounds.Methods.playSound(Data.SoundType.TOOLTIP_HOVER);
                 dom.classList.toggle('chatlogCategory-hidden');
             });
         }
