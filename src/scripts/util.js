@@ -1213,11 +1213,11 @@ function getFighterFromPositionAndType(type, position) {
     if(type === Data.BattleFighterType.ENEMY) {
         switch(position) {
             case Data.FormationPosition.BACK:
-                return game.battle.allies[0];
+                return game.battle.enemies[0];
             case Data.FormationPosition.MIDDLE:
-                return game.battle.allies[1];
+                return game.battle.enemies[1];
             case Data.FormationPosition.FRONT:
-                return game.battle.allies[2];
+                return game.battle.enemies[2];
         }
     } else if(type === Data.BattleFighterType.HERO) {
         switch(position) {
@@ -2532,4 +2532,22 @@ function romanize (num) {
     while (i--)
         roman = (key[+digits.pop() + (i * 10)] || "") + roman;
     return Array(+digits.join("") + 1).join("M") + roman;
+}
+
+function pickTarget(type, priority, fallback1, fallback2) {
+    const pri = getFighterFromPositionAndType(type, priority);
+    const fa1 = fallback1 ? getFighterFromPositionAndType(type, fallback1) : null;
+    const fa2 = fallback2 ? getFighterFromPositionAndType(type, fallback2) : null;
+    
+    if(pri && !pri.isDead()) return pri;
+    if(fa1 && !fa1.isDead()) return fa1;
+    if(fa2 && !fa2.isDead()) return fa2;
+}
+
+function pickAlly(priority, fallback1 = null, fallback2 = null) {
+    return pickTarget(Data.BattleFighterType.HERO, priority, fallback1, fallback2);
+}
+
+function pickEnemy(priority, fallback1 = null, fallback2 = null) {
+    return pickTarget(Data.BattleFighterType.ENEMY, priority, fallback1, fallback2);
 }

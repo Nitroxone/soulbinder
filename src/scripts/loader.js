@@ -5343,7 +5343,26 @@ const Loader = {
                                 }
                             }
                         )
-                    ]
+                    ],
+                    behavior: new EnemyBehavior({
+                        actions: [
+                            new EnemyAction({
+                                title: "famined!!",
+                                owner: function() { return what(game.battle.enemies, "ghorra") },
+                                checker: function() {
+                                    return this.owner.variables.state === "famined"
+                                            && this.owner.canUseSkill("carnivorous feast")
+                                },
+                                behavior: function() {
+                                    console.log(this.title);
+
+                                    game.battle.target.push(game.battle.allies[0]);
+                                    game.battle.selectedSkill = this.owner.skills[0];
+                                    game.battle.executeSkill();
+                                }
+                            })
+                        ]
+                    })
                 }
             ),
             new Enemy(
