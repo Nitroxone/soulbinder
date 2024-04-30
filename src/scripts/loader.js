@@ -3633,7 +3633,7 @@ const Loader = {
                     critEffects: [
                         new Stat({ effect: Data.Effect.MAXMANA, theorical: [15, 25] })
                     ],
-                    type: Data.StriderType.TANK,
+                    striderType: Data.StriderType.TANK,
                     uniqueName: "Witchskin",
                     uniqueDesc: "Witchskin's power description",
                     uniqueQuote: 'quote',
@@ -3858,7 +3858,7 @@ const Loader = {
                             }
                         )
                     ],
-                    type: Data.StriderType.SUPPORT,
+                    striderType: Data.StriderType.SUPPORT,
                     uniqueName: "Life Channel",
                     uniqueDesc: '<div class="par">Each time Betheros deals or takes damage, the rest of the team is healed 10% of the damage amount.</div>',
                     uniqueQuote: '"Through the pain, you shall heal. And through healing, you shall embrace inner peace."',
@@ -3882,7 +3882,7 @@ const Loader = {
                     critEffects: [
                         new Stat({ effect: Data.Effect.PROTECTION, theorical: [3, 7], isPercentage: true })
                     ],
-                    type: Data.StriderType.TANK,
+                    striderType: Data.StriderType.TANK,
                     uniqueName: "Shepherd's Ward",
                     uniqueDesc: "Shepherd's Ward power description",
                     uniqueQuote: 'quote',
@@ -3906,7 +3906,7 @@ const Loader = {
                     critEffects: [
                         new Stat({ effect: Data.Effect.WARDING, theorical: [3, 7] })
                     ],
-                    type: Data.StriderType.SUPPORT,
+                    striderType: Data.StriderType.SUPPORT,
                     uniqueName: "Whispers",
                     uniqueDesc: '<div class="par jus">Each entity that is targeted by one of Haman\'s skills enters a <span class="bold blue">Madness</span> state. Each skill further cast on a same target increases their Madness state by 1, up to 5. Various bonuses and maluses can be applied by consuming the <span class="bold blue">Madness</span> state, through Haman\'s <span class="bold blue">Beyond</span> skill.</div><div class="par bulleted"><span class="bold">Madness I</span>: Affects <span class="bold blue">Dodge</span> and <span class="bold blue">Accuracy</span></div><div class="par bulleted"><span class="bold">Madness II</span>: Affects <span class="bold blue">Protection</span></div><div class="par bulleted"><span class="bold">Madness III</span>: Affects <span class="bold blue">Received Heal</span> and <span class="bold  blue">Max. health</span></div><div class="par bulleted"><span class="bold">Madness IV</span>: Affects <span class="bold blue">Bleed and Poison resistance</span> and <span class="bold blue">Block value</span></div><div class="par bulleted"><span class="bold">Madness V</span>: Affects <span class="bold blue">Speed</span> and <span class="bold blue">Total damage</span></div>',
                     uniqueQuote: '"We are so fragile, compartmentalized in our narrow view of the world; and exposing our minds to new perspectives, to raw and violent realities, is wonderful, and devastating."',
@@ -4253,7 +4253,7 @@ const Loader = {
                     critEffects: [
                         new Stat({ effect: Data.Effect.PROTECTION, theorical: [3, 7], isPercentage: true })
                     ],
-                    type: Data.StriderType.STRIKER,
+                    striderType: Data.StriderType.STRIKER,
                     uniqueName: "Bend Death",
                     uniqueDesc: "Bend Death power description",
                     uniqueQuote: 'quote',
@@ -4277,7 +4277,7 @@ const Loader = {
                     critEffects: [
                         new Stat({ effect: Data.Effect.PROTECTION, theorical: [3, 7], isPercentage: true })
                     ],
-                    type: Data.StriderType.SUPPORT,
+                    striderType: Data.StriderType.SUPPORT,
                     uniqueName: "Timecracks",
                     uniqueDesc: "Timecracks power description",
                     uniqueQuote: 'quote',
@@ -4301,7 +4301,7 @@ const Loader = {
                     critEffects: [
                         new Stat({ effect: Data.Effect.PROTECTION, theorical: [3, 7], isPercentage: true })
                     ],
-                    type: Data.StriderType.TANK,
+                    striderType: Data.StriderType.TANK,
                     uniqueName: "Will of the Dragon",
                     uniqueDesc: "Will of the Dragon power description",
                     uniqueQuote: 'quote',
@@ -4325,7 +4325,7 @@ const Loader = {
                     critEffects: [
                         new Stat({ effect: Data.Effect.PROTECTION, theorical: [3, 7], isPercentage: true })
                     ],
-                    type: Data.StriderType.STRIKER,
+                    striderType: Data.StriderType.STRIKER,
                     uniqueName: "Revenge of the Fallen",
                     uniqueDesc: "Revenge of the Fallen power description",
                     uniqueQuote: 'quote',
