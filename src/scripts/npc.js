@@ -864,7 +864,7 @@ class NPC extends Entity {
     }
 
     /**
-     * Applies each Stat stored in "effects" parameter to this NPC, also adding an ActiveEffect?
+     * Applies each Stat stored in "effects" parameter to this NPC, also adding an ActiveEffect
      * @param {Skill} skill the Skill from which effects originate
      * @param {NPC} originUser the Skill caster
      * @param {Stat[]} effects the Skill's effects

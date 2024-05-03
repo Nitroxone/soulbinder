@@ -873,7 +873,22 @@ const Loader = {
                 {
                     "stun_accuracy_bonus": [10, 20]
                 },
-                [],
+                [
+                    new Trigger({
+                        name: "opportunistic_Trigger",
+                        type: Data.TriggerType.ON_DEAL_STUN,
+                        behavior: function() {
+                            console.log("OPPORTUNISTIC ECHO TRIGGERED");
+                            this.owner.applyEffects(
+                                this,
+                                this.owner,
+                                [
+                                    new Stat({effect: Data.Effect.MODIF_ACCURACY_STUN, theorical: this.variables.stun_accuracy_bonus, isPercentage: true, duration: 1})
+                                ]
+                            );
+                        }
+                    })
+                ],
                 Data.EchoType.ARMOR
             ),
             new Echo(
@@ -886,7 +901,39 @@ const Loader = {
                 {
                     "protection_debuff": [-1, -3]
                 },
-                [],
+                [
+                    new Trigger({
+                        name: "corrosiveBlades_Trigger",
+                        type: Data.TriggerType.ON_DEAL_WEAPON,
+                        behavior: function() {
+                            console.log("CORROSIVE BLADES ECHO TRIGGERED");
+                            const tar = game.battle.target[game.battle.targetTracker];
+
+                            // First, check for an existing Corrosive Blades bonus
+                            const existing = tar.bonuses.find(x => x.origin.name.toLowerCase() === "corrosive blades" && x.stat.effect === Data.Effect.PROTECTION);
+                            let val = 0;
+
+                            // If there's an existing bonus, store its value and remove it
+                            if(existing) {
+                                val += existing.stat.getValue();
+                                tar.alter({
+                                    uid: tar.stat.uid,
+                                    action: Data.AlterAction.REMOVE
+                                });
+                            }
+
+                            val += this.variables.protection_debuff;
+
+                            tar.applyEffects(
+                                this,
+                                this.origin,
+                                [
+                                    new Stat({effect: Data.Effect.PROTECTION, theorical: val, isPercentage: true})
+                                ]
+                            );
+                        }
+                    })
+                ],
                 Data.EchoType.WEAPON,
             ),
             new Echo(
@@ -924,7 +971,39 @@ const Loader = {
                 {
                     "maximum_health_debuff": [1, 3]
                 },
-                [],
+                [
+                    new Trigger({
+                        name: "erodeAway_Trigger",
+                        type: Data.TriggerType.ON_DEAL_WEAPON,
+                        behavior: function() {
+                            console.log("ERODE AWAY ECHO TRIGGERED");
+                            const tar = game.battle.target[game.battle.targetTracker];
+
+                            // First, check for an existing Erode Away bonus
+                            const existing = tar.bonuses.find(x => x.origin.name.toLowerCase() === "erode away" && x.stat.effect === Data.Effect.MAXHEALTH);
+                            let val = 0;
+
+                            // If there's an existing bonus, store its value and remove it
+                            if(existing) {
+                                val += existing.stat.getValue();
+                                tar.alter({
+                                    uid: tar.stat.uid,
+                                    action: Data.AlterAction.REMOVE
+                                });
+                            }
+
+                            val += this.variables.maximum_health_debuff;
+
+                            tar.applyEffects(
+                                this,
+                                this.origin,
+                                [
+                                    new Stat({effect: Data.Effect.MAXHEALTH, theorical: val, isPercentage: true})
+                                ]
+                            );
+                        }
+                    })
+                ],
                 Data.EchoType.WEAPON,
             ),
             new Echo(
@@ -5322,7 +5401,7 @@ const Loader = {
                     ],
                     skills: [
                         new Skill(
-                            "Carnivorous Feast",
+                            "Famined Hunting",
                             "",
                             0,
                             {
@@ -5333,8 +5412,52 @@ const Loader = {
                                 dmgType: Data.SkillDamageType.PHYSICAL,
                                 criMultiplier: 20,
                                 accMultiplier: 95,
-                                targets: {allies: '-0', enemies: '-123'},
+                                targets: {allies: '-0', enemies: '-1'},
                                 launchPos: [true, true, false],
+                                effectsAllies: {
+                                    1: {
+                                        regular: [],
+                                        critical: []
+                                    }
+                                }
+                            }
+                        ),
+                        new Skill(
+                            "Carnivorous Feast",
+                            "",
+                            0,
+                            {
+                                type: Data.SkillType.OFFENSIVE,
+                                manaCost: 10,
+                                cooldown: 1,
+                                dmgMultiplier: 80,
+                                dmgType: Data.SkillDamageType.MAGICAL,
+                                criMultiplier: 15,
+                                accMultiplier: 93,
+                                targets: {allies: '-0', enemies: '@12'},
+                                launchPos: [true, true, true],
+                                effectsAllies: {
+                                    1: {
+                                        regular: [],
+                                        critical: []
+                                    }
+                                }
+                            }
+                        ),
+                        new Skill(
+                            "Satiated Laziness",
+                            "",
+                            0,
+                            {
+                                type: Data.SkillType.OFFENSIVE,
+                                manaCost: 20,
+                                cooldown: 2,
+                                dmgMultiplier: 60,
+                                dmgType: Data.SkillDamageType.BOTH,
+                                criMultiplier: 10,
+                                accMultiplier: 90,
+                                targets: {allies: '-0', enemies: '@123'},
+                                launchPos: [false, true, true],
                                 effectsAllies: {
                                     1: {
                                         regular: [],
@@ -5351,7 +5474,7 @@ const Loader = {
                                 owner: function() { return what(game.battle.enemies, "ghorra") },
                                 checker: function() {
                                     return this.owner.variables.state === "famined"
-                                            && this.owner.canUseSkill("carnivorous feast")
+                                            && this.owner.canUseSkill("famined hunting")
                                 },
                                 behavior: function() {
                                     console.log(this.title);
@@ -5360,7 +5483,40 @@ const Loader = {
                                     game.battle.selectedSkill = this.owner.skills[0];
                                     game.battle.executeSkill();
                                 }
-                            })
+                            }),
+                            new EnemyAction({
+                                title: 'festering!!',
+                                owner: function(){ return what(game.battle.enemies, "ghorra") },
+                                checker: function() {
+                                    return this.owner.variables.state == "festering"
+                                            && this.owner.canUseSkill("carnivorous feast")
+                                },
+                                behavior: function() {
+                                    console.log(this.title);
+
+                                    game.battle.target.push(game.battle.allies[1]);
+                                    game.battle.target.push(game.battle.allies[2]);
+                                    game.battle.selectedSkill = this.owner.skills[1];
+                                    game.battle.executeSkill();
+                                }
+                            }),
+                            new EnemyAction({
+                                title: 'fed!!',
+                                owner: function(){ return what(game.battle.enemies, "ghorra") },
+                                checker: function() {
+                                    return this.owner.variables.state == "fed"
+                                            && this.owner.canUseSkill("satiated laziness")
+                                },
+                                behavior: function() {
+                                    console.log(this.title);
+
+                                    game.battle.target.push(game.battle.allies[1]);
+                                    game.battle.target.push(game.battle.allies[2]);
+                                    game.battle.target.push(game.battle.allies[3]);
+                                    game.battle.selectedSkill = this.owner.skills[2];
+                                    game.battle.executeSkill();
+                                }
+                            }),
                         ]
                     })
                 }
