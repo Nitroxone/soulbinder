@@ -275,7 +275,7 @@ const Loader = {
                 [25, 30],
                 2,
                 new Echo(
-                    "Solana's Endless Embrace",
+                    "Solana's Embrace",
                     "Gain a §1% {PROTECTION} debuff and a §2% {MODIF_HEAL_GIVEN} at the end of every round you don't deal damage. Dealing damage breaks the effects, and regenerates §3% of your {MAXHEALTH}, multiplied by the amount of rounds the effects have been active for.",
                     1,
                     Data.Rarity.MYTHIC,
@@ -840,7 +840,7 @@ const Loader = {
                         isPercentage: true
                     })
                 ],
-                "Quote",
+                "Hitting first is only meant to prepare better for a deadlier strike.",
                 {},
                 [],
                 Data.EchoType.WEAPON
@@ -1014,6 +1014,59 @@ const Loader = {
                             );
                         }
                     })
+                ],
+                Data.EchoType.ARMOR
+            ),
+            new Echo(
+                "Caltrops",
+                "Hitting an enemy with this weapon plants Caltrops. When that enemy moves, they will receive damage that equals §1% of your {MIGHT} and the caltrops will be removed.",
+                1,
+                Data.Rarity.PRECIOUS,
+                [],
+                "Watch your step...",
+                {
+                    "caltrop_damage": [20, 25]
+                },
+                [],
+                Data.EchoType.WEAPON
+            ),
+            new Echo(
+                "Dedication",
+                "Missing an attack grants you with a §1% {MODIF_DMG_TOTAL} and §2% {ACCURACY} bonus. This effect fades away when you hit a target.",
+                1,
+                Data.Rarity.SINGULAR,
+                [
+                    new Stat({
+                        effect: Data.Effect.RES_STUN,
+                        theorical: [3, 4],
+                        isPercentage: true,
+                    })
+                ],
+                "Greatness is not meant for men who never failed ; it is meant for men who never gave up.",
+                {
+                    "total_damage_bonus": [3, 6],
+                    "accuracy_bonus": [4, 6],
+                },
+                [],
+                Data.EchoType.ARMOR
+            ),
+            new Echo(
+                "Rekindle",
+                "Casting a skill on an ally will restore §1% of their missing {HEALTH} as {MANA}.",
+                1,
+                Data.Rarity.GRAND,
+                [
+                    new Stat({
+                        effect: Data.Effect.MAXMANA,
+                        theorical: [15, 20],
+                    })
+                ],
+                "Light shines brighter in the darkness.",
+                {
+                    "mana_restoration": [25, 32]
+                },
+                [
+                    
                 ],
                 Data.EchoType.ARMOR
             )
