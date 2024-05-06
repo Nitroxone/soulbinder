@@ -905,6 +905,8 @@ class NPC extends Entity {
                 this.addBattlePopup(new BattlePopup(0, '<p>Resisted!</p>'));
             } else {
                 this.applyStun();
+                originUser.runTriggers(Data.TriggerType.ON_DEAL_STUN);
+                this.runTriggers(Data.TriggerType.ON_RECV_STUN);
                 if(game.battle.currentPlay === this) game.battle.skipBecauseStunned = true;
             }
         }
