@@ -615,7 +615,7 @@ function getEchoDetails(echo, full = false, soulbindingFormat = false) {
     if(full || soulbindingFormat) {
         str += '<div class="echoEffects" style="' + (soulbindingFormat ? 'display: none;' : '') + '">'
         echo.stats.forEach(effect => {
-            str += effect.getFormatted({cssClass: "echoEffect"});
+            str += effect.getFormatted({cssClass: "echoEffect", noTheorical: isEffectUnvaluable(effect.effect), allowUnvaluableColor: true});
         });
         str += '</div>'
         if(!soulbindingFormat) {

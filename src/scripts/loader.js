@@ -987,7 +987,7 @@ const Loader = {
                 Data.EchoType.WEAPON,
             ),
             new Echo(
-                "Momentum Redistribution",
+                "Momentum Shift",
                 "Convert §1% of all raw {WITHERING} damage you receive into {SHIELD} points that last two rounds.",
                 1,
                 Data.Rarity.PRECIOUS,
@@ -998,10 +998,10 @@ const Loader = {
                 },
                 [
                     new Trigger({
-                        name: "momentum-redistribution_Trigger",
+                        name: "momentum-shift_Trigger",
                         type: Data.TriggerType.ON_RECV_WITHERING,
                         behavior: function() {
-                            console.log("Momentum Redistribution Echo Triggered!");
+                            console.log("Momentum Shift Echo Triggered!");
 
                             const value = Math.round(game.battle.params.magi_damage * (this.variables.damage_conversion/100));
 
@@ -1069,6 +1069,28 @@ const Loader = {
                     
                 ],
                 Data.EchoType.ARMOR
+            ),
+            new Echo(
+                "Bleeding Heart",
+                "Each bleeding tick in the fight regenerates §1% of your {MAXHEALTH}.",
+                1,
+                Data.Rarity.MYTHIC,
+                [
+                    new Stat({
+                        effect: Data.Effect.BLEED_INCURABLE,
+                    }),
+                    new Stat({
+                        effect: Data.Effect.PROTECTION,
+                        theorical: [-5, -7],
+                        isPercentage: true
+                    })
+                ],
+                "Behold this substance of life slipping away; take it, cherish it, immerse yourself in it, for it is the most sacred of essences!",
+                {
+                    "maxhealth_regen": [1, 3]
+                },
+                [],
+                Data.EchoType.WEAPON
             )
         ];
 
