@@ -1954,7 +1954,7 @@ const Loader = {
                             1,
                             Data.Rarity.SINGULAR,
                             [],
-                            "You are their spine.",
+                            "Gift before you receive ; create your own serenity by creating other's.",
                             {
                                 "speed_boost": [3, 3],
                                 "given_heal_boost": [20, 20],
