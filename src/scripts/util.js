@@ -2471,6 +2471,11 @@ function getDungeonMapRoomStyle(type) {
     if(["antechamber of marvels", "eternity well", "desecrated altar"].includes(type)) return " bonusRoom";
 }
 
+/**
+ * Randomly returns a short description that matches the provided DungeonRoomType.
+ * @param {Data.DungeonRoomType} roomType the room type 
+ * @returns {string} a random matching description
+ */
 function getDungeonELlockTitle(roomType) {
     if(roomType === Data.DungeonRoomType.ANTECHAMBER_OF_MARVELS) {
         return choose([
@@ -2486,6 +2491,15 @@ function getDungeonELlockTitle(roomType) {
     }
 }
 
+/**
+ * Animates number being increased/decreased on the provided HTMLElement.
+ * @param {HTMLElement} html the HTML element to target
+ * @param {number} targetValue the targeted value
+ * @param {number} duration how long the animation should last
+ * @param {string} animationType 'increase' or 'decrease'
+ * @param {string} prefix any prefix
+ * @param {string} suffix any suffix
+ */
 function animateNumber(html, targetValue, duration, animationType, prefix = '', suffix = '') {
     const element = html;
     const startValue = animationType === 'increase' ? 0 : Number(element.textContent);
@@ -2520,6 +2534,11 @@ function animateNumber(html, targetValue, duration, animationType, prefix = '', 
     requestAnimationFrame(animate);
 }
 
+/**
+ * Returns a romanized string of the provided number.
+ * @param {number} num the number to romanize
+ * @returns {string} the romanized input number
+ */
 function romanize (num) {
     if (isNaN(num))
         return NaN;
@@ -2534,6 +2553,14 @@ function romanize (num) {
     return Array(+digits.join("") + 1).join("M") + roman;
 }
 
+/**
+ * Picks the target with the given type and priorities.
+ * @param {Data.BattleFighterType} type the type of fighter
+ * @param {NPC} priority the highest priority target
+ * @param {NPC} fallback1 the middle priority target
+ * @param {NPC} fallback2 the lowest priority target
+ * @returns {NPC} the highest priority target that exists and isn't dead
+ */
 function pickTarget(type, priority, fallback1, fallback2) {
     const pri = getFighterFromPositionAndType(type, priority);
     const fa1 = fallback1 ? getFighterFromPositionAndType(type, fallback1) : null;
@@ -2544,10 +2571,24 @@ function pickTarget(type, priority, fallback1, fallback2) {
     if(fa2 && !fa2.isDead()) return fa2;
 }
 
+/**
+ * Picks the ally with the given priorities.
+ * @param {NPC} priority the highest priority target
+ * @param {NPC} fallback1 the middle priority target
+ * @param {NPC} fallback2 the lowest priority target
+ * @returns {NPC} the highest priority target that exists and isn't dead
+ */
 function pickAlly(priority, fallback1 = null, fallback2 = null) {
     return pickTarget(Data.BattleFighterType.HERO, priority, fallback1, fallback2);
 }
 
+/**
+ * Picks the enemy with the given priorities.
+ * @param {NPC} priority the highest priority target
+ * @param {NPC} fallback1 the middle priority target
+ * @param {NPC} fallback2 the lowest priority target
+ * @returns {NPC} the highest priority target that exists and isn't dead
+ */
 function pickEnemy(priority, fallback1 = null, fallback2 = null) {
     return pickTarget(Data.BattleFighterType.ENEMY, priority, fallback1, fallback2);
 }
@@ -2555,6 +2596,7 @@ function pickEnemy(priority, fallback1 = null, fallback2 = null) {
 /**
  * Processes the provided Echo name to accomodate a matching filename format.
  * @param {string} name 
+ * @returns {string} a processed string
  */
 function getEchoIconName(name) {
     let result = name.toLowerCase();
