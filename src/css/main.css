@@ -2513,17 +2513,50 @@ table.statsTable tbody td:nth-child(3) {
 }
 .echoQuote {
     text-align: right;
+    position: relative;
+}
+.echoEffects {
+    position: relative;
 }
 .echoInfo {
     border-radius: 3px;
     padding: 0.5rem;
     width: 75%;
     margin:0 auto;
+    overflow: hidden;
+    position: relative;
+}
+.echoInfo::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0; left: 0; bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
 }
 .echoTitle {
     font-family: 'RobotoSlabBold';
     font-size: 12px;
     font-weight: normal;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+
+    position: relative;
+}
+.echoDesc {
+    position: relative;
+}
+.echoIcon {
+    width: 46px;
+    height: 46px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+    position: absolute;
+    right: 0;
+    z-index: -1;
 }
 
 .tooltipSetText {

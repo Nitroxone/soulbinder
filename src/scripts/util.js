@@ -2551,3 +2551,16 @@ function pickAlly(priority, fallback1 = null, fallback2 = null) {
 function pickEnemy(priority, fallback1 = null, fallback2 = null) {
     return pickTarget(Data.BattleFighterType.ENEMY, priority, fallback1, fallback2);
 }
+
+/**
+ * Processes the provided Echo name to accomodate a matching filename format.
+ * @param {string} name 
+ */
+function getEchoIconName(name) {
+    let result = name.toLowerCase();
+    
+    result = result.replace(/\s/g, '_');
+    result = result.replace(/'/g, '-');
+    
+    return result;
+}

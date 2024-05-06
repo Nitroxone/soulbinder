@@ -685,7 +685,7 @@ const Loader = {
             ),
             new Echo(
                 "Last Word",
-                "Each time a spell is cast during the fight, you gain §1% {MAXSPIRIT} (stackable up to §2%). This effect fades away if you are stunned.",
+                "Each time a spell is cast during the fight, you gain §1% {MAXMANA} (stackable up to §2%). This effect fades away if you are stunned.",
                 1,
                 Data.Rarity.PRECIOUS,
                 [],

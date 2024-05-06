@@ -611,7 +611,7 @@ function getSigilDetails(sigil, full = false, soulbindingFormat = false) {
  */
 function getEchoDetails(echo, full = false, soulbindingFormat = false) {
     let str = '<div class="echoInfo' + (soulbindingFormat ? ' soulbindingSigilInfo' : '') + '" style="border: 1px solid '+ hexToRGBA(getRarityColorCode(echo.rarity), 0.5) +'">'
-    str += '<div class="echoTitle" style="color: ' + getRarityColorCode(echo.rarity) + '">' + echo.name + '</div>';
+    str += '<div class="echoTitle" style="color: ' + getRarityColorCode(echo.rarity) + '">' + echo.name + '<div class="echoIcon" style="background-image: url(\'css/img/echoes/' + getEchoIconName(echo.name) + '.svg\');' + (!full ? ' top: -15px;' : '') + '"></div>' + '</div>';
     if(full || soulbindingFormat) {
         str += '<div class="echoEffects" style="' + (soulbindingFormat ? 'display: none;' : '') + '">'
         echo.stats.forEach(effect => {
