@@ -685,16 +685,26 @@ const Loader = {
             ),
             new Echo(
                 "Last Word",
-                "Each time a spell is cast during the fight, you gain §1% {SPIRIT} (stackable up to §2%). This effect fades away if you are stunned.",
+                "Each time a spell is cast during the fight, you gain §1% {MAXSPIRIT} (stackable up to §2%). This effect fades away if you are stunned.",
                 1,
                 Data.Rarity.PRECIOUS,
                 [],
                 "The final word in a case is always a number.",
                 {
-                    "bonus_spirit": [4, 7],
-                    "max_bonus": [40, 50]
+                    "bonus_spirit": [2, 4],
+                    "max_bonus": [25, 32]
                 },
-                []
+                [
+                    new Trigger({
+                        name: "lastWord_Trigger",
+                        type: Data.TriggerType.ON_USE_SKILL,
+                        behavior: function() {
+                            console.log("LAST WORD ECHO TRIGGERED!");
+
+                        }
+                    })
+                ],
+                Data.EchoType.ARMOR
             ),
             new Echo(
                 "Octane",
@@ -909,26 +919,11 @@ const Loader = {
                             console.log("CORROSIVE BLADES ECHO TRIGGERED");
                             const tar = game.battle.target[game.battle.targetTracker];
 
-                            // First, check for an existing Corrosive Blades bonus
-                            const existing = tar.bonuses.find(x => x.origin.name.toLowerCase() === "corrosive blades" && x.stat.effect === Data.Effect.PROTECTION);
-                            let val = 0;
-
-                            // If there's an existing bonus, store its value and remove it
-                            if(existing) {
-                                val += existing.stat.getValue();
-                                tar.alter({
-                                    uid: tar.stat.uid,
-                                    action: Data.AlterAction.REMOVE
-                                });
-                            }
-
-                            val += this.variables.protection_debuff;
-
                             tar.applyEffects(
                                 this,
                                 this.origin,
                                 [
-                                    new Stat({effect: Data.Effect.PROTECTION, theorical: val, isPercentage: true})
+                                    new Stat({effect: Data.Effect.PROTECTION, theorical: this.variables.protection_debuff, isPercentage: true, duration: -1})
                                 ]
                             );
                         }
@@ -969,7 +964,7 @@ const Loader = {
                 [],
                 "Weathering, worn out by the winds of time.",
                 {
-                    "maximum_health_debuff": [1, 3]
+                    "maximum_health_debuff": [-1, -3]
                 },
                 [
                     new Trigger({
@@ -978,27 +973,12 @@ const Loader = {
                         behavior: function() {
                             console.log("ERODE AWAY ECHO TRIGGERED");
                             const tar = game.battle.target[game.battle.targetTracker];
-
-                            // First, check for an existing Erode Away bonus
-                            const existing = tar.bonuses.find(x => x.origin.name.toLowerCase() === "erode away" && x.stat.effect === Data.Effect.MAXHEALTH);
-                            let val = 0;
-
-                            // If there's an existing bonus, store its value and remove it
-                            if(existing) {
-                                val += existing.stat.getValue();
-                                tar.alter({
-                                    uid: tar.stat.uid,
-                                    action: Data.AlterAction.REMOVE
-                                });
-                            }
-
-                            val += this.variables.maximum_health_debuff;
-
+                            
                             tar.applyEffects(
                                 this,
                                 this.origin,
                                 [
-                                    new Stat({effect: Data.Effect.MAXHEALTH, theorical: val, isPercentage: true})
+                                    new Stat({effect: Data.Effect.MAXHEALTH, theorical: this.variables.maximum_health_debuff, isPercentage: true, duration: -1})
                                 ]
                             );
                         }
