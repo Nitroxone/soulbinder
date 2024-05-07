@@ -933,9 +933,9 @@ const Loader = {
             ),
             new Echo(
                 "Reprieve",
-                "Each {STAMINA} debuff you receive grants you with a {SHIELD} that equals half that debuff amount.",
+                "Each {PROTECTION} malus you receive grants you with a {SHIELD} that equals half that malus amount.",
                 1,
-                Data.Rarity.GRAND,
+                Data.Rarity.REGULAR,
                 [],
                 "Even peace awaits in the eye of the storm.",
                 {},
@@ -1121,6 +1121,143 @@ const Loader = {
                 "Isn't vital, muscular and spiritual energy all the same?",
                 {
                     "base_stamina_steal": [4, 6]
+                },
+                [],
+                Data.EchoType.ARMOR
+            ),
+            new Echo(
+                "Accumulation",
+                "Blocking generates {SHIELD} points that are equal to the amount of damage dealt by this weapon since the beginning of the fight. Blocking resets this value.",
+                1,
+                Data.Rarity.GRAND,
+                [],
+                "Harboring a grudge is not a sin ; it's a strategy.",
+                {},
+                [],
+                Data.EchoType.WEAPON
+            ),
+            new Echo(
+                "Crystalize",
+                "Using a Consumable will supercharge your next attack with extra {SPIRIT} damage that equal the consumable’s toxicity, up to §1 points.",
+                1,
+                Data.Rarity.SINGULAR,
+                [],
+                "Reconditioning is, like every psychological mechanic, all just a chemical reaction.",
+                {
+                    "max_damage": [25, 32],
+                },
+                [],
+                Data.EchoType.ARMOR
+            ),
+            new Echo(
+                "Overcharge",
+                "Getting stunned regenerates §1% of your {MAXMANA}.",
+                1,
+                Data.Rarity.REGULAR,
+                [],
+                "You can find strength even in the greatest pain.",
+                {
+                    "mana_regeneration": [5, 7]
+                },
+                [],
+                Data.EchoType.ARMOR
+            ),
+            new Echo(
+                "Flutter",
+                "Moving an enemy generates §1 {SHIELD} points.",
+                1,
+                Data.Rarity.REGULAR,
+                [
+                    new Stat({
+                        effect: Data.Effect.MODIF_CHANCE_MOVE,
+                        theorical: [5, 7],
+                        isPercentage: true
+                    })
+                ],
+                "Quote",
+                {
+                    "shield": [12, 16]
+                },
+                [],
+                Data.EchoType.ARMOR
+            ),
+            new Echo(
+                "Extraction",
+                "Any critical blow regenerates §1% of your {MAXHEALTH}.",
+                1,
+                Data.Rarity.REGULAR,
+                [
+                    new Stat({
+                        effect: Data.Effect.MODIF_CRIT_WEAPON,
+                        theorical: [5, 6],
+                        isPercentage: true
+                    })
+                ],
+                "Quote",
+                {
+                    "health_regen": [7, 9]
+                },
+                [],
+                Data.EchoType.ARMOR
+            ),
+            new Echo(
+                "Abhorrent Curse",
+                "Killing a stunned enemy regenerates all of your {MANA}.",
+                1,
+                Data.Rarity.MYTHIC,
+                [
+                    new Stat({
+                        effect: Data.Effect.MODIF_CHANCE_STUN,
+                        theorical: [6, 8],
+                        isPercentage: true
+                    })
+                ],
+                "Don't let it go to waste! Harvest it. It can't suffer anyway...",
+                {},
+                [],
+                Data.EchoType.ARMOR
+            ),
+            new Echo(
+                "Sanguine Harvest",
+                "Killing an enemy with a Deathblow regenerates §1% of your {MAXHEALTH}.",
+                1,
+                Data.Rarity.SINGULAR,
+                [
+                    new Stat({
+                        effect: Data.Effect.CRIT_LUK,
+                        theorical: [5, 8],
+                        isPercentage: true
+                    })
+                ],
+                "Quote",
+                {
+                    "health_regen": [10, 13]
+                },
+                [],
+                Data.EchoType.WEAPON
+            ),
+            new Echo(
+                "Decaying Curse",
+                "Hitting an enemy with this weapon reduces their {DODGE} by §1% (stackable, forever).",
+                1,
+                Data.Rarity.SINGULAR,
+                [],
+                "Quote",
+                {
+                    "dodge_reduction": [1, 2]
+                },
+                [],
+                Data.EchoType.WEAPON
+            ),
+            new Echo(
+                "Valet",
+                "Healing an ally whose {HEALTH} is inferior to yours also heals you with §1% of this healing amount.",
+                1,
+                Data.Rarity.SINGULAR,
+                [],
+                "Quote",
+                {
+                    "healing_amount": [45, 50]
                 },
                 [],
                 Data.EchoType.ARMOR
