@@ -1052,13 +1052,14 @@ const Loader = {
             ),
             new Echo(
                 "Rekindle",
-                "Casting a skill on an ally will restore §1% of their missing {HEALTH} as {MANA}.",
+                "Casting a skill on an ally will restore their {MANA} to §1% of their missing {HEALTH}.",
                 1,
                 Data.Rarity.GRAND,
                 [
                     new Stat({
-                        effect: Data.Effect.MAXMANA,
-                        theorical: [15, 20],
+                        effect: Data.Effect.MODIF_HEAL_GIVEN,
+                        theorical: [-3, -5],
+                        isPercentage: true
                     })
                 ],
                 "Light shines brighter in the darkness.",
