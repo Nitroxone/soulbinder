@@ -1092,6 +1092,38 @@ const Loader = {
                 },
                 [],
                 Data.EchoType.WEAPON
+            ),
+            new Echo(
+                "Nebula Trap",
+                "Attacking an enemy plants a Nebula Trap on them. The next time they attack, they will have a base §1% + their target's {MODIF_CHANCE_STUN} to be stunned for one round.",
+                1,
+                Data.Rarity.PRECIOUS,
+                [
+                    new Stat({
+                        effect: Data.Effect.MODIF_CHANCE_STUN,
+                        theorical: [-3, -5],
+                        isPercentage: true
+                    })
+                ],
+                "The light we can't see isn't always dead.",
+                {
+                    "base_stun_chance": [15, 18]
+                },
+                [],
+                Data.EchoType.ANY
+            ),
+            new Echo(
+                "Soul Maelstrom",
+                "Attacking an enemy plants a trap on them. The next time they attack, their target will steal §1% of the enemy’s {STAMINA} and convert it to replenish their own {MANA}.",
+                1,
+                Data.Rarity.SINGULAR,
+                [],
+                "Isn't vital, muscular and spiritual energy all the same?",
+                {
+                    "base_stamina_steal": [4, 6]
+                },
+                [],
+                Data.EchoType.ARMOR
             )
         ];
 
