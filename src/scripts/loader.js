@@ -1240,7 +1240,7 @@ const Loader = {
                 "Curse of Decay",
                 "Hitting an enemy with this weapon reduces their {DODGE} by §1% (stackable, forever).",
                 1,
-                Data.Rarity.SINGULAR,
+                Data.Rarity.GRAND,
                 [],
                 "Quote",
                 {
@@ -2026,6 +2026,29 @@ const Loader = {
                     new Stat({
                         effect: Data.Effect.MIGHT,
                         theorical: [7, 8]
+                    })
+                ]
+            ),
+            new Trinket(
+                "Charm of Slower Aging",
+                "Quote",
+                14,
+                100,
+                Data.Rarity.SINGULAR,
+                [
+                    new Stat({
+                        effect: Data.Effect.MAXHEALTH,
+                        theorical: [100, 115]
+                    }),
+                    new Stat({
+                        effect: Data.Effect.REGEN_HEALTH,
+                        theorical: [1, 2],
+                        isPercentage: true
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MODIF_DMG_SKILL,
+                        theorical: [-5, -7],
+                        isPercentage: true
                     })
                 ]
             )
