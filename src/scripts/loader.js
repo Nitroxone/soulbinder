@@ -1157,14 +1157,14 @@ const Loader = {
                 [],
                 "You can find strength even in the greatest pain.",
                 {
-                    "mana_regeneration": [5, 7]
+                    "mana_regeneration": [8, 11]
                 },
                 [],
                 Data.EchoType.ARMOR
             ),
             new Echo(
                 "Flutter",
-                "Moving an enemy generates §1 {SHIELD} points.",
+                "Moving an enemy generates {SHIELD} points that equal §1% of the target's {MAXHEALTH}.",
                 1,
                 Data.Rarity.REGULAR,
                 [
@@ -1176,7 +1176,7 @@ const Loader = {
                 ],
                 "Quote",
                 {
-                    "shield": [12, 16]
+                    "shield": [8, 10]
                 },
                 [],
                 Data.EchoType.ARMOR
@@ -1237,7 +1237,7 @@ const Loader = {
                 Data.EchoType.WEAPON
             ),
             new Echo(
-                "Decaying Curse",
+                "Curse of Decay",
                 "Hitting an enemy with this weapon reduces their {DODGE} by §1% (stackable, forever).",
                 1,
                 Data.Rarity.SINGULAR,
@@ -1258,6 +1258,41 @@ const Loader = {
                 "Quote",
                 {
                     "healing_amount": [45, 50]
+                },
+                [],
+                Data.EchoType.ARMOR
+            ),
+            new Echo(
+                "Mind Stability",
+                "Losing {MANA} boosts your {SPIRIT} with the amount of {MANA} you've lost.",
+                1,
+                Data.Rarity.PRECIOUS,
+                [],
+                "Quote",
+                {},
+                [],
+                Data.EchoType.ARMOR
+            ),
+            new Echo(
+                "Fragmentation",
+                "Damage you deal to an enemy will also be evenly distributed to decay other enemies' {MAXSTAMINA}.",
+                1,
+                Data.Rarity.SINGULAR,
+                [],
+                "Quote",
+                {},
+                [],
+                Data.EchoType.ARMOR
+            ),
+            new Echo(
+                "Brambleheart",
+                "Moving an enemy reduces their {MAXHEALTH} by §1%.",
+                1,
+                Data.Rarity.REGULAR,
+                [],
+                "Quote",
+                {
+                    "maxhealth_reduction": [3, 4],
                 },
                 [],
                 Data.EchoType.ARMOR
@@ -1910,6 +1945,88 @@ const Loader = {
                         effect: Data.Effect.SPEED,
                         theorical: [1, 1]
                     }),
+                ]
+            ),
+            new Trinket(
+                "All-Seeing Brooch",
+                "It is difficult to accept that the way we perceive the world is unique to our species. What do the others see? What if they saw more than we do?",
+                43,
+                1000,
+                Data.Rarity.REGULAR,
+                [
+                    new Stat({
+                        effect: Data.Effect.ARMOR_PIERCING,
+                        theorical: [6, 9],
+                        isPercentage: true
+                    }),
+                    new Stat({
+                        effect: Data.Effect.ACCURACY,
+                        theorical: [4, 5],
+                        isPercentage: true
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MAXMANA,
+                        theorical: [-15, -19]
+                    }),
+                ]
+            ),
+            new Trinket(
+                "Talisman of Abyssal Essence",
+                "An abyssal volcano extract is locked inside. Put it to your ear, and let the murmurs of the deep - two-headed sharks, whales as long as three hundred men - confess their darkest secrets...",
+                42,
+                1000,
+                Data.Rarity.PRECIOUS,
+                [
+                    new Stat({
+                        effect: Data.Effect.MODIF_DMG_SKILL,
+                        theorical: [12, 15],
+                        isPercentage: true
+                    }),
+                    new Stat({
+                        effect: Data.Effect.PROTECTION,
+                        theorical: [-5, -7],
+                        isPercentage: true
+                    })
+                ]
+            ),
+            new Trinket(
+                "Shattered Mirror of Regrets",
+                "What's really wrong with the twisted reflection in the mirror?",
+                19,
+                100,
+                Data.Rarity.REGULAR,
+                [
+                    new Stat({
+                        effect: Data.Effect.DAMAGE_REFLECTION,
+                        theorical: [4, 6]
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MODIF_BLOCK,
+                        theorical: [8, 10],
+                        isPercentage: true,
+                    })
+                ]
+            ),
+            new Trinket(
+                "Brass Horseshoe",
+                "That should bring you good luck, but they also say a little dirt will turn the blessing around. Let's find out.",
+                7,
+                100,
+                Data.Rarity.REGULAR,
+                [
+                    new Stat({
+                        effect: Data.Effect.RESILIENCE,
+                        theorical: [7, 9]
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MODIF_CRIT_WEAPON,
+                        theorical: [10, 12],
+                        isPercentage: true
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MIGHT,
+                        theorical: [7, 8]
+                    })
                 ]
             )
         ];
