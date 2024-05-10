@@ -1286,7 +1286,7 @@ const Loader = {
             ),
             new Echo(
                 "Brambleheart",
-                "Moving an enemy reduces their {MAXHEALTH} by §1%.",
+                "Moving an enemy reduces their {MAXHEALTH} by §1% (stackable, forever).",
                 1,
                 Data.Rarity.REGULAR,
                 [],
@@ -1296,6 +1296,31 @@ const Loader = {
                 },
                 [],
                 Data.EchoType.ARMOR
+            ),
+            new Echo(
+                "Shared Penance",
+                "When you are targeted in a group attack, other targeted allies will receive a §1% {MAXHEALTH} and §2% {PROTECTION} bonus for 1 round.",
+                1,
+                Data.Rarity.SINGULAR,
+                [],
+                "Quote",
+                {
+                    "maxhealth_bonus": [25, 30],
+                    "protection_bonus": [6, 8]
+                },
+                [],
+                Data.EchoType.ARMOR
+            ),
+            new Echo(
+                "Famined Blade",
+                "Attacking with this weapon adds a Famine stack. When 3 stacks are reached, the next strike with this weapon will be a guaranteed critical blow.",
+                1,
+                Data.Rarity.REGULAR,
+                [],
+                "Quote",
+                {},
+                [],
+                Data.EchoType.WEAPON
             )
         ];
 
@@ -1437,6 +1462,87 @@ const Loader = {
                         isPercentage: true
                     }),
                 ]
+            ),
+            new Trinket(
+                "Ring of Aela",
+                "She knew Tor would not give up ; he was focused, devoted to ending her life. And she accepted the challenge.",
+                44,
+                100,
+                Data.Rarity.PRECIOUS,
+                [
+                    new Stat({
+                        effect: Data.Effect.MIGHT,
+                        theorical: [50, 55]
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MAXSTAMINA,
+                        theorical: [150, 160]
+                    })
+                ]
+            ),
+            new Trinket(
+                "Ring of Tor",
+                "He bent every effort towards the fell of this furious warrior. Yet, Aela stood like a mountain.",
+                45,
+                100,
+                Data.Rarity.PRECIOUS,
+                [
+                    new Stat({
+                        effect: Data.Effect.SPIRIT,
+                        theorical: [50, 55]
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MAXMANA,
+                        theorical: [150, 160]
+                    })
+                ]
+            ),
+            new Trinket(
+                "Wedding Ring of Tor and Aela",
+                "At dawn, as the sun rose and both their strength finally faded, they contemplated each other in awe, exhaustion, and admiration.",
+                46,
+                10000,
+                Data.Rarity.MYTHIC,
+                [
+                    new Stat({
+                        effect: Data.Effect.SPIRIT,
+                        theorical: 75,
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MIGHT,
+                        theorical: 75
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MAXHEALTH,
+                        theorical: 150
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MAXSTAMINA,
+                        theorical: 150
+                    }),
+                    new Stat({
+                        effect: Data.Effect.MAXMANA,
+                        theorical: 150
+                    }),
+                ],
+                2,
+                new Echo(
+                    "Unified Strength",
+                    "At the beginning of every fight, any ally wearing the Ring of Tor or the Ring of Aela will receive half of this ring bearer's {SPIRIT} and {MIGHT} as a permanent bonus until the end of the fight.",
+                    1,
+                    Data.Rarity.MYTHIC,
+                    [
+                        new Stat({
+                            effect: Data.Effect.DODGE,
+                            theorical: [-8, -10],
+                            isPercentage: true
+                        }),
+                    ],
+                    "Quote",
+                    {},
+                    [],
+                    Data.EchoType.TRINKET
+                )
             ),
             new Trinket(
                 "Engraved Moonhorn",
