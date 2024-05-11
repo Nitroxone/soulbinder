@@ -4898,6 +4898,7 @@ const Loader = {
                 tr.owner = strider;
             })
             strider.bindSkills();
+            addStriderTypeBonuses(strider);
         }
     },
 

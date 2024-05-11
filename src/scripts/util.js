@@ -2606,3 +2606,43 @@ function getEchoIconName(name) {
     
     return result;
 }
+
+function addStriderTypeBonuses(strider) {
+    //TODO: add strider type related triggers as well (and style it up)
+    switch(strider.striderType) {
+        case Data.StriderType.STRIKER:
+            strider.alter({
+                effect: new Stat({ effect: Data.Effect.MODIF_CRIT_WEAPON, theorical: 5, isPercentage: true }),
+                action: Data.AlterAction.ADD,
+                origin: {
+                    name: "Striker's Acuteness",
+                }
+            });
+            break;
+        case Data.StriderType.SUPPORT:
+            strider.alter({
+                effect: new Stat({ effect: Data.Effect.MODIF_HEAL_GIVEN, theorical: 5, isPercentage: true }),
+                action: Data.AlterAction.ADD,
+                origin: {
+                    name: "Support's Arcane",
+                }
+            });
+            strider.alter({
+                effect: new Stat({ effect: Data.Effect.MODIF_CHANCE_STUN, theorical: 5, isPercentage: true }),
+                action: Data.AlterAction.ADD,
+                origin: {
+                    name: "Support's Arcane"
+                }
+            });
+            break;
+        case Data.StriderType.TANK:
+            strider.alter({
+                effect: new Stat({ effect: Data.Effect.MODIF_BLOCK, theorical: 5, isPercentage: true }),
+                action: Data.AlterAction.ADD,
+                origin: {
+                    name: "Tank's Determination",
+                }
+            });
+            break;
+    }
+}
