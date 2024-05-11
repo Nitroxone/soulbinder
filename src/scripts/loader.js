@@ -1011,7 +1011,7 @@ const Loader = {
 
                             const value = Math.round(game.battle.params.magi_damage * (this.variables.damage_conversion/100));
 
-                            this.owner.applyEffects(
+                            if(value > 0) this.owner.applyEffects(
                                 this,
                                 this.owner,
                                 [
