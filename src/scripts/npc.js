@@ -648,6 +648,8 @@ class NPC extends Entity {
      * @param {NPC} npc the NPC that's guarding
      */
     applyGuarded(npc) {
+        this.runTriggers(Data.TriggerType.ON_GUARDED_BEGIN);
+
         this.isGuarded = true;
         this.guardedBy = npc;
         const badge = new BattleBadge({
@@ -669,6 +671,8 @@ class NPC extends Entity {
      * Removes a guarded effect from this NPC.
      */
     removeGuarded() {
+        this.runTriggers(Data.TriggerType.ON_GUARDED_END);
+
         this.isGuarded = false;
         this.guardedBy = null;
         removeFighterBadge(this.getBadge("guarded")?.uid);
@@ -680,6 +684,8 @@ class NPC extends Entity {
      * @param {NPC} npc the NPC that's guarded
      */
     applyGuarding(npc) {
+        this.runTriggers(Data.TriggerType.ON_GUARD_BEGIN);
+
         this.isGuarding = true;
         this.guarding = npc;
         this.addBadge(new BattleBadge({
@@ -699,6 +705,8 @@ class NPC extends Entity {
      * Removes a guarding effect from this NPC.
      */
     removeGuarding() {
+        this.runTriggers(Data.TriggerType.ON_GUARD_END)
+
         this.isGuarding = false;
         this.guarding = null;
         this.removeBadge("guarding");
