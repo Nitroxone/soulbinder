@@ -734,7 +734,13 @@ const Loader = {
                 "Replenish §1% of your {MAXHEALTH} every time you receive damage while blocking. Blocking now consumes §2 {STAMINA}.",
                 1,
                 Data.Rarity.SINGULAR,
-                [],
+                [
+                    new Stat({
+                        effect: Data.Effect.MODIF_BLOCK,
+                        theorical: [10, 13],
+                        isPercentage: true
+                    })
+                ],
                 "\"When all seems lost, holding the line is not a choice; it's a sacred duty to defend what you hold dear.\" — Khej, Raincaller of Atalan",
                 {
                     "health_regen": [5, 8],
