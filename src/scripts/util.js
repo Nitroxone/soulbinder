@@ -2037,6 +2037,7 @@ function getBonusCssClassRarity(ori) {
     if(it instanceof SkillTreeNode) return "#0096FF";
     if(it instanceof Skill) return "#DAA06D";
     if(it.type === Data.ActiveEffectType.POWER) return "#bf40bf";
+    if(it.type === Data.BonusType.STRIDERTYPE) return "grey"
 }
 
 /**
@@ -2616,6 +2617,7 @@ function addStriderTypeBonuses(strider) {
                 action: Data.AlterAction.ADD,
                 origin: {
                     name: "Striker's Acuteness",
+                    type: Data.BonusType.STRIDERTYPE
                 }
             });
             break;
@@ -2625,13 +2627,15 @@ function addStriderTypeBonuses(strider) {
                 action: Data.AlterAction.ADD,
                 origin: {
                     name: "Support's Arcane",
+                    type: Data.BonusType.STRIDERTYPE
                 }
             });
             strider.alter({
                 effect: new Stat({ effect: Data.Effect.MODIF_CHANCE_STUN, theorical: 5, isPercentage: true }),
                 action: Data.AlterAction.ADD,
                 origin: {
-                    name: "Support's Arcane"
+                    name: "Support's Arcane",
+                    type: Data.BonusType.STRIDERTYPE
                 }
             });
             break;
@@ -2641,6 +2645,7 @@ function addStriderTypeBonuses(strider) {
                 action: Data.AlterAction.ADD,
                 origin: {
                     name: "Tank's Determination",
+                    type: Data.BonusType.STRIDERTYPE
                 }
             });
             break;
