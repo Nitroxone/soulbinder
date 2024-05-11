@@ -2620,6 +2620,31 @@ function addStriderTypeBonuses(strider) {
                     type: Data.BonusType.STRIDERTYPE
                 }
             });
+
+            const guardedTrig = new Trigger({
+                name: "striker_trigger",
+                type: Data.TriggerType.ON_GUARDED_BEGIN,
+                behavior: function() {
+                    this.owner.applyEffects(
+                        {
+                            name: "Striker's Acuteness"
+                        },
+                        this.owner,
+                        [
+                            new Stat({
+                                effect: Data.Effect.MODIF_DMG_TOTAL,
+                                theorical: 5,
+                                isPercentage: true,
+                                duration: 3
+                            })
+                        ],
+                    )
+                }
+            });
+            guardedTrig.owner = strider;
+            strider.triggers.push(
+                guardedTrig
+            );
             break;
         case Data.StriderType.SUPPORT:
             strider.alter({
@@ -2648,6 +2673,31 @@ function addStriderTypeBonuses(strider) {
                     type: Data.BonusType.STRIDERTYPE
                 }
             });
+            
+            const guardTrig = new Trigger({
+                name: "tank_trigger",
+                type: Data.TriggerType.ON_GUARD_BEGIN,
+                behavior: function() {
+                    this.owner.applyEffects(
+                        {
+                            name: "Tank's Determination"
+                        },
+                        this.owner,
+                        [
+                            new Stat({
+                                effect: Data.Effect.PROTECTION,
+                                theorical: 5,
+                                isPercentage: true,
+                                duration: 3
+                            })
+                        ],
+                    )
+                }
+            });
+            guardTrig.owner = strider;
+            strider.triggers.push(
+                guardTrig
+            );
             break;
     }
 }
