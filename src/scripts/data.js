@@ -652,5 +652,9 @@ const Data = Object.freeze({
         WORKSHOP: "workshop",
         BATTLE: "battle",
         EXPLORATION: "exploration"
+    },
+    BonusType: {
+        CARD: "card",
+        STRIDERTYPE: "stridertype"
     }
 }); 
