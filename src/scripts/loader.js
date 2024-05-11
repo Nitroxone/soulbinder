@@ -2054,7 +2054,7 @@ const Loader = {
                 ]
             ),
             new Trinket(
-                "All-Seeing Brooch",
+                "Restless-Eyed Brooch",
                 "It is difficult to accept that the way we perceive the world is unique to our species. What do the others see? What if they saw more than we do?",
                 43,
                 1000,
