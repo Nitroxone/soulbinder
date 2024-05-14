@@ -726,12 +726,27 @@ const Loader = {
                 {
                     "mana_regen": [8, 11]
                 },
-                [],
+                [
+                    new Trigger({
+                        name: "octane_Trigger",
+                        type: Data.TriggerType.ON_RECV_DAMAGE,
+                        checker: function() {
+                            return this.owner.isStunned;
+                        },
+                        behavior: function() {
+                            console.log("OCTANE ECHO TRIGGERED");
+
+                            //const val = Math.round(this.owner.maxMana * (this.variables.mana_regen/100));
+
+                            this.owner.addBaseStat(new Stat({ effect: Data.Effect.MANA, theorical: this.variables.mana_regen, isPercentage: true }));
+                        }
+                    })
+                ],
                 Data.EchoType.ARMOR
             ),
             new Echo(
                 "Hold the Line",
-                "Replenish §1% of your {MAXHEALTH} every time you receive damage while blocking. Blocking now consumes §2 {STAMINA}.",
+                "Replenish §1% of your {MAXHEALTH} every time you receive damage while blocking.",
                 1,
                 Data.Rarity.SINGULAR,
                 [
@@ -744,9 +759,21 @@ const Loader = {
                 "\"When all seems lost, holding the line is not a choice; it's a sacred duty to defend what you hold dear.\" — Khej, Raincaller of Atalan",
                 {
                     "health_regen": [5, 8],
-                    "stamina_cost": [2, 7]
                 },
-                [],
+                [
+                    new Trigger({
+                        name: "holdTheLine_Trigger",
+                        type: Data.TriggerType.ON_RECV_DAMAGE,
+                        checker: function() {
+                            return this.owner.isBlocking;
+                        },
+                        behavior: function() {
+                            console.log("HOLD THE LINE ECHO TRIGGERED");
+
+                            this.owner.addBaseStat(new Stat({ effect: Data.Effect.HEALTH, theorical: this.variables.health_regen, isPercentage: true }));
+                        }
+                    })
+                ],
                 Data.EchoType.ARMOR
             ),
             new Echo(
@@ -774,7 +801,17 @@ const Loader = {
                 {
                     "stamina_regen": [5, 15]
                 },
-                [],
+                [
+                    new Trigger({
+                        name: "fencersMark_Trigger",
+                        type: Data.TriggerType.ON_RECV_DODGED,
+                        behavior: function() {
+                            console.log("FENCER'S MARK ECHO TRIGGERED!!");
+
+                            this.owner.addBaseStat(new Stat({ effect: Data.Effect.STAMINA, theorical: this.variables.stamina_regen, isPercentage: true }));
+                        }
+                    })
+                ],
                 Data.EchoType.ARMOR
             ),
             new Echo(
@@ -791,9 +828,38 @@ const Loader = {
                 ],
                 "Whoever hides his anger ensures his revenge.",
                 {
-                    "extra_damage": [15, 25]
+                    "extra_damage": [15, 25],
+                    "accumulated_damage": 0
                 },
-                [],
+                [
+                    new Trigger({
+                        name: "nemesis_accumulateDamageTrigger",
+                        type: Data.TriggerType.ON_RECV_DAMAGE,
+                        behavior: function() {
+                            console.log("NEMESIS ACCUMULATOR TRIGGERED!");
+
+                            this.variables.accumulated_damage += game.battle.receivedDamage;
+                        }
+                    }),
+                    new Trigger({
+                        name: "nemesis_accumulatorResetter",
+                        type: Data.TriggerType.ON_TURN_END,
+                        behavior: function() {
+                            console.log("NEMESIS RESETTER TRIGGERED!!");
+
+                            this.variables.accumulated_damage = 0;
+                        }
+                    }),
+                    new Trigger({
+                        name: "nemesis_damageAdd",
+                        type: Data.TriggerType.ON_DEAL_DAMAGE,
+                        behavior: function() {
+                            console.log("NEMESIS DAMAGE BOOSTED TRIGGERED!");
+
+                            game.battle.params.crit_damage += this.variables.accumulated_damage;
+                        }
+                    })
+                ],
                 Data.EchoType.WEAPON,
             ),
             new Echo(
