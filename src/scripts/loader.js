@@ -829,7 +829,7 @@ const Loader = {
                 "Whoever hides his anger ensures his revenge.",
                 {
                     "extra_damage": [15, 25],
-                    "accumulated_damage": [0, 0]
+                    "accumulated_damage": 0
                 },
                 [
                     new Trigger({
@@ -1048,8 +1048,41 @@ const Loader = {
                 {
                     "total_damage_bonus": [1, 3],
                     "given_heal_bonus": [1, 3],
+                    "has_been_damaged": false
                 },
-                [],
+                [
+                    new Trigger({
+                        name: "anchorite_accumulateDamageTrigger",
+                        type: Data.TriggerType.ON_RECV_DAMAGE,
+                        behavior: function() {
+                            console.log("ANCHORITE ACCUMULATOR TRIGGERED!");
+
+                            this.variables.has_been_damaged = true;
+                        }
+                    }),
+                    new Trigger({
+                        name: "anchorite_accumulatorResetter",
+                        type: Data.TriggerType.ON_TURN_END,
+                        behavior: function() {
+                            console.log("ANCHORITE GIVER & RESETTER TRIGGERED!!");
+
+                            if(!this.variables.has_been_damaged) {
+                                console.log("ANCHORITE BONUS TRIGGERED :D");
+
+                                this.owner.applyEffects(
+                                    this,
+                                    this.origin,
+                                    [
+                                        new Stat({effect: Data.Effect.MODIF_DMG_TOTAL, theorical: this.variables.total_damage_bonus, isPercentage: true, duration: -1}),
+                                        new Stat({effect: Data.Effect.MODIF_HEAL_GIVEN, theorical: this.variables.given_heal_bonus, isPercentage: true, duration: -1})
+                                    ]
+                                );
+                            }
+
+                            this.variables.has_been_damaged = false;
+                        }
+                    }),
+                ],
                 Data.EchoType.ARMOR
             ),
             new Echo(

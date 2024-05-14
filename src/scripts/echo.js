@@ -50,6 +50,8 @@ class Echo extends Entity {
 
         let k = 1;
         for(let i in this.variables) {
+            if(!Array.isArray(this.variables[i])) continue;
+
             // Creating an associated theorical value for each variable
             const theorical = "theorical-" + i;
             this.variables[theorical] = this.variables[i];
