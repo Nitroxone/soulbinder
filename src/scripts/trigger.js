@@ -20,5 +20,6 @@ class Trigger {
         this.checker = getValueFromObject(props, "checker", () => { return true; });
         this.behavior = getValueFromObject(props, "behavior", () => { console.log('Undefined Trigger called!') });
         this.owner = getValueFromObject(props, "owner", null);
+        this.singleUse = getValueFromObject(props, "singleUse", false);
     }
 }
