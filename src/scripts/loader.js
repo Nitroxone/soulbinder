@@ -1154,9 +1154,41 @@ const Loader = {
                 [],
                 "Watch your step...",
                 {
-                    "caltrop_damage": [20, 25]
+                    "caltrop_damage": [20, 25],
                 },
-                [],
+                [
+                    new Trigger({
+                        name: "caltrops_planterTrigger",
+                        type: Data.TriggerType.ON_DEAL_WEAPON,
+                        checker: function() {
+                            return game.battle.selectedWeapon === this.parent;
+                        },
+                        behavior: function() {
+                            console.log("CALTROPS PLANTED!!");
+
+                            const tar = getcTarget();
+                            const damage = Math.round(this.owner.might * (this.variables.caltrop_damage/100));
+                            const trig = new Trigger({
+                                name: "caltrops_damageTrigger",
+                                type: Data.TriggerType.ON_RECV_MOVE,
+                                behavior: function() {
+                                    console.log("CALTROPS DAMAGE TRIGGERED!!");
+
+                                    this.owner.receiveDamage({
+                                        phys_damage: damage,
+                                        magi_damage: 0,
+                                        crit_damage: 0,
+                                        ignoreProtection: false,
+                                        armorPiercing: 0
+                                    })
+                                },
+                                singleUse: true,
+                                owner: tar
+                            });
+                            tar.triggers.push(trig);
+                        }
+                    })
+                ],
                 Data.EchoType.WEAPON
             ),
             new Echo(
