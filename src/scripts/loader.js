@@ -1243,7 +1243,7 @@ const Loader = {
                 Data.EchoType.WEAPON
             ),
             new Echo(
-                "Curse of Decay",
+                "Debilitating Curse",
                 "Hitting an enemy with this weapon reduces their {DODGE} by §1% (stackable, forever).",
                 1,
                 Data.Rarity.GRAND,
