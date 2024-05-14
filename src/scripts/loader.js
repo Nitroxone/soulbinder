@@ -1006,13 +1006,36 @@ const Loader = {
             ),
             new Echo(
                 "Reprieve",
-                "Each {PROTECTION} malus you receive grants you with a {SHIELD} that equals half that malus amount.",
+                "Each {PROTECTION} malus you receive grants you with a {SHIELD} that equals twice that malus amount and that lasts 2 rounds.",
                 1,
                 Data.Rarity.REGULAR,
                 [],
                 "Even peace awaits in the eye of the storm.",
                 {},
-                [],
+                [
+                    new Trigger({
+                        name: "reprieve_Trigger",
+                        type: Data.TriggerType.ON_RECV_EFFECTS,
+                        behavior: function() {
+                            console.log("REPRIEVE TRIGGER DETECTED!");
+
+                            const eff = game.battle.appliedEffects;
+                            const valid = eff.find(x => x.effect === Data.Effect.PROTECTION);
+
+                            if(valid) {
+                                console.log("VALIDATED SHIELD CHECK");
+
+                                this.owner.applyEffects(
+                                    this,
+                                    this.origin,
+                                    [
+                                        new Stat({effect: Data.Effect.SHIELD, theorical: Math.abs(valid.getValue()*2), duration: 2})
+                                    ]
+                                );
+                            }
+                        }
+                    })
+                ],
                 Data.EchoType.ARMOR,
             ),
             new Echo(
@@ -5472,10 +5495,12 @@ const Loader = {
                                         regular: [
                                             new Stat({ effect: Data.Effect.BLIGHT_CURABLE, theorical: [2, 3], type: Data.StatType.ACTIVE, duration: 2 }),
                                             new Stat({ effect: Data.Effect.RES_POISON_DMG, theorical: [-2, -3], duration: 2 }),
+                                            new Stat({ effect: Data.Effect.PROTECTION, theorical: -10, isPercentage: true, duration: 2})
                                         ],
                                         critical: [
                                             new Stat({ effect: Data.Effect.BLIGHT_CURABLE, theorical: [3, 4], type: Data.StatType.ACTIVE, duration: 2, isCritical: true }),
                                             new Stat({ effect: Data.Effect.RES_POISON_DMG, theorical: [-3, -4], duration: 2 }),
+                                            new Stat({ effect: Data.Effect.PROTECTION, theorical: -10, isPercentage: true, duration: 2})
                                         ]
                                     }
                                 }

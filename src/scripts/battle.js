@@ -33,6 +33,7 @@ class Battle {
         this.resetAttackParams();
 
         this.chatlogFolder = null;
+        this.chatlogRound = null;
 
         this.dealtDamage = 0;
         this.receivedDamage = 0;
@@ -106,9 +107,7 @@ class Battle {
         this.buildBehaviors();
         this.runTriggersOnAllies(Data.TriggerType.ON_BATTLE_START);
         this.runTriggersOnEnemies(Data.TriggerType.ON_BATTLE_START);
-        this.beginRound();
-        drawBattleScreen();
-
+        
         this.chatlogFolder = game.chatlog.addCategory(Data.ChatlogChannel.BATTLE, {
             title: capitalizeFirstLetter(game.dungeon.floor.room.type) + " [" + game.dungeon.floor.room.coordinates[0] + ", " + game.dungeon.floor.room.coordinates[1] + "]"
         });
@@ -116,6 +115,10 @@ class Battle {
             content: "Started a fight.",
             style: { className: "clgMsg-info" }
         }, this.chatlogFolder);
+
+        this.beginRound();
+        drawBattleScreen();
+
     }
 
     /**
@@ -330,6 +333,15 @@ class Battle {
         this.runTriggersOnAll(Data.TriggerType.ON_ROUND_BEGIN);
         this.round++;
         console.log("New round: " + this.round);
+
+        this.chatlogRound = game.chatlog.addCategory(Data.ChatlogChannel.BATTLE, {
+            title: "Round " + this.round
+        }, this.chatlogFolder);
+        /* game.chatlog.addMessage(Data.ChatlogChannel.BATTLE, {
+            content: "Started a new round",
+            style: { className: "clgMsg-info" }
+        }, this.chatlogRound); */
+
         this.beginTurn();
     }
 
@@ -838,6 +850,8 @@ class Battle {
                 }
 
                 tar.applyEffects(skill, current, effects, params.critical);
+                game.battle.appliedEffects = effects;
+                tar.runTriggers(Data.TriggerType.ON_RECV_EFFECTS);
             } else if(!params.success_accuracy) {
                 // Missed
                 console.log('Missed!');
