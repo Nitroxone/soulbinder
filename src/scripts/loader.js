@@ -829,7 +829,7 @@ const Loader = {
                 "Whoever hides his anger ensures his revenge.",
                 {
                     "extra_damage": [15, 25],
-                    "accumulated_damage": 0
+                    "accumulated_damage": [0, 0]
                 },
                 [
                     new Trigger({
@@ -839,6 +839,7 @@ const Loader = {
                             console.log("NEMESIS ACCUMULATOR TRIGGERED!");
 
                             this.variables.accumulated_damage += game.battle.receivedDamage;
+                            console.log("Adding " + game.battle.receivedDamage + " to accumulator (now " + this.variables.accumulated_damage + ")");
                         }
                     }),
                     new Trigger({
@@ -856,7 +857,7 @@ const Loader = {
                         behavior: function() {
                             console.log("NEMESIS DAMAGE BOOSTED TRIGGERED!");
 
-                            game.battle.params.crit_damage += this.variables.accumulated_damage;
+                            game.battle.params.crit_damage += Math.round(this.variables.accumulated_damage * (this.variables.extra_damage/100));
                         }
                     })
                 ],
