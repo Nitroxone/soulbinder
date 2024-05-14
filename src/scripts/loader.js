@@ -1205,10 +1205,36 @@ const Loader = {
                 ],
                 "Greatness is not meant for men who never failed ; it is meant for men who never gave up.",
                 {
-                    "total_damage_bonus": [3, 6],
+                    "total_damage_bonus": [10, 12],
                     "accuracy_bonus": [4, 6],
                 },
-                [],
+                [
+                    new Trigger({
+                        name: "dedication_applyEffectsTrigger",
+                        type: Data.TriggerType.ON_DEAL_MISSED,
+                        behavior: function() {
+                            console.log("DEDICATION BONUS GIVER ACTIVATED");
+
+                            this.owner.applyEffects(
+                                this,
+                                this.owner,
+                                [
+                                    new Stat({ effect: Data.Effect.MODIF_DMG_TOTAL, theorical: this.variables.total_damage_bonus, isPercentage: true, duration: -1 }),
+                                    new Stat({ effect: Data.Effect.ACCURACY, theorical: this.variables.accuracy_bonus, isPercentage: true, duration: -1 })
+                                ]
+                            );
+                        }
+                    }),
+                    new Trigger({
+                        name: "dedication_removeEffectsTrigger",
+                        type: [Data.TriggerType.ON_DEAL_SKILL, Data.TriggerType.ON_DEAL_WEAPON],
+                        behavior: function() {
+                            console.log("DEDICATION BONUS REMOVER TRIGGERED");
+
+                            this.owner.removeActiveEffect("dedication");
+                        }
+                    })
+                ],
                 Data.EchoType.ARMOR
             ),
             new Echo(
@@ -1228,7 +1254,24 @@ const Loader = {
                     "mana_restoration": [25, 32]
                 },
                 [
-                    
+                    new Trigger({
+                        name: "rekindle_Trigger",
+                        type: Data.TriggerType.ON_DEAL_SKILL,
+                        behavior: function() {
+                            console.log("REKINDLE TRIGGERED");
+
+                            const tar = getcTarget();
+
+                            const missingHealth = tar.maxHealth - tar.health;
+                            const val = Math.round(missingHealth * (this.variables.mana_restoration/100));
+                            if(tar instanceof Strider) {
+                                tar.addBaseStat(new Stat({
+                                    effect: Data.Effect.MANA,
+                                    theorical: val,
+                                }));
+                            }
+                        }
+                    })
                 ],
                 Data.EchoType.ARMOR
             ),
