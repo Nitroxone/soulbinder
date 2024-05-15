@@ -627,6 +627,8 @@ class NPC extends Entity {
      * Applies a blocking effect to this NPC.
      */
     applyBlocking() {
+        this.runTriggers(Data.TriggerType.ON_BLOCK_BEGIN);
+
         this.isBlocking = true;
         const badge = new BattleBadge({
             name: "block",
@@ -648,6 +650,8 @@ class NPC extends Entity {
      * Removes a blocking effect from this NPC.
      */
     removeBlocking() {
+        this.runTriggers(Data.TriggerType.ON_BLOCK_END);
+
         this.isBlocking = false;
         removeFighterBadge(this.getBadge("block")?.uid);
         this.removeBadge("block");
