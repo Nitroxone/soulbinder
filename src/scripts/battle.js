@@ -614,13 +614,14 @@ class Battle {
                 }
 
                 // Successful hit
-                this.runTriggersOnCurrent(Data.TriggerType.ON_DEAL_DAMAGE);
-                this.runTriggersOnCurrent(Data.TriggerType.ON_DEAL_WEAPON);
-                tar.runTriggers(Data.TriggerType.ON_RECV_WEAPON);
 
                 tar.receiveDamage(params);
                 this.applyDamageReflection(params, tar);
                 console.log('Successful hit!');
+
+                this.runTriggersOnCurrent(Data.TriggerType.ON_DEAL_DAMAGE);
+                this.runTriggersOnCurrent(Data.TriggerType.ON_DEAL_WEAPON);
+                tar.runTriggers(Data.TriggerType.ON_RECV_WEAPON);
 
                 if(params.critical) {
                     console.log('Critical blow!');
