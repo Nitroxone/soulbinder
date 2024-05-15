@@ -1336,7 +1336,6 @@ const Loader = {
                                 behavior: function() {
                                     console.log("NEBULA TRAP STUN TRIGGERED!!");
 
-                                    const tar = getcTarget();
                                     this.owner.applyEffects(
                                         originObj,
                                         originUser,
@@ -1432,12 +1431,24 @@ const Loader = {
                 {
                     "mana_regeneration": [8, 11]
                 },
-                [],
+                [
+                    new Trigger({
+                        name: "overcharge_Trigger",
+                        type: Data.TriggerType.ON_RECV_STUN,
+                        behavior: function() {
+                            this.owner.addBaseStat(new Stat({
+                                effect: Data.Effect.MANA,
+                                theorical: this.variables.mana_regeneration,
+                                isPercentage: true
+                            }));
+                        }
+                    })
+                ],
                 Data.EchoType.ARMOR
             ),
             new Echo(
                 "Flutter",
-                "Moving an enemy generates {SHIELD} points that equal §1% of the target's {MAXHEALTH}.",
+                "Moving an enemy applies {SHIELD} points on yourself that equal §1% of the target's {MAXHEALTH} and last two rounds.",
                 1,
                 Data.Rarity.REGULAR,
                 [
@@ -1451,7 +1462,31 @@ const Loader = {
                 {
                     "shield": [8, 10]
                 },
-                [],
+                [
+                    new Trigger({
+                        name: "flutter_Trigger",
+                        type: Data.TriggerType.ON_DEAL_MOVE,
+                        checker: function() {
+                            return game.battle.target.length > 0;
+                        },
+                        behavior: function() {
+                            const tar = getcTarget();
+                            if(tar) {
+                                const amount = Math.round(tar.maxHealth * (this.variables.shield/100));
+
+                                if(amount > 0) {
+                                    this.owner.applyEffects(
+                                        this,
+                                        this.owner,
+                                        [
+                                            new Stat({ effect: Data.Effect.SHIELD, theorical: amount, duration: 2 }),
+                                        ]
+                                    );
+                                }
+                            }
+                        }
+                    })
+                ],
                 Data.EchoType.ARMOR
             ),
             new Echo(
