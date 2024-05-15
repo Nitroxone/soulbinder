@@ -338,14 +338,18 @@ class NPC extends Entity {
     runTriggers(type) {
         if(Array.isArray(type)) this.triggers.forEach(trigger => {
             if(trigger.type === type || trigger.type.includes(type)) {
-                trigger.checker() && trigger.behavior();
-                trigger.singleUse && removeFromArray(this.triggers, trigger);
+                if(trigger.checker()) {
+                    trigger.behavior();
+                    trigger.singleUse && removeFromArray(this.triggers, trigger);
+                }
             }
         })
         else this.triggers.forEach(trigger => {
             if(trigger.type === type || trigger.type.includes(type)) {
-                trigger.checker() && trigger.behavior();
-                trigger.singleUse && removeFromArray(this.triggers, trigger);
+                if(trigger.checker()) {
+                    trigger.behavior();
+                    trigger.singleUse && removeFromArray(this.triggers, trigger);
+                }
             }
         });
     }
