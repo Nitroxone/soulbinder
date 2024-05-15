@@ -1299,7 +1299,7 @@ const Loader = {
             ),
             new Echo(
                 "Nebula Trap",
-                "Attacking an enemy plants a Nebula Trap on them. The next time they attack, they will have a base §1% + their target's {MODIF_CHANCE_STUN} to be stunned for one round.",
+                "Attacking an enemy plants a Nebula Trap on them. The next time they attack a single Strider, they will have a base §1% + your {MODIF_CHANCE_STUN} to be stunned for one round.",
                 1,
                 Data.Rarity.PRECIOUS,
                 [
@@ -1313,7 +1313,45 @@ const Loader = {
                 {
                     "base_stun_chance": [15, 18]
                 },
-                [],
+                [
+                    new Trigger({
+                        name: "nebulaTrap_planterTrigger",
+                        type: [Data.TriggerType.ON_DEAL_WEAPON, Data.TriggerType.ON_DEAL_SKILL],
+                        checker: function() {
+                            return !getcTarget().triggers.some(x => x.name === "nebulaTrap_stunTrigger");
+                        },
+                        behavior: function() {
+                            console.log("NEBULA TRAP PLANTED!!");
+
+                            const stunChance = this.variables.base_stun_chance;
+                            const originObj = this;
+                            const originUser = this.owner;
+                            const tar = getcTarget();
+                            const trig = new Trigger({
+                                name: "nebulaTrap_stunTrigger",
+                                type: Data.TriggerType.ON_DEAL_ATTACK,
+                                checker: function() {
+                                    return game.battle.target.length === 1 && getcTarget() instanceof Strider;
+                                },
+                                behavior: function() {
+                                    console.log("NEBULA TRAP STUN TRIGGERED!!");
+
+                                    const tar = getcTarget();
+                                    this.owner.applyEffects(
+                                        originObj,
+                                        originUser,
+                                        [
+                                            new Stat({ effect: Data.Effect.STUN, chance: stunChance, duration: 1 }),
+                                        ]
+                                    );
+                                },
+                                singleUse: true,
+                                owner: tar
+                            });
+                            tar.triggers.push(trig);
+                        }
+                    })
+                ],
                 Data.EchoType.ANY
             ),
             new Echo(
