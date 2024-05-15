@@ -1491,7 +1491,7 @@ const Loader = {
             ),
             new Echo(
                 "Extraction",
-                "Any critical blow regenerates §1% of your {MAXHEALTH}.",
+                "Any critical blow that you deal regenerates §1% of your {MAXHEALTH}.",
                 1,
                 Data.Rarity.REGULAR,
                 [
@@ -1505,7 +1505,19 @@ const Loader = {
                 {
                     "health_regen": [7, 9]
                 },
-                [],
+                [
+                    new Trigger({
+                        name: 'extraction_Trigger',
+                        type: Data.TriggerType.ON_DEAL_CRITICAL,
+                        behavior: function() {
+                            this.owner.addBaseStat(new Stat({
+                                effect: Data.Effect.HEALTH,
+                                theorical: this.variables.health_regen,
+                                isPercentage: true
+                            }));
+                        }
+                    })
+                ],
                 Data.EchoType.ARMOR
             ),
             new Echo(
@@ -1541,7 +1553,19 @@ const Loader = {
                 {
                     "health_regen": [10, 13]
                 },
-                [],
+                [
+                    new Trigger({
+                        name: 'sanguineHarvest_Trigger',
+                        type: Data.TriggerType.ON_DEAL_DEATHBLOW,
+                        behavior: function() {
+                            this.owner.addBaseStat(new Stat({
+                                effect: Data.Effect.HEALTH,
+                                theorical: this.variables.health_regen,
+                                isPercentage: true
+                            }));
+                        }
+                    })
+                ],
                 Data.EchoType.WEAPON
             ),
             new Echo(
