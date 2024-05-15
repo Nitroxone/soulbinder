@@ -1374,8 +1374,39 @@ const Loader = {
                 Data.Rarity.GRAND,
                 [],
                 "Harboring a grudge is not a sin ; it's a strategy.",
-                {},
-                [],
+                {
+                    "accumulator": 0,
+                },
+                [
+                    new Trigger({
+                        name: "accumulation_damageTrigger",
+                        type: Data.TriggerType.ON_DEAL_WEAPON,
+                        checker: function() {
+                            return game.battle.selectedWeapon === this.parent;
+                        },
+                        behavior: function() {
+                            this.variables.accumulator += game.battle.receivedDamage;
+                        }
+                    }),
+                    new Trigger({
+                        name: "accumulation_blockTrigger",
+                        type: Data.TriggerType.ON_BLOCK_BEGIN,
+                        behavior: function() {
+                            const amount = this.variables.accumulator;
+
+                            if(amount > 0) {
+                                this.owner.applyEffects(
+                                    this,
+                                    this.owner,
+                                    [
+                                        new Stat({ effect: Data.Effect.SHIELD, theorical: amount, duration: 2 }),
+                                    ]
+                                );
+                                this.variables.accumulator = 0;
+                            }
+                        }
+                    })
+                ],
                 Data.EchoType.WEAPON
             ),
             new Echo(
