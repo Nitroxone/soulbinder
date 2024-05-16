@@ -1576,9 +1576,26 @@ const Loader = {
                 [],
                 "Quote",
                 {
-                    "dodge_reduction": [1, 2]
+                    "dodge_reduction": [-1, -2]
                 },
-                [],
+                [
+                    new Trigger({
+                        name: "debilitatingCurse_Trigger",
+                        type: Data.TriggerType.ON_DEAL_WEAPON,
+                        behavior: function() {
+                            console.log("DEBILITATING CURSE ECHO TRIGGERED");
+                            const tar = getcTarget();
+
+                            tar.applyEffects(
+                                this,
+                                this.origin,
+                                [
+                                    new Stat({effect: Data.Effect.DODGE, theorical: this.variables.dodge_reduction, isPercentage: true, duration: -1})
+                                ]
+                            );
+                        }
+                    })
+                ],
                 Data.EchoType.WEAPON
             ),
             new Echo(
@@ -1591,7 +1608,21 @@ const Loader = {
                 {
                     "healing_amount": [45, 50]
                 },
-                [],
+                [
+                    new Trigger({
+                        name: "valet_Trigger",
+                        type: Data.TriggerType.ON_DEAL_HEAL,
+                        behavior: function() {
+                            console.log("VALET ECHO TRIGGERED");
+
+                            const amount = Math.round(game.battle.healedAmount * (this.variables.healing_amount/100));
+                            this.owner.addBaseStat(new Stat({
+                                effect: Data.Effect.HEALTH,
+                                theorical: amount,
+                            }));
+                        }
+                    })
+                ],
                 Data.EchoType.ARMOR
             ),
             new Echo(

@@ -37,6 +37,7 @@ class Battle {
 
         this.dealtDamage = 0;
         this.receivedDamage = 0;
+        this.healedAmount = 0;
 
         this.skipBecauseStunned = false;
     }
@@ -454,6 +455,7 @@ class Battle {
      */
     computeAttackParams(target) {
         this.resetAttackParams();
+        this.healedAmount = 0;
         this.receivedDamage = 0;
         this.dealtDamage = 0;
         const weapon = this.selectedWeapon;
@@ -513,6 +515,7 @@ class Battle {
      */
     computeSkillParams(target, forceCrit = false) {
         this.resetAttackParams();
+        this.healedAmount = 0;
         this.receivedDamage = 0;
         this.dealtDamage = 0;
         const skill = this.selectedSkill;
