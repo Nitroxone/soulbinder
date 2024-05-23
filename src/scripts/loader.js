@@ -1627,24 +1627,88 @@ const Loader = {
             ),
             new Echo(
                 "Mind Stability",
-                "Losing {MANA} boosts your {SPIRIT} with the amount of {MANA} you've lost.",
+                "Losing {MANA} boosts your {SPIRIT} with the amount of {MANA} you've lost, for one round.",
                 1,
                 Data.Rarity.PRECIOUS,
                 [],
                 "Quote",
                 {},
-                [],
+                [
+                    new Trigger({
+                        name: "mindStability_RecvEffectsTrigger",
+                        type: Data.TriggerType.ON_RECV_EFFECTS,
+                        behavior: function() {
+                            console.log("MIND STABILITY: RECV EFFECTS TRIGGER DETECTED!");
+
+                            const eff = game.battle.appliedEffects;
+                            const valid = eff.find(x => x.effect === Data.Effect.SPIRIT);
+
+                            if(valid && valid.getValue() < 0) {
+                                console.log("VALIDATED MANA CHECK");
+
+                                this.owner.applyEffects(
+                                    this,
+                                    this.origin,
+                                    [
+                                        new Stat({effect: Data.Effect.SPIRIT, theorical: Math.abs(valid.getValue()), duration: 2})
+                                    ]
+                                );
+                            }
+                        }
+                    }),
+                    new Trigger({
+                        name: "mindStability_CastSkillTrigger",
+                        type: Data.TriggerType.ON_REMOVE_MANA,
+                        behavior: function() {
+                            console.log("MIND STABILITY: CAST TRIGGER DETECTED!");
+                            
+                            const valid = this.owner.removedMana > 0;
+                            if(valid) {
+                                console.log("VALIDATED MANA CHECK");
+
+                                this.owner.applyEffects(
+                                    this,
+                                    this.origin,
+                                    [
+                                        new Stat({effect: Data.Effect.SPIRIT, theorical: Math.abs(valid.getValue()), duration: 2})
+                                    ]
+                                )
+                            }
+                        }
+                    })
+                ],
                 Data.EchoType.ARMOR
             ),
             new Echo(
                 "Fragmentation",
-                "Damage you deal to an enemy will also be evenly distributed to decay other enemies' {MAXSTAMINA}.",
+                "Damage you deal to a single enemy will also be evenly distributed to decay other enemies' {MAXSTAMINA}.",
                 1,
                 Data.Rarity.SINGULAR,
                 [],
                 "Quote",
                 {},
-                [],
+                [
+                    new Trigger({
+                        name: "fragmentation_Trigger",
+                        type: [Data.TriggerType.ON_DEAL_WEAPON, Data.TriggerType.ON_DEAL_SKILL],
+                        checker: function() {
+                            return game.battle.target.length === 1;
+                        },
+                        behavior: function() {
+                            console.log("FRAGMENTATION ECHO TRIGGERED!");
+
+                            const targets = game.battle.enemies.filter(x => x !== game.getcTarget() && !x.isDead());
+                            const val = Math.round(game.battle.receivedDamage/targets.length);
+
+                            targets.forEach(tar => {
+                                tar.removeBaseStat(new Stat({
+                                    effect: Data.Effect.STAMINA,
+                                    theorical: val
+                                }));
+                            });
+                        }
+                    })
+                ],
                 Data.EchoType.ARMOR
             ),
             new Echo(

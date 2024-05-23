@@ -116,6 +116,10 @@ class NPC extends Entity {
         this.baseShield = 0;
 
         this.badges = [];
+
+        this.removedHealth = 0;
+        this.removedStamina = 0;
+        this.removedMana = 0;
     }
 
     /**
@@ -432,6 +436,10 @@ class NPC extends Entity {
      * @param {Stat} eff the effect to add
      */
     removeBaseStat(eff) {
+        this.removedHealth = 0;
+        this.removedStamina = 0;
+        this.removedMana = 0;
+
         let damage;
         if(eff.effect === Data.Effect.HEALTH) {
             let removeShield = false;
@@ -451,16 +459,19 @@ class NPC extends Entity {
                 if(damage > 0) this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.RED + '">- ' + Math.round(damage) + '</p>'));
                 this.health = Math.max(0, this.health - Math.round(damage));
             }
+            this.removedHealth = Math.round(damage);
             this.runTriggers(Data.TriggerType.ON_REMOVE_HEALTH);
         } else if(eff.effect === Data.Effect.STAMINA) {
             damage = (eff.isPercentage ? this.maxStamina * Math.abs(eff.getValue()) / 100 : Math.abs(eff.getValue()));
             if(damage > 0) this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.GREEN + '">-' + Math.round(damage) + '</p>'));
             this.stamina = Math.max(0, this.stamina - Math.round(damage));
+            this.removedStamina = Math.round(damage);
             this.runTriggers(Data.TriggerType.ON_REMOVE_STAMINA);
         } else if(eff.effect === Data.Effect.MANA) {
             damage = (eff.isPercentage ? this.maxMana * Math.abs(eff.getValue()) / 100 : Math.abs(eff.getValue()));
             if(damage > 0) this.addBattlePopup(new BattlePopup(0, '<p style="color: ' + Data.Color.BLUE + '">-' + Math.round(damage) + '</p>'));
             this.mana = Math.max(0, this.mana - Math.round(damage));
+            this.removedMana = Math.round(damage);
             this.runTriggers(Data.TriggerType.ON_REMOVE_MANA);
         }
         console.log('REMOVING ' + Math.round(damage) + ' ' + eff.effect + ' FROM ' + this.name);
