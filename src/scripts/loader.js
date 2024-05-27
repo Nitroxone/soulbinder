@@ -1719,9 +1719,26 @@ const Loader = {
                 [],
                 "Quote",
                 {
-                    "maxhealth_reduction": [3, 4],
+                    "maxhealth_reduction": [-3, -4],
                 },
-                [],
+                [
+                    new Trigger({
+                        name: "brambleheart_Trigger",
+                        type: Data.TriggerType.ON_DEAL_WEAPON,
+                        behavior: function() {
+                            console.log("BRAMBLEHEART ECHO TRIGGERED");
+                            const tar = game.battle.target[game.battle.targetTracker];
+
+                            tar.applyEffects(
+                                this,
+                                this.origin,
+                                [
+                                    new Stat({effect: Data.Effect.MAXHEALTH, theorical: this.variables.maxhealth_reduction, isPercentage: true, duration: -1})
+                                ]
+                            );
+                        }
+                    })
+                ],
                 Data.EchoType.ARMOR
             ),
             new Echo(
@@ -1735,7 +1752,29 @@ const Loader = {
                     "maxhealth_bonus": [25, 30],
                     "protection_bonus": [6, 8]
                 },
-                [],
+                [
+                    new Trigger({
+                        name: "sharedPenance_Trigger",
+                        type: Data.TriggerType.ON_RECV_SKILL,
+                        behavior: function() {
+                            console.log("SHARED PENANCE ECHO TRIGGERED");
+
+                            const valid = game.battle.target.filter(x => x !== this.owner && !x.isDead());
+                            valid.forEach(al => {
+                                console.log("SHARED PENANCE ECHO APPLIED ON " + al.name);
+
+                                al.applyEffects(
+                                    this,
+                                    this.origin,
+                                    [
+                                        new Stat({effect: Data.Effect.MAXHEALTH, theorical: this.variables.maxhealth_bonus, isPercentage: true, duration: 1}),
+                                        new Stat({effect: Data.Effect.PROTECTION, theorical: this.variables.protection_bonus, isPercentage: true, duration: 1})
+                                    ]
+                                );
+                            })
+                        }
+                    })
+                ],
                 Data.EchoType.ARMOR
             ),
             new Echo(
@@ -1748,6 +1787,39 @@ const Loader = {
                 {},
                 [],
                 Data.EchoType.WEAPON
+            ),
+            new Echo(
+                "Shield Echoes",
+                "Blocking applies a §1% {MODIF_BLOCK} bonus on other allies (stackable, forever).",
+                1,
+                Data.Rarity.GRAND,
+                [],
+                "Quote",
+                {
+                    "block_bonus": [26, 28]
+                },
+                [
+                    new Trigger({
+                        name: "shieldEchoes_Trigger",
+                        type: Data.TriggerType.ON_BLOCK_BEGIN,
+                        behavior: function() {
+                            console.log("SHIELD ECHOES ECHO TRIGGERED!");
+
+                            const valid = game.battle.allies.filter(x => !x.isDead() && x !== this.owner);
+
+                            valid.forEach(al => {
+                                al.applyEffects(
+                                    this,
+                                    this.origin,
+                                    [
+                                        new Stat({effect: Data.Effect.MODIF_BLOCK, theorical: this.variables.block_bonus, isPercentage: true, duration: -1})
+                                    ]
+                                );
+                            });
+                        }
+                    })
+                ],
+                Data.EchoType.ARMOR
             )
         ];
 
