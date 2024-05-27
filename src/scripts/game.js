@@ -392,5 +392,8 @@ class Game {
         game.chatlog.addMessage(Data.ChatlogChannel.EXPLORATION, {
             content: "Started exploring " + this.dungeon.name + " (no legacy, no Agitator, no Lifeblood)"
         }, game.dungeon.chatlogFolder);
+
+        document.querySelector('#pinInventory').dispatchEvent(new Event('click'));
+        //document.querySelector('#pinChat').dispatchEvent(new Event('click'));
     }
 }
