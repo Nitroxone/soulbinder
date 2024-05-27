@@ -278,12 +278,18 @@ function generateBattleSkillsEvents() {
 }
 
 function generateBattleConsumablesEvents() {
-    game.player.du_inventory.filter(x => x instanceof Consumable).forEach(cons => {
+    const consumables = game.player.du_inventory.filter(x => x instanceof Consumable);
+
+    consumables.forEach(cons => {
         const dom = document.querySelector('#btl-' + cons.id);
         addTooltip(dom, function(){
             return getConsumableTooltip(cons);
-        }, { offY: -8} )
-    })
+        }, { offY: -8} );
+
+        dom.addEventListener('click', () => {
+            console.log("Consumed!");
+        });
+    });
 }
 
 function battleCommandsCancelCurrent() {
