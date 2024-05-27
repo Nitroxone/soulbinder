@@ -1361,9 +1361,45 @@ const Loader = {
                 [],
                 "Isn't vital, muscular and spiritual energy all the same?",
                 {
-                    "base_stamina_steal": [4, 6]
+                    "base_stamina_steal": [15, 20]
                 },
-                [],
+                [
+                    new Trigger({
+                        name: "soulMaelstrom_planterTrigger",
+                        type: [Data.TriggerType.ON_DEAL_WEAPON, Data.TriggerType.ON_DEAL_SKILL],
+                        checker: function() {
+                            return !getcTarget().triggers.some(x => x.name === "soulMaelstrom_theftTrigger");
+                        },
+                        behavior: function() {
+                            console.log("SOUL MAELSTROM TRAP PLANTED!!");
+
+                            const tar = getcTarget();
+                            const stolenAmount = Math.round(tar.maxStamina * (this.variables.base_stamina_steal/100));
+                            const trig = new Trigger({
+                                name: "soulMaelstrom_theftTrigger",
+                                type: Data.TriggerType.ON_DEAL_ATTACK,
+                                checker: function() {
+                                    return game.battle.target.length === 1 && getcTarget() instanceof Strider;
+                                },
+                                behavior: function() {
+                                    console.log("SOUL MAELSTROM TRAP THEFT TRIGGERED!!");
+
+                                    this.owner.removeBaseStat(new Stat({
+                                        effect: Data.Effect.STAMINA,
+                                        theorical: stolenAmount,
+                                    }));
+                                    getcTarget().addBaseStat(new Stat({
+                                        effect: Data.Effect.MANA,
+                                        theorical: stolenAmount
+                                    }));
+                                },
+                                singleUse: true,
+                                owner: tar
+                            });
+                            tar.triggers.push(trig);
+                        }
+                    })
+                ],
                 Data.EchoType.ARMOR
             ),
             new Echo(
