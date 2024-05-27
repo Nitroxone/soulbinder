@@ -25,7 +25,6 @@ class Battle {
         this.movementQueue = [];
         this.beginTurnPopups = false;
 
-
         this.loot = [];
         this.earnedEL = 0;
 
@@ -34,6 +33,7 @@ class Battle {
 
         this.chatlogFolder = null;
         this.chatlogRound = null;
+        this.chatlogDealtDamage = [];
 
         this.dealtDamage = 0;
         this.receivedDamage = 0;
@@ -416,6 +416,7 @@ class Battle {
             ignoresProtection: false,
             armorPiercing: 0,
         };
+        this.chatlogDealtDamage = [];
     }
 
     /**
@@ -771,6 +772,11 @@ class Battle {
         const isCrit = this.params.critical;
 
         this.runTriggersOnCurrent(Data.TriggerType.ON_DEAL_ATTACK);
+
+        this.roundLog({
+            content: this.currentPlay.name + " casts <span class='bold'>" + skill.name + "</span> on " + getTargetsString(this.target) + ".",
+            style: { className: "clgMsg-regular" }
+        })
 
         this.target.forEach(tar => {
             const tarDom = document.querySelector('#' + tar.getBattleFormationStringId());
@@ -1334,5 +1340,9 @@ class Battle {
         this.loot = mergeLoots(loot);
         this.earnedEL = generateEphemeralLuckAmount(this.type, this.battleParams.title);
         console.log("Total final loot: ", this.loot);
+    }
+
+    roundLog(props) {
+        game.chatlog.addMessage(Data.ChatlogChannel.BATTLE, props, this.chatlogRound);
     }
 }

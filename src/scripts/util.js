@@ -2701,3 +2701,8 @@ function addStriderTypeBonuses(strider) {
             break;
     }
 }
+
+function getTargetsString(arr) {
+    const mapped = arr.map(x => x.name);
+    return mapped.join(", ");
+}
