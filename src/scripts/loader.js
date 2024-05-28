@@ -2957,7 +2957,6 @@ const Loader = {
                                     },
                                     behavior: function() {
                                         console.info('ALTRUISM - APPLY EFFECTS');
-                                        const caster = getcPlayer();
                                         const effects = [
                                             new Stat({
                                                 effect: Data.Effect.MODIF_HEAL_GIVEN,
@@ -2973,7 +2972,7 @@ const Loader = {
                                             })
                                         ];
 
-                                        caster.applyEffects(this, caster, effects);
+                                        this.owner.applyEffects(this, this.owner, effects);
 
                                         this.variables.stacks = 0;
                                     }
