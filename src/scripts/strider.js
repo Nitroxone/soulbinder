@@ -15,6 +15,9 @@ class Strider extends NPC {
         this.uniqueIcon = getValueFromObject(props, "uniqueIcon", 0);
         this.striderType = getValueFromObject(props, "striderType", Data.StriderType.STRIKER);
         this.customBgPos = getValueFromObject(props, "customBgPos", "0 0");
+        this.graphicsApi = getValueFromObject(props, "graphicsApi", null);
+
+        if(this.graphicsApi) this.graphicsApi = this.graphicsApi();
         
         this.eqWeaponBoth = null;
         this.eqWeaponLeft = null;
@@ -38,9 +41,7 @@ class Strider extends NPC {
         this.level = new Level("Level", 1, 20, 1, 1000, 0);
         this.skillPoints = 3;
 
-
         this.unlocked = false;
-
 
         this.popupsQueue = [];
 
