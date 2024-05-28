@@ -7173,7 +7173,9 @@ table.astralForgeShards td {
     position: relative;
 }
 
-
+.battle-commandsContainer .divider {
+    display: none;
+}
 
 .battle-actionsContainer {
     grid-area: actions;

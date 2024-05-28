@@ -334,9 +334,11 @@ function generateBattleFightersEvents() {
         fighter.addEventListener('mouseenter', e => {
             const target = getFighterFromPosition(fighter.id);
             document.querySelector('.battle-consumablesContainer').innerHTML = getBattleFighterStats(target);
+            document.querySelector('.battle-commandsContainer .divider').style.display = 'block';
             document.querySelector('.battle-skillsContainer').innerHTML = getBattleFighterDetails(target);
         });
         fighter.addEventListener('mouseleave', e => {
+            document.querySelector('.battle-commandsContainer .divider').style.display = 'none';
             getBattleSkills(true);
             getBattleConsumables(true);
             if(!game.battle.isEnemyPlaying()) {
