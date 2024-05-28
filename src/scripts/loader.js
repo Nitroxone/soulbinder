@@ -988,6 +988,9 @@ const Loader = {
                     new Trigger({
                         name: "corrosiveBlades_Trigger",
                         type: Data.TriggerType.ON_DEAL_WEAPON,
+                        checker: function() {
+                            return game.battle.selectedWeapon === this.parent;
+                        },
                         behavior: function() {
                             console.log("CORROSIVE BLADES ECHO TRIGGERED");
                             const tar = game.battle.target[game.battle.targetTracker];
@@ -1099,6 +1102,9 @@ const Loader = {
                     new Trigger({
                         name: "erodeAway_Trigger",
                         type: Data.TriggerType.ON_DEAL_WEAPON,
+                        checker: function() {
+                            return game.battle.selectedWeapon === this.parent;
+                        },
                         behavior: function() {
                             console.log("ERODE AWAY ECHO TRIGGERED");
                             const tar = game.battle.target[game.battle.targetTracker];
@@ -1161,7 +1167,9 @@ const Loader = {
                         name: "caltrops_planterTrigger",
                         type: Data.TriggerType.ON_DEAL_WEAPON,
                         checker: function() {
-                            return game.battle.selectedWeapon === this.parent;
+                            return game.battle.selectedWeapon === this.parent
+                                && !getcTarget().triggers.some(x => x.name === "caltrops_damageTrigger")
+                                && getcTarget() instanceof Enemy;
                         },
                         behavior: function() {
                             console.log("CALTROPS PLANTED!!");
@@ -1318,7 +1326,8 @@ const Loader = {
                         name: "nebulaTrap_planterTrigger",
                         type: [Data.TriggerType.ON_DEAL_WEAPON, Data.TriggerType.ON_DEAL_SKILL],
                         checker: function() {
-                            return !getcTarget().triggers.some(x => x.name === "nebulaTrap_stunTrigger");
+                            return !getcTarget().triggers.some(x => x.name === "nebulaTrap_stunTrigger")
+                                && getcTarget() instanceof Enemy
                         },
                         behavior: function() {
                             console.log("NEBULA TRAP PLANTED!!");
@@ -1368,7 +1377,8 @@ const Loader = {
                         name: "soulMaelstrom_planterTrigger",
                         type: [Data.TriggerType.ON_DEAL_WEAPON, Data.TriggerType.ON_DEAL_SKILL],
                         checker: function() {
-                            return !getcTarget().triggers.some(x => x.name === "soulMaelstrom_theftTrigger");
+                            return !getcTarget().triggers.some(x => x.name === "soulMaelstrom_theftTrigger")
+                                && getcTarget() instanceof Enemy;
                         },
                         behavior: function() {
                             console.log("SOUL MAELSTROM TRAP PLANTED!!");
@@ -1618,6 +1628,9 @@ const Loader = {
                     new Trigger({
                         name: "debilitatingCurse_Trigger",
                         type: Data.TriggerType.ON_DEAL_WEAPON,
+                        checker: function() {
+                            return game.battle.selectedWeapon === this.parent;
+                        },
                         behavior: function() {
                             console.log("DEBILITATING CURSE ECHO TRIGGERED");
                             const tar = getcTarget();
@@ -1755,7 +1768,7 @@ const Loader = {
                 [],
                 "Quote",
                 {
-                    "maxhealth_reduction": [-3, -4],
+                    "maxhealth_reduction": [-4, -5],
                 },
                 [
                     new Trigger({
