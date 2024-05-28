@@ -1760,7 +1760,7 @@ const Loader = {
                 [
                     new Trigger({
                         name: "brambleheart_Trigger",
-                        type: Data.TriggerType.ON_DEAL_WEAPON,
+                        type: Data.TriggerType.ON_DEAL_MOVE,
                         behavior: function() {
                             console.log("BRAMBLEHEART ECHO TRIGGERED");
                             const tar = game.battle.target[game.battle.targetTracker];
