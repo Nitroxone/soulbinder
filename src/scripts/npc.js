@@ -591,9 +591,11 @@ class NPC extends Entity {
             }
             maxstatAmount = Math.abs(maxstatAmount);
             amount = Math.abs(amount);
-
+            
             this.maxHealth = Math.max(this.maxHealth - maxstatAmount, 0);
             this.health = Math.max(this.health - amount, 0);
+
+            if(this.health <= 0) this.kill();
         } else if(eff.effect === Data.Effect.MAXSTAMINA) {
             if(eff.isPercentage) {
                 maxstatAmount = Math.round(this.maxStamina * eff.getValue() / 100);
