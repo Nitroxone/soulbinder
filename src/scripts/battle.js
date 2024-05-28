@@ -737,11 +737,11 @@ class Battle {
     canApplyGuard(tar, skill, accessor) {
         if(tar.isGuarded) {
             if(this.currentPlay instanceof Strider && tar instanceof Enemy) {
-                if(skill.effectsEnemies && !skill.effectsEnemies[skill.level][accessor].some(x => x.effect === Data.Effect.SHATTERS_GUARD)) {
+                if(!skill.effectsEnemies || (skill.effectsEnemies && !skill.effectsEnemies[skill.level][accessor].some(x => x.effect === Data.Effect.SHATTERS_GUARD))) {
                     return true;
                 }
             } else if(this.currentPlay instanceof Enemy && tar instanceof Strider) {
-                if(skill.effectsAllies && !skill.effectsAllies[skill.level][accessor].some(x => x.effect === Data.Effect.SHATTERS_GUARD)) {
+                if(!skill.effectsAllies || (skill.effectsAllies && !skill.effectsAllies[skill.level][accessor].some(x => x.effect === Data.Effect.SHATTERS_GUARD))) {
                     return true;
                 }
             }
