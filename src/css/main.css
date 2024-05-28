@@ -7173,7 +7173,9 @@ table.astralForgeShards td {
     position: relative;
 }
 
-
+.battle-commandsContainer .divider {
+    display: none;
+}
 
 .battle-actionsContainer {
     grid-area: actions;
@@ -7183,8 +7185,8 @@ table.astralForgeShards td {
     grid-template-rows: 1fr 1fr;
     gap: 0 0;
     grid-template-areas:
-        "bc-atk bc-mov"
-        "bc-def bc-ski";
+        "bc-atk bc-def"
+        "bc-mov bc-ski";
 }
 
 .battle-actionAtk, .battle-actionDef, .battle-actionMov, .battle-actionSki {
@@ -7209,7 +7211,7 @@ table.astralForgeShards td {
 }
 
 .battle-actionAtk {
-    grid-area: "bc-atk";
+    grid-area: bc-atk;
     border-top: 2px solid rgb(100, 100, 100);
     border-left: 2px solid rgb(100, 100, 100);
     border-top-left-radius: 150px;
@@ -7227,7 +7229,7 @@ table.astralForgeShards td {
 }
 
 .battle-actionDef {
-    grid-area: "bc-def";
+    grid-area: bc-def;
     border-right: 2px solid rgb(100, 100, 100);
     border-top: 2px solid rgb(100, 100, 100);
     border-top-right-radius: 150px;
@@ -7244,7 +7246,7 @@ table.astralForgeShards td {
 }
 
 .battle-actionMov {
-    grid-area: "bc-mov";
+    grid-area: bc-mov;
     border-left: 2px solid rgb(100, 100, 100);
     border-bottom: 2px solid rgb(100, 100, 100);
     border-bottom-left-radius: 150px;
@@ -7257,7 +7259,7 @@ table.astralForgeShards td {
     background-size: 200%;
 }
 .battle-actionSki {
-    grid-area: "bc-ski";
+    grid-area: bc-ski;
     border-right: 2px solid rgb(100, 100, 100);
     border-bottom: 2px solid rgb(100, 100, 100);
     border-bottom-right-radius: 150px;
@@ -7275,7 +7277,7 @@ table.astralForgeShards td {
 }
 
 .battle-skillsContainer {
-    grid-area: "skills";
+    grid-area: skills;
 
     display: flex;
     justify-content: center;
@@ -7285,7 +7287,7 @@ table.astralForgeShards td {
     margin-left: 1rem;
 }
 .battle-consumablesContainer {
-    grid-area: "consumables";
+    grid-area: consumables;
 
     display: flex;
     flex-direction: row;

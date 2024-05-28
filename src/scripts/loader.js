@@ -1760,7 +1760,7 @@ const Loader = {
                 [
                     new Trigger({
                         name: "brambleheart_Trigger",
-                        type: Data.TriggerType.ON_DEAL_WEAPON,
+                        type: Data.TriggerType.ON_DEAL_MOVE,
                         behavior: function() {
                             console.log("BRAMBLEHEART ECHO TRIGGERED");
                             const tar = game.battle.target[game.battle.targetTracker];
@@ -3996,7 +3996,24 @@ const Loader = {
                             }
                         )
                     ],
-                    customBgPos: '10% 30%'
+                    customBgPos: '10% 30%',
+                    graphicsApi: function() {
+                        const display = (refresh = false) => {
+                            let str = '';
+
+                            str += 'Display test for Amarok!';
+                            console.log(this); // "this" gives access to the Strider's properties
+
+                            if(refresh) {
+                                document.querySelector('.a').innerHTML = str;
+                            }
+                            else return str;
+                        }
+
+                        return {
+                            display
+                        };
+                    }
                 },
             ),
             new Strider(
