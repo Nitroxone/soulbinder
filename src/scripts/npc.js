@@ -534,28 +534,43 @@ class NPC extends Entity {
      * @param {Stat} eff 
      */
     increaseBaseStat(eff) {
-        let amount = 0;
+        let amount = 0, maxstatAmount = 0;
         
         if(eff.effect === Data.Effect.MAXHEALTH) {
-            if(eff.isPercentage) amount = Math.round(this.maxHealth * eff.getValue() / 100);
-            else amount = eff.getValue();
+            if(eff.isPercentage) {
+                maxstatAmount = Math.round(this.maxHealth * eff.getValue() / 100);
+                amount = Math.round(this.health * eff.getValue() / 100);
+            } else {
+                maxstatAmount = eff.getValue();
+                amount = eff.getValue();
+            }
 
-            this.maxHealth += amount;
-            this.health += amount;
+            this.maxHealth += maxstatAmount;
+            this.health = Math.min(this.health + amount, this.maxHealth);
         } else if(eff.effect === Data.Effect.MAXSTAMINA) {
-            if(eff.isPercentage) amount = Math.round(this.maxStamina * eff.getValue() / 100);
-            else amount = eff.getValue();
+            if(eff.isPercentage) {
+                maxstatAmount = Math.round(this.maxStamina * eff.getValue() / 100);
+                amount = Math.round(this.stamina * eff.getValue() / 100);
+            } else {
+                maxstatAmount = eff.getValue();
+                amount = eff.getValue();
+            }
 
-            this.maxStamina += amount;
-            this.stamina += amount;
+            this.maxStamina += maxstatAmount;
+            this.stamina = Math.min(this.stamina + amount, this.maxStamina);
         } else if(eff.effect === Data.Effect.MAXMANA) {
-            if(eff.isPercentage) amount = Math.round(this.maxMana * eff.getValue() / 100);
-            else amount = eff.getValue();
+            if(eff.isPercentage) {
+                maxstatAmount = Math.round(this.maxMana * eff.getValue() / 100);
+                amount = Math.round(this.mana * eff.getValue() / 100);
+            } else {
+                maxstatAmount = eff.getValue();
+                amount = eff.getValue();
+            }
 
-            this.maxMana += amount;
-            this.mana += amount;
+            this.maxMana += maxstatAmount;
+            this.mana = Math.min(this.mana + amount, this.maxMana);
         }
-        console.log('INCREASED ' + eff.effect + ' OF ' + this.name + ' by ' + eff.getValue() + '% (' + amount + ' points)');
+        console.log('INCREASED ' + eff.effect + ' OF ' + this.name + ' by ' + eff.getValue() + '% (' + maxstatAmount + ' points max., ' + amount + ' effective)');
         return amount;
     }
 
@@ -564,31 +579,49 @@ class NPC extends Entity {
      * @param {Stat} eff 
      */
     decreaseBaseStat(eff) {
-        let amount = 0;
+        let amount = 0, maxstatAmount = 0;
         
         if(eff.effect === Data.Effect.MAXHEALTH) {
-            if(eff.isPercentage) amount = Math.round(this.maxHealth * eff.getValue() / 100);
-            else amount = eff.getValue();
+            if(eff.isPercentage) {
+                maxstatAmount = Math.round(this.maxHealth * eff.getValue() / 100);
+                amount = Math.round(this.health * eff.getValue() / 100);
+            } else {
+                maxstatAmount = eff.getValue();
+                amount = eff.getValue();
+            }
+            maxstatAmount = Math.abs(maxstatAmount);
             amount = Math.abs(amount);
 
-            this.maxHealth -= amount;
-            this.health -= amount;
+            this.maxHealth = Math.max(this.maxHealth - maxstatAmount, 0);
+            this.health = Math.max(this.health - amount, 0);
         } else if(eff.effect === Data.Effect.MAXSTAMINA) {
-            if(eff.isPercentage) amount = Math.round(this.maxStamina * eff.getValue() / 100);
-            else amount = eff.getValue();
+            if(eff.isPercentage) {
+                maxstatAmount = Math.round(this.maxStamina * eff.getValue() / 100);
+                amount = Math.round(this.stamina * eff.getValue() / 100);
+            } else {
+                maxstatAmount = eff.getValue();
+                amount = eff.getValue();
+            }
+            maxstatAmount = Math.abs(maxstatAmount);
             amount = Math.abs(amount);
 
-            this.maxStamina -= amount;
-            this.stamina -= amount;
+            this.maxStamina = Math.max(this.maxStamina - maxstatAmount, 0);
+            this.stamina = Math.max(this.stamina - amount, 0);
         } else if(eff.effect === Data.Effect.MAXMANA) {
-            if(eff.isPercentage) amount = Math.round(this.maxMana * eff.getValue() / 100);
-            else amount = eff.getValue();
+            if(eff.isPercentage) {
+                maxstatAmount = Math.round(this.maxMana * eff.getValue() / 100);
+                amount = Math.round(this.mana * eff.getValue() / 100);
+            } else {
+                maxstatAmount = eff.getValue();
+                amount = eff.getValue();
+            }
+            maxstatAmount = Math.abs(maxstatAmount);
             amount = Math.abs(amount);
 
-            this.maxMana -= amount;
-            this.mana -= amount;
+            this.maxMana = Math.max(this.maxMana - maxstatAmount, 0);
+            this.mana = Math.max(this.mana - amount, 0);
         }
-        console.log('DECREASED ' + eff.effect + ' OF ' + this.name + ' by ' + eff.getValue() + '% (' + amount + ' points)');
+        console.log('DECREASED ' + eff.effect + ' OF ' + this.name + ' by ' + eff.getValue() + '% (' + maxstatAmount + ' points max., ' + amount + ' effective)');
         return amount;
     }
 
