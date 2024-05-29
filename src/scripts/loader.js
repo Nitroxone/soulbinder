@@ -1719,7 +1719,7 @@ const Loader = {
                                     this,
                                     this.origin,
                                     [
-                                        new Stat({effect: Data.Effect.SPIRIT, theorical: Math.abs(valid.getValue()), duration: 2})
+                                        new Stat({effect: Data.Effect.SPIRIT, theorical: Math.abs(this.owner.removedMana), duration: 2})
                                     ]
                                 )
                             }
@@ -1730,7 +1730,7 @@ const Loader = {
             ),
             new Echo(
                 "Fragmentation",
-                "Damage you deal to a single enemy will also be evenly distributed to decay other enemies' {MAXSTAMINA}.",
+                "Damage you deal to a single enemy will also be evenly distributed to decay other enemies' {STAMINA}.",
                 1,
                 Data.Rarity.SINGULAR,
                 [],
@@ -1746,7 +1746,7 @@ const Loader = {
                         behavior: function() {
                             console.log("FRAGMENTATION ECHO TRIGGERED!");
 
-                            const targets = game.battle.enemies.filter(x => x !== game.getcTarget() && !x.isDead());
+                            const targets = game.battle.enemies.filter(x => x !== getcTarget() && !x.isDead());
                             const val = Math.round(game.battle.receivedDamage/targets.length);
 
                             targets.forEach(tar => {
