@@ -1351,8 +1351,8 @@ class NPC extends Entity {
      */
     getTotalBleedingValue() {
         return this.activeEffects
-               .map(x => x.effects.filter(y => y.effect === Data.Effect.BLEEDING_CURABLE || y.effect === Data.Effect.BLEEDING_INCURABLE))
-               .reduce((acc, cur) => acc.concat(cur), [])
+               .flatMap(x => x.effects.filter(y => y.effect === Data.Effect.BLEEDING_CURABLE || y.effect === Data.Effect.BLEEDING_INCURABLE))
+               //.reduce((acc, cur) => acc.concat(cur), [])
                .reduce((acc, cur) => acc + cur.getValue(), 0);
     }
 
@@ -1362,8 +1362,8 @@ class NPC extends Entity {
      */
     getTotalPoisoningValue() {
         return this.activeEffects
-               .map(x => x.effects.filter(y => y.effect === Data.Effect.BLIGHT_CURABLE || y.effect === Data.Effect.BLIGHT_INCURABLE))
-               .reduce((acc, cur) => acc.concat(cur), [])
+               .flatMap(x => x.effects.filter(y => y.effect === Data.Effect.BLIGHT_CURABLE || y.effect === Data.Effect.BLIGHT_INCURABLE))
+               //.reduce((acc, cur) => acc.concat(cur), [])
                .reduce((acc, cur) => acc + cur.getValue(), 0);
     }
 
