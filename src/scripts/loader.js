@@ -4414,6 +4414,7 @@ const Loader = {
                                 accMultiplier: 100,
                                 launchPos: [true, true, true],
                                 targets: { allies: '-123', enemies: '-0' },
+                                cooldown: 2,
                                 effectsAllies: {
                                     1: {
                                         regular: [
