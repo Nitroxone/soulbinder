@@ -571,7 +571,7 @@ class NPC extends Entity {
             this.mana = Math.min(this.mana + amount, this.maxMana);
         }
         console.log('INCREASED ' + eff.effect + ' OF ' + this.name + ' by ' + eff.getValue() + '% (' + maxstatAmount + ' points max., ' + amount + ' effective)');
-        return amount;
+        return maxstatAmount;
     }
 
     /**
@@ -624,7 +624,7 @@ class NPC extends Entity {
             this.mana = Math.max(this.mana - amount, 0);
         }
         console.log('DECREASED ' + eff.effect + ' OF ' + this.name + ' by ' + eff.getValue() + '% (' + maxstatAmount + ' points max., ' + amount + ' effective)');
-        return amount;
+        return maxstatAmount;
     }
 
     /**
