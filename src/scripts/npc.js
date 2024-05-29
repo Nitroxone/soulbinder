@@ -1369,33 +1369,43 @@ class NPC extends Entity {
 
     /**
      * Removes all Bleeding effects among this NPC's ActiveEffects.
+     * @param {boolean} bypassIncurable whether the Incurable Bleeding effects should be cleaned too
      */
-    cureBleeding() {
+    cureBleeding(bypassIncurable = false) {
+        const targetable = [Data.Effect.BLEEDING_CURABLE];
+        if(bypassIncurable) targetable.push(Data.Effect.BLEEDING_INCURABLE);
         let total = 0;
-        this.activeEffects.filter(x => x.effects.some(y => y.effect === Data.Effect.BLEEDING_CURABLE || y.effect === Data.Effect.BLEEDING_INCURABLE))
+
+        this.activeEffects.filter(x => x.effects.some(y => targetable.includes(y.effect)))
                           .forEach(ae => {
-                            const targets = ae.effects.filter(x => x.effect === Data.Effect.BLEEDING_CURABLE || x.effect === Data.Effect.BLEEDING_INCURABLE);
+                            const targets = ae.effects.filter(x => targetable.includes(x.effect));
                             targets.forEach(tar => {
                                 total += tar.getValue();
                                 removeFromArray(ae.effects, tar);
                             });
                           });
+
         console.log('Removed ' + total +  ' Bleeding from ' + this.name);
     }
 
     /**
      * Removes all Poisoning effects among this NPC's ActiveEffects.
+     * @param {boolean} bypassIncurable whether the Incurable Poisoning effects should be cleaned too
      */
-    curePoisoning() {
+    curePoisoning(bypassIncurable = false) {
+        const targetable = [Data.Effect.BLIGHT_CURABLE];
+        if(bypassIncurable) targetable.push(Data.Effect.BLIGHT_INCURABLE);
         let total = 0;
-        this.activeEffects.filter(x => x.effects.some(y => y.effect === Data.Effect.BLIGHT_CURABLE || y.effect === Data.Effect.BLIGHT_INCURABLE))
+
+        this.activeEffects.filter(x => x.effects.some(y => targetable.includes(y.effect)))
                           .forEach(ae => {
-                            const targets = ae.effects.filter(x => x.effect === Data.Effect.BLIGHT_CURABLE || x.effect === Data.Effect.BLIGHT_INCURABLE);
+                            const targets = ae.effects.filter(x => targetable.includes(x.effect));
                             targets.forEach(tar => {
                                 total += tar.getValue();
                                 removeFromArray(ae.effects, tar);
                             });
                           });
+
         console.log('Removed ' + total +  ' Poisoning from ' + this.name);
     }
 }
