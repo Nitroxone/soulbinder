@@ -726,3 +726,15 @@ function getDungeonKnapsackResourceAmount(refresh = false) {
     }
     return str;
 }
+
+function getTinyWeaponInfo(wpn) {
+    let str = '<div class="tinyWeaponInfo">';
+
+    str += '<div class="twi-bleed"><span class="twiicon"></span><span class="twival">' + wpn.bleed[0] + '</span></div>';
+    str += '<div class="twi-poison"><span class="twiicon"></span><span class="twival">' + wpn.poison[0] + '</span></div>';
+    str += '<div class="twi-echo"></div>';
+
+    str += '</div>'
+
+    return str;
+}

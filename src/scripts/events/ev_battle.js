@@ -8,6 +8,7 @@ function generateBattleCommandsEvents() {
 
     const wpns = document.querySelectorAll('.battle-weaponIcon');
     wpns.forEach(wpn => {
+        addTooltip(wpn, function(){ return getTinyWeaponInfo(getEquippedWeaponById(current, Number(wpn.id.substring(5)))) }, {offY: -8}, { css: ["framedSmallerRounded", "framedSmallerReducedPadding"] });
         wpn.addEventListener('click', e => {
             e.stopPropagation();
 

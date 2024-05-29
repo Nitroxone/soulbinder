@@ -407,9 +407,15 @@ a:active, .tooltiped:active {
     border: 4px solid transparent !important;
     border-image: url(img/window1.png) 3 stretch !important;
 }
+
 .framedSmaller2 {
     border: 4px solid transparent !important;
     border-image: url(img/window1.png) 4 stretch !important;
+}
+.framedSmallerRounded {
+    border: 2px solid transparent !important;
+    border-image: url(img/window1.png) 3 stretch !important;
+    border-radius: 7px;
 }
 .framed.simple::before, .framed.simple::after {
     content: '';
@@ -955,7 +961,7 @@ a:active, .tooltiped:active {
     max-width: 480px;
 }
 .tooltip {
-    padding: 0.5rem 1rem!important;
+    padding: 0.5rem 1rem !important;
     position: relative;
     left: 0;
     top: 0;
@@ -967,6 +973,9 @@ a:active, .tooltiped:active {
     animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
 
     overflow: hidden;
+}
+.framedSmallerReducedPadding {
+    padding: 2px !important;
 }
 .tooltipSlideIn {
     animation-name: tooltipSlideIn;
@@ -9656,4 +9665,43 @@ input[type=number] {
     font-family: 'RobotoSlab';
     font-size: 13px;
     margin-left: 1rem;
+}
+
+.tinyWeaponInfo {
+    display: flex;
+    justify-content: space-between;
+}
+.twi-bleed, .twi-poison {
+
+    padding: .35rem;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+
+    font-family: RobotoSlab;
+    font-variant: small-caps;
+    font-size: 14px;
+
+    padding-left: 0;
+}
+.twiicon {
+    width: 20px;
+    height: 20px;
+    aspect-ratio: 1/1;
+
+    background-size: contain;
+    background-position: center left;
+    background-repeat: no-repeat;
+}
+.twi-bleed .twiicon {
+    background-image: url('img/drop_blood.svg');
+}
+.twi-poison .twiicon {
+    background-image: url('img/drop_poison.svg');
+}
+.twi-bleed .twival {
+    color: #e84118;
+}
+.twi-poison .twival {
+    color: #4cd137;
 }
