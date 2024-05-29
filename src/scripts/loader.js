@@ -4403,7 +4403,7 @@ const Loader = {
                         ),
                         new Skill(
                             "Cauterize",
-                            "Cures §Bleeding§ and §Poisoning§ on the target, and generate §Shield§ points that equal the combined values of the cleaned maluses. Applies a §Speed§ malus.",
+                            "Cures §Bleeding§ and §Poisoning§ on the target, and generate §Shield§ points that equal twice the combined values of the cleaned maluses, and last two rounds. Applies a §Speed§ malus on the target.",
                             5,
                             {
                                 manaCost: 4,
@@ -4413,17 +4413,43 @@ const Loader = {
                                 criMultiplier: 10,
                                 accMultiplier: 100,
                                 launchPos: [true, true, true],
-                                target: { allies: '-123', enemies: '-0' },
+                                targets: { allies: '-123', enemies: '-0' },
                                 effectsAllies: {
                                     1: {
                                         regular: [
-                                            new Stat({ effect: Data.Effect.CURES_POISONING }),
-                                            new Stat({ effect: Data.Effect.CURES_BLEEDING }),
+                                            new Stat({ effect: Data.Effect.DUMMY, displayed: "$Cures Bleeding$" }),
+                                            new Stat({ effect: Data.Effect.DUMMY, displayed: "$Cures Poisoning$" }),
+                                            new Stat({ effect: Data.Effect.DUMMY, displayed: "^1 Shield^ per ~1 Bleeding~"}),
+                                            new Stat({ effect: Data.Effect.DUMMY, displayed: "^1 Shield^ per ^1 Poisoning^"}),
+                                            new Stat({ effect: Data.Effect.SPEED, theorical: -3, duration: 1 })
                                         ],
                                         critical: [
-                                            new Stat({ effect: Data.Effect.CURES_POISONING, isCritical: true }),
-                                            new Stat({ effect: Data.Effect.CURES_BLEEDING, isCritical: true }),
+                                            new Stat({ effect: Data.Effect.DUMMY, displayed: "$Cures Bleeding$" }),
+                                            new Stat({ effect: Data.Effect.DUMMY, displayed: "$Cures Poisoning$" }),
+                                            new Stat({ effect: Data.Effect.DUMMY, displayed: "^1 Shield^ per ~1 Bleeding~"}),
+                                            new Stat({ effect: Data.Effect.DUMMY, displayed: "^1 Shield^ per ^1 Poisoning^"}),
+                                            new Stat({ effect: Data.Effect.SPEED, theorical: -2, duration: 1 })
                                         ],
+                                    }
+                                },
+                                onCast: function() {
+                                    const target = getcTarget();
+
+                                    const shield = target.getTotalBleedingValue() + target.getTotalPoisoningValue();
+                                    target.cureBleeding();
+                                    target.curePoisoning();
+                                    if(shield > 0) {
+                                        target.applyEffects(
+                                            this,
+                                            this.getOwner(),
+                                            [
+                                                new Stat({
+                                                    effect: Data.Effect.SHIELD,
+                                                    theorical: shield*2,
+                                                    duration: 2
+                                                })
+                                            ]
+                                        )
                                     }
                                 }
                             }
