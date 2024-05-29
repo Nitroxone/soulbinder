@@ -2929,10 +2929,13 @@ const Loader = {
                                 new Trigger({
                                     name: "altruism_manageStacks",
                                     type: Data.TriggerType.ON_DEAL_HEAL,
+                                    checker: function() {
+                                        return game.battle.target.length === 1;
+                                    },
                                     behavior: function() {
                                         console.info('ALTRUISM - MANAGE STACKS');
                                         const target = getcTarget();
-                                        const caster = getcPlayer();
+                                        const caster = this.owner;
 
                                         target.applyEffects(
                                             this,
