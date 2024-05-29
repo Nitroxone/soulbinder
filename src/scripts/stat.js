@@ -191,7 +191,7 @@ class Stat {
             + '">'
             + '<span style="font-weight: normal;">';
             if(!this.displayed) {
-                str += this.getStatSkillValue();
+                str += this.printStatSkillValue();
             }
             str += '</span>'
             + (noName ? '' : this.displayed ? this.processDisplayed() : capitalizeFirstLetter(this.effect))
@@ -209,13 +209,11 @@ class Stat {
             + (color ? 'color: ' + color + ';': '') 
             + (opacity || this.disabled ? 'opacity: ' + (this.disabled ? '0.65' : opacity) + ';': '') 
             + (hidden ? 'display: none;': '') 
-            + '"><span style="font-weight: normal;">' 
-            + (this.getValue() > 0 && !noValue ? '+ ' : this.getValue() < 0 && !noValue ? '- ' : '') 
-            + '</span>' 
-            + (this.getValue() == 0 ? '' : !noValue ? Math.abs(this.getValue()) : '') 
-            + (this.isPercentage && !noValue ? '%' : '') 
-            + ' ' 
-            + (noName ? '' : this.displayed ? this.processDisplayed() : capitalizeFirstLetter(this.effect))
+            + '">'
+            if(!this.displayed) {
+                str += this.printStatValue(noValue);
+            }
+            str += (noName ? '' : this.displayed ? this.processDisplayed() : capitalizeFirstLetter(this.effect));
             if(!noTheorical) {
                 str += '<span class="theoricalval">[' 
                 + this.theorical[0] 
@@ -231,11 +229,24 @@ class Stat {
         return str;
     }
 
+    printStatValue(noValue) {
+        let str = '';
+
+        str += '<span style="font-weight: normal;">'
+        + (this.getValue() > 0 && !noValue ? '+ ' : this.getValue() < 0 && !noValue ? '- ' : '') 
+        + '</span>'
+        + (this.getValue() == 0 ? '' : !noValue ? Math.abs(this.getValue()) : '') 
+        + (this.isPercentage && !noValue ? '%' : '') 
+        + ' ';
+
+        return str;
+    }
+
     /**
      * Returns a string that contains the formatted value of this Stat in the Skill format
      * @returns {string}
      */
-    getStatSkillValue() {
+    printStatSkillValue() {
         let str = '';
 
         if(this.theorical[0] === this.theorical[1]) str += (this.getValue() > 0 ? '' : this.getValue() < 0 ? '- ' : '') + (this.getValue() === 0 ? '' : Math.abs(this.getValue())) + (this.isPercentage ? '%' : '');
@@ -282,7 +293,7 @@ class Stat {
         replaced = replaced.replace(blueRegex, '<span style="color: ' + Data.Color.LIGHT_BLUE + ';">$1</span>');
         replaced = replaced.replace(boldRegex, '<span style="font-family: RobotoBold;">$1</span>');
         replaced = replaced.replace(underlinedRegex, '<span style="text-decoration:underline;">$1</span>');
-        replaced = replaced.replace(valRegex, this.getStatSkillValue());
+        replaced = replaced.replace(valRegex, this.printStatSkillValue());
 
         return replaced;
     }
