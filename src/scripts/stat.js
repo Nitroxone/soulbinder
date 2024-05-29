@@ -229,6 +229,11 @@ class Stat {
         return str;
     }
 
+    /**
+     * Returns a string that contains the formatted value of this Stat in the base format.
+     * @param {boolean} noValue 
+     * @returns {string}
+     */
     printStatValue(noValue) {
         let str = '';
 
@@ -243,7 +248,7 @@ class Stat {
     }
 
     /**
-     * Returns a string that contains the formatted value of this Stat in the Skill format
+     * Returns a string that contains the formatted value of this Stat in the Skill format.
      * @returns {string}
      */
     printStatSkillValue() {
