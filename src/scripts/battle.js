@@ -192,6 +192,10 @@ class Battle {
         }
     }
 
+    /**
+     * Handles the death process of the currently playing NPC.
+     * @returns {boolean} whether the death results in a turn skip
+     */
     handleDeath() {
         if(this.currentPlay instanceof Enemy && this.battleParams.params.queue) {
             if(this.battleParams.params.queue.length === 0) return true;
@@ -737,6 +741,14 @@ class Battle {
         if(final > 0) this.currentPlay.removeBaseStat(new Stat({effect: Data.Effect.HEALTH, theorical: final}));
     }
 
+    /**
+     * Returns whether a Guard effect can be applied on the provided NPC, with the provided Skill and its level.
+     * Guard won't applied if the provided skill has a Guard Shattering effect.
+     * @param {NPC} tar the NPC to check
+     * @param {Skill} skill the skill to check
+     * @param {number} accessor the skill's level
+     * @returns {boolean} whether a guard can be applied
+     */
     canApplyGuard(tar, skill, accessor) {
         if(tar.isGuarded) {
             if(this.currentPlay instanceof Strider && tar instanceof Enemy) {
@@ -930,6 +942,10 @@ class Battle {
         } else this.runPopups();
     }
 
+    /**
+     * Returns whether the currently processed attack is a successful hit.
+     * @returns {boolean}
+     */
     hitSuccess() {
         return this.params.success_accuracy && !this.params.success_dodge;
     }
@@ -1345,6 +1361,10 @@ class Battle {
         console.log("Total final loot: ", this.loot);
     }
 
+    /**
+     * Adds a message to the current round's chatlog folder.
+     * @param {object} props the message's properties
+     */
     roundLog(props) {
         game.chatlog.addMessage(Data.ChatlogChannel.BATTLE, props, this.chatlogRound);
     }
