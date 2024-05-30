@@ -1869,6 +1869,53 @@ const Loader = {
                     })
                 ],
                 Data.EchoType.ARMOR
+            ),
+            new Echo(
+                "Ember Dust",
+                "Receiving damage applies §1 {BLIGHT_CURABLE} damage for 2 rounds to the enemy on the Front position. If that enemy's {HEALTH} is full, the {BLIGHT_CURABLE} amount is tripled. If their {STAMINA} is full, they lose the same amount of {STAMINA} and you gain an additional §2% {MODIF_DMG_POISON} bonus for 2 rounds.",
+                1,
+                Data.Rarity.MYTHIC,
+                [],
+                "Quote",
+                {
+                    "poison_amount": [7, 9],
+                    "poison_damage_bonus": [45, 50]
+                },
+                [
+                    new Trigger({
+                        name: "emberDust_Trigger",
+                        type: Data.TriggerType.ON_RECV_DAMAGE,
+                        behavior: function() {
+                            console.log("EMBER DUST ECHO TRIGGERED");
+
+                            const valid = game.battle.enemies[2];
+                            if(!valid.isDead()) {
+                                let amount = this.variables.poison_amount;
+                                if(valid.health === valid.maxHealth) amount *= 3;
+                                
+                                valid.applyEffects(
+                                    this,
+                                    this.owner,
+                                    [
+                                        new Stat({ effect: Data.Effect.BLIGHT_CURABLE, theorical: amount, type: Data.StatType.ACTIVE, duration: 2 }),
+                                    ]
+                                )
+
+                                if(valid.stamina === valid.maxStamina) {
+                                    valid.removeBaseStat(new Stat({ effect: Data.Effect.STAMINA, theorical: amount }));
+                                    this.owner.applyEffects(
+                                        this,
+                                        this.owner,
+                                        [
+                                            new Stat({ effect: Data.Effect.MODIF_DMG_POISON, theorical: this.variables.poison_damage_bonus, isPercentage: true, duration: 2 })
+                                        ]
+                                    )
+                                }
+                            }
+                        }
+                    })
+                ],
+                Data.EchoType.ARMOR
             )
         ];
 
