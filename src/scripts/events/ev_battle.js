@@ -443,7 +443,7 @@ function generateBattleBadgesEvents(type) {
             const uid = badge.id.split('-')[1];
             const badgeObj = fighterObj.badges.find(x => x.uid === uid);
 
-            addTooltip(badge, badgeObj.tooltip, {offY: -8}, { css: ["framedSmaller"] });
+            addTooltip(badge, badgeObj.tooltip, {offY: -8}, { css: ["framedSmallerReducedPadding", "framedSmallerRounded"] });
         })
     })
 }
