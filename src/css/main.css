@@ -7404,6 +7404,7 @@ table.astralForgeShards td {
     padding: 0.75em;
     right: 1rem;
     z-index:200;
+    pointer-events: none;
 }
 
 .battle-toxicityLevel {
