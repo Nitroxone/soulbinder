@@ -584,7 +584,8 @@ function getBattleFighterActiveEffects(fighter) {
 
     str += '<h4>Active effects</h4>'
     str += '<div class="divider"></div>';
-    fighter.activeEffects.forEach(ae => {
+    if(!fighter.seeAe) str += '<p class="activeEffect-hidden">(Hidden)</p>';
+    else fighter.activeEffects.forEach(ae => {
         str += '<div class="activeEffect-wrapper">';
         str += '<p class="activeEffectTitle" style="color: ' + (ae.style.color ? ae.style.color : ae.originObject instanceof Skill ? Data.Color.TURQUOISE : '#ddd') + '; font-family: ' + getFontFamilyFromAeStyling(ae.style) + ';">' + ae.name + '</p>';
         ae.effects.forEach(eff => {

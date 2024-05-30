@@ -120,6 +120,8 @@ class NPC extends Entity {
         this.removedHealth = 0;
         this.removedStamina = 0;
         this.removedMana = 0;
+
+        this.seeAe = true; // Whether to display ActiveEffects
     }
 
     /**

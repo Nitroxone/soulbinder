@@ -7135,6 +7135,27 @@ table.astralForgeShards td {
     justify-content: end;
 
     transition: all .1s ease-in-out;
+
+    position: relative;
+}
+.battleFighter-eye-on, .battleFighter-eye-off {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 15px; height: 15px;
+    aspect-ratio: 1/1;
+    
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+    opacity: .5;
+}
+.battleFighter-eye-on {
+    background-image: url('./img/see_icon.svg');
+}
+.battleFighter-eye-off {
+    background-image: url('./img/nosee_icon.svg');
 }
 
 .battleFighter:hover {
@@ -7432,11 +7453,14 @@ table.astralForgeShards td {
 .activeEffect {
     width: 100%;
     margin-left: 1rem;
-
     text-align: left;
-
 }
-
+.activeEffect-hidden {
+    text-align: center !important;
+    margin-top: .25rem;
+    color: grey;
+    font-variant-caps: all-small-caps;
+}
 .battle-activeEffects h4 {
     font-family: RobotoSlab;
     color: grey;

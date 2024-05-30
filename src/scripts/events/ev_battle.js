@@ -337,9 +337,20 @@ function generateBattleFightersEvents() {
             document.querySelector('.battle-consumablesContainer').innerHTML = getBattleFighterStats(target);
             document.querySelector('.battle-commandsContainer .divider').style.display = 'block';
             document.querySelector('.battle-skillsContainer').innerHTML = getBattleFighterDetails(target);
+
+            const eye = document.createElement('div');
+            eye.className = 'battleFighter-eye-' + (target.seeAe ? 'on' : 'off');
+            eye.addEventListener('click', () => {
+                target.seeAe = !target.seeAe;
+                document.querySelector('.battle-activeEffects').innerHTML = getBattleFighterActiveEffects(target);
+                eye.className = 'battleFighter-eye-' + (target.seeAe ? 'on' : 'off');
+            });
+            fighter.append(eye);
         });
         fighter.addEventListener('mouseleave', e => {
             document.querySelector('.battle-commandsContainer .divider').style.display = 'none';
+            fighter.querySelector('.battleFighter-eye-on')?.remove();
+            fighter.querySelector('.battleFighter-eye-off')?.remove();
             getBattleSkills(true);
             getBattleConsumables(true);
             if(!game.battle.isEnemyPlaying()) {
