@@ -3010,6 +3010,14 @@ hr.centerFade {
 
     position: relative;
 }
+.striderInfos-desc-echo {
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+    aspect-ratio: 1/1;
+}
 .striderInfos-desc-name {
     font-family: 'RobotoSlab';
     font-size: 35px !important;
@@ -7385,7 +7393,7 @@ table.astralForgeShards td {
     display: flex;
     flex-direction: row;
     justify-content: start;
-    align-items: start
+    align-items: center;
 }
 .battle-fighterDetails-tags div:not(:first-child) {
     margin-left: 0.25rem;

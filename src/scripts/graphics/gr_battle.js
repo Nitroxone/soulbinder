@@ -506,7 +506,12 @@ function getBattleFighterDetails(fighter) {
     str += '<h4>' + fighter.name + '</h4>';
     str += '<div class="battle-fighterDetails-tags">';
     str += '<div class="striderInfos-desc-type coolBorder">' + (fighter instanceof Strider ? capitalizeFirstLetter(fighter.striderType) : capitalizeFirstLetter(fighter.mobType)) + '</div>';
-    if(fighter instanceof Strider) str += '<div class="striderInfos-desc-level coolBorder">Level ' + fighter.level.currentLevel + '</div>';
+    if(fighter instanceof Strider) {
+        str += '<div class="striderInfos-desc-level coolBorder">Level ' + fighter.level.currentLevel + '</div>';
+        fighter.echoes.forEach(echo => {
+            str += '<div class="striderInfos-desc-echo" style="background-image: url(\'css/img/echoes/' + getEchoIconName(echo.name) + '.svg\')"></div>';
+        })
+    }
     str += '</div>';
     str += '</div>';
     str += '</div>';
