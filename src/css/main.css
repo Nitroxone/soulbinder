@@ -7150,6 +7150,7 @@ table.astralForgeShards td {
     background-size: cover;
 
     opacity: .5;
+    cursor: pointer;
 }
 .battleFighter-eye-on {
     background-image: url('./img/see_icon.svg');
