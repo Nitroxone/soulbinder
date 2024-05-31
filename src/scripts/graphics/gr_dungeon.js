@@ -259,6 +259,8 @@ function drawMapConnectors(refresh = false) {
                 const targetPosOriginY = (nextRoomDom.offsetTop + targetPos.height / 2) + 4.5;
                 const id = 'connector_' + ro.id + '_to_' + room.id;
     
+                if(document.querySelector('#' + id)) return;
+
                 let color = '';
                 if(room.revealed) {
                     if(!room.revealed) color = ' canVisitConnector';
