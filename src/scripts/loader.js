@@ -3982,7 +3982,7 @@ const Loader = {
                         ),
                         new Skill(
                             "Intervention",
-                            "§Guards§ an ally and increases his §Max. mana§.",
+                            "§Guards§ an ally and increases their §Max. mana§.",
                             16,
                             {
                                 type: Data.SkillType.FRIENDLY,
@@ -4470,15 +4470,15 @@ const Loader = {
                                         regular: [
                                             new Stat({ effect: Data.Effect.DUMMY, displayed: "$Cures Bleeding$" }),
                                             new Stat({ effect: Data.Effect.DUMMY, displayed: "$Cures Poisoning$" }),
-                                            new Stat({ effect: Data.Effect.DUMMY, displayed: "^1 Shield^ per ~1 Bleeding~"}),
-                                            new Stat({ effect: Data.Effect.DUMMY, displayed: "^1 Shield^ per ^1 Poisoning^"}),
+                                            new Stat({ effect: Data.Effect.DUMMY, displayed: "^2 Shield^ per ~1 Bleeding~"}),
+                                            new Stat({ effect: Data.Effect.DUMMY, displayed: "^2 Shield^ per ^1 Poisoning^"}),
                                             new Stat({ effect: Data.Effect.SPEED, theorical: -3, duration: 1 })
                                         ],
                                         critical: [
                                             new Stat({ effect: Data.Effect.DUMMY, displayed: "$Cures Bleeding$" }),
                                             new Stat({ effect: Data.Effect.DUMMY, displayed: "$Cures Poisoning$" }),
-                                            new Stat({ effect: Data.Effect.DUMMY, displayed: "^1 Shield^ per ~1 Bleeding~"}),
-                                            new Stat({ effect: Data.Effect.DUMMY, displayed: "^1 Shield^ per ^1 Poisoning^"}),
+                                            new Stat({ effect: Data.Effect.DUMMY, displayed: "^2 Shield^ per ~1 Bleeding~"}),
+                                            new Stat({ effect: Data.Effect.DUMMY, displayed: "^2 Shield^ per ^1 Poisoning^"}),
                                             new Stat({ effect: Data.Effect.SPEED, theorical: -2, duration: 1 })
                                         ],
                                     }
