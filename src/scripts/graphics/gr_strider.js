@@ -27,8 +27,11 @@ function drawStridersScreen() {
 
     game.player.roster.forEach(strider => {
         document.querySelector('#striderContainer-' + strider.id).addEventListener('click', e => {
-            spawnStriderPopup(strider);
-            Sounds.Methods.playSound(Data.SoundType.TOOLTIP_SPAWN);
+            const exists = document.querySelector('#striwindow-' + strider.id);
+            if(!exists) {
+                spawnStriderPopup(strider);
+                Sounds.Methods.playSound(Data.SoundType.TOOLTIP_SPAWN);
+            }
         });
     });
 
@@ -79,6 +82,7 @@ function spawnStriderPopup(strider, refresh = false) {
     if(!refresh) {
         //console.log('spawning');
         popupWindow = document.createElement('div');
+        popupWindow.id = "striwindow-" + strider.id;
         popupWindow.classList.add('striderPopup', 'tooltip', 'framed', 'bgDark', 'tooltipSpawn');
         document.querySelector('#stridersDiv').appendChild(popupWindow);
     } else {
