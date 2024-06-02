@@ -27,8 +27,10 @@ function drawStridersScreen() {
 
     game.player.roster.forEach(strider => {
         document.querySelector('#striderContainer-' + strider.id).addEventListener('click', e => {
-            const exists = document.querySelector('#striwindow-' + strider.id);
-            if(!exists) {
+            const same = document.querySelector('#striwindow-' + strider.id);
+            const similar = document.querySelector('.striderPopup');
+            if(!same) {
+                if(similar) similar.remove();
                 spawnStriderPopup(strider);
                 Sounds.Methods.playSound(Data.SoundType.TOOLTIP_SPAWN);
             }
