@@ -6,6 +6,8 @@
 function drawSkillTree(strider) {
     let str = '';
 
+    str += '<div class="striderSkillTree-obj">';
+
     //draw power node
     str += '<div class="treeFraction">';
     str += '<div id="' + trimWhitespacesInsideString(strider.name) + '-0" class="treeNode coolBorder powerNode" style="background-image: url(\'css/img/skills/' + strider.name + strider.uniqueIcon + '.png\')"></div>';
@@ -34,6 +36,8 @@ function drawSkillTree(strider) {
         }
         str += '</div>';
     }
+
+    str += '</div>';
     return str;
 }
 
@@ -45,7 +49,7 @@ function drawSkillTree(strider) {
  * @param {Strider} strider the Strider whose Skill Tree's layout will be used to draw lines
  */
 function drawSkillTreeLines(strider) {
-    const parent = document.querySelector('.striderSkillTree')
+    const parent = document.querySelector('.striderSkillTree-obj')
 
     let str = '';
 

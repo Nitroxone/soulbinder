@@ -3159,7 +3159,7 @@ hr.centerFade {
 .striderInfos, .striderStats, .striderEquipment, .striderSkillTree {
     /*border: 1px dashed white;*/
 }
-.striderStats, .striderEquipment, .striderSkillTree {
+.striderStats, .striderEquipment {
     overflow-y: scroll;
 }
 
@@ -3383,6 +3383,9 @@ hr.centerFade {
 
 .striderSkillTree {
     position: relative;
+    overflow: hidden;
+    cursor: move;
+    transition: background-size .5s ease-in-out;
 
     grid-area: striderSkillTree;
     border-radius: 3px;
@@ -3391,6 +3394,16 @@ hr.centerFade {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+}
+.striderSkillTree-obj {
+    width: 100%;
+    height: 100%;
+    transform: scale(0.75);
+    position: absolute;
+    transition: transform .8s cubic-bezier(0.075, 0.82, 0.165, 1) 0s;
+    top: 0;
+    left: 0;
+    transform-origin: center;
 }
 
 .bigSlot {

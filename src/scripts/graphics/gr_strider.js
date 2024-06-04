@@ -156,6 +156,8 @@ function spawnStriderPopup(strider, refresh = false) {
     drawSkillTreeLines(strider);
     bringNodesForward();
     addSkillTreeTooltips(strider);
+
+    generateSkillTreeEvents(true);
 }
 
 function highlightDrag(e) {
