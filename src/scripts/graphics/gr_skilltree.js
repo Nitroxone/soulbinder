@@ -58,8 +58,8 @@ function drawSkillTreeLines(strider) {
 
         const elem = document.querySelector('#' + trimWhitespacesInsideString(node.name));
         const basePos = elem.getBoundingClientRect();
-        const basePosOriginX = elem.offsetLeft + basePos.width/2;
-        const basePosOriginY = elem.offsetTop + basePos.height;
+        const basePosOriginX = elem.offsetLeft + basePos.width/2 + 8;
+        const basePosOriginY = elem.offsetTop + basePos.height/2 + 8;
         let children = [];
         node.next.forEach(next => {
             children.push(
@@ -73,8 +73,8 @@ function drawSkillTreeLines(strider) {
             let color = getLineColorFromNodeState(child.obj, node);
             let type = child.obj.isUnlocked() && node.currentLevel > 0 ? false : true;
             let targetPos = child.dom.getBoundingClientRect();
-            let targetPosOriginX = child.dom.offsetLeft + targetPos.width/2;
-            let targetPosOriginY = child.dom.offsetTop;
+            let targetPosOriginX = child.dom.offsetLeft + targetPos.width/2 + 8;
+            let targetPosOriginY = child.dom.offsetTop + targetPos.height/2 + 8;
             let id = 'line-' + trimWhitespacesInsideString(child.obj.name) +'-childOf-' + trimWhitespacesInsideString(node.name);
             str += '<line class="skillTreeLine" id="' + id + '" x1="' + basePosOriginX + '" y1="' + basePosOriginY +'" x2="' + targetPosOriginX + '" y2="' + targetPosOriginY + '" style="stroke:' + color + '; stroke-width: ' + (type ? '1' : '2') + ';' + (type ? ' stroke-dasharray: 10; animation-name: animstroke; animation-iteration-count: infinite; animation-duration: 60s; animation-timing-function: linear;' : '') + '" />';
         })
